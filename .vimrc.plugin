@@ -64,13 +64,14 @@ NeoBundle 'tomtom/ttoc_vim.git'
 NeoBundle 'tomtom/tlib_vim.git'
 NeoBundle 'mattn/zencoding-vim'
 NeoBundle 'jceb/vim-hier'
-NeoBundle 'vim-scrpits/TeTrIs.vim.git'
+NeoBundle 'TeTrIs.vim'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'basyura/twibill.vim'
 NeoBundle 'basyura/bitly.vim'
 NeoBundle 'basyura/TweetVim'
 NeoBundle 'osyo-manga/unite-life-game'
 NeoBundle 'jcf/vim-latex'
+NeoBundle 'mattn/calendar-vim'
 
 " vim-scripts repos
 NeoBundle 'surround.vim'
@@ -98,7 +99,6 @@ NeoBundle 'textobj-user'
 NeoBundle 'textobj-indent'
 NeoBundle 'Indent-Guides'
 NeoBundle 'arpeggio'
-NeoBundle 'calendar-vim'
 NeoBundle 'TwitVim'
 NeoBundle 'L9'
 NeoBundle 'neco-look'
@@ -707,7 +707,7 @@ Arpeggioimap fd <Esc>
 Arpeggiocmap fd <Esc>
 Arpeggiovmap fd <Esc>
 " }}}
-" vim-latex
+" vim-latex{{{
 filetype plugin on
 set shellslash
 set grepprg=grep\ -nH\ $*
@@ -717,3 +717,4 @@ let g:Tex_CompileRule_dvi = 'platex-utf8 $*.tex'
 let g:Tex_BibtexFlavor = 'jbibtex'
 let g:Tex_FormatDependency_pfd = 'dvi,pdf'
 let g:Tex_CompileRule_pdf = 'dvipdfmx $*.dvi'
+" }}}

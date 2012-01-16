@@ -1,7 +1,6 @@
 ".gvimrc
 " vim: set tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
-"last change: 31-Dec-2011.
-colorscheme wombat256
+"last change: 12-Jan-2012.
 if has('mac')
     set guioptions-=T
 endif
@@ -37,3 +36,11 @@ endif
 set ambiwidth=double
 " set lines=50 columns=100
 set guioptions+=b
+" 透過処理{{{
+if has('gui_macvim')
+    set imdisable
+    autocmd MyAutoCmd FocusGained * set transparency=0
+    autocmd MyAutoCmd FocusLost * set transparency=80
+endif
+" }}}
+"

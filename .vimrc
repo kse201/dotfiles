@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 28-Dec-2011.                 |
+"                 Last Change: 12-Jan-2012.                 |
 "============================================================
 " General Settings{{{
 if has('win32') || has('win64')
@@ -54,7 +54,7 @@ nnoremap <silent> <SID>[edit]M :<C-u>edit $DROPBOX_DIR/documents/memo<CR>
 nnoremap <silent> <SID>[edit]m :<C-u>edit $DROPBOX_DIR/documents/memo/memo.memo<CR>
 nnoremap <silent> <SID>[edit]g :<C-u>edit $MYGVIMRC<CR>
 nnoremap <silent> <SID>[edit]d :<C-u>edit ~/.vim/dict/<CR>
-nnoremap <silent> <SID>[edit]p :<C-u>edit $DROPBOX_DIR/dotfile/.vimrc.plugin<CR>
+nnoremap <silent> <SID>[edit]p :<C-u>edit $HOME/.vimrc.plugin<CR>
 " }}}
 " Auto Loading .vimrc,.gvimrc {{{
 if has("autocmd")
@@ -99,7 +99,7 @@ endif
 " }}}
 " }}}
 " File Format{{{
-" Auto encoding{{{ win
+" Auto encoding{{{
 if has('gui_running') && (has('win32') || has('win64'))
     set enc=utf-8
     " set fenc=utf-8
@@ -176,6 +176,7 @@ set scrolloff=2
 set wildmenu
 set wildmode=list:full
 set wildchar=<TAB>
+set wildignore=*.swp,*.*~
 set showbreak=-->
 set display=lastline
 set laststatus=2
@@ -240,13 +241,6 @@ if has('syntax')
         autocmd VimEnter,WinEnter,BufEnter * match ZenkakuSpace /　/
         " autocmd BufNewFile,BufRead * match ZenkakuSpace /　/
     augroup END
-endif
-" }}}
-" 透過処理{{{
-if has('gui_macvim')
-    set imdisable
-    autocmd MyAutoCmd FocusGained * set transparency=10
-    autocmd MyAutoCmd FocusLost * set transparency=80
 endif
 " }}}
 " tabline周り{{{
@@ -328,8 +322,9 @@ set showmatch
 set nowrapscan
 " }}}
 " Keymapping Custumize{{{
+map <F1> <ESC>
 imap <C-@> <ESC>
-" ; <-> :{{{
+" swap ; :{{{
 nnoremap ; :
 vnoremap ; :
 nnoremap : ;
@@ -379,6 +374,12 @@ endfunction
 " }}}
 " <Leader>to move current buffer into a new tab.
 nnoremap <silent> <Leader>to :<C-u>call <SID>move_window_into_tab_page(0)<CR>
+" Yank/Past to the OS clipboard  
+nmap <Leader>y "+y
+nmap <Leader>Y "+yy
+nmap <Leader>p "+p
+nmap <Leader>P "+p
+
 " }}}
 " Searching{{{
 nnoremap <F3> /
@@ -958,3 +959,4 @@ endif
 " }}}
 "============================================================
 " vim:set tabstop=4 shiftwidth=4 fdm=marker fdl=0: 
+
