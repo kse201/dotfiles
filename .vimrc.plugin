@@ -11,11 +11,12 @@ endif
 " neobundle.vim{{{
 set nocompatible
 filetype off
+syntax off 
 if has('win32') || has('win64')
     set shellslash
-    set rtp+=~/.vim/bundle/neobundle.vim
+    set rtp+=~/vimfiles/bundle/neobundle.vim
     " let $VIMRUNTIME = $VIM .'\vimfiles\bundle\vundle\'
-    call neobundle#rc('~/.vim/bundle/')
+    call neobundle#rc(expand( '~/vimfiles/bundle/' ))
 else
     set rtp+=~/.vim/bundle/neobundle.vim
     call neobundle#rc()
@@ -64,7 +65,6 @@ NeoBundle 'tomtom/ttoc_vim.git'
 NeoBundle 'tomtom/tlib_vim.git'
 NeoBundle 'mattn/zencoding-vim'
 NeoBundle 'jceb/vim-hier'
-NeoBundle 'TeTrIs.vim'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'basyura/twibill.vim'
 NeoBundle 'basyura/bitly.vim'
@@ -105,13 +105,13 @@ NeoBundle 'neco-look'
 NeoBundle 'pathogen.vim'
 NeoBundle 'endwise.vim'
 NeoBundle 'sokoban.vim'
-
 NeoBundle 'SingleCompile'
 NeoBundle 'clang-complete'
 
 "nongithub repos
 NeoBundle 'git://git.wincent.com/command-t.git'
-filetype indent plugin on
+filetype plugin on
+filetype indent on
 syntax on
 " }}}
 " neocomplcache{{{
@@ -158,7 +158,7 @@ imap <expr><C-k>   neocomplcache#sources#snippets_complete#expandable() ? "\<Plu
 inoremap <expr><C-l> neocomplcache#complete_common_string()
 " 決定してポップアップを閉じる
 " inoremap <expr><C-y>  neocomplcache#close_popup()
-inoremap <expr><C-f>  neocomplcache#close_popup()
+inoremap <expr><C-y>  neocomplcache#close_popup()
 " キャンセルしてポップアップを閉じる
 inoremap <expr><C-c>  neocomplcache#cancel_popup()
 " ネオコンによって挿入した補完を元に戻す

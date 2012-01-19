@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 12-Jan-2012.                 |
+"                 Last Change: 19-Jan-2012.                 |
 "============================================================
 " General Settings{{{
 if has('win32') || has('win64')
@@ -105,6 +105,7 @@ if has('gui_running') && (has('win32') || has('win64'))
     " set fenc=utf-8
     set fencs=iso-2011-jp,enc-jp,sjis,cp932,utf-8
     scriptencoding cp932
+    set termencoding=utf-8
 else
     if &encoding !=# 'utf-8'
         set encoding=japan
@@ -960,3 +961,4 @@ endif
 "============================================================
 " vim:set tabstop=4 shiftwidth=4 fdm=marker fdl=0: 
 
+set shellslash
