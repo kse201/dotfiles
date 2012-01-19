@@ -11,12 +11,12 @@ endif
 " neobundle.vim{{{
 set nocompatible
 filetype off
-syntax off 
+syntax off
 if has('win32') || has('win64')
     set shellslash
     set rtp+=~/vimfiles/bundle/neobundle.vim
     " let $VIMRUNTIME = $VIM .'\vimfiles\bundle\vundle\'
-    call neobundle#rc(expand( '~/vimfiles/bundle/' ))
+    call neobundle#rc(expand( '~/vimfiles/bundle/'))
 else
     set rtp+=~/.vim/bundle/neobundle.vim
     call neobundle#rc()
