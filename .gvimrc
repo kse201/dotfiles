@@ -1,6 +1,7 @@
 ".gvimrc
 " vim: set tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
-"last change: 12-Jan-2012.
+colorscheme default
+"last change: 19-Jan-2012.
 if has('mac')
     set guioptions-=T
 endif
