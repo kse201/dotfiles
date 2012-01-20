@@ -1,6 +1,7 @@
 " vim: set tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
 " vimproc.vim{{{
 if has('win32') || has('win64')
+    set shellslash
     let g:vimproc_dll_path = $VIMFILE_DIR . '/bundle/vimproc/autoload/proc.dll'
 elseif has('mac')
     let g:vimproc_dll_path = $VIMFILE_DIR . '/bundle/vimproc/autoload/proc.so'
@@ -10,13 +11,11 @@ endif
 " }}}
 " neobundle.vim{{{
 set nocompatible
-filetype off
-syntax off
+filetype  off
 if has('win32') || has('win64')
-    set shellslash
-    set rtp+=~/vimfiles/bundle/neobundle.vim
+    set rtp+=~/vimfiles/bundle/neobundle.vim/
     " let $VIMRUNTIME = $VIM .'\vimfiles\bundle\vundle\'
-    call neobundle#rc(expand( '~/vimfiles/bundle/'))
+    call neobundle#rc(expand('~/vimfiles/bundle'))
 else
     set rtp+=~/.vim/bundle/neobundle.vim
     call neobundle#rc()
@@ -667,11 +666,13 @@ nnoremap <Leader>vf :VimFiler<CR>
 let g:indent_guides_enable_on_vim_startup=1
 let g:indent_guides_color_change_percent=30
 let g:indent_guides_guide_size=1
+if exists(":IndentGuidesEnable")
 augroup IndentGuide
     autocmd!
     au BufRead,BufEnter * IndentGuidesEnable
     au FileType help IndentGuidesDisable
 augroup END
+endif
 " }}}
 " ShowMarks.vim{{{
 au MyAutoCmd ColorScheme * highlight ShowMarksHLl guifg=green guibg=magenta
