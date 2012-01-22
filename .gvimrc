@@ -1,7 +1,8 @@
 ".gvimrc
+"last change: 20-Jan-2012.
 " vim: set tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
-colorscheme default
-"last change: 19-Jan-2012.
+
+colorscheme molokai
 if has('mac')
     set guioptions-=T
 endif
@@ -14,15 +15,12 @@ augroup InsertHook
     "ステータスライン
     autocmd InsertEnter * highlight StatusLine guifg=#ccdc90 guibg=red ctermfg=cyan
     autocmd InsertLeave * highlight StatusLine guifg=#2E4340 guibg=white ctermfg=white
-    " autocmd InsertEnter * highlight StatusLine guifg=#ccdc90 guibg=#2E4340 ctermfg=cyan
-    " autocmd InsertLeave * highlight StatusLine guifg=#2E4340 guibg=#ccdc90 ctermfg=white
     "IME ON/OFF
     highlight Cursor guibg=#00FF00
     highlight CursorIM guibg=#FF0000
     " ポップアップメニューのカラーを設定
     highlight Pmenu guibg=#666666
     highlight PmenuSel guibg=#8cd0d3 guifg=#666666
-
 augroup END
 
 "Font
@@ -41,7 +39,6 @@ set guioptions+=b
 if has('gui_macvim')
     set imdisable
     autocmd MyAutoCmd FocusGained * set transparency=0
-    autocmd MyAutoCmd FocusLost * set transparency=80
+    autocmd MyAutoCmd FocusLost * set transparency=70
 endif
 " }}}
-"

@@ -1,3 +1,4 @@
+"Last Change: 22-Jan-2012.                 |
 " vim: set tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
 " vimproc.vim{{{
 if has('win32') || has('win64')
@@ -22,9 +23,6 @@ else
 endif
 
 NeoBundle 'Shougo/neobundle.vim'
-NeoBundle 'mattn/mahjong-vim'
-NeoBundle 'mattn/invader-vim'
-NeoBundle 'mattn/hahhah-vim'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimfiler'
@@ -34,7 +32,7 @@ NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'tacroe/unite-mark'
 NeoBundle 'thinca/vim-unite-history'
 NeoBundle 'Shougo/vimproc'
-NeoBundle 'Shougo/vimshell'
+" NeoBundle 'Shougo/vimshell'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'dannyob/quickfixstatus'
 NeoBundle 'thinca/vim-ref'
@@ -42,7 +40,6 @@ NeoBundle 'thinca/vim-visualstar'
 NeoBundle 'thinca/vim-poslist'
 NeoBundle 'tyru/caw.vim'
 NeoBundle 'sergeche/zen-coding'
-NeoBundle 'thinca/vim-fontzoom'
 NeoBundle 'mattn/salaryman-complete-vim'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'godlygeek/tabular'
@@ -64,13 +61,12 @@ NeoBundle 'tomtom/ttoc_vim.git'
 NeoBundle 'tomtom/tlib_vim.git'
 NeoBundle 'mattn/zencoding-vim'
 NeoBundle 'jceb/vim-hier'
-NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'basyura/twibill.vim'
 NeoBundle 'basyura/bitly.vim'
 NeoBundle 'basyura/TweetVim'
-NeoBundle 'osyo-manga/unite-life-game'
 NeoBundle 'jcf/vim-latex'
 NeoBundle 'mattn/calendar-vim'
+NeoBundle 'koron/chalice'
 
 " vim-scripts repos
 NeoBundle 'surround.vim'
@@ -97,7 +93,6 @@ NeoBundle 'Gundo'
 NeoBundle 'textobj-user'
 NeoBundle 'textobj-indent'
 NeoBundle 'Indent-Guides'
-NeoBundle 'arpeggio'
 NeoBundle 'TwitVim'
 NeoBundle 'L9'
 NeoBundle 'neco-look'
@@ -114,85 +109,86 @@ filetype indent on
 syntax on
 " }}}
 " neocomplcache{{{
-" Use neocomplcache.
-let g:neocomplcache_enable_at_startup             = 1 " 起動時に有効化
-" Use smartcase.
-let g:NeoComplCache_SmartCase                     = 1
-let g:neocomplcache_enable_auto_select            = 1
-" Use camel case completion.
-let g:NeoComplCache_enable_camel_case_completion  = 0
-" Use underbar completion.
-let g:NeoComplCache_EnableUnderbarCompletion      = 1
-" Set minimum syntax keyword length.
-let g:NeoComplCache_MinSyntaxLength               = 3
-" Set manual completion length.
-" let g:NeoComplCache_ManualCompletionStartLength = 2
-" Print caching percent in statusline.
-" let g:NeoComplCache_CachingPercentInStatusline  = 1
-let g:neocomplcache_lock_buffer_name_pattern      = '\*ku\*'
+if exists("g:neocomplcache_enable_at_startup")
+    " Use neocomplcache.
+    let g:neocomplcache_enable_at_startup             = 1 " 起動時に有効化
+    " Use smartcase.
+    let g:NeoComplCache_SmartCase                     = 1
+    let g:neocomplcache_enable_auto_select            = 1
+    " Use camel case completion.
+    let g:NeoComplCache_enable_camel_case_completion  = 0
+    " Use underbar completion.
+    let g:NeoComplCache_EnableUnderbarCompletion      = 1
+    " Set minimum syntax keyword length.
+    let g:NeoComplCache_MinSyntaxLength               = 3
+    " Set manual completion length.
+    " let g:NeoComplCache_ManualCompletionStartLength = 2
+    " Print caching percent in statusline.
+    " let g:NeoComplCache_CachingPercentInStatusline  = 1
+    let g:neocomplcache_lock_buffer_name_pattern      = '\*ku\*'
 
-" Define dictionary.
-let g:neocomplcache_dictionary_filetype_lists = {
-            \ 'default'  : '',
-            \ 'vimshell' : $HOME.'/.vimshell_hist',
-            \ 'scheme'   : $HOME.'/.gosh_completions',
-            \ 'ruby'     : $VIMFILE_DIR.'/dict/ruby.dict',
-            \ 'objc'     : $VIMFILE_DIR.'/dict/cocoa.dict',
-            \ 'tex'      : $VIMFILE_DIR.'/dict/tex.dict'
-            \ }
+    " Define dictionary.
+    let g:neocomplcache_dictionary_filetype_lists = {
+                \ 'default'  : '',
+                \ 'vimshell' : $HOME.'/.vimshell_hist',
+                \ 'scheme'   : $HOME.'/.gosh_completions',
+                \ 'ruby'     : $VIMFILE_DIR.'/dict/ruby.dict',
+                \ 'objc'     : $VIMFILE_DIR.'/dict/cocoa.dict',
+                \ 'tex'      : $VIMFILE_DIR.'/dict/tex.dict'
+                \ }
 
-" Define keyword.
-if !exists('g:neoComplCache_keyword_patterns')
-    let g:neoComplCache_keyword_patterns = {}
+    " Define keyword.
+    if !exists('g:neoComplCache_keyword_patterns')
+        let g:neoComplCache_keyword_patterns = {}
+    endif
+    let g:neoComplCache_keyword_patterns['default'] = '\h\w*'
+    let g:NeoComplCache_SnippetsDir = $VIMFILE_DIR.'/snippets'
+    " ファイル名補間、オムニ補間をneocom組み込みのものに置き換え
+    " inoremap <expr><C-x><C-f>  neocomplcache#manual_filename_complete()
+    " inoremap <expr> <C-j>  &filetype == 'vim' ? "\<C-x>\<C-v>\<C-p>" : neocomplcache#manual_omni_complete()
+    " カーソル前の文字列がスニペットのトリガであるなら、スニペットを展開する
+    " imap <expr><C-k>   neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : "\<C-n>"
+    imap <expr><C-k>   neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : "\<C-n>"
+    " 候補の共通箇所まで補完する
+    inoremap <expr><C-l> neocomplcache#complete_common_string()
+    " 決定してポップアップを閉じる
+    " inoremap <expr><C-y>  neocomplcache#close_popup()
+    inoremap <expr><C-y>  neocomplcache#close_popup()
+    " キャンセルしてポップアップを閉じる
+    inoremap <expr><C-c>  neocomplcache#cancel_popup()
+    " ネオコンによって挿入した補完を元に戻す
+    inoremap <expr><C-g>     neocomplcache#undo_completion()
+    inoremap <expr><C-x>g     neocomplcache#undo_completion()
+    " inoremap <expr><C-x><C-g>     neocomplcache#undo_completion()
+    " ポップアップが出ているときの挙動を快適にする
+    " バックスペースしたときポップアップを閉じる
+    inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+    " ネオコン設定変更操作
+    " スニペットを編集する
+    noremap <Leader>es :<C-u>vertical belowright NeoComplCacheEditSnippets<CR>
+    " <CR>: close popup and save indent.
+    " inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+    " <TAB>: completion.
+    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+    " Enable omni completion.
+    augroup EnableOmniCompleteion
+        autocmd!
+        autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+        autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+        autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+        autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+        autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+    augroup END
+    " Enable heavy omni completion.
+    if !exists('g:neocomplcache_omni_patterns')
+        let g:neocomplcache_omni_patterns = {}
+    endif
+    let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
+    " autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+    let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+    let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
+    let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 endif
-let g:neoComplCache_keyword_patterns['default'] = '\h\w*'
-let g:NeoComplCache_SnippetsDir = $VIMFILE_DIR.'/snippets'
-" ファイル名補間、オムニ補間をneocom組み込みのものに置き換え
-" inoremap <expr><C-x><C-f>  neocomplcache#manual_filename_complete()
-" inoremap <expr> <C-j>  &filetype == 'vim' ? "\<C-x>\<C-v>\<C-p>" : neocomplcache#manual_omni_complete()
-" カーソル前の文字列がスニペットのトリガであるなら、スニペットを展開する
-" imap <expr><C-k>   neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : "\<C-n>"
-imap <expr><C-k>   neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : "\<C-n>"
-" 候補の共通箇所まで補完する
-inoremap <expr><C-l> neocomplcache#complete_common_string()
-" 決定してポップアップを閉じる
-" inoremap <expr><C-y>  neocomplcache#close_popup()
-inoremap <expr><C-y>  neocomplcache#close_popup()
-" キャンセルしてポップアップを閉じる
-inoremap <expr><C-c>  neocomplcache#cancel_popup()
-" ネオコンによって挿入した補完を元に戻す
-inoremap <expr><C-g>     neocomplcache#undo_completion()
-inoremap <expr><C-x>g     neocomplcache#undo_completion()
-" inoremap <expr><C-x><C-g>     neocomplcache#undo_completion()
-" ポップアップが出ているときの挙動を快適にする
-" バックスペースしたときポップアップを閉じる
-inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-" ネオコン設定変更操作
-" スニペットを編集する
-noremap <Leader>es :<C-u>vertical belowright NeoComplCacheEditSnippets<CR>
-" <CR>: close popup and save indent.
-" inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" Enable omni completion.
-augroup EnableOmniCompleteion
-    autocmd!
-    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-augroup END
-" Enable heavy omni completion.
-if !exists('g:neocomplcache_omni_patterns')
-    let g:neocomplcache_omni_patterns = {}
-endif
-let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
-" autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
-let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
-
 " }}}
 " yankring{{{
 if has('gui_running')
@@ -263,7 +259,7 @@ nnoremap <silent> <SID>[unite]m :<C-u>Unite file_mru<CR>
 " 常用セット
 nnoremap <silent> <SID>[unite]u :<C-u>Unite buffer file_mru<CR>
 " 全部乗せ
-nnoremap <silent> <SID>[unite]a :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
+nnoremap <silent> <SID>[unite]a :<C-u>UniteWithBufferDir -input= -buffer-name=files buffer file_mru bookmark file<CR>
 nnoremap <silent>  <Leader>><Tab> :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
 
 augroup UniteKeyMap
@@ -298,37 +294,37 @@ endif
 " 見た目を気軽に変更する{{{
 " 参考:http://vim-users.jp/2011/09/hack228/
 " if has('mac')
-    let ColorRoller = {}
-    let ColorRoller.colors = [
-                \ 'print_bw',
-                \ 'newspaper',
-                \ 'desert' ,
-                \ 'wombat256mod',
-                \ 'molokai'
-                \]
+let ColorRoller = {}
+let ColorRoller.colors = [
+            \ 'print_bw',
+            \ 'newspaper',
+            \ 'desert' ,
+            \ 'wombat256mod',
+            \ 'molokai'
+            \]
 
-    function! ColorRoller.change()
-        let color = get(self.colors, 0)
-        " " tabpagecolorscheme を使用している場合は↓の "colorscheme" を "Tcolorscheme" に変える。
-        silent exe "colorscheme " . color
-        redraw
-        echo self.colors
-    endfunction
+function! ColorRoller.change()
+    let color = get(self.colors, 0)
+    " " tabpagecolorscheme を使用している場合は↓の "colorscheme" を "Tcolorscheme" に変える。
+    silent exe "colorscheme " . color
+    redraw
+    echo self.colors
+endfunction
 
-    function! ColorRoller.roll()
-        let item = remove(self.colors, 0)
-        call insert(self.colors, item, len(self.colors))
-        call self.change()
-    endfunction
+function! ColorRoller.roll()
+    let item = remove(self.colors, 0)
+    call insert(self.colors, item, len(self.colors))
+    call self.change()
+endfunction
 
-    function! ColorRoller.unroll()
-        let item = remove(self.colors, -1)
-        call insert(self.colors, item, 0)
-        call self.change()
-    endfunction
+function! ColorRoller.unroll()
+    let item = remove(self.colors, -1)
+    call insert(self.colors, item, 0)
+    call self.change()
+endfunction
 
-    nnoremap <silent><F9>   :<C-u>call ColorRoller.roll()<CR>
-    nnoremap <silent><S-F9> :<C-u>call ColorRoller.unroll()<CR>
+nnoremap <silent><F9>   :<C-u>call ColorRoller.roll()<CR>
+nnoremap <silent><S-F9> :<C-u>call ColorRoller.unroll()<CR>
 " endif
 " }}}
 
@@ -590,12 +586,14 @@ nno <silent> <C-F7> :execute "QuickRun ".g:quickrun_compile_command[&filetype"]<
 " }}}
 " }}}
 " VimShell.vim{{{
-nmap <Leader>vs <SID>[vimshell]
-nnoremap <SID>[vimshell] :VimShell<CR>
-" nnoremap <SID>[vimshell]c :VimShellCreate<CR>
-let g:vimshell_right_prompt = 'vimshell#vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
-let g:vimshell_split_height = 10
-let g:vimshell_disable_escape_highlight = 1
+if exists(":Vimshell")
+    nmap <Leader>vs <SID>[vimshell]
+    nnoremap <SID>[vimshell] :VimShell<CR>
+    " nnoremap <SID>[vimshell]c :VimShellCreate<CR>
+    let g:vimshell_right_prompt = 'vimshell#vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
+    let g:vimshell_split_height = 10
+    let g:vimshell_disable_escape_highlight = 1
+endif 
 " }}}
 " taglist.vim{{{
 " ２個上のディレクトリ以下から再帰的に探す
@@ -663,15 +661,15 @@ let g:vimfiler_as_default_explorer=1
 nnoremap <Leader>vf :VimFiler<CR>
 " }}}
 " indent-Guides{{{
-let g:indent_guides_enable_on_vim_startup=1
-let g:indent_guides_color_change_percent=30
-let g:indent_guides_guide_size=1
 if exists(":IndentGuidesEnable")
-augroup IndentGuide
-    autocmd!
-    au BufRead,BufEnter * IndentGuidesEnable
-    au FileType help IndentGuidesDisable
-augroup END
+    let g:indent_guides_enable_on_vim_startup=1
+    let g:indent_guides_color_change_percent=30
+    let g:indent_guides_guide_size=1
+    augroup IndentGuide
+        autocmd!
+        au BufRead,BufEnter * IndentGuidesEnable
+        au FileType help IndentGuidesDisable
+    augroup END
 endif
 " }}}
 " ShowMarks.vim{{{
@@ -694,18 +692,6 @@ let g:poslist_histsize=1000
 " }}}
 " calender.vim{{{
 let g:calendar_diary = $DROPBOX_DIR. "/documents/diary"
-nno <Leader>cal :Calendar<CR>
-" }}}
-" arpeggio{{{
-call arpeggio#load()
-Arpeggionmap jk <Esc>
-Arpeggioimap jk <Esc>
-Arpeggiocmap jk <Esc>
-Arpeggiovmap jk <Esc>
-Arpeggionmap fd <Esc>
-Arpeggioimap fd <Esc>
-Arpeggiocmap fd <Esc>
-Arpeggiovmap fd <Esc>
 " }}}
 " vim-latex{{{
 filetype plugin on
@@ -719,12 +705,14 @@ let g:Tex_FormatDependency_pfd = 'dvi,pdf'
 let g:Tex_CompileRule_pdf = 'dvipdfmx $*.dvi'
 " }}}
 " tweetvim{{{
-nnoremap <silent> <SID>[unite]t :Unite tweetvim<CR>
-nnoremap <silent> ,ts :TweetVimSay<CR>
-if !exists('g:neocomplcache_dictionary_filetype_lists')
-    let g:neocomplcache_dictionary_filetype_lists={}
+if exists("TweetVimSay")
+    nnoremap <silent> <SID>[unite]t :Unite tweetvim<CR>
+    nnoremap <silent> ,ts :TweetVimSay<CR>
+    if !exists('g:neocomplcache_dictionary_filetype_lists')
+        let g:neocomplcache_dictionary_filetype_lists={}
+    endif
+    let neco_dic = g:neocomplcache_dictionary_filetype_lists
+    let neco_dic.tweetvim_say = $HOME . '/.tweetvim/screen_name'
+    let g:tweetvim_include_rts = 1 "タイムラインにリツイートを含める
 endif
-let neco_dic = g:neocomplcache_dictionary_filetype_lists
-let neco_dic.tweetvim_say = $HOME . '/.tweetvim/screen_name'
-let g:tweetvim_include_rts = 1 "タイムラインにリツイートを含める
 " }}}

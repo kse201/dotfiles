@@ -1,17 +1,21 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 19-Jan-2012.                 |
+"                 Last Change: 20-Jan-2012.                 |
 "============================================================
 " General Settings{{{
+" OS毎の各種ディレクトリの設定
 if has('win32') || has('win64')
     let $VIMFILE_DIR = $HOME . 'vimfiles'
     let $DROPBOX_DIR = $HOME . '\Documents\My Dropbox'
+    set backupdir=$HOME/_vimbackup
 elseif has('mac')
     let $VIMFILE_DIR = $HOME . '/.vim'
     let $DROPBOX_DIR = $HOME . '/Dropbox'
+    set backupdir=$HOME/.vimbackup
 else 
     let $VIMFILE_DIR = $HOME . '/.vim'
     let $DROPBOX_DIR = $HOME . '/Documents\My Dropbox'
+    set backupdir=$HOME/.vimbackup
 endif
 augroup MyAutoCmd
     autocmd!
@@ -30,31 +34,26 @@ let g:netrw_sort_by="time"
 let g:netrw_sort_direction="reverse"
 set diffopt=filler,vertical
 set showcmd
-set showmode
 " viminfoファイルの設定
-" 参考:http://d.hatena.ne.jp/yuroyoro/20101104/1288879591
+" 参考 http://d.hatena.ne.jp/yuroyoro/20101104/1288879591
 set mouse=a
 set showtabline=2
 set guioptions+=c
 set guioptions-=e
 set ttymouse=xterm2 
 set ttyfast "高速ターミナル接続
-set complete+=k
 set tw=0 " 自動改行無効
 " MacVimでMetaキー
 if exists('+macmeta')
     set macmeta
 endif
-iabbrev hw Hello World
 " 設定ファイル{{{
-nmap <Leader>e <SID>[edit]
-nnoremap <SID>[edit] <Nop>
-nnoremap <silent> <SID>[edit]v :<C-u>edit $MYVIMRC<CR>
-nnoremap <silent> <SID>[edit]M :<C-u>edit $DROPBOX_DIR/documents/memo<CR>
-nnoremap <silent> <SID>[edit]m :<C-u>edit $DROPBOX_DIR/documents/memo/memo.memo<CR>
-nnoremap <silent> <SID>[edit]g :<C-u>edit $MYGVIMRC<CR>
-nnoremap <silent> <SID>[edit]d :<C-u>edit ~/.vim/dict/<CR>
-nnoremap <silent> <SID>[edit]p :<C-u>edit $HOME/.vimrc.plugin<CR>
+let $MYVIMRCPLUGIN= $HOME."/.vimrc.plugin"
+command! Vimrc :edit $MYVIMRC
+command! GVimrc :edit $MYGVIMRC
+command! Plugin :edit $MYVIMRCPLUGIN
+command! Memo :edit $DROPBOX_DIR/documents/memo
+command! Mm :edit $DROPBOX_DIR/documents/memo/memo.memo
 " }}}
 " Auto Loading .vimrc,.gvimrc {{{
 if has("autocmd")
@@ -63,9 +62,11 @@ if has("autocmd")
                 \exe "normal! g'\"" |
                 \endif
 endif
+
 command! ReloadVimrc source $MYVIMRC
-nnoremap <silent> <Leader>rv :<C-u>source $MYVIMRC <CR>
-nnoremap <silent> <Leader>rg :<C-u>source $MYGVIMRC<CR>
+command! ReloadGVimrc source $MYGVIMRC
+command! ReloadPlugin source $MYVIMRCPLUGIN
+
 if !has('gui_running')
     " .vimrcの再読込時にも色が変化するようにする
     autocmd MyAutoCmd BufWritePost $MYVIMRC nested source $MYVIMRC
@@ -82,7 +83,6 @@ endif
 augroup Autoplace
     autocmd!
     autocmd BufWritePre *.[^{mkd}] :%s/\s\+$//ge
-    " autocmd BufWritePre * :g/^$\n^$/d
 augroup END
 " }}}
 " \ -> ¥{{{
@@ -173,12 +173,12 @@ set notitle
 set number
 set ruler
 set display=uhex
-set scrolloff=2
+set scrolloff=1
 set wildmenu
 set wildmode=list:full
 set wildchar=<TAB>
-set wildignore=*.swp,*.*~
-set showbreak=-->
+" set wildignore=*.*~
+set showbreak=+++
 set display=lastline
 set laststatus=2
 set linebreak
@@ -293,21 +293,21 @@ set shiftwidth=4
 set tabstop=4
 " }}}
 " }}}
-" Directory {{{
-" 編集バッファのディレクトリに移動
-if has('win32') || has('win64')
-    au MyAutoCmd BufEnter * execute ":lcd " . escape(expand("%:p:h")," #")
+" Auto Change dir{{{
+if has("autochdir")
+    set autochdir
+    set tags=tags
 else
-    au MyAutoCmd BufEnter * execute ":lcd " . escape(expand("%:p:h")," #¥") 
+    set tags=./tags,./../tags,./*/tags,./../../tags,./../../../tags,./../../../../tags,./../../../../../tags
+    if has('win32') || has('win64')
+        au MyAutoCmd BufEnter * execute ":lcd " . escape(expand("%:p:h")," #")
+    else
+        au MyAutoCmd BufEnter * execute ":lcd " . escape(expand("%:p:h")," #¥") 
+    endif
 endif
-" バックアップファイル
-if has('win32') || has('win64')
-    set backup
-    set backupdir=$HOME/_vimbackup
-elseif has('mac')
-    set backup
-    set backupdir=$HOME/.vimbackup
-endif
+" }}}
+" Backup{{{
+set backup
 if exists("*strftime")
     au MyAutoCmd BufWritePre * let &bex = '-' . strftime("%y%m%d") . '~'
 elseif
@@ -319,12 +319,9 @@ set ignorecase
 set smartcase
 set incsearch
 set showmatch
-" set matchtime=1
 set nowrapscan
 " }}}
 " Keymapping Custumize{{{
-map <F1> <ESC>
-imap <C-@> <ESC>
 " swap ; :{{{
 nnoremap ; :
 vnoremap ; :
@@ -380,11 +377,8 @@ nmap <Leader>y "+y
 nmap <Leader>Y "+yy
 nmap <Leader>p "+p
 nmap <Leader>P "+p
-
 " }}}
 " Searching{{{
-nnoremap <F3> /
-nnoremap <F2> :<C-u>VimShell<CR>
 " 検索移動を見やすく{{{
 nnoremap n nzz
 nnoremap N Nzz
@@ -396,15 +390,13 @@ nnoremap G Gzz
 " }}}
 " <ESC> 関連 {{{
 " IME
-inoremap <silent> <ESC> <ESC>:<C-u>set iminsert=0<CR>
+inoremap <silent> <ESC> <ESC>:set iminsert=0<CR>
 " <ESC> or <C-c> key reset Highlight
-nnoremap <silent> <ESC> :<C-u>nohlsearch<CR>:<C-u>set iminsert=0<CR><ESC>
+nnoremap <silent> <ESC> <ESC>:<C-u>nohlsearch<CR>:<C-u>set iminsert=0<CR>
 " }}}
 " help{{{
-nnoremap <M-h> :<C-u>h<Space>
 nnoremap <C-i> :<C-u>h<Space>
 " }}}
-
 nnoremap R gR
 " Kでカーソル位置の単語をヘルプ検索{{{
 set keywordprg="help"
@@ -440,15 +432,8 @@ cnoremap <C-b> <Left>
 inoremap <C-b> <Left>
 cnoremap <C-a> <Home>
 inoremap <C-a> <Home>
-inoremap <C-h> <delete>
 cnoremap <C-e> <End>
-" }}}
-" カーソル移動{{{
-noremap 0 ^
-noremap gh ^
-noremap gl $
-nnoremap <Space> <C-f>
-nnoremap <S-Space> <C-b>
+inoremap <C-h> <Backspace>
 " }}}
 " ウィンドウ移動簡略化 & サイズ調整{{{
 nnoremap <C-j> <C-w>j:call <SID>good_height()<CR>
@@ -479,9 +464,9 @@ nnoremap <Leader>bp :<C-u>bp<CR>
 nnoremap <Leader>bd :<C-u>bdelete<CR>
 " }}}
 " Tab Page{{{
-nnoremap <S-t> :<C-u>tabnew<CR>
-nnoremap <S-h> :<C-u>tabp<CR>
-nnoremap <S-l> :<C-u>tabn<CR>
+" nnoremap <S-t> :<C-u>tabnew<CR>
+" nnoremap <S-h> :<C-u>tabp<CR>
+" nnoremap <S-l> :<C-u>tabn<CR>
 
 nnoremap <Leader>k H
 nnoremap <Leader>j L
@@ -682,61 +667,15 @@ endfunction
 " }}}
 " }}}
 " 適当スクリプトなど{{{
-" セミコロンが押されたときに一緒に改行するようにする{{{
-function! GetSemicolonForC()
-    return AutoSemicolonEnterForC()
-endfunction
-
-function! AutoSemicolonEnterForC()
-    let line = strpart(getline('.'), 0, col('.') - 1)
-    if line =~ '^\t*for \=('
-        "for文を記述中なら改行しない
-        return "; "
-    else
-        let words = [
-                    \ "cString",
-                    \ "cCppString",
-                    \ "cCharacter",
-                    \ "cComment",
-                    \ "cCommentStart",
-                    \ "cCommentL",
-                    \ "javaString",
-                    \ "javaCharacter",
-                    \ "javaComment",
-                    \ "javaLineComment",
-                    \ "javaScriptStringD",
-                    \ "javaScriptStringS",
-                    \ "javaScriptComment",
-                    \ "javaScriptLineComment"
-                    \ ]
-        "let s = synIDattr(synID(line("."),col(".")-1,0),"name")
-        let s = synIDattr(synID(line("."),col("."),0),"name")
-        for word in words
-            if s == word
-                return ";"
-            endif
-        endfor
-        return ";"
-    endif
-endfunction
-" }}}
-" CSV{{{
-" http://vimwiki.net/?tips%2F47
-function! CSVH(x)
-    execute 'match Keyword /^\([^,]*,\)\{'.a:x.'}\zs[^,]*/'
-    execute 'normal ^'.a:x.'f,'
-endfunction
-command! -nargs=1 Csv :call CSVH(<args>)
-" }}}
 " 指定ファイルに対応する雛形を読む{{{
 augroup SkeletonAu
     autocmd!
     " autocmd BufNewFile *.html 0r $HOME/.vim/skeleton/skel.html
-    autocmd BufNewFile *.pl  0r $HOME/.vim/skeleton/skel.pl
-    autocmd BufNewFile *.pm  0r $HOME/.vim/skeleton/skel.pm
-    autocmd BufNewFile *.c   0r $HOME/.vim/skeleton/skel.c
-    autocmd BufNewFile *.tex 0r $HOME/.vim/skeleton/skel.tex
-    autocmd BufNewFile *.rb  0r $HOME/.vim/skeleton/skel.rb
+    autocmd BufNewFile *.pl  0r $VIMFILE_DIR/skeleton/skel.pl
+    autocmd BufNewFile *.pm  0r $VIMFILE_DIR/skeleton/skel.pm
+    autocmd BufNewFile *.c   0r $VIMFILE_DIR/skeleton/skel.c
+    autocmd BufNewFile *.tex 0r $VIMFILE_DIR/skeleton/skel.tex
+    autocmd BufNewFile *.rb  0r $VIMFILE_DIR/skeleton/skel.rb
 augroup END
 " }}}
 " 任意の文字数ずつUndo{{{
@@ -784,26 +723,6 @@ command! -bar -bang -nargs=? -complete=file Scouter
 command! -bar -bang -nargs=? -complete=file GScouter
             \        echo Scouter(empty(<q-args>) ? $MYGVIMRC : expand(<q-args>), <bang>0)
 " }}}
-" カーソル位置から括弧の深さを認識して今いる層を一段上に押し上げる{{{
-" vim Part3 レスNo.702より
-" nnoremap <silent> <C-k> :set opfunc=ReplaceMotion<CR>g@
-" vnoremap <silent> <C-k> :<C-U>call ReplaceMotion('', 1)<CR>
-nnoremap <silent> g% :call <sid>gx()<CR>
-function! s:gx()
-    let s:p = getpos(".")
-    exec "normal! F("
-    let s:b = getpos(".")
-    if s:p == s:b | return | endif
-    exec "normal! %"
-    if s:p == getpos(".")
-        call setpos(".", s:p)
-        return
-    endif
-    exec "normal! x``x"
-    call setpos(".", s:p)
-    exec "normal! h"
-endfunction
-" }}}
 " vimでモーション(or選択範囲)をレジスタの内容で置き換えるオペレータ{{{
 function! ReplaceMotion(type, ...)
     let sel_save = &selection
@@ -832,23 +751,6 @@ function! ReplaceMotion(type, ...)
     call setpos("'a", mark_save)
 endfunction
 " }}}
-" 特定の拡張子(txt)で内容が空のファイルを保存したら自動で削除する{{{
-" jigokuno.com
-augroup BUFWRITE_POSTDELETE
-    au!
-    autocmd BufWritePost *.txt call BufWritePostDelete()
-augroup END
-
-function! BufWritePostDelete()
-    let crlen = 0
-    if &binary == 0
-        let crlen = &ff=='dos' ? 2 : 1
-    endif
-    if getfsize(expand('%:p')) <= crlen
-        call delete(expand('%:p'))
-    endif
-endfunction
-" }}}
 " Rename コマンド:編集中のバッファのファイル名を変更する{{{
 " jigokuno.com
 command! -nargs=+ -bang -complete=file Rename let pbnr=fnamemodify(bufname('%'), ':p')|exec 'f '.escape(<q-args>, ' ')|w<bang>|call delete(pbnr)
@@ -856,14 +758,6 @@ command! -nargs=+ -bang -complete=file Rename let pbnr=fnamemodify(bufname('%'),
 " DiffOrig コマンド:現バッファの差分表示。{{{
 " Diff コマンド:ファイルまたはバッファ番号を指定して差分表示。#なら裏バッファと比較
 command! -nargs=? -complete=file Diff if '<args>'=='' | browse vertical diffsplit|else| vertical diffsplit <args>|endif
-" }}}
-" 編集しているファイルのディレクトリに自動で移動{{{
-if has("autochdir")
-    set autochdir
-    set tags=tags;
-else
-    set tags=./tags,./../tags,./*/tags,./../../tags,./../../../tags,./../../../../tags,./../../../../../tags
-endif
 " }}}
 " 指定した文字コードで開き直すコマンド群{{{
 " http://zudolab.net/blog/?p=132
@@ -895,27 +789,6 @@ nnoremap <expr> h
 nnoremap <expr> l
             \   foldclosed(line('.')) != -1 ? 'zo' : 'l'
 " }}}
-" Emacsのdelet-blank-line相当の関数{{{
-" 連続する空行を圧縮
-function! DeleteBlankLines()
-    if search('\S','bW')
-        let b = line('.') + 1
-    else
-        let b = 1
-    endif
-    if search('^\s*\n.*\S', 'eW')
-        let e = line('.') - 1
-    else
-        let e = line('$')
-    endif
-    if b == e
-        exe b . "d"
-    else
-        exe (b+1) . "," . e . "d"
-        exe b
-    endif
-endfunction
-" }}}
 " :AllMaps{{{
 command!
             \   -nargs=* -complete=mapping
@@ -929,33 +802,6 @@ inoremap <Leader>w3cd <C-R>=strftime('%Y-%m-%dT%H:%M:%S+09:00')<CR>
 inoremap <expr> <Leader>df strftime('%Y/%m/%d %H:%M:%S')
 inoremap <expr> <Leader>dd strftime('%Y/%m/%d')
 inoremap <expr> <Leader>dt strftime('%H:%M:%S')
-" }}}
-" 見た目通りの行頭、行末移動(未完){{{
-" numberがonの場合、カーソル行の行番号の桁数分マージンが加わる
-" linebreakがonの場合、更に単語中の折り返し分も考慮する必要がある
-nnoremap <expr> gl col("$")-1 < winwidth(0) ? '$' : col(".") < winwidth(0) ? 'g$' : '$'
-nnoremap <expr> gh col("$")-1 < winwidth(0) ? '0' : col(".") < winwidth(0) ? '0' : 'g0'
-" }}}
-" 日本語文章用の、単語移動セパレータ設定{{{
-" 参考::http://b.hatena.ne.jp/viewer/tag/vim?preview=https%3A%2F%2Fsites.google.com%2Fsite%2Ffudist%2FHome%2Fvim-nihongo-ban%2Ftips
-if has('mac')
-    let g:MyMoveWord_JpSep = '　。、．，／！？「」'
-    let MyMoveWord_enable_WBE = 1
-endif
-" wbが行末で停止
-let MyMoveWord_stop_eol = 1
-let MyMoveWord_enable_wb = 1
-" 矩形選択で自由に移動
-set virtualedit+=block
-
-autocmd QuickfixCmdPost make,grep,grepadd,vimgrep,vimgrepadd cwin
-autocmd QuickfixCmdPost lmake,lgrep,lgrepadd,lvimgrep,lvimgrepadd lwin
-if has("autochdir")
-    set autochdir
-    set tags=tags;
-else
-    set tags=./tags,./../tags,./*/tags,./../../tags,./../../../tags,./../../../../tags,./../../../../../tags
-endif
 " }}}
 " }}}
 "============================================================
