@@ -1,9 +1,9 @@
-"Last Change: 22-Jan-2012.                 |
+"Last Change: 23-Jan-2012.                 |
 " vim: set tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
 " vimproc.vim{{{
 if has('win32') || has('win64')
     set shellslash
-    let g:vimproc_dll_path = $VIMFILE_DIR . '/bundle/vimproc/autoload/proc.dll'
+    let g:vimproc_dll_path = $VIMFILE_DIR . '/autoload/proc.dll'
 elseif has('mac')
     let g:vimproc_dll_path = $VIMFILE_DIR . '/bundle/vimproc/autoload/proc.so'
 else
@@ -415,7 +415,7 @@ let NERDSpaceDelims = 1
 nmap <Leader><Leader> <Plug>NERDCommenterToggle
 vmap <Leader><Leader> <Plug>NERDCommenterToggle
 " }}}
-" twitvim.vim{{{
+" twitvim.vi{{{
 source ~/.twitvim "設定ファイル
 au MyAutoCmd FileType twitvim nnoremap <buffer> <F5> :RefreshTwitter<CR>
 " prefix-key
