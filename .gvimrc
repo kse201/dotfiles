@@ -1,8 +1,8 @@
 ".gvimrc
-"last change: 20-Jan-2012.
+"last change: 27-Jan-2012.
 " vim: set tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
 
-colorscheme molokai
+" colorscheme wombat256
 if has('mac')
     set guioptions-=T
 endif

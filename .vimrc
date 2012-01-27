@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 20-Jan-2012.                 |
+"                 Last Change: 27-Jan-2012.                 |
 "============================================================
 " General Settings{{{
 " OS毎の各種ディレクトリの設定
@@ -49,9 +49,12 @@ if exists('+macmeta')
 endif
 " 設定ファイル{{{
 let $MYVIMRCPLUGIN= $HOME."/.vimrc.plugin"
-command! Vimrc :edit $MYVIMRC
-command! GVimrc :edit $MYGVIMRC
-command! Plugin :edit $MYVIMRCPLUGIN
+command! EditVimrc :edit $MYVIMRC
+command! EV :edit $MYVIMRC
+command! EditGVimrc :edit $MYGVIMRC
+command! EG :edit $MYGVIMRC
+command! EditPlugin :edit $MYVIMRCPLUGIN
+command! EP :edit $MYVIMRCPLUGIN
 command! Memo :edit $DROPBOX_DIR/documents/memo
 command! Mm :edit $DROPBOX_DIR/documents/memo/memo.memo
 " }}}
@@ -170,8 +173,6 @@ endif
 " Appearance{{{
 " いろいろ{{{
 set notitle
-set number
-set ruler
 set display=uhex
 set scrolloff=1
 set wildmenu
@@ -184,7 +185,8 @@ set laststatus=2
 set linebreak
 set report=0
 autocmd MyAutoCmd BufEnter *   if winwidth(0) >= 60 |
-            \ set statusline=[%n]\ %t\ %m%R%H%W%y\ %([%{&fenc}][%{&ff}]%)%=\ %([%l(%p%%),%v]%)(%B)\ |
+            \ set statusline=[%n]\ %t\ %m%R%H%W%y\ %([%{&fenc}][%{&ff}]%)\ %([%l(%p%%),%v]%)(%B)\ |
+            " \ set statusline=[%n]\ %t\ %m%R%H%W%y\ %([%{&fenc}][%{&ff}]%)%=\ %([%l(%p%%),%v]%)(%B)\ |
             \ else |
             \ set statusline=[%n]%t |
             \ endif
@@ -234,12 +236,12 @@ augroup END
 if has('syntax')
     augroup ZenkakuSpace
         autocmd!
+        autocmd VimEnter,WinEnter,BufEnter * match ZenkakuSpace /　/
         if has('gui_running')
             autocmd ColorScheme * highlight ZenkakuSpace term=underline ctermfg=Red gui=underline guifg=Red guibg=#666666
         else
             highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=#666666
         endif
-        autocmd VimEnter,WinEnter,BufEnter * match ZenkakuSpace /　/
         " autocmd BufNewFile,BufRead * match ZenkakuSpace /　/
     augroup END
 endif
@@ -495,6 +497,7 @@ vnoremap < <gv
 " 選択範囲をvimscriptとして実行{{{
 nnoremap <Leader>do   Vy:@"<Enter>
 vnoremap <Leader>eval y:@"<Enter>
+nnoremap <C-x><C-e> Vy:@"<Enter>
 " }}}
 " }}}
 " Plugin{{{
@@ -803,6 +806,8 @@ inoremap <expr> <Leader>df strftime('%Y/%m/%d %H:%M:%S')
 inoremap <expr> <Leader>dd strftime('%Y/%m/%d')
 inoremap <expr> <Leader>dt strftime('%H:%M:%S')
 " }}}
+" 文字数カウント
+command! -range=% Count :<line1>,<line2>s/.//gn
 " }}}
 "============================================================
 " vim:set tabstop=4 shiftwidth=4 fdm=marker fdl=0: 
