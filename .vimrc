@@ -40,8 +40,6 @@ set mouse=a
 set showtabline=2
 set guioptions+=c
 set guioptions-=e
-set ttymouse=xterm2 
-set ttyfast "高速ターミナル接続
 set tw=0 " 自動改行無効
 " MacVimでMetaキー
 if exists('+macmeta')
@@ -374,11 +372,20 @@ endfunction
 " }}}
 " <Leader>to move current buffer into a new tab.
 nnoremap <silent> <Leader>to :<C-u>call <SID>move_window_into_tab_page(0)<CR>
-" Yank/Past to the OS clipboard  
+" Yank/Past to the OS clipboard{{{
 nmap <Leader>y "+y
 nmap <Leader>Y "+yy
 nmap <Leader>p "+p
 nmap <Leader>P "+p
+" }}}
+" タブまわり{{{
+command! TR :tabnext 
+command! TL :tabprevious
+" }}}
+" ページスクロール{{{
+nmap <Space> <C-f>
+nmap <S-Space> <C-b>
+" }}}
 " }}}
 " Searching{{{
 " 検索移動を見やすく{{{

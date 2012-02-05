@@ -2,7 +2,7 @@
 "last change: 27-Jan-2012.
 " vim: set tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
 
-" colorscheme wombat256
+colorscheme oceanblack 
 if has('mac')
     set guioptions-=T
 endif

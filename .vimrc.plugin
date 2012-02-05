@@ -1,4 +1,4 @@
-"Last Change: 27-Jan-2012.                 |
+"Last Change: 05-Feb-2012.                 |
 " vim: set tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
 " vimproc.vim{{{
 if has('win32') || has('win64')
@@ -50,6 +50,8 @@ NeoBundle 'jcf/vim-latex'
 NeoBundle 'mattn/calendar-vim'
 NeoBundle 'koron/chalice'
 NeoBundle 'banyan/Vimpusher'
+NeoBundle 'banyan/Vimpusher'
+NeoBundle 'thinca/vim-singleton'
 
 " vim-scripts repos
 NeoBundle 'surround.vim'
@@ -75,6 +77,8 @@ filetype plugin on
 filetype indent on
 syntax on
 " }}}
+" singleton.vim
+" call singleton#enable()
 " neocomplcache{{{
 " Use neocomplcache.
 let g:neocomplcache_enable_at_startup             = 1 " 起動時に有効化
