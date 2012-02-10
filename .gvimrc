@@ -1,12 +1,12 @@
 ".gvimrc
-"last change: 27-Jan-2012.
+"last change: 08-Feb-2012.
 " vim: set tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
 
-colorscheme oceanblack 
+colorscheme  molokai
 if has('mac')
     set guioptions-=T
 endif
-" insert-mode, IME ON/OFFに応じたカラー変更
+" insert-mode, IME ON/OFFに応じたカラー変更{{{
 augroup InsertHook
     autocmd!
     "カーソル
@@ -22,18 +22,17 @@ augroup InsertHook
     highlight Pmenu guibg=#666666
     highlight PmenuSel guibg=#8cd0d3 guifg=#666666
 augroup END
-
-"Font
+" }}}
+"Font{{{
 if has('win32') || has('win64')
     set guifont=Inconsolata:h12:cANSI
     set guifontwide=MS_Gothic:h12
 else
-    set guifont=Inconsolata:h16
-    set guifontwide=Migu\ 1M\ regular:h14
+    set guifont=Ricty\ Regular:h16
     set linespace=1
 endif
 set ambiwidth=double
-" set lines=50 columns=100
+"}}}
 set guioptions+=b
 " 透過処理{{{
 if has('gui_macvim')

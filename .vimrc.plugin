@@ -1,4 +1,4 @@
-"Last Change: 05-Feb-2012.                 |
+"Last Change: 10-Feb-2012.                 |
 " vim: set tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
 " vimproc.vim{{{
 if has('win32') || has('win64')
@@ -31,7 +31,7 @@ NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'tacroe/unite-mark'
 NeoBundle 'thinca/vim-unite-history'
 NeoBundle 'Shougo/vimproc'
-" NeoBundle 'Shougo/vimshell'
+NeoBundle 'Shougo/vimshell'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'dannyob/quickfixstatus'
 NeoBundle 'thinca/vim-ref'
@@ -52,6 +52,7 @@ NeoBundle 'koron/chalice'
 NeoBundle 'banyan/Vimpusher'
 NeoBundle 'banyan/Vimpusher'
 NeoBundle 'thinca/vim-singleton'
+NeoBundle 'mattn/mkdpreview-vim'
 
 " vim-scripts repos
 NeoBundle 'surround.vim'
@@ -77,8 +78,9 @@ filetype plugin on
 filetype indent on
 syntax on
 " }}}
-" singleton.vim
+" singleton.vim{{{
 " call singleton#enable()
+" }}}
 " neocomplcache{{{
 " Use neocomplcache.
 let g:neocomplcache_enable_at_startup             = 1 " 起動時に有効化

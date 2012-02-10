@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 27-Jan-2012.                 |
+"                 Last Change: 08-Feb-2012.                 |
 "============================================================
 " General Settings{{{
 " OS毎の各種ディレクトリの設定
@@ -346,7 +346,6 @@ function! s:move_window_into_tab_page(target_tabpagenr)
     let original_tabnr = tabpagenr()
     let target_bufnr = bufnr('')
     let window_view = winsaveview()
-
     if a:target_tabpagenr == 0
         tabnew
         tabmove  " Move new tabpage at the last.
@@ -359,14 +358,12 @@ function! s:move_window_into_tab_page(target_tabpagenr)
         execute target_bufnr 'buffer'
     endif
     call winrestview(window_view)
-
     execute original_tabnr 'tabnext'
     if 1 < winnr('$')
         close
     else
         enew
     endif
-
     execute target_tabpagenr 'tabnext'
 endfunction
 " }}}
@@ -379,9 +376,14 @@ nmap <Leader>p "+p
 nmap <Leader>P "+p
 " }}}
 " タブまわり{{{
-command! TR :tabnext 
-command! TL :tabprevious
+nnoremap <Leader>tl :tabnext<CR>
+nnoremap <Leader>th :tabprevious<CR>
+nnoremap <Leader>tn :tabnew<CR>
+" command! TL :tabnext 
+" command! TH :tabprevious
+" command! TN :tabnew
 " }}}
+inoremap jj <ESC>
 " ページスクロール{{{
 nmap <Space> <C-f>
 nmap <S-Space> <C-b>
