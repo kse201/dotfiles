@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 08-Feb-2012.                 |
+"                 Last Change: 20-Feb-2012.                 |
 "============================================================
 " General Settings{{{
 " OS毎の各種ディレクトリの設定
@@ -40,6 +40,7 @@ set mouse=a
 set showtabline=2
 set guioptions+=c
 set guioptions-=e
+set formatoptions-=ro " 改行後の自動コメントアウト禁止
 set tw=0 " 自動改行無効
 " MacVimでMetaキー
 if exists('+macmeta')
@@ -182,12 +183,13 @@ set display=lastline
 set laststatus=2
 set linebreak
 set report=0
-autocmd MyAutoCmd BufEnter *   if winwidth(0) >= 60 |
-            \ set statusline=[%n]\ %t\ %m%R%H%W%y\ %([%{&fenc}][%{&ff}]%)\ %([%l(%p%%),%v]%)(%B)\ |
-            " \ set statusline=[%n]\ %t\ %m%R%H%W%y\ %([%{&fenc}][%{&ff}]%)%=\ %([%l(%p%%),%v]%)(%B)\ |
-            \ else |
-            \ set statusline=[%n]%t |
-            \ endif
+" 
+" autocmd MyAutoCmd BufEnter *   if winwidth(0) >= 60 |
+" \ set statusline=[%n]\ %t\ %m%R%H%W%y\ %([%{&fenc}][%{&ff}]%)\ %([%l(%p%%),%v]%)(%B)\ |
+" " \ set statusline=[%n]\ %t\ %m%R%H%W%y\ %([%{&fenc}][%{&ff}]%)%=\ %([%l(%p%%),%v]%)(%B)\ |
+" \ else |
+" \ set statusline=[%n]%t |
+" \ endif
 set wrap
 " }}}
 " カレントウィンドウのみ罫線を引く{{{
@@ -406,11 +408,11 @@ inoremap <silent> <ESC> <ESC>:set iminsert=0<CR>
 nnoremap <silent> <ESC> <ESC>:<C-u>nohlsearch<CR>:<C-u>set iminsert=0<CR>
 " }}}
 " help{{{
-nnoremap <C-i> :<C-u>h<Space>
+nnoremap <C-i><Space> :<C-u>h<Space>
+nnoremap <C-i><C-i> :<C-u>h<Space><C-r><C-w><Enter>
 " }}}
 nnoremap R gR
 " Kでカーソル位置の単語をヘルプ検索{{{
-set keywordprg="help"
 inoreabbrev <expr> dl* repeat('*','80')
 inoreabbrev <expr> dl- repeat('-','80')
 " }}}
@@ -773,12 +775,12 @@ command! -nargs=? -complete=file Diff if '<args>'=='' | browse vertical diffspli
 " }}}
 " 指定した文字コードで開き直すコマンド群{{{
 " http://zudolab.net/blog/?p=132
-command! ChgEncCp932         edit +enc=cp932
-command! ChgEncEucjp         edit +enc=euc-jp
-command! ChgEncIso2022jp     edit +enc=iso-2022-jp
+command! ChgEncCp932         edit ++enc=cp932
+command! ChgEncEucjp         edit ++enc=euc-jp
+command! ChgEncIso2022jp     edit ++enc=iso-2022-jp
 command! ChgEncJis Iso2022jp
-command! ChgEncUtf8          edit +enc=utf-8
-command! ChgEncSjis          edit +enc=cp932
+command! ChgEncUtf8          edit ++enc=utf-8
+command! ChgEncSjis          edit ++enc=cp932
 " }}}
 " 開いているファッファの文字コードを変えるコマンド群{{{
 " http://zudolab.net/blog/?p=132

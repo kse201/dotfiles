@@ -1,5 +1,5 @@
 ".gvimrc
-"last change: 08-Feb-2012.
+" last change: 19-Feb-2012.
 " vim: set tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
 
 colorscheme  molokai
@@ -38,6 +38,6 @@ set guioptions+=b
 if has('gui_macvim')
     set imdisable
     autocmd MyAutoCmd FocusGained * set transparency=0
-    autocmd MyAutoCmd FocusLost * set transparency=70
+    autocmd MyAutoCmd FocusLost * set transparency=80
 endif
 " }}}

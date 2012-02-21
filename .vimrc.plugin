@@ -1,4 +1,4 @@
-"Last Change: 10-Feb-2012.                 |
+"Last Change: 12-Feb-2012.                 |
 " vim: set tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
 " vimproc.vim{{{
 if has('win32') || has('win64')
@@ -53,6 +53,7 @@ NeoBundle 'banyan/Vimpusher'
 NeoBundle 'banyan/Vimpusher'
 NeoBundle 'thinca/vim-singleton'
 NeoBundle 'mattn/mkdpreview-vim'
+NeoBundle 'Lokaltog/vim-powerline'
 
 " vim-scripts repos
 NeoBundle 'surround.vim'
