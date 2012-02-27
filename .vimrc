@@ -1,8 +1,8 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 20-Feb-2012.                 |
+"                 Last Change: 27-Feb-2012.                 |
 "============================================================
-" General Settings{{{
+" 基礎的な設定 {{{
 " OS毎の各種ディレクトリの設定
 if has('win32') || has('win64')
     let $VIMFILE_DIR = $HOME . 'vimfiles'
@@ -99,8 +99,21 @@ if !has('gui') && has('mac')
     colorscheme desert
 endif
 " }}}
+" Auto Change dir{{{
+if has("autochdir")
+    set autochdir
+    set tags=tags
+else
+    set tags=./tags,./../tags,./*/tags,./../../tags,./../../../tags,./../../../../tags,./../../../../../tags
+    if has('win32') || has('win64')
+        au MyAutoCmd BufEnter * execute ":lcd " . escape(expand("%:p:h")," #")
+    else
+        au MyAutoCmd BufEnter * execute ":lcd " . escape(expand("%:p:h")," #¥") 
+    endif
+endif
 " }}}
-" File Format{{{
+" }}}
+" ファイル形式関連{{{
 " Auto encoding{{{
 if has('gui_running') && (has('win32') || has('win64'))
     set enc=utf-8
@@ -169,7 +182,7 @@ if exists('&ambiwidth')
 endif
 " }}}
 " }}}
-" Appearance{{{
+" 外観{{{
 " いろいろ{{{
 set notitle
 set display=uhex
@@ -295,19 +308,6 @@ set shiftwidth=4
 set tabstop=4
 " }}}
 " }}}
-" Auto Change dir{{{
-if has("autochdir")
-    set autochdir
-    set tags=tags
-else
-    set tags=./tags,./../tags,./*/tags,./../../tags,./../../../tags,./../../../../tags,./../../../../../tags
-    if has('win32') || has('win64')
-        au MyAutoCmd BufEnter * execute ":lcd " . escape(expand("%:p:h")," #")
-    else
-        au MyAutoCmd BufEnter * execute ":lcd " . escape(expand("%:p:h")," #¥") 
-    endif
-endif
-" }}}
 " Backup{{{
 set backup
 if exists("*strftime")
@@ -316,14 +316,14 @@ elseif
     au MyAutoCmd BufWritePre * let &bex = '-' . localtime("%y%m%d") . '~'
 endif
 " }}}
-" Search {{{
+" 検索 {{{
 set ignorecase
 set smartcase
 set incsearch
 set showmatch
 set nowrapscan
 " }}}
-" Keymapping Custumize{{{
+" キーマップ{{{
 " swap ; :{{{
 nnoremap ; :
 vnoremap ; :
@@ -391,7 +391,7 @@ nmap <Space> <C-f>
 nmap <S-Space> <C-b>
 " }}}
 " }}}
-" Searching{{{
+" 検索周辺{{{
 " 検索移動を見やすく{{{
 nnoremap n nzz
 nnoremap N Nzz
@@ -516,7 +516,7 @@ if filereadable(expand('~/.vimrc.plugin'))
     source ~/.vimrc.plugin
 endif
 " }}}
-" Programing Language {{{
+" 言語別設定 {{{
 " Prefix{{{
 augroup programLanguage
     au!
@@ -533,6 +533,7 @@ augroup programLanguage
     autocmd Filetype snippet    call SnippetSettings()
     autocmd Filetype xml        call XMLtSettings()
     autocmd Filetype html       call HTMLSettings()
+    autocmd Filetype php       call PHPSettings()
 augroup END
 " }}}
 " vimrc{{{
@@ -679,8 +680,21 @@ function! HTMLSettings()
     inoremap <buffer>' ''<Left>
 endfunction
 " }}}
+" PHP{{{
+function! PHPSettings()
+    set dictionary=$HOME/.vim/dict/PHP.dict
+    inoremap , ,<Space>
+    set fdm=indent
+    inoremap <buffer>{ {}<Left><CR><Up><ESC>o
+    inoremap <buffer>( ()<Left>
+    inoremap <buffer>[ []<Left>
+    inoremap <buffer><> <><Left>
+    "inoremap <buffer> <  <><Left>
+    inoremap <buffer>" ""<Left>
+    inoremap <buffer>' ''<Left>
+endfunction
 " }}}
-" 適当スクリプトなど{{{
+" その他{{{
 " 指定ファイルに対応する雛形を読む{{{
 augroup SkeletonAu
     autocmd!
