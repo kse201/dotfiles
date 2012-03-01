@@ -197,6 +197,7 @@ set laststatus=2
 set linebreak
 set report=0
 " 
+" ステータスライン設定 (vim-powerlineで用なしに)
 " autocmd MyAutoCmd BufEnter *   if winwidth(0) >= 60 |
 " \ set statusline=[%n]\ %t\ %m%R%H%W%y\ %([%{&fenc}][%{&ff}]%)\ %([%l(%p%%),%v]%)(%B)\ |
 " " \ set statusline=[%n]\ %t\ %m%R%H%W%y\ %([%{&fenc}][%{&ff}]%)%=\ %([%l(%p%%),%v]%)(%B)\ |
