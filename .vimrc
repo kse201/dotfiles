@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 27-Feb-2012.                 |
+"                 Last Change: 26-Mar-2012.                 |
 "============================================================
 " 基礎的な設定 {{{
 " OS毎の各種ディレクトリの設定
@@ -23,6 +23,7 @@ augroup END
 let mapleader=','
 set shortmess+=I
 set nocompatible "Vi非互換
+set modeline
 set noswapfile
 set complete+=k
 set noequalalways
@@ -56,6 +57,7 @@ command! EditPlugin :edit $MYVIMRCPLUGIN
 command! EP :edit $MYVIMRCPLUGIN
 command! Memo :edit $DROPBOX_DIR/documents/memo
 command! Mm :edit $DROPBOX_DIR/documents/memo/memo.memo
+nnoremap <Leader>em :edit $DROPBOX_DIR/documents/memo/memo.memo<CR>
 " }}}
 " Auto Loading .vimrc,.gvimrc {{{
 if has("autocmd")

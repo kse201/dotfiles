@@ -1,4 +1,4 @@
-"Last Change: 22-Mar-2012.                 |
+"Last Change: 27-Mar-2012.                 |
 " vim: set tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
 " vimproc.vim{{{
 if has('win32') || has('win64')
@@ -54,7 +54,8 @@ NeoBundle 'thinca/vim-singleton'
 NeoBundle 'mattn/mkdpreview-vim'
 NeoBundle 'Lokaltog/vim-powerline'
 " NeoBundle 'mattn/benchvimrc-vim'
-"
+NeoBundle 'tpope/vim-fugitive'
+
 " vim-scripts repos
 NeoBundle 'surround.vim'
 NeoBundle 'unite-colorscheme'
@@ -126,7 +127,7 @@ imap <expr><C-k>   neocomplcache#sources#snippets_complete#expandable() ? "\<Plu
 inoremap <expr><C-l> neocomplcache#complete_common_string()
 " 決定してポップアップを閉じる
 " inoremap <expr><C-y>  neocomplcache#close_popup()
-inoremap <expr><C-y>  neocomplcache#close_popup()
+inoremap <expr><C-y><C-y>  neocomplcache#close_popup()
 " キャンセルしてポップアップを閉じる
 inoremap <expr><C-c>  neocomplcache#cancel_popup()
 " ネオコンによって挿入した補完を元に戻す
@@ -614,4 +615,13 @@ if exists("TweetVimSay")
     let neco_dic.tweetvim_say = $HOME . '/.tweetvim/screen_name'
     let g:tweetvim_include_rts = 1 "タイムラインにリツイートを含める
 endif
+" }}}
+" memolist.vim{{{
+let g:memolist_path="~/Dropbox/documents/memo"
+let g:memolist_memo_suffix = "txt"
+let g:memolist_memo_date = "%Y-%m-%d %H:%M"
+let g:memolist_memo_date = "epoch"
+let g:memolist_memo_date = "%D %T"
+" let g:memolist_prompt_tags = "true"
+" let g:memolist_prompt_categories = "true"
 " }}}
