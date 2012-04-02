@@ -80,3 +80,6 @@ alias la='ls -la'
 # 検索ワード色付け
 export GREP_COLOR='1;3741'
 alias grep='grep -E --color=auto'
+
+# スパルタンVim
+alias spvim='vim -u NONE'
