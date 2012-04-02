@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 26-Mar-2012.                 |
+"                 Last Change: 02-Apr-2012.                 |
 "============================================================
 " 基礎的な設定 {{{
 " OS毎の各種ディレクトリの設定
@@ -47,6 +47,12 @@ set tw=0 " 自動改行無効
 if exists('+macmeta')
     set macmeta
 endif
+" undo履歴保存して再開させる{{{
+if has('persistent_undo')
+    set undodir=~/.vimundo
+    set undofile
+endif 
+" }}}
 " 設定ファイル{{{
 let $MYVIMRCPLUGIN= $HOME."/.vimrc.plugin"
 command! EditVimrc :edit $MYVIMRC
@@ -839,3 +845,9 @@ command! -range=% Count :<line1>,<line2>s/.//gn
 " }}}
 "============================================================
 " vim:set tabstop=4 shiftwidth=4 fdm=marker fdl=0: 
+" undo履歴保存して再開させる{{{
+if has('persistent_undo')
+    set undodir=~/.vimundo
+    set undofile
+endif 
+" }}}

@@ -1,4 +1,4 @@
-"Last Change: 27-Mar-2012.                 |
+"Last Change: 02-Apr-2012.                 |
 " vim: set tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
 " vimproc.vim{{{
 if has('win32') || has('win64')
@@ -53,6 +53,7 @@ NeoBundle 'banyan/Vimpusher'
 NeoBundle 'thinca/vim-singleton'
 NeoBundle 'mattn/mkdpreview-vim'
 NeoBundle 'Lokaltog/vim-powerline'
+NeoBundle 'delphinus35/TwwtVim-powerline-theme'
 " NeoBundle 'mattn/benchvimrc-vim'
 NeoBundle 'tpope/vim-fugitive'
 
@@ -224,9 +225,8 @@ nnoremap <silent> <SID>[unite]c :<C-u>Unite -buffer-name=command command<CR>
 nnoremap <silent> <SID>[unite]t :<C-u>Unite -buffer-name=tab tab<CR>
 " カラースキーム一覧
 nnoremap <silent> <SID>[unite]o :<C-u>Unite -no-quit -buffer-name=font font<CR>
-
-nnoremap <silent> <SID>[unite]A :<C-u>Unite -no-quit -no-start-insert -input=Vim -buffer-name=advent_calender advent_calendar<CR>
-
+" Vim-Advent_Calender
+" nnoremap <silent> <SID>[unite]A :<C-u>Unite -no-quit -no-start-insert -input=Vim -buffer-name=advent_calender advent_calendar<CR>
 " 最近使用したファイル一覧
 nnoremap <silent> <SID>[unite]m :<C-u>Unite file_mru<CR>
 " 常用セット
@@ -624,4 +624,8 @@ let g:memolist_memo_date = "epoch"
 let g:memolist_memo_date = "%D %T"
 " let g:memolist_prompt_tags = "true"
 " let g:memolist_prompt_categories = "true"
+" }}}
+" twwevim-powerline-theme{{{
+" let g:Powerline_theme='default_with_tweetvim'
+" let g:Powerline_colorscheme='default_with_tweetvim'
 " }}}
