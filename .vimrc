@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 02-Apr-2012.                 |
+"                 Last Change: 08-Apr-2012.                 |
 "============================================================
 
 " 基礎的な設定 {{{
@@ -82,17 +82,12 @@ command! ReloadVimrc source $MYVIMRC
 command! ReloadGVimrc source $MYGVIMRC
 command! ReloadPlugin source $MYVIMRCPLUGIN
 
-if !has('gui_running')
-    " .vimrcの再読込時にも色が変化するようにする
-    autocmd MyAutoCmd BufWritePost $MYVIMRC nested source $MYVIMRC
-else
-    " .vimrcの再読込時にも色が変化するようにする
-    autocmd MyAutoCmd BufWritePost $MYVIMRC source $MYVIMRC |
-                \ if has('gui_running') |
-                \ source $MYGVIMRC
-    autocmd MyAutoCmd BufWritePost $MYGVIMRC if has('gui_running') |
-                \ source $MYGVIMRC
-endif
+" .vimrcの再読込時にも色が変化するようにする
+autocmd MyAutoCmd BufWritePost $MYVIMRC  source $MYVIMRC  |
+            \ if has('gui_running') |
+            \ source $MYGVIMRC
+autocmd MyAutoCmd BufWritePost $MYGVIMRC source $MYGVIMRC
+autocmd MyAutoCmd BufWritePost $MYVIMRCPLUGIN source $MYVIMRCPLUGIN
 " }}}
 
 " Auto delete line-end Space{{{
@@ -626,10 +621,8 @@ function! CSettings()
     "inoremap <buffer> <  <><Left>
     inoremap <buffer>" ""<Left>
     inoremap <buffer>' ''<Left>
-    inoremap <buffer><expr>; GetSemicolonForC()
     "最寄りの中括弧内を選択
     nnoremap <buffer>v} ?{<CR>%v%0
-    call SmartCharForC()
 endfunction
 " }}}
 " C++{{{
@@ -672,10 +665,9 @@ function! ObjCSettings()
     inoremap <buffer><> <><Left>
     inoremap <buffer>" ""<Left>
     inoremap <buffer>' ''<Left>
-    inoremap <buffer><expr>; GetSemicolonForC()
     nnoremap <buffer><silent> ga :call <SID>AlternateFile()<CR>
-    call SmartCharForC()
-    call SmartCharForObjc()
+    " call SmartCharForC()
+    " call SmartCharForObjc()
     "inoremap <  <><Left>
 endfunction
 " }}}
@@ -689,7 +681,6 @@ function! JavaSettings()
     "inoremap <buffer><  <><Left>
     inoremap <buffer>" ""<Left>
     inoremap <buffer>' ''<Left>
-    inoremap <buffer><expr>; GetSemicolonForC()
 endfunction
 " }}}
 " Ruby{{{

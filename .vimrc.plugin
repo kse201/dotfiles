@@ -1,5 +1,4 @@
-"Last Change: 02-Apr-2012.                 |
-" vim: set tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
+" Last Change: 05-Apr-2012.
 " vimproc.vim{{{
 if has('win32') || has('win64')
     set shellslash
@@ -53,9 +52,11 @@ NeoBundle 'banyan/Vimpusher'
 NeoBundle 'thinca/vim-singleton'
 NeoBundle 'mattn/mkdpreview-vim'
 NeoBundle 'Lokaltog/vim-powerline'
-NeoBundle 'delphinus35/TwwtVim-powerline-theme'
+NeoBundle 'delphinus35/TweetVim-powerline-theme'
 " NeoBundle 'mattn/benchvimrc-vim'
 NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'yarutomo/w3m.vim'
+NeoBundle 'jelera/vim-javascript-syntax'
 
 " vim-scripts repos
 NeoBundle 'surround.vim'
@@ -207,8 +208,8 @@ let g:unite_winheight=10
 
 " バッファ一覧
 " nnoremap <silent> <SID>[unite]b :<C-u>UniteWithBufferDir -buffer-name=buffer buffer<CR>
-nnoremap <silent> <SID>[unite]b :<C-u>Unite -no-quit -no-start-insert -buffer-name=buffer buffer<CR>
-" nnoremap <silent> <SID>[unite]b :<C-u>Unite -no-quit -no-start-insert -buffer-name=buffer_tab buffer_tab<CR>
+" nnoremap <silent> <SID>[unite]b :<C-u>Unite -no-start-insert -buffer-name=buffer buffer<CR>
+nnoremap <silent> <SID>[unite]b :<C-u>Unite -no-start-insert -buffer-name=buffer_tab buffer_tab<CR>
 " ファイル一覧
 nnoremap <silent> <SID>[unite]f :<C-u>UniteWithBufferDir  -buffer-name=files file<CR>
 " ファイル一覧(非同期)
@@ -269,8 +270,9 @@ endif
 " if has('mac')
 let ColorRoller = {}
 let ColorRoller.colors = [
+            \ 'eclipse',
+            \ 'vc',
             \ 'print_bw',
-            \ 'newspaper',
             \ 'desert' ,
             \ 'wombat256mod',
             \ 'molokai'
@@ -380,6 +382,8 @@ if exists(":smartchr#one_of")
         inoremap <buffer><expr> 8 smartchr#one_of('8', '(','88')
         inoremap <buffer><expr> 9 smartchr#one_of('9', ')','99')
     endfunction
+
+    au MyAutoCmd FileType *.c call SmartCharForC()
 endif
 " }}}
 " }}}
@@ -629,3 +633,7 @@ let g:memolist_memo_date = "%D %T"
 " let g:Powerline_theme='default_with_tweetvim'
 " let g:Powerline_colorscheme='default_with_tweetvim'
 " }}}
+set t_Co=256
+let g:powerline_symbols='fancy'
+" ================================================================================ 
+" vim: set tabstop=4 shiftwidth=4  fdm=marker fdl=0 :

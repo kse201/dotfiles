@@ -1,5 +1,5 @@
 ".gvimrc
-" last change: 19-Feb-2012.
+" last change: 05-Apr-2012.
 " vim: set tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
 
 colorscheme  molokai
