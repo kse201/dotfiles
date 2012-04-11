@@ -1,4 +1,4 @@
-" Last Change: 05-Apr-2012.
+" Last Change: 11-Apr-2012.
 " vimproc.vim{{{
 if has('win32') || has('win64')
     set shellslash
@@ -55,7 +55,6 @@ NeoBundle 'Lokaltog/vim-powerline'
 NeoBundle 'delphinus35/TweetVim-powerline-theme'
 " NeoBundle 'mattn/benchvimrc-vim'
 NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'yarutomo/w3m.vim'
 NeoBundle 'jelera/vim-javascript-syntax'
 
 " vim-scripts repos

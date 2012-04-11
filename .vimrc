@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 08-Apr-2012.                 |
+"                 Last Change: 11-Apr-2012.                 |
 "============================================================
 
 " 基礎的な設定 {{{
@@ -653,6 +653,7 @@ function! LaTeXSettings()
     nnoremap <buffer> <F5> :<C-u>!platex-utf8 %<CR>
     nnoremap <buffer> <F6> :<C-u>!dvipdfmx %<<CR>
     nnoremap <buffer> <F7> :<C-u>!open %<.pdf<CR>
+    nmap <buffer> <Leader>make <F5><F6><F7>
 endfunction
 " }}}
 " opjc{{{
