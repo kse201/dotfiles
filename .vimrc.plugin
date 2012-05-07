@@ -1,10 +1,10 @@
-" Last Change: 17-Apr-2012.
+" Last Change: 07-May-2012.
 " vimproc.vim{{{
 if has('win32') || has('win64')
     set shellslash
     let g:vimproc_dll_path = $VIMFILE_DIR . '/autoload/proc.dll'
 elseif has('mac')
-    let g:vimproc_dll_path = $VIMFILE_DIR . '/bundle/vimproc/autoload/proc.so'
+    let g:vimproc_dll_path = $VIMFILE_DIR . '/bundle/vimproc/autoload/vimproc_mac.so'
 else
     let g:vimproc_dll_path = $VIMFILE_DIR . '/bundle/vimproc/autoload/proc.dll'
 endif
