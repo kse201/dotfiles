@@ -1,8 +1,8 @@
-" Last Change: 08-May-2012.
+" Last Change: 09-May-2012.
 " vimproc.vim{{{
 if has('win32') || has('win64')
     set shellslash
-    let g:vimproc_dll_path = $VIMFILE_DIR . '/autoload/proc.dll'
+    let g:vimproc_dll_path = $VIMFILE_DIR . '/autoload/vimproc_win32.dll'
 elseif has('mac')
     let g:vimproc_dll_path = $VIMFILE_DIR . '/bundle/vimproc/autoload/vimproc_mac.so'
 else
@@ -84,12 +84,19 @@ NeoBundle 'SingleCompile'
 NeoBundle 'clang-complete'
 NeoExternalBundle 'taglist.vim'
 NeoExternalBundle 'mbadran/headlights'
+NeoBundle 'thinca/vim-prettyprint'
+NeoBundle 'thinca/vim-editvar'
+NeoBundle 'vim-scripts/ttoc'
 
 " C / C++
 NeoExternalBundle 'vim-scripts/Source-Explorer-srcexpl.vim'
 NeoExternalBundle 'vim-scripts/trinity.vim'
 NeoExternalBundle 'vim-scripts/a.vim.git'
 NeoExternalBundle 'vim-scripts/c.vim.git'
+NeoExternalBundle 'vim-scripts/CCTree'
+NeoExternalBundle 'vim-scripts/cscope-menu'
+NeoExternalBundle 'vim-scripts/gtags.vim'
+
 " tex
 NeoExternalBundle 'jcf/vim-latex'
 
@@ -453,8 +460,8 @@ endif
 " http://d.hatena.ne.jp/nishikawasasaki/20101226/1293374432
 let g:NERDCreateDefaultMappings = 0
 let NERDSpaceDelims = 1
-nmap <Leader>cc <Plug>NERDCommenterToggle
-vmap <Leader>cc <Plug>NERDCommenterToggle
+nmap <Leader><Leader> <Plug>NERDCommenterToggle
+vmap <Leader><Leader> <Plug>NERDCommenterToggle
 " }}}
 
 " QuickRun.vim{{{
@@ -473,7 +480,8 @@ try
     let g:hier_highlight_group_qf = "qf_error_ucurl"
     " quickfixに出力して、ポップアップはしない outputter/quickfix
     " すでにquickfixウィンドウが開いている場合は閉じるので注意
-    let s:sient_quickfix = quickrun#outputter#quickfix#new()
+    let s:silent_quickfix = quickrun#outputter#quickfix#new()
+
     function! s:silent_quickfix.finish(session)
         call call(quickrun#outputter#quickfix#new().finish, [a:session], self)
         :cclose
@@ -490,11 +498,14 @@ try
     " }}}
     " Programごとの設定{{{
     " Markdown{{{
+    " let g:quickrun_config['markdown']={
+                " \'type': 'markdown/pandoc',
+                " \'cmdopt' : '-s',
+                " \'command': 'bluecloth',
+                " \'exec': '%c -f %s', 
+                " \'outputter' : 'browser'
+                " \}
     let g:quickrun_config['markdown']={
-                \'type': 'markdown/pandoc',
-                \'cmdopt' : '-s',
-                \'command': 'bluecloth',
-                \'exec': '%c -f %s', 
                 \'outputter' : 'browser'
                 \}
     if has('syntax')
@@ -719,8 +730,11 @@ let g:ll_plugins={}
 let g:ll_plugins['c'] = [
             \ 'taglist.vim',
             \ 'Source-Explorer-srcexpl.vim',
+            \ 'CCTree' ,
             \ 'trinity.vim' , 
             \ 'a.vim' ,
+            \ 'cscope-menu',
+            \ 'gtags.vim',
             \ 'c.vim' 
             \ ]
 
@@ -728,6 +742,8 @@ let g:ll_plugins['cpp'] = [
             \ 'taglist.vim',
             \ 'Source-Explorer-srcexpl.vim',
             \ 'trinity.vim' , 
+            \ 'cscope-menu',
+            \ 'gtags.vim',
             \ 'a.vim' ,
             \ 'c.vim' 
             \ ]
@@ -784,6 +800,124 @@ let g:loaded_sequence=1
 set t_Co=256
 let g:powerline_symbols='fancy'
 " }}}
+
+" CCTree.vim:"{{{
+"
+if 1 && filereadable($DOTVIM . '/Bundle/CCTree/ftplugin/cctree.vim')
+    source $DOTVIM/Bundle/CCTree/ftplugin/cctree.vim
+endif
+"}}}
+
+" cscope_maps{{{
+" This tests to see if vim was configured with the '--enable-cscope' option
+" when it was compiled.  If it wasn't, time to recompile vim... 
+if has("cscope")
+    " use both cscope and ctag for 'ctrl-]', ':ta', and 'vim -t'
+    set cscopetag
+
+    " check cscope for definition of a symbol before checking ctags: set to 1
+    " if you want the reverse search order.
+    set csto=0
+
+    " add any cscope database in current directory
+    if filereadable("cscope.out")
+        cs add cscope.out
+    " else add the database pointed to by environment variable 
+    elseif $CSCOPE_DB != ""
+        cs add $CSCOPE_DB
+    endif
+
+    " show msg when any other cscope db added
+    set cscopeverbose
+
+    " cscope key mappings
+    "   's'   symbol: find all references to the token under cursor
+    "   'g'   global: find global definition(s) of the token under cursor
+    "   'c'   calls:  find all calls to the function name under cursor
+    "   't'   text:   find all instances of the text under cursor
+    "   'e'   egrep:  egrep search for the word under cursor
+    "   'f'   file:   open the filename under cursor
+    "   'i'   includes: find files that include the filename under cursor
+    "   'd'   called: find functions that function under cursor calls
+
+    nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
+    nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+    nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+
+    nmap <C-@>s :scs find s <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-@>g :scs find g <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-@>c :scs find c <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-@>t :scs find t <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-@>e :scs find e <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-@>f :scs find f <C-R>=expand("<cfile>")<CR><CR>
+    nmap <C-@>i :scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+    nmap <C-@>d :scs find d <C-R>=expand("<cword>")<CR><CR>
+
+    nmap <C-@><C-@>s :vert scs find s <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-@><C-@>g :vert scs find g <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-@><C-@>c :vert scs find c <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-@><C-@>t :vert scs find t <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-@><C-@>e :vert scs find e <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-@><C-@>f :vert scs find f <C-R>=expand("<cfile>")<CR><CR>
+    nmap <C-@><C-@>i :vert scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+    nmap <C-@><C-@>d :vert scs find d <C-R>=expand("<cword>")<CR><CR>
+endif
+"}}}
+
+" Source-Explorer-srcexpl.vim:"{{{
+"
+" // The switch of the Source Explorer                                         "
+" nmap <F8> :SrcExplToggle<CR>
+"                                                                              "
+" // Set the height of Source Explorer window                                  "
+ let g:SrcExpl_winHeight = 8
+"                                                                              "
+" // Set 100 ms for refreshing the Source Explorer                             "
+ let g:SrcExpl_refreshTime = 100
+"                                                                              "
+" // Set "Enter" key to jump into the exact definition context                 "
+ let g:SrcExpl_jumpKey = "<ENTER>"
+"                                                                              "
+" // Set "Space" key for back from the definition context                      "
+ let g:SrcExpl_gobackKey = "<SPACE>"
+"                                                                              "
+" // In order to Avoid conflicts, the Source Explorer should know what plugins "
+" // are using buffers. And you need add their bufname into the list below     "
+" // according to the command ":buffers!"                                      "
+ let g:SrcExpl_pluginList = [
+         \ "__Tag_List__",
+         \ "_NERD_tree_",
+         \ "Source_Explorer"
+     \ ]
+"                                                                              "
+" // Enable/Disable the local definition searching, and note that this is not  "
+" // guaranteed to work, the Source Explorer doesn't check the syntax for now. "
+" // It only searches for a match with the keyword according to command 'gd'   "
+ let g:SrcExpl_searchLocalDef = 1
+"                                                                              "
+" // Do not let the Source Explorer update the tags file when opening          "
+ let g:SrcExpl_isUpdateTags = 0
+"                                                                              "
+" // Use 'Exuberant Ctags' with '--sort=foldcase -R .' or '-L cscope.files' to "
+" //  create/update a tags file                                                "
+ let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ."
+"                                                                              "
+" // Set "<F12>" key for updating the tags file artificially                   "
+" let g:SrcExpl_updateTagsKey = "<F12>"
+"}}}
+
+" gtags.vim:"{{{
+nmap <Leader>gs :<C-u>Gtags -s <C-R>=expand("<cword>")<CR><CR>
+nmap <Leader>gg :<C-u>Gtags -g <C-R>=expand("<cword>")<CR><CR>
+nmap <Leader>gf :<C-u>Gtags -f <C-R>=expand("<cfile>")<CR><CR>
+nmap <Leader>gr :<C-u>Gtags -r <C-R>=expand("<cword>")<CR><CR>
+nmap <Leader>gd :<C-u>Gtags -d <C-R>=expand("<cword>")<CR><CR>
+"}}}
 
 "" ================================================================================ 
 " vim: set tabstop=4 shiftwidth=4  fdm=marker fdl=0 :

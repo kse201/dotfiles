@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 08-May-2012.                 |
+"                 Last Change: 09-May-2012.                 |
 "============================================================
 
 " 基礎的な設定 {{{
@@ -202,7 +202,6 @@ set scrolloff=1
 set showbreak=+++
 set display=lastline
 set laststatus=2
-set linebreak
 set wrap
 
 set wildmenu

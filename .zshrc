@@ -1,4 +1,4 @@
-export PATH=$PATH:~/myshellscript:/opt/local/:~/local/bin/
+export PATH=$PATH:~/myshellscript:/opt/local/:~/local/bin/:~/git-tasukete/
 #LANG
 export LANG=ja_JP.UTF-8
 export LESSCHARSET=utf-8

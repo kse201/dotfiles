@@ -1,8 +1,7 @@
 ".gvimrc
-" last change: 05-Apr-2012.
+" last change: 09-May-2012.
 " vim: set tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
 
-colorscheme  molokai
 if has('mac')
     set guioptions-=T
 endif
