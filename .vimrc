@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 09-May-2012.                 |
+"                 Last Change: 10-May-2012.                 |
 "============================================================
 
 " 基礎的な設定 {{{
@@ -43,6 +43,7 @@ set guioptions+=c
 set guioptions-=e
 set formatoptions-=ro " 改行後の自動コメントアウト禁止
 set report=0
+set imdisable
 
 " \ -> ¥{{{
 if has('mac')
@@ -903,6 +904,5 @@ endif
 command! -range=% Count :<line1>,<line2>s/.//gn
 " }}}
 
-set imdisable
 "============================================================
 " vim:set tabstop=4 shiftwidth=4 fdm=marker fdl=0: 

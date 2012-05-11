@@ -1,7 +1,7 @@
 ".gvimrc
-" last change: 09-May-2012.
-" vim: set tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
+" last change: 10-May-2012.
 
+set guioptions+=b
 if has('mac')
     set guioptions-=T
 endif
@@ -32,7 +32,6 @@ else
 endif
 set ambiwidth=double
 "}}}
-set guioptions+=b
 " 透過処理{{{
 if has('gui_macvim')
     set imdisable
@@ -40,3 +39,4 @@ if has('gui_macvim')
     autocmd MyAutoCmd FocusLost * set transparency=80
 endif
 " }}}
+" vim: set tabstop=4 shiftwidth=4  fdm=marker fdl=0 :

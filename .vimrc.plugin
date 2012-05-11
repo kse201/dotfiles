@@ -6,7 +6,8 @@ if has('win32') || has('win64')
 elseif has('mac')
     let g:vimproc_dll_path = $VIMFILE_DIR . '/bundle/vimproc/autoload/vimproc_mac.so'
 else
-    let g:vimproc_dll_path = $VIMFILE_DIR . '/bundle/vimproc/autoload/proc.dll'
+    " let g:vimproc_dll_path = $VIMFILE_DIR . '/bundle/vimproc/autoload/proc.dll'
+    let g:vimproc_dll_path = $VIMFILE_DIR . '/bundle/vimproc/autoload/vimproc_mac.so'
 endif
 " }}}
 
@@ -64,7 +65,6 @@ NeoBundle 'unite-colorscheme'
 " テキスト整形
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'The-NERD-Commenter'
-NeoBundle 'vim-scripts/DrawIt'
 NeoBundle 'vim-scripts/RST-Tables'
 NeoBundle 'vim-scripts/sequence'
 
@@ -86,7 +86,8 @@ NeoExternalBundle 'taglist.vim'
 NeoExternalBundle 'mbadran/headlights'
 NeoBundle 'thinca/vim-prettyprint'
 NeoBundle 'thinca/vim-editvar'
-NeoBundle 'vim-scripts/ttoc'
+" NeoBundle 'vim-scripts/ttoc'
+
 
 " C / C++
 NeoExternalBundle 'vim-scripts/Source-Explorer-srcexpl.vim'
@@ -210,6 +211,7 @@ endfunction
 " Enable omni completion.
 augroup EnableOmniCompleteion
     autocmd!
+
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
     autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
@@ -748,6 +750,12 @@ let g:ll_plugins['cpp'] = [
             \ 'c.vim' 
             \ ]
 
+let g:ll_plugins['java'] = [
+            \ 'taglist.vim',
+            \ 'Source-Explorer-srcexpl.vim',
+            \ 'trinity.vim' 
+            \ ]
+
 let g:ll_plugins['html'] = [
             \ 'zencoding.vim'
             \ ]
@@ -787,7 +795,7 @@ if has('vim_starting') && s:ipi_loaded
     function! LoadQuickRun()
         silent! IP vim-quickrun
     endfunction
-    map <silent> <Leader>r :<C-u>call LoadQuickRun()<CR><Plug>(quickrun)
+    map <silent> <Leader>r :<C-u>call LoadQuickRun()<CR>:<Plug>(quickrun)<CR>
     command! -nargs=* -range=0 QuickRun
                 \ call LoadQuickRun()
                 \ | call quickrun#command(<q-args>, <count>, <line1>, <line2>)
