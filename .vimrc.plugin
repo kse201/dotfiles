@@ -1,4 +1,4 @@
-" Last Change: 09-May-2012.
+" Last Change: 14-May-2012.
 " vimproc.vim{{{
 if has('win32') || has('win64')
     set shellslash
@@ -927,5 +927,22 @@ nmap <Leader>gr :<C-u>Gtags -r <C-R>=expand("<cword>")<CR><CR>
 nmap <Leader>gd :<C-u>Gtags -d <C-R>=expand("<cword>")<CR><CR>
 "}}}
 
+" ref.vim {{{
+" webdict
+let g:ref_source_webdict_sites = {
+            \ 'wikitionary' : {
+            \ 'url' : 'http://ja.wikitionary.org/wiki/%s',
+            \ 'keyword_encoding' : 'utf-8',
+            \ 'cache' : 1,
+            \}
+            \}
+
+" 出力に対するフィルタ、最初の数行を削除
+function! g:ref_source_webdict_sites.wikitionary.filter(output)
+    return join(split(a:output,"\n")[18 :], "\n")
+endfunction
+
+
+" }}}
 "" ================================================================================ 
 " vim: set tabstop=4 shiftwidth=4  fdm=marker fdl=0 :

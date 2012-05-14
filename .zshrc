@@ -83,3 +83,5 @@ alias grep='grep -E --color=auto'
 
 # スパルタンVim
 alias spvim='vim -u NONE'
+
+[[ $EMACS = t ]] && unsetopt zle

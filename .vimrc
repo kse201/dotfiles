@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 10-May-2012.                 |
+"                 Last Change: 14-May-2012.                 |
 "============================================================
 
 " 基礎的な設定 {{{
@@ -462,8 +462,8 @@ nnoremap gb `.zz
 
 " nnoremap gi gbz<Enter>
 " <C-g><M-g>:編集位置を順に巡る
-nnoremap <C-g> g;
-nnoremap <M-g> g,
+nnoremap <C-b> g;
+nnoremap <M-b> g,
 
 " vb:最後の編集箇所を選択
 nnoremap vb `[v`]

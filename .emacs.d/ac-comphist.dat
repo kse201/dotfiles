@@ -1,0 +1,130 @@
+((("summarye" .
+   [1 0 0 0 0 0 0 0])
+  ("indent-tabs-mode" .
+   [0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0])
+  ("lambda" .
+   [1 0 0 0 0 0])
+  ("emacs-lisp-mode-hook" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0])
+  ("emacs-lisp-mode" .
+   [0 0 0 0 0 0 0 0 1 0 0 0 0 0 0])
+  ("add-hook" .
+   [0 0 0 0 1 0 0 0])
+  ("ispell" .
+   [1 0 0 0 0 0])
+  ("flyspell-mode" .
+   [0 0 0 0 0 0 1 0 0 0 0 0 0])
+  ("partial-completion-mode" .
+   [0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("read-file-name-completion-ignore-case" .
+   [0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("completion-ignore-case" .
+   [0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0])
+  ("delete-auto-save-files" .
+   [0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0])
+  ("require-final-newline" .
+   [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("nil" .
+   [3 0 0])
+  ("next-line-add-newlines" .
+   [0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("save-place" .
+   [0 0 0 0 0 0 1 0 0 0])
+  ("save" .
+   [1 0 0 0])
+  ("setq-default" .
+   [0 0 0 0 0 0 1 0 0 1 0 0])
+  ("show-paren-style" .
+   [0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0])
+  ("blink-cursor-mode" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0])
+  ("~/.emacs.d/backups/" .
+   [0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("expand-file-name" .
+   [0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0])
+  ("cons" .
+   [1 0 0 0])
+  ("add-to-list" .
+   [0 0 0 0 0 0 1 0 0 0 0])
+  ("auto-save-file-name-transforms" .
+   [0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("temporary-file-directory" .
+   [0 0 0 0 0 1 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("temporary-goal-column" .
+   [0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("backup-directory-alist" .
+   [0 0 0 0 0 0 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("backup" .
+   [0 0 0 0 1 0])
+  ("auto-save-default" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0])
+  ("auto-save-files" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 1 0 0])
+  ("set" .
+   [1 0 0])
+  ("make-backup-files" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0])
+  ("setq" .
+   [15 0 0 0])
+  ("timer" .
+   [0 0 0 0 1])
+  ("size-indication-mode" .
+   [0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0])
+  ("display-battery-mode" .
+   [0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("Auto" .
+   [0 0 0 1])
+  ("auto" .
+   [2 0 0 0])
+  ("require" .
+   [1 0 0 0 2 0 0])
+  ("global-set-key" .
+   [0 0 0 2 1 2 2 0 0 0 0 0 0 0])
+  ("kbd" .
+   [6 0 1])
+  ("backward-char" .
+   [1 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("next-line" .
+   [1 0 0 0 0 0 0 0 0])
+  ("Previous" .
+   [0 0 0 0 0 0 0 1])
+  ("previous-line" .
+   [0 0 0 0 0 1 0 0 0 0 0 0 0])
+  ("forward-line" .
+   [0 0 0 0 0 0 1 0 0 0 0 0])
+  ("forward-char" .
+   [1 0 0 0 0 0 0 0 0 0 0 0])
+  ("scroll-up" .
+   [0 0 0 0 0 0 1 0 1])
+  ("scroll-down" .
+   [0 0 0 0 0 0 0 0 0 0 1])
+  ("yank" .
+   [0 0 0 1])
+  ("kill" .
+   [1 0 0 0])
+  ("kill-ring" .
+   [0 0 0 0 0 1 0 0 0])
+  ("kill-ring-save" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 1 0])
+  ("gomoku" .
+   [0 0 1 0 0 0])
+  ("set-mark" .
+   [0 0 0 0 0 0 1 0])
+  ("set-mark-command" .
+   [0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0])
+  ("visible-bell" .
+   [0 0 0 0 0 1 0 1 0 0 0 0])
+  ("windmove-up" .
+   [0 0 0 0 0 0 1 0 0 0 0])
+  ("windmove-default-keybindings" .
+   [1 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("define-key" .
+   [0 0 0 0 1 0 0 0 0 0])
+  ("global-map" .
+   [0 0 0 0 0 0 0 0 0 1])
+  ("right" .
+   [0 0 0 1 0])
+  ("when" .
+   [1 0 0 0])
+  ("powerline" .
+   [0 0 0 0 0 0 0 1 0])))
