@@ -88,7 +88,6 @@ autocmd MyAutoCmd BufWritePost $MYVIMRC  source $MYVIMRC  |
             \ if has('gui_running') |
             \ source $MYGVIMRC
 autocmd MyAutoCmd BufWritePost $MYGVIMRC source $MYGVIMRC
-autocmd MyAutoCmd BufWritePost $MYVIMRCPLUGIN source $MYVIMRCPLUGIN
 " }}}
 
 " Auto delete line-end Space{{{

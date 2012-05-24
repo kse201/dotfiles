@@ -1,4 +1,7 @@
 " Last Change: 14-May-2012.
+autocmd MyAutoCmd BufWritePost $MYVIMRCPLUGIN  source $MYVIMRCPLUGIN  |
+            \ if has('gui_running') |
+            \ source $MYGVIMRC
 " vimproc.vim{{{
 if has('win32') || has('win64')
     set shellslash
@@ -23,37 +26,37 @@ else
     call neobundle#rc()
 endif
 
-" 必須ライブラリ
+" 必須ライブラリ {{{
 NeoBundle 'Shougo/vimproc'
 NeoBundle 'mattn/webapi-vim'
 NeoBundle 'basyura/twibill.vim'
 NeoBundle 'basyura/bitly.vim'
-
-" Plugin管理
+" }}}
+" Plugin管理 {{{
 NeoBundle 'Shougo/neobundle.vim'
 NeoBundle 'jceb/vim-ipi'
 NeoBundle 'tpope/vim-pathogen'
-
-" ドキュメント管理
+" }}}
+" ドキュメント管理 {{{
 NeoExternalBundle 'thinca/vim-ref'
 NeoBundle 'vim-jp/vimdoc-ja.git'
-
-" 補完
+" }}}
+" 補完 {{{
 NeoBundle 'neocomplcache'
 NeoBundle 'Shougo/neocomplcache-clang'
-
-" ファイラ
+" }}}
+" ファイラ {{{
 NeoBundle 'scrooloose/nerdtree'
 NeoExternalBundle 'Shougo/vimfiler'
-
-" 入力補助
+" }}}
+" 入力補助 {{{
 NeoBundle 'kana/vim-smartchr'
 " NeoExternalBundle 'mattn/zencoding-vim'
 NeoBundle 'msanders/cocoa.vim'
 NeoBundle 'jelera/vim-javascript-syntax'
 NeoBundle 'neco-look'
-
-" unite関連
+" }}}
+" unite関連 {{{
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'tsukkee/unite-tag'
 NeoBundle 'tsukkee/unite-help'
@@ -61,14 +64,14 @@ NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'tacroe/unite-mark'
 NeoBundle 'thinca/vim-unite-history'
 NeoBundle 'unite-colorscheme'
-
-" テキスト整形
+" }}}
+" テキスト整形 {{{
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'The-NERD-Commenter'
 NeoBundle 'vim-scripts/RST-Tables'
 NeoBundle 'vim-scripts/sequence'
-
-" 機能追加
+" }}}
+" 機能追加 {{{
 NeoBundle 'Shougo/vimshell'
 NeoBundle 'basyura/TweetVim'
 NeoBundle 'delphinus35/TweetVim-powerline-theme'
@@ -87,9 +90,8 @@ NeoExternalBundle 'mbadran/headlights'
 NeoBundle 'thinca/vim-prettyprint'
 NeoBundle 'thinca/vim-editvar'
 " NeoBundle 'vim-scripts/ttoc'
-
-
-" C / C++
+" }}}
+" C / C++ {{{
 NeoExternalBundle 'vim-scripts/Source-Explorer-srcexpl.vim'
 NeoExternalBundle 'vim-scripts/trinity.vim'
 NeoExternalBundle 'vim-scripts/a.vim.git'
@@ -97,24 +99,24 @@ NeoExternalBundle 'vim-scripts/c.vim.git'
 NeoExternalBundle 'vim-scripts/CCTree'
 NeoExternalBundle 'vim-scripts/cscope-menu'
 NeoExternalBundle 'vim-scripts/gtags.vim'
-
-" tex
+" }}}
+" tex {{{
 NeoExternalBundle 'jcf/vim-latex'
-
-" 見た目
+" }}}
+" 見た目 {{{
 NeoBundle 'wombat256.vim'
 NeoBundle 'Lokaltog/vim-powerline'
 NeoBundle 'nathanaelkane/vim-indent-guides'
-
+" }}}
+" その他  {{{
 NeoBundle 'dannyob/quickfixstatus'
 NeoBundle 'Takazudo/outline.vim.git'
 NeoBundle 'jceb/vim-hier'
 NeoBundle 'mattn/mkdpreview-vim'
-
 NeoBundle 'L9'
 
 NeoBundle 'git://git.wincent.com/command-t.git'
-
+" }}}
 filetype plugin on
 filetype indent on
 syntax on
@@ -299,10 +301,9 @@ nnoremap <silent> <SID>[unite]o :<C-u>Unite -no-quit -buffer-name=font font<CR>
 " nnoremap <silent> <SID>[unite]A :<C-u>Unite -no-quit -no-start-insert -input=Vim -buffer-name=advent_calender advent_calendar<CR>
 " 最近使用したファイル一覧
 nnoremap <silent> <SID>[unite]m :<C-u>Unite file_mru<CR>
-" 常用セット
-nnoremap <silent> <SID>[unite]u :<C-u>Unite buffer file_mru<CR>
+nnoremap <silent> <SID>[unite]u :<C-u>Unite source<CR>
 " 全部乗せ
-nnoremap <silent> <SID>[unite]a :<C-u>UniteWithBufferDir -input= -buffer-name=files buffer file_mru bookmark file<CR>
+nnoremap <silent> <SID>[unite]a :<C-u>UniteWithBufferDir -winheight=100 -input= -buffer-name=files buffer file_mru bookmark file tab<CR>
 nnoremap <silent>  <Leader>><Tab> :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
 
 augroup UniteKeyMap
