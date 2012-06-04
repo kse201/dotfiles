@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 14-May-2012.                 |
+"                 Last Change: 02-Jun-2012.                 |
 "============================================================
 
 " 基礎的な設定 {{{
@@ -450,7 +450,7 @@ nnoremap <C-i><C-i> :<C-u>h<Space><C-r><C-w><Enter>
 
 nnoremap R gR
 
-" Kでカーソル位置の単語をヘルプ検索{{{
+" ライン{{{
 inoreabbrev <expr> dl* repeat('*','80')
 inoreabbrev <expr> dl- repeat('-','80')
 " }}}

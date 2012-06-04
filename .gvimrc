@@ -1,6 +1,7 @@
 ".gvimrc
-" last change: 14-May-2012.
+" last change: 28-May-2012.
 
+colorscheme macvim
 set guioptions+=b
 if has('mac')
     set guioptions-=T
