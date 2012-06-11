@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 02-Jun-2012.                 |
+"                 Last Change: 07-Jun-2012.                 |
 "============================================================
 
 " 基礎的な設定 {{{
@@ -43,7 +43,7 @@ set guioptions+=c
 set guioptions-=e
 set formatoptions-=ro " 改行後の自動コメントアウト禁止
 set report=0
-set imdisable
+" set imdisable
 
 " \ -> ¥{{{
 if has('mac')

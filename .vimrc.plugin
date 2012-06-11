@@ -1,4 +1,4 @@
-" Last Change: 31-May-2012.
+" Last Change: 07-Jun-2012.
 autocmd MyAutoCmd BufWritePost $MYVIMRCPLUGIN  source $MYVIMRCPLUGIN  |
             \ if has('gui_running') |
             \ source $MYGVIMRC
@@ -89,7 +89,8 @@ NeoExternalBundle 'taglist.vim'
 NeoExternalBundle 'mbadran/headlights'
 NeoBundle 'thinca/vim-prettyprint'
 NeoBundle 'thinca/vim-editvar'
-" NeoBundle 'vim-scripts/ttoc'
+NeoBundle 'thinca/vim-showtime'
+NeoBundle 'vim-scripts/ttoc'
 " }}}
 " C / C++ {{{
 NeoExternalBundle 'vim-scripts/Source-Explorer-srcexpl.vim'
@@ -117,6 +118,12 @@ NeoBundle 'L9'
 
 NeoBundle 'git://git.wincent.com/command-t.git'
 " }}}
+" 6/xx
+NeoBundle 'osyo-manga/unite-homo.git'
+NeoBundle 'osyo-manga/unite-u-nya-.git'
+NeoBundle 'vimwiki'
+NeoBundle 'mattn/unite-mcdonalds-vim'
+NeoBundle 'mattn/gal-vim'
 filetype plugin on
 filetype indent on
 syntax on
@@ -622,7 +629,7 @@ augroup TList
     autocmd!
     au BufEnter * nnoremap <F12> :Tlist<CR>z<CR>
 augroup END
-au MyAutoCmd BufEnter *.memo nnoremap <buffer> <F12> :<C-u>TToC<CR>
+au MyAutoCmd BufEnter *.memo nnoremap <buffer> <F12> :<C-u>ToC<CR>
 " }}}
 
 " open-browser{{{
@@ -943,6 +950,10 @@ function! g:ref_source_webdict_sites.wikitionary.filter(output)
 endfunction
 
 
+" }}}
+
+" vimwiki {{{
+au MyAutoCmd FileType *.vimwiki  map <buffer> <leader>tt <Plug>VimwikiToggleListItem
 " }}}
 "" ================================================================================ 
 " vim: set tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
