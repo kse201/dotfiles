@@ -3,9 +3,12 @@ autocmd MyAutoCmd BufWritePost $MYVIMRCPLUGIN  source $MYVIMRC |
             \ if has('gui_running') |
             \ source $MYGVIMRC
 " vimproc.vim{{{
-if has('win32') || has('win64')
+if has('win32') 
     set shellslash
     let g:vimproc_dll_path = $VIMFILE_DIR . '/autoload/vimproc_win32.dll'
+elseif has('win64')
+    set shellslash
+    let g:vimproc_dll_path = $VIMFILE_DIR . '/autoload/vimproc_win64.dll'
 elseif has('mac')
     let g:vimproc_dll_path = $VIMFILE_DIR . '/bundle/vimproc/autoload/vimproc_mac.so'
 else
@@ -69,6 +72,7 @@ NeoBundle 'tacroe/unite-mark'
 NeoBundle 'thinca/vim-unite-history'
 NeoBundle 'unite-colorscheme'
 NeoBundle 'choplin/unite-vim_hacks'
+NeoBundle 'ujihisa/unite-font'
 " }}}
 " テキスト整形 {{{
 NeoBundle 'godlygeek/tabular'
@@ -979,5 +983,34 @@ endfunction
 
 " }}}
 
+" unite-neco {{{
+" https://github.com/ujihisaより
+let s:unite_source = {'name': 'neco'}
+
+function! s:unite_source.gather_candidates(args, context)
+  let necos = [
+        \ "~(-'_'-) goes right",
+        \ "~(-'_'-) goes right and left",
+        \ "~(-'_'-) goes right quickly",
+        \ "~(-'_'-) goes right then smile",
+        \ "~(-'_'-)  -8(*'_'*) go right and left",
+        \ "(=' .' ) ~w",
+        \ ]
+  return map(necos, '{
+        \ "word": v:val,
+        \ "source": "neco",
+        \ "kind": "command",
+        \ "action__command": "Neco " . v:key,
+        \ }')
+endfunction
+
+"function! unite#sources#locate#define()
+"  return executable('locate') ? s:unite_source : []
+"endfunction
+call unite#define_source(s:unite_source)
+unlet s:unite_source
+
+
+" }}}
 "" ================================================================================ 
 " vim: set tabstop=4 shiftwidth=4  fdm=marker fdl=0 :

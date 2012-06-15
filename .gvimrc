@@ -1,7 +1,7 @@
 ".gvimrc
-" last change: 13-Jun-2012.
+" last change: 15-Jun-2012.
 
-colorscheme  vc
+colorscheme  jellybeans
 
 set guioptions+=b
 if has('mac')
