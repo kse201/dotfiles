@@ -1,7 +1,8 @@
 ".gvimrc
-" last change: 28-May-2012.
+" last change: 13-Jun-2012.
 
-colorscheme macvim
+colorscheme  vc
+
 set guioptions+=b
 if has('mac')
     set guioptions-=T
@@ -28,7 +29,8 @@ if has('win32') || has('win64')
     set guifont=Inconsolata:h12:cANSI
     set guifontwide=MS_Gothic:h12
 else
-    set guifont=Ricty\ Regular:h16
+    set guifont=Ricty\ Regular\ for\ Powerline:h16
+    " set guifont=Ricty\ Reguler:h16
     set linespace=1
 endif
 set ambiwidth=double

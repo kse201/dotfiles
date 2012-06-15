@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 07-Jun-2012.                 |
+"                 Last Change: 13-Jun-2012.                 |
 "============================================================
 
 " 基礎的な設定 {{{
@@ -50,10 +50,13 @@ if has('mac')
     inoremap ¥ \
     cnoremap ¥ \
 endif
-" MacVimでMetaキー
+" }}}
+
+" MacVimでMetaキー {{{
 if exists('+macmeta')
     set macmeta
 endif
+" }}}
 
 " undo履歴保存して再開させる{{{
 if has('persistent_undo')
@@ -94,8 +97,7 @@ autocmd MyAutoCmd BufWritePost $MYGVIMRC source $MYGVIMRC
 augroup Autoplace
     autocmd!
     autocmd BufWritePre *.[^{mkd}] :%s/\s\+$//ge
-augroup END
-" }}}
+augroup END 
 
 " }}}
 
@@ -107,16 +109,11 @@ endif
 " }}}
 
 " Auto Change dir{{{
-if has("autochdir")
-    set autochdir
-    set tags=tags
+set tags=./tags,./../tags,./*/tags,./../../tags,./../../../tags,./../../../../tags,./../../../../../tags
+if has('win32') || has('win64')
+    au MyAutoCmd BufEnter * execute ":lcd " . escape(expand("%:p:h")," #")
 else
-    set tags=./tags,./../tags,./*/tags,./../../tags,./../../../tags,./../../../../tags,./../../../../../tags
-    if has('win32') || has('win64')
-        au MyAutoCmd BufEnter * execute ":lcd " . escape(expand("%:p:h")," #")
-    else
-        au MyAutoCmd BufEnter * execute ":lcd " . escape(expand("%:p:h")," #¥") 
-    endif
+    au MyAutoCmd BufEnter * execute ":lcd " . escape(expand("%:p:h")," #¥") 
 endif
 " }}}
 " }}}
@@ -335,6 +332,44 @@ function! s:tabpage_label(n)
 endfunction
 
 " }}}
+"
+" 見た目を気軽に変更する{{{
+" 参考:http://vim-users.jp/2011/09/hack228/
+" if has('mac')
+let ColorRoller = {}
+let ColorRoller.colors = [
+            \ 'eclipse',
+            \ 'vc',
+            \ 'print_bw',
+            \ 'desert' ,
+            \ 'wombat256mod',
+            \ 'molokai'
+            \]
+
+function! ColorRoller.change()
+    let color = get(self.colors, 0)
+    " " tabpagecolorscheme を使用している場合は↓の "colorscheme" を "Tcolorscheme" に変える。
+    silent exe "colorscheme " . color
+    redraw
+    echo self.colors
+endfunction
+
+function! ColorRoller.roll()
+    let item = remove(self.colors, 0)
+    call insert(self.colors, item, len(self.colors))
+    call self.change()
+endfunction
+
+function! ColorRoller.unroll()
+    let item = remove(self.colors, -1)
+    call insert(self.colors, item, 0)
+    call self.change()
+endfunction
+
+nnoremap <silent><F9>   :<C-u>call ColorRoller.roll()<CR>
+nnoremap <silent><S-F9> :<C-u>call ColorRoller.unroll()<CR>
+" endif
+" }}}
 " }}}
 
 " Backup{{{
@@ -366,9 +401,12 @@ nnoremap j gj
 nnoremap k gk
 
 " +/-キーで画面サイズ変更{{{
-noremap + <C-w>+
-noremap - <C-w>-
+nnoremap + <C-w>+
+nnoremap - <C-w>-
 " }}}
+" (,)で縦サイズ変更
+noremap ( :vertical resize winwidth(0)+1<CR>
+noremap ) :vertical resize winwidth(0)-1<CR>
 
 " kana's useful tab function {{{
 function! s:move_window_into_tab_page(target_tabpagenr)
@@ -421,6 +459,12 @@ nnoremap <Leader>tn :tabnew<CR>
 " }}}
 
 inoremap jj <ESC>
+
+" 日付入りファイルを使う {{{
+" vimテクバイブル 4-1参考
+cnoremap <expr> <Leader>date strftime('%Y%m%d')
+cnoremap <expr> <Leader>time strftime('%Y%m%d%H%M')
+" }}}
 
 " }}}
 
@@ -516,6 +560,10 @@ endfunction
 nnoremap <silent> <C-x>1 :<C-u>only<CR>
 nnoremap <silent> <C-x>2 :<C-u>sp<CR>
 nnoremap <silent> <C-x>3 :<C-u>vsp<CR>
+" 上のパクリ
+nnoremap <silent> <C-w>1 :<C-u>only<CR>
+" nnoremap <silent> <C-w>2 :<C-u>sp<CR>
+" nnoremap <silent> <C-w>3 :<C-u>vsp<CR>
 " }}}
 
 " Buff{{{
@@ -574,33 +622,34 @@ endif
 
 " 言語別設定 {{{
 " Prefix{{{
-augroup programLanguage
-    au!
-    autocmd Filetype vim        call VimrcSettings()
-    autocmd Filetype tex        call LaTeXSettings()
-    autocmd Filetype c,cpp,objc call CSettings()
-    autocmd Filetype cpp        call CppSettings()
-    autocmd Filetype objc       call ObjCSettings()
-    autocmd Filetype java       call JavaSettings()
-    autocmd Filetype perl       call PerlSettings()
-    autocmd Filetype ruby       call RubySettings()
-    autocmd Filetype lisp       call LispSettings()
-    autocmd Filetype sh         call ShellScriptSettings()
-    autocmd Filetype snippet    call SnippetSettings()
-    autocmd Filetype xml        call XMLtSettings()
-    autocmd Filetype html       call HTMLSettings()
-    autocmd Filetype php       call PHPSettings()
-augroup END
+let g:FileTypeSettings = [
+            \ "c", 
+            \ "cpp", 
+            \ "java", 
+            \ "vim", 
+            \ "objc", 
+            \ "ruby", 
+            \ "perl", 
+            \ "lisp", 
+            \ "sh", 
+            \ "snippet", 
+            \ "xml", 
+            \ "html", 
+            \ "php",
+            \]
+for MyFileType in g:FileTypeSettings
+    execute "autocmd MyAutoCmd FileType " . MyFileType . "call  My" . MyFileType . "Settings()"
+endfor
 " }}}
-" vimrc{{{
-function! VimrcSettings()
+" vim{{{
+function! MyvimSettings()
     inoremap ' ''<Left>
     inoremap " ""<left>
     inoremap ( ()<Left>
 endfunction
 " }}}
 " C{{{
-function! CSettings()
+function! MycSettings()
     set shiftwidth=4
     set tabstop=4
     set cindent
@@ -621,7 +670,7 @@ function! CSettings()
 endfunction
 " }}}
 " C++{{{
-function! CppSettings()
+function! MycppSettings()
     set dictionary+=$HOME/.vim/dict/cpp.dict
     inoremap <buffer>{ {}<Left><CR><Up><ESC>o
     inoremap <buffer>( ()<Left>
@@ -633,7 +682,7 @@ function! CppSettings()
 endfunction
 " }}}
 " tex{{{
-function! LaTeXSettings()
+function! MylatexSettings()
     set dictionary=$HOME/.vim/dict/tex.dict
     inoremap <buffer> { {}<Left>
     inoremap <buffer> [ []<Left>
@@ -652,7 +701,7 @@ function! LaTeXSettings()
 endfunction
 " }}}
 " opjc{{{
-function! ObjCSettings()
+function! MyobjcSettings()
     ""set dictionary=$HOME/.vim/dict/cocoa.dict
     set iskeyword+=:
     inoremap <buffer>{ {}<Left><CR><Up><ESC>o
@@ -668,7 +717,7 @@ function! ObjCSettings()
 endfunction
 " }}}
 " Java{{{
-function! JavaSettings()
+function! MyjavaSettings()
     set dictionary=$HOME/.vim/dict/java.dict
     inoremap <buffer>{ {}<Left><CR><Up><ESC>o
     inoremap <buffer>( ()<Left>
@@ -680,7 +729,7 @@ function! JavaSettings()
 endfunction
 " }}}
 " Ruby{{{
-function! RubySettings()
+function! MyrubySettings()
     set dictionary=$HOME/.vim/dict/ruby.dict
     inoremap  <buffer> ( ()<Left>
     inoremap  <buffer> [ []<Left>
@@ -693,7 +742,7 @@ function! RubySettings()
 endfunction
 " }}}
 " Lisp{{{
-function! LispSettings()
+function! MylispSettings()
     inoremap <buffer>( ()<Left>
     inoremap <buffer>[ []<Left>
     inoremap <buffer><> <><Left>
@@ -705,25 +754,25 @@ function! LispSettings()
 endfunction
 " }}}
 " snipptfile{{{
-function! SnippetSettings()
+function! MysnippetSettings()
     inoremap $ ${}<Left>
     inoremap { {}<Left>
 endfunction
 " Shell Script
 
-function! ShellScriptSettings()
+function! MyshellScriptSettings()
     inoremap $ ${}<Left>
     inoremap { {}<Left>
     inoremap ` ``<Left>
 endfunction
 " }}}
 " XML {{{
-function! XMLtSettings()
+function! MyxmlSettings()
     inoremap <buffer> </ </<C-X><C-o>
 endfunction
 " }}}
 " HTML{{{
-function! HTMLSettings()
+function! MyhtmlSettings()
     inoremap , ,<Space>
     inoremap <buffer>{ {}<Left>
     inoremap <buffer>( ()<Left>
@@ -734,7 +783,7 @@ function! HTMLSettings()
 endfunction
 " }}}
 " PHP{{{
-function! PHPSettings()
+function! MyphpSettings()
     set dictionary=$HOME/.vim/dict/PHP.dict
     inoremap , ,<Space>
     set fdm=indent

@@ -1,5 +1,5 @@
-" Last Change: 07-Jun-2012.
-autocmd MyAutoCmd BufWritePost $MYVIMRCPLUGIN  source $MYVIMRCPLUGIN  |
+" Last Change: 15-Jun-2012.
+autocmd MyAutoCmd BufWritePost $MYVIMRCPLUGIN  source $MYVIMRC |
             \ if has('gui_running') |
             \ source $MYGVIMRC
 " vimproc.vim{{{
@@ -16,14 +16,15 @@ endif
 
 " neobundle.vim{{{
 set nocompatible
-filetype  off
+filetype off
+filetype plugin indent off
 if has('win32') || has('win64')
     set rtp+=~/vimfiles/bundle/neobundle.vim/
     " let $VIMRUNTIME = $VIM .'\vimfiles\bundle\vundle\'
     call neobundle#rc(expand('~/vimfiles/bundle'))
 else
     set rtp+=~/.vim/bundle/neobundle.vim
-    call neobundle#rc()
+    call neobundle#rc('~/.vim/bundle')
 endif
 
 " 必須ライブラリ {{{
@@ -38,20 +39,23 @@ NeoBundle 'jceb/vim-ipi'
 NeoBundle 'tpope/vim-pathogen'
 " }}}
 " ドキュメント管理 {{{
-NeoExternalBundle 'thinca/vim-ref'
+" NeoBundleLazy 'thinca/vim-ref'
+NeoBundle 'thinca/vim-ref'
 NeoBundle 'vim-jp/vimdoc-ja.git'
 " }}}
 " 補完 {{{
 NeoBundle 'neocomplcache'
+NeoBundle 'Shougo/neocomplcache-snippets-complete'
 NeoBundle 'Shougo/neocomplcache-clang'
+NeoBundle 'clang-complete'
 " }}}
 " ファイラ {{{
 NeoBundle 'scrooloose/nerdtree'
-NeoExternalBundle 'Shougo/vimfiler'
+NeoBundleLazy 'Shougo/vimfiler'
 " }}}
 " 入力補助 {{{
 NeoBundle 'kana/vim-smartchr'
-" NeoExternalBundle 'mattn/zencoding-vim'
+" NeoBundleLazy 'mattn/zencoding-vim'
 NeoBundle 'msanders/cocoa.vim'
 NeoBundle 'jelera/vim-javascript-syntax'
 NeoBundle 'neco-look'
@@ -64,6 +68,7 @@ NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'tacroe/unite-mark'
 NeoBundle 'thinca/vim-unite-history'
 NeoBundle 'unite-colorscheme'
+NeoBundle 'choplin/unite-vim_hacks'
 " }}}
 " テキスト整形 {{{
 NeoBundle 'godlygeek/tabular'
@@ -77,32 +82,33 @@ NeoBundle 'basyura/TweetVim'
 NeoBundle 'delphinus35/TweetVim-powerline-theme'
 NeoBundle 'koron/chalice'
 NeoBundle 'mattn/calendar-vim'
-NeoExternalBundle 'thinca/vim-quickrun'
+NeoBundleLazy 'thinca/vim-quickrun'
 NeoBundle 'banyan/Vimpusher'
 NeoBundle 'surround.vim'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'open-browser.vim'
-NeoBundle 'YankRing.vim'
+" NeoBundle 'YankRing.vim'
 NeoBundle 'SingleCompile'
-NeoBundle 'clang-complete'
-NeoExternalBundle 'taglist.vim'
-NeoExternalBundle 'mbadran/headlights'
+NeoBundleLazy 'taglist.vim'
+NeoBundleLazy 'mbadran/headlights'
 NeoBundle 'thinca/vim-prettyprint'
 NeoBundle 'thinca/vim-editvar'
 NeoBundle 'thinca/vim-showtime'
-NeoBundle 'vim-scripts/ttoc'
+NeoBundle 'thinca/vim-fontzoom'
+" NeoBundle 'vim-scripts/ttoc'
+NeoBundleLazy 'exVim'
 " }}}
 " C / C++ {{{
-NeoExternalBundle 'vim-scripts/Source-Explorer-srcexpl.vim'
-NeoExternalBundle 'vim-scripts/trinity.vim'
-NeoExternalBundle 'vim-scripts/a.vim.git'
-NeoExternalBundle 'vim-scripts/c.vim.git'
-NeoExternalBundle 'vim-scripts/CCTree'
-NeoExternalBundle 'vim-scripts/cscope-menu'
-NeoExternalBundle 'vim-scripts/gtags.vim'
+NeoBundleLazy 'vim-scripts/Source-Explorer-srcexpl.vim'
+NeoBundleLazy 'vim-scripts/trinity.vim'
+NeoBundleLazy 'vim-scripts/a.vim.git'
+NeoBundleLazy 'vim-scripts/c.vim.git'
+NeoBundleLazy 'vim-scripts/CCTree'
+NeoBundleLazy 'vim-scripts/cscope-menu'
+NeoBundleLazy 'vim-scripts/gtags.vim'
 " }}}
 " tex {{{
-NeoExternalBundle 'jcf/vim-latex'
+NeoBundleLazy 'jcf/vim-latex'
 " }}}
 " 見た目 {{{
 NeoBundle 'wombat256.vim'
@@ -124,19 +130,20 @@ NeoBundle 'osyo-manga/unite-u-nya-.git'
 NeoBundle 'vimwiki'
 NeoBundle 'mattn/unite-mcdonalds-vim'
 NeoBundle 'mattn/gal-vim'
-filetype plugin on
-filetype indent on
+NeoBundle 'mattn/invader-vim'
+NeoBundle 'mattn/mahjong-vim'
+NeoBundle 'TeTrIs.vim'
+NeoBundle 'sudoku_game'
+NeoBundle 'mfumi/viminesweeper'
+NeoBundle 'mfumi/snake.vim'
+filetype plugin indent on
 syntax on
 " }}}
 
-" singleton.vim{{{
-" call singleton#enable()
-" }}}
-
 " neocomplcache{{{
-"
+
 " Use neocomplcache.
-let g:neocomplcache_enable_at_startup             = 1 " 起動時に有効化
+let g:neocomplcache_enable_at_startup             = 0 " 起動時に有効化
 " Use smartcase.
 let g:NeoComplCache_SmartCase                     = 1
 let g:neocomplcache_enable_auto_select            = 1
@@ -174,6 +181,7 @@ let g:NeoComplCache_SnippetsDir = $VIMFILE_DIR.'/snippets'
 " カーソル前の文字列がスニペットのトリガであるなら、スニペットを展開する
 " imap <expr><C-k>   neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : "\<C-n>"
 
+" init neocomplcache {{{
 function! Init_neocomplcache()
     NeoComplCacheEnable
     imap <expr><C-k>   neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : "\<C-n>"
@@ -184,7 +192,7 @@ function! Init_neocomplcache()
     inoremap <expr><C-y> neocomplcache#close_popup()
     inoremap <expr><CR> neocomplcache#close_popup() . "\<CR>"
 
-    imap <C-q>  <Plug>(neocomplcache_start_unite_quick_match)
+    imap <C-q>  <Plug>(neocomplcache_start_unite_complete)
 
     " キャンセルしてポップアップを閉じる
     inoremap <expr><C-e>  neocomplcache#cancel_popup()
@@ -201,7 +209,8 @@ function! Init_neocomplcache()
     " <TAB>: completion.
     inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 endfunction
-
+" }}}
+" Term neocomplcache{{{
 function! Term_neocomplcache()
     NeoComplCacheDisable
     iunmap <C-k>
@@ -216,6 +225,7 @@ function! Term_neocomplcache()
     iunmap <C-y>
     iunmap <C-e>
 endfunction
+" }}}
 
 " Enable omni completion.
 augroup EnableOmniCompleteion
@@ -299,8 +309,6 @@ nnoremap <silent> <SID>[unite]w :<C-u>Unite -buffer-name=window window<CR>
 nnoremap <silent> <SID>[unite]j :<C-u>Unite -buffer-name=jump jump<CR>
 " コマンド一覧
 nnoremap <silent> <SID>[unite]c :<C-u>Unite -buffer-name=command command<CR>
-" タブ一覧
-nnoremap <silent> <SID>[unite]t :<C-u>Unite -buffer-name=tab tab<CR>
 " カラースキーム一覧
 nnoremap <silent> <SID>[unite]o :<C-u>Unite -no-quit -buffer-name=font font<CR>
 " Vim-Advent_Calender
@@ -341,127 +349,109 @@ if has('win32') || has('win64')
 else
     call unite#set_substitute_pattern('file', '^;v', '~/.vim/')
 endif
-" 見た目を気軽に変更する{{{
-" 参考:http://vim-users.jp/2011/09/hack228/
-" if has('mac')
-let ColorRoller = {}
-let ColorRoller.colors = [
-            \ 'eclipse',
-            \ 'vc',
-            \ 'print_bw',
-            \ 'desert' ,
-            \ 'wombat256mod',
-            \ 'molokai'
-            \]
 
-function! ColorRoller.change()
-    let color = get(self.colors, 0)
-    " " tabpagecolorscheme を使用している場合は↓の "colorscheme" を "Tcolorscheme" に変える。
-    silent exe "colorscheme " . color
-    redraw
-    echo self.colors
+" コマンドを登録してuniteで選択して起動 {{{ 
+let s:unite_source_shortcut ={
+            \ "name" : "shortcut"
+            \}
+
+function! s:unite_source_shortcut.gather_candidates(args,conext)
+    let cmds = {
+                \"Unite Beatiful Attack" : "Unite -auto-preview colorscheme"
+                \}
+    return values(map(cmds,"{
+                \ 'word' : v:key,
+                \ 'source' : 'shortcut',
+                \ 'kind' : 'command',
+                \ 'action__command' : v:val
+                \}"))
 endfunction
-
-function! ColorRoller.roll()
-    let item = remove(self.colors, 0)
-    call insert(self.colors, item, len(self.colors))
-    call self.change()
-endfunction
-
-function! ColorRoller.unroll()
-    let item = remove(self.colors, -1)
-    call insert(self.colors, item, 0)
-    call self.change()
-endfunction
-
-nnoremap <silent><F9>   :<C-u>call ColorRoller.roll()<CR>
-nnoremap <silent><S-F9> :<C-u>call ColorRoller.unroll()<CR>
-" endif
+call unite#define_source(s:unite_source_shortcut)
 " }}}
 
 " }}}
 
-" smartchar.vim{{{
+" smartchr.vim{{{
 " コマンドモード時のエスケープ入力補助
 cnoremap <expr> /
             \ getcmdtype()=='/' ? '\/' : '/'
 cnoremap <Leader>/ /
 " cnoremap <expr> / search('.*/\%#', 'bcn')? '/' : smartchr#one_of('/', '\/')
-if exists(":smartchr#one_of")
-    cnoremap <expr> <  smartchr#one_of('<', '\<')
-    cnoremap <expr> >  smartchr#one_of('>', '\>')
-    cnoremap <expr> \  smartchr#one_of('\', '\' , '\\')
-    cnoremap <expr> (  smartchr#one_of('(' , '\(')
-    cnoremap <expr> )  smartchr#one_of(')' , '\)')
-    cnoremap <expr> %  smartchr#one_of('%' , '\%')
+" if filereadable(expand($VIMFILES_DIR . '/bundle/vim-smartchr/autoload/smartchr.vim'))
+cnoremap <expr> <  smartchr#one_of('<', '\<')
+cnoremap <expr> >  smartchr#one_of('>', '\>')
+cnoremap <expr> \  smartchr#one_of('\', '\' , '\\')
+cnoremap <expr> (  smartchr#one_of('(' , '\(')
+cnoremap <expr> )  smartchr#one_of(')' , '\)')
+cnoremap <expr> %  smartchr#one_of('%' , '\%')
 
-    " 参考:http://d.hatena.ne.jp/ampmmn/20080925/1222338972
-    " 演算子記号の前後に空白を入れるなど
-    " (多分)C/C++コーディング用
-    function! SmartCharForC()
-        "四則演算
-        inoremap <buffer><expr> + smartchr#loop(' + ', '++')
-        inoremap <buffer><expr> - smartchr#loop(' - ', '--')
-        inoremap <buffer><expr> * smartchr#loop(' * ', '**')
-        inoremap <buffer><expr> / smartchr#loop(' / ', '//')
+" 参考:http://d.hatena.ne.jp/ampmmn/20080925/1222338972
+" 演算子記号の前後に空白を入れるなど
+" (多分)C/C++コーディング用
+function! SmartCharForC()
+    "四則演算
+    inoremap <buffer><expr> + smartchr#loop(' + ', '++')
+    inoremap <buffer><expr> - smartchr#loop(' - ', '--')
+    inoremap <buffer><expr> * smartchr#loop(' * ', '**')
+    inoremap <buffer><expr> / smartchr#loop(' / ', '//')
 
-        " =の場合、単純な代入や比較演算子として入力する場合は前後にスペースをいれる。
-        " 複合演算代入としての入力の場合は、直前のスペースを削除して=を入力
-        inoremap <buffer><expr> = search('\(&\<bar><bar>\<bar>+\<bar>-\<bar>/\<bar>>\<bar><\<bar>*\<bar>\) \%#', 'bcn')? '<bs>= '
-                    \ : smartchr#loop(' = ', ' == ', '=')
-        inoremap <buffer><expr> < search('^#include\%#', 'bcn')? ' <><Left>': smartchr#loop('<', ' < ', ' << ' , '')
-        inoremap <buffer><expr> > search('^#include <.*\%#', 'bcn')? '>': smartchr#loop('>', ' > ', ' >> ')
+    " =の場合、単純な代入や比較演算子として入力する場合は前後にスペースをいれる。
+    " 複合演算代入としての入力の場合は、直前のスペースを削除して=を入力
+    inoremap <buffer><expr> = search('\(&\<bar><bar>\<bar>+\<bar>-\<bar>/\<bar>>\<bar><\<bar>*\<bar>\) \%#', 'bcn')? '<bs>= '
+                \ : smartchr#loop(' = ', ' == ', '=')
+    inoremap <buffer><expr> < search('^#include\%#', 'bcn')? ' <><Left>': smartchr#loop('<', ' < ', ' << ' , '')
+    inoremap <buffer><expr> > search('^#include <.*\%#', 'bcn')? '>': smartchr#loop('>', ' > ', ' >> ')
 
-        inoremap <buffer><expr> " search('^#include\%#', 'bcn')? ' ""<Left>': smartchr#loop('"', ' " ')
-        inoremap <buffer><expr> " search('^#include ".*\%#', 'bcn')? '"': smartchr#loop('"', ' " ',)
+    inoremap <buffer><expr> " search('^#include\%#', 'bcn')? ' ""<Left>': smartchr#loop('"', ' " ')
+    inoremap <buffer><expr> " search('^#include ".*\%#', 'bcn')? '"': smartchr#loop('"', ' " ',)
 
-        inoremap <buffer><expr> , smartchr#loop(', ', ',')
-        "inoremap <buffer><expr> / smartchr#loop('/', ' / ', '//')
-        " *はポインタで使うので、空白はいれない
-        inoremap <buffer><expr> & smartchr#loop('&', ' & ', ' && ')
-        inoremap <buffer><expr> % smartchr#loop('%', ' % ')
-        inoremap <buffer><expr> <Bar> smartchr#loop(' <Bar> ', ' <Bar><Bar> ', '<Bar>')
-        " 3項演算子の場合は、後ろのみ空白を入れる
-        inoremap <buffer><expr> ? smartchr#loop('?', '? ')
-        inoremap <buffer><expr> : smartchr#loop(':', '::', ': ')
+    inoremap <buffer><expr> , smartchr#loop(', ', ',')
+    "inoremap <buffer><expr> / smartchr#loop('/', ' / ', '//')
+    " *はポインタで使うので、空白はいれない
+    inoremap <buffer><expr> & smartchr#loop('&', ' & ', ' && ')
+    inoremap <buffer><expr> % smartchr#loop('%', ' % ')
+    inoremap <buffer><expr> <Bar> smartchr#loop(' <Bar> ', ' <Bar><Bar> ', '<Bar>')
+    " 3項演算子の場合は、後ろのみ空白を入れる
+    inoremap <buffer><expr> ? smartchr#loop('?', '? ')
+    inoremap <buffer><expr> : smartchr#loop(':', '::', ': ')
 
-        " 下記の文字は連続して現れることがまれなので、二回続けて入力したら改行する
-        "inoremap <buffer><expr> } smartchr#one_of('}', '}<CR>')
-        "inoremap <buffer><expr> ; smartchr#one_of(';', ';<CR>')
-        " 「->」は入力しづらいので、..で置換え
-        inoremap <buffer><expr> . smartchr#loop('.', '->', '...')
-        " 行先頭での@入力で、プリプロセス命令文を入力
-        inoremap <buffer><expr> @ search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('#define', '#include', '#ifdef', '#endif', '@'): '@'
-        inoremap <buffer><expr> # search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('#define', '#include', '#ifdef', '#endif', '#'): '#'
+    " 下記の文字は連続して現れることがまれなので、二回続けて入力したら改行する
+    "inoremap <buffer><expr> } smartchr#one_of('}', '}<CR>')
+    "inoremap <buffer><expr> ; smartchr#one_of(';', ';<CR>')
+    " 「->」は入力しづらいので、..で置換え
+    inoremap <buffer><expr> . smartchr#loop('.', '->', '...')
+    " 行先頭での@入力で、プリプロセス命令文を入力
+    inoremap <buffer><expr> @ search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('#define', '#include', '#ifdef', '#endif', '@'): '@'
+    inoremap <buffer><expr> # search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('#define', '#include', '#ifdef', '#endif', '#'): '#'
 
-        inoremap <buffer><expr> " search('^#include\%#', 'bcn')? ' ""<Left>"': '""<Left>'
-        " if文直後の(は自動で間に空白を入れる
-        inoremap <buffer><expr> ( search('\<\if\%#', 'bcn')? ' ()<Left>': '()<Left>'
-    endfunction
+    inoremap <buffer><expr> " search('^#include\%#', 'bcn')? ' ""<Left>"': '""<Left>'
+    " if文直後の(は自動で間に空白を入れる
+    inoremap <buffer><expr> ( search('\<\if\%#', 'bcn')? ' ()<Left>': '()<Left>'
+endfunction
 
-    " Objective-C用(未完)
-    function! SmartCharForObjc()
-        inoremap <buffer><expr> @ search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of( '@interface','@implementation', '@synthesize', '@property', '@class' , '@'): '@'
-        inoremap <buffer><expr> # search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('#define', '#include', '#ifdef', '#endif', '#import' , '#'): '#'
-        inoremap <buffer><expr> - search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('- ()<Left>' ,  '-') :smartchr#loop(' - ', '--')
-        inoremap <buffer><expr> + search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('+ ()<Left>' ,  '+') :smartchr#loop(' + ', '++')
-    endfunction
+" Objective-C用(未完)
+function! SmartCharForObjc()
+    inoremap <buffer><expr> @ search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of( '@interface','@implementation', '@synthesize', '@property', '@class' , '@'): '@'
+    inoremap <buffer><expr> # search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('#define', '#include', '#ifdef', '#endif', '#import' , '#'): '#'
+    inoremap <buffer><expr> - search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('- ()<Left>' ,  '-') :smartchr#loop(' - ', '--')
+    inoremap <buffer><expr> + search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('+ ()<Left>' ,  '+') :smartchr#loop(' + ', '++')
+endfunction
 
-    " 記号入力メンドクセ イマイチ{{{
-    function! MySmarcchr()
-        inoremap <buffer><expr> 1 smartchr#one_of('1', '!' ,'11')
-        inoremap <buffer><expr> 2 smartchr#one_of('2', '"','22')
-        inoremap <buffer><expr> 3 smartchr#one_of('3', '#','33')
-        inoremap <buffer><expr> 4 smartchr#one_of('4', '$','44')
-        inoremap <buffer><expr> 5 smartchr#one_of('5', '%','55')
-        inoremap <buffer><expr> 6 smartchr#one_of('6', '&','66')
-        inoremap <buffer><expr> 7 smartchr#one_of('7', '\'','77')
-        inoremap <buffer><expr> 8 smartchr#one_of('8', '(','88')
-        inoremap <buffer><expr> 9 smartchr#one_of('9', ')','99')
-    endfunction
+" 記号入力メンドクセ イマイチ{{{
+function! MySmarcchr()
+    inoremap <buffer><expr> 1 smartchr#one_of('1', '!' ,'11')
+    inoremap <buffer><expr> 2 smartchr#one_of('2', '"','22')
+    inoremap <buffer><expr> 3 smartchr#one_of('3', '#','33')
+    inoremap <buffer><expr> 4 smartchr#one_of('4', '$','44')
+    inoremap <buffer><expr> 5 smartchr#one_of('5', '%','55')
+    inoremap <buffer><expr> 6 smartchr#one_of('6', '&','66')
+    inoremap <buffer><expr> 7 smartchr#one_of('7', '\'','77')
+    inoremap <buffer><expr> 8 smartchr#one_of('8', '(','88')
+    inoremap <buffer><expr> 9 smartchr#one_of('9', ')','99')
+endfunction
 
-    au MyAutoCmd FileType *.c call SmartCharForC()
-endif
+autocmd MyAutoCmd FileType c,cpp call SmartCharForC()
+" endif
 " }}}
 " }}}
 
@@ -508,12 +498,12 @@ try
     " Programごとの設定{{{
     " Markdown{{{
     " let g:quickrun_config['markdown']={
-                " \'type': 'markdown/pandoc',
-                " \'cmdopt' : '-s',
-                " \'command': 'bluecloth',
-                " \'exec': '%c -f %s', 
-                " \'outputter' : 'browser'
-                " \}
+    " \'type': 'markdown/pandoc',
+    " \'cmdopt' : '-s',
+    " \'command': 'bluecloth',
+    " \'exec': '%c -f %s', 
+    " \'outputter' : 'browser'
+    " \}
     let g:quickrun_config['markdown']={
                 \'outputter' : 'browser'
                 \}
@@ -559,18 +549,18 @@ try
                 \ 'command' : 'platex-utf8',
                 \ 'exec' : ['%c -output-directory %s:h %s' , 'dvipdfmx -o %s:r.pdf %s:r.dvi' , 'open %s:r.pdf']
                 \}
+    " }}}
+    " HTML{{{
+    let g:quickrun_config['html'] = {
+                \ "type" : "html",
+                \ "exec" : "open %s",
+                \ "outputter" : "browser",
+                \}
+
+    " }}}
 
 catch /E117/
 endtry
-" }}}
-" HTML{{{
-let g:quickrun_config['html'] = {
-            \ "type" : "html",
-            \ "exec" : "open %s",
-            \ "outputter" : "browser",
-            \}
-
-" }}}
 " }}}
 " unite.vimでquickrun_configの列挙 {{{
 " http://d.hatena.ne.jp/osyo-manga/20111012/1318377040 
@@ -589,12 +579,12 @@ function! s:action.func(candidates)
 endfunction
 call unite#custom_action('common',  'quickrun_compile_command',  s:action)
 unlet s:action
-let s:unite_source = {
+let s:unite_source_quickrun = {
             \ "name" : "quickrun-select", 
             \ "default_action" : "quickrun_compile_command"
             \}
 
-function! s:unite_source.gather_candidates(args, context)
+function! s:unite_source_quickrun.gather_candidates(args, context)
     let cmds = filter(deepcopy(g:quickrun_config), "exists('v:val.type') ? v:val.type == &filetype : 0")
     return sort(values(map(cmds,"{
                 \ 'word' : v:key, 
@@ -602,7 +592,7 @@ function! s:unite_source.gather_candidates(args, context)
                 \ 'kind' : 'common' , 
                 \ }")))
 endfunction
-call unite#define_source(s:unite_source)
+call unite#define_source(s:unite_source_quickrun)
 " unite.vimを呼び出すキーマップ
 nno <silent> <Leader>qr :Unite quickrun-select<CR>
 
@@ -611,25 +601,23 @@ nno <silent> <C-F7> :execute "QuickRun ".g:quickrun_compile_command[&filetype"]<
 " }}}
 " }}}
 
-" VimShell.vim{{{
-if exists(":Vimshell")
-    nmap <Leader>vs <SID>[vimshell]
-    nnoremap <SID>[vimshell] :VimShell<CR>
-    " nnoremap <SID>[vimshell]c :VimShellCreate<CR>
-    let g:vimshell_right_prompt = 'vimshell#vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
-    let g:vimshell_split_height = 10
-    let g:vimshell_disable_escape_highlight = 1
-endif 
+" vimshell.vim{{{
+nmap <Leader>vs <SID>[vimshell]
+nnoremap <SID>[vimshell] :VimShell<CR>
+" nnoremap <SID>[vimshell]c :VimShellCreate<CR>
+" let g:vimshell_prompt = 'vimshell#vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
+let g:vimshell_split_height = 10
+let g:vimshell_disable_escape_highlight = 1
 " }}}
 
 " taglist.vim{{{
-" ２個上のディレクトリ以下から再帰的に探す
-set tags=+../../**/tags
+set tags=./tags
+" set tags+=../../**/tags
 augroup TList
     autocmd!
     au BufEnter * nnoremap <F12> :Tlist<CR>z<CR>
 augroup END
-au MyAutoCmd BufEnter *.memo nnoremap <buffer> <F12> :<C-u>ToC<CR>
+autocmd MyAutoCmd BufEnter *.memo nnoremap <buffer> <F12> :<C-u>ToC<CR>
 " }}}
 
 " open-browser{{{
@@ -645,19 +633,35 @@ vnoremap <Leader>t :Tabularize /
 
 " vimfiler{{{
 let g:vimfiler_as_default_explorer=1
-nnoremap <Leader>vf :<C-u>silent! IP vimfiler<CR>:<C-u>VimFiler -split -simple -winwidth=35 -no-quit<CR>
+nnoremap <Leader>vf :<C-u>silent! NeoBundleSource vimfiler<CR>:<C-u>VimFiler -split  -winwidth=35 -no-quit<CR>
 " }}}
 
 " indent-Guides{{{
 if exists(":IndentGuidesEnable")
-    let g:indent_guides_enable_on_vim_startup=1
+    let g:indent_guides_enable_on_vim_startup=0
     let g:indent_guides_color_change_percent=30
     let g:indent_guides_guide_size=1
-    augroup IndentGuide
-        autocmd!
-        au BufRead,BufEnter * IndentGuidesEnable
-        au FileType help IndentGuidesDisable
-    augroup END
+    let g:fileIndentGuide=[
+                \ "c", 
+                \"cpp", 
+                \"java", 
+                \"perl", 
+                \"ruby", 
+                \"vim"
+                \]
+    for ft in g:fileIndentGuide
+        execute "augroup " . "MyIndentGuideEnable_" . ft
+        execute "autocmd!"
+        execute "autocmd FileType " . ft . " :IndentGuidesEnable"
+        execute "autocmd BufLeave *." . ft . " :IndentGuidesDisable"
+        execute "augroup END"
+    endfor
+    " augroup IndentGuide
+    " autocmd!
+    " au BufRead,BufEnter *.c,*,cpp,*.java IndentGuidesEnable
+    " au BufLeave *.c,*,cpp,*.java IndentGuidesDisable
+    " au FileType help IndentGuidesDisable
+    " augroup END
 endif
 " }}}
 
@@ -688,16 +692,14 @@ let g:Tex_CompileRule_pdf = 'dvipdfmx $*.dvi'
 " }}}
 
 " tweetvim{{{
-if exists("TweetVimSay")
-    nnoremap <silent> <SID>[unite]t :Unite tweetvim<CR>
-    nnoremap <silent> ,ts :TweetVimSay<CR>
-    if !exists('g:neocomplcache_dictionary_filetype_lists')
-        let g:neocomplcache_dictionary_filetype_lists={}
-    endif
-    let neco_dic = g:neocomplcache_dictionary_filetype_lists
-    let neco_dic.tweetvim_say = $HOME . '/.tweetvim/screen_name'
-    let g:tweetvim_include_rts = 1 "タイムラインにリツイートを含める
+nnoremap <silent> <SID>[unite]t :Unite tweetvim<CR>
+nnoremap <silent> ,ts :TweetVimSay<CR>
+if !exists('g:neocomplcache_dictionary_filetype_lists')
+    let g:neocomplcache_dictionary_filetype_lists={}
 endif
+let neco_dic = g:neocomplcache_dictionary_filetype_lists
+let neco_dic.tweetvim_say = $HOME . '/.tweetvim/screen_name'
+let g:tweetvim_include_rts = 1 "タイムラインにリツイートを含める
 " }}}
 
 " memolist.vim{{{
@@ -708,10 +710,6 @@ let g:memolist_memo_date = "epoch"
 let g:memolist_memo_date = "%D %T"
 " let g:memolist_prompt_tags = "true"
 " let g:memolist_prompt_categories = "true"
-" }}}
-
-" pathogen {{{
-" call pathogen#runtime_append_all_bundles()
 " }}}
 
 " vim-ipi {{{
@@ -727,7 +725,7 @@ filetype plugin indent on
 function! LazyLoading(ft)
     filetype plugin indent off
     for plugin_name in g:ll_plugins[a:ft]
-        execute "silent! IP " . plugin_name
+        execute "silent! NeoBundleSource " . plugin_name
     endfor
     filetype plugin indent on
     execute "autocmd! MyIPI_" . a:ft
@@ -786,21 +784,21 @@ if has('vim_starting') && s:ipi_loaded
     endif
 
     " lazy loading for vim-ref
-    nmap <silent> K :<C-u>silent! IP vim-ref<CR><Plug>(ref-keyword)
-    vmap <silent> K :<C-u>silent! IP vim-ref<CR><Plug>(ref-keyword)
+    nmap <silent> K :<C-u>silent! NeoBundleSource vim-ref<CR><Plug>(ref-keyword)
+    vmap <silent> K :<C-u>silent! NeoBundleSource vim-ref<CR><Plug>(ref-keyword)
     command! -nargs=+ Ref
-                \ execute 'silent! IP vim-ref'
+                \ execute 'silent! NeoBundleSource vim-ref'
                 \ | call ref#ref(<q-args>)
 
     " lazy loading for neocomplcache
     augroup MyInitNeocomplcache
         autocmd!
-        " autocmd InsertEnter * call Init_neocomplcache() | autocmd! MyInitNeocomplcache
+        autocmd InsertEnter * call Init_neocomplcache() | autocmd! MyInitNeocomplcache
     augroup END
 
     " lazy loading for vim-quickrun
     function! LoadQuickRun()
-        silent! IP vim-quickrun
+        silent! NeoBundleSource vim-quickrun
     endfunction
     map <silent> <Leader>r :<C-u>call LoadQuickRun()<CR>:<Plug>(quickrun)<CR>
     command! -nargs=* -range=0 QuickRun
@@ -812,8 +810,10 @@ endif
 
 " sequence {{{
 let g:loaded_sequence=1
-set t_Co=256
-let g:powerline_symbols='fancy'
+" }}}
+
+" powerline {{{
+let g:Powerline_symbols='fancy'
 " }}}
 
 " CCTree.vim:"{{{
@@ -837,7 +837,7 @@ if has("cscope")
     " add any cscope database in current directory
     if filereadable("cscope.out")
         cs add cscope.out
-    " else add the database pointed to by environment variable 
+        " else add the database pointed to by environment variable 
     elseif $CSCOPE_DB != ""
         cs add $CSCOPE_DB
     endif
@@ -890,37 +890,37 @@ endif
 " nmap <F8> :SrcExplToggle<CR>
 "                                                                              "
 " // Set the height of Source Explorer window                                  "
- let g:SrcExpl_winHeight = 8
+let g:SrcExpl_winHeight = 8
 "                                                                              "
 " // Set 100 ms for refreshing the Source Explorer                             "
- let g:SrcExpl_refreshTime = 100
+let g:SrcExpl_refreshTime = 100
 "                                                                              "
 " // Set "Enter" key to jump into the exact definition context                 "
- let g:SrcExpl_jumpKey = "<ENTER>"
+let g:SrcExpl_jumpKey = "<ENTER>"
 "                                                                              "
 " // Set "Space" key for back from the definition context                      "
- let g:SrcExpl_gobackKey = "<SPACE>"
+let g:SrcExpl_gobackKey = "<SPACE>"
 "                                                                              "
 " // In order to Avoid conflicts, the Source Explorer should know what plugins "
 " // are using buffers. And you need add their bufname into the list below     "
 " // according to the command ":buffers!"                                      "
- let g:SrcExpl_pluginList = [
-         \ "__Tag_List__",
-         \ "_NERD_tree_",
-         \ "Source_Explorer"
-     \ ]
+let g:SrcExpl_pluginList = [
+            \ "__Tag_List__",
+            \ "_NERD_tree_",
+            \ "Source_Explorer"
+            \ ]
 "                                                                              "
 " // Enable/Disable the local definition searching, and note that this is not  "
 " // guaranteed to work, the Source Explorer doesn't check the syntax for now. "
 " // It only searches for a match with the keyword according to command 'gd'   "
- let g:SrcExpl_searchLocalDef = 1
+let g:SrcExpl_searchLocalDef = 1
 "                                                                              "
 " // Do not let the Source Explorer update the tags file when opening          "
- let g:SrcExpl_isUpdateTags = 0
+let g:SrcExpl_isUpdateTags = 0
 "                                                                              "
 " // Use 'Exuberant Ctags' with '--sort=foldcase -R .' or '-L cscope.files' to "
 " //  create/update a tags file                                                "
- let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ."
+let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ."
 "                                                                              "
 " // Set "<F12>" key for updating the tags file artificially                   "
 " let g:SrcExpl_updateTagsKey = "<F12>"
@@ -936,24 +936,48 @@ nmap <Leader>gd :<C-u>Gtags -d <C-R>=expand("<cword>")<CR><CR>
 
 " ref.vim {{{
 " webdict
-let g:ref_source_webdict_sites = {
-            \ 'wikitionary' : {
-            \ 'url' : 'http://ja.wikitionary.org/wiki/%s',
-            \ 'keyword_encoding' : 'utf-8',
-            \ 'cache' : 1,
+let g:ref_source_webdict_sites ={
+            \ 'wikipedia:ja' : 'http://ja.wikipedia.org/wiki/%s',
             \}
-            \}
+" let g:ref_source_webdict_sites = {
+" \ 'wiktionary' : {
+" \ 'url' : 'http://ja.wiktionary.org/wiki/%s',
+" \ 'keyword_encoding' : 'utf-8',
+" \ 'cache' : 1,
+" \}
+" \}
 
 " 出力に対するフィルタ、最初の数行を削除
-function! g:ref_source_webdict_sites.wikitionary.filter(output)
-    return join(split(a:output,"\n")[18 :], "\n")
-endfunction
+" function! g:ref_source_webdict_sites.wiktionary.filter(output)
+" return join(split(a:output,"\n")[18 :], "\n")
+" endfunction
 
 
 " }}}
 
 " vimwiki {{{
-au MyAutoCmd FileType *.vimwiki  map <buffer> <leader>tt <Plug>VimwikiToggleListItem
+autocmd MyAutoCmd FileType vimwiki nnoremap <buffer> <leader>tt <Plug>VimwikiToggleListItem
 " }}}
+
+" exVim {{{
+let $EX_DEV = '~/exdev'
+" }}}
+
+" fontzoom.vim {{{
+function! MyPresenSetting()
+    map <buffer> + <Plug>(fontzoom-larger)
+    map <buffer> - <Plug>(fontzoom-smaller)
+    set wrap
+    set showbreak=
+endfunction
+
+function! MyShowTime()
+    ShowtimeStart
+    call MyPresenSetting()
+    IndentGuidesDisable
+endfunction
+
+" }}}
+
 "" ================================================================================ 
 " vim: set tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
