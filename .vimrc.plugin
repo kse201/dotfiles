@@ -1,9 +1,9 @@
-" Last Change: 15-Jun-2012.
+" Last Change: 16-Jun-2012.
 autocmd MyAutoCmd BufWritePost $MYVIMRCPLUGIN  source $MYVIMRC |
             \ if has('gui_running') |
             \ source $MYGVIMRC
 " vimproc.vim{{{
-if has('win32') 
+if has('win32') || has('win32unix')
     set shellslash
     let g:vimproc_dll_path = $VIMFILE_DIR . '/autoload/vimproc_win32.dll'
 elseif has('win64')
@@ -21,7 +21,7 @@ endif
 set nocompatible
 filetype off
 filetype plugin indent off
-if has('win32') || has('win64')
+if has('win32') || has('win64') || has('win32unix')
     set rtp+=~/vimfiles/bundle/neobundle.vim/
     " let $VIMRUNTIME = $VIM .'\vimfiles\bundle\vundle\'
     call neobundle#rc(expand('~/vimfiles/bundle'))
@@ -258,7 +258,7 @@ command! TermNeoComplCache call Term_neocomplcache()
 if has('gui_running')
     set viminfo+=!
     let g:yankring_max_history = 50
-    if has('win32') || has('win64')
+    if has('win32') || has('win64') || has('win32unix')
         let g:yankring_history_dir = '$HOME\_vimbackup'
     else
         let g:yankring_history_dir = '$HOME/.vimbackup'
@@ -347,7 +347,7 @@ call unite#set_substitute_pattern('file', '^;r', '\=$VIMRUNTIME."/"')
 call unite#set_substitute_pattern('file', '^\~', escape($HOME, '\'), -2)
 call unite#set_substitute_pattern('file', '\\\@<! ', '\\ ', -20)
 call unite#set_substitute_pattern('file', '\\ \@!', '/', -30)
-if has('win32') || has('win64')
+if has('win32') || has('win64') || has('win32unix')
     call unite#set_substitute_pattern('file', '^;p', 'C:\Program Files\')
     call unite#set_substitute_pattern('file', '^;v', '~/vimfiles/')
 else

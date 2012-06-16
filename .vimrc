@@ -1,11 +1,11 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 15-Jun-2012.                 |
+"                 Last Change: 16-Jun-2012.                 |
 "============================================================
 
 " 基礎的な設定 {{{
 " OS毎の各種ディレクトリの設定{{{
-if has('win32') || has('win64')
+if has('win32') || has('win64') || has('win32unix')
     let $VIMFILE_DIR = $HOME . '/vimfiles'
     let $DROPBOX_DIR = $HOME . '\Documents\My Dropbox'
     set backupdir=$HOME/_vimbackup
