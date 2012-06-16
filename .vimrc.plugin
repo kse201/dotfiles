@@ -71,7 +71,7 @@ NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'tacroe/unite-mark'
 NeoBundle 'thinca/vim-unite-history'
 NeoBundle 'unite-colorscheme'
-NeoBundle 'choplin/unite-vim_hacks'
+" NeoBundle 'choplin/unite-vim_hacks'
 NeoBundle 'ujihisa/unite-font'
 " }}}
 " テキスト整形 {{{
