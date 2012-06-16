@@ -404,9 +404,11 @@ nnoremap k gk
 nnoremap + <C-w>+
 nnoremap - <C-w>-
 " }}}
-" (,)で縦サイズ変更
-noremap ( :vertical resize winwidth(0)+1<CR>
-noremap ) :vertical resize winwidth(0)-1<CR>
+
+" (,)で縦サイズ変更 {{{
+noremap <silent> ( :vertical resize +1<CR>
+noremap <silent> ) :vertical resize -1<CR>
+" }}}
 
 " kana's useful tab function {{{
 function! s:move_window_into_tab_page(target_tabpagenr)
@@ -466,30 +468,23 @@ cnoremap <expr> <Leader>date strftime('%Y%m%d')
 cnoremap <expr> <Leader>time strftime('%Y%m%d%H%M')
 " }}}
 
-" }}}
+" ウィンドウ移動簡略化 & サイズ調整{{{
+nnoremap <silent> <C-j> <C-w>j:call <SID>good_height()<CR>
+nnoremap <silent> <C-k> <C-w>k:call <SID>good_height()<CR>
+nnoremap <silent> <C-h> <C-w>h:call <SID>good_width()<CR>
+nnoremap <silent> <C-l> <C-w>l:call <SID>good_width()<CR>
 
-" 検索周辺{{{
+function! s:good_width()
+    if winwidth(0) < 44
+        vertical resize 44
+    endif
+endfunction
 
-" 検索移動を見やすく{{{
-nnoremap n nzz
-nnoremap N Nzz
-nnoremap * *zz
-nnoremap # #zz
-nnoremap g* g*zz
-nnoremap g# g#zz
-nnoremap G Gzz
-" }}}
-
-" <ESC> 関連 {{{
-" IME
-inoremap <silent> <ESC> <ESC>:set iminsert=0<CR>
-" <ESC> or <C-c> key reset Highlight
-nnoremap <silent> <ESC> <ESC>:<C-u>nohlsearch<CR>:<C-u>set iminsert=0<CR>
-" }}}
-
-" help{{{
-nnoremap <C-i><Space> :<C-u>h<Space>
-nnoremap <C-i><C-i> :<C-u>h<Space><C-r><C-w><Enter>
+function! s:good_height()
+    if winheight(0) < 10
+        resize 10
+    endif
+endfunction
 " }}}
 
 nnoremap R gR
@@ -535,25 +530,6 @@ cnoremap <C-a> <Home>
 inoremap <C-a> <Home>
 cnoremap <C-e> <End>
 inoremap <C-h> <Backspace>
-" }}}
-
-" ウィンドウ移動簡略化 & サイズ調整{{{
-nnoremap <C-j> <C-w>j:call <SID>good_height()<CR>
-nnoremap <C-k> <C-w>k:call <SID>good_height()<CR>
-nnoremap <C-h> <C-w>h:call <SID>good_width()<CR>
-nnoremap <C-l> <C-w>l:call <SID>good_width()<CR>
-
-function! s:good_width()
-    if winwidth(0) < 44
-        vertical resize 44
-    endif
-endfunction
-
-function! s:good_height()
-    if winheight(0) < 10
-        resize 10
-    endif
-endfunction
 " }}}
 
 " Emacsに倣ったウィンドウ操作{{{
@@ -610,6 +586,31 @@ vnoremap < <gv
 nnoremap <Leader>do   Vy:@"<Enter>
 vnoremap <Leader>eval y:@"<Enter>
 nnoremap <C-x><C-e> Vy:@"<Enter>
+" }}}
+" }}}
+
+" 検索周辺{{{
+
+" 検索移動を見やすく{{{
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap * *zz
+nnoremap # #zz
+nnoremap g* g*zz
+nnoremap g# g#zz
+nnoremap G Gzz
+" }}}
+
+" <ESC> 関連 {{{
+" IME
+inoremap <silent> <ESC> <ESC>:set iminsert=0<CR>
+" <ESC> or <C-c> key reset Highlight
+nnoremap <silent> <ESC> <ESC>:<C-u>nohlsearch<CR>:<C-u>set iminsert=0<CR>
+" }}}
+
+" help{{{
+nnoremap <C-i><Space> :<C-u>h<Space>
+nnoremap <C-i><C-i> :<C-u>h<Space><C-r><C-w><Enter>
 " }}}
 
 " }}}
