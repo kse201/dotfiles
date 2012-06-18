@@ -1,18 +1,20 @@
-" Last Change: 16-Jun-2012.
+" Last Change: 18-Jun-2012.
 autocmd MyAutoCmd BufWritePost $MYVIMRCPLUGIN  source $MYVIMRC |
             \ if has('gui_running') |
             \ source $MYGVIMRC
 " vimproc.vim{{{
-if has('win32') || has('win32unix')
-    set shellslash
-    let g:vimproc_dll_path = $VIMFILE_DIR . '/autoload/vimproc_win32.dll'
-elseif has('win64')
+if has('win64')
     set shellslash
     let g:vimproc_dll_path = $VIMFILE_DIR . '/autoload/vimproc_win64.dll'
+elseif has('win32')
+    set shellslash
+    let g:vimproc_dll_path = $VIMFILE_DIR . '/autoload/vimproc_win32.dll'
+elseif has('win32unix')
+    set shellslash
+    let g:vimproc_dll_path = $VIMFILE_DIR . '/bundle/vimproc/autoload/vimproc_cygwin.dll'
 elseif has('mac')
     let g:vimproc_dll_path = $VIMFILE_DIR . '/bundle/vimproc/autoload/vimproc_mac.so'
 else
-    " let g:vimproc_dll_path = $VIMFILE_DIR . '/bundle/vimproc/autoload/proc.dll'
     let g:vimproc_dll_path = $VIMFILE_DIR . '/bundle/vimproc/autoload/vimproc_mac.so'
 endif
 " }}}
