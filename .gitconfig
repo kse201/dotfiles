@@ -10,3 +10,5 @@
 [user]
     name = kse201
     email = kse.201@gmail.com
+[core]
+	excludesfile = /Users/sekeikai/.gitignore

@@ -13,3 +13,6 @@
 !/.emacs.d
 !/.screenrc
 /.vim/bundle
+
+doc/tags
+doc/tags-ja

@@ -87,3 +87,5 @@ alias spvim='vim -u NONE'
 [[ $EMACS = t ]] && unsetopt zle
 
 zstyle ':completion:*:default' menu select=1
+
+alias gst="git status "
