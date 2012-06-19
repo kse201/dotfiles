@@ -5,8 +5,8 @@ export LESSCHARSET=utf-8
 
 #履歴
 HISTFILE=$HOME/.zsh_history
-HISTSIZE=100000
-SAVEHIST=100000
+HISTSIZE=1000000
+SAVEHIST=1000000
 setopt hist_reduce_blanks #スペース排除
 setopt EXTENDED_HISTORY #zshの開始終了を記録
 
