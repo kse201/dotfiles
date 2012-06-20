@@ -1,4 +1,4 @@
-" Last Change: 18-Jun-2012.
+" Last Change: 20-Jun-2012.
 autocmd MyAutoCmd BufWritePost $MYVIMRCPLUGIN  source $MYVIMRC |
             \ if has('gui_running') |
             \ source $MYGVIMRC
@@ -700,6 +700,8 @@ let g:Tex_CompileRule_pdf = 'dvipdfmx $*.dvi'
 " tweetvim{{{
 nnoremap <silent> <SID>[unite]t :Unite tweetvim<CR>
 nnoremap <silent> ,ts :TweetVimSay<CR>
+nnoremap <silent> ,tv :TweetVimSearch vim<CR>
+nnoremap <silent> ,tvj :TweetVimSearch vim lang:ja<CR>
 if !exists('g:neocomplcache_dictionary_filetype_lists')
     let g:neocomplcache_dictionary_filetype_lists={}
 endif
