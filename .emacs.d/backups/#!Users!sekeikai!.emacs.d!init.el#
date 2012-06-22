@@ -1,0 +1,16 @@
+
+;; M-g でM-x goto-line
+(global-set-key (kbd "M-g") 'goto-line)
+
+;; 同一ファイル名のバッファ名にはディレクトを表示
+(when (require 'uniquify nil t)
+  (setq uniquify-buffer-name-style 'post-forward-angle-brackets))
+
+;; C-x C-f時に、カーソル付近のファイル名orURLをミニバッファに持ってくる
+(ffap-bindings)
+
+;; yasnippet.el
+;(when (require 'yasnippet-config nil t)
+ ; (yas/setup "~/.emacs.d/elisp/yasnippet-0.6.1c"))
+
+(require 'summarye)

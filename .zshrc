@@ -1,3 +1,4 @@
+export EDITOR=vim
 export PATH=$PATH:~/myshellscript:/opt/local/:~/local/bin/:~/git-tasukete/
 #LANG
 export LANG=ja_JP.UTF-8
@@ -9,6 +10,8 @@ HISTSIZE=1000000
 SAVEHIST=1000000
 setopt hist_reduce_blanks #スペース排除
 setopt EXTENDED_HISTORY #zshの開始終了を記録
+unsetopt hist_verify # ヒストリを呼び出してから実行する間いｎ一旦編集可能を止める
+setopt hist_expand # 補完時にヒストリを自動的に展開 
 
 #補完機能の強化
 autoload -U compinit
@@ -53,6 +56,7 @@ setopt auto_cd
 # cdの履歴を表示
 setopt auto_pushd
 setopt pushd_ignore_dups #同ディレクトリを履歴に追加しない
+setopt pushd_minus
 
 # スペルチェック
 setopt auto_param_keys
@@ -89,3 +93,35 @@ alias spvim='vim -u NONE'
 zstyle ':completion:*:default' menu select=1
 
 alias gst="git status "
+
+# 単語区切り記号
+WORDCHARS='*?_-.[]~=&;!#S%^(){}<>'
+
+# less オプションを環境変数で指定する
+export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-if-one-screen --RAW-CONTROL-CHARS'
+
+# カレントディレクトリ内にサブディレクトリがない場合にcdが検索するディレクトリのリスト
+cdpath=($HOME)
+
+# 複数行入力時のプロンプト
+PROMPT2="%_%%"
+#入力ミス確認時のプロンプト
+SPROMPT="correct> %R -> %r [n,y,a,e]?"
+
+# サスペンド中のプロセスと同じコマンド名を実行した場合はリジュームする
+setopt auto_resume
+# C-d でログアウトしない
+setopt ignore_eof
+# コマンドのスペルチェックをする
+setopt correct
+# 補完候補が複数ある場合、一覧表示せず、すぐ最初の候補を補完する
+# vimshell 上で邪魔なので無効化
+setopt no_menu_complete
+# 補完候補の表示を水平方向に
+setopt list_rows_first
+#  コピペ時rpromptを非表示にする
+setopt transient_rprompt
+# 括弧の対応を自動補完
+setopt auto_param_keys
+# 補完される前にオリジナルのコマンドまで展開してチェックされる
+setopt complete_aliases

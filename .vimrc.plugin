@@ -1,4 +1,4 @@
-" Last Change: 20-Jun-2012.
+" Last Change: 22-Jun-2012.
 autocmd MyAutoCmd BufWritePost $MYVIMRCPLUGIN  source $MYVIMRC |
             \ if has('gui_running') |
             \ source $MYGVIMRC
@@ -142,6 +142,8 @@ NeoBundle 'TeTrIs.vim'
 NeoBundle 'sudoku_game'
 NeoBundle 'mfumi/viminesweeper'
 NeoBundle 'mfumi/snake.vim'
+NeoBundle 'daisuzu/facebook.vim'
+NeoBundle 'facebook/fbconsole'
 filetype plugin indent on
 syntax on
 " }}}
@@ -379,61 +381,64 @@ call unite#define_source(s:unite_source_shortcut)
 
 " smartchr.vim{{{
 " コマンドモード時のエスケープ入力補助
-cnoremap <expr> /
-            \ getcmdtype()=='/' ? '\/' : '/'
-cnoremap <Leader>/ /
-" cnoremap <expr> / search('.*/\%#', 'bcn')? '/' : smartchr#one_of('/', '\/')
-" if filereadable(expand($VIMFILES_DIR . '/bundle/vim-smartchr/autoload/smartchr.vim'))
-cnoremap <expr> <  smartchr#one_of('<', '\<')
-cnoremap <expr> >  smartchr#one_of('>', '\>')
-cnoremap <expr> \  smartchr#one_of('\', '\' , '\\')
-cnoremap <expr> (  smartchr#one_of('(' , '\(')
-cnoremap <expr> )  smartchr#one_of(')' , '\)')
-cnoremap <expr> %  smartchr#one_of('%' , '\%')
 
-" 参考:http://d.hatena.ne.jp/ampmmn/20080925/1222338972
-" 演算子記号の前後に空白を入れるなど
-" (多分)C/C++コーディング用
-function! SmartCharForC()
-    "四則演算
-    inoremap <buffer><expr> + smartchr#loop(' + ', '++')
-    inoremap <buffer><expr> - smartchr#loop(' - ', '--')
-    inoremap <buffer><expr> * smartchr#loop(' * ', '**')
-    inoremap <buffer><expr> / smartchr#loop(' / ', '//')
+if exists("*smartchr#one_of")
+    cnoremap <expr> /
+                \ getcmdtype()=='/' ? '\/' : '/'
+    cnoremap <Leader>/ /
+    " cnoremap <expr> / search('.*/\%#', 'bcn')? '/' : smartchr#one_of('/', '\/')
+    " if filereadable(expand($VIMFILES_DIR . '/bundle/vim-smartchr/autoload/smartchr.vim'))
+    cnoremap <expr> <  smartchr#one_of('<', '\<')
+    cnoremap <expr> >  smartchr#one_of('>', '\>')
+    cnoremap <expr> \  smartchr#one_of('\', '\' , '\\')
+    cnoremap <expr> (  smartchr#one_of('(' , '\(')
+    cnoremap <expr> )  smartchr#one_of(')' , '\)')
+    cnoremap <expr> %  smartchr#one_of('%' , '\%')
 
-    " =の場合、単純な代入や比較演算子として入力する場合は前後にスペースをいれる。
-    " 複合演算代入としての入力の場合は、直前のスペースを削除して=を入力
-    inoremap <buffer><expr> = search('\(&\<bar><bar>\<bar>+\<bar>-\<bar>/\<bar>>\<bar><\<bar>*\<bar>\) \%#', 'bcn')? '<bs>= '
-                \ : smartchr#loop(' = ', ' == ', '=')
-    inoremap <buffer><expr> < search('^#include\%#', 'bcn')? ' <><Left>': smartchr#loop('<', ' < ', ' << ' , '')
-    inoremap <buffer><expr> > search('^#include <.*\%#', 'bcn')? '>': smartchr#loop('>', ' > ', ' >> ')
+    " 参考:http://d.hatena.ne.jp/ampmmn/20080925/1222338972
+    " 演算子記号の前後に空白を入れるなど
+    " (多分)C/C++コーディング用
+    function! SmartCharForC()
+        "四則演算
+        inoremap <buffer><expr> + smartchr#loop(' + ', '++')
+        inoremap <buffer><expr> - smartchr#loop(' - ', '--')
+        inoremap <buffer><expr> * smartchr#loop(' * ', '**')
+        inoremap <buffer><expr> / smartchr#loop(' / ', '//')
 
-    inoremap <buffer><expr> " search('^#include\%#', 'bcn')? ' ""<Left>': smartchr#loop('"', ' " ')
-    inoremap <buffer><expr> " search('^#include ".*\%#', 'bcn')? '"': smartchr#loop('"', ' " ',)
+        " =の場合、単純な代入や比較演算子として入力する場合は前後にスペースをいれる。
+        " 複合演算代入としての入力の場合は、直前のスペースを削除して=を入力
+        inoremap <buffer><expr> = search('\(&\<bar><bar>\<bar>+\<bar>-\<bar>/\<bar>>\<bar><\<bar>*\<bar>\) \%#', 'bcn')? '<bs>= '
+                    \ : smartchr#loop(' = ', ' == ', '=')
+        inoremap <buffer><expr> < search('^#include\%#', 'bcn')? ' <><Left>': smartchr#loop('<', ' < ', ' << ' , '')
+        inoremap <buffer><expr> > search('^#include <.*\%#', 'bcn')? '>': smartchr#loop('>', ' > ', ' >> ')
 
-    inoremap <buffer><expr> , smartchr#loop(', ', ',')
-    "inoremap <buffer><expr> / smartchr#loop('/', ' / ', '//')
-    " *はポインタで使うので、空白はいれない
-    inoremap <buffer><expr> & smartchr#loop('&', ' & ', ' && ')
-    inoremap <buffer><expr> % smartchr#loop('%', ' % ')
-    inoremap <buffer><expr> <Bar> smartchr#loop(' <Bar> ', ' <Bar><Bar> ', '<Bar>')
-    " 3項演算子の場合は、後ろのみ空白を入れる
-    inoremap <buffer><expr> ? smartchr#loop('?', '? ')
-    inoremap <buffer><expr> : smartchr#loop(':', '::', ': ')
+        inoremap <buffer><expr> " search('^#include\%#', 'bcn')? ' ""<Left>': smartchr#loop('"', ' " ')
+        inoremap <buffer><expr> " search('^#include ".*\%#', 'bcn')? '"': smartchr#loop('"', ' " ',)
 
-    " 下記の文字は連続して現れることがまれなので、二回続けて入力したら改行する
-    "inoremap <buffer><expr> } smartchr#one_of('}', '}<CR>')
-    "inoremap <buffer><expr> ; smartchr#one_of(';', ';<CR>')
-    " 「->」は入力しづらいので、..で置換え
-    inoremap <buffer><expr> . smartchr#loop('.', '->', '...')
-    " 行先頭での@入力で、プリプロセス命令文を入力
-    inoremap <buffer><expr> @ search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('#define', '#include', '#ifdef', '#endif', '@'): '@'
-    inoremap <buffer><expr> # search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('#define', '#include', '#ifdef', '#endif', '#'): '#'
+        inoremap <buffer><expr> , smartchr#loop(', ', ',')
+        "inoremap <buffer><expr> / smartchr#loop('/', ' / ', '//')
+        " *はポインタで使うので、空白はいれない
+        inoremap <buffer><expr> & smartchr#loop('&', ' & ', ' && ')
+        inoremap <buffer><expr> % smartchr#loop('%', ' % ')
+        inoremap <buffer><expr> <Bar> smartchr#loop(' <Bar> ', ' <Bar><Bar> ', '<Bar>')
+        " 3項演算子の場合は、後ろのみ空白を入れる
+        inoremap <buffer><expr> ? smartchr#loop('?', '? ')
+        inoremap <buffer><expr> : smartchr#loop(':', '::', ': ')
 
-    inoremap <buffer><expr> " search('^#include\%#', 'bcn')? ' ""<Left>"': '""<Left>'
-    " if文直後の(は自動で間に空白を入れる
-    inoremap <buffer><expr> ( search('\<\if\%#', 'bcn')? ' ()<Left>': '()<Left>'
-endfunction
+        " 下記の文字は連続して現れることがまれなので、二回続けて入力したら改行する
+        "inoremap <buffer><expr> } smartchr#one_of('}', '}<CR>')
+        "inoremap <buffer><expr> ; smartchr#one_of(';', ';<CR>')
+        " 「->」は入力しづらいので、..で置換え
+        inoremap <buffer><expr> . smartchr#loop('.', '->', '...')
+        " 行先頭での@入力で、プリプロセス命令文を入力
+        inoremap <buffer><expr> @ search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('#define', '#include', '#ifdef', '#endif', '@'): '@'
+        inoremap <buffer><expr> # search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('#define', '#include', '#ifdef', '#endif', '#'): '#'
+
+        inoremap <buffer><expr> " search('^#include\%#', 'bcn')? ' ""<Left>"': '""<Left>'
+        " if文直後の(は自動で間に空白を入れる
+        inoremap <buffer><expr> ( search('\<\if\%#', 'bcn')? ' ()<Left>': '()<Left>'
+    endfunction
+endif
 
 " Objective-C用(未完)
 function! SmartCharForObjc()
@@ -668,6 +673,7 @@ if exists(":IndentGuidesEnable")
     " au BufLeave *.c,*,cpp,*.java IndentGuidesDisable
     " au FileType help IndentGuidesDisable
     " augroup END
+    au MyAutoCmd FileType help IndentGuidesDisable
 endif
 " }}}
 
@@ -992,20 +998,20 @@ endfunction
 let s:unite_source = {'name': 'neco'}
 
 function! s:unite_source.gather_candidates(args, context)
-  let necos = [
-        \ "~(-'_'-) goes right",
-        \ "~(-'_'-) goes right and left",
-        \ "~(-'_'-) goes right quickly",
-        \ "~(-'_'-) goes right then smile",
-        \ "~(-'_'-)  -8(*'_'*) go right and left",
-        \ "(=' .' ) ~w",
-        \ ]
-  return map(necos, '{
-        \ "word": v:val,
-        \ "source": "neco",
-        \ "kind": "command",
-        \ "action__command": "Neco " . v:key,
-        \ }')
+    let necos = [
+                \ "~(-'_'-) goes right",
+                \ "~(-'_'-) goes right and left",
+                \ "~(-'_'-) goes right quickly",
+                \ "~(-'_'-) goes right then smile",
+                \ "~(-'_'-)  -8(*'_'*) go right and left",
+                \ "(=' .' ) ~w",
+                \ ]
+    return map(necos, '{
+                \ "word": v:val,
+                \ "source": "neco",
+                \ "kind": "command",
+                \ "action__command": "Neco " . v:key,
+                \ }')
 endfunction
 
 "function! unite#sources#locate#define()
