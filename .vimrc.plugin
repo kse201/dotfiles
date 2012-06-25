@@ -1,4 +1,4 @@
-" Last Change: 22-Jun-2012.
+" Last Change: 23-Jun-2012.
 autocmd MyAutoCmd BufWritePost $MYVIMRCPLUGIN  source $MYVIMRC |
             \ if has('gui_running') |
             \ source $MYGVIMRC
@@ -382,7 +382,6 @@ call unite#define_source(s:unite_source_shortcut)
 " smartchr.vim{{{
 " コマンドモード時のエスケープ入力補助
 
-if exists("*smartchr#one_of")
     cnoremap <expr> /
                 \ getcmdtype()=='/' ? '\/' : '/'
     cnoremap <Leader>/ /
@@ -438,7 +437,6 @@ if exists("*smartchr#one_of")
         " if文直後の(は自動で間に空白を入れる
         inoremap <buffer><expr> ( search('\<\if\%#', 'bcn')? ' ()<Left>': '()<Left>'
     endfunction
-endif
 
 " Objective-C用(未完)
 function! SmartCharForObjc()

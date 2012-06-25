@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 22-Jun-2012.                 |
+"                 Last Change: 24-Jun-2012.                 |
 "============================================================
 
 " 基礎的な設定 {{{
@@ -267,9 +267,9 @@ augroup vimrc-auto-cursorline
 augroup END
 " }}}
 
-" 全角スペースを可視化{{{
+" 全角や行末スペースを可視化{{{
 if has('syntax')
-    augroup ZenkakuSpace
+    augroup SpaceHilights
         autocmd!
         autocmd VimEnter,WinEnter,BufEnter * match ZenkakuSpace /　/
         if has('gui_running')
@@ -278,6 +278,8 @@ if has('syntax')
             highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=#666666
         endif
         " autocmd BufNewFile,BufRead * match ZenkakuSpace /　/
+        autocmd ColorScheme * highlight link TrailingSpaces Error
+        autocmd Syntax + syntax match TrailingSpaces containedin=ALL /\s\+$/
     augroup END
 endif
 " }}}
