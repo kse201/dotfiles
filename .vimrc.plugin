@@ -1,4 +1,4 @@
-" Last Change: 23-Jun-2012.
+" Last Change: 29-Jun-2012.
 autocmd MyAutoCmd BufWritePost $MYVIMRCPLUGIN  source $MYVIMRC |
             \ if has('gui_running') |
             \ source $MYGVIMRC
@@ -52,6 +52,7 @@ NeoBundle 'vim-jp/vimdoc-ja.git'
 NeoBundle 'neocomplcache'
 NeoBundle 'Shougo/neocomplcache-snippets-complete'
 NeoBundle 'Shougo/neocomplcache-clang'
+NeoBundle 'Shougo/neocomplcache-clang_complete'
 NeoBundle 'clang-complete'
 " }}}
 " ファイラ {{{
@@ -75,6 +76,10 @@ NeoBundle 'thinca/vim-unite-history'
 NeoBundle 'unite-colorscheme'
 " NeoBundle 'choplin/unite-vim_hacks'
 NeoBundle 'ujihisa/unite-font'
+NeoBundle 'Shougo/unite-build'
+NeoBundleLazy 'sgur/unite-everything'
+NeoBundle 'zhaocai/unite-scriptnames'
+NeoBundle 'h1mesuke/vim-alignta'
 " }}}
 " テキスト整形 {{{
 NeoBundle 'godlygeek/tabular'
@@ -96,6 +101,7 @@ NeoBundle 'open-browser.vim'
 " NeoBundle 'YankRing.vim'
 NeoBundle 'SingleCompile'
 NeoBundleLazy 'taglist.vim'
+NeoBundleLazy 'TagHighlight'
 NeoBundleLazy 'mbadran/headlights'
 NeoBundle 'thinca/vim-prettyprint'
 NeoBundle 'thinca/vim-editvar'
@@ -103,6 +109,10 @@ NeoBundle 'thinca/vim-showtime'
 NeoBundle 'thinca/vim-fontzoom'
 " NeoBundle 'vim-scripts/ttoc'
 NeoBundleLazy 'exVim'
+NeoBundle 'MultipleSearch'
+NeoBundle 'Shougo/vinarise'
+NeoBundle  'thinca/vim-ambicmd'
+NeoBundle 'csv.vim'
 " }}}
 " C / C++ {{{
 NeoBundleLazy 'vim-scripts/Source-Explorer-srcexpl.vim'
@@ -144,6 +154,7 @@ NeoBundle 'mfumi/viminesweeper'
 NeoBundle 'mfumi/snake.vim'
 NeoBundle 'daisuzu/facebook.vim'
 NeoBundle 'facebook/fbconsole'
+NeoBundle 'myusuf3/numbers.vim'
 filetype plugin indent on
 syntax on
 " }}}
@@ -748,6 +759,7 @@ endfunction
 let g:ll_plugins={}
 let g:ll_plugins['c'] = [
             \ 'taglist.vim',
+            \ 'TagHihglight',
             \ 'Source-Explorer-srcexpl.vim',
             \ 'CCTree' ,
             \ 'trinity.vim' , 
@@ -759,6 +771,7 @@ let g:ll_plugins['c'] = [
 
 let g:ll_plugins['cpp'] = [
             \ 'taglist.vim',
+            \ 'TagHihglight',
             \ 'Source-Explorer-srcexpl.vim',
             \ 'trinity.vim' , 
             \ 'cscope-menu',
@@ -769,6 +782,7 @@ let g:ll_plugins['cpp'] = [
 
 let g:ll_plugins['java'] = [
             \ 'taglist.vim',
+            \ 'TagHihglight',
             \ 'Source-Explorer-srcexpl.vim',
             \ 'trinity.vim' 
             \ ]
@@ -1018,6 +1032,9 @@ endfunction
 call unite#define_source(s:unite_source)
 unlet s:unite_source
 
+if has('win32') || has('win64')
+    NeoBundleSource 'unite-everything'
+endif
 
 " }}}
 "" ================================================================================ 

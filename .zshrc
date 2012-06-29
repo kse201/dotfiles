@@ -98,7 +98,7 @@ alias gst="git status "
 WORDCHARS='*?_-.[]~=&;!#S%^(){}<>'
 
 # less オプションを環境変数で指定する
-export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-if-one-screen --RAW-CONTROL-CHARS'
+# export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-if-one-screen --RAW-CONTROL-CHARS'
 
 # カレントディレクトリ内にサブディレクトリがない場合にcdが検索するディレクトリのリスト
 cdpath=($HOME)
