@@ -125,3 +125,12 @@ setopt transient_rprompt
 setopt auto_param_keys
 # 補完される前にオリジナルのコマンドまで展開してチェックされる
 setopt complete_aliases
+
+# z 
+_Z_CMD=j
+source ~/z/z.sh
+function premod() {
+    z --add "$(pwd -P)"
+}
+
+source ~/auto-fu.zsh/auto-fu.zsh

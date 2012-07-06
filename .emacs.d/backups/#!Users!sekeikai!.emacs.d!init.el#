@@ -1,3 +1,31 @@
+;; auto-instlalによってインストールされるEmacs Lispをロードパスに加える
+;; デフォルトは、~/.emacs.d/auto-install/
+(add-to-list 'load-path "~/.emacs.d/auto-install/")
+(add-to-list 'load-path "~/.emacs.d/elisp/")
+
+(when (require 'auto-install nil t)
+  (setq auto-install-directory "~/.emacs.d/elisp/")
+  (auto-install-update-emacswiki-package-name t)
+  ;; proxy setting
+  ;;  (setq url-proxy-services '(("http" . "172.16.1.1:3128")))
+  (auto-install-compatibility-setup))
+;; 起動時にEmacsWikiのページ名を補完候補に加える
+(auto-install-update-emacswiki-package-name t)
+;; install-elisp.el互換モードにする
+(auto-install-compatibility-setup)
+;; package.el
+(when (require 'package nil t) 
+  ;; バッケージリポジトリにMarmaladeと開発者運営のELPAを追加
+  (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/")) 
+  (add-to-list 'package-archives '("ELPA" . "http://tromey.com/elpa/"))
+  (package-initialize))
+;; ediff関連のバッファを1つのフレームにまとめる
+(setq ediff-window-setup-function 'ediff-setup-windows-plain)
+;; 現在行に色をつける
+(global-hl-line-mode 1)
+;; 履歴を次回Emacs起動時にも保存する
+(savehist-mode 1)
+(require 'saveplace )
 ;; <C-h>を後退に割り当てる
 (global-set-key (kbd "C-h") 'delete-backward-char)
 ;; モードラインに時刻を表示する
@@ -261,7 +289,7 @@
 (require 'gtags nil t)
 
 ;; multi-term
-;;(when (require 'multi-term nil t)       
+ ;;(when (require 'multi-term nil t)       
 ;;  (setq multi-term-program "/bin/zsh"))
 
 ;; multi-shell
@@ -321,9 +349,9 @@ static char * arrow_right[] = {
 \"..          \",
 \".           \"};"  color1 color2))
 
-  (defun arrow-left-xpm (color1 color2)
-    "Return an XPM right arrow string representing."
-    (format "/* XPM */
+(defun arrow-left-xpm (color1 color2)
+  "Return an XPM right arrow string representing."
+  (format "/* XPM */
 static char * arrow_right[] = {
 \"12 18 2 1\",
 \".	c %s\",
@@ -348,47 +376,47 @@ static char * arrow_right[] = {
 \"           .\"};"  color2 color1))
 
 
-  (defconst color1 "#999")
-  (defconst color2 "#555")
+(defconst color1 "#999")
+(defconst color2 "#555")
 
-  (defvar arrow-right-1 (create-image (arrow-right-xpm color1 color2) 'xpm t :ascent 'center))
-  (defvar arrow-right-2 (create-image (arrow-right-xpm color2 "None") 'xpm t :ascent 'center))
-  (defvar arrow-left-1  (create-image (arrow-left-xpm color2 color1) 'xpm t :ascent 'center))
-  (defvar arrow-left-2  (create-image (arrow-left-xpm "None" color2) 'xpm t :ascent 'center))
+(defvar arrow-right-1 (create-image (arrow-right-xpm color1 color2) 'xpm t :ascent 'center))
+(defvar arrow-right-2 (create-image (arrow-right-xpm color2 "None") 'xpm t :ascent 'center))
+(defvar arrow-left-1  (create-image (arrow-left-xpm color2 color1) 'xpm t :ascent 'center))
+(defvar arrow-left-2  (create-image (arrow-left-xpm "None" color2) 'xpm t :ascent 'center))
 
-  (setq-default mode-line-format
-                (list  '(:eval (concat (propertize " %b " 'face 'mode-line-color-1)
-                                       (propertize " " 'display arrow-right-1)))
-                       '(:eval (concat (propertize " %m " 'face 'mode-line-color-2)
-                                       (propertize " " 'display arrow-right-2)))
-                       
-                       ;; Justify right by filling with spaces to right fringe - 16
-                       ;; (16 should be computed rahter than hardcoded)
-                       '(:eval (propertize " " 'display '((space :align-to (- right-fringe 17)))))
+(setq-default mode-line-format
+			  (list  '(:eval (concat (propertize " %b " 'face 'mode-line-color-1)
+									 (propertize " " 'display arrow-right-1)))
+					 '(:eval (concat (propertize " %m " 'face 'mode-line-color-2)
+									 (propertize " " 'display arrow-right-2)))
+					 
+					 ;; Justify right by filling with spaces to right fringe - 16
+					 ;; (16 should be computed rahter than hardcoded)
+					 '(:eval (propertize " " 'display '((space :align-to (- right-fringe 17)))))
 
-                       '(:eval (concat (propertize " " 'display arrow-left-2)
-                                       (propertize " %p " 'face 'mode-line-color-2)))
-                       '(:eval (concat (propertize " " 'display arrow-left-1)
-                                       (propertize "%4l:%2c  " 'face 'mode-line-color-1)))
-                       )) 
+					 '(:eval (concat (propertize " " 'display arrow-left-2)
+									 (propertize " %p " 'face 'mode-line-color-2)))
+					 '(:eval (concat (propertize " " 'display arrow-left-1)
+									 (propertize "%4l:%2c  " 'face 'mode-line-color-1)))
+					 )) 
 
-  (make-face 'mode-line-color-1)
-  (set-face-attribute 'mode-line-color-1 nil
-                      :foreground "#fff"
-                      :background color1)
+(make-face 'mode-line-color-1)
+(set-face-attribute 'mode-line-color-1 nil
+                    :foreground "#fff"
+                    :background color1)
 
-  (make-face 'mode-line-color-2)
-  (set-face-attribute 'mode-line-color-2 nil
-                      :foreground "#fff"
-                      :background color2)
+(make-face 'mode-line-color-2)
+(set-face-attribute 'mode-line-color-2 nil
+                    :foreground "#fff"
+                    :background color2)
 
-  (set-face-attribute 'mode-line nil
-                      :foreground "#fff"
-                      :background "#000"
-                      :box nil)
-  (set-face-attribute 'mode-line-inactive nil
-                      :foreground "#fff"
-                      :background "#000"))
+(set-face-attribute 'mode-line nil
+                    :foreground "#fff"
+                    :background "#000"
+                    :box nil)
+(set-face-attribute 'mode-line-inactive nil
+                    :foreground "#fff"
+                    :background "#000"))
 ;; }}}
 
 ;; M-g でM-x goto-line
@@ -402,7 +430,7 @@ static char * arrow_right[] = {
 (ffap-bindings)
 
 ;; yasnippet.el
-                                        ;(when (require 'yasnippet-config nil t)
-                                        ; (yas/setup "~/.emacs.d/elisp/yasnippet-0.6.1c"))
+;(when (require 'yasnippet-config nil t)
+ ; (yas/setup "~/.emacs.d/elisp/yasnippet-0.6.1c"))
 
 (require 'summarye)
