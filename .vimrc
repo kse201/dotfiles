@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 04-Jul-2012.                 |
+"                 Last Change: 06-Jul-2012.                 |
 "============================================================
 
 " 基礎的な設定 {{{
@@ -114,6 +114,10 @@ if has('win32') || has('win64')
     au MyAutoCmd BufEnter * execute ":lcd " . escape(expand("%:p:h")," #")
 else
     au MyAutoCmd BufEnter * execute ":lcd " . escape(expand("%:p:h")," #¥") 
+endif
+" }}}
+if has('win32') || has('win64') " {{{
+    set clipboard+=unnamed
 endif
 " }}}
 " }}}
