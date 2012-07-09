@@ -1,3 +1,16 @@
+;; load-path を追加する関数を定義
+(defun add-to-load-path (&rest paths)
+  (let (path)
+    (dolist (path paths paths)
+      (let ((default-directory
+              (expand-file-name (concat user-emacs-directory path))))
+        (add-to-list 'load-path default-directory)
+        (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
+            (normal-top-level-add-subdirs-to-load-path))))))
+
+;; 引数のディレクトリとそのサブディレクトリをload-pathに追加
+(add-to-load-path "elisp" "conf" "public_repos")
+
 ;; auto-instlalによってインストールされるEmacs Lispをロードパスに加える
 ;; デフォルトは、~/.emacs.d/auto-install/
 (add-to-list 'load-path "~/.emacs.d/auto-install/")
@@ -5,20 +18,40 @@
 
 (when (require 'auto-install nil t)
   (setq auto-install-directory "~/.emacs.d/elisp/")
-  (auto-install-update-emacswiki-package-name t)
+
+  ;; install-elisp.el互換モードにする
+  (auto-install-compatibility-setup)
+
   ;; proxy setting
-  ;;  (setq url-proxy-services '(("http" . "172.16.1.1:3128")))
+  ;; 参考: http://e-arrows.sakura.ne.jp/2010/12/emacs-anywhere.html
+  (defun machine-ip-address (dev)
+    "Return IP address of a network device."
+    (let ((info (network-interface-info dev)))
+      (if info
+          (format-network-address (car info) t))))
+
+  (defvar *network-interface-names* '("en1" "wlan0")
+    "Candidates for the network devices.")
+
+  (defun officep ()
+    "Am I in the office? If I am in the office, my IP address must start with '10.0.100.'."
+    (let ((ip (some #'machine-ip-address *network-interface-names*)))
+      (and ip
+           (eq 0 (string-match "^172\\.16\\.1\\." ip)))))
+
+  (if (officep)
+      (setq url-proxy-services '(("http" . "172.16.1.1:3128"))))
+  ;; 起動時にEmacsWikiのページ名を補完候補に加える
+  (auto-install-update-emacswiki-package-name t)
   (auto-install-compatibility-setup))
-;; 起動時にEmacsWikiのページ名を補完候補に加える
-(auto-install-update-emacswiki-package-name t)
-;; install-elisp.el互換モードにする
-(auto-install-compatibility-setup)
+
 ;; package.el
 (when (require 'package nil t) 
   ;; バッケージリポジトリにMarmaladeと開発者運営のELPAを追加
   (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/")) 
   (add-to-list 'package-archives '("ELPA" . "http://tromey.com/elpa/"))
   (package-initialize))
+
 ;; ediff関連のバッファを1つのフレームにまとめる
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 ;; 現在行に色をつける
@@ -69,6 +102,9 @@
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
 (menu-bar-mode 0)
+;; バックアップは残さない
+(setq make-backup-files nil)
+
 ;; 最近のファイル500個個を保存する
 (setq recentf-max-saved-items 500)
 ;; 最近使ったファイルに加えないファイルを正規表現で指定する
@@ -93,8 +129,8 @@
 (add-hook 'after-save-hook
           (lambda ()
             (let ((file (buffer-file-name)))
-              (when (string-match ".*\\.el$")
-                (save-exclusion (byte-compile-file file))))))
+              (when (string-match ".*\\.el$" file))
+              (save-exclusion (byte-compile-file file)))))
 ;; recentf-ext.el
 (define-key global-map (kbd "C-;") 'recentf-open-files )
 
@@ -136,6 +172,8 @@
 (auto-insert-mode t)
 ;; C-x,bでバッファリストをミニバッファに表示する
 (iswitchb-mode 1)
+;; C-x b でbuffersを選ぶとき便利
+(iswitchb-default-keybindings)
 
 (defface my-hl-line-face
   ;; 背景がdarkならば背景色を紺に
@@ -188,12 +226,12 @@
    anything-candidate-number-limit 10000
    anything-quick-update t
    anything-enable-shortcuts 'alphabet)
-  
+
   (when (require 'anything-config nil t)
     (setq anything-su-or-sudo "sudo")
     (define-key global-map (kbd "M-y") 'anything-show-kill-ring)
     (require 'anything-match-plugin nil t))
-  
+
   (when (and ( executable-find "cmigemo")
              (require 'migemo nil t))
     (require 'anything-migemo nil t))
@@ -215,6 +253,7 @@
     (anything-lisp-complete-symbol-set-timer 150))
   (when (require 'descbinds-anything nil t)
     (descbinds-anything-install)))
+
 
 (add-to-list 'anything-sources 'anything-c-source-emacs-commands)
 (define-key global-map (kbd "C-;") 'anything)
@@ -326,54 +365,54 @@
   (defun arrow-right-xpm (color1 color2)
     "Return an XPM right arrow string representing."
     (format "/* XPM */
-static char * arrow_right[] = {
-\"12 18 2 1\",
-\".	c %s\",
-\" 	c %s\",
-\".           \",
-\"..          \",
-\"...         \",
-\"....        \",
-\".....       \",
-\"......      \",
-\".......     \",
-\"........    \",
-\".........   \",
-\".........   \",
-\"........    \",
-\".......     \",
-\"......      \",
-\".....       \",
-\"....        \",
-\"...         \",
-\"..          \",
-\".           \"};"  color1 color2))
+            static char * arrow_right[] = {
+            \"12 18 2 1\",
+            \".	c %s\",
+            \" 	c %s\",
+            \".           \",
+            \"..          \",
+            \"...         \",
+            \"....        \",
+            \".....       \",
+            \"......      \",
+            \".......     \",
+            \"........    \",
+            \".........   \",
+            \".........   \",
+            \"........    \",
+            \".......     \",
+            \"......      \",
+            \".....       \",
+            \"....        \",
+            \"...         \",
+            \"..          \",
+            \".           \"};"  color1 color2))
 
   (defun arrow-left-xpm (color1 color2)
     "Return an XPM right arrow string representing."
     (format "/* XPM */
-static char * arrow_right[] = {
-\"12 18 2 1\",
-\".	c %s\",
-\" 	c %s\",
-\"           .\",
-\"          ..\",
-\"         ...\",
-\"        ....\",
-\"       .....\",
-\"      ......\",
-\"     .......\",
-\"    ........\",
-\"   .........\",
-\"   .........\",
-\"    ........\",
-\"     .......\",
-\"      ......\",
-\"       .....\",
-\"        ....\",
-\"         ...\",
-\"          ..\",
-\"           .\"};"  color2 color1))
+                      static char * arrow_right[] = {
+                      \"12 18 2 1\",
+                      \".	c %s\",
+                      \" 	c %s\",
+                      \"           .\",
+                      \"          ..\",
+                      \"         ...\",
+                      \"        ....\",
+                      \"       .....\",
+                      \"      ......\",
+                      \"     .......\",
+                      \"    ........\",
+                      \"   .........\",
+                      \"   .........\",
+                      \"    ........\",
+                      \"     .......\",
+                      \"      ......\",
+                      \"       .....\",
+                      \"        ....\",
+                      \"         ...\",
+                      \"          ..\",
+                      \"           .\"};"  color2 color1))
 
 
   (defconst color1 "#999")
@@ -389,7 +428,7 @@ static char * arrow_right[] = {
                                        (propertize " " 'display arrow-right-1)))
                        '(:eval (concat (propertize " %m " 'face 'mode-line-color-2)
                                        (propertize " " 'display arrow-right-2)))
-                       
+
                        ;; Justify right by filling with spaces to right fringe - 16
                        ;; (16 should be computed rahter than hardcoded)
                        '(:eval (propertize " " 'display '((space :align-to (- right-fringe 17)))))
@@ -430,7 +469,60 @@ static char * arrow_right[] = {
 (ffap-bindings)
 
 ;; yasnippet.el
-                                        ;(when (require 'yasnippet-config nil t)
-                                        ; (yas/setup "~/.emacs.d/elisp/yasnippet-0.6.1c"))
+;; (when (require 'yasnippet-config nil t)
+;; (yas/setup "~/.emacs.d/elisp/yasnippet-0.6.1c"))
 
 (require 'summarye)
+
+;; よそのwindowにカーソルを表示しない
+(setq cursor-in-non-selected-windows nil)
+;; 画像ファイルを表示
+(auto-image-file-mode)
+;; 無駄な空行を可視化
+(setq-default indicate-empty-lines t)
+;; isearchのハイライトの反応を良くする
+(setq isearch-lazy-highlight-initial-delay 0)
+;; line-space
+(setq-default line-spacing 1)
+;; 縦分割ウィンドウを移動時に ウィンドウの横幅比率を変化
+(defun my-other-window ()
+  ""
+  (interactive)
+  (other-window 1)
+  (let (( max-width (truncate (* (screen-width) 0.65))))
+    (if (< (window-width) max-width)
+        (enlarge-window-horizontally (- max-width (window-width))))))
+
+;; 文字コード
+(set-language-environment "Japanese")
+(prefer-coding-system 'utf-8)
+(set-default-coding-systems 'utf-8)
+;;(setq file-name-coding-system 'utf-8)
+(setq locale-coding-system 'utf-8)
+
+(when (require 'redo+ nil t)
+  (define-key global-map (kbd  "C-.") 'redo))
+
+;; menu-tree.el
+;; メニュー日本語化
+;; http://www11.atwiki.jp/s-irie/pages/13.html
+(require 'menu-tree nil t)
+
+;; C-kで行全体を削除
+
+;; elispにて変数・関数
+(defun elisp-mode-hooks ()
+  "lisp-mode-hooks"
+  (when (require 'eldoc nil t)
+    (setq eldoc-idle-delay 0.2)
+    (setq eldoc-area-use-multiline-p t)
+    (turn-on-eldoc-mode)))
+(add-hook 'emacs-lisp-mode-hook 'elisp-mode-hooks)
+
+;; テーマを読み込む
+(when (require 'color-theme nil t)
+  (color-theme-initialize)
+  (color-theme-vim-colors))
+(require 'hideshow)
+
+(add-to-list 'load-path "~/src/emacswikipages/" t)

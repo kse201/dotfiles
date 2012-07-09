@@ -1,4 +1,4 @@
-" Last Change: 29-Jun-2012.
+" Last Change: 07-Jul-2012.
 autocmd MyAutoCmd BufWritePost $MYVIMRCPLUGIN  source $MYVIMRC |
             \ if has('gui_running') |
             \ source $MYGVIMRC
@@ -80,6 +80,7 @@ NeoBundle 'Shougo/unite-build'
 NeoBundleLazy 'sgur/unite-everything'
 NeoBundle 'zhaocai/unite-scriptnames'
 NeoBundle 'h1mesuke/vim-alignta'
+NeoBundle 'yomi322/unite-tweetvim'
 " }}}
 " テキスト整形 {{{
 NeoBundle 'godlygeek/tabular'
@@ -90,6 +91,7 @@ NeoBundle 'vim-scripts/sequence'
 " 機能追加 {{{
 NeoBundle 'Shougo/vimshell'
 NeoBundle 'basyura/TweetVim'
+NeoBundle 'yomi322/neco-tweetvim'
 NeoBundle 'delphinus35/TweetVim-powerline-theme'
 NeoBundle 'koron/chalice'
 NeoBundle 'mattn/calendar-vim'

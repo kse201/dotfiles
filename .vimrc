@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 06-Jul-2012.                 |
+"                 Last Change: 07-Jul-2012.                 |
 "============================================================
 
 " 基礎的な設定 {{{
@@ -594,10 +594,6 @@ vnoremap <Leader>eval y:@"<Enter>
 nnoremap <C-x><C-e> Vy:@"<Enter>
 " }}}
 
-" 最後にyankしたテキストを貼り付ける
-" http://project-p.jp/halt/?p=1747
-nnoremap p "0p
-nnoremap P "0P
 " }}}
 
 " 検索周辺{{{
