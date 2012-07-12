@@ -1,3 +1,6 @@
+;; init.el
+;; Date:
+
 ;; load-path を追加する関数を定義
 (defun add-to-load-path (&rest paths)
   (let (path)
@@ -16,41 +19,46 @@
 (add-to-list 'load-path "~/.emacs.d/auto-install/")
 (add-to-list 'load-path "~/.emacs.d/elisp/")
 
-(when (require 'auto-install nil t)
-  (setq auto-install-directory "~/.emacs.d/elisp/")
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (when (require 'auto-install nil t)
+              (setq auto-install-directory "~/.emacs.d/elisp/")
+              
+              ;; install-elisp.el互換モードにする
+              (auto-install-compatibility-setup)
+              
+              ;; proxy setting
+              ;; 参考: http://e-arrows.sakura.ne.jp/2010/12/emacs-anywhere.html
+              (defun machine-ip-address (dev)
+                "Return IP address of a network device."
+                (let ((info (network-interface-info dev)))
+                  (if info
+                      (format-network-address (car info) t))))
+              
+              (defvar *network-interface-names* '("en1" "wlan0")
+                "Candidates for the network devices.")
+              
+              (defun officep ()
+                "Am I in the office? If I am in the office, my IP address must start with '10.0.100.'."
+                6    (let ((ip (some #'machine-ip-address *network-interface-names*)))
+                       (and ip
+                            (eq 0 (string-match "^172\\.16\\.1\\." ip)))))
+              
+              (if (officep)
+                  (setq url-proxy-services '(("http" . "172.16.1.1:3128")))
+                )
+              ;; 起動時にEmacsWikiのページ名を補完候補に加える
+              (auto-install-update-emacswiki-package-name t)
+              (auto-install-compatibility-setup))
 
-  ;; install-elisp.el互換モードにする
-  (auto-install-compatibility-setup)
+            ;; package.el
+            (when (require 'package nil t) 
+              ;; バッケージリポジトリにMarmaladeと開発者運営のELPAを追加
+              (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/")) 
+              (add-to-list 'package-archives '("ELPA" . "http://tromey.com/elpa/"))
+              (package-initialize))))
 
-  ;; proxy setting
-  ;; 参考: http://e-arrows.sakura.ne.jp/2010/12/emacs-anywhere.html
-  (defun machine-ip-address (dev)
-    "Return IP address of a network device."
-    (let ((info (network-interface-info dev)))
-      (if info
-          (format-network-address (car info) t))))
-
-  (defvar *network-interface-names* '("en1" "wlan0")
-    "Candidates for the network devices.")
-
-  (defun officep ()
-    "Am I in the office? If I am in the office, my IP address must start with '10.0.100.'."
-    (let ((ip (some #'machine-ip-address *network-interface-names*)))
-      (and ip
-           (eq 0 (string-match "^172\\.16\\.1\\." ip)))))
-
-  (if (officep)
-      (setq url-proxy-services '(("http" . "172.16.1.1:3128"))))
-  ;; 起動時にEmacsWikiのページ名を補完候補に加える
-  (auto-install-update-emacswiki-package-name t)
-  (auto-install-compatibility-setup))
-
-;; package.el
-(when (require 'package nil t) 
-  ;; バッケージリポジトリにMarmaladeと開発者運営のELPAを追加
-  (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/")) 
-  (add-to-list 'package-archives '("ELPA" . "http://tromey.com/elpa/"))
-  (package-initialize))
+(add-to-list 'load-path "~/src/emacswikipages/" t)
 
 ;; ediff関連のバッファを1つのフレームにまとめる
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
@@ -102,11 +110,10 @@
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
 (menu-bar-mode 0)
-;; バックアップは残さない
-(setq make-backup-files nil)
 
 ;; 最近のファイル500個個を保存する
 (setq recentf-max-saved-items 500)
+             
 ;; 最近使ったファイルに加えないファイルを正規表現で指定する
 (setq recentf-exclude '("/TAGS$" "/var/tmp/"))
 (require 'recentf-ext)
@@ -126,13 +133,14 @@
 (add-hook 'emacs-lisp-mode-hook 'enable-auto-async-byte-compile-mode)
 (setq auto-async-byte-compile-exclude-files-regexp "^_")
 ;; *.elを保存時、自動バイトコンパイル
-(add-hook 'after-save-hook
-          (lambda ()
-            (let ((file (buffer-file-name)))
-              (when (string-match ".*\\.el$" file))
-              (save-exclusion (byte-compile-file file)))))
+                                        ;(add-hook 'after-save-hook              
+                                        ;         (lambda ()
+                                        ;          (let ((file (buffer-file-name)))
+                                        ;           (when (string-match ".*\\.el$" file)
+                                        ;            (byte-compile-file file))))
+
 ;; recentf-ext.el
-(define-key global-map (kbd "C-;") 'recentf-open-files )
+;(define-key global-map (kbd "C-;") 'recentf-open-files )
 
 ;; キーバインド
 (define-key global-map "\C-h" 'delete-backward-char)
@@ -150,6 +158,7 @@
 (define-key global-map (kbd "M-a") 'mark-whole-buffer)
 (define-key global-map (kbd "M-y") 'backward-kill-word) ; 一つ前の単語削除
 (define-key global-map (kbd "C-x o") 'browse-url-at-point) ;ブラウザ起動
+
 ;; Localeに合わせた環境の設定
 (set-locale-environment nil)
 ;; 対応する括弧を光らせる
@@ -192,9 +201,10 @@
 ;; 選択範囲に色をつけて見た目をわかりやすく
 (transient-mark-mode 1)
 ;; フォント設定
-(set-face-attribute 'default nil 
-                    :family "Ricty"
-                    :height 140)
+(set-face-attribute
+ 'default nil 
+ :family "Ricty"
+ :height 140)
 (set-fontset-font
  nil 'japanese-jisx0208
  (font-spec 
@@ -211,6 +221,7 @@
 ;; テーマ読み込み設定
 (when (require 'color-theme nil t)
   (color-theme-initialize))
+
 ;; 対応括弧のハイライト
 (setq show-paren-delay 0) ; 表示までの秒数 
 (show-paren-mode t)
@@ -256,7 +267,7 @@
 
 
 (add-to-list 'anything-sources 'anything-c-source-emacs-commands)
-(define-key global-map (kbd "C-;") 'anything)
+(define-key global-map (kbd "C-;") 'anything-M-x)
 
 ;; 日本語マニュアル
 (add-to-list 'Info-directory-list "~/.emacs.d/info")
@@ -287,7 +298,9 @@
   (add-to-list 'ac-dictionary-directories "~/.emacd.d/ac-dict")
   (ac-config-default)                     ; デフォルト設定 
   (define-key ac-complete-mode-map (kbd "C-n") 'ac-next)
-  (define-key ac-complete-mode-map (kbd "C-p") 'ac-previous))
+  (define-key ac-complete-mode-map (kbd "C-p") 'ac-previous)
+  (ac-mode)
+  )
 
 ;; open-junk-file.el
 (require 'open-junk-file)
@@ -315,13 +328,17 @@
 ;; ファイルサイズを表示
 (size-indication-mode t)
 
-;; backuo autosave
+;; backup autosave
 (setq make-backup-files t)
 (setq auto-save-default t)
 (add-to-list 'backup-directory-alist
              (cons "." "~/.emacs.d/backups/"))
 (setq auto-save-file-name-transforms
       `((".*" , (expand-file-name "~/.emacs.d/backups/") t)))
+;; オートセーブ生成までの秒間隔
+(setq auto-save-timeout 15)
+;; オートセーブ生成までのタイプ間隔
+(setq auto-save-interval 60)
 
 ;; gtags-modeのキーバインドを有効化する
 (setq gtags-suggested-key-mapping t)
@@ -469,8 +486,8 @@
 (ffap-bindings)
 
 ;; yasnippet.el
-;; (when (require 'yasnippet-config nil t)
-;; (yas/setup "~/.emacs.d/elisp/yasnippet-0.6.1c"))
+(when (require 'yasnippet-config nil t)
+  (yas/setup "~/.emacs.d/elisp/yasnippet-0.6.1c"))
 
 (require 'summarye)
 
@@ -497,8 +514,14 @@
 (set-language-environment "Japanese")
 (prefer-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)
-;;(setq file-name-coding-system 'utf-8)
-(setq locale-coding-system 'utf-8)
+;; ファイル名
+(when (eq system-type 'darwin)          ; Mac のファイル名設定
+  (require 'ucs-normalize)
+  (setq file-name-coding-system 'utf-8)
+  (setq locale-coding-system 'utf-8))
+(when (eq system-type 'w32)             ; Windowsのファイル名設定
+  (set-file-name-coding-system 'cp932)
+  (setq locale-coding-system 'cp932))
 
 (when (require 'redo+ nil t)
   (define-key global-map (kbd  "C-.") 'redo))
@@ -519,10 +542,50 @@
     (turn-on-eldoc-mode)))
 (add-hook 'emacs-lisp-mode-hook 'elisp-mode-hooks)
 
-;; テーマを読み込む
-(when (require 'color-theme nil t)
-  (color-theme-initialize)
-  (color-theme-vim-colors))
 (require 'hideshow)
 
-(add-to-list 'load-path "~/src/emacswikipages/" t)
+(require 'goto-chg)
+(global-set-key [f5] 'backupgoto-last-change)
+(global-set-key [S-f5] 'goto-last-cha-rverse)
+
+;; 参考:http://www23.atwiki.jp/selflearn/pages/41.html#id_5448ea00
+(when (locate-library "gtags")
+  (require 'gtags)
+  (global-set-key (kbd "M-t") 'gtags-find-tags)
+  (global-set-key (kbd "M-r") 'gtags-find-rtags)
+  (global-set-key (kbd "M-s") 'gtags-find-symbol)
+  (global-set-key (kbd "M-p") 'gtags-find-pattern)
+  (global-set-key (kbd "M-f") 'gtags-find-file)
+  (global-set-key [?\C-,] 'gtags-pop-stack)
+  (add-hook 'c-mode-common-hook
+            '(lambda ()
+               (gtags-mode 1)
+               (gtags-make-complete-list))))
+
+(load "color-moccur")
+(setq dmoccur-recursive-search t)
+(setq moccur-grep-default-word-near-point t)
+(setq moccur-split-word t)
+(setq dmoccur-exclusion-mask (append '("\\~$" "\\.svn\\/\*" "\\.o$"
+                                       "GPATH" "GRTAGS" "GSYMS" "GTAGS")
+                                     dmoccur-exclusion-mask))
+;; grep結果バッファでのカーソル移動でダイナミックにファイルを開いてくれる
+(when (require 'color-grep)
+  (setq color-grep-sync-kill-buffer t))
+
+(global-set-key [f12] 'speedbar)
+
+;; ファイルを開いた時に以前編集していた場所に移動
+(load "saveplace")
+(setq-default save-place t)
+
+;; ignore byte-complie warnings
+(setq byte-compile-warnings '(not nresolved
+                                  free-vars
+                                  callargs
+                                  redefine
+                                  obsolete
+                                  noruntime
+                                  cl-funcitons
+                                  interactive-only))
+

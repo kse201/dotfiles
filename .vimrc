@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 07-Jul-2012.                 |
+"                 Last Change: 12-Jul-2012.                 |
 "============================================================
 
 " 基礎的な設定 {{{
@@ -43,6 +43,7 @@ set guioptions+=c
 set guioptions-=e
 set formatoptions-=ro " 改行後の自動コメントアウト禁止
 set report=0
+set tw=0
 " set imdisable
 
 " \ -> ¥{{{
@@ -349,6 +350,7 @@ let ColorRoller.colors = [
             \ 'print_bw',
             \ 'desert' ,
             \ 'wombat256mod',
+            \ 'hickop',
             \ 'molokai'
             \]
 

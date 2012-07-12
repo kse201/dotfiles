@@ -1,7 +1,7 @@
 ".gvimrc
-" last change: 15-Jun-2012.
+" last change: 12-Jul-2012.
 
-colorscheme  jellybeans
+colorscheme eclipse 
 
 set guioptions+=b
 if has('mac')
