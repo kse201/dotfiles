@@ -43,7 +43,7 @@ set guioptions+=c
 set guioptions-=e
 set formatoptions-=ro " 改行後の自動コメントアウト禁止
 set report=0
-set tw=0
+set formatexpr=
 " set imdisable
 
 " \ -> ¥{{{
