@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 12-Jul-2012.                 |
+"                 Last Change: 13-Jul-2012.                 |
 "============================================================
 autocmd MyAutoCmd BufWritePost $MYVIMRCPLUGIN  source $MYVIMRC |
             \ if has('gui_running') |
@@ -145,7 +145,6 @@ NeoBundle 'L9'
 
 NeoBundle 'git://git.wincent.com/command-t.git'
 " }}}
-" 6/xx
 NeoBundle 'osyo-manga/unite-homo.git'
 NeoBundle 'osyo-manga/unite-u-nya-.git'
 NeoBundle 'vimwiki'
@@ -154,10 +153,9 @@ NeoBundle 'mattn/mahjong-vim'
 NeoBundle 'sudoku_game'
 NeoBundle 'mfumi/viminesweeper'
 NeoBundle 'mfumi/snake.vim'
-NeoBundle 'daisuzu/facebook.vim'
 NeoBundle 'vimyum/viske'
 NeoBundle 'yuratomo/w3m.vim'
-" NeoBundle 'myusuf3/numbers.vim'
+NeoBundle 'savevers.vim'
 filetype plugin indent on
 syntax on
 
@@ -388,7 +386,8 @@ function! s:unite_source_myCommand.gather_candidates(args,conext)
                 \"Search vim tweet" : "TweetVimSearch vim",
                 \"Search emacs tweet in Japanese" : "TweetVimSearch emacs lang:ja",
                 \"Neobundle  Update" : "NeoBundleUpdate",
-                \"Neobundle Log" : "NeoBundleLog"
+                \"Neobundle Log" : "NeoBundleLog",
+                \"Search Web Site" : "W3m http://www.google.co.jp"
                 \}
     return values(map(cmds,"{
                 \ 'word' : v:key,
@@ -1052,6 +1051,9 @@ if has('win32') || has('win64')
     NeoBundleSource 'unite-everything'
 endif
 
+" }}}
+" w3m.vim{{{
+let g:w3m#command = '/usr/local/bin/w3m'
 " }}}
 "" ================================================================================ 
 " vim: set tabstop=4 shiftwidth=4  fdm=marker fdl=0 :

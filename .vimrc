@@ -103,7 +103,7 @@ augroup END
 " }}}
 
 " Terminal用{{{
-if !has('gui') && has('mac')
+if !has('gui')
     set t_Co=256
     colorscheme desert
 endif
