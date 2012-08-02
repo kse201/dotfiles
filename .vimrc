@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 20-Jul-2012.                 |
+"                 Last Change: 02-Aug-2012.                 |
 "============================================================
 
 " 基礎的な設定 {{{
@@ -956,6 +956,18 @@ if exists("*strftime")
 endif
 " }}}
 
+" 新規memoファイルにファイル名自動挿入{{{ 
+augroup AutoMemo
+    au! 
+    au BufRead *.memo call MyMemoSetting()
+augroup END
+
+function! MyMemoSetting ()
+    call append(0,expand('%:r'))
+    call append(1,repeat('=',len(expand('%:r'))))
+endfunction
+
+" }}}
 " 文字数カウント
 command! -range=% Count :<line1>,<line2>s/.//gn
 " }}}

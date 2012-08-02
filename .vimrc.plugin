@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 01-Aug-2012.                 |
+"                 Last Change: 02-Aug-2012.                 |
 "============================================================
 autocmd MyAutoCmd BufWritePost $MYVIMRCPLUGIN  source $MYVIMRC |
             \ if has('gui_running') |
@@ -31,8 +31,8 @@ if has('win32') || has('win64') || has('win32unix')
     " let $VIMRUNTIME = $VIM .'\vimfiles\bundle\vundle\'
     call neobundle#rc(expand('~/vimfiles/bundle'))
 else
-    set rtp+=~/.vim/bundle/neobundle.vim
-    call neobundle#rc('~/.vim/bundle')
+    set rtp+=~/.vim/bundle/neobundle.vim/
+    call neobundle#rc(expand('~/.vim/bundle/'))
 endif
 
 " 必須ライブラリ {{{
