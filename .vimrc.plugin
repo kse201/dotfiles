@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 13-Jul-2012.                 |
+"                 Last Change: 01-Aug-2012.                 |
 "============================================================
 autocmd MyAutoCmd BufWritePost $MYVIMRCPLUGIN  source $MYVIMRC |
             \ if has('gui_running') |
@@ -156,6 +156,8 @@ NeoBundle 'mfumi/snake.vim'
 NeoBundle 'vimyum/viske'
 NeoBundle 'yuratomo/w3m.vim'
 NeoBundle 'savevers.vim'
+NeoBundle 'kien/rainbow_parentheses.vim'
+NeoBundle 'mattn/togetter-vim'
 filetype plugin indent on
 syntax on
 
@@ -1052,8 +1054,20 @@ if has('win32') || has('win64')
 endif
 
 " }}}
+
 " w3m.vim{{{
 let g:w3m#command = '/usr/local/bin/w3m'
+" }}}
+
+" surround.vim{{{
+nmap <Leader>) csw)
+nmap <Leader>( csw(
+nmap <Leader>} csw}
+nmap <Leader>{ csw{
+nmap <Leader>[ csw[
+nmap <Leader>] csw]
+nmap <Leader>' csw'
+nmap <Leader>" csw"
 " }}}
 "" ================================================================================ 
 " vim: set tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
