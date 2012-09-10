@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 02-Aug-2012.                 |
+"                 Last Change: 03-Aug-2012.                 |
 "============================================================
 
 " 基礎的な設定 {{{
@@ -963,11 +963,12 @@ augroup AutoMemo
 augroup END
 
 function! MyMemoSetting ()
-    call append(0,expand('%:r'))
-    call append(1,repeat('=',len(expand('%:r'))))
+    call append(0,expand('%:t:r'))
+    call append(1,repeat('=',len(expand('%:t:r'))))
 endfunction
 
 " }}}
+
 " 文字数カウント
 command! -range=% Count :<line1>,<line2>s/.//gn
 " }}}

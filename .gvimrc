@@ -1,7 +1,7 @@
 ".gvimrc
-" last change: 12-Jul-2012.
+" last change: 23-Aug-2012.
 
-colorscheme eclipse 
+colorscheme molokai 
 
 set guioptions+=b
 if has('mac')

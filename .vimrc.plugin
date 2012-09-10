@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 02-Aug-2012.                 |
+"                 Last Change: 23-Aug-2012.                 |
 "============================================================
 autocmd MyAutoCmd BufWritePost $MYVIMRCPLUGIN  source $MYVIMRC |
             \ if has('gui_running') |
@@ -64,7 +64,7 @@ NeoBundleLazy 'Shougo/vimfiler'
 " }}}
 " 入力補助 {{{
 NeoBundle 'kana/vim-smartchr'
-" NeoBundleLazy 'mattn/zencoding-vim'
+NeoBundleLazy 'mattn/zencoding-vim'
 NeoBundle 'msanders/cocoa.vim'
 NeoBundle 'jelera/vim-javascript-syntax'
 NeoBundle 'neco-look'
@@ -154,7 +154,10 @@ NeoBundle 'sudoku_game'
 NeoBundle 'mfumi/viminesweeper'
 NeoBundle 'mfumi/snake.vim'
 NeoBundle 'vimyum/viske'
-NeoBundle 'yuratomo/w3m.vim'
+NeoBundle 'dwm.vim'
+if !has('win32') || !has('win64') ||!has('win32unix')
+    NeoBundle 'yuratomo/w3m.vim'
+endif
 NeoBundle 'savevers.vim'
 NeoBundle 'kien/rainbow_parentheses.vim'
 NeoBundle 'mattn/togetter-vim'
@@ -805,11 +808,11 @@ let g:ll_plugins['java'] = [
             \ ]
 
 let g:ll_plugins['html'] = [
-            \ 'zencoding.vim'
+            \ 'mattn/zencoding-vim'
             \ ]
 
 let g:ll_plugins['css'] = [
-            \ 'zencoding.vim'
+            \ 'mattn/zencoding-vim'
             \ ]
 let g:ll_plugins['tex'] = [
             \ 'vim-latex'
