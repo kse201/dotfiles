@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 23-Aug-2012.                 |
+"                 Last Change: 11-Sep-2012.                 |
 "============================================================
 autocmd MyAutoCmd BufWritePost $MYVIMRCPLUGIN  source $MYVIMRC |
             \ if has('gui_running') |
@@ -52,7 +52,7 @@ NeoBundle 'thinca/vim-ref'
 NeoBundle 'vim-jp/vimdoc-ja.git'
 " }}}
 " 補完 {{{
-NeoBundle 'neocomplcache'
+NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neocomplcache-snippets-complete'
 NeoBundle 'Shougo/neocomplcache-clang'
 NeoBundle 'Shougo/neocomplcache-clang_complete'
@@ -155,12 +155,16 @@ NeoBundle 'mfumi/viminesweeper'
 NeoBundle 'mfumi/snake.vim'
 NeoBundle 'vimyum/viske'
 NeoBundle 'dwm.vim'
-if !has('win32') || !has('win64') ||!has('win32unix')
-    NeoBundle 'yuratomo/w3m.vim'
-endif
 NeoBundle 'savevers.vim'
 NeoBundle 'kien/rainbow_parentheses.vim'
 NeoBundle 'mattn/togetter-vim'
+NeoBundle 'kana/vim-smartinput'
+NeoBundle 'Lokaltog/vim-easymotion'
+NeoBundle 'ViewOutput'
+NeoBundle 'mattn/excitetranslate-vim'
+NeoBundle 'tpope/vim-endwise'
+NeoBundle 'tsaleh/vim-matchit'
+" NeoBundle 'mrtazz/simplenote.vim'
 filetype plugin indent on
 syntax on
 
@@ -392,7 +396,6 @@ function! s:unite_source_myCommand.gather_candidates(args,conext)
                 \"Search emacs tweet in Japanese" : "TweetVimSearch emacs lang:ja",
                 \"Neobundle  Update" : "NeoBundleUpdate",
                 \"Neobundle Log" : "NeoBundleLog",
-                \"Search Web Site" : "W3m http://www.google.co.jp"
                 \}
     return values(map(cmds,"{
                 \ 'word' : v:key,
@@ -670,7 +673,8 @@ vnoremap <Leader>t :Tabularize /
 
 " vimfiler{{{
 let g:vimfiler_as_default_explorer=1
-nnoremap <Leader>vf :<C-u>silent! NeoBundleSource vimfiler<CR>:<C-u>VimFiler -split  -winwidth=35 -no-quit<CR>
+let g:vimfiler_safe_mode_by_default=0
+nnoremap <leader>vf :<c-u>silent! NeoBundleSource vimfiler<cr>:<c-u>VimFiler -split  -winwidth=35 -no-quit<cr>
 " }}}
 
 " indent-Guides{{{
@@ -743,6 +747,43 @@ let g:tweetvim_include_rts = 1 "タイムラインにリツイートを含める
 let g:tweetvim_tweet_per_page = 40
 let g:tweetvim_display_source=1
 let g:tweetvim_display_time=1
+" キーマップ 参考:http://qiita.com/items/a28eb714151886358b1a
+augroup TweetVimSetting
+    autocmd!
+    autocmd FileType tweetvim nmap <buffer>f <Plug>(tweetvim_action_page_next)
+    autocmd FileType tweetvim nmap <buffer>b <Plug>(tweetvim_action_page_previous)
+    autocmd FileType tweetvim nnoremap <buffer><silent>j :<C-u>call <SID>tweetvim_vertical_move("gj")<CR>zz
+    autocmd FileType tweetvim nnoremap <buffer><silent>k :<C-u>call <SID>tweetvim_vertical_move("gk")<CR>zz
+    autocmd FileType tweetvim nunmap <buffer>ff
+    autocmd FileType tweetvim nunmap <buffer>bb
+    " バッファに移動した時に自動リロード
+    autocmd BufEnter * call <SID>tweetvim_reload()
+augroup END
+
+" セパレータを飛ばして移動する
+" ページの銭湯や末尾でそれ以上 上下に移動しようとしたらページ移動する
+function! s:tweetvim_vertical_move(cmd)
+    set cursorline
+    let end = line('$')
+    while getline('.') !~# '^[-~]\+$' && line('.') != end && line('.') != 1
+        execute "normal! ".a:cmd
+    endwhile
+    execute "normal! ".a:cmd
+    " 一番下まで来たら次のページに進む
+    let line = line('.')
+    if line == end
+        call feedkeys("\<Plug>(tweetvim_action_page_next)")
+    elseif line == 1
+        call feedkeys("\<Plug>(tweetvim_action_page_previous)")
+    endif
+endfunction
+
+" filetypeがtweetviならツイートをリロード
+function! s:tweetvim_reload()
+    if &filetype ==# "tweetvim"
+        call feedkeys("\<Plug>(tweetvim_action_reload)")
+    endif
+endfunction
 " }}}
 
 " memolist.vim{{{
@@ -1058,10 +1099,6 @@ endif
 
 " }}}
 
-" w3m.vim{{{
-let g:w3m#command = '/usr/local/bin/w3m'
-" }}}
-
 " surround.vim{{{
 nmap <Leader>) csw)
 nmap <Leader>( csw(
@@ -1072,5 +1109,9 @@ nmap <Leader>] csw]
 nmap <Leader>' csw'
 nmap <Leader>" csw"
 " }}}
+" easymotion
+let g:EasyMotion_keys = 'asdfghjkl;:]ASDFGHJKL+*}'
+let g:EasyMotion_leader_key = ","
+let g:EasyMotion_grouping = 1
 "" ================================================================================ 
 " vim: set tabstop=4 shiftwidth=4  fdm=marker fdl=0 :

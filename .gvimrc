@@ -1,5 +1,5 @@
 ".gvimrc
-" last change: 23-Aug-2012.
+" last change: 10-Sep-2012.
 
 colorscheme molokai 
 
@@ -22,6 +22,10 @@ augroup InsertHook
     " ポップアップメニューのカラーを設定
     highlight Pmenu guibg=#666666
     highlight PmenuSel guibg=#8cd0d3 guifg=#666666
+
+    " IME制御
+    autocmd InsertEnter,CmdwinEnter * set noimdisable
+    autocmd InsertLeave,CmdwinLeave * set imdisable
 augroup END
 " }}}
 "Font{{{

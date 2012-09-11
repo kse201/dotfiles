@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 03-Aug-2012.                 |
+"                 Last Change: 10-Sep-2012.                 |
 "============================================================
 
 " 基礎的な設定 {{{
@@ -244,7 +244,7 @@ hi CursorLine gui=underline
 " }}}
 
 " 作業中断中,window移動時のみcursorlineを有効にする{{{
-augroup vimrc-auto-cursorline
+augroup auto-cursorline
     autocmd!
     autocmd CursorMoved,CursorMovedI * call s:auto_cursorline('CursorMoved')
     autocmd CursorHold,CursorHoldI * call s:auto_cursorline('CursorHold')
@@ -559,8 +559,8 @@ nnoremap <Leader>bd :<C-u>bdelete<CR>
 " nnoremap <S-h> :<C-u>tabp<CR>
 " nnoremap <S-l> :<C-u>tabn<CR>
 
-nnoremap <Leader>k H
-nnoremap <Leader>j L
+" nnoremap <Leader>k H
+" nnoremap <Leader>j L
 " }}}
 
 " クリップボード風コピペ{{{
