@@ -134,3 +134,4 @@ function premod() {
 }
 
 source ~/auto-fu.zsh/auto-fu.zsh
+alias ctags='/Applications/MacVim.app/Contents/MacOS/ctags "$@"'

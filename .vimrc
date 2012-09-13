@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 10-Sep-2012.                 |
+"                 Last Change: 13-Sep-2012.                 |
 "============================================================
 
 " 基礎的な設定 {{{
@@ -80,10 +80,12 @@ nnoremap <Leader>eM :edit $DROPBOX_DIR/documents/memo<CR>
 
 " Auto Loading .vimrc,.gvimrc {{{
 if has("autocmd")
+    filetype plugin indent on
     autocmd MyAutoCmd BufReadPost *
-                \if line("'\"") > 0 && line("'\"") <= line("$") |
-                \exe "normal! g'\"" |
-                \endif
+                \ if line("'\"") > 0 && line("'\"") <= line("$") |
+                \ exe "normal! g'\"" |
+                \ endif
+    autocmd BufEnter * :cd %:p:h
 endif
 
 command! ReloadVimrc source $MYVIMRC
@@ -971,6 +973,22 @@ endfunction
 
 " 文字数カウント
 command! -range=% Count :<line1>,<line2>s/.//gn
+
+" 良い感じにウィンドウ分割{{{
+" http://qiita.com/items/392be95a195067d84fd8
+command! -nargs=? -complete=command SmartSplit call <SID>smart_split(<q-args>)
+function! s:smart_split(cmd)
+    if winwidth(0) > winheight(0) * 2
+        vsplit 
+    else 
+        split
+    endif
+
+    if !empty(a:cmd)
+        execute a:cmd
+    endif
+endfunction
+" }}}
 " }}}
 
 "============================================================
