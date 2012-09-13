@@ -1,24 +1,26 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 14-Sep-2012.                 |
+"                 Last Change: 13-Sep-2012.                 |
 "============================================================
 
 " 基礎的な設定 {{{
-" OS毎の各種ディレクトリの設定{{{
+" OS毎の設定ファイル,各種ディレクトリの設定{{{
 if has('win32') || has('win64') || has('win32unix')
     let $VIMFILE_DIR = $HOME . '/vimfiles'
     let $DROPBOX_DIR = $HOME . '\Documents\My Dropbox'
-    let $MYVIMRC="~/dotfies/.vimrc"
-    let $MYGVIMRC="~/dotfies/.gvimrc"
-    let $MYVIMRCPLUGIN="~/dotfies/.vimrc.plugin"
+    let $MYVIMRC="~/dotfiles/.vimrc"
+    let $MYGVIMRC="~/dotfiles/.gvimrc"
+    let $MYVIMRCPLUGIN="~/dotfiles/.vimrc.plugin"
     set backupdir=$HOME/_vimbackup
 elseif has('mac')
     let $VIMFILE_DIR = $HOME . '/.vim'
     let $DROPBOX_DIR = $HOME . '/Dropbox'
+    let $MYVIMRCPLUGIN= $HOME."/.vimrc.plugin"
     set backupdir=$HOME/.vimbackup
 else 
     let $VIMFILE_DIR = $HOME . '/.vim'
     let $DROPBOX_DIR = $HOME . '/Documents\My Dropbox'
+    let $MYVIMRCPLUGIN= $HOME."/.vimrc.plugin"
     set backupdir=$HOME/.vimbackup
 endif
 " }}}
@@ -73,7 +75,6 @@ endif
 " }}}
 
 " 設定ファイル{{{
-let $MYVIMRCPLUGIN= $HOME."/.vimrc.plugin"
 nnoremap <Leader>ev :edit $MYVIMRC<CR>
 nnoremap <Leader>eg :edit $MYGVIMRC<CR>
 nnoremap <Leader>ep :edit $MYVIMRCPLUGIN<CR>
@@ -628,8 +629,9 @@ nnoremap <C-i><C-i> :<C-u>h<Space><C-r><C-w><Enter>
 " }}}
 
 " Plugin{{{
-if filereadable(expand('~/.vimrc.plugin'))
-    source ~/.vimrc.plugin
+" if filereadable(expand('~/.vimrc.plugin'))
+if filereadable(expand($MYVIMRCPLUGIN))
+    source $MYVIMRCPLUGIN
 endif
 " }}}
 
