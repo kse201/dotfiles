@@ -12,3 +12,7 @@
     email = kse.201@gmail.com
 [core]
 	excludesfile = /Users/sekeikai/.gitignore
+
+[remote "origin"]
+    fetch = +refs/heads/*:refs/remotes/origin/*
+    url = git@github.com:kse201/dotfiles.git
