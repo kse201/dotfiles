@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 13-Sep-2012.                 |
+"                 Last Change: 14-Sep-2012.                 |
 "============================================================
 
 " 基礎的な設定 {{{
@@ -8,6 +8,9 @@
 if has('win32') || has('win64') || has('win32unix')
     let $VIMFILE_DIR = $HOME . '/vimfiles'
     let $DROPBOX_DIR = $HOME . '\Documents\My Dropbox'
+    let $MYVIMRC="~/dotfies/.vimrc"
+    let $MYGVIMRC="~/dotfies/.gvimrc"
+    let $MYVIMRCPLUGIN="~/dotfies/.vimrc.plugin"
     set backupdir=$HOME/_vimbackup
 elseif has('mac')
     let $VIMFILE_DIR = $HOME . '/.vim'
