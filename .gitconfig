@@ -8,3 +8,7 @@
     ui = auto
 [core]
 	excludesfile = /Users/sekeikai/.gitignore
+
+[remote "origin"]
+    fetch = +refs/heads/*:refs/remotes/origin/*
+    url = git@github.cim:kse201/dotfiles.git
