@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 13-Sep-2012.                 |
+"                 Last Change: 14-Sep-2012.                 |
 "============================================================
 autocmd MyAutoCmd BufWritePost $MYVIMRCPLUGIN  source $MYVIMRC |
             \ if has('gui_running') |
@@ -24,16 +24,11 @@ endif
 
 " neobundle.vim{{{
 set nocompatible
-filetype off
 filetype plugin indent off
-if has('win32') || has('win64') || has('win32unix')
-    set rtp+=~/vimfiles/bundle/neobundle.vim/
-    " let $VIMRUNTIME = $VIM .'\vimfiles\bundle\vundle\'
-    call neobundle#rc(expand('~/vimfiles/bundle'))
-else
-    set rtp+=~/.vim/bundle/neobundle.vim/
-    call neobundle#rc(expand('~/.vim/bundle/'))
-endif
+let g:bundle_dir = $VIMFILE_DIR."/bundle/"
+exe "set rtp+=".g:bundle_dir."neobundle.vim"
+call neobundle#rc(expand(g:bundle_dir))
+unlet g:bundle_dir
 
 " 必須ライブラリ {{{
 NeoBundle 'Shougo/vimproc'
@@ -164,6 +159,7 @@ NeoBundle 'ViewOutput'
 NeoBundle 'mattn/excitetranslate-vim'
 NeoBundle 'tpope/vim-endwise'
 NeoBundle 'tsaleh/vim-matchit'
+NeoBundle 'chigatoike/activefix.vim'
 " NeoBundle 'mrtazz/simplenote.vim'
 filetype plugin indent on
 syntax on
@@ -787,7 +783,7 @@ endfunction
 " }}}
 
 " memolist.vim{{{
-let g:memolist_path="~/Dropbox/documents/memo"
+let g:memolist_path=$DROPBOX_DIR."/documents/memo"
 let g:memolist_memo_suffix = "txt"
 let g:memolist_memo_date = "%Y-%m-%d %H:%M"
 let g:memolist_memo_date = "epoch"
@@ -1109,9 +1105,11 @@ nmap <Leader>] csw]
 nmap <Leader>' csw'
 nmap <Leader>" csw"
 " }}}
-" easymotion
-let g:EasyMotion_keys = 'asdfghjkl;:]ASDFGHJKL+*}'
+
+" easymotion {{{
+let g:EasyMotion_keys = 'asdfghjkl'
 let g:EasyMotion_leader_key = ","
 let g:EasyMotion_grouping = 1
+" }}}
 "" ================================================================================ 
 " vim: set tabstop=4 shiftwidth=4  fdm=marker fdl=0 :

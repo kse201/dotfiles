@@ -1,26 +1,26 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 13-Sep-2012.                 |
+"                 Last Change: 14-Sep-2012.                 |
 "============================================================
 
 " 基礎的な設定 {{{
 " OS毎の設定ファイル,各種ディレクトリの設定{{{
 if has('win32') || has('win64') || has('win32unix')
-    let $VIMFILE_DIR = $HOME . '/vimfiles'
-    let $DROPBOX_DIR = $HOME . '\Documents\My Dropbox'
-    let $MYVIMRC="~/dotfiles/.vimrc"
-    let $MYGVIMRC="~/dotfiles/.gvimrc"
-    let $MYVIMRCPLUGIN="~/dotfiles/.vimrc.plugin"
+    let $VIMFILE_DIR   = $HOME . '/vimfiles'
+    let $DROPBOX_DIR   = $HOME . '\Documents\My Dropbox'
+    let $MYVIMRC       = "~/dotfiles/.vimrc"
+    let $MYGVIMRC      = "~/dotfiles/.gvimrc"
+    let $MYVIMRCPLUGIN = "~/dotfiles/.vimrc.plugin"
     set backupdir=$HOME/_vimbackup
 elseif has('mac')
-    let $VIMFILE_DIR = $HOME . '/.vim'
-    let $DROPBOX_DIR = $HOME . '/Dropbox'
-    let $MYVIMRCPLUGIN= $HOME."/.vimrc.plugin"
+    let $VIMFILE_DIR   = $HOME . '/.vim'
+    let $DROPBOX_DIR   = $HOME . '/Dropbox'
+    let $MYVIMRCPLUGIN = $HOME . "/.vimrc.plugin"
     set backupdir=$HOME/.vimbackup
-else 
-    let $VIMFILE_DIR = $HOME . '/.vim'
-    let $DROPBOX_DIR = $HOME . '/Documents\My Dropbox'
-    let $MYVIMRCPLUGIN= $HOME."/.vimrc.plugin"
+else
+    let $VIMFILE_DIR   = $HOME . '/.vim'
+    let $DROPBOX_DIR   = $HOME . '/Documents\My Dropbox'
+    let $MYVIMRCPLUGIN = $HOME . "/.vimrc.plugin"
     set backupdir=$HOME/.vimbackup
 endif
 " }}}
@@ -52,7 +52,6 @@ set formatexpr=
 set autoread
 set clipboard=unnamed
 set hidden
-" set imdisable
 
 " \ -> ¥{{{
 if has('mac')
@@ -126,6 +125,7 @@ else
     au MyAutoCmd BufEnter * execute ":lcd " . escape(expand("%:p:h")," #¥") 
 endif
 " }}}
+
 if has('win32') || has('win64') " {{{
     set clipboard+=unnamed
 endif
@@ -473,6 +473,7 @@ nnoremap <Leader>tn :tabnew<CR>
 " }}}
 
 inoremap jj <ESC>
+inoremap kk <ESC>
 
 " 日付入りファイルを使う {{{
 " vimテクバイブル 4-1参考
@@ -599,11 +600,9 @@ nnoremap <Leader>do   Vy:@"<Enter>
 vnoremap <Leader>eval y:@"<Enter>
 nnoremap <C-x><C-e> Vy:@"<Enter>
 " }}}
-
 " }}}
 
 " 検索周辺{{{
-
 " 検索移動を見やすく{{{
 nnoremap n nzz
 nnoremap N Nzz
@@ -625,7 +624,6 @@ nnoremap <silent> <ESC> <ESC>:<C-u>nohlsearch<CR>:<C-u>set iminsert=0<CR>
 nnoremap <C-i><Space> :<C-u>h<Space>
 nnoremap <C-i><C-i> :<C-u>h<Space><C-r><C-w><Enter>
 " }}}
-
 " }}}
 
 " Plugin{{{
@@ -976,12 +974,14 @@ endfunction
 
 " }}}
 
-" 文字数カウント
+" 文字数カウント{{{
 command! -range=% Count :<line1>,<line2>s/.//gn
+" }}}
 
 " 良い感じにウィンドウ分割{{{
-" http://qiita.com/items/392be95a195067d84fd8
+" [a](http://qiita.com/items/392be95a195067d84fd8)
 command! -nargs=? -complete=command SmartSplit call <SID>smart_split(<q-args>)
+nnoremap <silent><C-w><Space> :<C-u>SmartSplit<CR>
 function! s:smart_split(cmd)
     if winwidth(0) > winheight(0) * 2
         vsplit 
@@ -991,6 +991,25 @@ function! s:smart_split(cmd)
 
     if !empty(a:cmd)
         execute a:cmd
+    endif
+endfunction
+" }}}
+
+" 行頭->非空行行頭->行末でローテート{{{
+" [a] (http://qiita.com/items/ee4bf64b1fe2c0a32cbd)
+nnoremap <silent>^ :<C-u>call <SID>rotate_in_line()<CR>
+function! s:rotate_in_line()
+    let c = col('.')
+
+    let cmd = c ==1 ? '^' : '$'
+    execute "normal! ".cmd
+
+    if c == col('.')
+        if cmd == '^'
+            normal! $
+        else 
+            normal! 0
+        endif
     endif
 endfunction
 " }}}
