@@ -286,7 +286,7 @@
 (when (eq system-type 'darwin)
   (setq mac-command-key-is-meta nil)    ;コマンドキーをメタにしない
   (setq mac-potion-modifier 'meta)      ; Optionをメタに
-  (setq mac-command-modifier 'super)    ; コマンドをSuperに
+;;  (setq mac-command-modifier 'super)    ; コマンドをSuperに
   (setq mac-pass-control-to-system t))   ; コントロールキーをMacではなくEmacsに渡す
 
 (set-language-environment 'Japanese)
@@ -329,7 +329,7 @@
 (size-indication-mode t)
 
 ;; backup autosave
-(setq make-backup-files t)
+(setq make-backup-files nil)
 (setq auto-save-default t)
 (add-to-list 'backup-directory-alist
              (cons "." "~/.emacs.d/backups/"))
@@ -589,3 +589,6 @@
                                   cl-funcitons
                                   interactive-only))
 
+;; e2wm.el
+;; http://d.hatena.ne.jp/kiwanami/20100528/1275038929
+(require 'e2wm nil t)

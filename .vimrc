@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 14-Sep-2012.                 |
+"                 Last Change: 15-Sep-2012.                 |
 "============================================================
 
 " 基礎的な設定 {{{
@@ -964,7 +964,7 @@ endif
 " 新規memoファイルにファイル名自動挿入{{{ 
 augroup AutoMemo
     au! 
-    au BufRead *.memo call MyMemoSetting()
+    au BufNewFile *.memo call MyMemoSetting()
 augroup END
 
 function! MyMemoSetting ()
