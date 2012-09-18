@@ -17,3 +17,5 @@
 doc/tags
 doc/tags-ja
 .emacs.d/auto-save-list
+.emacs.d/backups
+.emacs.d/undohist

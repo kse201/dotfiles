@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 15-Sep-2012.                 |
+"                 Last Change: 17-Sep-2012.                 |
 "============================================================
 
 " 基礎的な設定 {{{
@@ -1013,6 +1013,77 @@ function! s:rotate_in_line()
     endif
 endfunction
 " }}}
+"
+" ユーザ側が設定するオプション{{{
+" 実際にデータが保存されるディレクトリパス
+let s:save_point = $HOME . "/.savepoint"
+
+" session が保存を行うデータオプション
+" set sessionoptions=blank,curdir,buffers,folds,help,globals,slash,tahpages,winsize,localoptions
+
+
+" 保存
+function! s:save_window(file)
+    let options = [
+    \ 'set columns=' . &columns,
+    \ 'set lines=' . &lines,
+    \ 'winpos ' . getwinposx() . ' ' . getwinposy(),
+    \ ]
+    call writefile(options, a:file)
+endfunction
+
+function! s:save_point(dir)
+    if !isdirectory(a:dir)
+        call mkdir(a:dir)
+    endif
+    
+    " ファイルが存在していないか、書き込み可能の場合のみ
+    if !filereadable(a:dir.'/vimwinpos.vim') || filewritable(a:dir.'/vimwinpos.vim')
+        if has("gui")
+            call s:save_window(a:dir.'/vimwinpos.vim')
+        endif
+    endif
+
+    if !filereadable(a:dir.'/session.vim') || filewritable(a:dir.'/session.vim')
+        execute "mksession! ".a:dir."/session.vim"
+    endif
+
+    if !filereadable(a:dir.'/viminfo.vim') || filewritable(a:dir.'/viminfo.vim')
+        execute "wviminfo!  ".a:dir."/viminfo.vim"
+    endif
+endfunction
+
+" 復元
+function! s:load_point(dir)
+    if filereadable(a:dir."/vimwinpos.vim") && has("gui")
+        execute "source ".a:dir."/vimwinpos.vim"
+    endif
+
+    if filereadable(a:dir."/session.vim")
+        execute "source ".a:dir."/session.vim"
+    endif
+
+    if filereadable(a:dir."/viminfo.vim")
+        execute "rviminfo ".a:dir."/viminfo.vim"
+    endif
+endfunction
+
+
+" 呼び出しを行うコマンド
+command! SavePoint :call s:save_point(s:save_point)
+command! LoadPoint :call s:load_point(s:save_point)
+
+
+" 自動的に保存、復元するタイミングを設定
+augroup SavePoint
+    autocmd!
+    autocmd VimLeavePre * SavePoint
+
+    " 自動で保存、復元を行う場合
+"   autocmd CursorHold * SavePoint
+"   autocmd VimEnter * LoadPoint
+augroup END
+"}}}
 " }}}
 
 "============================================================

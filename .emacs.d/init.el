@@ -49,7 +49,7 @@
                 )
               ;; 起動時にEmacsWikiのページ名を補完候補に加える
               (auto-install-update-emacswiki-package-name t)
-              (auto-install-compatibility-setup))
+              (auto-install-cmpatibility-setup))
 
             ;; package.el
             (when (require 'package nil t) 
@@ -88,6 +88,8 @@
 ;; 現在の関数名をモードラインに
 (which-function-mode 1)
 
+;; zsh を使う
+(setq shell-file-name "/bin/zsh")
 (setq enable-recursice-minibuffers t)
 ;; ダイアログボックスを使わないようにする
 (setq use-dialog-box nil)
@@ -293,6 +295,12 @@
 (prefer-coding-system 'utf-8)
 (eval-when-compile
   (require 'cl))
+
+;; auto-complete
+;; 補完候補を自動ポップアップ
+(when (require 'auto-complete nil t)
+  (global-auto-complete-mode t)
+  (setq ac-modes (cons 'js-mode ac-modes)))
 
 (when (require 'auto-complete-config)
   (add-to-list 'ac-dictionary-directories "~/.emacd.d/ac-dict")
@@ -592,3 +600,76 @@
 ;; e2wm.el
 ;; http://d.hatena.ne.jp/kiwanami/20100528/1275038929
 (require 'e2wm nil t)
+
+;; Emacs のCommands Hisotryを再起動語も使用する
+;; http://qiita.com/items/4b489c0abbb39a5dcc45
+(setq desktop-globals-to-save '(extended-command-history))
+(setq desktop-files-not-to-save "")
+(desktop-save-mode 1)
+
+;; window移動
+;; http://d.hatena.ne.jp/tomoya/20120512/1336832436 
+(windmove-default-keybindings 'super)   ;Mac用
+; (windmove-default-keybindings 'meta)
+; (windmove-default-keybindings) 引数なしの場合はShift
+
+;; ウィンドウ操作の履歴をundo/redo
+;; C-c <left> / C-c <right> 
+(when (fboundp 'winner-mode)
+  (winner-mode t))
+
+;; C-a でインデントで飛ばした行頭に移動
+;; http://e-arrows.sakura.ne.jp/2010/02/vim-to-emacs.html
+(defun beginning-of-indented-line (current-point)
+  (interactive "d")
+  (if (string-match
+       "^[ \t]+$"
+       (save-excursion
+         (buffer-substring-no-properties
+          (progn (beginning-of-line) (point))
+                 current-point)))
+       (beginning-of-line)
+       (back-to-indentation)))
+(define-key global-map (kbd "C-a") 'beginning-of-indented-line)
+
+;; *scratch*を消さない
+(defun my-make-scratch (&optional arg)
+  (interactive)
+  (progn
+    ;; "*scratch*" を作成して buffer-list に放り込む
+    (set-buffer (get-buffer-create "*scratch*"))
+    (funcall initial-major-mode)
+    (erase-buffer)
+    (when (and initial-scratch-message (not inhibit-startup-message))
+      (insert initial-scratch-message))
+    (or arg (progn (setq arg 0)
+                   (switch-to-buffer "*scratch*")))
+    (cond ((= arg 0) (message "*scratch* is cleared up."))
+          ((= arg 1) (message "another *scratch* is created")))))
+
+(add-hook 'kill-buffer-query-functions
+          ;; *scratch* バッファで kill-buffer したら内容を消去するだけにする
+          (lambda ()
+            (if (string= "*scratch*" (buffer-name))
+                (progn (my-make-scratch 0) nil)
+              t)))
+
+(add-hook 'after-save-hook
+          ;; *scratch* バッファの内容を保存したら *scratch* バッファを新しく作る
+          (lambda ()
+            (unless (member (get-buffer "*scratch*") (buffer-list))
+              (my-make-scratch 1))))
+;; beepを消す
+(defun my-bell-function ()
+  (unless (memq this-command
+        '(isearch-abort abort-recursive-edit exit-minibuffer
+              keyboard-quit mwheel-scroll down up next-line previous-line
+              backward-char forward-char))
+    (ding)))
+(setq ring-bell-function 'my-bell-function)
+
+(require 'w3m)
+(setq w3m-use-cookies t)
+(setq browse-url-browser-function 'w3m-browse-url)
+
+(define-key global-map (kbd "C-x C-b") 'bs-show)

@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 15-Sep-2012.                 |
+"                 Last Change: 17-Sep-2012.                 |
 "============================================================
 autocmd MyAutoCmd BufWritePost $MYVIMRCPLUGIN  source $MYVIMRC |
             \ if has('gui_running') |
@@ -79,6 +79,7 @@ NeoBundleLazy 'sgur/unite-everything'
 NeoBundle 'zhaocai/unite-scriptnames'
 NeoBundle 'h1mesuke/vim-alignta'
 NeoBundle 'yomi322/unite-tweetvim'
+NeoBundle 'taka84u9/unite-git'
 " }}}
 " テキスト整形 {{{
 NeoBundle 'godlygeek/tabular'
