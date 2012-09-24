@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 17-Sep-2012.                 |
+"                 Last Change: 19-Sep-2012.                 |
 "============================================================
 autocmd MyAutoCmd BufWritePost $MYVIMRCPLUGIN  source $MYVIMRC |
             \ if has('gui_running') |
@@ -80,6 +80,7 @@ NeoBundle 'zhaocai/unite-scriptnames'
 NeoBundle 'h1mesuke/vim-alignta'
 NeoBundle 'yomi322/unite-tweetvim'
 NeoBundle 'taka84u9/unite-git'
+NeoBundle 'kmnk/vim-unite-giti'
 " }}}
 " テキスト整形 {{{
 NeoBundle 'godlygeek/tabular'
@@ -150,7 +151,7 @@ NeoBundle 'sudoku_game'
 NeoBundle 'mfumi/viminesweeper'
 NeoBundle 'mfumi/snake.vim'
 NeoBundle 'vimyum/viske'
-NeoBundle 'dwm.vim'
+" NeoBundle 'dwm.vim'
 NeoBundle 'savevers.vim'
 NeoBundle 'kien/rainbow_parentheses.vim'
 NeoBundle 'mattn/togetter-vim'
