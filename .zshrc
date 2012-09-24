@@ -12,6 +12,9 @@ setopt hist_reduce_blanks #スペース排除
 setopt EXTENDED_HISTORY #zshの開始終了を記録
 unsetopt hist_verify # ヒストリを呼び出してから実行する間いｎ一旦編集可能を止める
 setopt hist_expand # 補完時にヒストリを自動的に展開 
+export HISTIGNORE="ls:cd:history:fg*" # よく使うコマンドを保存しない
+HISTTIMEFORMAT='%Y%m%d %T';
+export HISTTIMEFORMAT
 
 #補完機能の強化
 autoload -U compinit
