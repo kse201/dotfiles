@@ -138,4 +138,20 @@ function premod() {
 
 source ~/auto-fu.zsh/auto-fu.zsh
 alias ctags='/Applications/MacVim.app/Contents/MacOS/ctags "$@"'
-alias cancel = !git commit -a -m'Temporary commit for cancel' && git reset--hard HEAD~
+# alias cancel = !git commit -a -m'Temporary commit for cancel' && git reset--hard HEAD~
+
+# auto-fu.zsh
+if [ -f ~/.zsh/auto-fu.zsh/auto-fu.zsh ] ; then
+    source ~/.zsh/auto-fu.zsh/auto-fu.zsh
+    function zle-line-init () {
+        auto-fu-init
+    }
+    zle -N zle-line-init
+fi
+
+function show_buffer_stack() {
+POSTDISPLAY="
+stack: $LBUFFER"
+zle push-line-or-edit
+}
+zle -N show_buffer_stack
