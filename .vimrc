@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 17-Sep-2012.                 |
+"                 Last Change: 25-Sep-2012.                 |
 "============================================================
 
 " 基礎的な設定 {{{
@@ -323,16 +323,10 @@ function! s:tabpage_label(n)
     let bufnrs = tabpagebuflist(a:n)
     " カレントタブページかどうかでハイライトを切り替える
     let hi = a:n is tabpagenr() ? '%#TabLineSel#' : '%#TabLine#'
-    " バッファが複数あったらバッファ数を表示
-    let no = len(bufnrs)
-
-    if no is 1
-        let no = ''
-    endif
 
     " タブページ内に変更ありのバッファがあったら'+'をつける
     let mod = len(filter(copy(bufnrs), 'getbufvar(v:val, "&modified")')) ? '[+]' : ''
-    let sp = (no . mod) ==# '' ? '' : ' ' " 隙間を空ける
+    " let sp = (no . mod) ==# '' ? '' : ' ' " 隙間を空ける
     " カレントバッファ
     let curbufnr = bufnrs[tabpagewinnr(a:n) - 1] " tabpagewinnr()は1 origin
     let fname = pathshorten(bufname(curbufnr))
@@ -341,7 +335,7 @@ function! s:tabpage_label(n)
         let fname = ' '
     endif
 
-    let label = no. sp . fname . mod 
+    let label = a:n .":" .  fname . mod 
 
     return '%' . a:n . 'T' . hi . label .  '%T%#TabLineFill#'
 
@@ -464,9 +458,12 @@ nmap <Leader>PP "+p
 " }}}
 
 " タブまわり{{{
-nnoremap <Leader>tl :tabnext<CR>
-nnoremap <Leader>th :tabprevious<CR>
+nnoremap <Leader>tl gt
+nnoremap <Leader>th gT
 nnoremap <Leader>tn :tabnew<CR>
+for i in range(1,9)
+    execute "nnoremap " . i . "<Leader>t " . i ."gt"
+endfor
 " command! TL :tabnext 
 " command! TH :tabprevious
 " command! TN :tabnew

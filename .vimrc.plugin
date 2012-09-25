@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 19-Sep-2012.                 |
+"                 Last Change: 25-Sep-2012.                 |
 "============================================================
 autocmd MyAutoCmd BufWritePost $MYVIMRCPLUGIN  source $MYVIMRC |
             \ if has('gui_running') |
@@ -141,7 +141,7 @@ NeoBundle 'mattn/mkdpreview-vim'
 NeoBundle 'L9'
 
 NeoBundle 'git://git.wincent.com/command-t.git'
-" }}}
+
 NeoBundle 'osyo-manga/unite-homo.git'
 NeoBundle 'osyo-manga/unite-u-nya-.git'
 NeoBundle 'vimwiki'
@@ -163,6 +163,7 @@ NeoBundle 'tpope/vim-endwise'
 NeoBundle 'tsaleh/vim-matchit'
 NeoBundle 'chigatoike/activefix.vim'
 " NeoBundle 'mrtazz/simplenote.vim'
+" }}}
 filetype plugin indent on
 syntax on
 
@@ -197,7 +198,8 @@ let g:neocomplcache_dictionary_filetype_lists = {
             \ 'scheme'   : $HOME.'/.gosh_completions',
             \ 'ruby'     : $VIMFILE_DIR.'/dict/ruby.dict',
             \ 'objc'     : $VIMFILE_DIR.'/dict/cocoa.dict',
-            \ 'tex'      : $VIMFILE_DIR.'/dict/tex.dict'
+            \ 'tex'      : $VIMFILE_DIR.'/dict/tex.dict',
+            \ 'java'      : $VIMFILE_DIR.'/dict/java.dict'
             \ }
 
 " Define keyword.

@@ -138,3 +138,4 @@ function premod() {
 
 source ~/auto-fu.zsh/auto-fu.zsh
 alias ctags='/Applications/MacVim.app/Contents/MacOS/ctags "$@"'
+alias cancel = !git commit -a -m'Temporary commit for cancel' && git reset--hard HEAD~
