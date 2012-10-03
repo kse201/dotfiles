@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 25-Sep-2012.                 |
+"                 Last Change: 26-Sep-2012.                 |
 "============================================================
 autocmd MyAutoCmd BufWritePost $MYVIMRCPLUGIN  source $MYVIMRC |
             \ if has('gui_running') |
@@ -26,7 +26,9 @@ endif
 set nocompatible
 filetype plugin indent off
 let g:bundle_dir = $VIMFILE_DIR."/bundle/"
+if has('vim_starting')
 exe "set rtp+=".g:bundle_dir."neobundle.vim"
+endif
 call neobundle#rc(expand(g:bundle_dir))
 unlet g:bundle_dir
 
@@ -46,12 +48,14 @@ NeoBundle 'tpope/vim-pathogen'
 NeoBundle 'thinca/vim-ref'
 NeoBundle 'vim-jp/vimdoc-ja.git'
 " }}}
-" 補完 {{{
-NeoBundle 'Shougo/neocomplcache'
-NeoBundle 'Shougo/neocomplcache-snippets-complete'
-NeoBundle 'Shougo/neocomplcache-clang'
-NeoBundle 'Shougo/neocomplcache-clang_complete'
-NeoBundle 'clang-complete'
+" 補完 neocom{{{
+NeoBundleLazy 'Shougo/neocomplcache'
+NeoBundleLazy 'Shougo/neocomplcache-snippets-complete'
+NeoBundleLazy 'Shougo/neocomplcache-clang'
+NeoBundleLazy 'Shougo/neocomplcache-clang_complete'
+NeoBundleLazy 'clang-complete'
+NeoBundleLazy 'neco-look'
+NeoBundleLazy 'yomi322/neco-tweetvim'
 " }}}
 " ファイラ {{{
 NeoBundle 'scrooloose/nerdtree'
@@ -60,9 +64,8 @@ NeoBundleLazy 'Shougo/vimfiler'
 " 入力補助 {{{
 NeoBundle 'kana/vim-smartchr'
 NeoBundleLazy 'mattn/zencoding-vim'
-NeoBundle 'msanders/cocoa.vim'
-NeoBundle 'jelera/vim-javascript-syntax'
-NeoBundle 'neco-look'
+NeoBundleLazy 'msanders/cocoa.vim'
+NeoBundleLazy 'jelera/vim-javascript-syntax'
 " }}}
 " unite関連 {{{
 NeoBundle 'Shougo/unite.vim'
@@ -81,6 +84,8 @@ NeoBundle 'h1mesuke/vim-alignta'
 NeoBundle 'yomi322/unite-tweetvim'
 NeoBundle 'taka84u9/unite-git'
 NeoBundle 'kmnk/vim-unite-giti'
+NeoBundle 'osyo-manga/unite-homo.git'
+NeoBundle 'osyo-manga/unite-u-nya-.git'
 " }}}
 " テキスト整形 {{{
 NeoBundle 'godlygeek/tabular'
@@ -89,11 +94,8 @@ NeoBundle 'vim-scripts/RST-Tables'
 NeoBundle 'vim-scripts/sequence'
 " }}}
 " 機能追加 {{{
-NeoBundle 'Shougo/vimshell'
-NeoBundle 'basyura/TweetVim'
-NeoBundle 'yomi322/neco-tweetvim'
-NeoBundle 'delphinus35/TweetVim-powerline-theme'
-NeoBundle 'koron/chalice'
+NeoBundleLazy 'Shougo/vimshell'
+NeoBundleLazy 'basyura/TweetVim'
 NeoBundle 'mattn/calendar-vim'
 NeoBundleLazy 'thinca/vim-quickrun'
 NeoBundle 'banyan/Vimpusher'
@@ -114,7 +116,7 @@ NeoBundleLazy 'exVim'
 NeoBundle 'MultipleSearch'
 NeoBundle 'Shougo/vinarise'
 NeoBundle  'thinca/vim-ambicmd'
-NeoBundle 'csv.vim'
+NeoBundleLazy 'csv.vim'
 " }}}
 " C / C++ {{{
 NeoBundleLazy 'vim-scripts/Source-Explorer-srcexpl.vim'
@@ -142,8 +144,6 @@ NeoBundle 'L9'
 
 NeoBundle 'git://git.wincent.com/command-t.git'
 
-NeoBundle 'osyo-manga/unite-homo.git'
-NeoBundle 'osyo-manga/unite-u-nya-.git'
 NeoBundle 'vimwiki'
 NeoBundle 'mattn/invader-vim'
 NeoBundle 'mattn/mahjong-vim'
@@ -156,16 +156,23 @@ NeoBundle 'savevers.vim'
 NeoBundle 'kien/rainbow_parentheses.vim'
 NeoBundle 'mattn/togetter-vim'
 NeoBundle 'kana/vim-smartinput'
-NeoBundle 'Lokaltog/vim-easymotion'
+" NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'ViewOutput'
 NeoBundle 'mattn/excitetranslate-vim'
 NeoBundle 'tpope/vim-endwise'
 NeoBundle 'tsaleh/vim-matchit'
 NeoBundle 'chigatoike/activefix.vim'
+NeoBundle 'dahu/vim-fanfingtastic'
 " NeoBundle 'mrtazz/simplenote.vim'
 " }}}
 filetype plugin indent on
 syntax on
+
+if neobundle#exists_not_installed_bundles()
+    echomsg 'Not installed bundles :' .
+                \ string(neobundle#get_not_installed_bundle_names())
+    echomsg 'Please execute ":NeoBundleInstall" command.' 
+endif
 
 command! Nbi :NeoBundleInstall
 command! Nbu :NeoBundleUpdate
@@ -337,6 +344,8 @@ nnoremap <silent> <SID>[unite]m :<C-u>Unite -buffer-name=file_mru file_mru<CR>
 nnoremap <silent> <SID>[unite]a :<C-u>UniteWithBufferDir -winheight=100 -input= -buffer-name=files buffer file_mru bookmark file tab history/command directory directory_mru register variable window<CR>
 " command
 nnoremap <silent> <SID>[unite]h :<C-u>Unite -default-action=edit history/command command<CR>
+" jump
+nnoremap <silent> <SID>[unite]j :<C-u>Unite jump<CR>
 
 augroup UniteKeyMap
     autocmd!
@@ -625,7 +634,7 @@ nno <silent> <C-F7> :execute "QuickRun ".g:quickrun_compile_command[&filetype"]<
 
 " vimshell.vim{{{
 nmap <Leader>vs <SID>[vimshell]
-nnoremap <SID>[vimshell] :VimShell<CR>
+nnoremap <SID>[vimshell] :<C-u>silent! NeoBundleSource vimshell<CR>:<C-u>VimShell<CR>
 " nnoremap <SID>[vimshell]c :VimShellCreate<CR>
 " let g:vimshell_prompt = 'vimshell#vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
 let g:vimshell_split_height = 10
@@ -716,7 +725,7 @@ let g:Tex_CompileRule_pdf = 'dvipdfmx $*.dvi'
 " }}}
 
 " tweetvim{{{
-nnoremap <silent> <SID>[unite]t :Unite -winheight=11 tweetvim<CR>
+nnoremap <silent> <SID>[unite]t :<C-u>NeoBundleSource TweetVim<CR>:<C-u>Unite -winheight=11 tweetvim<CR>
 nnoremap <silent> ,ts :TweetVimSay<CR>
 nnoremap <silent> ,tv :TweetVimSearch vim<CR>
 nnoremap <silent> ,tvj :TweetVimSearch vim lang:ja<CR>
@@ -840,6 +849,12 @@ let g:ll_plugins['css'] = [
 let g:ll_plugins['tex'] = [
             \ 'vim-latex'
             \ ]
+let g:ll_plugins['csv'] = [
+            \ 'csv.vim'
+            \ ]
+let g:ll_plugins['js'] = [
+            \ 'vim-javascript-syntax'
+            \]
 
 if has('vim_starting') && s:ipi_loaded
     " lazy loading of each filetype
@@ -862,8 +877,18 @@ if has('vim_starting') && s:ipi_loaded
     " lazy loading for neocomplcache
     augroup MyInitNeocomplcache
         autocmd!
-        autocmd InsertEnter * call Init_neocomplcache() | autocmd! MyInitNeocomplcache
+        autocmd InsertEnter *  call s:LazyLoadingForNeocom() | call Init_neocomplcache() | autocmd! MyInitNeocomplcache
     augroup END
+    function! s:LazyLoadingForNeocom()
+        NeoBundleSource neocomplcache
+        NeoBundleSource neocomplcache
+        NeoBundleSource neocomplcache-snippets-complete
+        NeoBundleSource neocomplcache-clang
+        NeoBundleSource neocomplcache-clang_complete
+        NeoBundleSource clang-complete
+        NeoBundleSource neco-look
+        NeoBundleSource neco-tweetvim
+    endfunction
 
     " lazy loading for vim-quickrun
     function! LoadQuickRun()
@@ -1097,5 +1122,6 @@ let g:EasyMotion_keys = 'asdfghjkl'
 let g:EasyMotion_leader_key = ","
 let g:EasyMotion_grouping = 1
 " }}}
+
 "" ================================================================================ 
 " vim: set tabstop=4 shiftwidth=4  fdm=marker fdl=0 :

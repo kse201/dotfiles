@@ -1,24 +1,80 @@
-export EDITOR=vim
+## 大いに参考させて頂きました(というかパクリ)
+# http://www.clear-code.com/blog/2011/9/5.html
+
 export PATH=$PATH:~/myshellscript:/opt/local/:~/local/bin/:~/git-tasukete/
 #LANG
 export LANG=ja_JP.UTF-8
 export LESSCHARSET=utf-8
 
-#履歴
+# ヒストリ
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
 setopt hist_reduce_blanks #スペース排除
-setopt EXTENDED_HISTORY #zshの開始終了を記録
+setopt EXTENDED_HISTORY #zshの開始,終了時刻を記録
 unsetopt hist_verify # ヒストリを呼び出してから実行する間いｎ一旦編集可能を止める
 setopt hist_expand # 補完時にヒストリを自動的に展開 
 export HISTIGNORE="ls:cd:history:fg*" # よく使うコマンドを保存しない
+setopt hist_ignore_space # スペースで始まるコマンドはヒストリに追加しない
+setopt inc_append_history # すぐにヒストリに追記する
+setopt share_history # zshプロセス間でヒストリを共有する
 HISTTIMEFORMAT='%Y%m%d %T';
 export HISTTIMEFORMAT
 
-#補完機能の強化
+# 補完機能の強化
 autoload -U compinit
 compinit -u
+## 保管方法毎にグループ化
+zstyle ':completion:*' format '%B%d%b'
+zstyle ':completion:*' group-name ''
+
+## 補完候補をメニューから選択
+zstyle ':completion:*:default' menu select=2
+## 補完候補に色を付ける
+## 空文字列はデフォルト値を使いうという意味
+zstyle ':completion:*:default' list-colors ""
+## 補完候補がなければより曖昧に候補を探す
+## m:{a-z}={A-Z} : 小文字大文字区別なく補完
+## r:|[._-]=* [.][_][-]の前にワイルドカードがあるものとして補完
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z} r:|[._-]=*'
+## 多めに保管方法をとる 
+# completer
+# _oldlist 前回の補完結果を再利用
+# _complete 補完する
+# _match globを展開しないで候補の一覧から補完
+# _history ヒストリのコマンドも補完候補とする
+# _ignored 補完候補にださないと指定したものも補完候補とする
+# _approximate 似ている補完候補も補完候補とする
+# _prefix カーソル移行を無視してカーソル位置までで補完する
+
+zstyle ':completion:*' completer _oldlist _complete _match _history _ignored _approximate _prefix _list 
+## 補完候補をキャッシュ
+zstyle ':completion:*' use-cache yes
+## 詳細な情報を使う
+zstyle ':completion:*' verbose yes
+## カーソル位置で補完
+setopt complete_in_word
+## globを展開しないで候補の一覧から補完する
+setopt glob_complete
+## 数字順に並べる
+setopt numeric_glob_sort
+
+# 展開
+## =の後でも ~ [=コマンド]などのファイル名展開を行う
+setopt magic_equal_subst
+## パスがディレクトリだったら最後に/をつけるo
+setopt mark_dirs
+
+## jobsでプロセスIDも出力
+setopt long_list_jobs
+
+## プロセス消費時間が3秒かかったら 自動的に消費時間の統計情報を表示
+REPORTTIME=3
+
+## 全てのユーザのログイン・ログアウトを監視
+watch="all"
+## ログイン語すぐに表示
+log
 
 #コアダンプサイズを制限
 limit coredumpsize 102400
@@ -33,6 +89,164 @@ PS1="[@${HOST%%.*} %2~]%(!.#.$) "
 #時間表示 & 入力に応じて消す
 RPROMPT="%T"
 setopt transient_rprompt
+## PROMPT内で変数展開・コマンド置換・算術演算を実行する。
+setopt prompt_subst
+## PROMPT内で「%」文字から始まる置換機能を有効にする。
+setopt prompt_percent
+## コピペしやすいようにコマンド実行後は右プロンプトを消す。
+setopt transient_rprompt
+
+## 256色生成用便利関数
+### red: 0-5
+### green: 0-5
+### blue: 0-5
+color256()
+{
+    local red=$1; shift
+    local green=$2; shift
+    local blue=$3; shift
+
+    echo -n $[$red * 36 + $green * 6 + $blue + 16]
+}
+
+fg256()
+{
+    echo -n $'\e[38;5;'$(color256 "$@")"m"
+}
+
+bg256()
+{
+    echo -n $'\e[48;5;'$(color256 "$@")"m"
+}
+
+## プロンプトの作成
+### ↓のようにする。
+###   -(user@debian)-(0)-<2011/09/01 00:54>--------------------[/home/user]-
+###   -[84](0)%                                                         [~]
+
+## バージョン管理システムの情報も表示する
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' formats \
+    '(%{%F{white}%K{green}%}%s%{%f%k%})-[%{%F{white}%K{blue}%}%b%{%f%k%}]'
+zstyle ':vcs_info:*' actionformats \
+    '(%{%F{white}%K{green}%}%s%{%f%k%})-[%{%F{white}%K{blue}%}%b%{%f%k%}|%{%F{white}%K{red}%}%a%{%f%k%}]'
+
+### プロンプトバーの左側
+###   %{%B%}...%{%b%}: 「...」を太字にする。
+###   %{%F{cyan}%}...%{%f%}: 「...」をシアン色の文字にする。
+###   %n: ユーザ名
+###   %m: ホスト名（完全なホスト名ではなくて短いホスト名）
+###   %{%B%F{white}%(?.%K{green}.%K{red})%}%?%{%f%k%b%}:
+###                           最後に実行したコマンドが正常終了していれば
+###                           太字で白文字で緑背景にして異常終了していれば
+###                           太字で白文字で赤背景にする。
+###   %{%F{white}%}: 白文字にする。
+###     %(x.true-text.false-text): xが真のときはtrue-textになり
+###                                偽のときはfalse-textになる。
+###       ?: 最後に実行したコマンドの終了ステータスが0のときに真になる。
+###       %K{green}: 緑景色にする。
+###       %K{red}: 赤景色を赤にする。
+###   %?: 最後に実行したコマンドの終了ステータス
+###   %{%k%}: 背景色を元に戻す。
+###   %{%f%}: 文字の色を元に戻す。
+###   %{%b%}: 太字を元に戻す。
+###   %D{%Y/%m/%d %H:%M}: 日付。「年/月/日 時:分」というフォーマット。
+prompt_bar_left_self="(%{%B%}%n%{%b%}%{%F{cyan}%}@%{%f%}%{%B%}%m%{%b%})"
+prompt_bar_left_status="(%{%B%F{white}%(?.%K{green}.%K{red})%}%?%{%k%f%b%})"
+prompt_bar_left_date="<%{%B%}%D{%Y/%m/%d %H:%M}%{%b%}>"
+prompt_bar_left="-${prompt_bar_left_self}-${prompt_bar_left_status}-${prompt_bar_left_date}-"
+### プロンプトバーの右側
+###   %{%B%K{magenta}%F{white}%}...%{%f%k%b%}:
+###       「...」を太字のマジェンタ背景の白文字にする。
+###   %d: カレントディレクトリのフルパス（省略しない）
+prompt_bar_right="-[%{%B%K{magenta}%F{white}%}%d%{%f%k%b%}]-"
+
+### 2行目左にでるプロンプト。
+###   %h: ヒストリ数。
+###   %(1j,(%j),): 実行中のジョブ数が1つ以上ある場合だけ「(%j)」を表示。
+###     %j: 実行中のジョブ数。
+###   %{%B%}...%{%b%}: 「...」を太字にする。
+###   %#: 一般ユーザなら「%」、rootユーザなら「#」になる。
+prompt_left="-[%h]%(1j,(%j),)%{%B%}%#%{%b%} "
+
+## プロンプトフォーマットを展開した後の文字数を返す。
+## 日本語未対応。
+count_prompt_characters()
+{
+    # print:
+    #   -P: プロンプトフォーマットを展開する。
+    #   -n: 改行をつけない。
+    # sed:
+    #   -e $'s/\e\[[0-9;]*m//g': ANSIエスケープシーケンスを削除。
+    # sed:
+    #   -e 's/ //g': *BSDやMac OS Xのwcは数字の前に空白を出力するので削除する。
+    print -n -P -- "$1" | sed -e $'s/\e\[[0-9;]*m//g' | wc -m | sed -e 's/ //g'
+}
+
+## プロンプトを更新する。
+update_prompt()
+{
+    # プロンプトバーの左側の文字数を数える。
+    # 左側では最後に実行したコマンドの終了ステータスを使って
+    # いるのでこれは一番最初に実行しなければいけない。そうし
+    # ないと、最後に実行したコマンドの終了ステータスが消えて
+    # しまう。
+    local bar_left_length=$(count_prompt_characters "$prompt_bar_left")
+    # プロンプトバーに使える残り文字を計算する。
+    # $COLUMNSにはターミナルの横幅が入っている。
+    local bar_rest_length=$[COLUMNS - bar_left_length]
+
+    local bar_left="$prompt_bar_left"
+    # パスに展開される「%d」を削除。
+    local bar_right_without_path="${prompt_bar_right:s/%d//}"
+    # 「%d」を抜いた文字数を計算する。
+    local bar_right_without_path_length=$(count_prompt_characters "$bar_right_without_path")
+    # パスの最大長を計算する。
+    #   $[...]: 「...」を算術演算した結果で展開する。
+    local max_path_length=$[bar_rest_length - bar_right_without_path_length]
+    # パスに展開される「%d」に最大文字数制限をつける。
+    #   %d -> %(C,%${max_path_length}<...<%d%<<,)
+    #     %(x,true-text,false-text):
+    #         xが真のときはtrue-textになり偽のときはfalse-textになる。
+    #         ここでは、「%N<...<%d%<<」の効果をこの範囲だけに限定させる
+    #         ために用いているだけなので、xは必ず真になる条件を指定している。
+    #       C: 現在の絶対パスが/以下にあると真。なので必ず真になる。
+    #       %${max_path_length}<...<%d%<<:
+    #          「%d」が「${max_path_length}」カラムより長かったら、
+    #          長い分を削除して「...」にする。最終的に「...」も含めて
+    #          「${max_path_length}」カラムより長くなることはない。
+    bar_right=${prompt_bar_right:s/%d/%(C,%${max_path_length}<...<%d%<<,)/}
+    # 「${bar_rest_length}」文字分の「-」を作っている。
+    # どうせ後で切り詰めるので十分に長い文字列を作っているだけ。
+    # 文字数はざっくり。
+    local separator="${(l:${bar_rest_length}::-:)}"
+    # プロンプトバー全体を「${bar_rest_length}」カラム分にする。
+    #   %${bar_rest_length}<<...%<<:
+    #     「...」を最大で「${bar_rest_length}」カラムにする。
+    bar_right="%${bar_rest_length}<<${separator}${bar_right}%<<"
+
+    # プロンプトバーと左プロンプトを設定
+    #   "${bar_left}${bar_right}": プロンプトバー
+    #   $'\n': 改行
+    #   "${prompt_left}": 2行目左のプロンプト
+    PROMPT="${bar_left}${bar_right}"$'\n'"${prompt_left}"
+    # 右プロンプト
+    #   %{%B%F{white}%K{green}}...%{%k%f%b%}:
+    #       「...」を太字で緑背景の白文字にする。
+    #   %~: カレントディレクトリのフルパス（可能なら「~」で省略する）
+    RPROMPT="[%{%B%F{white}%K{magenta}%}%~%{%k%f%b%}]"
+
+    # バージョン管理システムの情報を取得する。
+    LANG=C vcs_info >&/dev/null
+    # バージョン管理システムの情報があったら右プロンプトに表示する。
+    if [ -n "$vcs_info_msg_0_" ]; then
+        RPROMPT="${vcs_info_msg_0_}-${RPROMPT}"
+    fi
+}
+
+## コマンド実行前に呼び出されるフック。
+precmd_functions=($precmd_functions update_prompt)
+
 
 # 色を使う
 setopt prompt_subst
@@ -56,10 +270,12 @@ export LISTMAX
 # ディレクトリ名だけでcd
 setopt auto_cd
 
-# cdの履歴を表示
+# cdの履歴関連
 setopt auto_pushd
 setopt pushd_ignore_dups #同ディレクトリを履歴に追加しない
 setopt pushd_minus
+cdpath=(~) # カレントディレクトリ内に指定ディレクトリが見当たらない場合移動先を検索するリスト
+chpwd_functions=($chpwd_functions dirs)
 
 # スペルチェック
 setopt auto_param_keys
@@ -99,6 +315,7 @@ alias gst="git status "
 
 # 単語区切り記号
 WORDCHARS='*?_-.[]~=&;!#S%^(){}<>'
+WORDCHARS=${WORDCHARS:s,/,,}
 
 # less オプションを環境変数で指定する
 # export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-if-one-screen --RAW-CONTROL-CHARS'
@@ -129,29 +346,20 @@ setopt auto_param_keys
 # 補完される前にオリジナルのコマンドまで展開してチェックされる
 setopt complete_aliases
 
-# z 
-_Z_CMD=j
-source ~/z/z.sh
-function premod() {
-    z --add "$(pwd -P)"
-}
-
-source ~/auto-fu.zsh/auto-fu.zsh
 alias ctags='/Applications/MacVim.app/Contents/MacOS/ctags "$@"'
 # alias cancel = !git commit -a -m'Temporary commit for cancel' && git reset--hard HEAD~
 
-# auto-fu.zsh
-if [ -f ~/.zsh/auto-fu.zsh/auto-fu.zsh ] ; then
-    source ~/.zsh/auto-fu.zsh/auto-fu.zsh
-    function zle-line-init () {
-        auto-fu-init
-    }
-    zle -N zle-line-init
-fi
+## エイリアス
+alias -g L="| less"
+alias -g G='| grep'
+alias -g H='| head'
+alias -g T='| tail'
+alias -g S='| sed'
+alias -g A='| awk'
+alias -g W='| wc'
 
-function show_buffer_stack() {
-POSTDISPLAY="
-stack: $LBUFFER"
-zle push-line-or-edit
-}
-zle -N show_buffer_stack
+## 完全に削除
+alias rr="command rm -rf"
+
+## package
+source ~/.zsh.d/config/packages.zsh

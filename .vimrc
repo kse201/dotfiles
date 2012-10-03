@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 25-Sep-2012.                 |
+"                 Last Change: 02-Oct-2012.                 |
 "============================================================
 
 " 基礎的な設定 {{{
@@ -114,6 +114,10 @@ augroup END
 if !has('gui')
     set t_Co=256
     colorscheme desert
+inoremap 0D <Left>
+inoremap 0B <Down>
+inoremap 0C <Right>
+inoremap 0A <Up>
 endif
 " }}}
 
@@ -749,6 +753,9 @@ function! MyrubySettings()
     inoremap  <buffer> ' ''<Left>
     set shiftwidth=2
     set tabstop=2
+    let g:ref_use_vimproc=1
+    let g:ref_refe_version=2
+    nmap ,rr :<C-u>Ref refe<Space>
 endfunction
 " }}}
 " Lisp{{{
@@ -1083,5 +1090,6 @@ augroup END
 "}}}
 " }}}
 
+set timeout timeoutlen=500 ttimeoutlen=75
 "============================================================
 " vim:set tabstop=4 shiftwidth=4 fdm=marker fdl=0: 

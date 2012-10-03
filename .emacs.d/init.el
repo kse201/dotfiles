@@ -60,6 +60,12 @@
 
 (add-to-list 'load-path "~/src/emacswikipages/" t)
 
+;; 設定ファイル編集 
+(defun edit-init.el ()
+  (interactive)
+  (find-file "~/.emacs.d/init.el")
+  )
+(global-set-key (kbd "C-x C-i") 'edit-init.el)
 ;; ediff関連のバッファを1つのフレームにまとめる
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 ;; 現在行に色をつける
@@ -115,7 +121,7 @@
 
 ;; 最近のファイル500個個を保存する
 (setq recentf-max-saved-items 500)
-             
+
 ;; 最近使ったファイルに加えないファイルを正規表現で指定する
 (setq recentf-exclude '("/TAGS$" "/var/tmp/"))
 (require 'recentf-ext)
@@ -135,14 +141,14 @@
 (add-hook 'emacs-lisp-mode-hook 'enable-auto-async-byte-compile-mode)
 (setq auto-async-byte-compile-exclude-files-regexp "^_")
 ;; *.elを保存時、自動バイトコンパイル
-                                        ;(add-hook 'after-save-hook              
-                                        ;         (lambda ()
-                                        ;          (let ((file (buffer-file-name)))
-                                        ;           (when (string-match ".*\\.el$" file)
-                                        ;            (byte-compile-file file))))
+  ;(add-hook 'after-save-hook              
+  ;         (lambda ()
+  ;          (let ((file (buffer-file-name)))
+  ;           (when (string-match ".*\\.el$" file)
+  ;            (byte-compile-file file))))
 
 ;; recentf-ext.el
-;(define-key global-map (kbd "C-;") 'recentf-open-files )
+  ;(define-key global-map (kbd "C-;") 'recentf-open-files )
 
 ;; キーバインド
 (define-key global-map "\C-h" 'delete-backward-char)
@@ -160,6 +166,7 @@
 (define-key global-map (kbd "M-a") 'mark-whole-buffer)
 (define-key global-map (kbd "M-y") 'backward-kill-word) ; 一つ前の単語削除
 (define-key global-map (kbd "C-x o") 'browse-url-at-point) ;ブラウザ起動
+(define-key global-map (kbd "C-x C-;") 'goto-line) ; 指定行へ移動
 
 ;; Localeに合わせた環境の設定
 (set-locale-environment nil)
@@ -177,7 +184,7 @@
 (partial-completion-mode 1)
 ;; 最終更新日の自動挿入
 (require 'time-stamp)
-                                        ;画像ファイルを表示する
+  ;画像ファイルを表示する
 (auto-image-file-mode t)
 ;; 自動でファイルを挿入する
 (auto-insert-mode t)
@@ -288,7 +295,7 @@
 (when (eq system-type 'darwin)
   (setq mac-command-key-is-meta nil)    ;コマンドキーをメタにしない
   (setq mac-potion-modifier 'meta)      ; Optionをメタに
-;;  (setq mac-command-modifier 'super)    ; コマンドをSuperに
+  ;;  (setq mac-command-modifier 'super)    ; コマンドをSuperに
   (setq mac-pass-control-to-system t))   ; コントロールキーをMacではなくEmacsに渡す
 
 (set-language-environment 'Japanese)
@@ -543,12 +550,14 @@
 
 ;; elispにて変数・関数
 (defun elisp-mode-hooks ()
-  "lisp-mode-hooks"
+  ;;  "lisp-mode-hooks"
   (when (require 'eldoc nil t)
+(require 'eldoc-extension nil t)
     (setq eldoc-idle-delay 0.2)
     (setq eldoc-area-use-multiline-p t)
     (turn-on-eldoc-mode)))
 (add-hook 'emacs-lisp-mode-hook 'elisp-mode-hooks)
+(prin1-to-string emacs-lisp-mode-hook)
 
 (require 'hideshow)
 
@@ -610,8 +619,18 @@
 ;; window移動
 ;; http://d.hatena.ne.jp/tomoya/20120512/1336832436 
 (windmove-default-keybindings 'super)   ;Mac用
-; (windmove-default-keybindings 'meta)
-; (windmove-default-keybindings) 引数なしの場合はShift
+  ; (windmove-default-keybindings 'meta)
+  ; (windmove-default-keybindings) 引数なしの場合はShift
+
+;; 良い感じにウィンドウ分割
+(global-set-key (kbd "C-x C-w") 'good-split-window)
+
+(defun good-split-window ()
+  (interactive)
+  (if (< (window-width) (window-height))
+      (split-window-vertically)
+    (split-window-horizontally)
+    ))
 
 ;; ウィンドウ操作の履歴をundo/redo
 ;; C-c <left> / C-c <right> 
@@ -620,17 +639,17 @@
 
 ;; C-a でインデントで飛ばした行頭に移動
 ;; http://e-arrows.sakura.ne.jp/2010/02/vim-to-emacs.html
-(defun beginning-of-indented-line (current-point)
+(defun my-beginning-of-indented-line (current-point)
   (interactive "d")
   (if (string-match
        "^[ \t]+$"
        (save-excursion
          (buffer-substring-no-properties
           (progn (beginning-of-line) (point))
-                 current-point)))
-       (beginning-of-line)
-       (back-to-indentation)))
-(define-key global-map (kbd "C-a") 'beginning-of-indented-line)
+          current-point)))
+      (beginning-of-line)
+    (back-to-indentation)))
+(define-key global-map (kbd "C-a") 'my-beginning-of-indented-line)
 
 ;; *scratch*を消さない
 (defun my-make-scratch (&optional arg)
@@ -662,9 +681,9 @@
 ;; beepを消す
 (defun my-bell-function ()
   (unless (memq this-command
-        '(isearch-abort abort-recursive-edit exit-minibuffer
-              keyboard-quit mwheel-scroll down up next-line previous-line
-              backward-char forward-char))
+                '(isearch-abort abort-recursive-edit exit-minibuffer
+                                keyboard-quit mwheel-scroll down up next-line previous-line
+                                backward-char forward-char))
     (ding)))
 (setq ring-bell-function 'my-bell-function)
 

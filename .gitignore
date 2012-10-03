@@ -2,6 +2,7 @@
 /*
 #全ての隠しファイルを除外
 /*.
+
 !/.gitconfig
 !/.gitignore
 !/.vim
@@ -10,6 +11,8 @@
 !/sample.vimrc
 !/.vimrc.plugin
 !/.zshrc
+!/.zshenv
+!/.zsh.d/config
 !/.emacs.d
 !/.screenrc
 /.vim/bundle
