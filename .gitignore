@@ -12,10 +12,10 @@
 !/.vimrc.plugin
 !/.zshrc
 !/.zshenv
-!/.zsh.d/config
+!/.zsh.d
 !/.emacs.d
 !/.screenrc
-/.vim/bundle
+.vim/bundle
 
 .vim/doc/tags
 .vim/doc/tags-ja
