@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 26-Sep-2012.                 |
+"                 Last Change: 04-Oct-2012.                 |
 "============================================================
 autocmd MyAutoCmd BufWritePost $MYVIMRCPLUGIN  source $MYVIMRC |
             \ if has('gui_running') |
@@ -128,7 +128,7 @@ NeoBundleLazy 'vim-scripts/cscope-menu'
 NeoBundleLazy 'vim-scripts/gtags.vim'
 " }}}
 " tex {{{
-NeoBundleLazy 'jcf/vim-latex'
+" NeoBundleLazy 'jcf/vim-latex'
 " }}}
 " 見た目 {{{
 NeoBundle 'wombat256.vim'

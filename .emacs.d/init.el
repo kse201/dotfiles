@@ -181,7 +181,7 @@
 (setq show-paren-face  'paren-match)
 (setq show-paren-mismatch-face 'paren-mismatch)
 ;; 強力な補完機能を使う
-(partial-completion-mode 1)
+;; (partial-completion-mode 1)
 ;; 最終更新日の自動挿入
 (require 'time-stamp)
   ;画像ファイルを表示する

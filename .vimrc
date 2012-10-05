@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 02-Oct-2012.                 |
+"                 Last Change: 04-Oct-2012.                 |
 "============================================================
 
 " 基礎的な設定 {{{
@@ -114,10 +114,10 @@ augroup END
 if !has('gui')
     set t_Co=256
     colorscheme desert
-inoremap 0D <Left>
-inoremap 0B <Down>
-inoremap 0C <Right>
-inoremap 0A <Up>
+    inoremap 0D <Left>
+    inoremap 0B <Down>
+    inoremap 0C <Right>
+    inoremap 0A <Up>
 endif
 " }}}
 
@@ -1029,10 +1029,10 @@ let s:save_point = $HOME . "/.savepoint"
 " 保存
 function! s:save_window(file)
     let options = [
-    \ 'set columns=' . &columns,
-    \ 'set lines=' . &lines,
-    \ 'winpos ' . getwinposx() . ' ' . getwinposy(),
-    \ ]
+                \ 'set columns=' . &columns,
+                \ 'set lines=' . &lines,
+                \ 'winpos ' . getwinposx() . ' ' . getwinposy(),
+                \ ]
     call writefile(options, a:file)
 endfunction
 
@@ -1040,7 +1040,7 @@ function! s:save_point(dir)
     if !isdirectory(a:dir)
         call mkdir(a:dir)
     endif
-    
+
     " ファイルが存在していないか、書き込み可能の場合のみ
     if !filereadable(a:dir.'/vimwinpos.vim') || filewritable(a:dir.'/vimwinpos.vim')
         if has("gui")
@@ -1084,10 +1084,26 @@ augroup SavePoint
     autocmd VimLeavePre * SavePoint
 
     " 自動で保存、復元を行う場合
-"   autocmd CursorHold * SavePoint
-"   autocmd VimEnter * LoadPoint
+    "   autocmd CursorHold * SavePoint
+    "   autocmd VimEnter * LoadPoint
 augroup END
 "}}}
+
+" スマート矩形選択
+"http://labs.timedia.co.jp/2012/10/vim-more-useful-blockwise-insertion.html
+vnoremap <expr> I <SID>force_blockwise_visual('I')
+vnoremap <expr> A <SID>force_blockwise_visual('A')
+
+function! s:force_blockwise_visual(next_key)
+    if mode() ==# 'v'
+        return "\<C-v>" . a:next_key
+    elseif mode() ==# 'V'
+        return "\<C-v>0o$" . a:next_key
+    else 
+        return a:next_key
+    endif
+endfunction
+
 " }}}
 
 set timeout timeoutlen=500 ttimeoutlen=75

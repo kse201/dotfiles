@@ -17,8 +17,9 @@
 !/.screenrc
 /.vim/bundle
 
-doc/tags
-doc/tags-ja
+.vim/doc/tags
+.vim/doc/tags-ja
 .emacs.d/auto-save-list
 .emacs.d/backups
 .emacs.d/undohist
+.emacs.d/.DS_Store
