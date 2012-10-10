@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 04-Oct-2012.                 |
+"                 Last Change: 09-Oct-2012.                 |
 "============================================================
 autocmd MyAutoCmd BufWritePost $MYVIMRCPLUGIN  source $MYVIMRC |
             \ if has('gui_running') |
@@ -165,6 +165,8 @@ NeoBundle 'chigatoike/activefix.vim'
 NeoBundle 'dahu/vim-fanfingtastic'
 " NeoBundle 'mrtazz/simplenote.vim'
 " }}}
+NeoBundle 'yuratomo/w3m.vim'
+NeoBundle 'gregsexton/VimCalc'
 filetype plugin indent on
 syntax on
 
@@ -726,9 +728,9 @@ let g:Tex_CompileRule_pdf = 'dvipdfmx $*.dvi'
 
 " tweetvim{{{
 nnoremap <silent> <SID>[unite]t :<C-u>NeoBundleSource TweetVim<CR>:<C-u>Unite -winheight=11 tweetvim<CR>
-nnoremap <silent> ,ts :TweetVimSay<CR>
-nnoremap <silent> ,tv :TweetVimSearch vim<CR>
-nnoremap <silent> ,tvj :TweetVimSearch vim lang:ja<CR>
+nnoremap <silent> ,ts :<C-u>NeoBundleSource TweetVim<CR>:TweetVimSay<CR>
+nnoremap <silent> ,tv :<C-u>NeoBundleSource TweetVim<CR>:TweetVimSearch vim<CR>
+nnoremap <silent> ,tvj :<C-u>NeoBundleSource TweetVim<CR>:TweetVimSearch vim lang:ja<CR>
 if !exists('g:neocomplcache_dictionary_filetype_lists')
     let g:neocomplcache_dictionary_filetype_lists={}
 endif

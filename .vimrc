@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 04-Oct-2012.                 |
+"                 Last Change: 07-Oct-2012.                 |
 "============================================================
 
 " 基礎的な設定 {{{
@@ -650,9 +650,10 @@ let g:FileTypeSettings = [
             \ "xml", 
             \ "html", 
             \ "php",
+            \ "markdown",
             \]
 for MyFileType in g:FileTypeSettings
-    execute "autocmd MyAutoCmd FileType " . MyFileType . "call  My" . MyFileType . "Settings()"
+    execute "autocmd MyAutoCmd FileType " . MyFileType . " call My" . MyFileType . "Settings()"
 endfor
 " }}}
 " vim{{{
@@ -777,7 +778,7 @@ function! MysnippetSettings()
 endfunction
 " Shell Script
 
-function! MyshellScriptSettings()
+function! MyshSettings()
     inoremap $ ${}<Left>
     inoremap { {}<Left>
     inoremap ` ``<Left>
@@ -811,6 +812,17 @@ function! MyphpSettings()
     "inoremap <buffer> <  <><Left>
     inoremap <buffer>" ""<Left>
     inoremap <buffer>' ''<Left>
+endfunction
+" }}}
+" markdown {{{
+function! MymarkdownSettings()
+    setlocal foldmethod=expr
+    setlocal foldexpr=Markdown(v:lnum)
+
+    function! Markdown(lnum)
+        let level = matchend(getline(a:lnum), '^#\+')
+        return level > 0 ? '>' . level : '='
+    endfunction
 endfunction
 " }}}
 " }}}
@@ -1089,7 +1101,7 @@ augroup SavePoint
 augroup END
 "}}}
 
-" スマート矩形選択
+" スマート矩形選択{{{
 "http://labs.timedia.co.jp/2012/10/vim-more-useful-blockwise-insertion.html
 vnoremap <expr> I <SID>force_blockwise_visual('I')
 vnoremap <expr> A <SID>force_blockwise_visual('A')
@@ -1103,6 +1115,7 @@ function! s:force_blockwise_visual(next_key)
         return a:next_key
     endif
 endfunction
+" }}}
 
 " }}}
 

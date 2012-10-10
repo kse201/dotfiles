@@ -14,7 +14,7 @@
 ;; 引数のディレクトリとそのサブディレクトリをload-pathに追加
 (add-to-load-path "elisp" "conf" "public_repos")
 
-;; auto-instlalによってインストールされるEmacs Lispをロードパスに加える
+;; auto-installによってインストールされるEmacs Lispをロードパスに加える
 ;; デフォルトは、~/.emacs.d/auto-install/
 (add-to-list 'load-path "~/.emacs.d/auto-install/")
 (add-to-list 'load-path "~/.emacs.d/elisp/")
@@ -141,14 +141,14 @@
 (add-hook 'emacs-lisp-mode-hook 'enable-auto-async-byte-compile-mode)
 (setq auto-async-byte-compile-exclude-files-regexp "^_")
 ;; *.elを保存時、自動バイトコンパイル
-  ;(add-hook 'after-save-hook              
-  ;         (lambda ()
-  ;          (let ((file (buffer-file-name)))
-  ;           (when (string-match ".*\\.el$" file)
-  ;            (byte-compile-file file))))
+                                        ;(add-hook 'after-save-hook              
+                                        ;         (lambda ()
+                                        ;          (let ((file (buffer-file-name)))
+                                        ;           (when (string-match ".*\\.el$" file)
+                                        ;            (byte-compile-file file))))
 
 ;; recentf-ext.el
-  ;(define-key global-map (kbd "C-;") 'recentf-open-files )
+                                        ;(define-key global-map (kbd "C-;") 'recentf-open-files )
 
 ;; キーバインド
 (define-key global-map "\C-h" 'delete-backward-char)
@@ -159,14 +159,14 @@
 (define-key global-map (kbd "C-c ;") 'comment-region)      ; コメントアウト
 (define-key global-map "\C-c:" 'uncomment-region)   ; コメント解除
 (define-key global-map "\C-\\" nil) ; \C-\の日本語入力の設定を無効にする
-(define-key global-map "\C-c " 'other-frame)         ; フレーム
+(define-key global-map "\C-c" 'other-frame)         ; フレーム
 (define-key global-map (kbd "C-m") 'newline-and-indent)
 (define-key global-map (kbd "C-c l") 'toggle-truncate-lines)
-(define-key global-map (kbd "C-t") 'other-window)
+(define-key global-map (kbd "C-x C-t") 'my-other-window)
 (define-key global-map (kbd "M-a") 'mark-whole-buffer)
 (define-key global-map (kbd "M-y") 'backward-kill-word) ; 一つ前の単語削除
 (define-key global-map (kbd "C-x o") 'browse-url-at-point) ;ブラウザ起動
-(define-key global-map (kbd "C-x C-;") 'goto-line) ; 指定行へ移動
+(define-key global-map (kbd "C-x C-g") 'goto-line) ; 指定行へ移動
 
 ;; Localeに合わせた環境の設定
 (set-locale-environment nil)
@@ -184,14 +184,15 @@
 ;; (partial-completion-mode 1)
 ;; 最終更新日の自動挿入
 (require 'time-stamp)
-  ;画像ファイルを表示する
+                                        ;画像ファイルを表示する
 (auto-image-file-mode t)
 ;; 自動でファイルを挿入する
 (auto-insert-mode t)
 ;; C-x,bでバッファリストをミニバッファに表示する
 (iswitchb-mode 1)
 ;; C-x b でbuffersを選ぶとき便利
-(iswitchb-default-keybindings)
+(if (string-match "23" emacs-version)
+    (iswitchb-default-keybindings))
 
 (defface my-hl-line-face
   ;; 背景がdarkならば背景色を紺に
@@ -206,7 +207,8 @@
 (global-hl-line-mode t)
 
 ;; Shift + 矢印で範囲選択
-(pc-selection-mode)
+(if (string-match "23" emacs-version)
+    (pc-selection-mode))
 ;; 選択範囲に色をつけて見た目をわかりやすく
 (transient-mark-mode 1)
 ;; フォント設定
@@ -276,7 +278,8 @@
 
 
 (add-to-list 'anything-sources 'anything-c-source-emacs-commands)
-(define-key global-map (kbd "C-;") 'anything-M-x)
+(define-key global-map (kbd "C-; C-;") 'anything-M-x)
+(define-key global-map (kbd "C-; C-b") 'anything-buffers-list) ;; バッファ一覧
 
 ;; 日本語マニュアル
 (add-to-list 'Info-directory-list "~/.emacs.d/info")
@@ -383,7 +386,8 @@
 (setq read-file-name-completion-ignore-case t)
 
 ;; 部分一致の補間機能を使う
-(partial-completion-mode t)
+(if (string-match "23" emacs-version)
+    (partial-completion-mode t))
 
 ;; emacs-lisp mode
 (add-hook
@@ -552,7 +556,7 @@
 (defun elisp-mode-hooks ()
   ;;  "lisp-mode-hooks"
   (when (require 'eldoc nil t)
-(require 'eldoc-extension nil t)
+    (require 'eldoc-extension nil t)
     (setq eldoc-idle-delay 0.2)
     (setq eldoc-area-use-multiline-p t)
     (turn-on-eldoc-mode)))
@@ -619,8 +623,8 @@
 ;; window移動
 ;; http://d.hatena.ne.jp/tomoya/20120512/1336832436 
 (windmove-default-keybindings 'super)   ;Mac用
-  ; (windmove-default-keybindings 'meta)
-  ; (windmove-default-keybindings) 引数なしの場合はShift
+                                        ; (windmove-default-keybindings 'meta)
+                                        ; (windmove-default-keybindings) 引数なしの場合はShift
 
 ;; 良い感じにウィンドウ分割
 (global-set-key (kbd "C-x C-w") 'good-split-window)
@@ -692,3 +696,7 @@
 (setq browse-url-browser-function 'w3m-browse-url)
 
 (define-key global-map (kbd "C-x C-b") 'bs-show)
+(add-hook 'w3m-make-local-hook
+          '(lambda ()
+             (define-key global-map (kbd "<backspace>") 'w3m-view-previos-page)))
+

@@ -50,11 +50,11 @@ _z --add "$(pwd -P)"
 # bindkey-advice-before "^[" afu+cancel
 # bindkey-advice-before "^J" afu+cancel afu+accept-line
 
-# function show_buffer_stack() {
-# POSTDISPLAY="
-# stack: $LBUFFER"
-# zle push-line-or-edit
-# }
-# zle -N show_buffer_stack
+function show_buffer_stack() {
+POSTDISPLAY="
+stack: $LBUFFER"
+zle push-line-or-edit
+}
+zle -N show_buffer_stack
 
 package-install github robbyrussell/oh-my-zsh
