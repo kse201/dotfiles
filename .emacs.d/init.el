@@ -46,6 +46,9 @@
               
               (if (officep)
                   (setq url-proxy-services '(("http" . "172.16.1.1:3128")))
+                (setq w3m-command-arguments
+                      (nconc w3m-command-arguments
+                             '("-o" "http_proxy=http://172.16.1.1:3128/")))
                 )
               ;; 起動時にEmacsWikiのページ名を補完候補に加える
               (auto-install-update-emacswiki-package-name t)
@@ -148,25 +151,25 @@
                                         ;            (byte-compile-file file))))
 
 ;; recentf-ext.el
-                                        ;(define-key global-map (kbd "C-;") 'recentf-open-files )
+                                        ;(global-set-key (kbd "C-;") 'recentf-open-files )
 
 ;; キーバインド
-(define-key global-map "\C-h" 'delete-backward-char)
-(define-key global-map "\M-?" 'help-for-help)
-(define-key global-map "\C-z" 'undo)                 ; undo
-(define-key global-map "\C-ci" 'indent-region)       ; インデント
-(define-key global-map "\C-c\C-i" 'dabbrev-expand)   ; 補完
-(define-key global-map (kbd "C-c ;") 'comment-region)      ; コメントアウト
-(define-key global-map "\C-c:" 'uncomment-region)   ; コメント解除
-(define-key global-map "\C-\\" nil) ; \C-\の日本語入力の設定を無効にする
-(define-key global-map "\C-c" 'other-frame)         ; フレーム
-(define-key global-map (kbd "C-m") 'newline-and-indent)
-(define-key global-map (kbd "C-c l") 'toggle-truncate-lines)
-(define-key global-map (kbd "C-x C-t") 'my-other-window)
-(define-key global-map (kbd "M-a") 'mark-whole-buffer)
-(define-key global-map (kbd "M-y") 'backward-kill-word) ; 一つ前の単語削除
-(define-key global-map (kbd "C-x o") 'browse-url-at-point) ;ブラウザ起動
-(define-key global-map (kbd "C-x C-g") 'goto-line) ; 指定行へ移動
+(global-set-key (kbd "C-h") 'delete-backward-char)
+(global-set-key (kbd "M-?") 'help-for-help)
+(global-set-key (kbd "C-z") 'undo)                 ; undo
+;(global-set-key (kbd "C-c i") 'indent-region)       ; インデント
+;(global-set-key (kbd "C-c C-i") 'dabbrev-expand)   ; 補完
+;(global-set-key (kbd "C-c ;") 'comment-region)      ; コメントアウト
+;(global-set-key (kbd "C-c :") 'uncomment-region)   ; コメント解除
+(global-set-key "\C-\\" nil) ; \C-\の日本語入力の設定を無効にする
+(global-set-key "\C-c" 'other-frame)         ; フレーム
+(global-set-key (kbd "C-m") 'newline-and-indent)
+;(global-set-key (kbd "C-c l") 'toggle-truncate-lines)
+(global-set-key (kbd "C-x C-o") 'my-other-window)
+(global-set-key (kbd "M-a") 'mark-whole-buffer)
+(global-set-key (kbd "M-y") 'backward-kill-word) ; 一つ前の単語削除
+(global-set-key (kbd "C-x o") 'browse-url-at-point) ;ブラウザ起動
+(global-set-key (kbd "C-x C-g") 'goto-line) ; 指定行へ移動
 
 ;; Localeに合わせた環境の設定
 (set-locale-environment nil)
@@ -251,7 +254,7 @@
 
   (when (require 'anything-config nil t)
     (setq anything-su-or-sudo "sudo")
-    (define-key global-map (kbd "M-y") 'anything-show-kill-ring)
+    (global-set-key (kbd "M-y") 'anything-show-kill-ring)
     (require 'anything-match-plugin nil t))
 
   (when (and ( executable-find "cmigemo")
@@ -278,8 +281,8 @@
 
 
 (add-to-list 'anything-sources 'anything-c-source-emacs-commands)
-(define-key global-map (kbd "C-; C-;") 'anything-M-x)
-(define-key global-map (kbd "C-; C-b") 'anything-buffers-list) ;; バッファ一覧
+(global-set-key (kbd "C-; C-;") 'anything-M-x)
+(global-set-key (kbd "C-; C-b") 'anything-buffers-list) ;; バッファ一覧
 
 ;; 日本語マニュアル
 (add-to-list 'Info-directory-list "~/.emacs.d/info")
@@ -326,7 +329,7 @@
 
 ;; color-moccur 検索結果のリストアップ
 (when (require 'color-moccur nil t)
-  (define-key global-map (kbd "M-o") 'occur-by-moccur)
+  (global-set-key (kbd "M-o") 'occur-by-moccur)
   ;; スペース区切りでAND検索
   (setq moccur-split-word t)
   ;; ディレクトリ検索のとき除外するファイル
@@ -543,7 +546,7 @@
   (setq locale-coding-system 'cp932))
 
 (when (require 'redo+ nil t)
-  (define-key global-map (kbd  "C-.") 'redo))
+  (global-set-key (kbd  "C-.") 'redo))
 
 ;; menu-tree.el
 ;; メニュー日本語化
@@ -653,7 +656,7 @@
           current-point)))
       (beginning-of-line)
     (back-to-indentation)))
-(define-key global-map (kbd "C-a") 'my-beginning-of-indented-line)
+(global-set-key (kbd "C-a") 'my-beginning-of-indented-line)
 
 ;; *scratch*を消さない
 (defun my-make-scratch (&optional arg)
@@ -692,11 +695,25 @@
 (setq ring-bell-function 'my-bell-function)
 
 (require 'w3m)
+(require 'w3m-load)
 (setq w3m-use-cookies t)
 (setq browse-url-browser-function 'w3m-browse-url)
+(setq w3m-key-binding 'info)
 
-(define-key global-map (kbd "C-x C-b") 'bs-show)
-(add-hook 'w3m-make-local-hook
-          '(lambda ()
-             (define-key global-map (kbd "<backspace>") 'w3m-view-previos-page)))
+(global-set-key (kbd "C-x C-b") 'bs-show)
 
+;; ruby
+(require 'ruby-electric nil t)          ; 括弧の自動挿入
+(when (require 'ruby-block nil t)       ; end に対応する行のハイライト
+  (setq ruby-block-highlight nil t))  
+(autoload 'run-ruby "inf-ruby"
+  "Run an inferior Ruby process")
+(autoload 'inf-ruby-keys "inf-ruby"
+  "Set local key defs for inf-ruby in ruby-mode")
+
+;; ruby-mode-hook用の関数を定義
+(defun ruby-mode-hooks ()
+  (inf-ruby-keys)
+  (ruby-electric-mode t)
+  (ruby-block-mode t))
+(add-hook 'ruby-mode-hook 'ruby-mode-hooks) ; ruby-mode-hookに追加

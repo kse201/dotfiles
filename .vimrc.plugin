@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 09-Oct-2012.                 |
+"                 Last Change: 11-Oct-2012.                 |
 "============================================================
 autocmd MyAutoCmd BufWritePost $MYVIMRCPLUGIN  source $MYVIMRC |
             \ if has('gui_running') |
@@ -27,7 +27,7 @@ set nocompatible
 filetype plugin indent off
 let g:bundle_dir = $VIMFILE_DIR."/bundle/"
 if has('vim_starting')
-exe "set rtp+=".g:bundle_dir."neobundle.vim"
+    exe "set rtp+=".g:bundle_dir."neobundle.vim"
 endif
 call neobundle#rc(expand(g:bundle_dir))
 unlet g:bundle_dir
@@ -167,6 +167,7 @@ NeoBundle 'dahu/vim-fanfingtastic'
 " }}}
 NeoBundle 'yuratomo/w3m.vim'
 NeoBundle 'gregsexton/VimCalc'
+NeoBundle 'vim-scripts/csharp.vim'
 filetype plugin indent on
 syntax on
 
@@ -1125,5 +1126,11 @@ let g:EasyMotion_leader_key = ","
 let g:EasyMotion_grouping = 1
 " }}}
 
+" qfixhowm
+let QFixHowm_Key='g' 
+
+let howm_dir = $DROPBOX_DIR. "/documents/memo/howm"
+let howm_filenam = '%Y/%m/%Y-%m-%d-%H%M%S.txt'
+" let QFixHowm_FileType = 'markdown'
 "" ================================================================================ 
 " vim: set tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
