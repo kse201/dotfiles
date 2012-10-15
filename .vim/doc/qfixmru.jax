@@ -1,0 +1,157 @@
+*qfixmru.jax*	For Vim バージョン 7.2	Last change: 2011 August 23
+==============================================================================
+       Description: QFixMRU
+            Author: fuenor <fuenor@gmail.com>
+            Web(Japanese):
+            http://sites.google.com/site/fudist/Home
+            http://sites.google.com/site/fudist/Home/qfixdev/ver3
+==============================================================================
+  CONTENTS						*qfixmru_contents*
+  1. Intro                                              |qfixmru_intro|
+  2. インストール                                       |qfixmru_install|
+  3. 設定                                               |qfixmru_settings|
+  4. MRUの表示                                          |qfixmru_command|
+  5. オプション                                         |qfixmru_option|
+    5.1 基準ディレクトリ(相対パス)                      |qfixmru_relative_path|
+    5.2 保存時の相対パス                                |qfixmru_basedir|
+
+==============================================================================
+1. Intro						*qfixmru_intro*
+
+QFixMRUはQuickfixウィンドウを使用してMRUリストを表示するプラグインです。
+通常のMRUとは違い正規表現で指定した行をタイトルとしてMRUリストを作成するため、
+ソースファイルではファイル単位でなく最近編集した関数単位でMRUリストにしたり、
+構造化したメモファイルではエントリ単位でMRUリストを作成する事ができます。
+
+==============================================================================
+2. インストール						*qfixmru_install*
+
+qfixmru.vimをruntimepathの通った場所へコピーして下さい。
+QFixHowm/QFixMemoを使用している場合はインストール不要です。
+
+==============================================================================
+3. 設定							*qfixmru_settings*
+
+デフォルトでは通常のMRUのようにカレント行が登録されますが、タイトル単位でMRU登
+録する際は「タイトル行の正規表現」を指定する必要があります。
+拡張子が txt で、行頭が = で始まる行がタイトル行なら次のようにします。
+>
+  " MRUでエントリタイトルと見なす正規表現(Vimの正規表現)
+  let g:QFixMRU_Title['txt'] = '^=\([^=]\|$\)'
+
+もしもtxt専用のMRUとするなら登録するファイル名も設定してください。
+>
+  " MRUに登録するファイル名(Vimの正規表現)
+  let g:QFixMRU_RegisterFile = '\.txt$'
+
+QFixMRUは一時的に無効化可能です。 >
+  " QFixMRUを無効化
+  let g:QFixMRU_Disable = 1
+
+NOTE:
+QFixMRUは起動時からMRU処理を行なっていますが、QFixMRUコマンドが実行されないと
+ファイルから前回起動時のMRUを読み込まず終了時に保存もしません。
+Vim終了時に常にMRUを保存するには以下を設定します。 >
+  " QFixMRUコマンドが呼び出されていなくてもVim終了時に保存
+  let QFixMRU_VimLeaveWrite = 1
+
+なおQFixMRUコマンドが実行された場合には QFixMRU_VimLeaveWrite の値にかかわら
+ず終了前保存処理が行われます。
+
+==============================================================================
+4. MRUの表示						*qfixmru_command*
+
+MRUを表示するにはQFixMRUを実行します。
+デフォルトではカレントディレクトリ以下のファイルが対象になりますが、表示対象ディ
+レクトリを指定する事もできます。
+:QFixMRU {basedir}
+
+パス指定するときの空白は \ でエスケープしてください。
+>
+  :QFixMRU D:/usr/My\ Dropbox/howm
+
+登録されている全MRUリストを表示するにはallを指定します。
+:QFixMRU /:all
+
+------------------------------------------------------------------------------
+4.1 使用例
+
+g,hlを実行すると最近編集した関数のMRUリストを表示したいとします。
+.vimrc >
+  " キーマップ
+  nnoremap <silent> g,hl :QFixMRU<CR>
+
+  " カレントディレクトリをファイルと同じ場所へ移動
+  if exists('+autochdir')
+    set autochdir
+  else
+    au BufEnter * execute ":silent! lcd " . escape(expand("%:p:h"), ' ')
+  endif
+
+  " MRUに登録するファイル名の正規表現
+  let QFixMRU_RegisterFile = '\.\(java\|js\|py\|rb\|vim)$'
+
+  " MRUでエントリタイトルと見なす正規表現
+  function! QixMRUAddEntryRegxp()
+    let g:QFixMRU_Title['java'] = '^\s*public.*(.*).*{'
+    let g:QFixMRU_Title['js']   = '^\s*function'
+    let g:QFixMRU_Title['py']   = '^def'
+    let g:QFixMRU_Title['rb']   = '^\s*def'
+    let g:QFixMRU_Title['vim']  = '^\s*\(silent!\?\)\?\s*function'
+  endfunction
+
+上記の設定を.vimrcに追加してから、Vimスクリプト(たとえばqfixmru.vim等)の
+ファイルを開き「いろんな場所へ移動してバッファ切替」を繰り返してみてください。
+こうしておいてVimスクリプトを開き g,hl を実行すると行頭が function で始まる行
+をタイトルとしたMRU(関数)リストが表示されます。
+
+==============================================================================
+5. オプション						*qfixmru_option*
+
+MRUリストのオプション >
+
+  " MRUの保存ファイル名
+  let QFixMRU_Filename     = '~/.qfixmru'
+  " MRUに登録しないファイル名(正規表現)
+  let QFixMRU_IgnoreFile   = ''
+  " MRUに登録するファイルの正規表現(設定すると指定ファイル以外登録されない)
+  let QFixMRU_RegisterFile = ''
+  " MRUに登録しないタイトル(正規表現)
+  let QFixMRU_IgnoreTitle  = ''
+  " MRU表示数
+  let g:QFixMRU_Entries    = 20
+  " MRU内部のエントリ最大保持数
+  let QFixMRU_EntryMax     = 300
+
+・比較するファイル名はフルパスで ~ は展開され￥記号は/に正規化されます。
+・エントリタイトル正規表現が無指定なら一ファイルにつき一箇所登録されます。
+
+------------------------------------------------------------------------------
+5.1 基準ディレクトリ(相対パス)				*qfixmru_relative_path*
+
+異なる環境でMRUリストを共有可能です。
+QFixMRU_RootDir が存在すると、相対パス部分をQFixMRU_RootDirを基準とした絶対パ
+スに置換して読み込みます。
+
+.vimrc >
+  " 相対パスで保存する基準ディレクトリ
+  let QFixMRU_RootDir = '~/mruroot'
+
+例えばWindowsでは c:/mruroot Linuxでは ~/mruroot に対して同じMRUファイルを使用
+したい場合は次のようにします。
+.vimrc >
+  " 相対パスで保存する基準ディレクトリ
+  if has('unix')
+    let QFixMRU_RootDir = '~/mruroot'
+  else
+    let QFixMRU_RootDir = 'c:/mruroot'
+  endif
+
+------------------------------------------------------------------------------
+5.2 保存時の相対パス					*qfixmru_basedir*
+
+QFixMRU_BaseDirをMRUファイル読込後に書き換えるとQFixMRU_BaseDirを基準とする相
+対パスで保存されます。
+
+vim:tw=78:ts=8:ft=help:norl:et:
+

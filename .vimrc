@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 07-Oct-2012.                 |
+"                 Last Change: 15-Oct-2012.                 |
 "============================================================
 
 " 基礎的な設定 {{{
@@ -696,6 +696,28 @@ function! MycppSettings()
     inoremap <buffer>' ''<Left>
 endfunction
 " }}}
+" cs
+function! MycsSettings()
+    set shiftwidth=4
+    set tabstop=4
+    set cindent
+    set cinkeys+=;
+    set dictionary=$HOME/.vim/dict/c.dict
+    inoremap /* /**/<Left><Left>
+    inoremap , ,<Space>
+    set fdm = indent
+    set fdl = 3
+    inoremap <buffer>{ {}<Left><CR><Up><ESC>o
+    inoremap <buffer>( ()<Left>
+    inoremap <buffer>[ []<Left>
+    inoremap <buffer><> <><Left>
+    "inoremap <buffer> <  <><Left>
+    inoremap <buffer>" ""<Left>
+    inoremap <buffer>' ''<Left>
+    "最寄りの中括弧内を選択
+    nnoremap <buffer>v} ?{<CR>%v%0
+endfunction
+"
 " tex{{{
 function! MylatexSettings()
     set dictionary=$HOME/.vim/dict/tex.dict
