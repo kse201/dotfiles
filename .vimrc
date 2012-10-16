@@ -1,13 +1,20 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 15-Oct-2012.                 |
+"                 Last Change: 16-Oct-2012.                 |
 "============================================================
 
 " 基礎的な設定 {{{
 " OS毎の設定ファイル,各種ディレクトリの設定{{{
-if has('win32') || has('win64') || has('win32unix')
+if has('win32') || has('win64') 
     let $VIMFILE_DIR   = $HOME . '/vimfiles'
     let $DROPBOX_DIR   = $HOME . '\Documents\My Dropbox'
+    let $MYVIMRC       = "~/dotfiles/.vimrc"
+    let $MYGVIMRC      = "~/dotfiles/.gvimrc"
+    let $MYVIMRCPLUGIN = "~/dotfiles/.vimrc.plugin"
+    set backupdir=$HOME/_vimbackup
+elseif has('win32unix')
+    let $VIMFILE_DIR   = $HOME . '/vimfiles'
+    let $DROPBOX_DIR   = $HOME . '/Documents/My Dropbox'
     let $MYVIMRC       = "~/dotfiles/.vimrc"
     let $MYGVIMRC      = "~/dotfiles/.gvimrc"
     let $MYVIMRCPLUGIN = "~/dotfiles/.vimrc.plugin"
@@ -639,6 +646,7 @@ endif
 let g:FileTypeSettings = [
             \ "c", 
             \ "cpp", 
+            \ "cs", 
             \ "java", 
             \ "vim", 
             \ "objc", 
@@ -686,36 +694,14 @@ endfunction
 " }}}
 " C++{{{
 function! MycppSettings()
+    call MycSettings()
     set dictionary+=$HOME/.vim/dict/cpp.dict
-    inoremap <buffer>{ {}<Left><CR><Up><ESC>o
-    inoremap <buffer>( ()<Left>
-    inoremap <buffer>[ []<Left>
-    inoremap <buffer><> <><Left>
-    "inoremap<buffer> <  <><Left>
-    inoremap <buffer>" ""<Left>
-    inoremap <buffer>' ''<Left>
 endfunction
 " }}}
 " cs
 function! MycsSettings()
-    set shiftwidth=4
-    set tabstop=4
-    set cindent
-    set cinkeys+=;
-    set dictionary=$HOME/.vim/dict/c.dict
-    inoremap /* /**/<Left><Left>
-    inoremap , ,<Space>
-    set fdm = indent
+    call MycSettings()
     set fdl = 3
-    inoremap <buffer>{ {}<Left><CR><Up><ESC>o
-    inoremap <buffer>( ()<Left>
-    inoremap <buffer>[ []<Left>
-    inoremap <buffer><> <><Left>
-    "inoremap <buffer> <  <><Left>
-    inoremap <buffer>" ""<Left>
-    inoremap <buffer>' ''<Left>
-    "最寄りの中括弧内を選択
-    nnoremap <buffer>v} ?{<CR>%v%0
 endfunction
 "
 " tex{{{
