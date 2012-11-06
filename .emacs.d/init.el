@@ -23,27 +23,27 @@
           (lambda ()
             (when (require 'auto-install nil t)
               (setq auto-install-directory "~/.emacs.d/elisp/")
-              
+
               ;; install-elisp.el互換モードにする
               (auto-install-compatibility-setup)
-              
-              ;; proxy setting
+
+                            ;; proxy setting
               ;; 参考: http://e-arrows.sakura.ne.jp/2010/12/emacs-anywhere.html
               (defun machine-ip-address (dev)
                 "Return IP address of a network device."
                 (let ((info (network-interface-info dev)))
                   (if info
                       (format-network-address (car info) t))))
-              
+
               (defvar *network-interface-names* '("en1" "wlan0")
                 "Candidates for the network devices.")
-              
+
               (defun officep ()
-                "Am I in the office? If I am in the office, my IP address must start with '10.0.100.'."
-                6    (let ((ip (some #'machine-ip-address *network-interface-names*)))
-                       (and ip
-                            (eq 0 (string-match "^172\\.16\\.1\\." ip)))))
-              
+                "Am I in the office? If I am in the office, my IP address must start with '172.16.1..'."
+                (let ((ip (some #'machine-ip-address *network-interface-names*)))
+                  (and ip
+                       (eq 0 (string-match "^172\\.16\\.1\\." ip)))))
+
               (if (officep)
                   (setq url-proxy-services '(("http" . "172.16.1.1:3128")))
                 (setq w3m-command-arguments
@@ -55,15 +55,15 @@
               (auto-install-cmpatibility-setup))
 
             ;; package.el
-            (when (require 'package nil t) 
+            (when (require 'package nil t)
               ;; バッケージリポジトリにMarmaladeと開発者運営のELPAを追加
-              (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/")) 
+              (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
               (add-to-list 'package-archives '("ELPA" . "http://tromey.com/elpa/"))
               (package-initialize))))
 
 (add-to-list 'load-path "~/src/emacswikipages/" t)
 
-;; 設定ファイル編集 
+;; 設定ファイル編集
 (defun edit-init.el ()
   (interactive)
   (find-file "~/.emacs.d/init.el")
@@ -122,8 +122,15 @@
 (scroll-bar-mode 0)
 (menu-bar-mode 0)
 
+;; 最近使ったファイルをメニュー表示
+(recentf-mode t)
+;; 最近使ったファイルの表示数
+(setq recentf-max-menu-items 10)
 ;; 最近のファイル500個個を保存する
 (setq recentf-max-saved-items 500)
+
+;; ミニバッファの履歴を保存する
+(savehist-mode 1)
 
 ;; 最近使ったファイルに加えないファイルを正規表現で指定する
 (setq recentf-exclude '("/TAGS$" "/var/tmp/"))
@@ -144,7 +151,7 @@
 (add-hook 'emacs-lisp-mode-hook 'enable-auto-async-byte-compile-mode)
 (setq auto-async-byte-compile-exclude-files-regexp "^_")
 ;; *.elを保存時、自動バイトコンパイル
-                                        ;(add-hook 'after-save-hook              
+                                        ;(add-hook 'after-save-hook
                                         ;         (lambda ()
                                         ;          (let ((file (buffer-file-name)))
                                         ;           (when (string-match ".*\\.el$" file)
@@ -156,15 +163,15 @@
 ;; キーバインド
 (global-set-key (kbd "C-h") 'delete-backward-char)
 (global-set-key (kbd "M-?") 'help-for-help)
-(global-set-key (kbd "C-z") 'undo)                 ; undo
-;(global-set-key (kbd "C-c i") 'indent-region)       ; インデント
-;(global-set-key (kbd "C-c C-i") 'dabbrev-expand)   ; 補完
-;(global-set-key (kbd "C-c ;") 'comment-region)      ; コメントアウト
-;(global-set-key (kbd "C-c :") 'uncomment-region)   ; コメント解除
+(global-set-key (kbd "C-z") 'nil)
+;;(global-set-key (kbd "C-c i") 'indent-region)       ; インデント
+;;(global-set-key (kbd "C-c C-i") 'dabbrev-expand)   ; 補完
+;;(global-set-key (kbd "C-c ;") 'comment-region)      ; コメントアウト
+;;(global-set-key (kbd "C-c :") 'uncomment-region)   ; コメント解除
 (global-set-key "\C-\\" nil) ; \C-\の日本語入力の設定を無効にする
 (global-set-key "\C-c" 'other-frame)         ; フレーム
 (global-set-key (kbd "C-m") 'newline-and-indent)
-;(global-set-key (kbd "C-c l") 'toggle-truncate-lines)
+;;(global-set-key (kbd "C-c l") 'toggle-truncate-lines)
 (global-set-key (kbd "C-x C-o") 'my-other-window)
 (global-set-key (kbd "M-a") 'mark-whole-buffer)
 (global-set-key (kbd "M-y") 'backward-kill-word) ; 一つ前の単語削除
@@ -187,7 +194,7 @@
 ;; (partial-completion-mode 1)
 ;; 最終更新日の自動挿入
 (require 'time-stamp)
-                                        ;画像ファイルを表示する
+;; 画像ファイルを表示する
 (auto-image-file-mode t)
 ;; 自動でファイルを挿入する
 (auto-insert-mode t)
@@ -216,12 +223,12 @@
 (transient-mark-mode 1)
 ;; フォント設定
 (set-face-attribute
- 'default nil 
+ 'default nil
  :family "Ricty"
  :height 140)
 (set-fontset-font
  nil 'japanese-jisx0208
- (font-spec 
+ (font-spec
   :family "Ricty"))
 
 ;; タイトルバーにファイルのフルパスを表示
@@ -235,9 +242,12 @@
 ;; テーマ読み込み設定
 (when (require 'color-theme nil t)
   (color-theme-initialize))
-
+;; evalした結果全部表示
+(setq eval-expression-print-length nil)
+;; 行頭のC-k一回で行全体を削除
+(setq kill-whole-line t)
 ;; 対応括弧のハイライト
-(setq show-paren-delay 0) ; 表示までの秒数 
+(setq show-paren-delay 0) ; 表示までの秒数
 (show-paren-mode t)
 (setq shwo-paren-style 'expression)
 (set-face-background 'show-paren-match-face nil)
@@ -256,6 +266,8 @@
     (setq anything-su-or-sudo "sudo")
     (global-set-key (kbd "M-y") 'anything-show-kill-ring)
     (require 'anything-match-plugin nil t))
+  (define-key global-map (kbd "C-x b") 'anything-for-files)
+  (define-key global-map (kbd "M-x") 'anything)
 
   (when (and ( executable-find "cmigemo")
              (require 'migemo nil t))
@@ -295,12 +307,13 @@
               (count-lines (region-beginning) (region-end))
               (- (region-end) (region-beginning)))
     ))
-(add-to-list 'default-mode-line-format 
+(add-to-list 'default-mode-line-format
              '(:eval (count-lines-and-chars)))
 
 (when (eq system-type 'darwin)
-  (setq mac-command-key-is-meta nil)    ;コマンドキーをメタにしない
-  (setq mac-potion-modifier 'meta)      ; Optionをメタに
+  ;;(setq mac-command-key-is-meta nil)    ;コマンドキーをメタにしない
+  (setq mac-command-modifier 'meta)
+  (setq mac-option-modifier 'super)      ; Optionをメタに
   ;;  (setq mac-command-modifier 'super)    ; コマンドをSuperに
   (setq mac-pass-control-to-system t))   ; コントロールキーをMacではなくEmacsに渡す
 
@@ -317,10 +330,11 @@
 
 (when (require 'auto-complete-config)
   (add-to-list 'ac-dictionary-directories "~/.emacd.d/ac-dict")
-  (ac-config-default)                     ; デフォルト設定 
+  (setq ac-ignore-case t)
+  (ac-config-default)                     ; デフォルト設定
   (define-key ac-complete-mode-map (kbd "C-n") 'ac-next)
   (define-key ac-complete-mode-map (kbd "C-p") 'ac-previous)
-  (ac-mode)
+  (ac-mode t)
   )
 
 ;; open-junk-file.el
@@ -366,7 +380,7 @@
 (require 'gtags nil t)
 
 ;; multi-term
-;;(when (require 'multi-term nil t)       
+;;(when (require 'multi-term nil t)
 ;;  (setq multi-term-program "/bin/zsh"))
 
 ;; multi-shell
@@ -387,6 +401,10 @@
 ;; 保管時に大文字小文字を区別しない
 (setq completion-ignore-case t)
 (setq read-file-name-completion-ignore-case t)
+
+;; 行末空白強調
+(setq-default show-trailing-whitespace t)
+(set-face-background 'trailing-whitespace "#b14770")
 
 ;; 部分一致の補間機能を使う
 (if (string-match "23" emacs-version)
@@ -476,7 +494,7 @@
                                        (propertize " %p " 'face 'mode-line-color-2)))
                        '(:eval (concat (propertize " " 'display arrow-left-1)
                                        (propertize "%4l:%2c  " 'face 'mode-line-color-1)))
-                       )) 
+                       ))
 
   (make-face 'mode-line-color-1)
   (set-face-attribute 'mode-line-color-1 nil
@@ -564,7 +582,26 @@
     (setq eldoc-area-use-multiline-p t)
     (turn-on-eldoc-mode)))
 (add-hook 'emacs-lisp-mode-hook 'elisp-mode-hooks)
-(prin1-to-string emacs-lisp-mode-hook)
+;;(print-to-string emacs-lisp-mode-hook)
+
+;; http://d.hatena.ne.jp/sandai/20120303/p1
+;; カーソル付近にあるEmacs Lispの関数や変数のヘルプをエコーエリアに表示
+;; http://www.emacswiki.org/emacs/eldoc-extension.el
+(when (require 'eldoc-extension nil t)
+  (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
+  (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
+  (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
+  (setq eldoc-idle-delay 0.2)
+  (setq eldoc-minor-mode-string ""))
+
+;; C-eldoc.el
+;; C言語の関数や変数のヘルプをエコーエリアに表示
+(when (require 'c-eldoc nil t)
+  (add-hook 'c-mode-hook
+            (lambda ()
+              (set (make-local-variable 'eldoc-idle-delay) 0.2)
+              (set (make-local-variable 'eldoc-minor-mode-string) "")
+              (c-turn-on-eldoc-mode))))
 
 (require 'hideshow)
 
@@ -624,10 +661,11 @@
 (desktop-save-mode 1)
 
 ;; window移動
-;; http://d.hatena.ne.jp/tomoya/20120512/1336832436 
-(windmove-default-keybindings 'super)   ;Mac用
-                                        ; (windmove-default-keybindings 'meta)
-                                        ; (windmove-default-keybindings) 引数なしの場合はShift
+;; http://d.hatena.ne.jp/tomoya/20120512/1336832436
+(windmove-default-keybindings 'super)
+;;Mac用
+;; (windmove-default-keybindings 'meta)
+;; (windmove-default-keybindings) 引数なしの場合はShift
 
 ;; 良い感じにウィンドウ分割
 (global-set-key (kbd "C-x C-w") 'good-split-window)
@@ -640,7 +678,7 @@
     ))
 
 ;; ウィンドウ操作の履歴をundo/redo
-;; C-c <left> / C-c <right> 
+;; C-c <left> / C-c <right>
 (when (fboundp 'winner-mode)
   (winner-mode t))
 
@@ -705,7 +743,7 @@
 ;; ruby
 (require 'ruby-electric nil t)          ; 括弧の自動挿入
 (when (require 'ruby-block nil t)       ; end に対応する行のハイライト
-  (setq ruby-block-highlight nil t))  
+  (setq ruby-block-highlight nil t))
 (autoload 'run-ruby "inf-ruby"
   "Run an inferior Ruby process")
 (autoload 'inf-ruby-keys "inf-ruby"
@@ -717,3 +755,98 @@
   (ruby-electric-mode t)
   (ruby-block-mode t))
 (add-hook 'ruby-mode-hook 'ruby-mode-hooks) ; ruby-mode-hookに追加
+
+
+;; twittering-mode読み込み
+(require 'twittering-mode)
+;; 起動時パスワード認証 *要 gpgコマンド
+(setq twittering-use-master-password t)
+;; パスワード暗号ファイル保存先変更 (デフォはホームディレクトリ)
+(setq twittering-private-info-file "~/.emacs.d/twittering-mode.gpg")
+;; 表示する書式 区切り線いれたら見やすい
+(setq twittering-status-format "%i @%s %S %p: n %T  [%@]%r %R %f%Ln -------------------------------------------")
+;; アイコンを表示する
+(setq twittering-icon-mode t)
+;; アイコンサイズを変更する *48以外を希望する場合 要 imagemagickコマンド
+                                        ;(setq twittering-convert-fix-size 40)
+;; 更新の頻度（秒）
+(setq twittering-timer-interval 40)
+;; ツイート取得数
+(setq twittering-number-of-tweets-on-retrieval 50)
+;; o で次のURLをブラウザでオープン
+(add-hook 'twittering-mode-hook
+          (lambda ()
+            (local-set-key (kbd "o")
+                           (lambda ()
+                             (interactive)
+                             (twittering-goto-next-uri)
+                             (execute-kbd-macro (kbd "C-m"))
+                             ))))
+(add-to-list 'exec-path "/usr/local/bin")
+
+;; howmの設定
+(setq howm-menu-lang 'ja)
+(global-set-key "\C-x,," 'howm-menu)
+(mapc
+ (lambda (f)
+   (autoload f
+     "howm" "Hitori Otegaru Wiki Modoki" t))
+ '(howm-menu howm-list-all howm-list-recent
+             howm-list-grep howm-create
+             howm-keyword-to-kill-ring))
+
+;; C-Ret で矩形選択
+(cua-mode t)
+(setq cua-enable-cua-keys nil)
+
+;; 再帰的にgrep
+;; http://www.clear-code.com/blog/2011/2/16.html
+(require 'grep)
+(setq grep-command-before-query "grep -nH -r -e ")
+(defun grep-default-command ()
+  (if current-prefix-arg
+      (let ((grep-command-before-target
+             (concat grep-command-before-query
+                     (shell-quote-argument (grep-tag-default)))))
+        (cons (if buffer-file-name
+                  (concat grep-command-before-target
+                          " *."
+                          (file-name-extension buffer-file-name))
+                (concat grep-command-before-target " ."))
+              (+ (length grep-command-before-target) 1)))
+    (car grep-command)))
+(setq grep-command (cons (concat grep-command-before-query " .")
+                         (+ (length grep-command-before-query) 1)))
+
+;; diredを便利に
+(require 'dired-x)
+;; diredから"r"でファイル名をインライン編集する
+(require 'wdired)
+(define-key dired-mode-map "r" 'wdir3ed-change-to-wdired-mode)
+
+;; ファイル名が重複していたらディレクトリ名を追加
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
+(setq uniquify-buffer-name-style 'post-forward-angle-brackets)
+(setq uniquify-ignore-buffers-re "*[^*]+*")
+
+(require 'navi2ch)
+;; レスをすべて表示する
+(setq navi2ch-article-exist-message-range '(1 . 1000)) ;既存スレ
+(setq navi2ch-article-new-message-range '(1000 . 1))   ;新スレ
+;; Boardモードのレス数欄にレスの増加数を表示する
+(setq  navi-board-insert-subject-with-diff t)
+;; Boardモードのレス数欄にレスの未読数を表示する
+(setq navi2ch-board-insert-subject-with-unread t)
+;; 板一覧のカテゴリをデフォルトですべて開いて表示する
+(setq navi2ch-list-init-open-category nil)
+;; スレをexpire(削除)しない
+(setq navi2ch-board-expire-date nil)
+;; 履歴の行数を制限しない
+(setq navi2ch-history-max-line nil)
+
+;; http://qiita.com/items/f0db094fde6640143f42
+(if (file-directory-p (expand-file-name "~/bin"))
+    (progn
+      (add-to-list 'exec-path (expand-file-name "~/bin"))
+      (setenv "PATH" (mapconcat 'identity exec-path ":"))))

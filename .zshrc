@@ -309,6 +309,9 @@ alias spvim='vim -u NONE'
 
 [[ $EMACS = t ]] && unsetopt zle
 
+# emacs
+alias emacsclient=/Applications/Emacs.app/Contents/MacOS/bin/emacsclient
+
 zstyle ':completion:*:default' menu select=1
 
 alias gst="git status "
@@ -363,3 +366,5 @@ alias rr="command rm -rf"
 
 ## package
 source ~/.zsh.d/config/packages.zsh
+
+alias remem='du -sx / &> /dev/null & sleep 25 && kill $!'

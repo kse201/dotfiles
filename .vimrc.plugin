@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 12-Oct-2012.                 |
+"                 Last Change: 06-Nov-2012.                 |
 "============================================================
 autocmd MyAutoCmd BufWritePost $MYVIMRCPLUGIN  source $MYVIMRC |
             \ if has('gui_running') |
@@ -33,7 +33,12 @@ call neobundle#rc(expand(g:bundle_dir))
 unlet g:bundle_dir
 
 " 必須ライブラリ {{{
-NeoBundle 'Shougo/vimproc'
+NeoBundle 'Shougo/vimproc', {'build' : {
+            \ ' cygwin' : 'make -f make_cygwin.mak',
+            \ ' mac'    : 'make -f make_mac.mak',
+            \ ' unix'   : 'make -f make_unix.mak',
+            \ },
+            \}
 NeoBundle 'mattn/webapi-vim'
 NeoBundle 'basyura/twibill.vim'
 NeoBundle 'basyura/bitly.vim'
@@ -50,16 +55,18 @@ NeoBundle 'vim-jp/vimdoc-ja.git'
 " }}}
 " 補完 neocom{{{
 NeoBundleLazy 'Shougo/neocomplcache'
-NeoBundleLazy 'Shougo/neocomplcache-snippets-complete'
+NeoBundleLazy 'Shougo/neosnippet'
 NeoBundleLazy 'Shougo/neocomplcache-clang'
 NeoBundleLazy 'Shougo/neocomplcache-clang_complete'
 NeoBundleLazy 'clang-complete'
 NeoBundleLazy 'neco-look'
 NeoBundleLazy 'yomi322/neco-tweetvim'
+NeoBundleLazy 'davidhalter/jedi'
 " }}}
 " ファイラ {{{
 NeoBundle 'scrooloose/nerdtree'
-NeoBundleLazy 'Shougo/vimfiler'
+NeoBundleLazy 'Shougo/vimfiler',
+            \ { 'depends' : 'Shougo/unite.vim'}
 " }}}
 " 入力補助 {{{
 NeoBundle 'kana/vim-smartchr'
@@ -168,9 +175,11 @@ NeoBundle 'dahu/vim-fanfingtastic'
 NeoBundle 'yuratomo/w3m.vim'
 NeoBundle 'gregsexton/VimCalc'
 NeoBundle 'vim-scripts/csharp.vim'
+NeoBundle 'altercation/vim-colors-solarized'
 filetype plugin indent on
 syntax on
 
+" 導入されていないpluginがあったら表示
 if neobundle#exists_not_installed_bundles()
     echomsg 'Not installed bundles :' .
                 \ string(neobundle#get_not_installed_bundle_names())
@@ -180,6 +189,24 @@ endif
 command! Nbi :NeoBundleInstall
 command! Nbu :NeoBundleUpdate
 command! Nbl :NeoBundleLog
+
+
+" plugin導入確認関数
+let s:plugin_name =  map(neobundle#config#get_neobundles(),'(v:val).name')
+let s:plugin_orig_name =  map(neobundle#config#get_neobundles(),'(v:val).orig_name')
+function! s:checkplugin(name)
+    for l:ele in s:plugin_name
+        if l:ele ==# a:name
+            return 1
+        endif
+    endfor
+    for l:ele in s:plugin_orig_name
+        if l:ele ==# a:name
+            return 1
+        endif
+    endfor
+    return 0
+endfunction
 " }}}
 
 " neocomplcache{{{
@@ -295,6 +322,23 @@ let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 " }}}
 " }}}
 
+" neosnippet{{{
+" http://d.hatena.ne.jp/osyo-manga/20121021/1350749023
+if !exists("g:neosnippet#snippets_directory")
+    let g:neosnippet#snippets_directory=""
+endif
+let g:neosnippet#snippets_directory=$VIMFILES_DIR.'/snippets'
+
+
+"<TAB>でスニペット補完
+if g:neocomplcache_enable_at_startup
+    imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_jump_or_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+endif
+
+" スニペットで単語が選択されている場合でも <Tab> で次のプレースホルダへ移動する
+vmap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_jump_or_expand)" : "\<Tab>"
+" }}}
+
 " yankring{{{
 if has('gui_running')
     set viminfo+=!
@@ -403,92 +447,120 @@ endfunction
 call unite#define_source(s:unite_source_myCommand)
 nnoremap <SID>[unite]c :Unite myCommand<CR>
 " }}}
+" help イースターエッグ{{{
+let s:unite_source_myCommand ={
+            \ "name" : "easter_egg"
+            \}
+
+function! s:unite_source_myCommand.gather_candidates(args,conext)
+    let cmds = {
+                \ "help 42" : "help 42",
+                \ "help holy-grail" : "help holy-grail",
+                \ "help map-modes" : "help map-modes" ,
+                \ "help UserGettingBored" : "help UserGettingBored" ,
+                \ "help spoon" : "help spoon" ,
+                \ "help showmatch" : "help showmatch" ,
+                \ "help bar" : "help bar" ,
+                \ "Ni!" : "Ni!" ,
+                \}
+    return values(map(cmds,"{
+                \ 'word' : v:key,
+                \ 'source' : 'myCommand',
+                \ 'kind' : 'command',
+                \ 'action__command' : v:val
+                \}"))
+endfunction
+call unite#define_source(s:unite_source_myCommand)
+nnoremap <SID>[unite]c :Unite myCommand<CR>
+" }}}
 
 " }}}
 
 " smartchr.vim{{{
 " コマンドモード時のエスケープ入力補助
 
-cnoremap <expr> /
-            \ getcmdtype()=='/' ? '\/' : '/'
-cnoremap <Leader>/ /
-" cnoremap <expr> / search('.*/\%#', 'bcn')? '/' : smartchr#one_of('/', '\/')
-" if filereadable(expand($VIMFILES_DIR . '/bundle/vim-smartchr/autoload/smartchr.vim'))
-cnoremap <expr> <  smartchr#one_of('<', '\<')
-cnoremap <expr> >  smartchr#one_of('>', '\>')
-cnoremap <expr> \  smartchr#one_of('\', '\' , '\\')
-cnoremap <expr> (  smartchr#one_of('(' , '\(')
-cnoremap <expr> )  smartchr#one_of(')' , '\)')
-cnoremap <expr> %  smartchr#one_of('%' , '\%')
+if s:checkplugin("vim-smartchr" )
+    cnoremap <expr> /
+                \ getcmdtype()=='/' ? '\/' : '/'
+    cnoremap <Leader>/ /
+    " cnoremap <expr> / search('.*/\%#', 'bcn')? '/' : smartchr#one_of('/', '\/')
+    " if filereadable(expand($VIMFILES_DIR . '/bundle/vim-smartchr/autoload/smartchr.vim'))
+    cnoremap <expr> <  smartchr#one_of('<', '\<')
+    cnoremap <expr> >  smartchr#one_of('>', '\>')
+    cnoremap <expr> \  smartchr#one_of('\', '\' , '\\')
+    cnoremap <expr> (  smartchr#one_of('(' , '\(')
+    cnoremap <expr> )  smartchr#one_of(')' , '\)')
+    cnoremap <expr> %  smartchr#one_of('%' , '\%')
 
-" 参考:http://d.hatena.ne.jp/ampmmn/20080925/1222338972
-" 演算子記号の前後に空白を入れるなど
-" (多分)C/C++コーディング用
-function! SmartCharForC()
-    "四則演算
-    inoremap <buffer><expr> + smartchr#loop(' + ', '++')
-    inoremap <buffer><expr> - smartchr#loop(' - ', '--')
-    inoremap <buffer><expr> * smartchr#loop(' * ', '**')
-    inoremap <buffer><expr> / smartchr#loop(' / ', '//')
+    " 参考:http://d.hatena.ne.jp/ampmmn/20080925/1222338972
+    " 演算子記号の前後に空白を入れるなど
+    " (多分)C/C++コーディング用
+    function! SmartCharForC()
+        "四則演算
+        inoremap <buffer><expr> + smartchr#loop(' + ', '++')
+        inoremap <buffer><expr> - smartchr#loop(' - ', '--')
+        inoremap <buffer><expr> * smartchr#loop(' * ', '**')
+        inoremap <buffer><expr> / smartchr#loop(' / ', '//')
 
-    " =の場合、単純な代入や比較演算子として入力する場合は前後にスペースをいれる。
-    " 複合演算代入としての入力の場合は、直前のスペースを削除して=を入力
-    inoremap <buffer><expr> = search('\(&\<bar><bar>\<bar>+\<bar>-\<bar>/\<bar>>\<bar><\<bar>*\<bar>\) \%#', 'bcn')? '<bs>= '
-                \ : smartchr#loop(' = ', ' == ', '=')
-    inoremap <buffer><expr> < search('^#include\%#', 'bcn')? ' <><Left>': smartchr#loop('<', ' < ', ' << ' , '')
-    inoremap <buffer><expr> > search('^#include <.*\%#', 'bcn')? '>': smartchr#loop('>', ' > ', ' >> ')
+        " =の場合、単純な代入や比較演算子として入力する場合は前後にスペースをいれる。
+        " 複合演算代入としての入力の場合は、直前のスペースを削除して=を入力
+        inoremap <buffer><expr> = search('\(&\<bar><bar>\<bar>+\<bar>-\<bar>/\<bar>>\<bar><\<bar>*\<bar>\) \%#', 'bcn')? '<bs>= '
+                    \ : smartchr#loop(' = ', ' == ', '=')
+        inoremap <buffer><expr> < search('^#include\%#', 'bcn')? ' <><Left>': smartchr#loop('<', ' < ', ' << ' , '')
+        inoremap <buffer><expr> > search('^#include <.*\%#', 'bcn')? '>': smartchr#loop('>', ' > ', ' >> ')
 
-    inoremap <buffer><expr> " search('^#include\%#', 'bcn')? ' ""<Left>': smartchr#loop('"', ' " ')
-    inoremap <buffer><expr> " search('^#include ".*\%#', 'bcn')? '"': smartchr#loop('"', ' " ',)
+        inoremap <buffer><expr> " search('^#include\%#', 'bcn')? ' ""<Left>': smartchr#loop('"', ' " ')
+        inoremap <buffer><expr> " search('^#include ".*\%#', 'bcn')? '"': smartchr#loop('"', ' " ',)
 
-    inoremap <buffer><expr> , smartchr#loop(', ', ',')
-    "inoremap <buffer><expr> / smartchr#loop('/', ' / ', '//')
-    " *はポインタで使うので、空白はいれない
-    inoremap <buffer><expr> & smartchr#loop('&', ' & ', ' && ')
-    inoremap <buffer><expr> % smartchr#loop('%', ' % ')
-    inoremap <buffer><expr> <Bar> smartchr#loop(' <Bar> ', ' <Bar><Bar> ', '<Bar>')
-    " 3項演算子の場合は、後ろのみ空白を入れる
-    inoremap <buffer><expr> ? smartchr#loop('?', '? ')
-    inoremap <buffer><expr> : smartchr#loop(':', '::', ': ')
+        inoremap <buffer><expr> , smartchr#loop(', ', ',')
+        "inoremap <buffer><expr> / smartchr#loop('/', ' / ', '//')
+        " *はポインタで使うので、空白はいれない
+        inoremap <buffer><expr> & smartchr#loop('&', ' & ', ' && ')
+        inoremap <buffer><expr> % smartchr#loop('%', ' % ')
+        inoremap <buffer><expr> <Bar> smartchr#loop(' <Bar> ', ' <Bar><Bar> ', '<Bar>')
+        " 3項演算子の場合は、後ろのみ空白を入れる
+        inoremap <buffer><expr> ? smartchr#loop('?', '? ')
+        inoremap <buffer><expr> : smartchr#loop(':', '::', ': ')
 
-    " 下記の文字は連続して現れることがまれなので、二回続けて入力したら改行する
-    "inoremap <buffer><expr> } smartchr#one_of('}', '}<CR>')
-    "inoremap <buffer><expr> ; smartchr#one_of(';', ';<CR>')
-    " 「->」は入力しづらいので、..で置換え
-    inoremap <buffer><expr> . smartchr#loop('.', '->', '...')
-    " 行先頭での@入力で、プリプロセス命令文を入力
-    inoremap <buffer><expr> @ search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('#define', '#include', '#ifdef', '#endif', '@'): '@'
-    inoremap <buffer><expr> # search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('#define', '#include', '#ifdef', '#endif', '#'): '#'
+        " 下記の文字は連続して現れることがまれなので、二回続けて入力したら改行する
+        "inoremap <buffer><expr> } smartchr#one_of('}', '}<CR>')
+        "inoremap <buffer><expr> ; smartchr#one_of(';', ';<CR>')
+        " 「->」は入力しづらいので、..で置換え
+        inoremap <buffer><expr> . smartchr#loop('.', '->', '...')
+        " 行先頭での@入力で、プリプロセス命令文を入力
+        inoremap <buffer><expr> @ search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('#define', '#include', '#ifdef', '#endif', '@'): '@'
+        inoremap <buffer><expr> # search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('#define', '#include', '#ifdef', '#endif', '#'): '#'
 
-    inoremap <buffer><expr> " search('^#include\%#', 'bcn')? ' ""<Left>"': '""<Left>'
-    " if文直後の(は自動で間に空白を入れる
-    inoremap <buffer><expr> ( search('\<\if\%#', 'bcn')? ' ()<Left>': '()<Left>'
-endfunction
+        inoremap <buffer><expr> " search('^#include\%#', 'bcn')? ' ""<Left>"': '""<Left>'
+        " if文直後の(は自動で間に空白を入れる
+        inoremap <buffer><expr> ( search('\<\if\%#', 'bcn')? ' ()<Left>': '()<Left>'
+    endfunction
 
-" Objective-C用(未完)
-function! SmartCharForObjc()
-    inoremap <buffer><expr> @ search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of( '@interface','@implementation', '@synthesize', '@property', '@class' , '@'): '@'
-    inoremap <buffer><expr> # search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('#define', '#include', '#ifdef', '#endif', '#import' , '#'): '#'
-    inoremap <buffer><expr> - search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('- ()<Left>' ,  '-') :smartchr#loop(' - ', '--')
-    inoremap <buffer><expr> + search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('+ ()<Left>' ,  '+') :smartchr#loop(' + ', '++')
-endfunction
+    " Objective-C用(未完)
+    function! SmartCharForObjc()
+        inoremap <buffer><expr> @ search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of( '@interface','@implementation', '@synthesize', '@property', '@class' , '@'): '@'
+        inoremap <buffer><expr> # search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('#define', '#include', '#ifdef', '#endif', '#import' , '#'): '#'
+        inoremap <buffer><expr> - search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('- ()<Left>' ,  '-') :smartchr#loop(' - ', '--')
+        inoremap <buffer><expr> + search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('+ ()<Left>' ,  '+') :smartchr#loop(' + ', '++')
+    endfunction
 
-" 記号入力メンドクセ イマイチ{{{
-function! MySmarcchr()
-    inoremap <buffer><expr> 1 smartchr#one_of('1', '!' ,'11')
-    inoremap <buffer><expr> 2 smartchr#one_of('2', '"','22')
-    inoremap <buffer><expr> 3 smartchr#one_of('3', '#','33')
-    inoremap <buffer><expr> 4 smartchr#one_of('4', '$','44')
-    inoremap <buffer><expr> 5 smartchr#one_of('5', '%','55')
-    inoremap <buffer><expr> 6 smartchr#one_of('6', '&','66')
-    inoremap <buffer><expr> 7 smartchr#one_of('7', '\'','77')
-    inoremap <buffer><expr> 8 smartchr#one_of('8', '(','88')
-    inoremap <buffer><expr> 9 smartchr#one_of('9', ')','99')
-endfunction
+    " 記号入力メンドクセ イマイチ{{{
+    function! MySmarcchr()
+        inoremap <buffer><expr> 1 smartchr#one_of('1', '!' ,'11')
+        inoremap <buffer><expr> 2 smartchr#one_of('2', '"','22')
+        inoremap <buffer><expr> 3 smartchr#one_of('3', '#','33')
+        inoremap <buffer><expr> 4 smartchr#one_of('4', '$','44')
+        inoremap <buffer><expr> 5 smartchr#one_of('5', '%','55')
+        inoremap <buffer><expr> 6 smartchr#one_of('6', '&','66')
+        inoremap <buffer><expr> 7 smartchr#one_of('7', '\'','77')
+        inoremap <buffer><expr> 8 smartchr#one_of('8', '(','88')
+        inoremap <buffer><expr> 9 smartchr#one_of('9', ')','99')
+    endfunction
 
-autocmd MyAutoCmd FileType c,cpp call SmartCharForC()
-" endif
-" }}}
+    autocmd MyAutoCmd FileType c,cpp call SmartCharForC()
+    " endif
+    " }}}
+endif
 " }}}
 
 " NERD Commenter{{{
@@ -533,16 +605,13 @@ try
     " }}}
     " Programごとの設定{{{
     " Markdown{{{
-    " let g:quickrun_config['markdown']={
-    " \'type': 'markdown/pandoc',
-    " \'cmdopt' : '-s',
-    " \'command': 'bluecloth',
-    " \'exec': '%c -f %s', 
-    " \'outputter' : 'browser'
-    " \}
     let g:quickrun_config['markdown']={
                 \'outputter' : 'browser'
                 \}
+    " \'type': 'markdown/pandoc',
+    " \'cmdopt' : '-s',
+    " " \'command': 'bluecloth',
+    " " \'exec': '%c -f %s', 
     if has('syntax')
         augroup HankakuSpace
             autocmd!
@@ -860,6 +929,9 @@ let g:ll_plugins['csv'] = [
 let g:ll_plugins['js'] = [
             \ 'vim-javascript-syntax'
             \]
+le t g:ll_plugins['python'] = [
+            \ 'jedi'
+            \]
 
 if has('vim_starting') && s:ipi_loaded
     " lazy loading of each filetype
@@ -1132,11 +1204,12 @@ let g:EasyMotion_grouping = 1
 let QFixHowm_Key='g' 
 
 let howm_dir = $DROPBOX_DIR. "/documents/memo/howm"
-let howm_filenam = '%Y/%m/%Y-%m-%d-%H%M%S.txt'
+let howm_filename = '%Y/%m/%Y-%m-%d-%H%M%S.txt'
 " let QFixHowm_FileType = 'markdown'
 " }}}
 
 " w3m.vim
 let g:w3m#homepage = 'http://www.google.co.jp/'
+
 "" ================================================================================ 
 " vim: set tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
