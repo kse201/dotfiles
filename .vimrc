@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 16-Oct-2012.                 |
+"                 Last Change: 08-Nov-2012.                 |
 "============================================================
 
 " 基礎的な設定 {{{
@@ -12,6 +12,7 @@ if has('win32') || has('win64')
     let $MYGVIMRC      = "~/dotfiles/.gvimrc"
     let $MYVIMRCPLUGIN = "~/dotfiles/.vimrc.plugin"
     set backupdir=$HOME/_vimbackup
+    set dir=$HOME/AppData/Local/Temp
 elseif has('win32unix')
     let $VIMFILE_DIR   = $HOME . '/vimfiles'
     let $DROPBOX_DIR   = $HOME . '/Documents/My Dropbox'
@@ -19,6 +20,7 @@ elseif has('win32unix')
     let $MYGVIMRC      = "~/dotfiles/.gvimrc"
     let $MYVIMRCPLUGIN = "~/dotfiles/.vimrc.plugin"
     set backupdir=$HOME/_vimbackup
+    set dir=$HOME/AppData/Local/Temp
 elseif has('mac')
     let $VIMFILE_DIR   = $HOME . '/.vim'
     let $DROPBOX_DIR   = $HOME . '/Dropbox'
@@ -707,6 +709,7 @@ endfunction
 " tex{{{
 function! MylatexSettings()
     set dictionary=$HOME/.vim/dict/tex.dict
+    set sw=2
     inoremap <buffer> { {}<Left>
     inoremap <buffer> [ []<Left>
     inoremap <buffer> ( ()<Left>
@@ -1125,6 +1128,16 @@ function! s:force_blockwise_visual(next_key)
 endfunction
 " }}}
 
+" follow mode
+function! MyFollowMode()
+    vsplit
+    set scrollbind
+    <C-w>l
+    set noscrollbind
+    <S-l>
+    z<CR>
+    set scrollbind
+endfunction
 " }}}
 
 set timeout timeoutlen=500 ttimeoutlen=75

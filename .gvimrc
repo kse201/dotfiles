@@ -1,7 +1,7 @@
 ".gvimrc
-" last change: 10-Sep-2012.
+" last change: 09-Nov-2012.
 
-colorscheme molokai 
+colorscheme desertEx
 
 set guioptions+=b
 if has('mac')
@@ -33,7 +33,7 @@ if has('win32') || has('win64')
     set guifont=Inconsolata:h12:cANSI
     set guifontwide=MS_Gothic:h12
 else
-    set guifont=Ricty\ Regular\ for\ Powerline:h16
+    set guifont=Ricty\ Regular\ for\ Powerline:h14
     " set guifont=Ricty\ Reguler:h16
     set linespace=1
 endif

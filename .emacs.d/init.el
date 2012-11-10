@@ -1,6 +1,6 @@
 ;; init.el
 ;; Date:
-
+(require 'cl)
 ;; load-path を追加する関数を定義
 (defun add-to-load-path (&rest paths)
   (let (path)
@@ -19,55 +19,56 @@
 (add-to-list 'load-path "~/.emacs.d/auto-install/")
 (add-to-list 'load-path "~/.emacs.d/elisp/")
 
+(when (require 'auto-install nil t)
+  (setq auto-install-directory "~/.emacs.d/elisp/")
+
+  ;; install-elisp.el互換モードにする
+  (auto-install-compatibility-setup)
+
+  ;; proxy setting
+  ;; 参考: http://e-arrows.sakura.ne.jp/2010/12/emacs-anywhere.html
+  (defun machine-ip-address (dev)
+    "Return IP address of a network device."
+    (let ((info (network-interface-info dev)))
+      (if info
+          (format-network-address (car info) t))))
+
+  (defvar *network-interface-names* '("en1" "wlan0")
+    "Candidates for the network devices.")
+
+  (defun officep ()
+    "Am I in the office? If I am in the office, my IP address must start with '172.16.1..'."
+    (let ((ip (some #'machine-ip-address *network-interface-names*)))
+      (and ip
+           (eq 0 (string-match "^172\\.16\\.1\\." ip)))))
+
+  (if (officep)
+    (progn
+         (setq url-proxy-services '(("http" . "172.16.1.1:3128")))
+(setq w3m-command-arguments nil)
+         (setq w3m-command-arguments
+               (nconc w3m-command-arguments
+                      '("-o" "http_proxy=http://172.16.1.1:3128/"))))
+    (progn
+        (setq url-proxy-services nil))))
+;; package.el
+(when (require 'package nil t)
+  ;; バッケージリポジトリにMarmaladeと開発者運営のELPAを追加
+  (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+  (add-to-list 'package-archives '("ELPA" . "http://tromey.com/elpa/"))
+  (package-initialize))
 (add-hook 'emacs-startup-hook
           (lambda ()
-            (when (require 'auto-install nil t)
-              (setq auto-install-directory "~/.emacs.d/elisp/")
-
-              ;; install-elisp.el互換モードにする
-              (auto-install-compatibility-setup)
-
-                            ;; proxy setting
-              ;; 参考: http://e-arrows.sakura.ne.jp/2010/12/emacs-anywhere.html
-              (defun machine-ip-address (dev)
-                "Return IP address of a network device."
-                (let ((info (network-interface-info dev)))
-                  (if info
-                      (format-network-address (car info) t))))
-
-              (defvar *network-interface-names* '("en1" "wlan0")
-                "Candidates for the network devices.")
-
-              (defun officep ()
-                "Am I in the office? If I am in the office, my IP address must start with '172.16.1..'."
-                (let ((ip (some #'machine-ip-address *network-interface-names*)))
-                  (and ip
-                       (eq 0 (string-match "^172\\.16\\.1\\." ip)))))
-
-              (if (officep)
-                  (setq url-proxy-services '(("http" . "172.16.1.1:3128")))
-                (setq w3m-command-arguments
-                      (nconc w3m-command-arguments
-                             '("-o" "http_proxy=http://172.16.1.1:3128/")))
-                )
-              ;; 起動時にEmacsWikiのページ名を補完候補に加える
-              (auto-install-update-emacswiki-package-name t)
-              (auto-install-cmpatibility-setup))
-
-            ;; package.el
-            (when (require 'package nil t)
-              ;; バッケージリポジトリにMarmaladeと開発者運営のELPAを追加
-              (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-              (add-to-list 'package-archives '("ELPA" . "http://tromey.com/elpa/"))
-              (package-initialize))))
+            ;; 起動時にEmacsWikiのページ名を補完候補に加える
+            (auto-install-update-emacswiki-package-name t)
+            (auto-install-compatibility-setup)))
 
 (add-to-list 'load-path "~/src/emacswikipages/" t)
 
 ;; 設定ファイル編集
 (defun edit-init.el ()
   (interactive)
-  (find-file "~/.emacs.d/init.el")
-  )
+  (find-file "~/.emacs.d/init.el"))
 (global-set-key (kbd "C-x C-i") 'edit-init.el)
 ;; ediff関連のバッファを1つのフレームにまとめる
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
@@ -140,9 +141,7 @@
 ;; interfacing with ELPA, the package archive.
 ;; Move this code earlier if you want to reference
 ;; packages in your .emacs.
-(when
-    (load
-     (expand-file-name "~/.emacs.d/elpa/package.el"))
+(when (load (expand-file-name "~/.emacs.d/elpa/package.el"))
   (package-initialize))
 
 (require 'auto-async-byte-compile)
@@ -169,7 +168,6 @@
 ;;(global-set-key (kbd "C-c ;") 'comment-region)      ; コメントアウト
 ;;(global-set-key (kbd "C-c :") 'uncomment-region)   ; コメント解除
 (global-set-key "\C-\\" nil) ; \C-\の日本語入力の設定を無効にする
-(global-set-key "\C-c" 'other-frame)         ; フレーム
 (global-set-key (kbd "C-m") 'newline-and-indent)
 ;;(global-set-key (kbd "C-c l") 'toggle-truncate-lines)
 (global-set-key (kbd "C-x C-o") 'my-other-window)
@@ -264,7 +262,10 @@
 
   (when (require 'anything-config nil t)
     (setq anything-su-or-sudo "sudo")
+    ;; anything関連キーバインド
     (global-set-key (kbd "M-y") 'anything-show-kill-ring)
+    (global-set-key (kbd "C-; C-;") 'anything-M-x)
+    (global-set-key (kbd "C-; C-b") 'anything-buffers-list) ;; バッファ一覧
     (require 'anything-match-plugin nil t))
   (define-key global-map (kbd "C-x b") 'anything-for-files)
   (define-key global-map (kbd "M-x") 'anything)
@@ -276,6 +277,7 @@
   ;; ajc-java-complete.el
   (when (require 'ajc-java-complete-config nil t)
     (add-hook 'java-mode-hook 'ajc-java-complete-mode))
+
   (when (require 'anything-c-moccur nil t)
     (setq
      anything-c-moccur-anything-idle-delay 0.1
@@ -284,17 +286,18 @@
      anything-c-moccur-enable-initial-pattern t) ;起動時にポイントの位置の単語を初期パターンにする
     ;; C-M-o にanything-c-moccur-occur-by-moccurを割り当てる
     (global-set-key (kbd "C-M-o") 'anything-c-moccur-occur-by-moccur))
+
   (when (require 'auto-install nil t)
     (require 'anything-auto-install))
+
   (when (require 'anything-complete nil t)
     (anything-lisp-complete-symbol-set-timer 150))
+
   (when (require 'descbinds-anything nil t)
     (descbinds-anything-install)))
 
-
 (add-to-list 'anything-sources 'anything-c-source-emacs-commands)
-(global-set-key (kbd "C-; C-;") 'anything-M-x)
-(global-set-key (kbd "C-; C-b") 'anything-buffers-list) ;; バッファ一覧
+
 
 ;; 日本語マニュアル
 (add-to-list 'Info-directory-list "~/.emacs.d/info")
@@ -305,8 +308,7 @@
   (if mark-active
       (format "%d lines,%d chars "
               (count-lines (region-beginning) (region-end))
-              (- (region-end) (region-beginning)))
-    ))
+              (- (region-end) (region-beginning)))))
 (add-to-list 'default-mode-line-format
              '(:eval (count-lines-and-chars)))
 
@@ -334,8 +336,7 @@
   (ac-config-default)                     ; デフォルト設定
   (define-key ac-complete-mode-map (kbd "C-n") 'ac-next)
   (define-key ac-complete-mode-map (kbd "C-p") 'ac-previous)
-  (ac-mode t)
-  )
+  (ac-mode t))
 
 ;; open-junk-file.el
 (require 'open-junk-file)
@@ -493,8 +494,7 @@
                        '(:eval (concat (propertize " " 'display arrow-left-2)
                                        (propertize " %p " 'face 'mode-line-color-2)))
                        '(:eval (concat (propertize " " 'display arrow-left-1)
-                                       (propertize "%4l:%2c  " 'face 'mode-line-color-1)))
-                       ))
+                                       (propertize "%4l:%2c  " 'face 'mode-line-color-1)))))
 
   (make-face 'mode-line-color-1)
   (set-face-attribute 'mode-line-color-1 nil
@@ -674,8 +674,7 @@
   (interactive)
   (if (< (window-width) (window-height))
       (split-window-vertically)
-    (split-window-horizontally)
-    ))
+    (split-window-horizontally)))
 
 ;; ウィンドウ操作の履歴をundo/redo
 ;; C-c <left> / C-c <right>
@@ -782,8 +781,7 @@
                            (lambda ()
                              (interactive)
                              (twittering-goto-next-uri)
-                             (execute-kbd-macro (kbd "C-m"))
-                             ))))
+                             (execute-kbd-macro (kbd "C-m"))))))
 (add-to-list 'exec-path "/usr/local/bin")
 
 ;; howmの設定
@@ -854,32 +852,86 @@
       (setenv "PATH" (mapconcat 'identity exec-path ":"))))
 
 ;; tabbar.el
-(require 'tabbar nil t)
+(require 'tabbar)
 (require 'tabbar-ruler)
 (require 'tabbar-extension)
 
 ;; scratch buffer以外をまとめてタブに表示する
-(setq tabbar-buffer-groups-function
-      (lambda (b) (list "All Buffers")))
+                                        ; (setq tabbar-buffer-groups-function
+                                        ;       (lambda (b) (list "All Buffers")))
 (setq tabbar-buffer-list-function
       (lambda ()
         (remove-if
          (lambda(buffer)
            (unless (string-match (buffer-name buffer)
-                                 "\\(*scratch*\\|*Apropos*\\|*shell*\\|*eshell*\\|*Customize*\\)")
-             (find (aref (buffer-name buffer) 0) " *"))
-           )
+                                 "\\(*Apropos*\\|*shell*\\|*eshell*\\|*Customize*\\)")
+             (find (aref (buffer-name buffer) 0) " *")))
          (buffer-list))))
 
 ;; tabbarを有効にする
-(tabbar-mode 1)
+(tabbar-mode t)
+(defvar my-tabbar-displayed-buffers
+  '("*scratch*" "*Messages*" "*Backtrace*" "*Colors*" "*Faces*" "*vc-")
+  "*Regexps matches buffer names always included tabs.")
 
+(defun my-tabbar-buffer-list ()
+  "Return the list of buffers to show in tabs.
+                Exclude buffers whose name starts with a space or an asterisk.
+                The current buffer and buffers matches `my-tabbar-displayed-buffers'
+                are always included."
+  (let* ((hides (list ?\  ?\*))
+         (re (regexp-opt my-tabbar-displayed-buffers))
+         (cur-buf (current-buffer))
+         (tabs (delq nil
+                     (mapcar (lambda (buf)
+                               (let ((name (buffer-name buf)))
+                                 (when (or (string-match re name)
+                                           (not (memq (aref name 0) hides)))
+                                   buf)))
+                             (buffer-list)))))
+    ;; Always include the current buffer.
+    (if (memq cur-buf tabs)
+        tabs
+      (cons cur-buf tabs))))
+
+(setq tabbar-buffer-list-function 'my-tabbar-buffer-list)
 ;; ボタンをシンプルにする
 (setq tabbar-home-button-enabled "")
 (setq tabbar-scroll-right-button-enabled "")
 (setq tabbar-scroll-left-button-enabled "")
 (setq tabbar-scroll-right-button-disabled "")
 (setq tabbar-scroll-left-button-disabled "")
+(defun my-tabbar-buffer-help-on-tab (tab)
+  "Return the help string shown when mouse is onto TAB."
+  (if tabbar--buffer-show-groups
+      (let* ((tabset (tabbar-tab-tabset tab))
+             (tab (tabbar-selected-tab tabset)))
+        (format "mouse-1: switch to buffer %S in group [%s]"
+                (buffer-name (tabbar-tab-value tab)) tabset))
+    (format "\
+                            mouse-1: switch to buffer %S\n\
+                            mouse-2: kill this buffer\n\
+                            mouse-3: delete other windows"
+            (buffer-name (tabbar-tab-value tab)))))
+
+(defun my-tabbar-buffer-select-tab (event tab)
+  "On mouse EVENT, select TAB."
+  (let ((mouse-button (event-basic-type event))
+        (buffer (tabbar-tab-value tab)))
+    (cond
+     ((eq mouse-button 'mouse-2)
+      (with-current-buffer buffer
+        (kill-buffer)))
+     ((eq mouse-button 'mouse-3)
+      (delete-other-windows))
+     (t
+      (switch-to-buffer buffer)))
+    ;; Don't show groups.
+    (tabbar-buffer-show-groups nil)))
+
+(setq tabbar-help-on-tab-function 'my-tabbar-buffer-help-on-tab)
+(setq tabbar-select-tab-function 'my-tabbar-buffer-select-tab)
+
 
 ;; Ctrl-Tab, Ctrl-Shift-Tab でタブを切り替える
 (dolist (func '(tabbar-mode tabbar-forward-tab tabbar-forward-group tabbar-backward-tab tabbar-backward-group))
@@ -896,9 +948,54 @@
 (global-set-key [(control tab)] 'shk-tabbar-next)
 (global-set-key [(control shift tab)] 'shk-tabbar-prev)
 
+;; タブ上でマウスホイール操作無効
+(tabbar-mwheel-mode -1)
+
+;; グループ化しない
+(setq tabbar-buffer-groups-function nil)
+
+;; 左に表示されるボタンを無効化
+(dolist (btn '(tabbar-buffer-home-button
+               tabbar-scroll-left-button
+               tabbar-scroll-right-button))
+  (set btn (cons (cons "" nil)
+                 (cons "" nil))))
+
+;; タブの長さ
+(setq tabbar-separator '(1.5))
+
 ;; GUIで直接ファイルを開いた場合フレームを作成しない
-;(add-hook 'before-make-frame-hook
- ;         (lambda ()
-  ;          (when (eq tabbar-mode t)
-   ;           (switch-to-buffer (buffer-name))
-    ;          (delete-this-frame))))
+                                        ;(add-hook 'before-make-frame-hook
+                                        ;         (lambda ()
+                                        ;          (when (eq tabbar-mode t)
+                                        ;           (switch-to-buffer (buffer-name))
+                                        ;          (delete-this-frame))))
+
+;; paredit.el
+(when (require 'paredit nil t)
+  (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
+  (add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
+  (add-hook 'lisp-mode-hook 'enable-paredit-mode)
+  (add-hook 'ielm-mode-hook 'enable-paredit-mode))
+
+
+;; newsticker.el
+(require 'newsticker)
+
+(setq newsticker-url-list
+      '(("Slashdot" "http://rss.slashdot.org/Slashdot/slashdot")
+        ("TechCrunch" " http://feeds.feedburner.com/TechCrunch")))
+
+;; howmメモの保存先
+(setq howm-directory (concat user-emacs-directory "howm"))
+;; howm-menuの言語を日本語に
+(setq howm-menu-lang 'ja)
+(when (require 'howm-mode)
+  (define-key global-map (kbd "C-x C-, C-, ") 'howm-menu))
+
+(when (require 'rainbow-delimiters nil t)
+  (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
+  (add-hook 'lisp-interaction-mode-hook 'rainbow-delimiters-mode)
+  (add-hook 'lisp-mode-hook 'rainbow-delimiters-mode)
+  (add-hook 'ielm-mode-hook 'rainbow-delimiters-mode)
+  (global-rainbow-delimiters-mode t))

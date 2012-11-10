@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 06-Nov-2012.                 |
+"                 Last Change: 10-Nov-2012.                 |
 "============================================================
 autocmd MyAutoCmd BufWritePost $MYVIMRCPLUGIN  source $MYVIMRC |
             \ if has('gui_running') |
@@ -50,8 +50,8 @@ NeoBundle 'tpope/vim-pathogen'
 " }}}
 " ドキュメント管理 {{{
 " NeoBundleLazy 'thinca/vim-ref'
-NeoBundle 'thinca/vim-ref'
-NeoBundle 'vim-jp/vimdoc-ja.git'
+NeoBundleLazy 'thinca/vim-ref'
+NeoBundleLazy 'vim-jp/vimdoc-ja.git'
 " }}}
 " 補完 neocom{{{
 NeoBundleLazy 'Shougo/neocomplcache'
@@ -64,7 +64,7 @@ NeoBundleLazy 'yomi322/neco-tweetvim'
 NeoBundleLazy 'davidhalter/jedi'
 " }}}
 " ファイラ {{{
-NeoBundle 'scrooloose/nerdtree'
+NeoBundleLazy 'scrooloose/nerdtree'
 NeoBundleLazy 'Shougo/vimfiler',
             \ { 'depends' : 'Shougo/unite.vim'}
 " }}}
@@ -91,39 +91,47 @@ NeoBundle 'h1mesuke/vim-alignta'
 NeoBundle 'yomi322/unite-tweetvim'
 NeoBundle 'taka84u9/unite-git'
 NeoBundle 'kmnk/vim-unite-giti'
-NeoBundle 'osyo-manga/unite-homo.git'
-NeoBundle 'osyo-manga/unite-u-nya-.git'
 " }}}
 " テキスト整形 {{{
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'The-NERD-Commenter'
-NeoBundle 'vim-scripts/RST-Tables'
-NeoBundle 'vim-scripts/sequence'
+NeoBundleLazy 'vim-scripts/RST-Tables'
+NeoBundleLazy 'vim-scripts/sequence'
 " }}}
 " 機能追加 {{{
 NeoBundleLazy 'Shougo/vimshell'
-NeoBundleLazy 'basyura/TweetVim'
+NeoBundleLazy 'basyura/TweetVim' , {'depends' : 
+            \ ['open-browser.vim',
+            \ 'mattn/webapi-vim',
+            \ 'basyura/twitbill.vim',
+            \ 'Shougo/unite.vim',
+            \ 'h1mesuke/unite-outline',
+            \ 'basyura/bitly.vim',
+            \ ]}
 NeoBundle 'mattn/calendar-vim'
 NeoBundleLazy 'thinca/vim-quickrun'
-NeoBundle 'banyan/Vimpusher'
+" NeoBundle 'banyan/Vimpusher'
 NeoBundle 'surround.vim'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'open-browser.vim'
 " NeoBundle 'YankRing.vim'
-NeoBundle 'SingleCompile'
+NeoBundleLazy 'SingleCompile'
 NeoBundleLazy 'taglist.vim'
 NeoBundleLazy 'TagHighlight'
 NeoBundleLazy 'mbadran/headlights'
-NeoBundle 'thinca/vim-prettyprint'
+NeoBundleLazy 'thinca/vim-prettyprint'
 NeoBundle 'thinca/vim-editvar'
-NeoBundle 'thinca/vim-showtime'
+NeoBundleLazy 'thinca/vim-showtime'
 NeoBundle 'thinca/vim-fontzoom'
 " NeoBundle 'vim-scripts/ttoc'
-NeoBundleLazy 'exVim'
+" NeoBundle 'exVim'
 NeoBundle 'MultipleSearch'
-NeoBundle 'Shougo/vinarise'
-NeoBundle  'thinca/vim-ambicmd'
+" NeoBundle 'Shougo/vinarise'
+" NeoBundle  'thinca/vim-ambicmd'
 NeoBundleLazy 'csv.vim'
+NeoBundle 'yuratomo/w3m.vim'
+NeoBundle 'gregsexton/VimCalc'
+NeoBundle 'sjl/gundo.vim'
 " }}}
 " C / C++ {{{
 NeoBundleLazy 'vim-scripts/Source-Explorer-srcexpl.vim'
@@ -133,9 +141,10 @@ NeoBundleLazy 'vim-scripts/c.vim.git'
 NeoBundleLazy 'vim-scripts/CCTree'
 NeoBundleLazy 'vim-scripts/cscope-menu'
 NeoBundleLazy 'vim-scripts/gtags.vim'
+NeoBundleLazy 'vim-scripts/csharp.vim'
 " }}}
 " tex {{{
-" NeoBundleLazy 'jcf/vim-latex'
+NeoBundleLazy 'jcf/vim-latex'
 " }}}
 " 見た目 {{{
 NeoBundle 'wombat256.vim'
@@ -144,38 +153,32 @@ NeoBundle 'nathanaelkane/vim-indent-guides'
 " }}}
 " その他  {{{
 NeoBundle 'dannyob/quickfixstatus'
-NeoBundle 'Takazudo/outline.vim.git'
-NeoBundle 'jceb/vim-hier'
-NeoBundle 'mattn/mkdpreview-vim'
-NeoBundle 'L9'
+NeoBundleLazy 'Takazudo/outline.vim.git'
+NeoBundleLazy 'jceb/vim-hier'
+" NeoBundle 'mattn/mkdpreview-vim'
+NeoBundleLazy 'L9'
 
-NeoBundle 'git://git.wincent.com/command-t.git'
+NeoBundleLazy 'git://git.wincent.com/command-t.git'
 
 NeoBundle 'vimwiki'
-NeoBundle 'mattn/invader-vim'
-NeoBundle 'mattn/mahjong-vim'
-NeoBundle 'sudoku_game'
-NeoBundle 'mfumi/viminesweeper'
-NeoBundle 'mfumi/snake.vim'
-NeoBundle 'vimyum/viske'
+NeoBundleLazy 'mattn/invader-vim'
+NeoBundleLazy 'mattn/mahjong-vim'
+NeoBundleLazy 'sudoku_game'
+NeoBundleLazy 'mfumi/viminesweeper'
+NeoBundleLazy 'mfumi/snake.vim'
 " NeoBundle 'dwm.vim'
-NeoBundle 'savevers.vim'
+NeoBundleLazy 'savevers.vim'
 NeoBundle 'kien/rainbow_parentheses.vim'
-NeoBundle 'mattn/togetter-vim'
 NeoBundle 'kana/vim-smartinput'
 " NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'ViewOutput'
-NeoBundle 'mattn/excitetranslate-vim'
 NeoBundle 'tpope/vim-endwise'
 NeoBundle 'tsaleh/vim-matchit'
-NeoBundle 'chigatoike/activefix.vim'
-NeoBundle 'dahu/vim-fanfingtastic'
+" NeoBundle 'chigatoike/activefix.vim'
+" NeoBundle 'dahu/vim-fanfingtastic'
 " NeoBundle 'mrtazz/simplenote.vim'
-" }}}
-NeoBundle 'yuratomo/w3m.vim'
-NeoBundle 'gregsexton/VimCalc'
-NeoBundle 'vim-scripts/csharp.vim'
 NeoBundle 'altercation/vim-colors-solarized'
+" }}}
 filetype plugin indent on
 syntax on
 
@@ -361,6 +364,7 @@ endif
 " http://d.hatena.ne.jp/ruedap/20110110/vim_unite_plugin
 " http://blog.remora.cx/2010/12/vim-ref-with-unite.html
 let g:unite_source_file_mru_limit = 200
+let g:unite_split_rule="belowright"
 " Prefix-Key
 nmap <Leader>a <SID>[unite]
 nnoremap <SID>[unite] <Nop>
@@ -374,13 +378,20 @@ augroup uniteKeymap
     au FileType unite imap <silent><buffer> <C-c><C-c> <Plug>(unite_exit)
     au FileType unite nmap <silent><buffer> a <Plug>(unite_append_end)
     au FileType unite nmap <silent><buffer> f <Plug>(unite_quick_match_default_action)
+    au FileType unite nmap <silent><buffer> <C-z> <Plug>(unite_toggle_transpose_window)
+    au FileType unite imap <silent><buffer> <C-z> <Plug>(unite_toggle_transpose_window)
+    au FileType unite imap <buffer> <C-w> <Plug>(unite_delete_backward_path)
+    au FileType unite nmap <buffer> -     <Plug>(unite_delete_backward_path)
+
+    " ウィンドウを縦に分割して開く
+    au FileType unite nnoremap <silent> <buffer> <expr> <C-Enter> unite#do_action('vsplit')
+    au FileType unite inoremap <silent> <buffer> <expr> <C-Enter> unite#do_action('vsplit')
+
+    au FileType unite nnoremap <silent> <buffer>  <C-k> :<C-u>call unite#mappings#do_action('right')<CR>
 augroup END
 
 " 入力モードで開始する
 let g:unite_enable_start_insert=1
-" 垂直分割で開く
-" let g:unite_enable_split_vertically=1
-" let g:unite_winheight=10
 " file_mruの最大保存数
 let g:unite_source_file_mru_limit=1000
 
@@ -396,17 +407,6 @@ nnoremap <silent> <SID>[unite]h :<C-u>Unite -default-action=edit history/command
 " jump
 nnoremap <silent> <SID>[unite]j :<C-u>Unite jump<CR>
 
-augroup UniteKeyMap
-    autocmd!
-    au FileType unite imap <buffer> <C-w> <Plug>(unite_delete_backward_path)
-    au FileType unite nmap <buffer> -     <Plug>(unite_delete_backward_path)
-
-    " ウィンドウを縦に分割して開く
-    au FileType unite nnoremap <silent> <buffer> <expr> <C-Enter> unite#do_action('vsplit')
-    au FileType unite inoremap <silent> <buffer> <expr> <C-Enter> unite#do_action('vsplit')
-
-    au FileType unite nnoremap <silent> <buffer>  <C-k> :<C-u>call unite#mappings#do_action('right')<CR>
-augroup END
 " 様々なショートカット
 " http://d.hatena.ne.jp/thinca/20101027/1288190498
 call unite#set_substitute_pattern('file', '\$\w\+', '\=eval(submatch(0))', 200)
@@ -436,6 +436,7 @@ function! s:unite_source_myCommand.gather_candidates(args,conext)
                 \"Search emacs tweet in Japanese" : "TweetVimSearch emacs lang:ja",
                 \"Neobundle  Update" : "NeoBundleUpdate",
                 \"Neobundle Log" : "NeoBundleLog",
+                \"Undo Tree " : "GundoToggle",
                 \}
     return values(map(cmds,"{
                 \ 'word' : v:key,
@@ -643,15 +644,9 @@ try
                 \ }
     " }}}
     " TeX{{{
-    " let g:quickrun_config['tex']={
-    " \ "type" : "tex",
-    " \ "exec" : ['%c %o %s', 'dvipdfmx -o %s:r.pdf %s:r.dvi', 'open %s:r.pdf'],
-    " \ "command" : "platex-utf8",
-    " \ "cmdopt" : "-output-directory %s:h",
-    " \}
-
     let g:quickrun_config['tex']={
-                \ 'command' : 'platex-utf8',
+                \ 'command' : 'platex-euc',
+                \ 'outputer' : '',
                 \ 'exec' : ['%c -output-directory %s:h %s' , 'dvipdfmx -o %s:r.pdf %s:r.dvi' , 'open %s:r.pdf']
                 \}
     " }}}
@@ -740,7 +735,8 @@ vnoremap <Leader>t :Tabularize /
 " vimfiler{{{
 let g:vimfiler_as_default_explorer=1
 let g:vimfiler_safe_mode_by_default=0
-nnoremap <leader>vf :<c-u>silent! NeoBundleSource vimfiler<cr>:<c-u>VimFiler -split  -winwidth=35 -no-quit<cr>
+nnoremap <leader>vf :<c-u>silent! NeoBundleSource vimfiler<cr>:<c-u>VimFilerCurrentDir -split  -winwidth=35 -no-quit<cr>
+autocmd MyAutoCmd FileType vimfiler nnoremap <buffer><silent>/ :<C-u>Unite file -default-action=vimfiler<CR>
 " }}}
 
 " indent-Guides{{{
@@ -794,7 +790,7 @@ set shellslash
 set grepprg=grep\ -nH\ $*
 let g:Tex_DefaultTargetFormat = 'pdf'
 let g:Tex_ViewRule_pdf = 'open -a Preview.app'
-let g:Tex_CompileRule_dvi = 'platex-utf8 $*.tex'
+let g:Tex_CompileRule_dvi = 'platex-euc $*.tex'
 let g:Tex_BibtexFlavor = 'jbibtex'
 let g:Tex_FormatDependency_pfd = 'dvi,pdf'
 let g:Tex_CompileRule_pdf = 'dvipdfmx $*.dvi'
@@ -912,6 +908,9 @@ let g:ll_plugins['java'] = [
             \ 'Source-Explorer-srcexpl.vim',
             \ 'trinity.vim' 
             \ ]
+let g:ll_plugins['cs'] = [
+            \ 'csharp.vim'
+            \ ]
 
 let g:ll_plugins['html'] = [
             \ 'mattn/zencoding-vim'
@@ -929,7 +928,7 @@ let g:ll_plugins['csv'] = [
 let g:ll_plugins['js'] = [
             \ 'vim-javascript-syntax'
             \]
-le t g:ll_plugins['python'] = [
+let g:ll_plugins['python'] = [
             \ 'jedi'
             \]
 
@@ -977,6 +976,16 @@ if has('vim_starting') && s:ipi_loaded
                 \ | call quickrun#command(<q-args>, <count>, <line1>, <line2>)
 endif
 
+
+command! Game call MyGame()
+
+function! MyGame()
+    NeoBundleSource 'mattn/invader-vim'
+    NeoBundleSource 'mattn/mahjong-vim'
+    NeoBundleSource 'sudoku_game'
+    NeoBundleSource 'mfumi/viminesweeper'
+    NeoBundleSource 'mfumi/snake.vim'
+endfunction
 " }}}
 
 " sequence {{{
@@ -1205,11 +1214,29 @@ let QFixHowm_Key='g'
 
 let howm_dir = $DROPBOX_DIR. "/documents/memo/howm"
 let howm_filename = '%Y/%m/%Y-%m-%d-%H%M%S.txt'
-" let QFixHowm_FileType = 'markdown'
+let QFixHowm_FileType = 'qfix_memo'
 " }}}
 
 " w3m.vim
 let g:w3m#homepage = 'http://www.google.co.jp/'
 
+" savevers.vim {{{
+:set patchmode=.clean
+:let savevers_types = "*"
+:let savevers_dirs = &backupdir
+" :nmap <silent> <F5> :VersDiff -<cr>
+" :nmap <silent> <F6> :VersDiff +<cr>
+" :nmap <silent> <F8> :VersDiff -c<cr>
+" }}}
+
+" rainbow_parentheses.vim{{{
+augroup Rainbow_parentheses
+    autocmd!
+    au VimEnter * RainbowParenthesesToggle
+    au Syntax * RainbowParenthesesLoadRound
+    au Syntax * RainbowParenthesesLoadSquare
+    au Syntax * RainbowParenthesesLoadBraces
+augroup END
+" }}}
 "" ================================================================================ 
 " vim: set tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
