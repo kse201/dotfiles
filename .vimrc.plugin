@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 10-Nov-2012.                 |
+"                 Last Change: 14-Nov-2012.                 |
 "============================================================
 autocmd MyAutoCmd BufWritePost $MYVIMRCPLUGIN  source $MYVIMRC |
             \ if has('gui_running') |
@@ -65,7 +65,7 @@ NeoBundleLazy 'davidhalter/jedi'
 " }}}
 " ファイラ {{{
 NeoBundleLazy 'scrooloose/nerdtree'
-NeoBundleLazy 'Shougo/vimfiler',
+NeoBundle 'Shougo/vimfiler',
             \ { 'depends' : 'Shougo/unite.vim'}
 " }}}
 " 入力補助 {{{
@@ -160,7 +160,6 @@ NeoBundleLazy 'L9'
 
 NeoBundleLazy 'git://git.wincent.com/command-t.git'
 
-NeoBundle 'vimwiki'
 NeoBundleLazy 'mattn/invader-vim'
 NeoBundleLazy 'mattn/mahjong-vim'
 NeoBundleLazy 'sudoku_game'
@@ -364,7 +363,8 @@ endif
 " http://d.hatena.ne.jp/ruedap/20110110/vim_unite_plugin
 " http://blog.remora.cx/2010/12/vim-ref-with-unite.html
 let g:unite_source_file_mru_limit = 200
-let g:unite_split_rule="belowright"
+let g:unite_split_rule="botright"
+let g:unite_source_file_mru_filename_format = ''
 " Prefix-Key
 nmap <Leader>a <SID>[unite]
 nnoremap <SID>[unite] <Nop>
@@ -473,6 +473,37 @@ function! s:unite_source_myCommand.gather_candidates(args,conext)
 endfunction
 call unite#define_source(s:unite_source_myCommand)
 nnoremap <SID>[unite]c :Unite myCommand<CR>
+" }}}
+" unite-neco {{{
+" https://github.com/ujihisaより
+let s:unite_source = {'name': 'neco'}
+
+function! s:unite_source.gather_candidates(args, context)
+    let necos = [
+                \ "~(-'_'-) goes right",
+                \ "~(-'_'-) goes right and left",
+                \ "~(-'_'-) goes right quickly",
+                \ "~(-'_'-) goes right then smile",
+                \ "~(-'_'-)  -8(*'_'*) go right and left",
+                \ "(=' .' ) ~w",
+                \ ]
+    return map(necos, '{
+                \ "word": v:val,
+                \ "source": "neco",
+                \ "kind": "command",
+                \ "action__command": "Neco " . v:key,
+                \ }')
+endfunction
+
+"function! unite#sources#locate#define()
+"  return executable('locate') ? s:unite_source : []
+"endfunction
+call unite#define_source(s:unite_source)
+unlet s:unite_source
+
+if has('win32') || has('win64')
+    NeoBundleSource 'unite-everything'
+endif
 " }}}
 
 " }}}
@@ -735,8 +766,41 @@ vnoremap <Leader>t :Tabularize /
 " vimfiler{{{
 let g:vimfiler_as_default_explorer=1
 let g:vimfiler_safe_mode_by_default=0
-nnoremap <leader>vf :<c-u>silent! NeoBundleSource vimfiler<cr>:<c-u>VimFilerCurrentDir -split  -winwidth=35 -no-quit<cr>
-autocmd MyAutoCmd FileType vimfiler nnoremap <buffer><silent>/ :<C-u>Unite file -default-action=vimfiler<CR>
+nnoremap <leader>vf :<c-u>silent! NeoBundleSource vimfiler<cr>:<c-u>VimFilerCurrentDir -auto-cd -split  -winwidth=35 -no-quit<cr>
+	call vimfiler#set_execute_file('vim', 'vim')
+	call vimfiler#set_execute_file('txt', 'notepad')
+	call vimfiler#set_execute_file('c', ['vim', 'notepad'])
+	
+	" Edit file by tabedit.
+	"let g:vimfiler_edit_action = 'tabopen'
+	
+	let g:vimfiler_as_default_explorer = 1
+	
+	" Enable file operation commands.
+	"let g:vimfiler_safe_mode_by_default = 0
+	
+	" Like Textmate icons.
+	let g:vimfiler_tree_leaf_icon = ' '
+    let g:vimfiler_tree_opened_icon = '▾'
+    let g:vimfiler_tree_closed_icon = '▸'
+	let g:vimfiler_file_icon = '-'
+	let g:vimfiler_marked_file_icon = '*'
+
+	" Use trashbox.
+	" Windows only and require latest vimproc.
+	"let g:unite_kind_file_use_trashbox = 1
+"デフォルトのキーマッピングを変更
+augroup VimFiler 
+    autocmd!
+  autocmd FileType vimfiler call s:vimfiler_my_settings()
+augroup END
+function! s:vimfiler_my_settings()
+  nmap <buffer> q <Plug>(vimfiler_exit)
+  nmap <buffer> Q <Plug>(vimfiler_hide)
+  nmap <buffer> <TAB> <Plug>(vimfiler_switch_to_another_vimfiler)
+  nmap <buffer> <C-a> <Plug>(vimfiler_toggle_mark_all_lines)
+  nnoremap <buffer><silent> / :<C-u>UniteWithBufferDir file -default-action=vimfiler<CR>
+endfunction
 " }}}
 
 " indent-Guides{{{
@@ -797,10 +861,8 @@ let g:Tex_CompileRule_pdf = 'dvipdfmx $*.dvi'
 " }}}
 
 " tweetvim{{{
-nnoremap <silent> <SID>[unite]t :<C-u>NeoBundleSource TweetVim<CR>:<C-u>Unite -winheight=11 tweetvim<CR>
+nnoremap <silent> <SID>[unite]t :<C-u>NeoBundleSource TweetVim<CR>:NeoBundleSource TweetVim<CR>:<C-u>Unite -winheight=11 tweetvim<CR>
 nnoremap <silent> ,ts :<C-u>NeoBundleSource TweetVim<CR>:TweetVimSay<CR>
-nnoremap <silent> ,tv :<C-u>NeoBundleSource TweetVim<CR>:TweetVimSearch vim<CR>
-nnoremap <silent> ,tvj :<C-u>NeoBundleSource TweetVim<CR>:TweetVimSearch vim lang:ja<CR>
 if !exists('g:neocomplcache_dictionary_filetype_lists')
     let g:neocomplcache_dictionary_filetype_lists={}
 endif
@@ -811,15 +873,19 @@ let g:tweetvim_tweet_per_page = 40
 let g:tweetvim_display_source=1
 let g:tweetvim_display_time=1
 " キーマップ 参考:http://qiita.com/items/a28eb714151886358b1a
-augroup TweetVimSetting
+augroup TweetVim
     autocmd!
-    autocmd FileType tweetvim nnoremap <buffer><silent>j :<C-u>call <SID>tweetvim_vertical_move("gj")<CR>zz
-    autocmd FileType tweetvim nnoremap <buffer><silent>k :<C-u>call <SID>tweetvim_vertical_move("gk")<CR>zz
+    autocmd FileType tweetvim call s:mytweetvim()
+augroup END
+function! s:mytweetvim ()
+     nnoremap <buffer><silent>j :<C-u>call <SID>tweetvim_vertical_move("gj")<CR>zz
+     nnoremap <buffer><silent>k :<C-u>call <SID>tweetvim_vertical_move("gk")<CR>zz
+     nmap <buffer><silent> <CR> <Plug>(tweetvim_action_open_links)
+     nmap <buffer><silent> o <Plug>(tweetvim_action_enter)
+     nmap <buffer><silent> R <Plug>(tweetvim_action_retweet)
     " バッファに移動した時に自動リロード
     autocmd BufEnter * call <SID>tweetvim_reload()
-    autocmd FileType tweetvim setlocal nowrap
-    " autocmd FileType tweetvim so $VIMFILES_DIR . "/bundle/Tweetvim/syntax/tweetvim.vim"
-augroup END
+endfunction
 
 " セパレータを飛ばして移動する
 " ページの銭湯や末尾でそれ以上 上下に移動しようとしたらページ移動する
@@ -1156,39 +1222,6 @@ function! MyShowTime()
     call MyPresenSetting()
     IndentGuidesDisable
 endfunction
-
-" }}}
-
-" unite-neco {{{
-" https://github.com/ujihisaより
-let s:unite_source = {'name': 'neco'}
-
-function! s:unite_source.gather_candidates(args, context)
-    let necos = [
-                \ "~(-'_'-) goes right",
-                \ "~(-'_'-) goes right and left",
-                \ "~(-'_'-) goes right quickly",
-                \ "~(-'_'-) goes right then smile",
-                \ "~(-'_'-)  -8(*'_'*) go right and left",
-                \ "(=' .' ) ~w",
-                \ ]
-    return map(necos, '{
-                \ "word": v:val,
-                \ "source": "neco",
-                \ "kind": "command",
-                \ "action__command": "Neco " . v:key,
-                \ }')
-endfunction
-
-"function! unite#sources#locate#define()
-"  return executable('locate') ? s:unite_source : []
-"endfunction
-call unite#define_source(s:unite_source)
-unlet s:unite_source
-
-if has('win32') || has('win64')
-    NeoBundleSource 'unite-everything'
-endif
 
 " }}}
 

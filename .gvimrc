@@ -1,5 +1,5 @@
 ".gvimrc
-" last change: 09-Nov-2012.
+" last change: 13-Nov-2012.
 
 colorscheme desertEx
 
@@ -31,7 +31,7 @@ augroup END
 "Font{{{
 if has('win32') || has('win64')
     set guifont=Inconsolata:h12:cANSI
-    set guifontwide=MS_Gothic:h12
+    set guifontwide=Migu\ 1M\ Regular:h12
 else
     set guifont=Ricty\ Regular\ for\ Powerline:h14
     " set guifont=Ricty\ Reguler:h16
