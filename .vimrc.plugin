@@ -407,9 +407,14 @@ nnoremap <silent> <SID>[unite]h :<C-u>Unite -default-action=edit history/command
 " jump
 nnoremap <silent> <SID>[unite]j :<C-u>Unite jump<CR>
 
+" 曖昧検索
+call unite#set_substitute_pattern('file,file_mru,history/command,directory_mru', '[[:alnum:]]', '*\0', 100)
+
 " 様々なショートカット
 " http://d.hatena.ne.jp/thinca/20101027/1288190498
 call unite#set_substitute_pattern('file', '\$\w\+', '\=eval(submatch(0))', 200)
+call unite#set_substitute_pattern('file', '[^~.]\zs/', '*/*', 20)
+call unite#set_substitute_pattern('file', '/\ze[^*]', '/*', 10)
 call unite#set_substitute_pattern('file', '^@@', '\=fnamemodify(expand("#"), ":p:h")."/"', 2)
 call unite#set_substitute_pattern('file', '^@', '\=getcwd()."/*"', 1)
 call unite#set_substitute_pattern('file', '^;r', '\=$VIMRUNTIME."/"')
@@ -418,7 +423,7 @@ call unite#set_substitute_pattern('file', '\\\@<! ', '\\ ', -20)
 call unite#set_substitute_pattern('file', '\\ \@!', '/', -30)
 if has('win32') || has('win64') || has('win32unix')
     call unite#set_substitute_pattern('file', '^;p', 'C:\Program Files\')
-    call unite#set_substitute_pattern('file', '^;v', '~/vimfiles/')
+    call unite#set_substitute_pattern('file', '^;v', '~/vimfile/')
 else
     call unite#set_substitute_pattern('file', '^;v', '~/.vim/')
 endif
@@ -799,7 +804,7 @@ function! s:vimfiler_my_settings()
   nmap <buffer> Q <Plug>(vimfiler_hide)
   nmap <buffer> <TAB> <Plug>(vimfiler_switch_to_another_vimfiler)
   nmap <buffer> <C-a> <Plug>(vimfiler_toggle_mark_all_lines)
-  nnoremap <buffer><silent> / :<C-u>UniteWithBufferDir file -default-action=vimfiler<CR>
+  nnoremap <buffer><silent> / :<C-u>UniteWithBufferDir file -default-action=vimfiler -buffer-name=files<CR>
 endfunction
 " }}}
 
@@ -884,7 +889,7 @@ function! s:mytweetvim ()
      nmap <buffer><silent> o <Plug>(tweetvim_action_enter)
      nmap <buffer><silent> R <Plug>(tweetvim_action_retweet)
     " バッファに移動した時に自動リロード
-    autocmd BufEnter * call <SID>tweetvim_reload()
+    " autocmd BufEnter * call <SID>tweetvim_reload()
 endfunction
 
 " セパレータを飛ばして移動する
@@ -905,12 +910,6 @@ function! s:tweetvim_vertical_move(cmd)
     endif
 endfunction
 
-" filetypeがtweetviならツイートをリロード
-function! s:tweetvim_reload()
-    if &filetype ==# "tweetvim"
-        call feedkeys("\<Plug>(tweetvim_action_reload)")
-    endif
-endfunction
 " }}}
 
 " memolist.vim{{{
