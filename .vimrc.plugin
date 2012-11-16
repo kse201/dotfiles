@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 14-Nov-2012.                 |
+"                 Last Change: 15-Nov-2012.                 |
 "============================================================
 autocmd MyAutoCmd BufWritePost $MYVIMRCPLUGIN  source $MYVIMRC |
             \ if has('gui_running') |
@@ -105,6 +105,7 @@ NeoBundleLazy 'basyura/TweetVim' , {'depends' :
             \ 'mattn/webapi-vim',
             \ 'basyura/twitbill.vim',
             \ 'Shougo/unite.vim',
+            \ 'yomi322/unite-tweetvim',
             \ 'h1mesuke/unite-outline',
             \ 'basyura/bitly.vim',
             \ ]}
@@ -397,7 +398,7 @@ let g:unite_source_file_mru_limit=1000
 
 nnoremap <silent> <SID>[unite]b :<C-u>Unite -buffer-name=buffer buffer<CR>
 " ファイル一覧
-nnoremap <silent> <SID>[unite]f :<C-u>UniteWithBufferDir  -buffer-name=files file<CR>
+nnoremap <silent> <SID>[unite]f :<C-u>UniteWithBufferDir  -buffer-name=file file<CR>
 " 最近使用したファイル一覧
 nnoremap <silent> <SID>[unite]m :<C-u>Unite -buffer-name=file_mru file_mru<CR>
 " 全部乗せ
@@ -412,20 +413,21 @@ call unite#set_substitute_pattern('file,file_mru,history/command,directory_mru',
 
 " 様々なショートカット
 " http://d.hatena.ne.jp/thinca/20101027/1288190498
-call unite#set_substitute_pattern('file', '\$\w\+', '\=eval(submatch(0))', 200)
-call unite#set_substitute_pattern('file', '[^~.]\zs/', '*/*', 20)
-call unite#set_substitute_pattern('file', '/\ze[^*]', '/*', 10)
-call unite#set_substitute_pattern('file', '^@@', '\=fnamemodify(expand("#"), ":p:h")."/"', 2)
-call unite#set_substitute_pattern('file', '^@', '\=getcwd()."/*"', 1)
-call unite#set_substitute_pattern('file', '^;r', '\=$VIMRUNTIME."/"')
-call unite#set_substitute_pattern('file', '^\~', escape($HOME, '\'), -2)
-call unite#set_substitute_pattern('file', '\\\@<! ', '\\ ', -20)
-call unite#set_substitute_pattern('file', '\\ \@!', '/', -30)
+call unite#set_substitute_pattern('file,file_mru', '\$\w\+', '\=eval(submatch(0))', 200)
+call unite#set_substitute_pattern('file,file_mru', '[^~.]\zs/', '*/*', 20)
+call unite#set_substitute_pattern('file,file_mru', '/\ze[^*]', '/*', 10)
+call unite#set_substitute_pattern('file,file_mru', '^@@', '\=fnamemodify(expand("#"), ":p:h")."/*"', 2)
+call unite#set_substitute_pattern('file,file_mru', '^@', '\=getcwd()."/*"', 1)
+call unite#set_substitute_pattern('file,file_mru', '^;r', '\=$VIMRUNTIME."/"')
+call unite#set_substitute_pattern('file,file_mru', '^\~', escape($HOME, '\'), -2)
+call unite#set_substitute_pattern('file,file_mru', '^\\', escape($HOME, '\'), -2)
+call unite#set_substitute_pattern('file,file_mru', '\\\@<! ', '\\ ', -20)
+call unite#set_substitute_pattern('file,file_mru', '\\ \@!', '/', -30)
 if has('win32') || has('win64') || has('win32unix')
-    call unite#set_substitute_pattern('file', '^;p', 'C:\Program Files\')
-    call unite#set_substitute_pattern('file', '^;v', '~/vimfile/')
+    call unite#set_substitute_pattern('file,file_mru', '^;p', 'C:\Program File,file_mrus\')
+    call unite#set_substitute_pattern('file,file_mru', '^;v', '~/vimfile,file_mru/')
 else
-    call unite#set_substitute_pattern('file', '^;v', '~/.vim/')
+    call unite#set_substitute_pattern('file,file_mru', '^;v', '~/.vim/')
 endif
 
 " コマンドを登録してuniteで選択して起動 {{{ 
@@ -772,39 +774,39 @@ vnoremap <Leader>t :Tabularize /
 let g:vimfiler_as_default_explorer=1
 let g:vimfiler_safe_mode_by_default=0
 nnoremap <leader>vf :<c-u>silent! NeoBundleSource vimfiler<cr>:<c-u>VimFilerCurrentDir -auto-cd -split  -winwidth=35 -no-quit<cr>
-	call vimfiler#set_execute_file('vim', 'vim')
-	call vimfiler#set_execute_file('txt', 'notepad')
-	call vimfiler#set_execute_file('c', ['vim', 'notepad'])
-	
-	" Edit file by tabedit.
-	"let g:vimfiler_edit_action = 'tabopen'
-	
-	let g:vimfiler_as_default_explorer = 1
-	
-	" Enable file operation commands.
-	"let g:vimfiler_safe_mode_by_default = 0
-	
-	" Like Textmate icons.
-	let g:vimfiler_tree_leaf_icon = ' '
-    let g:vimfiler_tree_opened_icon = '▾'
-    let g:vimfiler_tree_closed_icon = '▸'
-	let g:vimfiler_file_icon = '-'
-	let g:vimfiler_marked_file_icon = '*'
+call vimfiler#set_execute_file('vim', 'vim')
+call vimfiler#set_execute_file('txt', 'notepad')
+call vimfiler#set_execute_file('c', ['vim', 'notepad'])
 
-	" Use trashbox.
-	" Windows only and require latest vimproc.
-	"let g:unite_kind_file_use_trashbox = 1
+" Edit file by tabedit.
+"let g:vimfiler_edit_action = 'tabopen'
+
+let g:vimfiler_as_default_explorer = 1
+
+" Enable file operation commands.
+"let g:vimfiler_safe_mode_by_default = 0
+
+" Like Textmate icons.
+let g:vimfiler_tree_leaf_icon = ' '
+let g:vimfiler_tree_opened_icon = '▾'
+let g:vimfiler_tree_closed_icon = '▸'
+let g:vimfiler_file_icon = '-'
+let g:vimfiler_marked_file_icon = '*'
+
+" Use trashbox.
+" Windows only and require latest vimproc.
+"let g:unite_kind_file_use_trashbox = 1
 "デフォルトのキーマッピングを変更
 augroup VimFiler 
     autocmd!
-  autocmd FileType vimfiler call s:vimfiler_my_settings()
+    autocmd FileType vimfiler call s:vimfiler_my_settings()
 augroup END
 function! s:vimfiler_my_settings()
-  nmap <buffer> q <Plug>(vimfiler_exit)
-  nmap <buffer> Q <Plug>(vimfiler_hide)
-  nmap <buffer> <TAB> <Plug>(vimfiler_switch_to_another_vimfiler)
-  nmap <buffer> <C-a> <Plug>(vimfiler_toggle_mark_all_lines)
-  nnoremap <buffer><silent> / :<C-u>UniteWithBufferDir file -default-action=vimfiler -buffer-name=files<CR>
+    nmap <buffer> q <Plug>(vimfiler_exit)
+    nmap <buffer> Q <Plug>(vimfiler_hide)
+    nmap <buffer> <TAB> <Plug>(vimfiler_switch_to_another_vimfiler)
+    nmap <buffer> <C-a> <Plug>(vimfiler_toggle_mark_all_lines)
+    nnoremap <buffer><silent> / :<C-u>UniteWithBufferDir file -default-action=vimfiler -buffer-name=files<CR>
 endfunction
 " }}}
 
@@ -883,11 +885,11 @@ augroup TweetVim
     autocmd FileType tweetvim call s:mytweetvim()
 augroup END
 function! s:mytweetvim ()
-     nnoremap <buffer><silent>j :<C-u>call <SID>tweetvim_vertical_move("gj")<CR>zz
-     nnoremap <buffer><silent>k :<C-u>call <SID>tweetvim_vertical_move("gk")<CR>zz
-     nmap <buffer><silent> <CR> <Plug>(tweetvim_action_open_links)
-     nmap <buffer><silent> o <Plug>(tweetvim_action_enter)
-     nmap <buffer><silent> R <Plug>(tweetvim_action_retweet)
+    nnoremap <buffer><silent>j :<C-u>call <SID>tweetvim_vertical_move("gj")<CR>zz
+    nnoremap <buffer><silent>k :<C-u>call <SID>tweetvim_vertical_move("gk")<CR>zz
+    nmap <buffer><silent> <CR> <Plug>(tweetvim_action_open_links)
+    nmap <buffer><silent> o <Plug>(tweetvim_action_enter)
+    nmap <buffer><silent> R <Plug>(tweetvim_action_retweet)
     " バッファに移動した時に自動リロード
     " autocmd BufEnter * call <SID>tweetvim_reload()
 endfunction
@@ -1018,17 +1020,17 @@ if has('vim_starting') && s:ipi_loaded
     " lazy loading for neocomplcache
     augroup MyInitNeocomplcache
         autocmd!
-        autocmd InsertEnter *  call s:LazyLoadingForNeocom() | call Init_neocomplcache() | autocmd! MyInitNeocomplcache
+        autocmd InsertEnter * call s:LazyLoadingForNeocom() | call Init_neocomplcache() | autocmd! MyInitNeocomplcache
     augroup END
     function! s:LazyLoadingForNeocom()
         NeoBundleSource neocomplcache
-        NeoBundleSource neocomplcache
-        NeoBundleSource neocomplcache-snippets-complete
+        NeoBundleSource neosnippet
         NeoBundleSource neocomplcache-clang
         NeoBundleSource neocomplcache-clang_complete
         NeoBundleSource clang-complete
         NeoBundleSource neco-look
         NeoBundleSource neco-tweetvim
+        NeoBundleSource jedi
     endfunction
 
     " lazy loading for vim-quickrun
