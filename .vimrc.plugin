@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 15-Nov-2012.                 |
+"                 Last Change: 19-Nov-2012.                 |
 "============================================================
 autocmd MyAutoCmd BufWritePost $MYVIMRCPLUGIN  source $MYVIMRC |
             \ if has('gui_running') |
@@ -103,11 +103,11 @@ NeoBundleLazy 'Shougo/vimshell'
 NeoBundleLazy 'basyura/TweetVim' , {'depends' : 
             \ ['open-browser.vim',
             \ 'mattn/webapi-vim',
-            \ 'basyura/twitbill.vim',
+            \ 'basyura/twibill.vim',
+            \ 'basyura/bitly.vim',
             \ 'Shougo/unite.vim',
             \ 'yomi322/unite-tweetvim',
             \ 'h1mesuke/unite-outline',
-            \ 'basyura/bitly.vim',
             \ ]}
 NeoBundle 'mattn/calendar-vim'
 NeoBundleLazy 'thinca/vim-quickrun'
@@ -143,6 +143,7 @@ NeoBundleLazy 'vim-scripts/CCTree'
 NeoBundleLazy 'vim-scripts/cscope-menu'
 NeoBundleLazy 'vim-scripts/gtags.vim'
 NeoBundleLazy 'vim-scripts/csharp.vim'
+NeoBundleLazy 'vim-scripts/teol.vim.git'
 " }}}
 " tex {{{
 NeoBundleLazy 'jcf/vim-latex'
@@ -247,12 +248,9 @@ if !exists('g:neoComplCache_keyword_patterns')
     let g:neoComplCache_keyword_patterns = {}
 endif
 let g:neoComplCache_keyword_patterns['default'] = '\h\w*'
-let g:NeoComplCache_SnippetsDir = $VIMFILE_DIR.'/snippets'
 " ファイル名補間、オムニ補間をneocom組み込みのものに置き換え
 " inoremap <expr><C-x><C-f>  neocomplcache#manual_filename_complete()
 " inoremap <expr> <C-j>  &filetype == 'vim' ? "\<C-x>\<C-v>\<C-p>" : neocomplcache#manual_omni_complete()
-" カーソル前の文字列がスニペットのトリガであるなら、スニペットを展開する
-" imap <expr><C-k>   neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : "\<C-n>"
 
 " init neocomplcache {{{
 function! Init_neocomplcache()
@@ -330,9 +328,12 @@ let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 if !exists("g:neosnippet#snippets_directory")
     let g:neosnippet#snippets_directory=""
 endif
-let g:neosnippet#snippets_directory=$VIMFILES_DIR.'/snippets'
+" let g:NeoComplCache_SnippetsDir = $VIMFILE_DIR.'/snippets'
+let g:neosnippet#snippets_directory= $VIMFILE_DIR . '/snippets'
 
 
+" カーソル前の文字列がスニペットのトリガであるなら、スニペットを展開する
+" imap <expr><C-k>   neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : "\<C-n>"
 "<TAB>でスニペット補完
 if g:neocomplcache_enable_at_startup
     imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_jump_or_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -774,6 +775,7 @@ vnoremap <Leader>t :Tabularize /
 let g:vimfiler_as_default_explorer=1
 let g:vimfiler_safe_mode_by_default=0
 nnoremap <leader>vf :<c-u>silent! NeoBundleSource vimfiler<cr>:<c-u>VimFilerCurrentDir -auto-cd -split  -winwidth=35 -no-quit<cr>
+nnoremap <leader>vv :<c-u>silent! NeoBundleSource vimfiler<cr>:<c-u>VimFilerTab -auto-cd -double -explorer -no-quit<cr>
 call vimfiler#set_execute_file('vim', 'vim')
 call vimfiler#set_execute_file('txt', 'notepad')
 call vimfiler#set_execute_file('c', ['vim', 'notepad'])
@@ -955,7 +957,8 @@ let g:ll_plugins['c'] = [
             \ 'a.vim' ,
             \ 'cscope-menu',
             \ 'gtags.vim',
-            \ 'c.vim' 
+            \ 'c.vim' ,
+            \ 'tel.vim.git'
             \ ]
 
 let g:ll_plugins['cpp'] = [
@@ -966,14 +969,16 @@ let g:ll_plugins['cpp'] = [
             \ 'cscope-menu',
             \ 'gtags.vim',
             \ 'a.vim' ,
-            \ 'c.vim' 
+            \ 'c.vim' ,
+            \ 'tel.vim.git'
             \ ]
 
 let g:ll_plugins['java'] = [
             \ 'taglist.vim',
             \ 'TagHihglight',
             \ 'Source-Explorer-srcexpl.vim',
-            \ 'trinity.vim' 
+            \ 'trinity.vim' ,
+            \ 'tel.vim.git',
             \ ]
 let g:ll_plugins['cs'] = [
             \ 'csharp.vim'

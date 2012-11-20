@@ -58,3 +58,5 @@ zle push-line-or-edit
 zle -N show_buffer_stack
 
 package-install github robbyrussell/oh-my-zsh
+
+package-install github keiji0/canything

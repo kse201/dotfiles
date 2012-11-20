@@ -1,5 +1,5 @@
 ".gvimrc
-" last change: 13-Nov-2012.
+" last change: 16-Nov-2012.
 
 colorscheme desertEx
 

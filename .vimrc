@@ -1,6 +1,6 @@
-"============================================================
+" ============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 08-Nov-2012.                 |
+"                 Last Change: 17-Nov-2012.                 |
 "============================================================
 
 " 基礎的な設定 {{{
@@ -424,9 +424,16 @@ vnoremap : ;
 nnoremap j gj
 nnoremap k gk
 
+nnoremap zl zL
+nnoremap zh zH
+
 " +/-キーで画面サイズ変更{{{
 nnoremap + <C-w>+
 nnoremap - <C-w>-
+nnoremap <silent> <S-Left>  :5wincmd <<CR>
+nnoremap <silent> <S-Right> :5wincmd ><CR>
+nnoremap <silent> <S-Up>    :5wincmd -<CR>
+nnoremap <silent> <S-Down>  :5wincmd +<CR>
 " }}}
 
 " kana's useful tab function {{{
@@ -473,6 +480,8 @@ nmap <Leader>PP "+p
 " タブまわり{{{
 nnoremap <Leader>tl gt
 nnoremap <Leader>th gT
+nnoremap gl gt
+nnoremap gh gT
 nnoremap <Leader>tn :tabnew<CR>
 for i in range(1,9)
     execute "nnoremap " . i . "<Leader>t " . i ."gt"
@@ -1128,16 +1137,18 @@ function! s:force_blockwise_visual(next_key)
 endfunction
 " }}}
 
-" follow mode
+" follow mode{{{
 function! MyFollowMode()
-    vsplit
-    set scrollbind
-    <C-w>l
-    set noscrollbind
-    <S-l>
-    z<CR>
-    set scrollbind
+    :vsplit
+    normal! <C-b>
+    :set scrollbind
+    normal! <C-w>w
+    :set noscrollbind
+    normal! L
+    normal! z<CR>
+    :set scrollbind
 endfunction
+" }}}
 " }}}
 
 set timeout timeoutlen=500 ttimeoutlen=75
