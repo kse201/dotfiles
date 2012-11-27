@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 19-Nov-2012.                 |
+"                 Last Change: 26-Nov-2012.                 |
 "============================================================
 autocmd MyAutoCmd BufWritePost $MYVIMRCPLUGIN  source $MYVIMRC |
             \ if has('gui_running') |
@@ -94,6 +94,7 @@ NeoBundle 'kmnk/vim-unite-giti'
 " }}}
 " テキスト整形 {{{
 NeoBundle 'godlygeek/tabular'
+NeoBundle 'h1mesuke/vim-alignta'
 NeoBundle 'The-NERD-Commenter'
 NeoBundleLazy 'vim-scripts/RST-Tables'
 NeoBundleLazy 'vim-scripts/sequence'
@@ -133,6 +134,7 @@ NeoBundleLazy 'csv.vim'
 NeoBundle 'yuratomo/w3m.vim'
 NeoBundle 'gregsexton/VimCalc'
 NeoBundle 'sjl/gundo.vim'
+NeoBundleLazy 'vim-scripts/RltvNmbr.vim'
 " }}}
 " C / C++ {{{
 NeoBundleLazy 'vim-scripts/Source-Explorer-srcexpl.vim'
@@ -179,6 +181,7 @@ NeoBundle 'tsaleh/vim-matchit'
 " NeoBundle 'dahu/vim-fanfingtastic'
 " NeoBundle 'mrtazz/simplenote.vim'
 NeoBundle 'altercation/vim-colors-solarized'
+
 " }}}
 filetype plugin indent on
 syntax on
@@ -399,7 +402,7 @@ let g:unite_source_file_mru_limit=1000
 
 nnoremap <silent> <SID>[unite]b :<C-u>Unite -buffer-name=buffer buffer<CR>
 " ファイル一覧
-nnoremap <silent> <SID>[unite]f :<C-u>UniteWithBufferDir  -buffer-name=file file<CR>
+nnoremap <silent> <SID>[unite]f :<C-u>UniteWithBufferDir  -buffer-name=files file<CR>
 " 最近使用したファイル一覧
 nnoremap <silent> <SID>[unite]m :<C-u>Unite -buffer-name=file_mru file_mru<CR>
 " 全部乗せ
@@ -445,6 +448,7 @@ function! s:unite_source_myCommand.gather_candidates(args,conext)
                 \"Neobundle  Update" : "NeoBundleUpdate",
                 \"Neobundle Log" : "NeoBundleLog",
                 \"Undo Tree " : "GundoToggle",
+                \"Show relative number" : "RN",
                 \}
     return values(map(cmds,"{
                 \ 'word' : v:key,
@@ -1277,5 +1281,8 @@ augroup Rainbow_parentheses
     au Syntax * RainbowParenthesesLoadBraces
 augroup END
 " }}}
+
+" align.vim
+let g:Align_xstrlen=3
 "" ================================================================================ 
 " vim: set tabstop=4 shiftwidth=4  fdm=marker fdl=0 :

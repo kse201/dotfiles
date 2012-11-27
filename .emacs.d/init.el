@@ -43,14 +43,14 @@
            (eq 0 (string-match "^172\\.16\\.1\\." ip)))))
 
   (if (officep)
+      (progn
+	(setq url-proxy-services '(("http" . "172.16.1.1:3128")))
+	;(setq w3m-command-arguments
+	 ;     (nconc w3m-command-arguments
+		;     '("-o" "http_proxy=http://172.16.1.1:3128/")))
+)
     (progn
-         (setq url-proxy-services '(("http" . "172.16.1.1:3128")))
-(setq w3m-command-arguments nil)
-         (setq w3m-command-arguments
-               (nconc w3m-command-arguments
-                      '("-o" "http_proxy=http://172.16.1.1:3128/"))))
-    (progn
-        (setq url-proxy-services nil))))
+      (setq url-proxy-services nil))))
 ;; package.el
 (when (require 'package nil t)
   ;; バッケージリポジトリにMarmaladeと開発者運営のELPAを追加
@@ -233,6 +233,9 @@
 (setq frame-title-format "%f")
 ;; 行番号表示
 (global-linum-mode t)
+(setq linum-delay t)
+(defadvice linum-schedule (around my-linum-schedule () activate)
+  (run-with-idle-timer 0.2 nil #'linum-update-current))
 ;; TABの表示幅 4
 (setq-default tab-width 4)
 ;; インデントにタブ文字を使用しない
@@ -980,11 +983,16 @@
 
 
 ;; newsticker.el
-(require 'newsticker)
+(when (require 'newsticker nil t)
+(autoload 'newsticker-start "newsticker" "Emacs Newsticker" t)
+(autoload 'newsticker-show-news "newsticker" "Emacs Newsticker" t)
 
 (setq newsticker-url-list
       '(("Slashdot" "http://rss.slashdot.org/Slashdot/slashdot")
-        ("TechCrunch" " http://feeds.feedburner.com/TechCrunch")))
+        ("TechCrunch" "http://feeds.feedburner.com/TechCrunch")
+        ("CNET Japan" "http://japan.cnet.com/rss/index.rdf")
+        ))
+)
 
 ;; howmメモの保存先
 (setq howm-directory (concat user-emacs-directory "howm"))
@@ -994,8 +1002,9 @@
   (define-key global-map (kbd "C-x C-, C-, ") 'howm-menu))
 
 (when (require 'rainbow-delimiters nil t)
+  (global-rainbow-delimiters-mode t)
   (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
   (add-hook 'lisp-interaction-mode-hook 'rainbow-delimiters-mode)
   (add-hook 'lisp-mode-hook 'rainbow-delimiters-mode)
   (add-hook 'ielm-mode-hook 'rainbow-delimiters-mode)
-  (global-rainbow-delimiters-mode t))
+  )

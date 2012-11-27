@@ -1,6 +1,6 @@
 " ============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 17-Nov-2012.                 |
+"                 Last Change: 22-Nov-2012.                 |
 "============================================================
 
 " 基礎的な設定 {{{
@@ -243,6 +243,7 @@ set shiftwidth=4
 set tabstop=4
 " }}}
 
+set listchars=tab:>-,trail:-,nbsp:-,extends:>,precedes:<,
 " ステータスライン設定 (vim-powerlineで用なしに)
 " autocmd MyAutoCmd BufEnter *   if winwidth(0) >= 60 |
 " \ set statusline=[%n]\ %t\ %m%R%H%W%y\ %([%{&fenc}][%{&ff}]%)\ %([%l(%p%%),%v]%)(%B)\ |
@@ -427,6 +428,13 @@ nnoremap k gk
 nnoremap zl zL
 nnoremap zh zH
 
+" http://d.hatena.ne.jp/vimtaku/touch/20121117/1353138802
+nnoremap <S-J> gJ
+nnoremap gJ <S-J>
+
+
+" nnoremap : q:a
+" nnoremap / q/a
 " +/-キーで画面サイズ変更{{{
 nnoremap + <C-w>+
 nnoremap - <C-w>-
@@ -1152,5 +1160,6 @@ endfunction
 " }}}
 
 set timeout timeoutlen=500 ttimeoutlen=75
+
 "============================================================
 " vim:set tabstop=4 shiftwidth=4 fdm=marker fdl=0: 
