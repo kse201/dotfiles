@@ -333,7 +333,7 @@
   (global-auto-complete-mode t)
   (setq ac-modes (cons 'js-mode ac-modes)))
 
-(when (require 'auto-complete-config)
+(when (require 'auto-complete-config nil t)
   (add-to-list 'ac-dictionary-directories "~/.emacd.d/ac-dict")
   (setq ac-ignore-case t)
   (ac-config-default)                     ; デフォルト設定
@@ -1004,7 +1004,7 @@
 (when (require 'rainbow-delimiters nil t)
   (global-rainbow-delimiters-mode t)
   (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
+  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
   (add-hook 'lisp-interaction-mode-hook 'rainbow-delimiters-mode)
   (add-hook 'lisp-mode-hook 'rainbow-delimiters-mode)
-  (add-hook 'ielm-mode-hook 'rainbow-delimiters-mode)
-  )
+  (add-hook 'ielm-mode-hook 'rainbow-delimiters-mode))
