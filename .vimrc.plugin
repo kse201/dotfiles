@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 26-Nov-2012.                 |
+"                 Last Change: 12-Dec-2012.                 |
 "============================================================
 autocmd MyAutoCmd BufWritePost $MYVIMRCPLUGIN  source $MYVIMRC |
             \ if has('gui_running') |
@@ -161,6 +161,7 @@ NeoBundleLazy 'Takazudo/outline.vim.git'
 NeoBundleLazy 'jceb/vim-hier'
 " NeoBundle 'mattn/mkdpreview-vim'
 NeoBundleLazy 'L9'
+NeoBundle 'daisuzu/rainbowcyclone.vim'
 
 NeoBundleLazy 'git://git.wincent.com/command-t.git'
 
@@ -181,6 +182,7 @@ NeoBundle 'tsaleh/vim-matchit'
 " NeoBundle 'dahu/vim-fanfingtastic'
 " NeoBundle 'mrtazz/simplenote.vim'
 NeoBundle 'altercation/vim-colors-solarized'
+" NeoBundle 'koron/minimap-vim'
 
 " }}}
 filetype plugin indent on
@@ -258,8 +260,11 @@ let g:neoComplCache_keyword_patterns['default'] = '\h\w*'
 " init neocomplcache {{{
 function! Init_neocomplcache()
     NeoComplCacheEnable
-    imap <expr><C-k>   neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : "\<C-n>"
-    smap <C-k>     <Plug>(neocomplcache_snippets_expand)
+    imap <expr><C-k>   neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<C-n>"
+    smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+
+imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
     " 候補の共通箇所まで補完する
     inoremap <expr><C-l> neocomplcache#complete_common_string()
     " 決定

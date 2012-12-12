@@ -1008,3 +1008,16 @@
   (add-hook 'lisp-interaction-mode-hook 'rainbow-delimiters-mode)
   (add-hook 'lisp-mode-hook 'rainbow-delimiters-mode)
   (add-hook 'ielm-mode-hook 'rainbow-delimiters-mode))
+
+;;; helm
+(require 'helm-config)
+
+;;; color-theme
+(require 'color-theme)
+(color-theme-initialize)
+(color-theme-molokai)
+
+;;; smartchr.el
+;;; http://tech.kayac.com/archive/emacs-tips-smartchr.html
+(require 'smartchr)
+(global-set-key (kbd "=") (smartchr '(" = "  " == " "=")))
