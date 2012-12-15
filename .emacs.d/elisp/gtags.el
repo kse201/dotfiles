@@ -1,8 +1,9 @@
 ;;; gtags.el --- gtags facility for Emacs
 
+;(setq debug-on-error t)
 ;;
 ;; Copyright (c) 1997, 1998, 1999, 2000, 2006, 2007, 2008, 2009, 2010
-;;		2011
+;;		2011, 2012
 ;;	Tama Communications Corporation
 ;;
 ;; This file is part of GNU GLOBAL.
@@ -11,21 +12,20 @@
 ;; it under the terms of the GNU General Public License as published by
 ;; the Free Software Foundation, either version 3 of the License, or
 ;; (at your option) any later version.
-;; 
+;;
 ;; This program is distributed in the hope that it will be useful,
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
 ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ;; GNU General Public License for more details.
-;; 
+;;
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ;;
 
 ;; GLOBAL home page is at: http://www.gnu.org/software/global/
 ;; Author: Tama Communications Corporation
-;; Version: 3.2
+;; Version: 3.7
 ;; Keywords: tools
-;; Required version: GLOBAL 5.9.7 or later
 
 ;; Gtags-mode is implemented as a minor mode so that it can work with any
 ;; other major modes. Gtags-select mode is implemented as a major mode.
@@ -89,6 +89,13 @@
                  (const :tag "Absolute" absolute))
   :group 'gtags)
 
+(defcustom gtags-ignore-case 'follow-case-fold-search
+  "*Controls whether or not ignore case in each search."
+  :type '(choice (const :tag "Follows case-fold-search variable" follow-case-fold-search)
+                 (const :tag "Ignore case" t)
+                 (const :tag "Distinguish case" nil))
+  :group 'gtags)
+
 (defcustom gtags-read-only nil
   "Gtags read only mode"
   :type 'boolean
@@ -124,6 +131,16 @@
   :group 'gtags
   :type 'boolean)
 
+(defcustom gtags-prefix-key "\C-c"
+  "*If non-nil, it is used for the prefix key of gtags-xxx command."
+  :group 'gtags
+  :type 'string)
+
+(defcustom gtags-auto-update nil
+  "*If non-nil, tag files are updated whenever a file is saved."
+  :type 'boolean
+  :group 'gtags)
+
 ;; Variables
 (defvar gtags-current-buffer nil
   "Current buffer.")
@@ -157,24 +174,29 @@
 (if gtags-suggested-key-mapping
     (progn
       ; Current key mapping.
-      (define-key gtags-mode-map "\C-ch" 'gtags-display-browser)
+      (define-key gtags-mode-map (concat gtags-prefix-key "h") 'gtags-display-browser)
       (define-key gtags-mode-map "\C-]" 'gtags-find-tag-from-here)
       (define-key gtags-mode-map "\C-t" 'gtags-pop-stack)
-      (define-key gtags-mode-map "\C-cP" 'gtags-find-file)
-      (define-key gtags-mode-map "\C-cf" 'gtags-parse-file)
-      (define-key gtags-mode-map "\C-cg" 'gtags-find-with-grep)
-      (define-key gtags-mode-map "\C-cI" 'gtags-find-with-idutils)
-      (define-key gtags-mode-map "\C-cs" 'gtags-find-symbol)
-      (define-key gtags-mode-map "\C-cr" 'gtags-find-rtag)
-      (define-key gtags-mode-map "\C-ct" 'gtags-find-tag)
-      (define-key gtags-mode-map "\C-cv" 'gtags-visit-rootdir)
+      (define-key gtags-mode-map (concat gtags-prefix-key "P") 'gtags-find-file)
+      (define-key gtags-mode-map (concat gtags-prefix-key "f") 'gtags-parse-file)
+      (define-key gtags-mode-map (concat gtags-prefix-key "g") 'gtags-find-with-grep)
+      (define-key gtags-mode-map (concat gtags-prefix-key "I") 'gtags-find-with-idutils)
+      (define-key gtags-mode-map (concat gtags-prefix-key "s") 'gtags-find-symbol)
+      (define-key gtags-mode-map (concat gtags-prefix-key "r") 'gtags-find-rtag)
+      (define-key gtags-mode-map (concat gtags-prefix-key "t") 'gtags-find-tag)
+      (define-key gtags-mode-map (concat gtags-prefix-key "d") 'gtags-find-tag)
+      (define-key gtags-mode-map (concat gtags-prefix-key "v") 'gtags-visit-rootdir)
       ; common
       (define-key gtags-mode-map "\e*" 'gtags-pop-stack)
       (define-key gtags-mode-map "\e." 'gtags-find-tag)
       (define-key gtags-mode-map "\C-x4." 'gtags-find-tag-other-window)
       (if gtags-disable-pushy-mouse-mapping nil
-        (define-key gtags-mode-map [mouse-3] 'gtags-pop-stack)
-        (define-key gtags-mode-map [mouse-2] 'gtags-find-tag-by-event)))
+        (if gtags-running-xemacs nil
+          (define-key gtags-mode-map [mouse-3] 'gtags-pop-stack)
+          (define-key gtags-mode-map [mouse-2] 'gtags-find-tag-by-event))
+        (if (not gtags-running-xemacs) nil
+          (define-key gtags-mode-map 'button3 'gtags-pop-stack)
+          (define-key gtags-mode-map 'button2 'gtags-find-tag-by-event))))
 )
 ;; Key mapping of old gtags-mode (obsoleted)
 (if (and gtags-suggested-key-mapping gtags-use-old-key-map)
@@ -196,11 +218,18 @@
       (define-key gtags-mode-map "\e." 'gtags-find-tag)
       (define-key gtags-mode-map "\C-x4." 'gtags-find-tag-other-window)
       (if gtags-disable-pushy-mouse-mapping nil
-        (define-key gtags-mode-map [mouse-3] 'gtags-pop-stack)
-        (define-key gtags-mode-map [mouse-2] 'gtags-find-tag-by-event)))
+        (if gtags-running-xemacs nil
+          (define-key gtags-mode-map [mouse-3] 'gtags-pop-stack)
+          (define-key gtags-mode-map [mouse-2] 'gtags-find-tag-by-event))
+        (if (not gtags-running-xemacs) nil
+          (define-key gtags-mode-map 'button3 'gtags-pop-stack)
+          (define-key gtags-mode-map 'button2 'gtags-find-tag-by-event))))
 )
 
 ;; Key mapping of gtags-select-mode.
+; The map of key "\C-t" and "\C-m" is always carried out..
+(define-key gtags-select-mode-map "\C-t" 'gtags-pop-stack)
+(define-key gtags-select-mode-map "\C-m" 'gtags-select-tag)
 (if gtags-suggested-key-mapping
     (progn
       (define-key gtags-select-mode-map "\e*" 'gtags-pop-stack)
@@ -214,19 +243,119 @@
       (define-key gtags-select-mode-map "n" 'next-line)
       (define-key gtags-select-mode-map "q" 'gtags-pop-stack)
       (define-key gtags-select-mode-map "u" 'gtags-pop-stack)
-      (define-key gtags-select-mode-map "\C-t" 'gtags-pop-stack)
-      (define-key gtags-select-mode-map "\C-m" 'gtags-select-tag)
       (define-key gtags-select-mode-map "\C-o" 'gtags-select-tag-other-window)
       (define-key gtags-select-mode-map "\e." 'gtags-select-tag)
       (if gtags-disable-pushy-mouse-mapping nil
-        (define-key gtags-select-mode-map [mouse-3] 'gtags-pop-stack)
-        (define-key gtags-select-mode-map [mouse-2] 'gtags-select-tag-by-event)))
+        (if gtags-running-xemacs nil
+          (define-key gtags-select-mode-map [mouse-3] 'gtags-pop-stack)
+          (define-key gtags-select-mode-map [mouse-2] 'gtags-select-tag-by-event))
+        (if (not gtags-running-xemacs) nil
+          (define-key gtags-select-mode-map 'button3 'gtags-pop-stack)
+          (define-key gtags-select-mode-map 'button2 'gtags-select-tag-by-event))))
 )
-;; This is only one exception of the policy.
 
+;;
+;; TRAMP support
+;;
+;
+; TRAMP style default-directory.
+; /<method>:[<user id>@]<host name>:<directory>
+; Ex: /ssh:remoteuser@remotehost:/usr/src/sys/
+;
+(defconst gtags-tramp-path-regexp "^/\\([^:]+\\):\\([^:]+\\):\\(.*\\)"
+  "Regexp matching tramp path name.")
+(defconst gtags-tramp-user-host-regexp "^\\([^@]+\\)@\\(.*\\)"
+  "Regexp matching tramp user@host name.")
+(defvar gtags-tramp-active nil
+  "TRAMP activity.")
+(defvar gtags-tramp-saved-global-command nil
+  "Save area of the command name of global.")
+
+; The substitute of buffer-file-name
+(defun gtags-buffer-file-name ()
+  (if buffer-file-name
+      (if (string-match gtags-tramp-path-regexp buffer-file-name)
+          (match-string 3 buffer-file-name)
+          buffer-file-name)
+      nil))
+(defun gtags-push-tramp-environment ()
+    (let ((tramp-path default-directory))
+      (if (string-match gtags-tramp-path-regexp tramp-path)
+          (let ((shell         (match-string 1 tramp-path))
+                (user-and-host (match-string 2 tramp-path))
+                (cwd           (match-string 3 tramp-path)))
+            ;
+            ; Server side GLOBAL cannot treat other than rsh and ssh.
+            ;
+            (cond
+             ((equal shell "rsh"))
+             ((equal shell "ssh"))
+             ((equal shell "rcp")
+              (setq shell "rsh"))
+             ((equal shell "scp")
+              (setq shell "ssh"))
+             (t
+               (setq shell "ssh")))
+            (let (host user)
+              (if (string-match gtags-tramp-user-host-regexp user-and-host)
+                  (progn
+                    (setq user (match-string 1 user-and-host))
+                    (setq host (match-string 2 user-and-host)))
+                  (progn
+                    (setq user nil)
+                    (setq host user-and-host)))
+              ;
+              ; Move to tramp mode only when all the items are assembled.
+              ;
+              (if (and shell host cwd)
+                  (progn
+                    (setq gtags-tramp-active t)
+                    (setq gtags-tramp-saved-global-command gtags-global-command)
+                    ; Use 'global-client even if environment variable GTAGSGLOBAL is set.
+                    ;(setq gtags-global-command (getenv "GTAGSGLOBAL"))
+                    ;(if (or (not gtags-global-command) (equal gtags-global-command ""))
+                        (setq gtags-global-command "global-client")
+                    ;)
+                    (push (concat "GTAGSREMOTESHELL=" shell) process-environment)
+                    (push (concat "GTAGSREMOTEHOST="   host) process-environment)
+                    (push (concat "GTAGSREMOTEUSER="   user) process-environment)
+                    (push (concat "GTAGSREMOTECWD="     cwd) process-environment))))))))
+
+(defun gtags-pop-tramp-environment ()
+  (if gtags-tramp-active
+      (progn
+        (setq gtags-tramp-active nil)
+        (setq gtags-global-command gtags-tramp-saved-global-command)
+        (pop process-environment)
+        (pop process-environment)
+        (pop process-environment)
+        (pop process-environment))))
+
+;; End of TRAMP support
+
+;;
+;; Invoked on saving a file.
+;;
+(defun gtags-auto-update ()
+    (if (and gtags-mode gtags-auto-update buffer-file-name)
+        (progn
+          (gtags-push-tramp-environment)
+          (call-process gtags-global-command nil nil nil "-u" (concat "--single-update=" (gtags-buffer-file-name)))
+          (gtags-pop-tramp-environment))))
 ;;
 ;; utility
 ;;
+;; Ignore case or not.
+(defun gtags-ignore-casep ()
+    (if (equal gtags-ignore-case 'follow-case-fold-search)
+	case-fold-search
+        gtags-ignore-case))
+
+(eval-and-compile
+  (if (not (fboundp 'replace-in-string))
+      (defun replace-in-string (which from-str to-str)
+        (replace-regexp-in-string from-str to-str which))))
+
 (defun gtags-match-string (n)
   (buffer-substring (match-beginning n) (match-end n)))
 
@@ -274,9 +403,11 @@
           1
         (count-lines (point-min) (point))))))
 
-;; completsion function for completing-read.
+;; completion function for completing-read.
 (defun gtags-completing-gtags (string predicate code)
   (gtags-completing 'gtags string predicate code))
+(defun gtags-completing-grtags (string predicate code)
+  (gtags-completing 'grtags string predicate code))
 (defun gtags-completing-gsyms (string predicate code)
   (gtags-completing 'gsyms string predicate code))
 (defun gtags-completing-files (string predicate code)
@@ -289,16 +420,19 @@
   ; The purpose of using the -n option for the -P command is to exclude
   ; dependence on the execution directory.
   (let ((option (cond ((eq flag 'files)   "-cPo")
+                      ((eq flag 'grtags)  "-cr")
                       ((eq flag 'gsyms)   "-cs")
                       ((eq flag 'idutils) "-cI")
                       (t                  "-c")))
         (complete-list (make-vector 63 0))
         (prev-buffer (current-buffer)))
-    (if case-fold-search
+    (if (gtags-ignore-casep)
         (setq option (concat option "i")))
     ; build completion list
     (set-buffer (generate-new-buffer "*Completions*"))
+    (gtags-push-tramp-environment)
     (call-process gtags-global-command nil t nil option string)
+    (gtags-pop-tramp-environment)
     (goto-char (point-min))
     ;
     ; The specification of the completion for files is different from that for symbols.
@@ -326,8 +460,7 @@
     (save-excursion
       (setq buffer (generate-new-buffer (generate-new-buffer-name "*rootdir*")))
       (set-buffer buffer)
-      (setq n (call-process gtags-global-command nil t nil "-pr"))
-      (if (= n 0)
+      (if (= (call-process gtags-global-command nil t nil "-pr") 0)
         (setq path (file-name-as-directory (buffer-substring (point-min)(1- (point-max))))))
       (kill-buffer buffer))
     path))
@@ -340,7 +473,7 @@
     (while (setq start (string-match "%\\([0-9a-f][0-9a-f]\\)" path))
       (setq result (concat result
                      (substring path 0 start)
-                     (format "%c" (string-to-int (substring path (match-beginning 1) (match-end 1)) 16))))
+                     (format "%c" (string-to-number (substring path (match-beginning 1) (match-end 1)) 16))))
       (setq path (substring path (match-end 1))))
     (concat result path)))
 ;;
@@ -349,12 +482,12 @@
 (defun gtags-visit-rootdir ()
   "Tell tags commands the root directory of source tree."
   (interactive)
-  (let (path input n)
-    (if gtags-rootdir
-      (setq path gtags-rootdir)
-     (setq path (gtags-get-rootpath))
-     (if (equal path nil)
-       (setq path default-directory)))
+  (let (path input)
+    (setq path gtags-rootdir)
+    (if (not path)
+        (setq path (gtags-get-rootpath)))
+    (if (not path)
+        (setq insert-default-directory (if (string-match gtags-tramp-path-regexp default-directory) nil t)))
     (setq input (read-file-name "Visit root directory: " path path t))
     (if (equal "" input) nil
       (if (not (file-directory-p input))
@@ -390,7 +523,7 @@
    (if tagname
      (setq prompt (concat "Find tag (reference): (default " tagname ") "))
     (setq prompt "Find tag (reference): "))
-   (setq input (completing-read prompt 'gtags-completing-gtags
+   (setq input (completing-read prompt 'gtags-completing-grtags
                  nil nil nil gtags-history-list))
    (if (not (equal "" input))
      (setq tagname input))
@@ -459,17 +592,19 @@
   (interactive)
   (let (tagname prompt input)
     (setq prompt "Parse file: ")
-    (setq input (read-file-name prompt buffer-file-name buffer-file-name t))
+    (setq input (read-file-name prompt (gtags-buffer-file-name) (gtags-buffer-file-name) t))
     (if (or (equal "" input) (not (file-regular-p input)))
         (message "Please specify an existing source file.")
        (setq tagname input)
        (gtags-push-context)
+       ; expand the file name (~->$HOME))
+       (setq tagname (expand-file-name tagname))
        (gtags-goto-tag tagname "f"))))
 
 (defun gtags-find-tag-from-here ()
   "Get the expression as a tagname around here and move there."
   (interactive)
-  (let (tagname flag)
+  (let (tagname)
     (setq tagname (gtags-current-token))
     (if (not tagname)
         nil
@@ -485,7 +620,7 @@
       (message "This is a null file.")
       (if (not buffer-file-name)
           (message "This buffer doesn't have the file name.")
-          (call-process "gozilla"  nil nil nil (concat "+" (number-to-string (gtags-current-lineno))) buffer-file-name))))
+          (call-process "gozilla"  nil nil nil (concat "+" (number-to-string (gtags-current-lineno))) (gtags-buffer-file-name)))))
 
 ; Private event-point
 ; (If there is no event-point then we use this version.
@@ -537,7 +672,7 @@
 (defun gtags-pop-stack ()
   "Move to previous point on the stack."
   (interactive)
-  (let (delete context buffer)
+  (let (delete context)
     (if (and (not (equal gtags-current-buffer nil))
              (not (equal gtags-current-buffer (current-buffer))))
          (switch-to-buffer gtags-current-buffer)
@@ -565,12 +700,15 @@
   (let (option context save prefix buffer lines flag-char)
     (setq save (current-buffer))
     (setq flag-char (string-to-char flag))
+    (if (equal flag-char nil)
+        (setq flag-char (string-to-char " ")))
     ; Use always ctags-x format.
     (setq option "-x")
-    (if case-fold-search
+    (if (gtags-ignore-casep)
         (setq option (concat option "i")))
     (if (char-equal flag-char ?C)
-        (setq context (concat "--from-here=" (number-to-string (gtags-current-lineno)) ":" buffer-file-name))
+	; replaces the Windows path delimiter (\\) by / which is understood by global.
+        (setq context (concat "--from-here=" (number-to-string (gtags-current-lineno)) ":" (replace-in-string (gtags-buffer-file-name) "\\\\" "/")))
         (setq option (concat option flag)))
     (cond
      ((char-equal flag-char ?C)
@@ -578,8 +716,7 @@
      ((char-equal flag-char ?P)
       (setq prefix "(P)"))
      ((char-equal flag-char ?f)
-      (setq prefix "(F)")
-      (setq option (concat option "q")))
+      (setq prefix "(F)"))
      ((char-equal flag-char ?g)
       (setq prefix "(GREP)"))
      ((char-equal flag-char ?I)
@@ -617,53 +754,58 @@
               (setq now-buffer-list (cdr now-buffer-list))))))
     (setq buffer (generate-new-buffer (generate-new-buffer-name (concat "*GTAGS SELECT* " prefix tagname))))
     (set-buffer buffer)
-    ;
-    ; Path style is defined in gtags-path-style:
-    ;   root: relative from the root of the project (Default)
-    ;   relative: relative from the current directory
-    ;	absolute: absolute (relative from the system root directory)
-    ;
-    (cond
-     ((equal gtags-path-style 'absolute)
-      (setq option (concat option "a")))
-     ((equal gtags-path-style 'root)
-      (let (rootdir)
-        (if gtags-rootdir
-          (setq rootdir gtags-rootdir)
-         (setq rootdir (gtags-get-rootpath)))
-        (if rootdir (cd rootdir)))))
     (message "Searching %s ..." tagname)
-    (if (not (= 0 (if (equal flag "C")
-                      (call-process gtags-global-command nil t nil option "--encode-path=\" \t\"" context tagname)
-                      (call-process gtags-global-command nil t nil option "--encode-path=\" \t\"" tagname))))
-	(progn (message (buffer-substring (point-min)(1- (point-max))))
-               (gtags-pop-context))
-      (goto-char (point-min))
-      (setq lines (count-lines (point-min) (point-max)))
+    (let (status)
+      (gtags-push-tramp-environment)
+      ;
+      ; Path style is defined in gtags-path-style:
+      ;   root: relative from the root of the project (Default)
+      ;   relative: relative from the current directory
+      ;	absolute: absolute (relative from the system root directory)
+      ; In TRAMP mode, 'root' is automatically converted to 'relative'.
+      ;
       (cond
-       ((= 0 lines)
-         (cond
-          ((char-equal flag-char ?P)
-           (message "%s: path not found" tagname))
-          ((char-equal flag-char ?g)
-           (message "%s: pattern not found" tagname))
-          ((char-equal flag-char ?I)
-           (message "%s: token not found" tagname))
-          ((char-equal flag-char ?s)
-           (message "%s: symbol not found" tagname))
-          (t
-           (message "%s: tag not found" tagname)))
-	(gtags-pop-context)
-	(kill-buffer buffer)
-	(set-buffer save))
-       ((= 1 lines)
-	(message "Searching %s ... Done" tagname)
-	(gtags-select-it t other-win))
-       (t
-        (if (null other-win)
-            (switch-to-buffer buffer)
-          (switch-to-buffer-other-window buffer))
-	(gtags-select-mode))))))
+       ((equal gtags-path-style 'absolute)
+        (setq option (concat option "a")))
+       ((and (not gtags-tramp-active) (equal gtags-path-style 'root))
+        (let (rootdir)
+          (if gtags-rootdir
+            (setq rootdir gtags-rootdir)
+           (setq rootdir (gtags-get-rootpath)))
+          (if rootdir (cd rootdir)))))
+      (setq status (if (equal flag "C")
+                      (call-process gtags-global-command nil t nil option "--encode-path=\" \t\"" context tagname)
+                      (call-process gtags-global-command nil t nil option "--encode-path=\" \t\"" tagname)))
+      (gtags-pop-tramp-environment)
+      (if (not (= 0 status))
+          (progn (message (buffer-substring (point-min)(1- (point-max))))
+            (gtags-pop-context))
+        (goto-char (point-min))
+        (setq lines (count-lines (point-min) (point-max)))
+        (cond
+         ((= 0 lines)
+           (cond
+            ((char-equal flag-char ?P)
+             (message "%s: path not found" tagname))
+            ((char-equal flag-char ?g)
+             (message "%s: pattern not found" tagname))
+            ((char-equal flag-char ?I)
+             (message "%s: token not found" tagname))
+            ((char-equal flag-char ?s)
+             (message "%s: symbol not found" tagname))
+            (t
+             (message "%s: tag not found" tagname)))
+	  (gtags-pop-context)
+          (kill-buffer buffer)
+          (set-buffer save))
+         ((= 1 lines)
+          (message "Searching %s ... Done" tagname)
+          (gtags-select-it t other-win))
+         (t
+          (if (null other-win)
+              (switch-to-buffer buffer)
+              (switch-to-buffer-other-window buffer))
+         (gtags-select-mode)))))))
 
 ;; select a tag line from lines
 (defun gtags-select-it (delete &optional other-win)
@@ -681,11 +823,11 @@
       ;; will be changed. This might cause loading error, if you use relative
       ;; path in [GTAGS SELECT MODE], because emacs's buffer has its own
       ;; current directory.
-      ;; 
+      ;;
       (let ((prev-buffer (current-buffer)))
         ;; move to the context
-        (if gtags-read-only 
-	    (if (null other-win) (find-file-read-only file) 
+        (if gtags-read-only
+	    (if (null other-win) (find-file-read-only file)
 	      (find-file-read-only-other-window file))
 	  (if (null other-win) (find-file file)
 	    (find-file-other-window file)))
@@ -744,6 +886,9 @@ with no args, if that value is non-nil."
   (setq gtags-mode
       (if (null forces) (not gtags-mode)
         (> (prefix-numeric-value forces) 0)))
+  (if gtags-mode
+      (add-hook 'after-save-hook 'gtags-auto-update)
+      (remove-hook 'after-save-hook 'gtags-auto-update))
   (run-hooks 'gtags-mode-hook)
 )
 

@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 12-Dec-2012.                 |
+"                 Last Change: 14-Dec-2012.                 |
 "============================================================
 autocmd MyAutoCmd BufWritePost $MYVIMRCPLUGIN  source $MYVIMRC |
             \ if has('gui_running') |
@@ -135,6 +135,7 @@ NeoBundle 'yuratomo/w3m.vim'
 NeoBundle 'gregsexton/VimCalc'
 NeoBundle 'sjl/gundo.vim'
 NeoBundleLazy 'vim-scripts/RltvNmbr.vim'
+NeoBundle 'scrooloose/syntastic'
 " }}}
 " C / C++ {{{
 NeoBundleLazy 'vim-scripts/Source-Explorer-srcexpl.vim'
@@ -148,7 +149,7 @@ NeoBundleLazy 'vim-scripts/csharp.vim'
 NeoBundleLazy 'vim-scripts/teol.vim.git'
 " }}}
 " tex {{{
-NeoBundleLazy 'jcf/vim-latex'
+" NeoBundleLazy 'jcf/vim-latex'
 " }}}
 " 見た目 {{{
 NeoBundle 'wombat256.vim'
@@ -263,8 +264,8 @@ function! Init_neocomplcache()
     imap <expr><C-k>   neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<C-n>"
     smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 
-imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+    imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+    smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
     " 候補の共通箇所まで補完する
     inoremap <expr><C-l> neocomplcache#complete_common_string()
     " 決定
@@ -450,7 +451,7 @@ function! s:unite_source_myCommand.gather_candidates(args,conext)
                 \"Search vim tweet in Japanese" : "TweetVimSearch vim lang:ja",
                 \"Search vim tweet" : "TweetVimSearch vim",
                 \"Search emacs tweet in Japanese" : "TweetVimSearch emacs lang:ja",
-                \"Neobundle  Update" : "NeoBundleUpdate",
+                \"Neobundle  Update" : "Unite neobundle/update",
                 \"Neobundle Log" : "NeoBundleLog",
                 \"Undo Tree " : "GundoToggle",
                 \"Show relative number" : "RN",
