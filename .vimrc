@@ -1,6 +1,6 @@
 " ============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 22-Nov-2012.                 |
+"                 Last Change: 19-Dec-2012.                 |
 "============================================================
 
 " 基礎的な設定 {{{
@@ -651,6 +651,14 @@ nnoremap <silent> <ESC> <ESC>:<C-u>nohlsearch<CR>:<C-u>set iminsert=0<CR>
 nnoremap <C-i><Space> :<C-u>h<Space>
 nnoremap <C-i><C-i> :<C-u>h<Space><C-r><C-w><Enter>
 " }}}
+" grep
+set grepprg=grep\ -rnIH\ --exclude-dir=.svn\ --exclude-dir=.git
+autocmd QuickfixCmdPost vimgrep copen
+autocmd QuickfixCmdPost grep copen
+
+" grep の書式を挿入
+nnoremap <expr> <Space>g ':vimgrep /\<' . expand('<cword>') . '\>/j **/*.' . expand('%:e')
+nnoremap <expr> <Space>G ':sil grep! ' . expand('<cword>') . ' *'
 " }}}
 
 " Plugin{{{

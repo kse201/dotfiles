@@ -368,3 +368,4 @@ alias rr="command rm -rf"
 source ~/.zsh.d/config/packages.zsh
 
 alias remem='du -sx / &> /dev/null & sleep 25 && kill $!'
+
