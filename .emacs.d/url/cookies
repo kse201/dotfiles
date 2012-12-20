@@ -2,9 +2,13 @@
 ;; Automatically generated file!!! DO NOT EDIT!!!
 
 (setq url-cookie-storage
- '(("marmalade-repo.org"
-  [url-cookie "httpOnly" nil "Mon, 17 Dec 2012 10:53:18 GMT" "/" "marmalade-repo.org" nil]
-  [url-cookie "connect.sid" "bGpIfFY1Fw4U10qguqpHQlwb.kD3bdUcKUyEbkgSm89ztVwzZv%2BikEp2a%2BCPWW41%2FGrY" "Mon, 17 Dec 2012 10:53:18 GMT" "/" "marmalade-repo.org" nil]))
+ '((".hatena.ne.jp"
+  [url-cookie "b" "$1$901opDKy$G/qZlgLXP1zJrpRR/KwWA/" "15 Dec 32 01:19:39 [GMT]" "/" ".hatena.ne.jp" nil])
+ (".blog.goo.ne.jp"
+  [url-cookie "BLOGTracking" "133.28.96.191.1355966378985216" "18 Dec 22 01:19:38 [GMT]" "/" ".blog.goo.ne.jp" nil])
+ ("learningenglish.voanews.com"
+  [url-cookie ".ASPXANONYMOUS" "_97HPuIUzgEkAAAAOGU0ZjY2NjQtNjYzNi00NjNhLWJiY2QtZjBkY2Y4NWRmY2E0LbIw7RToUkKz1mRqV_EF9LQmD_E1" "27-Feb-2013 12:01:58.00 GMT" "/" "learningenglish.voanews.com" nil]
+  [url-cookie "Pangea-NodeId" "7bNiBu6Fj2oPQVfEVxhrLg==" "20-Dec-2013 01:21:58.00 GMT" "/" "learningenglish.voanews.com" nil]))
 )
 (setq url-cookie-secure-storage
  'nil)

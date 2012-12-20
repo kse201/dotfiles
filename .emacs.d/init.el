@@ -1,7 +1,7 @@
 ;;
 ;; init.el
 ;;
-;; last updated : 2012/12/19
+;; last updated : 2012/12/20
 (require 'cl)
 
 ;; Language.
@@ -17,6 +17,7 @@
 ;; Keys.
 (global-set-key "\C-z" 'term)
 
+(server-start)
 ;;; ------------------------------
 ;;; @ Function
 ;;; init.el開く
@@ -177,9 +178,6 @@
 (setq whitespace-line-column 80)
 (setq whitespace-style '(face              ; faceを使って視覚化する。
                          trailing          ; 行末の空白を対象とする。
-                         
-                         
-                         
                          space-before-tab  ; タブの前にあるスペースを対象とする。
                          space-after-tab)) ; タブの後にあるスペースを対象とする。
 ;; デフォルトで視覚化を有効にする。
@@ -1077,12 +1075,7 @@
 (when (require 'newsticker nil t)
   (autoload 'newsticker-start "newsticker" "Emacs Newsticker" t)
   (autoload 'newsticker-show-news "newsticker" "Emacs Newsticker" t)
-
-  (setq newsticker-url-list
-        '(("Slashdot" "http://rss.slashdot.org/Slashdot/slashdot")
-          ("TechCrunch" "http://feeds.feedburner.com/TechCrunch")
-          ("CNET Japan" "http://japan.cnet.com/rss/index.rdf")
-          )))
+  )
 
 (when (require 'howm-mode)
   
@@ -1339,6 +1332,7 @@
   ;; 1 = Shift_JIS, 2 = ISO-2022-JP, 3 = EUC-JP, 4 = UTF-8
   ;; default は 2
   (setq YaTeX-kanji-code 4) ; euc-jp
+  (setq YaTeX-use-AMS-LaTeX t)
   ;; RefTeXをYaTeXで使えるようにする
   (add-hook 'yatex-mode-hook '(lambda () (reftex-mode t)))
   (setq reftex-enable-partial-scans t)
@@ -1348,14 +1342,75 @@
   (setq reftex-label-alist '((nil ?e nil "~\\eqref{%s}" nil nil)))
   (setq bibtex-command "jbibtex -kanji=euc")
   (setq jbibtex-command "jbibtex -kanji=euc")
-  )
-;;; 自動改行の抑制
-(add-hook 'yatex-mode-hook'(lambda ()(setq auto-fill-function nil)))
+  ;;印刷コマンド
+  (setq dviprint-command-format "dvips -f %f %t %s | lpr")
+  (setq dviprint-from-format "-p %b")
+  (setq dviprint-to-format "-l %e")
+  
+;;section型補間の規定値
+(setq section-name "section")
+;;Begin ショートカットの禁止(いきなり補完入力)
+(setq YaTeX-no-begend-shortcut t)
 
-(add-hook
- 'text-mode-hook
- (lambda ()
-   (yatex-mode)))
+;;数式の色付け
+(if (featurep 'hilit19)
+      (hilit-translate
+       formula 'DeepPink1))
+
+;;数式モードの";"補間の強化
+(setq YaTeX-math-sign-alist-private
+      '(("q"         "quad"          "__")
+	("qq"        "qquad"         "____")
+	("ls"        "varlimsup"     "___\nlim")
+	("li"        "varliminf"     "lim\n---")
+	("il"        "varinjlim"     "lim\n-->")
+       ;("st"        "text{ s.~t. }" "s.t.")
+	("bigop"     "bigoplus"      "_\n(+)~")
+	("bigot"     "bigotimes"     "_\n(x)\n ~")
+	("pl"        "varprojlim"    "lim\n<--")
+	))
+;;数式モードの","補間
+(setq YaTeX-math-funcs-list
+      '(("s"	"sin"           "sin")
+	("c"    "cos"           "cos") 
+	("t"    "tan"           "tan")
+	("hs"	"sinh"          "sinh")
+	("hc"   "cosh"          "cosh")
+	("ht"   "tanh"          "tanh")
+	("S"	"arcsin"        "arcsin")
+	("C"    "arccos"        "arccos")
+	("T"    "arctan"        "arctan")
+	("se"   "sec"           "sec")
+	("cs"   "csc"           "csc")
+	("cot"  "cot"           "cot")
+	("l"    "ln"            "ln")
+	("L"    "log"           "log")
+	("e"    "exp"           "exp")
+	("M"    "max"           "max")
+	("m"    "min"           "min")
+	("su"   "sup"           "sup")
+	("in"   "inf"           "inf")
+	("di"   "dim"           "dim")
+	("de"   "det"           "det")
+	("i"    "imath"         "i")
+	("j"    "jmath"         "j")
+	("I"    "Im"            "Im")
+	("R"    "Re"            "Re")
+	))
+(setq YaTeX-math-key-list-private
+      '(("," . YaTeX-math-funcs-list)
+	))
+;;新規ファイル作成時に自動挿入されるファイル名
+(setq YaTeX-template-file 
+      (expand-file-name "~/.emacs.d/template/template.tex"))
+  )
+
+;;; 自動改行の抑制
+(add-hook 'yatex-mode-hook
+          '(lambda ()
+             (auto-fill-mode t)
+             (setq fill-colum 70)
+             ))
 
 ;;; @ latex
 (add-hook 'yatex-mode-hook
