@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 17-Dec-2012.                 |
+"                 Last Change: 23-Dec-2012.                 |
 "============================================================
 autocmd MyAutoCmd BufWritePost $MYVIMRCPLUGIN  source $MYVIMRC |
             \ if has('gui_running') |
@@ -113,7 +113,6 @@ NeoBundleLazy 'basyura/TweetVim' , {'depends' :
             \ ]}
 NeoBundle 'mattn/calendar-vim'
 NeoBundleLazy 'thinca/vim-quickrun'
-" NeoBundle 'banyan/Vimpusher'
 NeoBundle 'surround.vim'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'open-browser.vim'
@@ -126,14 +125,10 @@ NeoBundleLazy 'thinca/vim-prettyprint'
 NeoBundle 'thinca/vim-editvar'
 NeoBundleLazy 'thinca/vim-showtime'
 NeoBundle 'thinca/vim-fontzoom'
-" NeoBundle 'vim-scripts/ttoc'
-" NeoBundle 'exVim'
 NeoBundle 'MultipleSearch'
-" NeoBundle 'Shougo/vinarise'
-" NeoBundle  'thinca/vim-ambicmd'
 NeoBundleLazy 'csv.vim'
 NeoBundle 'yuratomo/w3m.vim'
-NeoBundle 'gregsexton/VimCalc'
+" NeoBundle 'gregsexton/VimCalc'
 NeoBundle 'sjl/gundo.vim'
 NeoBundleLazy 'vim-scripts/RltvNmbr.vim'
 NeoBundle 'scrooloose/syntastic'
@@ -167,11 +162,19 @@ NeoBundle 'daisuzu/rainbowcyclone.vim'
 
 NeoBundleLazy 'git://git.wincent.com/command-t.git'
 
+" Game {{{
 NeoBundleLazy 'mattn/invader-vim'
 NeoBundleLazy 'mattn/mahjong-vim'
 NeoBundleLazy 'sudoku_game'
 NeoBundleLazy 'mfumi/viminesweeper'
 NeoBundleLazy 'mfumi/snake.vim'
+NeoBundleLazy 'TeTrIs.vim'
+NeoBundleLazy 'mfumi/lightsout.vim' "http://ja.wikipedia.org/wiki/%E3%83%A9%E3%82%A4%E3%83%84%E3%82%A2%E3%82%A6%E3%83%88
+" NeoBundleLazy 'vim game of life'
+" NeoBundleLazy 'mastermind.vim'
+
+
+" }}}
 " NeoBundle 'dwm.vim'
 NeoBundleLazy 'savevers.vim'
 NeoBundle 'kien/rainbow_parentheses.vim'
@@ -185,6 +188,7 @@ NeoBundle 'tsaleh/vim-matchit'
 " NeoBundle 'mrtazz/simplenote.vim'
 NeoBundle 'altercation/vim-colors-solarized'
 " NeoBundle 'koron/minimap-vim'
+" NeoBundle 'mattn/benchvimrc-vim'
 
 " }}}
 filetype plugin indent on
@@ -418,6 +422,8 @@ nnoremap <silent> <SID>[unite]a :<C-u>UniteWithBufferDir -winheight=100 -input= 
 nnoremap <silent> <SID>[unite]h :<C-u>Unite -default-action=edit history/command command<CR>
 " jump
 nnoremap <silent> <SID>[unite]j :<C-u>Unite jump<CR>
+" 検索
+nnoremap <silent> / :<C-u>Unite line<CR>
 
 " 曖昧検索
 call unite#set_substitute_pattern('file,file_mru,history/command,directory_mru', '[[:alnum:]]', '*\0', 100)
@@ -1264,6 +1270,7 @@ let QFixHowm_Key='g'
 
 let howm_dir = $DROPBOX_DIR. "/documents/memo/howm"
 let howm_filename = '%Y/%m/%Y-%m-%d-%H%M%S.txt'
+let g:qfixmemo_ext = 'howm'
 let QFixHowm_FileType = 'qfix_memo'
 " }}}
 
