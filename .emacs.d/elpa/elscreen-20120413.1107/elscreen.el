@@ -196,7 +196,7 @@ nil means don't display tabs."
   '((((type x w32 mac) (class color))
      :background "Gray85" :foreground "Gray50")
     (((class color))
-     (:background "blue" :foreground "black" :underline t)))
+     (:background "gray" :foreground "white" :underline t)))
   "Face for tabs other than current screen one."
   :group 'elscreen)
 

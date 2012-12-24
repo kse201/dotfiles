@@ -1,8 +1,8 @@
 ;;
 ;; init.el
 ;;
-;; last updated : 2012/12/20
-(require 'cl)
+;; Last Change: 23-Dec-2012.
+(eval-when-compile (require 'cl))
 
 ;; Language.
 (set-language-environment 'Japanese)
@@ -14,10 +14,9 @@
 (set-buffer-file-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
 
-;; Keys.
-(global-set-key "\C-z" 'term)
-
-(server-start)
+(require 'server)
+(unless (server-running-p)
+  (server-start))
 ;;; ------------------------------
 ;;; @ Function
 ;;; init.el開く
@@ -30,7 +29,6 @@
   "edit *scratch*"
   (interactive)
   (switch-to-buffer "*scratch*"))
-
 
 ;;; load-path を追加する関数を定義
 (defun add-to-load-path (&rest paths)
@@ -74,7 +72,7 @@
 (defun good-split-window ()
   "良い感じにウィンドウ分割"
   (interactive)
-  (if (< (window-width) (window-height))
+  (if (< (window-width) (* (window-height) 1.5) )
       (split-window-vertically)
     (split-window-horizontally)))
 
@@ -83,7 +81,7 @@
   "Auto resize window when 'other-window"
   (interactive)
   (other-window 1)
-  (let (( max-width (truncate (* (screen-width) 0.65))))
+  (let (( max-width (truncate (* (screen-width) 0.5))))
     (if (< (window-width) max-width)
         (enlarge-window-horizontally (- max-width (window-width))))))
 
@@ -95,7 +93,7 @@
     (goto-char (mark))
     (push-mark pos)))
 
-;;; ------------------------------
+;;; ------------------------------------------------------------------
 (let ((ws window-system))
   (cond ((eq ws 'w32)
          (set-frame-position (selected-frame) 0 0)
@@ -131,11 +129,11 @@
 
   (if (officep)
       (progn
-	(setq url-proxy-services '(("http" . "172.16.1.1:3128")))
-	;(setq w3m-command-arguments
-	 ;     (nconc w3m-command-arguments
-		;     '("-o" "http_proxy=http://172.16.1.1:3128/")))
-)
+        (setq url-proxy-services '(("http" . "172.16.1.1:3128")))
+                                        ;(setq w3m-command-arguments
+                                        ;     (nconc w3m-command-arguments
+                                        ;     '("-o" "http_proxy=http://172.16.1.1:3128/")))
+        )
     (progn
       (setq url-proxy-services nil))))
 ;; ediff関連のバッファを1つのフレームにまとめる
@@ -159,20 +157,26 @@
 ;; リージョンに色をつける
 (transient-mark-mode 1)
 ;; GCを減らして軽くする (デフォルトの10倍)
-(setq gc-cons-threshold (* gc-cons-threshold))
+(setq gc-cons-threshold 5242880)
 ;; ログの記録行数を増やす
 (setq message-log-max 10000)
 ;; スクロールバーを右側に
-(set-scroll-bar-mode 'right)
+(set-scroll-bar-mode 'right)            ; GUI emacs
 ;; 現在の関数名をモードラインに
 (which-function-mode 1)
+(setq custom-theme-load-path "~/.emacs.d/themes")
 ;; スクロール時のカーソル位置の維持
-(setq scroll-preserve-screen-position t)
+(setq scroll-preserve-screen-position nil)
 ;; 画面スクロール時の重複行数
 (setq next-screen-context-lines 1)
+;; Scroll window on a line-by-line basis
+(setq scroll-conservatively 1000)
+(setq scroll-step 1)
+(setq scroll-margin 0) ; default=0
+(setq yank-excluded-properties t)
 ;;; 画像ファイルを表示
 (auto-image-file-mode t)
-; 空白や長すぎる行を視覚化する。
+                                        ; 空白や長すぎる行を視覚化する。
 (require 'whitespace)
 ;; 1行が80桁を超えたら長すぎると判断する。
 (setq whitespace-line-column 80)
@@ -191,6 +195,24 @@
 ;;; 自動スペルチェック
 (setq-default flyspell-mode t)
 (setq ispell-dictionary "american")
+(setq ispell-program-name "aspell")
+(setq truncate-lines nil)
+(setq truncate-partial-width-windows nil)
+;; 選択リージョンを使って検索
+(defadvice isearch-mode
+  (around isearch-mode-default-string
+          (forward &optional regexp op-fun recursive-edit word-p) activate)
+  (if (and transient-mark-mode mark-active (not (eq (mark) (point))))
+      (progn
+        (isearch-update-ring (buffer-substring-no-properties (mark) (point)))
+        (deactivate-mark)
+        ad-do-it
+        (if (not forward)
+            (isearch-repeat-backward)
+          (goto-char (mark))
+          (isearch-repeat-forward)))
+    ad-do-it))
+
 
 ;; ------------------------------
 ;; @ backup
@@ -203,9 +225,9 @@
 (setq auto-save-file-name-transforms
       `((".*" , (expand-file-name "~/.emacs.d/backups/") t)))
 ;; オートセーブ生成までの秒間隔
-(setq auto-save-timeout 15)
+(setq auto-save-timeout 40)
 ;; オートセーブ生成までのタイプ間隔
-(setq auto-save-interval 60)
+(setq auto-save-interval 200)
 
 ;; 変更ファイルの番号つきバックアップ
 (setq version-control t)
@@ -219,7 +241,7 @@
       `((".*" ,temporary-file-directory t)))
 
 ;; 編集中ファイルのバックアップ間隔（秒）
-(setq auto-save-timeout 30)
+(setq auto-save-timeout 60)
 
 ;; 編集中ファイルのバックアップ間隔（打鍵）
 (setq auto-save-interval 500)
@@ -229,6 +251,14 @@
 (setq kept-new-versions 2)
 ;;; 古いバックアップファイルは削除しない
 (setq delete-old-versions nil)
+;; ブックマーク
+(setq bookmark-save-flag 1)
+(setq bookmark-sort-flag nil)
+(defun bookmark-arrange-latest-top ()
+  (let ((latest (bookmark-get-bookmark bookmark)))
+    (setq bookmark-alist (cons latest (delq latest bookmark-alist))))
+  (bookmark-save))
+(add-hook 'bookmark-after-jump-hook 'bookmark-arrange-latest-top)
 ;;; ------------------------------
 
 ;; zsh を使う
@@ -273,15 +303,13 @@
 ;;           (when (string-match ".*\\.el$" file)
 ;;            (byte-compile-file file))))
 
-;; recentf-ext.el
+;; @ recentf-ext
 ;;(global-set-key (kbd "C-;") 'recentf-open-files )
 
 ;; キーバインド
 (define-many-keys global-map
   '(("C-h" . delete-backward-char)
-    ("M-?" . help-for-help)
-    ("M-?" . help-for-help)
-    ("C-z" . nil)
+    ("<f1>" . help-for-help)
     ("C-c i" . indent-region ); インデント
     ("C-c C-i" . dabbrev-expand ); 補完
     ("C-c );" . comment-region ); コメントアウト
@@ -301,8 +329,14 @@
     ("C-x SPC" . good-split-window)
     ("C-c C-@" . move-to-mark)
     ("C-c C-e" . edit-init)
+    ("C-x C-c" . helm-M-x)
+    ("C-x C-z" . nil)
+    ("M-p" . scroll-down)
+    ("M-n" . scroll-up)
+    ("C-M-h" . delete-horizontal-space)
     ))
 (define-key mode-specific-map "c" 'compile)
+(defalias 'exit 'save-buffers-kill-emacs)
 
 ;; 範囲指定していないとき、C-wで前の単語を削除
 ;;http://dev.ariel-networks.com/wp/documents/aritcles/emacs/part16
@@ -322,6 +356,9 @@
 (make-face 'paren-mismatch)
 (set-face-foreground 'paren-mismatch "white")
 (set-face-background 'paren-mismatch "lightcoral")
+;; 正規表現見やすく
+(set-face-foreground 'font-lock-regexp-grouping-backslash "#66CC99")
+(set-face-foreground 'font-lock-regexp-grouping-construct "#9966CC")
 (setq show-paren-face  'paren-match)
 (setq show-paren-mismatch-face 'paren-mismatch)
 ;; 強力な補完機能を使う
@@ -333,7 +370,7 @@
 ;; C-x,bでバッファリストをミニバッファに表示する
 (iswitchb-mode 1)
 ;; C-x b でbuffersを選ぶとき便利
-(if (string-match "23" emacs-version)
+(if (string-match "^23\." emacs-version)
     (iswitchb-default-keybindings))
 
 (defface my-hl-line-face
@@ -349,7 +386,7 @@
 (global-hl-line-mode t)
 
 ;; Shift + 矢印で範囲選択
-(if (string-match "23" emacs-version)
+(if (string-match "^23\." emacs-version)
     (pc-selection-mode))
 ;; 選択範囲に色をつけて見た目をわかりやすく
 (transient-mark-mode 1)
@@ -369,8 +406,8 @@
 (global-linum-mode t)
 ;; 行番号のフォーマット
 ;; (set-face-attribute 'linum nil :foreground "red" :height 0.8)
-(set-face-attribute 'linum nil :height 0.8)
-(setq linum-format "%4d")
+(set-face-attribute 'linum nil :height 1)
+(setq linum-format "%2d")
 (setq linum-delay t)
 (defadvice linum-schedule (around my-linum-schedule () activate)
   (run-with-idle-timer 0.2 nil #'linum-update-current))
@@ -383,9 +420,8 @@
 ;; 行頭のC-k一回で行全体を削除
 (setq kill-whole-line t)
 ;; 対応括弧のハイライト
-(setq show-paren-delay 0) ; 表示までの秒数
+(setq show-paren-delay 0.125) ; 表示までの秒数 emacs24では0だと重い 1xhttp://suzukima.hatenablog.com/entry/2012/08/16/232210
 (show-paren-mode t)
-(setq show-paren-style 'expression)
 (set-face-background 'show-paren-match-face nil)
 (set-face-underline-p 'show-paren-match-face "red")
 
@@ -417,7 +453,6 @@
 ;; ファイルサイズを表示
 (size-indication-mode t)
 
-
 ;; 最終行に必ず１行挿入する
 (setq require-final-newline t)
 
@@ -436,7 +471,7 @@
 (set-face-background 'trailing-whitespace "#b14770")
 
 ;; 部分一致の補間機能を使う
-(if (string-match "23" emacs-version)
+(if (string-match "^23\." emacs-version)
     (partial-completion-mode t))
 
 ;; emacs-lisp mode
@@ -606,8 +641,8 @@
 (when (require 'time-stamp nil t)
   (add-hook 'before-save-hook 'time-stamp)
   (setq time-stamp-active t)
-  (setq time-stamp-start "last updated : ")
-  (setq time-stamp-format "%04y/%02m/%02d")
+  (setq time-stamp-start "Last Change: ")
+  (setq time-stamp-format "%02d-%3b-%04y.")
   (setq time-stamp-end " \\|$"))
 
 ;; スクリプト保存時、自動的にchmod+x
@@ -617,8 +652,12 @@
 
 (require 'cl)
 
-;; package.el
-(when (require 'package nil t)
+;; @ package
+(when
+    (if (string-match "^23\." emacs-version)
+        (require 'package-23 nil t)
+      (require 'package-24 nil t))
+  
   ;; バッケージリポジトリにMarmaladeと開発者運営のELPAを追加
   (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
   (add-to-list 'package-archives '("ELPA" . "http://tromey.com/elpa/"))
@@ -645,23 +684,13 @@
 (setq recentf-exclude '("/TAGS$" "/var/tmp/"))
 (require 'recentf-ext)
 
-(require 'auto-async-byte-compile)
-;; 自動バイトコンパイルを無効にするファイル名の正規表現
-(setq auto-async-byte-compile-exclude-files-regexp "/junk/")
-(add-hook 'emacs-lisp-mode-hook 'enable-auto-async-byte-compile-mode)
-(setq auto-async-byte-compile-exclude-files-regexp "^_")
+(when (require 'auto-async-byte-compile nil t)
+  ;; 自動バイトコンパイルを無効にするファイル名の正規表現
+  (setq auto-async-byte-compile-exclude-files-regexp "init.el")
+  (add-hook 'emacs-lisp-mode-hook 'enable-auto-async-byte-compile-mode))
 
-;; 最終更新日の自動挿入
-(require 'time-stamp)
 
-;; テーマ読み込み設定
-(if (string-match "23" emacs-version)
-    (when (require 'color-theme nil t)
-      (color-theme-initialize)
-      (require 'color-theme-solarized)
-      (color-theme-solarized-light)))
-
-;; anything
+;; @ anything
 (when (require 'anything nil t)
   (setq
    anything-idle-delay 0.3
@@ -684,7 +713,7 @@
         ))
     (define-many-keys anything-map
       '(("C-z" . nil)
-        ("C-l" . anything-execute-persistent-action)
+        ("C-w" . anything-execute-persistent-action)
         ("C-o" . nil)
         ("C-M-n" . anything-next-source)
         ("C-M-p" . anything-previous-source)))
@@ -711,18 +740,94 @@
   (when (require 'auto-install nil t)
     (require 'anything-auto-install))
 
+  ;; @ anything-gtags
+  (when (and (require 'anything-exuberant-ctags nil t)
+             (require 'anything-gtags nil t))
+    ;; anything-gtags-for-tags のソースを定義
+    (setq anything-for-tags
+          (list anything-c-source-imenu
+                anything-c-source-gtags-select
+                ;; etagsを利用する場合ははコメントを外す
+                ;; anything-c-source-etags-select
+                anything-c-source-exuberant-ctags-select
+                ))
+    ;; anything-for-tagsコマンドを作製
+    (defun anything-for-tags ()
+      "Preconfigured `anything' for anything-for-tags."
+      (interactive)
+      (anything anything-for-tags
+                (thing-at-point 'symbol)
+                nil nil nil "*anything for tags*"))
+    ;; M-tにanything-for-tagsを割り当て
+    (global-set-key (kbd "M-t") 'anything-for-tags))
+  
   (when (require 'anything-complete nil t)
     (anything-lisp-complete-symbol-set-timer 150))
 
   (when (require 'descbinds-anything nil t)
-    (descbinds-anything-install)))
+    (descbinds-anything-install))
+  
+  ;; anything でPDFを閲覧
+  (setq abks:books-dir "/home/foo/bar/pdf-files") ; PDFファイルのあるディレクトリ（★必須）
+  (setq abks:open-command "acroread") ; LinuxのAdobeReaderを使う (default)
+  
+  ;; for evince setting (default)
+  (setq abks:cache-pixel "600")
+  (setq abks:mkcover-cmd-pdf-postfix nil)
+  (setq abks:mkcover-cmd '("evince-thumbnailer" "-s" size pdf jpeg))
+  
+  ;; for ImageMagick and GhostScript setting
+  ;; (setq abks:cache-pixel "600x600")
+  ;; (setq abks:mkcover-cmd-pdf-postfix "[0]")
+  ;; (setq abks:mkcover-cmd '("convert" "-resize" size pdf jpeg))
+  
+  (global-set-key (kbd "M-8") 'anything-books-command) ; キーバインド
+  ;; Emacs でPDFを読む
+  (defadvice abks:open-file (around my-abks:open-file activate)
+    (if (require 'doc-view  nil t)
+        (find-file (ad-get-arg 0))
+      ad-do-it))
+  (add-hook 'view-mode-hook
+            (lambda ()
+              (when (eql major-mode 'doc-view-mode)
+                (define-key view-mode-map "-" nil)
+                (define-key view-mode-map "n" nil)
+                (define-key view-mode-map "p" nil))))
+  (setq anything-for-document-source
+        (list anything-c-source-man-pages
+              anything-c-source-info-cl
+              anything-c-source-info-pages
+              anything-c-source-info-elisp
+              anything-c-source-apropos-emacs-commands
+              anything-c-source-apropos-emacs-functions
+              anything-c-source-apropos-emacs-variables))
+  ;; anything-for-documentコマンドを作成
+  (defun anything-for-document ()
+    "Preconficured `anything' for anything-for-document."
+    (interactive)
+    (anything anything-for-document-source
+              (thing-at-point 'symbol) nil nil nil
+              "*anything for document*"))
+  ;; man パスを設定
+  (setq woman-manpath '("/usr/share/man"
+                        "/usr/loca/share/man"
+                        "/usr/local/share/man/ja"
+                        "/usr/local/Cellar/"))
+  (setq woman-cache-filename "~/.emacs.d/.wmncach.el") ;キャッシュ生成
+  )
 
 (add-to-list 'anything-sources 'anything-c-source-emacs-commands)
 
-;; auto-complete
+;;; @ auto-complete
 ;; 補完候補を自動ポップアップ
 (when (require 'auto-complete nil t)
-  (global-auto-complete-mode t)
+  (require 'popup)
+  (require 'fuzzy)
+  (setq popup-use-optimized-column-computation nil)
+  (setq ac-ignore-case 'smart)               ; 大文字が含まれている場合のみ、大文字/小文字を区別する
+  (ac-set-trigger-key "TAB")
+  (define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
+  (global-auto-complete-mode 1)
   (setq ac-modes (cons 'js-mode ac-modes)))
 (when (require 'auto-complete-config nil t)
   (add-to-list 'ac-dictionary-directories "~/.emacd.d/ac-dict")
@@ -732,11 +837,160 @@
   (define-key ac-complete-mode-map (kbd "C-p") 'ac-previous)
   (ac-mode t))
 
-;; open-junk-file.el
+;;; @ open-junk-file
 (require 'open-junk-file)
 (setq open-junk-file-formant "~/junk/%Y/%m-%d-%H%M%S.")
 
-;; color-moccur 検索結果のリストアップ
+;;; @ gnus gmail
+(when (require 'gnus nil t)
+  (load "gnus-setup")
+  (require 'gnus-start)
+  (require 'gnus-art)
+  (require 'auth-source)
+  (require 'starttls)
+  (require 'nnimap)
+  (require 'nnir)
+
+  ;; Username and mail address.
+  (setq user-full-name "kse.201"
+        user-mail-address "kse.201@gmail.com")
+  (add-to-list 'gnus-secondary-select-methods '(nnimap "gmail"
+                                                       (nnimap-stream ssl)
+                                                       (nnimap-address "imap.gmail.com")
+                                                       (nnimap-server-port 993)
+                                                       (nnir-search-engine imap)))
+
+  ;; for reading mail by imap.
+  (setq gnus-select-method
+        '(nnimap "gmail"
+                 (nnimap-address "imap.gmail.com")
+                 (nnimap-server-port 993)
+                 (nnimap-authinfo-file "~/.emacs.d/.authinfo")
+                 (nnimap-stream ssl)))
+
+  ;; for sending mail.
+  (setq message-send-mail-function 'smtpmail-send-it
+        send-mail-function 'smtpmail-send-it
+        smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
+        smtpmail-auth-credentials '(("smtp.gmail.com" 587
+                                     "kse.201@gmail.com" nil))
+        smtpmail-default-smtp-server "smtp.gmail.com"
+        smtpmail-smtp-server "smtp.gmail.com"
+        smtpmail-smtp-service 587
+        ;; Cc: and Bcc: to header of message-mode.
+        message-default-mail-headers "Cc: \nBcc: \n")
+
+  ;; customize `gnu-summary-line-foramt'.
+  (defvar my-gnus-mail-addres-regex "kse\\.201\\(\\+[^@]+\\)?@gmail\\.com"
+    "*Regular expression of mail address that indicates for me.")
+
+  ;; from http://emacs.wordpress.com/2007/10/07/gmail-envy/
+  ;; and customize it.
+  (defun gnus-user-format-function-j (headers)
+    "Return a \">\" if variable `my-gnus-mail-addres-regex' matches in To,
+CC or Bcc. If not matched, return a \" \"."
+    (cond
+     ((or (string-match my-gnus-mail-addres-regex
+                        (gnus-extra-header 'To headers))
+          (string-match my-gnus-mail-addres-regex
+                        (gnus-extra-header 'Cc headers))
+          (string-match my-gnus-mail-addres-regex
+                        (gnus-extra-header 'BCc headers)))
+      ">")
+     (t
+      " ")))
+  (setq gnus-summary-line-format "%uj%U%R%I%(%[%-23,23f%]%) %s\n")
+
+  ;; gnu-topic-mode by default
+  (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
+
+  ;; MUA is gnus.
+  (setq read-mail-command 'gnus
+        mail-user-agent 'gnus-user-agent)
+
+  (setq ;; Do not use mailcrypt.
+   gnus-use-mailcrypt nil
+   gnus-check-new-newsgroups nil
+   gnus-use-cache t
+   gnus-cache-directory "~/Mail/cache/"
+   gnus-cache-enter-articles '(ticked dormant read unread)
+   gnus-cache-remove-articles nil
+   gnus-cacheable-groups "^nnimap"
+   gnus-posting-styles '((".*" (name "kse.201")))
+   ;; Do not split the mail when mail was large.
+   mime-edit-split-message nil
+   ;; treates wide character
+   gnus-use-correct-string-widths t
+   ;; Do not ask online or not.
+   gnus-agent-go-online t
+   ;; do not goto cursor to unread group.
+   gnus-group-goto-unread nil
+   ;; show also user-agent.
+   gnus-visible-headers (concat gnus-visible-headers "\\|^User-Agent")
+   ;; extra headers to parse.
+   gnus-extra-headers '(To Newsgroups X-Newsreader
+                           Content-Type CC User-Agent Gnus-Warning)
+   nnmail-extra-headers gnus-extra-headers
+   ;; If member of thread that includes new article has old
+   ;; article, grab old articles to display thread.
+   gnus-fetch-old-headers t)
+  
+  ;; Display always 500 articles at least in summary buffer.
+  (defvar my-gnus-summary-maximum-articles 500
+    "*The recent X number of articles that displayed in summary-buffer
+by use `gnus-topic-select-group' (RET) in gnus-group-buffer. The default
+value is 500. The recent 500 articles are always displayed at least.")
+  (setq gnus-alter-articles-to-read-function
+        #'(lambda (group articles)
+            (let ((active (gnus-active group)))
+              (delete-dups
+               (append articles
+                       (gnus-uncompress-range
+                        (cond
+                         (my-gnus-summary-maximum-articles
+                          ;; show `my-gnus-summary-maximum-articles' messages.
+                          (cons (max (car active)
+                                     (- (cdr active)
+                                        my-gnus-summary-maximum-articles
+                                        -1))
+                                (cdr active)))
+                         (t
+                          ;; show always all messages.
+                          active))))))))
+
+  ;; Gnus + EasyPG
+  (require 'epg-config)
+  (require 'gnus-msg)
+  (require 'mml2015)
+  (setq gnus-message-replysign t
+        gnus-message-replyencrypt t
+        gnus-message-replysignencrypted t
+        mm-verify-option 'always
+        mm-decrypt-option 'always
+        mml2015-use 'epg
+        mml2015-encrypt-to-self t
+        mml2015-always-trust nil
+        mml2015-cache-passphrase t
+        mml2015-passphrase-cache-expiry '36000
+        mml2015-sign-with-sender t
+        gnus-buttonized-mime-types '("multipart/alternative"
+                                     "multipart/encrypted"
+                                     "multipart/signed"))
+
+  ;; mail contacts list manager.
+  (require 'bbdb)
+  ;; take mail address automatically
+  (setq bbdb/news-auto-create-p t)
+  ;; add address automatically
+  (setq bbdb-always-add-addresses t)
+  ;; do not use popup
+  (setq bbdb-use-pop-up nil)
+  ;; my mail address
+  (setq bbdb-user-mail-names "kse\\.201@gmail\\.com")
+  (bbdb-initialize 'gnus 'message))
+
+
+;;; @ color-moccur 検索結果のリストアップ
 (when (require 'color-moccur nil t)
   (global-set-key (kbd "M-o") 'occur-by-moccur)
   ;; スペース区切りでAND検索
@@ -749,7 +1003,7 @@
              (require 'migemo nil t ))
     (setq moccur-use-migemo t)))
 
-;; grep結果バッファでのカーソル移動でダイナミックにファイルを開いてくれる
+;;; @ grep結果バッファでのカーソル移動でダイナミックにファイルを開いてくれる
 (when (require 'color-grep nil t)
   (setq color-grep-sync-kill-buffer t)
   ;; M-x grep-findでPerlのackコマンドを使うよう変更
@@ -763,19 +1017,26 @@
 ;;(when (require 'multi-term nil t)
 ;;  (setq multi-term-program "/bin/zsh"))
 
-;; multi-shell
+;;; @ multi-shell
 (when (require 'multi-shell nil t)
   (setq multi-shell-command "/bin/zsh"))
 
-;; 同一ファイル名のバッファ名にはディレクトを表示
+;;; @ 同一ファイル名のバッファ名にはディレクトを表示
 (when (require 'uniquify nil t)
   (setq uniquify-buffer-name-style 'post-forward-angle-brackets))
 
-;; yasnippet.el
+;; @ yasnippet
 (when (require 'yasnippet-config nil t)
   (yas/setup "~/.emacs.d/elisp/yasnippet-0.6.1c"))
 
 (require 'summarye)
+
+;;; @ magit 色変更
+(when (require 'magit nil t)
+  (set-face-foreground 'magit-diff-add "#b9ca4a") ; 追加した部分を緑に
+  (set-face-foreground 'magit-diff-del "#d54e53")  ; 削除した 部分を赤に
+  (set-face-background 'magit-item-highlight "#000000") ; 選択項目ハイライトがうっとうしいので背景色と同化
+  )
 
 (when (require 'redo+ nil t)
   (global-set-key (kbd  "C-.") 'redo))
@@ -792,10 +1053,10 @@
 ;;(print-to-string emacs-lisp-mode-hook)
 ;;; *grep*で編集できるようにする
 (when (require 'grep-edit nil t)
-(add-hook 'grep-setup-hook
-          (lambda ()
-            (define-key grep-mode-map
-              (kbd "C-c C-c") 'grep-edit-finish-edit))))
+  (add-hook 'grep-setup-hook
+            (lambda ()
+              (define-key grep-mode-map
+                (kbd "C-c C-c") 'grep-edit-finish-edit))))
 
 ;; http://d.hatena.ne.jp/sandai/20120303/p1
 ;; カーソル付近にあるEmacs Lispの関数や変数のヘルプをエコーエリアに表示
@@ -807,7 +1068,7 @@
   (setq eldoc-idle-delay 0.2)
   (setq eldoc-minor-mode-string ""))
 
-;; C-eldoc.el
+;;;  @ C-eldoc
 ;; C言語の関数や変数のヘルプをエコーエリアに表示
 (when (require 'c-eldoc nil t)
   (add-hook 'c-mode-hook
@@ -826,16 +1087,49 @@
 (when (require 'color-grep)
   (setq color-grep-sync-kill-buffer t))
 
-;; e2wm.el
+;; @ e2wm
 ;; http://d.hatena.ne.jp/kiwanami/20100528/1275038929
 (require 'e2wm nil t)
+(global-set-key (kbd "M-+") 'e2wm:start-management)
 
-;;(require 'w3m)
-;;(require 'w3m-load)
-;;(setq w3m-use-cookies t)
-;; (setq browse-url-browser-function 'w3m-browse-url)
-;;(setq w3m-key-binding 'info)
-;;(global-set-key (kbd "C-x C-b") 'bs-show)
+;; @ w3m
+(when (require 'w3m nil t)
+  (require 'w3m-load)
+  (setq w3m-use-cookies t)              ;クッキーを使う
+  (setq browse-url-browser-function 'w3m-browse-url)
+  (setq w3m-key-binding 'info)
+  (global-set-key (kbd "C-x C-b") 'bs-show)
+  ;; URIらしき部分を選択してC-xmするとemacs-w3m起動
+  (global-set-key "\C-xm" 'browse-url-at-point)
+  ;; 検索の設定 M-x w3m-search
+  (autoload 'w3m-search "w3m-search" "Search QUERY using SEARCH-ENGINE." t)
+  ;; 検索をGoogle(日本語サイト)でおこなう
+  (setq w3m-search-default-engine "google")
+  ;; C-csを押下するとどのBufferからでも検索を開始
+  (global-set-key "\C-cs" 'w3m-search)
+  (autoload 'w3m-weather "w3m-weather" "Display weather report." t)
+  (autoload 'w3m-antenna "w3m-antenna" "Report chenge of WEB sites." t)
+  (autoload 'w3m-namazu "w3m-namazu" "Search files with Namazu." t)
+                                        ;formに入力可能とする。今は不要かもしれない
+  (setq w3m-use-form t)
+                                        ;うまく起動しない場合以下を設定してみるとよい
+                                        ;(setq w3m-command "/usr/local/bin/w3m")
+                                        ;初期起動時に表示する画面
+  (setq w3m-home-page "http://www.google.co.jp")
+  (setq w3m-default-display-inline-images t)       ;画像を表示する
+
+  ;; http://mugijiru.seesaa.net/article/258382587.html
+  (defun w3m-play-movie ()
+    (interactive)
+    (let ((url (w3m-anchor)))
+      (cond ((string-match "^http:\\/\\/www\\.youtube\\.com" url)
+             (message (concat "loading from youtube... " url))
+             (call-process "play-youtube" nil nil nil url))
+            ((string-match (concat "^http.*" (regexp-opt '(".mpg" ".wmv" ".avi" ".flv")) "$") url)
+             (call-process "mplayer" nil nil nil "-fs" url))
+            (t
+             (message "not movie.")))))
+  )
 
 ;; ruby
 (require 'ruby-electric nil t)          ; 括弧の自動挿入
@@ -856,16 +1150,17 @@
 ;;; @ twittering-mode
 (when (require 'twittering-mode nil t)
   ;; 起動時パスワード認証 *要 gpgコマンド
-  ;(setq twittering-use-master-password nil)
+  (setq twittering-use-master-password t)
   ;; パスワード暗号ファイル保存先変更 (デフォはホームディレクトリ)
-  (setq twittering-private-info-file "~/.emacs.d/twittering-mode.gpg")
+                                        ;(setq twittering-private-info-file "~/.emacs.d/twittering-mode.gpg")
+  
   ;; 表示する書式 区切り線いれたら見やすい
-  (setq twittering-status-format "%i @%s %S %p: n %T  [%@]%r %R %f%Ln -------------------------------------------")
+  (setq twittering-status-format "%i @%s %p [%@]%r %R %f%L:\n %T\n-------------------------------------------")
   ;; アイコンを表示する
   (setq twittering-icon-mode t)
   ;; アイコンサイズを変更する *48以外を希望する場合 要 imagemagickコマンド
-  (setq twittering-convert-fix-size 40)
-  ;; 更新の頻度（秒）
+                                        ;(setq twittering-convert-fix-size 40)
+  ;; 更新の頻度(秒)
   (setq twittering-timer-interval 40)
   ;; ツイート取得数
   (setq twittering-number-of-tweets-on-retrieval 50)
@@ -882,11 +1177,7 @@
   ;; http://christina04.blog.fc2.com/blog-entry-175.html
   (setq twittering-initial-timeline-spec-string
         '(":home"
-          ":replies"
-          ":favorites"
-          ":direct_messages"
-          ":search/emacs/"
-          "user_name/list_name"))
+          "nim03027/real"))
                 ;;; bitly
   (setq twittering-tinyurl-service 'bit.ly)
   (setq twittering-bitly-login "o_2qpahq4o2g")
@@ -941,7 +1232,7 @@
   ;; 履歴の行数を制限しない
   (setq navi2ch-history-max-line nil))
 
-;; tabbar.el
+;; @ tabbar
 (when (require 'tabbar nil t)
   (require 'cl)
   (require 'tabbar-ruler)
@@ -1043,8 +1334,7 @@
                             :style 'released-button)
                       :overline "#F3F2EF"
                       :weight 'bold
-                      :family "Inconsolata"
-                      )
+                      :family "Inconsolata")
 
   ;; 非選択タブの見た目（フェイス）
   (set-face-attribute 'tabbar-unselected nil
@@ -1055,30 +1345,76 @@
                             :color "gray80"
                             :style 'released-button)
                       :overline "#F3F2EF"
-                      :family "Inconsolata"
-                      )
+                      :family "Inconsolata")
 
   ;; タブ間隔の調整
   (set-face-attribute 'tabbar-separator nil
-                      :height 0.1)
-  )
+                      :height 0.1))
 
-;; paredit.el
+(setq-default bm-buffers-persistence nil)
+(setq bm-restore-repository-on-load t)
+(when (require 'bm nil t)
+  (add-hook 'find-file-hooks 'bm-buffer-restore)
+  (add-hook 'kill-buffer-hook 'bm-buffer-save)
+  (add-hook 'after-save-hook 'bm-buffer-save)
+  (add-hook 'after-revert-hook 'bm-buffer-restre)
+  (add-hook 'vc-before-checkin-hook 'bm-buffer-save)
+  (global-set-key (kbd "M-SPC") 'bm-toggle)
+  (global-set-key (kbd "M-c") 'bm-previous)
+  (global-set-key (kbd "M-j") 'bm-next))
+
+;;; @ paredit.el
 (when (require 'paredit nil t)
   (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
   (add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
   (add-hook 'lisp-mode-hook 'enable-paredit-mode)
-  (add-hook 'ielm-mode-hook 'enable-paredit-mode))
+  (add-hook 'ielm-mode-hook 'enable-paredit-mode)
+  (add-hook 'c-mode-hook 'enable-paredit-mode))
 
+;;; @ elscreen.el
+(when (require 'elscreen nil t)
+  (elscreen-start)
+  (setq elscreen-prefix-key "\C-z")
+  (global-set-key (kbd "C-z C-l") 'elscreen-next)
+  (global-set-key (kbd "C-z C-h") 'elscreen-previous)
 
-;; newsticker.el
+  (defun elscreen-frame-title-update ()
+    (when (elscreen-screen-modified-p 'elscreen-frame-title-update)
+      (let* ((screen-list (sort (elscreen-get-screen-list) '<))
+             (screen-to-name-alist (elscreen-get-screen-to-name-alist))
+             (title (mapconcat
+                     (lambda (screen)
+                       (format "%d%s %s"
+                               screen (elscreen-status-label screen)
+                               (get-alist screen screen-to-name-alist)))
+                     screen-list " ")))
+        (if (fboundp 'set-frame-name)
+            (set-frame-name title)
+          (setq frame-title-format title)))))
+
+  (eval-after-load "elscreen"
+    '(add-hook 'elscreen-screen-update-hook 'elscreen-frame-title-update))
+
+;;; 色設定
+  (defface elscreen-tab-other-screen-face
+    '((((type x w32 mac) (class color))
+       :background "Gray85" :foreground "Gray50")
+      (((class color))
+       (:background "red" :foreground "black" :underline t)))
+    "Face for tabs other than current screen one."
+    :group 'elscreen))
+;;; @ color-theme (emacs 23)
+(if (string-match "^23\." emacs-version)
+    (when (require 'color-theme nil t)
+      ))
+
+;;; @ newsticker
 (when (require 'newsticker nil t)
   (autoload 'newsticker-start "newsticker" "Emacs Newsticker" t)
-  (autoload 'newsticker-show-news "newsticker" "Emacs Newsticker" t)
-  )
+  (autoload 'newsticker-show-news "newsticker" "Emacs Newsticker" t))
 
+;; @ howm
 (when (require 'howm-mode)
-  
   (mapc
    (lambda (f)
      (autoload f
@@ -1104,6 +1440,7 @@
       (kill-buffer)))
   (define-key howm-mode-map (kbd "C-c C-c") 'howm-save-buffer-and-kill))
 
+ ;;; @ rainbow-delimiters
 (when (require 'rainbow-delimiters nil t)
   (global-rainbow-delimiters-mode t)
   (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
@@ -1112,31 +1449,31 @@
   (add-hook 'lisp-mode-hook 'rainbow-delimiters-mode)
   (add-hook 'ielm-mode-hook 'rainbow-delimiters-mode))
 
-;; helm
-(require 'helm-config)
+;;; @ helm
+(require 'helm-config nil t)
 
-;; smartchr.el
+;;; @ smartchr.el
 ;; http://tech.kayac.com/archive/emacs-tips-smartchr.html
-(require 'smartchr)
+(require 'smartchr nil t)
 (global-set-key (kbd "=") (smartchr '(" = "  " == " "=")))
 
-
+;;; @ flymake
 (when (require 'flymake nil t)
+  (require 'rfringe nil t)
   ;; GUIの警告は表示しない
   (setq flymake-gui-warnings-enabled nil)
-  ;; 全てのファイルでflymakeを有効化
-  (add-hook 'find-file-hook 'flymake-find-file-hook)
   ;; M-p/M-n で警告/エラー行の移動
   (global-set-key "\M-p" 'flymake-goto-prev-error)
   (global-set-key "\M-n" 'flymake-goto-next-error)
-
+  
   ;; 警告エラー行の表示
-  (global-set-key "\C-cd" 'flymake-display-err-menu-for-current-line)
+  (global-set-key (kbd "C-c d") 'flymake-display-err-menu-for-current-line)
   ;; Makefileがあれば利用し、なければ直接コマンドを実行する設定
+  ;; Makefileの種類を定義
   (defvar flymake-makefile-filenames
     '("Makefile" "makefile" "GNUmakefile")
     "File names for make.")
-
+  
   ;; Makefileがなければコマンドを直接利用するコマンドラインを作成
   (defun flymake-get-make-gcc-cmdline (source base-dir)
     (let (found)
@@ -1150,14 +1487,13 @@
                       base-dir
                       (concat "CHK_SOURCES=" source)
                       "SYNTAX_CHECK_MODE=1"
-                      "check-synatx"))
+                      "check-syntax"))
         (list (if (string= (file-name-extension source) "c") "gcc" "g++")
               (list "-o"
                     "/dev/null"
                     "-fsyntax-only"
                     "-Wall"
                     "-Wextra"
-                    "-pedantic"
                     source)))))
 
   ;; Flymake初期化関数の作成
@@ -1210,37 +1546,41 @@
               (count               (length line-err-info-list)))
         (while (> count 0)
           (when line-err-info-list
-            (let* ((file       (flymake-ler-file (nth (1- count) line-err-info-list)))
+            (let* ((file       (flymake-ler-file      (nth (1- count) line-err-info-list)))
                    (full-file  (flymake-ler-full-file (nth (1- count) line-err-info-list)))
-                   (text (flymake-ler-text (nth (1- count) line-err-info-list)))
-                   (line       (flymake-ler-line (nth (1- count) line-err-info-list))))
+                   (text       (flymake-ler-text      (nth (1- count) line-err-info-list)))
+                   (line       (flymake-ler-line      (nth (1- count) line-err-info-list))))
               (message "[%s] %s" line text)))
           (setq count (1- count)))))
     (sit-for 60.0))
-  (global-set-key (kbd "C-c d") 'flymake-show-and-sit))
+  (global-set-key (kbd "C-c d") 'flymake-show-and-sit)
+  
+  ;; flymakeの色を変更
+  (set-face-background 'flymake-errline "red4")
+  (set-face-background 'flymake-warnline "dark slate blue")
 
-;; shell-pop
-;; C-tでshellポップアップ
+  ;; gotoした際にエラーメッセージをminibufferに表示する
+  (defun display-error-message ()
+    (message (get-char-property (point) 'help-echo)))
+  (defadvice flymake-goto-prev-error (after flymake-goto-prev-error-display-message)
+    (display-error-message))
+  (defadvice flymake-goto-next-error (after flymake-goto-next-error-display-message)
+    (display-error-message))
+  (ad-activate 'flymake-goto-prev-error 'flymake-goto-prev-error-display-message)
+  (ad-activate 'flymake-goto-next-error 'flymake-goto-next-error-display-message))
+
+;;; @ shell-pop
 (when  (require 'shell-pop nil t)
   (shell-pop-set-internal-mode "ansi-term")
   (shell-pop-set-internal-mode-shell "/bin/zsh")
   (shell-pop-set-window-height 50)
   (defvar ansi-term-after-hook nil)
-  (add-hook 'ansi-term-after-hook
-            '(lambda ()
-               (define-key term-raw-map (kbd "C-t") 'shell-pop)))
   (defadvice ansi-term (after ansi-term-after-advice (arg))
     "run hook as after advice"
     (run-hooks 'ansi-term-after-hook))
-  (ad-activate 'ansi-term)
-  (global-set-key (kbd "C-t") 'shell-pop))
+  (ad-activate 'ansi-term))
 
-(autoload 'mpg123 "mpg123" "A Front-end to mpg123/ogg123" t)
-(setq mpg123-lazy-check "\\.mp3$" )
-(setq mpg123-file-name-coding-system 'utf-8)
-(setq mpg123-process-coding-system "utf-8")
-(setq mpg123-lang 0)
-
+;;; @ guide-key
 (when (require 'guide-key nil t )
   (setq guide-key/guide-key-sequence '("C-x r" "C-x 4"))
   (setq guide-key/highlight-command-regexp "rectangle")
@@ -1259,26 +1599,30 @@
              ;; RET キーで自動改行+インデント
              (define-key c-mode-base-map "\C-m" 'newline-and-indent)))
 
-(when (locate-library "gtags") (require 'gtags))
-(global-set-key "\M-t" 'gtags-find-tag)     ;関数の定義元へ
-(global-set-key "\M-r" 'gtags-find-rtag)    ;関数の参照先へ
-(global-set-key "\M-s" 'gtags-find-symbol)  ;変数の定義元/参照先へ
-(global-set-key "\M-p" 'gtags-find-pattern)
-(global-set-key "\M-f" 'gtags-find-file)    ;ファイルにジャンプ
-(global-set-key [?\C-,] 'gtags-pop-stack)   ;前のバッファに戻る
-(add-hook 'c-mode-common-hook
-          '(lambda ()
-             (gtags-mode 1)
-             (gtags-make-complete-list)))
+;;; @ gtags
+(when (and
+       (locate-library "gtags")
+       (require 'gtags nil t))
+  (setq gtags-suggested-key-mapping t)
+  (global-set-key "\M-t" 'gtags-find-tag)     ;関数の定義元へ
+  (global-set-key "\M-r" 'gtags-find-rtag)    ;関数の参照先へ
+  (global-set-key "\M-s" 'gtags-find-symbol)  ;変数の定義元/参照先へ
+  ;;(global-set-key "\M-p" 'gtags-find-pattern)
+  (global-set-key "\M-f" 'gtags-find-file)    ;ファイルにジャンプ
+  (global-set-key [?\C-,] 'gtags-pop-stack)   ;前のバッファに戻る
+  (add-hook 'c-mode-common-hook
+            '(lambda ()
+               (gtags-mode 1)
+               (gtags-make-complete-list))))
 
-;;- リスト11 kill-lineで行が連結したときにインデントを減らす
+  ;;; - リスト11 kill-lineで行が連結したときにインデントを減らす
 (defadvice kill-line (before kill-line-and-fixup activate)
   (when (and (not (bolp)) (eolp))
     (forward-char)
     (fixup-whitespace)
     (backward-char)))
 
-;; 同一バッファ名にディレクトリ付与
+  ;;; 同一バッファ名にディレクトリ付与
 (when (require 'uniquify nil t )
   (setq uniquify-buffer-name-style 'forward)
   (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
@@ -1308,18 +1652,35 @@
 ;;; @ simplenote
 ;;; http://blog.serverworks.co.jp/tech/2010/06/30/emacs-iphone-simplenote-and-vuvuzela/
 (when (require 'simplenote nil t)
-;;  (setq simplenote-email “email@company.com”) ; ログイン用メールアドレス
-;;  (setq simplenote-password “yourpassword”) ; ログイン用パスワード
+  ;;  (setq simplenote-email “email@company.com”) ; ログイン用メールアドレス
+  ;;  (setq simplenote-password “yourpassword”) ; ログイン用パスワード
   ;; (setq simplenote-directory “ディレクトリパス”)
-;;  (simplenote-setup)
+  ;;  (simplenote-setup)
   )
 
-;; 日本語マニュアル
+(when (require 'midnight nil t)
+  (setq clean-buffer-list-buffer-names
+        (append clean-buffer-list-kill-buffer-names
+                '("note.txt")))
+  (setq clean-buffer-list-delay-general 1)
+  (setq clean-buffer-list-delay-special 10))
+
+(when
+    (require 'cycle-buffer nil t)
+  (eval-after-load "cycle-buffer"
+    '(progn
+       (setq cycle-buffer-allow-visible t)
+       (setq cycle-buffer-show-length 12)
+       (setq cycle-buffer-show-format '(" <(%s)>" . " %s"))))
+  (global-set-key (kbd "M-]") 'cycle-buffer)
+  (global-set-key (kbd "M-[") 'cycle-buffer-backward))
+
+  ;;; 日本語マニュアル
 (add-to-list 'Info-directory-list "~/.emacs.d/info")
 
-;;; egg
-(when (executable-find "git")
-  (require 'egg nil t))
+;;; @ egg
+;;(when (executable-find "git")
+;;  (require 'egg nil t))
 
 ;;; @ yatex
 (when (require 'yatex nil t)
@@ -1347,75 +1708,90 @@
   (setq dviprint-from-format "-p %b")
   (setq dviprint-to-format "-l %e")
   
-;;section型補間の規定値
-(setq section-name "section")
-;;Begin ショートカットの禁止(いきなり補完入力)
-(setq YaTeX-no-begend-shortcut t)
+  ;;section型補間の規定値
+  (setq section-name "section")
+  ;;Begin ショートカットの禁止(いきなり補完入力)
+  (setq YaTeX-no-begend-shortcut t)
 
-;;数式の色付け
-(if (featurep 'hilit19)
+  ;;数式の色付け
+  (if (featurep 'hilit19)
       (hilit-translate
        formula 'DeepPink1))
 
-;;数式モードの";"補間の強化
-(setq YaTeX-math-sign-alist-private
-      '(("q"         "quad"          "__")
-	("qq"        "qquad"         "____")
-	("ls"        "varlimsup"     "___\nlim")
-	("li"        "varliminf"     "lim\n---")
-	("il"        "varinjlim"     "lim\n-->")
-       ;("st"        "text{ s.~t. }" "s.t.")
-	("bigop"     "bigoplus"      "_\n(+)~")
-	("bigot"     "bigotimes"     "_\n(x)\n ~")
-	("pl"        "varprojlim"    "lim\n<--")
-	))
-;;数式モードの","補間
-(setq YaTeX-math-funcs-list
-      '(("s"	"sin"           "sin")
-	("c"    "cos"           "cos") 
-	("t"    "tan"           "tan")
-	("hs"	"sinh"          "sinh")
-	("hc"   "cosh"          "cosh")
-	("ht"   "tanh"          "tanh")
-	("S"	"arcsin"        "arcsin")
-	("C"    "arccos"        "arccos")
-	("T"    "arctan"        "arctan")
-	("se"   "sec"           "sec")
-	("cs"   "csc"           "csc")
-	("cot"  "cot"           "cot")
-	("l"    "ln"            "ln")
-	("L"    "log"           "log")
-	("e"    "exp"           "exp")
-	("M"    "max"           "max")
-	("m"    "min"           "min")
-	("su"   "sup"           "sup")
-	("in"   "inf"           "inf")
-	("di"   "dim"           "dim")
-	("de"   "det"           "det")
-	("i"    "imath"         "i")
-	("j"    "jmath"         "j")
-	("I"    "Im"            "Im")
-	("R"    "Re"            "Re")
-	))
-(setq YaTeX-math-key-list-private
-      '(("," . YaTeX-math-funcs-list)
-	))
-;;新規ファイル作成時に自動挿入されるファイル名
-(setq YaTeX-template-file 
-      (expand-file-name "~/.emacs.d/template/template.tex"))
-  )
+  ;;数式モードの";"補間の強化
+  (setq YaTeX-math-sign-alist-private
+        '(("q"         "quad"          "__")
+          ("qq"        "qquad"         "____")
+          ("ls"        "varlimsup"     "___\nlim")
+          ("li"        "varliminf"     "lim\n---")
+          ("il"        "varinjlim"     "lim\n-->")
+                                        ;("st"        "text{ s.~t. }" "s.t.")
+          ("bigop"     "bigoplus"      "_\n(+)~")
+          ("bigot"     "bigotimes"     "_\n(x)\n ~")
+          ("pl"        "varprojlim"    "lim\n<--")))
+  ;;数式モードの","補間
+  (setq YaTeX-math-funcs-list
+        '(("s"	"sin"           "sin")
+          ("c"    "cos"           "cos") 
+          ("t"    "tan"           "tan")
+          ("hs"	"sinh"          "sinh")
+          ("hc"   "cosh"          "cosh")
+          ("ht"   "tanh"          "tanh")
+          ("S"	"arcsin"        "arcsin")
+          ("C"    "arccos"        "arccos")
+          ("T"    "arctan"        "arctan")
+          ("se"   "sec"           "sec")
+          ("cs"   "csc"           "csc")
+          ("cot"  "cot"           "cot")
+          ("l"    "ln"            "ln")
+          ("L"    "log"           "log")
+          ("e"    "exp"           "exp")
+          ("M"    "max"           "max")
+          ("m"    "min"           "min")
+          ("su"   "sup"           "sup")
+          ("in"   "inf"           "inf")
+          ("di"   "dim"           "dim")
+          ("de"   "det"           "det")
+          ("i"    "imath"         "i")
+          ("j"    "jmath"         "j")
+          ("I"    "Im"            "Im")
+          ("R"    "Re"            "Re")))
+  (setq YaTeX-math-key-list-private
+        '(("," . YaTeX-math-funcs-list)))
+  ;;新規ファイル作成時に自動挿入されるファイル名
+  (setq YaTeX-template-file 
+        (expand-file-name "~/.emacs.d/template/template.tex")))
 
 ;;; 自動改行の抑制
 (add-hook 'yatex-mode-hook
           '(lambda ()
              (auto-fill-mode t)
-             (setq fill-colum 70)
-             ))
+             (setq fill-colum 70)))
 
 ;;; @ latex
 (add-hook 'yatex-mode-hook
           '(lambda ()
              (set-buffer-file-coding-system 'euc-jp)))
+;; TeX数式プレビュー
+;;(autoload 'latex-math-preview "latex-math-preview" nil t)
+(autoload 'latex-math-preview-expression "latex-math-preview" nil t)
+(autoload 'latex-math-preview-insert-symbol "latex-math-preview" nil t)
+(autoload 'latex-math-preview-save-image-file "latex-math-preview" nil t)
+(autoload 'latex-math-preview-beamer-frame "latex-math-preview" nil t)
+(setq latex-math-preview-tex-to-png-for-preview '(platex dvipng))
+(setq latex-math-preview-tex-to-png-for-save '(platex dvipng))
+(setq latex-math-preview-tex-to-eps-for-save '(platex dvips-to-eps))
+(setq latex-math-preview-tex-to-ps-for-save '(platex dvips-to-ps))
+(setq latex-math-preview-beamer-to-png '(platex dvipdfmx gs-to-png))
+(add-hook 'yatex-mode-hook
+          '(lambda ()
+             (YaTeX-define-key "p" 'latex-math-preview-expression)
+             (YaTeX-define-key "\C-p" 'latex-math-preview-save-image-file)
+             (YaTeX-define-key "j" 'latex-math-preview-insert-symbol)
+             (YaTeX-define-key "\C-j" 'latex-math-preview-last-symbol-again)
+             (YaTeX-define-key "\C-b" 'latex-math-preview-beamer-frame)))
+(setq latex-math-preview-in-math-mode-p-func 'YaTeX-in-math-mode-p)
+
 ;;; ----------------------------------------
 ;;; @ 各種言語別設定
 (add-hook
