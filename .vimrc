@@ -1,6 +1,6 @@
 " ============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 19-Dec-2012.                 |
+"                 Last Change: 24-Dec-2012.                 |
 "============================================================
 
 " 基礎的な設定 {{{
@@ -735,6 +735,7 @@ endfunction
 function! MylatexSettings()
     set dictionary=$HOME/.vim/dict/tex.dict
     set sw=2
+    set tw=70
     inoremap <buffer> { {}<Left>
     inoremap <buffer> [ []<Left>
     inoremap <buffer> ( ()<Left>
@@ -745,7 +746,7 @@ function! MylatexSettings()
     inoremap <buffer> \>> \gg
     inoremap <buffer> \+- \pm
     inoremap <buffer> \-+ \mp
-    nnoremap <buffer> <F5> :<C-u>!platex-utf8 %<CR>
+    nnoremap <buffer> <F5> :<C-u>!platex-euc %<CR>
     nnoremap <buffer> <F6> :<C-u>!dvipdfmx %<<CR>
     nnoremap <buffer> <F7> :<C-u>!open %<.pdf<CR>
     nmap <buffer> <Leader>make <F5><F6><F7>
