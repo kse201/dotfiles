@@ -1,0 +1,1 @@
+(setenv "PATH" "/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/texbin:/Users/sekeikai/Documents/AAMFaceAlign1.1/bin/:/Users/sekeikai/myshellscript:/Users/sekeikai/local/bin/:/Users/sekeikai/git-tasukete/::/Users/sekeikai/myshellscript:/Users/sekeikai/local/bin/:/Users/sekeikai/git-tasukete/:")

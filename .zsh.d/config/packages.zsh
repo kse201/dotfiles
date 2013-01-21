@@ -3,10 +3,13 @@ source ~/.zsh.d/package.zsh
 # z 
 package-install github rupa/z
 _Z_CMD=j
+_Z_DATA=$(package-directory rupa/z)/.z
 source $(package-directory rupa/z)/z.sh
-function precmd() {
-_z --add "$(pwd -P)"
+_Z_NO_PROMPT_COMMAND=1
+function precmd_z() {
+    _z --add "$(pwd -P)"
 }
+precmd_functions+=precmd_z
 
 # auto-fu.zsh
 # package-install github hchbaw/auto-fu.zsh

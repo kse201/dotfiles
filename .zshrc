@@ -2,7 +2,7 @@
 # http://www.clear-code.com/blog/2011/9/5.html
 
 # export PATH=$PATH:~/myshellscript:/opt/local/:~/local/bin/:~/git-tasukete/ ## macport削除前
-export PATH=/usr/local/bin:/usr/local/sbin:$PATH:~/myshellscript:~/local/bin/:~/git-tasukete/:#LANG
+export PATH=/usr/local/bin:/usr/local/sbin:$PATH:~/myshellscript:~/local/bin/:~/git-tasukete/: #LANG
 export LANG=ja_JP.UTF-8
 export LESSCHARSET=utf-8
 
@@ -24,7 +24,7 @@ export HISTTIMEFORMAT
 # 補完機能の強化
 autoload -U compinit
 compinit -u
-## 保管方法毎にグループ化
+## 補間方法毎にグループ化
 zstyle ':completion:*' format '%B%d%b'
 zstyle ':completion:*' group-name ''
 
@@ -310,7 +310,8 @@ alias spvim='vim -u NONE'
 [[ $EMACS = t ]] && unsetopt zle
 
 # emacs
-alias emacsclient=/Applications/Emacs.app/Contents/MacOS/bin/emacsclient
+alias emacsclient=/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -n
+alias e='/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -n'
 
 zstyle ':completion:*:default' menu select=1
 
@@ -369,3 +370,13 @@ source ~/.zsh.d/config/packages.zsh
 
 alias remem='du -sx / &> /dev/null & sleep 25 && kill $!'
 
+# もしかして時のプロンプト指定
+SPROMPT="%{$fg[red]%}%{$suggest%}(*'_'%)? < もしかして %B%r%b %{$fg[red]%}かな? [そう!(y), 違う!(n),a,e]:${reset_color} "
+# 今いるディレクトリを補完候補から外す
+#http://qiita.com/items/7916037b1384d253b457
+zstyle ':completion:*' ignore-parents parent pwd ..
+
+## create emacs env file
+perl -wle \
+    'do { print qq/(setenv "$_" "$ENV{$_}")/ if exists $ENV{$_} } for @ARGV' \
+    PATH > ~/.emacs.d/shellenv.el

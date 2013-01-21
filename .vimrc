@@ -1,6 +1,6 @@
-" ============================================================
+"============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 24-Dec-2012.                 |
+"                 Last Change: 21-Jan-2013.                 |
 "============================================================
 
 " 基礎的な設定 {{{
@@ -131,7 +131,8 @@ endif
 " }}}
 
 " Auto Change dir{{{
-set tags=./tags,./../tags,./*/tags,./../../tags,./../../../tags,./../../../../tags,./../../../../../tags
+set tags+=~/.tags,**/tags
+" set tags=./tags,./../tags,./*/tags,./../../tags,./../../../tags,./../../../../tags,./../../../../../tags
 if has('win32') || has('win64')
     au MyAutoCmd BufEnter * execute ":lcd " . escape(expand("%:p:h")," #")
 else
@@ -647,10 +648,6 @@ inoremap <silent> <ESC> <ESC>:set iminsert=0<CR>
 nnoremap <silent> <ESC> <ESC>:<C-u>nohlsearch<CR>:<C-u>set iminsert=0<CR>
 " }}}
 
-" help{{{
-nnoremap <C-i><Space> :<C-u>h<Space>
-nnoremap <C-i><C-i> :<C-u>h<Space><C-r><C-w><Enter>
-" }}}
 " grep
 set grepprg=grep\ -rnIH\ --exclude-dir=.svn\ --exclude-dir=.git
 autocmd QuickfixCmdPost vimgrep copen
@@ -794,6 +791,11 @@ function! MyrubySettings()
     let g:ref_use_vimproc=1
     let g:ref_refe_version=2
     nmap ,rr :<C-u>Ref refe<Space>
+if filereadable(expand('~/rtags'))
+  au FileType ruby,eruby setl tags+=~/rtags,~/gtags
+endif
+compiler ruby
+let ruby_space_errors=1 
 endfunction
 " }}}
 " Lisp{{{

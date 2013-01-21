@@ -19,6 +19,11 @@
 
 .vim/doc/tags
 .vim/doc/tags-ja
+.twitvim
+.twitvim.token
+.vimprojects
+.vimshell
+.viminfo
 .emacs.d/auto-save-list
 .emacs.d/backups
 .emacs.d/undohist
@@ -28,3 +33,6 @@
 .emacs.d/ac-comphist.dat
 .emacs.d/twittering-mode.gpg
 .emacs.d/.bongo-library
+.emacs.d/newsticker
+.emacs.d/newsticker-url-list.el
+.emacs.d/elisp/*.elc

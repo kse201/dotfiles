@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 24-Dec-2012.                 |
+"                 Last Change: 21-Jan-2013.                 |
 "============================================================
 autocmd MyAutoCmd BufWritePost $MYVIMRCPLUGIN  source $MYVIMRC |
             \ if has('gui_running') |
@@ -47,11 +47,12 @@ NeoBundle 'basyura/bitly.vim'
 " Plugin管理 {{{
 NeoBundle 'Shougo/neobundle.vim'
 NeoBundle 'jceb/vim-ipi'
-NeoBundle 'tpope/vim-pathogen'
+NeoBundleLazy 'tpope/vim-pathogen'
 " }}}
 " ドキュメント管理 {{{
 " NeoBundleLazy 'thinca/vim-ref'
-NeoBundleLazy 'thinca/vim-ref'
+NeoBundleLazy 'thinca/vim-ref',
+            \{'autoload' : { 'mappings' : ['<Plug>(ref-keyword)']}}
 NeoBundleLazy 'vim-jp/vimdoc-ja.git'
 " }}}
 " 補完 neocom{{{
@@ -62,36 +63,67 @@ NeoBundleLazy 'Shougo/neocomplcache-clang_complete'
 NeoBundleLazy 'clang-complete'
 NeoBundleLazy 'neco-look'
 NeoBundleLazy 'yomi322/neco-tweetvim'
-NeoBundleLazy 'davidhalter/jedi'
+NeoBundle 'Shougo/neocomplcache-rsense', {
+      \ 'depends': 'Shougo/neocomplcache',
+      \ 'autoload': { 'filetypes': 'ruby' }}
+NeoBundleLazy 'taichouchou2/rsense-0.3', {
+      \ 'build' : {
+      \    'mac': 'ruby etc/config.rb > ~/.rsense',
+      \    'unix': 'ruby etc/config.rb > ~/.rsense',
+      \ } }
+NeoBundleLazy 'davidhalter/jedi',
+            \ { 'autoload' :{ 'filetype' : 'jedi'}}
 " }}}
 " ファイラ {{{
 NeoBundleLazy 'scrooloose/nerdtree'
-NeoBundle 'Shougo/vimfiler',
-            \ { 'depends' : 'Shougo/unite.vim'}
+NeoBundleLazy 'Shougo/vimfiler',
+            \ { 'depends' : 'Shougo/unite.vim' ,
+            \ 'autoload' : {'commands' : ['VimFilerCurrentDir', 'VimFilerDouble']}}
+NeoBundle 'kien/ctrlp.vim'
 " }}}
 " 入力補助 {{{
 NeoBundle 'kana/vim-smartchr'
-NeoBundleLazy 'mattn/zencoding-vim'
+NeoBundleLazy 'mattn/zencoding-vim',
+            \{ 'autoload' : { 'filetype' : ['html','css','js','php']}}
 NeoBundleLazy 'msanders/cocoa.vim'
-NeoBundleLazy 'jelera/vim-javascript-syntax'
+NeoBundleLazy 'jelera/vim-javascript-syntax',
+            \ { 'autoload' : { 'filetype' : 'vim-javascript-syntax'}}
 " }}}
 " unite関連 {{{
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'tsukkee/unite-tag'
-NeoBundle 'tsukkee/unite-help'
+NeoBundleLazy 'tsukkee/unite-help'
 NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'tacroe/unite-mark'
 NeoBundle 'thinca/vim-unite-history'
 NeoBundle 'unite-colorscheme'
 " NeoBundle 'choplin/unite-vim_hacks'
-NeoBundle 'ujihisa/unite-font'
-NeoBundle 'Shougo/unite-build'
+NeoBundleLazy 'ujihisa/unite-font'
+NeoBundleLazy 'Shougo/unite-build'
 NeoBundleLazy 'sgur/unite-everything'
-NeoBundle 'zhaocai/unite-scriptnames'
+NeoBundleLazy 'zhaocai/unite-scriptnames'
 NeoBundle 'h1mesuke/vim-alignta'
 NeoBundle 'yomi322/unite-tweetvim'
 NeoBundle 'taka84u9/unite-git'
 NeoBundle 'kmnk/vim-unite-giti'
+NeoBundleLazy 'Shougo/unite-ssh', {
+      \ 'depends' : 'Shougo/unite.vim' }
+NeoBundleLazy 'basyura/unite-rails', {
+      \ 'depends' : 'Shougo/unite.vim' }
+NeoBundleLazy 'taichouchou2/unite-rails_best_practices', {
+      \ 'depends' : 'Shougo/unite.vim',
+      \ 'build' : {
+      \    'mac': 'gem install rails_best_practices',
+      \    'unix': 'gem install rails_best_practices',
+      \   }
+      \ }
+NeoBundleLazy 'taichouchou2/unite-reek', {
+      \ 'build' : {
+      \    'mac': 'gem install reek',
+      \    'unix': 'gem install reek',
+      \ },
+      \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml'] },
+      \ 'depends' : 'Shougo/unite.vim' }
 " }}}
 " テキスト整形 {{{
 NeoBundle 'godlygeek/tabular'
@@ -99,10 +131,13 @@ NeoBundle 'h1mesuke/vim-alignta'
 NeoBundle 'The-NERD-Commenter'
 NeoBundleLazy 'vim-scripts/RST-Tables'
 NeoBundleLazy 'vim-scripts/sequence'
+NeoBundle "fuenor/JpFormat.vim"
 " }}}
 " 機能追加 {{{
-NeoBundleLazy 'Shougo/vimshell'
-NeoBundleLazy 'basyura/TweetVim' , {'depends' : 
+NeoBundleLazy 'Shougo/vimshell'  , 
+            \{"autoload" : {'commands' : ['VimShell', 'VimShellCurrentDir' ]} }
+NeoBundleLazy 'basyura/TweetVim' ,
+            \{'depends' : 
             \ ['open-browser.vim',
             \ 'mattn/webapi-vim',
             \ 'basyura/twibill.vim',
@@ -110,39 +145,86 @@ NeoBundleLazy 'basyura/TweetVim' , {'depends' :
             \ 'Shougo/unite.vim',
             \ 'yomi322/unite-tweetvim',
             \ 'h1mesuke/unite-outline',
-            \ ]}
+            \ 'TweetVim-powerline-theme'
+            \ ],
+            \ 'autoload' : 
+            \{ 'commands' : ['TweetVim', 'TweetVimSay'],
+            \ 'mappings' : ['<Plug>(tweetvim_action_enter)' , '<Plug>(tweetvim_action_retweet)','<Plug>(tweetvim_action_page_next)','<Plug>(tweetvim_action_page_previous)']
+            \}}
+NeoBundle 'delphinus35/TweetVim-powerline-theme'
 NeoBundle 'mattn/calendar-vim'
-NeoBundleLazy 'thinca/vim-quickrun'
+NeoBundleLazy 'thinca/vim-quickrun',
+            \{ 'autoload' : {
+            \'mappings' : ['<Plug>(quickrun)'],
+            \ 'commands' : ['QuickRun']}}
 NeoBundle 'surround.vim'
 NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'open-browser.vim'
-" NeoBundle 'YankRing.vim'
-NeoBundleLazy 'SingleCompile'
-NeoBundleLazy 'taglist.vim'
-NeoBundleLazy 'TagHighlight'
+NeoBundleLazy 'open-browser.vim',
+            \{'autoload' : {'mappings' :['<Plug>(open-browser-wwwsearch)','<Plug>(openbrowser-smart-search)']}}
+NeoBundle 'YankRing.vim'
+NeoBundleLazy 'SingleCompile' ,
+            \{'autoload' : { 'filetype' : ['c', 'cpp','java']}}
+NeoBundleLazy 'taglist.vim',
+            \{'autoload' : { 'filetype' : ['c', 'cpp','java']}}
+NeoBundleLazy 'TagHighlight',
+            \{'autoload' : { 'filetype' : ['c', 'cpp','cs','java']}}
 NeoBundleLazy 'mbadran/headlights'
 NeoBundleLazy 'thinca/vim-prettyprint'
 NeoBundle 'thinca/vim-editvar'
-NeoBundleLazy 'thinca/vim-showtime'
+NeoBundleLazy 'thinca/vim-showtime',
+            \ {'autoload' : {'commands' : ['ShowtimeStart']}}
 NeoBundle 'thinca/vim-fontzoom'
 NeoBundle 'MultipleSearch'
-NeoBundleLazy 'csv.vim'
+NeoBundleLazy 'csv.vim' ,
+            \{ 'autoload' : {'filetype' : 'csv'}}
 NeoBundle 'yuratomo/w3m.vim'
-" NeoBundle 'gregsexton/VimCalc'
 NeoBundle 'sjl/gundo.vim'
 NeoBundleLazy 'vim-scripts/RltvNmbr.vim'
 NeoBundle 'scrooloose/syntastic'
+NeoBundle 'yuratomo/gmail.vim'
+NeoBundle 'kana/vim-operator-replace.git'
+NeoBundle 'kana/vim-operator-user.git'
 " }}}
 " C / C++ {{{
-NeoBundleLazy 'vim-scripts/Source-Explorer-srcexpl.vim'
-NeoBundleLazy 'vim-scripts/trinity.vim'
-NeoBundleLazy 'vim-scripts/a.vim.git'
-NeoBundleLazy 'vim-scripts/c.vim.git'
-NeoBundleLazy 'vim-scripts/CCTree'
-NeoBundleLazy 'vim-scripts/cscope-menu'
-NeoBundleLazy 'vim-scripts/gtags.vim'
-NeoBundleLazy 'vim-scripts/csharp.vim'
-NeoBundleLazy 'vim-scripts/teol.vim.git'
+NeoBundleLazy 'vim-scripts/Source-Explorer-srcexpl.vim' ,
+            \{'autoload' : { 'filetype' : ['c', 'cpp','java']}}
+NeoBundleLazy 'vim-scripts/trinity.vim' ,
+            \{'autoload' : { 'filetype' : ['c', 'cpp','java']}}
+NeoBundleLazy 'vim-scripts/a.vim.git' ,
+            \{'autoload' : { 'filetype' : ['c', 'cpp','java']}}
+NeoBundleLazy 'vim-scripts/c.vim.git' ,
+            \{'autoload' : { 'filetype' : ['c', 'cpp','java']}}
+NeoBundleLazy 'vim-scripts/CCTree' ,
+            \{'autoload' : { 'filetype' : ['c', 'cpp','java']}}
+NeoBundleLazy 'vim-scripts/cscope-menu' ,
+            \{'autoload' : { 'filetype' : ['c', 'cpp','cs','java']}}
+NeoBundleLazy 'vim-scripts/gtags.vim' ,
+            \{'autoload' : { 'filetype' : ['c', 'cpp','cs','java']}}
+NeoBundleLazy 'vim-scripts/csharp.vim' ,
+            \{'autoload' : { 'filetype' : ['c', 'cpp','cs','java']}}
+NeoBundleLazy 'vim-scripts/teol.vim.git' ,
+            \{'autoload' : { 'filetype' : ['c', 'cpp','java']}}
+" }}}
+" Ruby {{{
+NeoBundle 'tpope/vim-rails'
+NeoBundleLazy 'taichouchou2/alpaca_complete', {
+      \ 'depends' : 'tpope/vim-rails',
+      \ 'build' : {
+      \    'mac':  'gem install alpaca_complete',
+      \    'unix': 'gem install alpaca_complete',
+      \   }
+      \ }
+
+" reference環境
+NeoBundleLazy 'vim-ruby/vim-ruby', {
+    \ 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] } }
+NeoBundleLazy 'taka84u9/vim-ref-ri', {
+      \ 'depends': ['Shougo/unite.vim', 'thinca/vim-ref'],
+      \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml'] } }
+NeoBundleLazy 'skwp/vim-rspec', {
+      \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml'] } }
+NeoBundleLazy 'ruby-matchit', {
+    \ 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] } }
 " }}}
 " tex {{{
 " NeoBundleLazy 'jcf/vim-latex'
@@ -175,20 +257,12 @@ NeoBundleLazy 'mfumi/lightsout.vim' "http://ja.wikipedia.org/wiki/%E3%83%A9%E3%8
 
 
 " }}}
-" NeoBundle 'dwm.vim'
-NeoBundleLazy 'savevers.vim'
 NeoBundle 'kien/rainbow_parentheses.vim'
 NeoBundle 'kana/vim-smartinput'
-" NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'ViewOutput'
-NeoBundle 'tpope/vim-endwise'
+NeoBundle 'taichouchou2/vim-endwise'
 NeoBundle 'tsaleh/vim-matchit'
-" NeoBundle 'chigatoike/activefix.vim'
-" NeoBundle 'dahu/vim-fanfingtastic'
-" NeoBundle 'mrtazz/simplenote.vim'
 NeoBundle 'altercation/vim-colors-solarized'
-" NeoBundle 'koron/minimap-vim'
-" NeoBundle 'mattn/benchvimrc-vim'
 
 " }}}
 filetype plugin indent on
@@ -225,6 +299,29 @@ endfunction
 " }}}
 
 " neocomplcache{{{
+
+if has('vim_starting') 
+    augroup MyInitNeocomplcache
+        autocmd!
+        autocmd InsertEnter * call s:LazyLoadingForNeocom() | call Init_neocomplcache() | autocmd! MyInitNeocomplcache
+    augroup END
+    function! s:LazyLoadingForNeocom()
+        NeoBundleSource neocomplcache
+        NeoBundleSource neosnippet
+        NeoBundleSource neocomplcache-clang
+        NeoBundleSource neocomplcache-clang_complete
+        NeoBundleSource clang-complete
+        NeoBundleSource neco-look
+        NeoBundleSource neco-tweetvim
+        NeoBundleSource jedi
+    endfunction
+endif
+
+call neobundle#config('neocomplcache',{
+            \'lazy' : 1,
+            \ 'autoload' : {
+            \ 'insert' : 1,
+            \}})
 
 " Use neocomplcache.
 let g:neocomplcache_enable_at_startup             = 0 " 起動時に有効化
@@ -347,7 +444,7 @@ let g:neosnippet#snippets_directory= $VIMFILE_DIR . '/snippets'
 
 
 " カーソル前の文字列がスニペットのトリガであるなら、スニペットを展開する
-" imap <expr><C-k>   neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : "\<C-n>"
+imap <expr><C-k>   neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : "\<C-n>"
 "<TAB>でスニペット補完
 if g:neocomplcache_enable_at_startup
     imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_jump_or_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -541,12 +638,13 @@ if s:checkplugin("vim-smartchr" )
     cnoremap <Leader>/ /
     " cnoremap <expr> / search('.*/\%#', 'bcn')? '/' : smartchr#one_of('/', '\/')
     " if filereadable(expand($VIMFILES_DIR . '/bundle/vim-smartchr/autoload/smartchr.vim'))
-    cnoremap <expr> <  smartchr#one_of('<', '\<')
-    cnoremap <expr> >  smartchr#one_of('>', '\>')
+    cnoremap <expr> <  smartchr#one_of('<', '\<', '<<')
+    cnoremap <expr> >  smartchr#one_of('>', '\>', '>>')
     cnoremap <expr> \  smartchr#one_of('\', '\' , '\\')
-    cnoremap <expr> (  smartchr#one_of('(' , '\(')
-    cnoremap <expr> )  smartchr#one_of(')' , '\)')
-    cnoremap <expr> %  smartchr#one_of('%' , '\%')
+    cnoremap <expr> (  smartchr#one_of('(' , '\(', '((')
+    cnoremap <expr> )  smartchr#one_of(')' , '\)', '))')
+    cnoremap <expr> %  smartchr#one_of('%' , '\%', '%%')
+    " cnoremap <expr> |  smartchr#one_of('|', '\|', '||')
 
     " 参考:http://d.hatena.ne.jp/ampmmn/20080925/1222338972
     " 演算子記号の前後に空白を入れるなど
@@ -627,6 +725,10 @@ nmap <Leader><Leader> <Plug>NERDCommenterToggle
 vmap <Leader><Leader> <Plug>NERDCommenterToggle
 " }}}
 
+" nerdtree{{{
+nmap <F12> :NERDTree<CR>
+" }}}
+
 " QuickRun.vim{{{
 try 
     if !exists("g:quickrun_config")
@@ -668,13 +770,6 @@ try
     " \'cmdopt' : '-s',
     " " \'command': 'bluecloth',
     " " \'exec': '%c -f %s', 
-    if has('syntax')
-        augroup HankakuSpace
-            autocmd!
-            autocmd ColorScheme * highlight HankakuSpace term=underline ctermfg=Red gui=underline guifg=Red guibg=fg
-            autocmd VimEnter,WinEnter,BufEnter *.mkd match HankakuSpace /  $/
-        augroup END
-    endif
     "}}}
     " gcc版{{{
     let g:quickrun_config['CppSyntaxCheck_gcc'] = {
@@ -700,9 +795,9 @@ try
     " }}}
     " TeX{{{
     let g:quickrun_config['tex']={
-                \ 'command' : 'platex-euc',
+                \ 'command' : '~/Library/TeXShop/bin/platex2pdf-euc',
                 \ 'outputer' : '',
-                \ 'exec' : ['%c -output-directory %s:h %s' , 'dvipdfmx -o %s:r.pdf %s:r.dvi' , 'open %s:r.pdf']
+                \ 'exec' : ['%c -output-directory %s:h %s' , 'open %s:r.pdf']
                 \}
     " }}}
     " HTML{{{
@@ -713,6 +808,12 @@ try
                 \}
 
     " }}}
+    " Ruby
+    let g:quickrun_config['Ruby'] = {
+                \ "type" : "ruby",
+                \ "outputter" : "error:buffer:quickfix",
+                \}
+
 
 catch /E117/
 endtry
@@ -758,12 +859,18 @@ nno <silent> <C-F7> :execute "QuickRun ".g:quickrun_compile_command[&filetype"]<
 
 " vimshell.vim{{{
 nmap <Leader>vs <SID>[vimshell]
-nnoremap <SID>[vimshell] :<C-u>silent! NeoBundleSource vimshell<CR>:<C-u>VimShell<CR>
-" nnoremap <SID>[vimshell]c :VimShellCreate<CR>
-" let g:vimshell_prompt = 'vimshell#vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
-let g:vimshell_split_height = 10
-let g:vimshell_disable_escape_highlight = 1
-autocmd MyAutoCmd FileType vimshell imap <TAB> <Plug>(vimshell_zsh_complete)
+nnoremap <SID>[vimshell] :<C-u>VimShell<CR>
+let s:bundle = neobundle#get("vimshell")
+" hooksの初期化
+let s:bundle.hooks = get(s:bundle,"hooks", {})
+
+function! s:bundle.hooks.on_source(bundle)
+    " nnoremap <SID>[vimshell]c :VimShellCreate<CR>
+    " let g:vimshell_prompt = 'vimshell#vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
+    let g:vimshell_split_height = 10
+    let g:vimshell_disable_escape_highlight = 1
+endfunction
+unlet s:bundle
 " }}}
 
 " taglist.vim{{{
@@ -779,8 +886,8 @@ autocmd MyAutoCmd BufEnter *.memo nnoremap <buffer> <F12> :<C-u>ToC<CR>
 " open-browser{{{
 " disable netrw's gx mapping.
 let g:netrw_nogx = 1
-nmap gx <Plug>(openbrowser-smart-search)
-vmap gx <Plug>(openbrowser-smart-search)
+nmap go <Plug>(openbrowser-smart-search)
+vmap go <Plug>(openbrowser-smart-search)
 " }}}
 
 " Tabularize{{{
@@ -788,44 +895,50 @@ vnoremap <Leader>t :Tabularize /
 " }}}
 
 " vimfiler{{{
-let g:vimfiler_as_default_explorer=1
-let g:vimfiler_safe_mode_by_default=0
-nnoremap <leader>vf :<c-u>silent! NeoBundleSource vimfiler<cr>:<c-u>VimFilerCurrentDir -auto-cd -split  -winwidth=35 -no-quit<cr>
-nnoremap <leader>vv :<c-u>silent! NeoBundleSource vimfiler<cr>:<c-u>VimFilerTab -auto-cd -double -explorer -no-quit<cr>
-call vimfiler#set_execute_file('vim', 'vim')
-call vimfiler#set_execute_file('txt', 'notepad')
-call vimfiler#set_execute_file('c', ['vim', 'notepad'])
+nnoremap <leader>vf :<c-u>VimFilerCurrentDir -auto-cd -split  -winwidth=35 -no-quit<cr>
+nnoremap <leader>vv :<c-u>VimFilerDouble -auto-cd -double -explorer -no-quit<cr>
 
-" Edit file by tabedit.
-"let g:vimfiler_edit_action = 'tabopen'
+let s:bundle = neobundle#get("vimfiler")
+" hooksの初期化
+let s:bundle.hooks = get(s:bundle,"hooks", {})
 
-let g:vimfiler_as_default_explorer = 1
+function! s:bundle.hooks.on_source(bundle)
+    let g:vimfiler_as_default_explorer=1
+    let g:vimfiler_safe_mode_by_default=0
+    call vimfiler#set_execute_file('vim', 'vim')
+    call vimfiler#set_execute_file('txt', 'notepad')
+    call vimfiler#set_execute_file('c', ['vim', 'notepad'])
 
-" Enable file operation commands.
-"let g:vimfiler_safe_mode_by_default = 0
+    " Edit file by tabedit.
+    "let g:vimfiler_edit_action = 'tabopen'
 
-" Like Textmate icons.
-let g:vimfiler_tree_leaf_icon = ' '
-let g:vimfiler_tree_opened_icon = '▾'
-let g:vimfiler_tree_closed_icon = '▸'
-let g:vimfiler_file_icon = '-'
-let g:vimfiler_marked_file_icon = '*'
+    " Enable file operation commands.
+    "let g:vimfiler_safe_mode_by_default = 0
 
-" Use trashbox.
-" Windows only and require latest vimproc.
-"let g:unite_kind_file_use_trashbox = 1
-"デフォルトのキーマッピングを変更
-augroup VimFiler 
-    autocmd!
-    autocmd FileType vimfiler call s:vimfiler_my_settings()
-augroup END
-function! s:vimfiler_my_settings()
-    nmap <buffer> q <Plug>(vimfiler_exit)
-    nmap <buffer> Q <Plug>(vimfiler_hide)
-    nmap <buffer> <TAB> <Plug>(vimfiler_switch_to_another_vimfiler)
-    nmap <buffer> <C-a> <Plug>(vimfiler_toggle_mark_all_lines)
-    nnoremap <buffer><silent> / :<C-u>UniteWithBufferDir file -default-action=vimfiler -buffer-name=files<CR>
+    " Like Textmate icons.
+    let g:vimfiler_tree_leaf_icon = ' '
+    let g:vimfiler_tree_opened_icon = '▾'
+    let g:vimfiler_tree_closed_icon = '▸'
+    let g:vimfiler_file_icon = '-'
+    let g:vimfiler_marked_file_icon = '*'
+
+    " Use trashbox.
+    " Windows only and require latest vimproc.
+    "let g:unite_kind_file_use_trashbox = 1
+    "デフォルトのキーマッピングを変更
+    augroup VimFiler 
+        autocmd!
+        autocmd FileType vimfiler call s:vimfiler_my_settings()
+    augroup END
+    function! s:vimfiler_my_settings()
+        nmap <buffer> q <Plug>(vimfiler_exit)
+        nmap <buffer> Q <Plug>(vimfiler_hide)
+        nmap <buffer> <TAB> <Plug>(vimfiler_switch_to_another_vimfiler)
+        nmap <buffer> <C-a> <Plug>(vimfiler_toggle_mark_all_lines)
+        nnoremap <buffer><silent> / :<C-u>UniteWithBufferDir file -default-action=vimfiler -buffer-name=files<CR>
+    endfunction
 endfunction
+unlet s:bundle
 " }}}
 
 " indent-Guides{{{
@@ -886,49 +999,61 @@ let g:Tex_CompileRule_pdf = 'dvipdfmx $*.dvi'
 " }}}
 
 " tweetvim{{{
-nnoremap <silent> <SID>[unite]t :<C-u>NeoBundleSource TweetVim<CR>:NeoBundleSource TweetVim<CR>:<C-u>Unite -winheight=11 tweetvim<CR>
-nnoremap <silent> ,ts :<C-u>NeoBundleSource TweetVim<CR>:TweetVimSay<CR>
-if !exists('g:neocomplcache_dictionary_filetype_lists')
-    let g:neocomplcache_dictionary_filetype_lists={}
-endif
-let neco_dic = g:neocomplcache_dictionary_filetype_lists
-let neco_dic.tweetvim_say = $HOME . '/.tweetvim/screen_name'
-let g:tweetvim_include_rts = 1 "タイムラインにリツイートを含める
-let g:tweetvim_tweet_per_page = 40
-let g:tweetvim_display_source=1
-let g:tweetvim_display_time=1
-" キーマップ 参考:http://qiita.com/items/a28eb714151886358b1a
-augroup TweetVim
-    autocmd!
-    autocmd FileType tweetvim call s:mytweetvim()
-augroup END
-function! s:mytweetvim ()
-    nnoremap <buffer><silent>j :<C-u>call <SID>tweetvim_vertical_move("gj")<CR>zz
-    nnoremap <buffer><silent>k :<C-u>call <SID>tweetvim_vertical_move("gk")<CR>zz
-    nmap <buffer><silent> <CR> <Plug>(tweetvim_action_open_links)
-    nmap <buffer><silent> o <Plug>(tweetvim_action_enter)
-    nmap <buffer><silent> R <Plug>(tweetvim_action_retweet)
-    " バッファに移動した時に自動リロード
-    " autocmd BufEnter * call <SID>tweetvim_reload()
-endfunction
+nnoremap <silent> <SID>[unite]t :<C-u>Unite -winheight=11 tweetvim<CR>
+nnoremap <silent> ,ts :TweetVimSay<CR>
 
-" セパレータを飛ばして移動する
-" ページの銭湯や末尾でそれ以上 上下に移動しようとしたらページ移動する
-function! s:tweetvim_vertical_move(cmd)
-    set cursorline
-    let end = line('$')
-    while getline('.') !~# '^[-~]\+$' && line('.') != end && line('.') != 1
-        execute "normal! ".a:cmd
-    endwhile
-    execute "normal! ".a:cmd
-    " 一番下まで来たら次のページに進む
-    let line = line('.')
-    if line == end
-        call feedkeys("\<Plug>(tweetvim_action_page_next)")
-    elseif line == 1
-        call feedkeys("\<Plug>(tweetvim_action_page_previous)")
+let s:bundle = neobundle#get("tweetvim")
+" hooks の初期化
+let s:bundle.hooks = get(s:bundle, "hooks", {})
+
+" source 後に呼び出される処理を記述する
+function! s:bundle.hooks.on_source(bundle)
+
+    if !exists('g:neocomplcache_dictionary_filetype_lists')
+        let g:neocomplcache_dictionary_filetype_lists={}
     endif
+    let neco_dic = g:neocomplcache_dictionary_filetype_lists
+    let neco_dic.tweetvim_say = $HOME . '/.tweetvim/screen_name'
+    let g:tweetvim_include_rts = 1 "タイムラインにリツイートを含める
+    let g:tweetvim_tweet_per_page = 40
+    let g:tweetvim_display_source=1
+    let g:tweetvim_display_time=1
+    " キーマップ 参考:http://qiita.com/items/a28eb714151886358b1a
+    augroup TweetVim
+        autocmd!
+        autocmd FileType tweetvim call s:mytweetvim()
+    augroup END
+    function! s:mytweetvim ()
+        " nnoremap <buffer><silent>j :<C-u>call <SID>tweetvim_vertical_move("gj")<CR>zz
+        " nnoremap <buffer><silent>k :<C-u>call <SID>tweetvim_vertical_move("gk")<CR>zz
+        nnoremap <expr><buffer><silent>j <Plug>(tweetvim_action_cursor_up)
+        nnoremap <expr><buffer><silent>k <Plug>(tweetvim_action_cursor_down)
+        nmap <buffer><silent> <CR> <Plug>(tweetvim_action_open_links)
+        nmap <buffer><silent> o <Plug>(tweetvim_action_enter)
+        nmap <buffer><silent> R <Plug>(tweetvim_action_retweet)
+        " バッファに移動した時に自動リロード
+        " autocmd BufEnter * call <SID>tweetvim_reload()
+    endfunction
+
+    " セパレータを飛ばして移動する
+    " ページの銭湯や末尾でそれ以上 上下に移動しようとしたらページ移動する
+    function! s:tweetvim_vertical_move(cmd)
+        set cursorline
+        let end = line('$')
+        while getline('.') !~# '^[-~]\+$' && line('.') != end && line('.') != 1
+            execute "normal! ".a:cmd
+        endwhile
+        execute "normal! ".a:cmd
+        " 一番下まで来たら次のページに進む
+        let line = line('.')
+        if line == end
+            call feedkeys("\<Plug>(tweetvim_action_page_next)")
+        elseif line == 1
+            call feedkeys("\<Plug>(tweetvim_action_page_previous)")
+        endif
+    endfunction
 endfunction
+unlet s:bundle
 
 " }}}
 
@@ -942,138 +1067,13 @@ let g:memolist_memo_date = "%D %T"
 " let g:memolist_prompt_categories = "true"
 " }}}
 
-" vim-ipi {{{
-filetype plugin indent off
-let s:ipi_loaded = 0
-try
-    call ipi#inspect("Bundle")
-    let s:ipi_loaded = 1
-catch /E117/
-endtry
-filetype plugin indent on
-
-function! LazyLoading(ft)
-    filetype plugin indent off
-    for plugin_name in g:ll_plugins[a:ft]
-        execute "silent! NeoBundleSource " . plugin_name
-    endfor
-    filetype plugin indent on
-    execute "autocmd! MyIPI_" . a:ft
-    execute "set filetype=" . a:ft
-    silent! ReadTypes
-endfunction
-
-let g:ll_plugins={}
-let g:ll_plugins['c'] = [
-            \ 'taglist.vim',
-            \ 'TagHihglight',
-            \ 'Source-Explorer-srcexpl.vim',
-            \ 'CCTree' ,
-            \ 'trinity.vim' , 
-            \ 'a.vim' ,
-            \ 'cscope-menu',
-            \ 'gtags.vim',
-            \ 'c.vim' ,
-            \ 'tel.vim.git'
-            \ ]
-
-let g:ll_plugins['cpp'] = [
-            \ 'taglist.vim',
-            \ 'TagHihglight',
-            \ 'Source-Explorer-srcexpl.vim',
-            \ 'trinity.vim' , 
-            \ 'cscope-menu',
-            \ 'gtags.vim',
-            \ 'a.vim' ,
-            \ 'c.vim' ,
-            \ 'tel.vim.git'
-            \ ]
-
-let g:ll_plugins['java'] = [
-            \ 'taglist.vim',
-            \ 'TagHihglight',
-            \ 'Source-Explorer-srcexpl.vim',
-            \ 'trinity.vim' ,
-            \ 'tel.vim.git',
-            \ ]
-let g:ll_plugins['cs'] = [
-            \ 'csharp.vim'
-            \ ]
-
-let g:ll_plugins['html'] = [
-            \ 'mattn/zencoding-vim'
-            \ ]
-
-let g:ll_plugins['css'] = [
-            \ 'mattn/zencoding-vim'
-            \ ]
-let g:ll_plugins['tex'] = [
-            \ 'vim-latex'
-            \ ]
-let g:ll_plugins['csv'] = [
-            \ 'csv.vim'
-            \ ]
-let g:ll_plugins['js'] = [
-            \ 'vim-javascript-syntax'
-            \]
-let g:ll_plugins['python'] = [
-            \ 'jedi'
-            \]
-
-if has('vim_starting') && s:ipi_loaded
-    " lazy loading of each filetype
-    if exists("g:ll_plugins")
-        for k in keys(g:ll_plugins)
-            execute "augroup " . "MyIPI_" . k
-            execute "autocmd!"
-            execute "autocmd FileType " . k . " call LazyLoading('" . k . "')"
-            execute "augroup END"
-        endfor
-    endif
-
-    " lazy loading for vim-ref
-    nmap <silent> K :<C-u>silent! NeoBundleSource vim-ref<CR><Plug>(ref-keyword)
-    vmap <silent> K :<C-u>silent! NeoBundleSource vim-ref<CR><Plug>(ref-keyword)
-    command! -nargs=+ Ref
-                \ execute 'silent! NeoBundleSource vim-ref'
-                \ | call ref#ref(<q-args>)
-
-    " lazy loading for neocomplcache
-    augroup MyInitNeocomplcache
-        autocmd!
-        autocmd InsertEnter * call s:LazyLoadingForNeocom() | call Init_neocomplcache() | autocmd! MyInitNeocomplcache
-    augroup END
-    function! s:LazyLoadingForNeocom()
-        NeoBundleSource neocomplcache
-        NeoBundleSource neosnippet
-        NeoBundleSource neocomplcache-clang
-        NeoBundleSource neocomplcache-clang_complete
-        NeoBundleSource clang-complete
-        NeoBundleSource neco-look
-        NeoBundleSource neco-tweetvim
-        NeoBundleSource jedi
-    endfunction
-
-    " lazy loading for vim-quickrun
-    function! LoadQuickRun()
-        silent! NeoBundleSource vim-quickrun
-    endfunction
-    map <silent> <Leader>r :<C-u>call LoadQuickRun()<CR>:<Plug>(quickrun)<CR>
-    command! -nargs=* -range=0 QuickRun
-                \ call LoadQuickRun()
-                \ | call quickrun#command(<q-args>, <count>, <line1>, <line2>)
-endif
-
-
-command! Game call MyGame()
-
-function! MyGame()
-    NeoBundleSource 'mattn/invader-vim'
-    NeoBundleSource 'mattn/mahjong-vim'
-    NeoBundleSource 'sudoku_game'
-    NeoBundleSource 'mfumi/viminesweeper'
-    NeoBundleSource 'mfumi/snake.vim'
-endfunction
+" vim-ref{{{
+" lazy loading for vim-ref
+nmap <silent> K :<C-u>silent! <Plug>(ref-keyword)
+vmap <silent> K :<C-u>silent! <Plug>(ref-keyword)
+command! -nargs=+ Ref
+            \ execute 'silent! NeoBundleSource vim-ref'
+            \ | call ref#ref(<q-args>)
 " }}}
 
 " sequence {{{
@@ -1087,7 +1087,7 @@ let g:Powerline_symbols='fancy'
 " CCTree.vim:"{{{
 "
 if 1 && filereadable($DOTVIM . '/Bundle/CCTree/ftplugin/cctree.vim')
-    source $DOTVIM/Bundle/CCTree/ftplugin/cctree.vim
+    source $DOTVIM/bundle/CCTree/ftplugin/cctree.vim
 endif
 "}}}
 
@@ -1238,13 +1238,6 @@ function! MyPresenSetting()
     set wrap
     set showbreak=
 endfunction
-
-function! MyShowTime()
-    ShowtimeStart
-    call MyPresenSetting()
-    IndentGuidesDisable
-endfunction
-
 " }}}
 
 " surround.vim{{{
@@ -1256,12 +1249,6 @@ nmap <Leader>[ csw[
 nmap <Leader>] csw]
 nmap <Leader>' csw'
 nmap <Leader>" csw"
-" }}}
-
-" easymotion {{{
-let g:EasyMotion_keys = 'asdfghjkl'
-let g:EasyMotion_leader_key = ","
-let g:EasyMotion_grouping = 1
 " }}}
 
 " qfixhowm {{{
@@ -1276,15 +1263,6 @@ let QFixHowm_FileType = 'qfix_memo'
 " w3m.vim
 let g:w3m#homepage = 'http://www.google.co.jp/'
 
-" savevers.vim {{{
-:set patchmode=.clean
-:let savevers_types = "*"
-:let savevers_dirs = &backupdir
-" :nmap <silent> <F5> :VersDiff -<cr>
-" :nmap <silent> <F6> :VersDiff +<cr>
-" :nmap <silent> <F8> :VersDiff -c<cr>
-" }}}
-
 " rainbow_parentheses.vim{{{
 augroup Rainbow_parentheses
     autocmd!
@@ -1298,9 +1276,31 @@ augroup END
 " align.vim
 let g:Align_xstrlen=3
 
-" syntastic
+" syntastic{{{
 let g:syntastic_enable_signs=1
 let g:syntastic_auto_loc_list=2
+" }}}
 
+" Tweetvim-powerline-theme{{{
+" let g:Powerline_theme='default_with_tweetvim'
+" let g:Powerline_colorscheme='default_with_tweetvim'
+" }}}
+
+" Ruby {{{
+let s:bundle_rails = 'unite-rails unite-rails_best_practices unite-rake alpaca_complete'
+
+function! s:bundleLoadDepends(bundle_names) 
+  " bundleの読み込み
+  execute 'NeoBundleSource '.a:bundle_names
+  au! RailsLazyPlugins
+endfunction
+aug RailsLazyPlugins
+  au User Rails call <SID>bundleLoadDepends(s:bundle_rails)
+aug END
+" }}}
+
+" operator-replace {{{
+map R  <Plug>(operator-replace)
+" }}}
 "" ================================================================================ 
 " vim: set tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
