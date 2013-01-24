@@ -2,6 +2,8 @@
 
 ;; backup autosave
 ;; 変更ファイルのバックアップ
+(require 'auto-save-buffers)
+(run-with-idle-timer 5 t 'auto-save-buffers) 
 (setq make-backup-files nil)
 (setq auto-save-default nil)
 (add-to-list 'backup-directory-alist
@@ -27,7 +29,3 @@
     (setq bookmark-alist (cons latest (delq latest bookmark-alist))))
   (bookmark-save))
 (add-hook 'bookmark-after-jump-hook 'bookmark-arrange-latest-top)
-
-;; @ recentf-ext
-;;(global-set-key (kbd "C-;") 'recentf-open-files)
-

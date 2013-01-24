@@ -1,5 +1,4 @@
 ;;; 追加elisp関連
-
 (require 'cl)
 ;; @ package
 (when
@@ -22,7 +21,7 @@
                                         ;(add-to-list 'load-path "~/src/emacswikipages/" t)
 
 ;; 履歴を次回Emacs起動時にも保存する
-(require 'saveplace )
+(require 'saveplace)
 (savehist-mode t)
 
 ;; 最近使ったファイルに加えないファイルを正規表現で指定する
@@ -47,19 +46,13 @@
 ;;; @ emacs-lisp
 
 ;;; @ autoinsert
-(auto-insert-mode)
+(auto-insert-mode t)
 (setq auto-insert-directory "~/.emacs.d/templete")
 (define-auto-insert "\\.rb$" "template.rb")
 
 ;;; @ minor-mode-hack
 ;;; マイナーモード衝突問題を解決する
 (when (require 'minor-mode-hack nil t))
-;;; @ open-junk-file
-(require 'open-junk-file)
-(setq open-junk-file-formant "~/junk/%Y/%m-%d-%H%M%S.")
-
-(when (require 'sticky nil t)
-  (use-sticky-key ";" sticky-alist:ja))
 
 ;;; http://e-arrows.sakura.ne.jp/2010/02/vim-to-emacs.html
 ;; org-mode
@@ -100,20 +93,17 @@
   ;; M-x grep-findでPerlのackコマンドを使うよう変更
   (setq grep-find-command "ack --nocolor --nogroup "))
 
-;;; @ point-undo
-(when (require 'point-undo nil t)
-  (global-set-key (kbd "<f7>") 'point-redo)
-  (global-set-key (kbd "S-<f7>") 'point-redo))
-
 ;;; @ undohist 編集履歴の記憶
 (when (require 'undohist nil t)
   (undohist-initialize))
-(when (require 'auto-save-buffers nil t)
-  (run-with-idle-timer 5 t 'auto-save-buffers))
 
 ;;; @ undo-tree モードの設定
 (when (require 'undo-tree nil t)
   (global-undo-tree-mode))
+
+(when (require 'auto-save-buffers nil t)
+  (run-with-idle-timer 5 t 'auto-save-buffers))
+
 
 ;;; @ screen-lines 物理行で移動
 (when (require 'screen-lines)
@@ -129,16 +119,6 @@
 ;; @ yasnippet
 (when (require 'yasnippet-config nil t)
   (yas/setup "~/.emacs.d/elisp/yasnippet-0.6.1c"))
-
-;;; @ summarye 関数一覧表示
-(require 'summarye nil t)
-
-;;; @ magit 色変更
-(when (require 'magit nil t)
-  (set-face-foreground 'magit-diff-add "#b9ca4a") ; 追加した部分を緑に
-  (set-face-foreground 'magit-diff-del "#d54e53")  ; 削除した 部分を赤に
-  (set-face-background 'magit-item-highlight "#000000") ; 選択項目ハイライトがうっとうしいので背景色と同化
-  )
 
 (when (require 'redo+ nil t)
   (global-set-key (kbd  "C-.") 'redo))
@@ -169,24 +149,7 @@
               (set (make-local-variable 'eldoc-minor-mode-string) "")
               (c-turn-on-eldoc-mode))))
 
-;;(print-to-string emacs-lisp-mode-hook)
-;;; *grep*で編集できるようにする
-(when (require 'grep-edit nil t)
-  (add-hook 'grep-setup-hook
-            (lambda ()
-              (define-key grep-mode-map
-                (kbd "C-c C-c") 'grep-edit-finish-edit))))
-
 (require 'hideshow nil t)
-
-;;; @ goto-chg 編集箇所に順にジャンプ
-(require 'goto-chg nil t)
-(global-set-key [f5] 'backupgoto-last-change)
-(global-set-key [S-f5] 'goto-last-cha-rverse)
-
-;; grep結果バッファでのカーソル移動でダイナミックにファイルを開いてくれる
-(when (require 'color-grep nil t)
-  (setq color-grep-sync-kill-buffer t))
 
 ;; @ e2wm
 ;; http://d.hatena.ne.jp/kiwanami/20100528/1275038929
@@ -335,37 +298,12 @@
   (add-hook 'lisp-mode-hook 'rainbow-delimiters-mode)
   (add-hook 'ielm-mode-hook 'rainbow-delimiters-mode))
 
-;;; @ helm
-(require 'helm-config nil t)
-
 ;;; @ smartchr.el
 ;; http://tech.kayac.com/archive/emacs-tips-smartchr.html
 (require 'smartchr nil t)
 (global-set-key (kbd "=") (smartchr '(" = "  " == " "=")))
 
-;;; @ shell-pop
-(when  (require 'shell-pop nil t)
-  (shell-pop-set-internal-mode "ansi-term")
-  (shell-pop-set-internal-mode-shell "/bin/zsh")
-  (shell-pop-set-window-height 50)
-  (defvar ansi-term-after-hook nil)
-  (defadvice ansi-term (after ansi-term-after-advice (arg))
-    "run hook as after advice"
-    (run-hooks 'ansi-term-after-hook))
-  (ad-activate 'ansi-term))
-
-;;; @ guide-key
-(when (require 'guide-key nil t )
-  (setq guide-key/guide-key-sequence '("C-x r" "C-x 4"))
-  (setq guide-key/highlight-command-regexp "rectangle")
-  (guide-key-mode 1))  ; guide-key-mode を有効にする
-
-(defun guide-key/my-hook-function-for-org-mode ()
-  (guide-key/add-local-guide-key-sequence "C-c")
-  (guide-key/add-local-guide-key-sequence "C-c C-x")
-  (guide-key/add-local-highlight-command-regexp "org-"))
-
-(add-hook 'org-mode-hook 'guide-key/my-hook-function-for-org-mode)
+;;; @ C/C++
 (add-hook 'c-mode-common-hook
           '(lambda ()
              ;; センテンスの終了である ';' を入力したら、自動改行+インデント
@@ -380,12 +318,6 @@
     (fixup-whitespace)
     (backward-char)))
 
-;;; @ menu-tree
-(if (and (= emacs-major-version 22)
-         (eq window-system 'x))
-    (setq menu-tree-coding-system 'utf-8))
-(require 'menu-tree)
-
 ;;; @ bongo
 ;;; http://pastelwill.jp/wiki/doku.php?id=emacs#bongo_itunes_の代わりに_emacs_を使う
 (add-to-load-path "elisp/bongo/")
@@ -399,35 +331,6 @@
      "/Applications/VLC.app/Contents/MacOS")
    'exec-path)
   (setq bongo-enabled-backends '(mplayer)))
-
-;;; suggest-restart
-(when (require 'suggest-restart nil t)
-  (suggest-restart t))
-
-;;; @ simplenote
-;;; http://blog.serverworks.co.jp/tech/2010/06/30/emacs-iphone-simplenote-and-vuvuzela/
-(when (require 'simplenote nil t)
-  ;;  (setq simplenote-email “email@company.com”) ; ログイン用メールアドレス
-  ;;  (setq simplenote-password “yourpassword”) ; ログイン用パスワード
-  ;; (setq simplenote-directory “ディレクトリパス”)
-  ;;  (simplenote-setup)
-  )
-
-(when (require 'midnight nil t)
-  (setq clean-buffer-list-buffer-names
-        (append clean-buffer-list-kill-buffer-names
-                '("note.txt")))
-  (setq clean-buffer-list-delay-general 1)
-  (setq clean-buffer-list-delay-special 10))
-
-(when (require 'cycle-buffer nil t)
-  (eval-after-load "cycle-buffer"
-    '(progn
-       (setq cycle-buffer-allow-visible t)
-       (setq cycle-buffer-show-length 12)
-       (setq cycle-buffer-show-format '(" <(%s)>" . " %s"))))
-  (global-set-key (kbd "M-]") 'cycle-buffer)
-  (global-set-key (kbd "M-[") 'cycle-buffer-backward))
 
   ;;; 日本語マニュアル
 (add-to-list 'Info-directory-list "~/.emacs.d/info")
