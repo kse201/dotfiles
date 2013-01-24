@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 21-Jan-2013.                 |
+"                 Last Change: 24-Jan-2013.                 |
 "============================================================
 autocmd MyAutoCmd BufWritePost $MYVIMRCPLUGIN  source $MYVIMRC |
             \ if has('gui_running') |
@@ -40,13 +40,13 @@ NeoBundle 'Shougo/vimproc', {'build' : {
             \ ' unix'   : 'make -f make_unix.mak',
             \ },
             \}
-NeoBundle 'mattn/webapi-vim'
-NeoBundle 'basyura/twibill.vim'
-NeoBundle 'basyura/bitly.vim'
+NeoBundleLazy 'mattn/webapi-vim'
+NeoBundleLazy 'basyura/twibill.vim'
+NeoBundleLazy 'basyura/bitly.vim'
 " }}}
 " Plugin管理 {{{
 NeoBundle 'Shougo/neobundle.vim'
-NeoBundle 'jceb/vim-ipi'
+NeoBundleLazy 'jceb/vim-ipi'
 NeoBundleLazy 'tpope/vim-pathogen'
 " }}}
 " ドキュメント管理 {{{
@@ -75,11 +75,12 @@ NeoBundleLazy 'davidhalter/jedi',
             \ { 'autoload' :{ 'filetype' : 'jedi'}}
 " }}}
 " ファイラ {{{
-NeoBundleLazy 'scrooloose/nerdtree'
+NeoBundleLazy 'scrooloose/nerdtree',
+            \{ 'autoload' : {'commands' : ['NERDTreeToggle','NERDTree']}}
 NeoBundleLazy 'Shougo/vimfiler',
             \ { 'depends' : 'Shougo/unite.vim' ,
             \ 'autoload' : {'commands' : ['VimFilerCurrentDir', 'VimFilerDouble']}}
-NeoBundle 'kien/ctrlp.vim'
+NeoBundleLazy 'kien/ctrlp.vim'
 " }}}
 " 入力補助 {{{
 NeoBundle 'kana/vim-smartchr'
@@ -152,7 +153,9 @@ NeoBundleLazy 'basyura/TweetVim' ,
             \ 'mappings' : ['<Plug>(tweetvim_action_enter)' , '<Plug>(tweetvim_action_retweet)','<Plug>(tweetvim_action_page_next)','<Plug>(tweetvim_action_page_previous)']
             \}}
 NeoBundle 'delphinus35/TweetVim-powerline-theme'
-NeoBundle 'mattn/calendar-vim'
+NeoBundleLazy 'mattn/calendar-vim' ,
+            \{'autoload' : 
+            \{'commands' : ['Calendar']}}
 NeoBundleLazy 'thinca/vim-quickrun',
             \{ 'autoload' : {
             \'mappings' : ['<Plug>(quickrun)'],
@@ -177,8 +180,10 @@ NeoBundle 'thinca/vim-fontzoom'
 NeoBundle 'MultipleSearch'
 NeoBundleLazy 'csv.vim' ,
             \{ 'autoload' : {'filetype' : 'csv'}}
-NeoBundle 'yuratomo/w3m.vim'
-NeoBundle 'sjl/gundo.vim'
+NeoBundleLazy 'yuratomo/w3m.vim'  ,
+            \{ 'autoload' : {'commands' : ['W3m']}}
+NeoBundleLazy 'sjl/gundo.vim' ,
+            \{'autoload' : {'commands' : ['GundoToggle']}}
 NeoBundleLazy 'vim-scripts/RltvNmbr.vim'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'yuratomo/gmail.vim'
@@ -206,7 +211,8 @@ NeoBundleLazy 'vim-scripts/teol.vim.git' ,
             \{'autoload' : { 'filetype' : ['c', 'cpp','java']}}
 " }}}
 " Ruby {{{
-NeoBundle 'tpope/vim-rails'
+NeoBundleLazy 'tpope/vim-rails' , {
+            \'autoload' : {'filetype' : ['ruby']} }
 NeoBundleLazy 'taichouchou2/alpaca_complete', {
       \ 'depends' : 'tpope/vim-rails',
       \ 'build' : {
@@ -227,7 +233,7 @@ NeoBundleLazy 'ruby-matchit', {
     \ 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] } }
 " }}}
 " tex {{{
-" NeoBundleLazy 'jcf/vim-latex'
+NeoBundleLazy 'jcf/vim-latex'
 " }}}
 " 見た目 {{{
 NeoBundle 'wombat256.vim'
@@ -363,11 +369,6 @@ let g:neoComplCache_keyword_patterns['default'] = '\h\w*'
 " init neocomplcache {{{
 function! Init_neocomplcache()
     NeoComplCacheEnable
-    imap <expr><C-k>   neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<C-n>"
-    smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-
-    imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-    smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
     " 候補の共通箇所まで補完する
     inoremap <expr><C-l> neocomplcache#complete_common_string()
     " 決定
@@ -388,20 +389,15 @@ function! Init_neocomplcache()
     " ネオコン設定変更操作
     " スニペットを編集する
     noremap <Leader>es :<C-u>vertical belowright NeoComplCacheEditSnippets<CR>
-    " <TAB>: completion.
-    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 endfunction
 " }}}
 " Term neocomplcache{{{
 function! Term_neocomplcache()
     NeoComplCacheDisable
-    iunmap <C-k>
-    sunmap <C-k>
     iunmap <C-g>
     iunmap <C-l>
     iunmap <C-q>
     iunmap <CR>
-    iunmap <TAB>
     iunmap <C-h>
     iunmap <BS>
     iunmap <C-y>
@@ -442,16 +438,8 @@ endif
 " let g:NeoComplCache_SnippetsDir = $VIMFILE_DIR.'/snippets'
 let g:neosnippet#snippets_directory= $VIMFILE_DIR . '/snippets'
 
-
-" カーソル前の文字列がスニペットのトリガであるなら、スニペットを展開する
-imap <expr><C-k>   neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : "\<C-n>"
-"<TAB>でスニペット補完
-if g:neocomplcache_enable_at_startup
-    imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_jump_or_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-endif
-
-" スニペットで単語が選択されている場合でも <Tab> で次のプレースホルダへ移動する
-vmap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_jump_or_expand)" : "\<Tab>"
+	imap <expr><TAB> neosnippet#expandable_or_jumpable() ?   "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+	smap <expr><TAB> neosnippet#expandable_or_jumpable() ?  "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 " }}}
 
 " yankring{{{
@@ -726,7 +714,7 @@ vmap <Leader><Leader> <Plug>NERDCommenterToggle
 " }}}
 
 " nerdtree{{{
-nmap <F12> :NERDTree<CR>
+nnoremap <F11> :NERDTreeToggle<CR>
 " }}}
 
 " QuickRun.vim{{{
@@ -795,7 +783,8 @@ try
     " }}}
     " TeX{{{
     let g:quickrun_config['tex']={
-                \ 'command' : '~/Library/TeXShop/bin/platex2pdf-euc',
+                \ 'type' : 'tex',
+                \ 'command' : 'platex2pdf-euc',
                 \ 'outputer' : '',
                 \ 'exec' : ['%c -output-directory %s:h %s' , 'open %s:r.pdf']
                 \}

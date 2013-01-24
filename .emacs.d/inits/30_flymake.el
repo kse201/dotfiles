@@ -143,5 +143,8 @@
     (display-error-message))
   (defadvice flymake-goto-next-error (after flymake-goto-next-error-display-message)
     (display-error-message))
+  (defadvice flymake-post-syntax-check (before flymake-force-check-was-interrupted)
+  (setq flymake-check-was-interrupted t))
+  (ad-activate 'flymake-post-syntax-check)
   (ad-activate 'flymake-goto-prev-error 'flymake-goto-prev-error-display-message)
   (ad-activate 'flymake-goto-next-error 'flymake-goto-next-error-display-message))

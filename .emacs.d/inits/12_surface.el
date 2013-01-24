@@ -126,15 +126,8 @@
 ;; isearchのハイライトの反応を良くする
 (setq isearch-lazy-highlight-initial-delay 0)
 
-;;; 透過設定
-(setq default-frame-alist
-      (append
-       (list
-        '(alpha . (95 40))
-        ) default-frame-alist))
-
 ;; スクラッチバッファの初期メッセージ消去
-(setq initial-scratch-message "")
+(setq initial-scratch-message "Scratch\n========\n\n")
 
 ;; 対応する括弧を光らせる
 (require 'paren)

@@ -17,6 +17,7 @@
         ( "C-x C-f" . anything-find-files)
         ("C-x g" . anything-imenu)
         ("TAB" . anything-lisp-completion-at-point-or-indent)
+        ("C-M-z" . anything-resume)
         ("C-x C-o" . other-window)))
     (define-many-keys anything-map
       '(("C-z" . nil)

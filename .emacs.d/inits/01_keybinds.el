@@ -35,6 +35,7 @@
     ("M-n" . scroll-up)
     ("M-g" . goto-line)
     ("C-M-h" . delete-horizontal-space)
+    ("M-f" . forward-word)
     ))
 
 (windmove-default-keybindings)
@@ -53,11 +54,11 @@
 
 ;; 行頭のC-k一回で行全体を削除
 (setq kill-whole-line t)
+(iswitchb-mode 1)
 ;; C-x b でbuffersを選ぶとき便利
 (if (string-match "^23\." emacs-version)
     (iswitchb-default-keybindings))
 ;; C-x,bでバッファリストをミニバッファに表示する
-(iswitchb-mode 1)
 (setq read-buffer-function 'iswitchb-read-buffer) ; バッファ読み取り関数をiswitchbにする
 (setq iswitchb-regexp nil)              ; 部分文字列の代わりに正規表現を使う場合はt
 (setq iswitchb-prompt-newbuffer nil)    ; 新しいバッファを作成するときにいちいち聞いてこない

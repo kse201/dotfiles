@@ -4,8 +4,8 @@
   (require 'fuzzy nil t)
   (setq popup-use-optimized-column-computation nil)
   (setq ac-ignore-case 'smart)               ; 大文字が含まれている場合のみ、大文字/小文字を区別する
-  ;;  (ac-set-trigger-key "TAB")
-  (define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
+  ;;(ac-set-trigger-key "TAB")
+  (global-set-key (kbd "M-TAB") 'auto-complete)
   (setq ac-use-menu-map t)
   (setq ac-auto-start t)
   (global-auto-complete-mode 1)

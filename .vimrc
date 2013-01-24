@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 21-Jan-2013.                 |
+"                 Last Change: 22-Jan-2013.                 |
 "============================================================
 
 " 基礎的な設定 {{{
@@ -86,8 +86,7 @@ endif
 nnoremap <Leader>ev :edit $MYVIMRC<CR>
 nnoremap <Leader>eg :edit $MYGVIMRC<CR>
 nnoremap <Leader>ep :edit $MYVIMRCPLUGIN<CR>
-nnoremap <Leader>em :edit $DROPBOX_DIR/documents/memo/memo.memo<CR>
-nnoremap <Leader>eM :edit $DROPBOX_DIR/documents/memo<CR>
+nnoremap <Leader>em :edit $DROPBOX_DIR/documents/memo<CR>
 " }}}
 
 " Auto Loading .vimrc,.gvimrc {{{
@@ -683,6 +682,7 @@ let g:FileTypeSettings = [
             \ "html", 
             \ "php",
             \ "markdown",
+            \ "tex",
             \]
 for MyFileType in g:FileTypeSettings
     execute "autocmd MyAutoCmd FileType " . MyFileType . " call My" . MyFileType . "Settings()"
@@ -722,14 +722,14 @@ function! MycppSettings()
     set dictionary+=$HOME/.vim/dict/cpp.dict
 endfunction
 " }}}
-" cs
+" cs {{{
 function! MycsSettings()
     call MycSettings()
     set fdl = 3
 endfunction
-"
+"}}}
 " tex{{{
-function! MylatexSettings()
+function! MytexSettings()
     set dictionary=$HOME/.vim/dict/tex.dict
     set sw=2
     set tw=70
@@ -747,6 +747,7 @@ function! MylatexSettings()
     nnoremap <buffer> <F6> :<C-u>!dvipdfmx %<<CR>
     nnoremap <buffer> <F7> :<C-u>!open %<.pdf<CR>
     nmap <buffer> <Leader>make <F5><F6><F7>
+
 endfunction
 " }}}
 " opjc{{{

@@ -1,7 +1,7 @@
 ;;
 ;; init.el
 ;;
-;; Last Change: 20-Jan-2013.
+;; Last Change: 23-Jan-2013.
 ;;
 ;;;------------------------------
 (eval-when-compile (require 'cl))
@@ -116,15 +116,17 @@
   (let ((ip (some #'machine-ip-address *network-interface-names*)))
     (and ip
          (eq 0 (string-match "^172\\.16\\.1\\." ip)))))
-(if (officep)
-    (progn
-      (setq url-proxy-services '(("http" . "172.16.1.1:3128")))
+(defun proxy-settting ()
+  (interactive)
+  (if (officep)
+      (progn
+        (setq url-proxy-services '(("http" . "172.16.1.1:3128")))
                                         ;(setq w3m-command-arguments
                                         ;     (nconc w3m-command-arguments
                                         ;     '("-o" "http_proxy=http://172.16.1.1:3128/")))
-      )
-  (progn
-    (setq url-proxy-services nil)))
+        )
+    (progn
+      (setq url-proxy-services nil))))
 ;; C-a でインデントで飛ばした行頭に移動
 ;; http://e-arrows.sakura.ne.jp/2010/02/vim-to-emacs.html
 (defun my-beginning-of-indented-line (current-point)

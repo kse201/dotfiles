@@ -318,8 +318,7 @@
 ;;; @ color-theme (emacs 23)
 (if (string-match "^23\." emacs-version)
     (when (require 'color-theme nil t)
-      (require 'color-theme-molokai)
-      (color-theme-molokai)
+      (color-theme-xemacs)
       ))
 
 ;;; @ newsticker
@@ -434,21 +433,22 @@
 (add-to-list 'Info-directory-list "~/.emacs.d/info")
 
 ;;; @ popwin
-(setq pop-up-windows nil)
+(setq pop-up-windows t)
 (when (require 'popwin nil t)
   (setq anything-samewindow nil)
   (setq display-buffer-function 'popwin:display-buffer)
-  (push '("anything" :regexp t :height 20) popwin:special-display-config) ;anything
-  (push '("*Completions*" :height 0.4) popwin:special-display-config)
-  (push '("*complilation*" :height 0.4 :noselect t :stick t ) popwin:special-display-config)
-  (push '("*.**" :height 0.4 :noselect t :stick t :regexp t) popwin:special-display-config)
-  (push '(dired-mode :position top) popwin:special-display-config)  ;dired
-  (push '("*Backtrace*" :height 0.4 :noselect t) popwin:special-display-config)
-  (push '(fundamental-mode :height 0.4 :noselect t) popwin:special-display-config)
-  (push '(typeset-mode :height 0.4 :noselect t) popwin:special-display-config)
-  (push '(" *auto-async-byte-compile*" :height 0.2 :position bottom :noselect t :regexp t) popwin:special-display-config)
-  (push '("*YaTeX-typesetting*" :height 0.2 :position bottom :noselect t) popwin:special-display-config)
-  (push '("*VC-log*" :height 10 :position bottom) popwin:special-display-config)
+  (setq popwin:popup-window-height 0.4)
+  (setq popwin:popup-window-position 'bottom)
+  (push '("anything" :regexp t :height 40) popwin:special-display-config ) ;anything
+  (push '("*Completions*" ) popwin:special-display-config )
+  (push '("*complilation*" :noselect t :stick t ) popwin:special-display-config )
+  (push '(dired-mode :position top) popwin:special-display-config ) ;dired
+  (push '("*Backtrace*" :noselect t) popwin:special-display-config )
+  (push '(fundamental-mode  :noselect t) popwin:special-display-config )
+  (push '(typeset-mode :noselect t) popwin:special-display-config )
+  (push '(" *auto-async-byte-compile*"  :position bottom :noselect t :height 0.1 :stick nil) popwin:special-display-config )
+  (push '("*YaTeX-typesetting*" :position bottom :noselect t) popwin:special-display-config )
+  (push '("*VC-log*" :position bottom) popwin:special-display-config )
   )
 
 ;;; @ egg

@@ -3,14 +3,14 @@
   (require 'cl)
   (require 'tabbar-extension)
 
-  ;; scratch buffer以外をまとめてタブに表示する
+  ;; まとめてタブに表示する
   (setq tabbar-buffer-groups-function nil)
   (setq tabbar-buffer-list-function
         (lambda ()
           (remove-if
            (lambda(buffer)
              (unless (string-match (buffer-name buffer)
-                                   "\\(*Apropos*\\|*shell*\\|*eshell*\\|*Customize*\\)")
+                                   "\\(*Apropos*\\|*shell*\\|*eshell*\\|*Customize*\\|*scratch*\\*w3m*)")
                (find (aref (buffer-name buffer) 0) " *")))
            (buffer-list))))
 
@@ -58,19 +58,8 @@
   (setq tabbar-select-tab-function 'my-tabbar-buffer-select-tab)
 
   ;; ctrl-tab, ctrl-shift-tab でタブを切り替える
-  (dolist (func '(tabbar-mode tabbar-forward-tab tabbar-forward-group tabbar-backward-tab tabbar-backward-group))
-    (autoload func "tabbar" "Tabs at the top of buffers and easy control-tab navigation"))
-  (defmacro defun-prefix-alt (name on-no-prefix on-prefix &optional do-always)
-    `(defun ,name (arg)
-       (interactive "P")
-       ,do-always
-       (if (equal nil arg)
-           ,on-no-prefix
-         ,on-prefix)))
-  (defun-prefix-alt shk-tabbar-next (tabbar-forward-tab) (tabbar-forward-group) (tabbar-mode 1))
-  (defun-prefix-alt shk-tabbar-prev (tabbar-backward-tab) (tabbar-backward-group) (tabbar-mode 1))
-  (global-set-key [(control tab)] 'shk-tabbar-next)
-  (global-set-key [(control shift tab)] 'shk-tabbar-prev)
+  (global-set-key [(control tab)] 'tabbar-forward-tab)
+  (global-set-key [(control shift tab)] 'tabbar-backward-tab)
 
   ;; タブ上でマウスホイール操作無効
   (tabbar-mwheel-mode -1)
