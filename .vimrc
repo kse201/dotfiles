@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 22-Jan-2013.                 |
+"                 Last Change: 29-Jan-2013.                 |
 "============================================================
 
 " 基礎的な設定 {{{
@@ -108,6 +108,7 @@ autocmd MyAutoCmd BufWritePost $MYVIMRC  source $MYVIMRC  |
             \ if has('gui_running') |
             \ source $MYGVIMRC
 autocmd MyAutoCmd BufWritePost $MYGVIMRC source $MYGVIMRC
+autocmd MyAutoCmd BufWritePost $MYVIMRCPLUGIN source $MYGVIMRC
 " }}}
 
 " Auto delete line-end Space{{{
@@ -131,7 +132,6 @@ endif
 
 " Auto Change dir{{{
 set tags+=~/.tags,**/tags
-" set tags=./tags,./../tags,./*/tags,./../../tags,./../../../tags,./../../../../tags,./../../../../../tags
 if has('win32') || has('win64')
     au MyAutoCmd BufEnter * execute ":lcd " . escape(expand("%:p:h")," #")
 else
@@ -223,7 +223,7 @@ endif
 set notitle
 set display=uhex
 set scrolloff=1
-set showbreak=+++
+set showbreak=>\ >\ >
 set display=lastline
 set laststatus=2
 set wrap
@@ -243,7 +243,6 @@ set shiftwidth=4
 set tabstop=4
 " }}}
 
-set listchars=tab:>-,trail:-,nbsp:-,extends:>,precedes:<,
 " ステータスライン設定 (vim-powerlineで用なしに)
 " autocmd MyAutoCmd BufEnter *   if winwidth(0) >= 60 |
 " \ set statusline=[%n]\ %t\ %m%R%H%W%y\ %([%{&fenc}][%{&ff}]%)\ %([%l(%p%%),%v]%)(%B)\ |
@@ -412,6 +411,12 @@ set smartcase
 set incsearch
 set showmatch
 set nowrapscan
+
+augroup Help
+    autocmd!
+    autocmd Filetype vim nnoremap <buffer><silent> K :<C-u>help<Space><C-r><C-w><CR> " カーソル下の単語をhelp検索
+    autocmd filetype vim vnoremap <buffer><silent> K "vy:<C-u>help<Space><C-r>=substitute(escape(@v,'\/'),"\n",'\\n','g')<CR><CR> "選択中単語をhelp検索
+augroup END
 " }}}
 
 " キーマップ{{{
@@ -430,6 +435,8 @@ nnoremap zh zH
 
 " http://d.hatena.ne.jp/vimtaku/touch/20121117/1353138802
 nnoremap <S-J> gJ
+vnoremap <S-J> gJ
+nnoremap gJ <S-J>
 nnoremap gJ <S-J>
 
 
@@ -657,13 +664,6 @@ nnoremap <expr> <Space>g ':vimgrep /\<' . expand('<cword>') . '\>/j **/*.' . exp
 nnoremap <expr> <Space>G ':sil grep! ' . expand('<cword>') . ' *'
 " }}}
 
-" Plugin{{{
-" if filereadable(expand('~/.vimrc.plugin'))
-if filereadable(expand($MYVIMRCPLUGIN))
-    source $MYVIMRCPLUGIN
-endif
-" }}}
-
 " 言語別設定 {{{
 " Prefix{{{
 let g:FileTypeSettings = [
@@ -746,6 +746,7 @@ function! MytexSettings()
     nnoremap <buffer> <F5> :<C-u>!platex-euc %<CR>
     nnoremap <buffer> <F6> :<C-u>!dvipdfmx %<<CR>
     nnoremap <buffer> <F7> :<C-u>!open %<.pdf<CR>
+    nmap <buffer> <F10> <F5><F6><F7>
     nmap <buffer> <Leader>make <F5><F6><F7>
 
 endfunction
@@ -792,11 +793,13 @@ function! MyrubySettings()
     let g:ref_use_vimproc=1
     let g:ref_refe_version=2
     nmap ,rr :<C-u>Ref refe<Space>
-if filereadable(expand('~/rtags'))
-  au FileType ruby,eruby setl tags+=~/rtags,~/gtags
-endif
-compiler ruby
-let ruby_space_errors=1 
+    let g:rsenseUseOmniFunc=1
+    let g:rsenseHome = "/usr/local/Cellar/rsense/0.3/libexec"
+    if filereadable(expand('~/rtags'))
+        au FileType ruby,eruby setl tags+=~/rtags,~/gtags
+    endif
+    compiler ruby
+    let ruby_space_errors=1 
 endfunction
 " }}}
 " Lisp{{{
@@ -1169,9 +1172,24 @@ function! MyFollowMode()
     :set scrollbind
 endfunction
 " }}}
+
+" Vimで番号を順番につける方法 {{{
+" http://mba-hack.blogspot.jp/2013/01/vim.html?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed:+Mba-hack+(MBA-HACK)
+nnoremap <silent> co :ContinuousNumber <C-a><CR>
+vnoremap <silent> co :ContinuousNumber <C-a><CR>
+command! -count -nargs=1 ContinuousNumber let c = col('.')|for n in range(1, <count>?<count>-line('.'):1)|exec 'normal! j' . n . <q-args>|call cursor('.', c)|endfor
 " }}}
+" }}}
+
+" Plugin{{{
+" if filereadable(expand('~/.vimrc.plugin'))
+if filereadable(expand($MYVIMRCPLUGIN))
+    source $MYVIMRCPLUGIN
+endif
+" }}}
+
 
 set timeout timeoutlen=500 ttimeoutlen=75
 
 "============================================================
-" vim:set tabstop=4 shiftwidth=4 fdm=marker fdl=0: 
+" vim:set tw=0 tabstop=4 shiftwidth=4 fdm=marker fdl=0: 
