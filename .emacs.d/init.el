@@ -1,7 +1,7 @@
 ;;
 ;; init.el
 ;;
-;; Last Change: 23-Jan-2013.
+;; Last Change: 27-Jan-2013.
 ;;
 ;;;------------------------------
 (eval-when-compile (require 'cl))
@@ -33,7 +33,7 @@
 (defun edit-init ()
   "edit init.el"
   (interactive)
-  (find-file "~/.emacs.d/init.el"))
+  (find-file "~/.emacs.d"))
 ;;; scratch開く
 (defun edit-scratch ()
   "edit *scratch*"

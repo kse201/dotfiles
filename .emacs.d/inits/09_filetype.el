@@ -53,3 +53,17 @@
  'emacs-lisp-mode-hook
  (lambda ()
    (setq indent-tabs-mode nil)))
+
+;;  markdown
+;; from http://support.markedapp.com/kb/how-to-tips-and-tricks/marked-bonus-pack-scripts-commands-and-bundles
+ 
+(defun markdown-preview-file ()
+  "run Marked on the current file and revert the buffer"
+  (interactive)
+  (shell-command
+   (format "open -a /Applications/Marked.app %s"
+       (shell-quote-argument (buffer-file-name))))
+)
+(add-hook 'markdown-mode
+          (lambda ()
+            (global-set-key "\C-cc" 'markdown-preview-file)))

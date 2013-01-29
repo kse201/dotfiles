@@ -148,3 +148,7 @@
   (ad-activate 'flymake-post-syntax-check)
   (ad-activate 'flymake-goto-prev-error 'flymake-goto-prev-error-display-message)
   (ad-activate 'flymake-goto-next-error 'flymake-goto-next-error-display-message))
+
+
+(add-hook 'python-mode-hook 'flycheck-mode)
+(add-hook 'LaTeX-mode 'flycheck-mode)

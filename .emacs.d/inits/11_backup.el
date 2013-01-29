@@ -2,8 +2,8 @@
 
 ;; backup autosave
 ;; 変更ファイルのバックアップ
-(require 'auto-save-buffers)
-(run-with-idle-timer 5 t 'auto-save-buffers) 
+;(require 'auto-save-buffers)
+;(run-with-idle-timer 5 t 'auto-save-buffers) 
 (setq make-backup-files nil)
 (setq auto-save-default nil)
 (add-to-list 'backup-directory-alist

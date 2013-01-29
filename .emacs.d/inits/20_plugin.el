@@ -217,13 +217,29 @@
 (autoload 'inf-ruby-keys "inf-ruby"
   "Set local key defs for inf-ruby in ruby-mode")
 
+
+
+
+
+;; http://tcnksm.sakura.ne.jp/blog/2012/05/07/emacs-%E3%81%A7-ruby-%E3%81%AE%E5%85%A5%E5%8A%9B%E8%87%AA%E5%8B%95%E8%A3%9C%E5%AE%8C%E3%81%A8%E3%83%AA%E3%83%95%E3%82%A1%E3%83%AC%E3%83%B3%E3%82%B9%E3%81%AE%E8%A1%A8%E7%A4%BA/
+((when require 'rsense nil t)
+(setq rsense-home "~/.emacs.d/opt/rsense-0.3")
+(add-to-list 'load-path (concat rsense-home "/etc"))
+(add-hook 'ruby-mode-hook
+          '(lambda ()
+             ;; .や::を入力直後から補完開始
+             (add-to-list 'ac-sources 'ac-source-rsense-method)
+             (add-to-list 'ac-sources 'ac-source-rsense-constant)
+             ;; C-x .で補完出来るようキーを設定
+             (define-key ruby-mode-map (kbd "C-x .") 'ac-complete-rsense)))
+
 ;; ruby-mode-hook用の関数を定義
 (defun ruby-mode-hooks ()
   (inf-ruby-keys)
   (ruby-electric-mode t)
   (ruby-block-mode t))
 (add-hook 'ruby-mode-hook 'ruby-mode-hooks) ; ruby-mode-hookに追加
-
+)
 ;; 再帰的にgrep
 ;; http://www.clear-code.com/blog/2011/2/16.html
 (require 'grep nil t)
