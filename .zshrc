@@ -2,7 +2,7 @@
 # http://www.clear-code.com/blog/2011/9/5.html
 
 # export PATH=$PATH:~/myshellscript:/opt/local/:~/local/bin/:~/git-tasukete/ ## macport削除前
-export PATH=/usr/local/bin:/usr/local/sbin:$PATH:~/myshellscript:~/local/bin/:~/git-tasukete/: #LANG
+export PATH=/usr/texbin/:/usr/local/bin:/usr/local/sbin:$PATH:~/myshellscript:~/local/bin/:~/git-tasukete/: #LANG
 export LANG=ja_JP.UTF-8
 export LESSCHARSET=utf-8
 
@@ -14,10 +14,12 @@ setopt hist_reduce_blanks #スペース排除
 setopt EXTENDED_HISTORY #zshの開始,終了時刻を記録
 unsetopt hist_verify # ヒストリを呼び出してから実行する間いｎ一旦編集可能を止める
 setopt hist_expand # 補完時にヒストリを自動的に展開 
-export HISTIGNORE="ls:cd:history:fg*" # よく使うコマンドを保存しない
+export HISTIGNORE="ls *:cd:history:fg*:history-all" # よく使うコマンドを保存しない
 setopt hist_ignore_space # スペースで始まるコマンドはヒストリに追加しない
+setopt HIST_EXPIRE_DUPS_FIRST
 setopt inc_append_history # すぐにヒストリに追記する
 setopt share_history # zshプロセス間でヒストリを共有する
+function history-all { history -E 1 } # 全履歴の一覧を出力する
 HISTTIMEFORMAT='%Y%m%d %T';
 export HISTTIMEFORMAT
 
@@ -268,7 +270,11 @@ LISTMAX=0
 export LISTMAX
 
 # ディレクトリ名だけでcd
-setopt auto_cd
+setopt auto_cd auto_remove_slash auto_name_dirs
+
+setopt extended_history hist_ignore_dups hist_ignore_space prompt_subst
+setopt extended_glob list_types no_beep always_last_prompt
+setopt cdable_vars sh_word_split auto_paren_keys pushd_ignore_dups
 
 # cdの履歴関連
 setopt auto_pushd
@@ -287,8 +293,10 @@ setopt list_packed
 autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
-bindkey "^P" history-beginning-search-backward-end
-bindkey "^N" history-beginning-search-forward-end
+
+bindkey -e
+bindkey '^P' history-beginning-search-backward-end
+bindkey '^N' history-beginning-search-forward-end
 
 # eval `dircolors $HOME/.dir_colors`
 # lsのカラー化
@@ -380,3 +388,15 @@ zstyle ':completion:*' ignore-parents parent pwd ..
 perl -wle \
     'do { print qq/(setenv "$_" "$ENV{$_}")/ if exists $ENV{$_} } for @ARGV' \
     PATH > ~/.emacs.d/shellenv.el
+
+# クリップボードにコピー
+if which pbcopy >/dev/null 2>&1 ; then 
+    # Mac  
+    alias -g C='| pbcopy'
+elif which xsel >/dev/null 2>&1 ; then 
+    # Linux
+    alias -g C='| xsel --input --clipboard'
+elif which putclip >/dev/null 2>&1 ; then 
+    # Cygwin 
+    alias -g C='| putclip'
+fi

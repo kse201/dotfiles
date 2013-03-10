@@ -393,7 +393,7 @@
 ;; ブロックの折畳みと展開
 ;; http://www.dur.ac.uk/p.j.heslin/Software/Emacs/Download/fold-dwim.el
 (when (require 'fold-dwim nil t)
-  (require 'hideshow nil t)
+j  (require 'hideshow nil t)
   ;; 機能を利用するメジャーモード一覧
   (let ((hook))
     (dolist (hook
@@ -406,3 +406,12 @@
                css-mode-hook
                apples-mode-hook))
       (add-hook hook 'hs-minor-mode))))
+
+;; Evil  Vim layer
+(add-to-load-path "~/.emacs.d/elisp/evil")
+(require 'evil)
+(evil-mode 0)
+
+;; shellenv  set $PATH
+;(require 'shellenv "~/.emacs.d/elisp/shellenv-el/shellenv")
+;(shellenv/setpath 'zsh)

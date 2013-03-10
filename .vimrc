@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 29-Jan-2013.                 |
+"                 Last Change: 01-Feb-2013.                 |
 "============================================================
 
 " 基礎的な設定 {{{
@@ -515,12 +515,15 @@ cnoremap <expr> <Leader>date strftime('%Y%m%d')
 cnoremap <expr> <Leader>time strftime('%Y%m%d%H%M')
 " }}}
 
-" ウィンドウ移動簡略化 & サイズ調整{{{
-nnoremap <silent> <C-j> <C-w>j:call <SID>good_height()<CR>
-nnoremap <silent> <C-k> <C-w>k:call <SID>good_height()<CR>
-nnoremap <silent> <C-h> <C-w>h:call <SID>good_width()<CR>
-nnoremap <silent> <C-l> <C-w>l:call <SID>good_width()<CR>
+nnoremap <silent> <C-h> 10h
+nnoremap <silent> <C-l> 10l
 
+" ウィンドウ移動簡略化 & サイズ調整{{{
+augroup GoodWindowSize
+    autocmd!
+    autocmd WinEnter * call<SID>good_height()
+    autocmd WinEnter * call<SID>good_width()
+augroup END
 function! s:good_width()
     if winwidth(0) < 44
         vertical resize 44
@@ -732,7 +735,7 @@ endfunction
 function! MytexSettings()
     set dictionary=$HOME/.vim/dict/tex.dict
     set sw=2
-    set tw=70
+    set tw=0
     inoremap <buffer> { {}<Left>
     inoremap <buffer> [ []<Left>
     inoremap <buffer> ( ()<Left>
@@ -748,6 +751,14 @@ function! MytexSettings()
     nnoremap <buffer> <F7> :<C-u>!open %<.pdf<CR>
     nmap <buffer> <F10> <F5><F6><F7>
     nmap <buffer> <Leader>make <F5><F6><F7>
+    function! ChangePunctuation()
+        %s/、/，/ge
+        %s/。/./ge
+    endfunction
+    augroup TeX
+        autocmd!
+        autocmd BufWritePre *.tex call ChangePunctuation()
+    augroup  END
 
 endfunction
 " }}}
@@ -1014,6 +1025,7 @@ command!
 if exists("*strftime")
     inoremap <Leader>date <C-R>=strftime('%Y/%m/%d (%a)')<CR>
     inoremap <Leader>time <C-R>=strftime('%H:%M')<CR>
+    inoremap  <Leader>rr <C-R>=strftime('%H%M%S_%d%b')<CR>
     inoremap <expr> <Leader>df strftime('%Y/%m/%d %H:%M:%S')
     inoremap <expr> <Leader>dd strftime('%Y/%m/%d')
     inoremap <expr> <Leader>dt strftime('%H:%M:%S')
@@ -1035,6 +1047,9 @@ endfunction
 
 " 文字数カウント{{{
 command! -range=% Count :<line1>,<line2>s/.//gn
+" }}}
+" 単語数カウント{{{
+command! -range=% Word :<line1>,<line2>s/\i\+//gn
 " }}}
 
 " 良い感じにウィンドウ分割{{{

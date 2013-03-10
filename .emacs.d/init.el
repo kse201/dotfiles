@@ -1,7 +1,7 @@
 ;;
 ;; init.el
 ;;
-;; Last Change: 27-Jan-2013.
+;; Last Change: 26-Feb-2013.
 ;;
 ;;;------------------------------
 (eval-when-compile (require 'cl))
@@ -222,6 +222,30 @@
       (split-window-horizontally
        (- (window-width) (/ (window-width) num_wins)))
       (split-window-horizontally-n (- num_wins 1)))))
+
+;; http://qiita.com/items/3e6fb470e6f80bae046e
+(defun package-require (feature &optional filename packagename noerror)
+  "`require' の代わりに使う関数。
+PACKAGENAME(or FEATURE) が未インストール時は、`require' する前に
+`package-install' によるパッケージインストールを試みる。
+NOERROR が non-nil ならば、PACKAGENAME(or FEATURE) が存在しなかったり、
+`require' が失敗した時に `error' ではなく、nil を返す。(`require' の第三引数相当の挙動)"
+  (unless package--initialized (package-initialize))
+  (unless package-archive-contents (package-refresh-contents))
+  (let ((pname (or packagename feature)))
+    (if (assq pname package-archive-contents)
+        (let nil
+          (unless (package-installed-p pname)
+            (unless package-archive-contents (package-refresh-contents))
+            ;; TODO パッケージ配信鯖が死んでるときの対処
+            (package-install pname))
+          (or (require feature filename t)
+              (if noerror nil
+                (error "Package `%s' does not provide the feature `%s'"
+                       (symbol-name pname) (symbol-name feature)))))
+      (if noerror nil
+        (error "Package `%s' is not available for installation"
+               (symbol-name feature))))))
 ;;; ------------------------------------------------------------------
 ;; 引数のディレクトリとそのサブディレクトリをload-pathに追加
 (add-to-load-path "conf" "public_repos" "elpa" "elisp" "themes")
@@ -445,4 +469,5 @@
                                         ;          (when (eq tabbar-mode t)
                                         ;           (switch-to-buffer (buffer-name))
                                         ;          (delete-this-frame))))
-
+;; 変更のあったファイルの自動再読み込み
+(global-auto-revert-mode 1)

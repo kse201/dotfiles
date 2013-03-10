@@ -8,6 +8,8 @@
     ui = auto
 [core]
 	excludesfile = /Users/sekeikai/.gitignore
+	paper = lv -c
+	pager = nkf -w | LESSCHARSET=utf-8 less
 ; [remote "origin"]
     ; fetch = +refs/heads/*:refs/remotes/origin/*
     ; url = git@github.com:kse201/dotfiles.git
