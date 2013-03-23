@@ -358,6 +358,20 @@
   (setq display-buffer-function 'popwin:display-buffer)
   (setq popwin:popup-window-height 0.4)
   (setq popwin:popup-window-position 'bottom)
+  ;; フレームのサイズに応じてpopwinの出現位置を決める
+  ;; http://qiita.com/items/7f9fe4abac5044025e0f
+(defun popwin-auto-set-popup-window-position ()
+  (interactive)
+  (let ((w (frame-width))
+        (h (frame-height)))
+    (setq popwin:popup-window-position
+          (if (and (< 200 w)         ; フレームの幅が200桁より大きくて
+                   (< h w))          ; 横長の時に
+              'right                 ; 右へ出す
+            'bottom))))              ; そうじゃないときは下へ出す
+;; popwin表示時にフレームサイズに応じた表示位置にする
+(defadvice  popwin:display-buffer (before popwin-auto-window-position activate)
+  (popwin-auto-set-popup-window-position))
   (push '("anything" :regexp t :height 40) popwin:special-display-config ) ;anything
   (push '("*Completions*" ) popwin:special-display-config )
   (push '("*complilation*" :noselect t :stick t ) popwin:special-display-config )
@@ -365,9 +379,10 @@
   (push '("*Backtrace*" :noselect t) popwin:special-display-config )
   (push '(fundamental-mode  :noselect t) popwin:special-display-config )
   (push '(typeset-mode :noselect t) popwin:special-display-config )
-  (push '(" *auto-async-byte-compile*"  :position bottom :noselect t :height 0.1 :stick nil) popwin:special-display-config )
+  (push '(" *auto-async-byte-compile*"  :position bottom :noselect t :height 0 . 1 :stick nil) popwin:special-display-config )
   (push '("*YaTeX-typesetting*" :position bottom :noselect t) popwin:special-display-config )
   (push '("*VC-log*" :position bottom) popwin:special-display-config )
+  (push '("\\*.*\\.po\\*"        :regexp t        :position bottom        :height 20)      popwin:special-display-config)
   )
 
 ;;; @ egg

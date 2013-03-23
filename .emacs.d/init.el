@@ -1,7 +1,7 @@
 ;;
 ;; init.el
 ;;
-;; Last Change: 26-Feb-2013.
+;; Last Change: 23-Mar-2013.
 ;;
 ;;;------------------------------
 (eval-when-compile (require 'cl))
@@ -471,3 +471,9 @@ NOERROR が non-nil ならば、PACKAGENAME(or FEATURE) が存在しなかった
                                         ;          (delete-this-frame))))
 ;; 変更のあったファイルの自動再読み込み
 (global-auto-revert-mode 1)
+
+;; emacsでゴミ箱を使う
+;; http://qiita.com/items/d5d7190a256e72451543
+(custom-set-variables
+ '(delete-by-moving-to-trash t)
+ '(trash-directory "~/.Trash"))
