@@ -1,4 +1,3 @@
-
 ;; @ howm
 (when (require 'howm-mode nil t)
   (mapc

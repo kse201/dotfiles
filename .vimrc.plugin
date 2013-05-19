@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 28-Feb-2013.                 |
+"                 Last Change: 23-Mar-2013.                 |
 "============================================================
 
 augroup MyAutoCmd
@@ -306,6 +306,7 @@ NeoBundleLazy "osyo-manga/vim-sugarpot", {
             \}
 
 NeoBundle 'yomi322/vim-operator-suddendeath' 
+NeoBundle 'itchyny/thumbnail.vim'
 filetype plugin indent on
 syntax on
 

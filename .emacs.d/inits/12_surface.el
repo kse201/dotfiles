@@ -63,7 +63,6 @@
 (add-to-list 'default-mode-line-format
              '(:eval (count-lines-and-chars)))
 
-
 ;; バッテリー残量表示
 (display-battery-mode t)
 ;; ファイルサイズを表示
@@ -97,7 +96,6 @@
 (setq inhibit-startup-echo-area-message -1)
 ;; カーソルの点滅を止める
 (blink-cursor-mode 0)
-
 ;; リージョンに色をつける
 (transient-mark-mode 1)
 ;; スクロールバーを右側に

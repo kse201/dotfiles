@@ -1,7 +1,7 @@
 ;;
 ;; init.el
 ;;
-;; Last Change: 23-Mar-2013.
+;; Last Change: 11-May-2013.
 ;;
 ;;;------------------------------
 (eval-when-compile (require 'cl))
@@ -270,6 +270,23 @@ NOERROR が non-nil ならば、PACKAGENAME(or FEATURE) が存在しなかった
            ;; (init-loader-error-log (error-message-string e)) ;削除
            (init-loader-error-log (format "%s. %s" (locate-library el) (error-message-string e))) ;追加
            ))))))
+
+;; http://qiita.com/items/8f1d3342180d42ad9f78
+;;; Get current path and put it to clipboard
+(defun put-current-path-to-clipboard ()
+  (interactive)
+  (let ((file-path buffer-file-name)
+        (dir-path default-directory))
+    (cond (file-path
+           (kill-new (expand-file-name file-path))
+           (message "This file path is on the clipboard!"))
+          (dir-path
+           (kill-new (expand-file-name dir-path))
+           (message "This directory path is on the clipboard!"))
+          (t
+           (error-message-string "Fail to get path name.")
+           ))))
+(global-set-key (kbd "C-c C-c p") 'put-current-path-to-clipboard)
 ;;; ------------------------------
 ;;; バッファ自動再読み込み
 (global-auto-revert-mode 1)
@@ -454,8 +471,6 @@ NOERROR が non-nil ならば、PACKAGENAME(or FEATURE) が存在しなかった
 
 (setq ring-bell-function 'my-bell-function)
 (setq ring-bell-function 'ignore)
-
-
 
 ;; http://qiita.com/items/f0db094fde6640143f42
 (if (file-directory-p (expand-file-name "~/bin"))

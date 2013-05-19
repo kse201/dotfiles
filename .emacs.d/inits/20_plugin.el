@@ -104,7 +104,6 @@
 (when (require 'auto-save-buffers nil t)
   (run-with-idle-timer 5 t 'auto-save-buffers))
 
-
 ;;; @ screen-lines 物理行で移動
 (when (require 'screen-lines)
   (add-hook 'text-mode-hook 'turn-on-screen-lines-mode))
@@ -177,7 +176,7 @@
   (setq browse-url-browser-function 'w3m-browse-url)
   (setq w3m-key-binding 'info)
                                         ;(global-set-key (kbd "C-x C-b") 'bs-show)
-  ;; URIらしき部分を選択してC-xmするとemacs-w3m起動
+  ;; URLらしき部分を選択してC-xmするとemacs-w3m起動
   (global-set-key "\C-xm" 'browse-url-at-point)
   ;; 検索の設定 M-x w3m-search
   (autoload 'w3m-search "w3m-search" "Search QUERY using SEARCH-ENGINE." t)
@@ -430,3 +429,8 @@ j  (require 'hideshow nil t)
 ;; shellenv  set $PATH
 ;(require 'shellenv "~/.emacs.d/elisp/shellenv-el/shellenv")
 ;(shellenv/setpath 'zsh)
+
+
+;;@ smooth-scroll
+(require 'smooth-scroll)
+(smooth-scroll-mode t)

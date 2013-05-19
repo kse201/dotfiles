@@ -8,7 +8,7 @@
   (global-set-key (kbd "M-TAB") 'auto-complete)
   (setq ac-use-menu-map t)
   (setq ac-auto-start t)
-  (global-auto-complete-mode 1)
+  (global-auto-complete-mode t)
   (setq ac-modes (cons 'js-mode ac-modes))
   ;; emacs-lisp-modeでEmacs Lispシンボルも補完してくれるようにする
   (defun emacs-lisp-ac-setup ()
@@ -21,4 +21,4 @@
     (ac-config-default)                     ; デフォルト設定
     (define-key ac-complete-mode-map (kbd "C-n") 'ac-next)
     (define-key ac-complete-mode-map (kbd "C-p") 'ac-previous)
-    (auto-complete-mode t)))
+    (auto-complete-mode 1)))
