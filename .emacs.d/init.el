@@ -246,6 +246,20 @@ NOERROR が non-nil ならば、PACKAGENAME(or FEATURE) が存在しなかった
       (if noerror nil
         (error "Package `%s' is not available for installation"
                (symbol-name feature))))))
+
+;; http://qiita.com/items/61b8eeac2ebcf5993419
+(global-set-key (kbd "M-u") 'camel-to-snake-backward-word)
+(defun camel-to-snake-backward-word ()
+  (interactive)
+  (let ((case-fold-search nil)
+        (s (buffer-substring
+            (point) (save-excursion (forward-word -1) (point)))))
+    (delete-region (point) (progn (forward-word -1) (point)))
+    (insert (funcall (if (= (string-to-char s) (downcase (string-to-char s)))
+                         'downcase 'upcase)
+                     (replace-regexp-in-string
+                      "\\([A-Z]\\)" "_\\1"
+                      (store-substring s 0 (downcase (string-to-char s))))))))
 ;;; ------------------------------------------------------------------
 ;; 引数のディレクトリとそのサブディレクトリをload-pathに追加
 (add-to-load-path "conf" "public_repos" "elpa" "elisp" "themes")

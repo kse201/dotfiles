@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 23-Mar-2013.                 |
+"                 Last Change: 15-Jun-2013.                 |
 "============================================================
 
 augroup MyAutoCmd
@@ -97,7 +97,7 @@ NeoBundleLazy 'jelera/vim-javascript-syntax',
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'tsukkee/unite-tag'
 NeoBundleLazy 'tsukkee/unite-help'
-NeoBundle 'h1mesuke/unite-outline'
+NeoBundle 'shougo/unite-outline'
 NeoBundleLazy 'tacroe/unite-mark'
 NeoBundle 'thinca/vim-unite-history'
 NeoBundle 'unite-colorscheme'
@@ -139,7 +139,6 @@ NeoBundle "fuenor/JpFormat.vim"
 " 機能追加 {{{
 NeoBundleLazy 'Shougo/vimshell'  , 
             \{"autoload" : {'commands' : ['VimShell', 'VimShellCurrentDir' ]} }
-NeoBundle 'supermomonga/vimshell-kawaii' " http://blog.supermomonga.com/articles/vim/make-vimshell-cute.html
 NeoBundle 'basyura/TweetVim' ,
             \{'depends' : 
             \ ['open-browser.vim',
@@ -218,19 +217,19 @@ NeoBundleLazy 'vim-scripts/teol.vim.git' ,
             \{'autoload' : { 'filetype' : ['c', 'cpp','java']}}
 " }}}
 " Java {{{
-NeoBundleLazy 'yuratomo/java-api-complete' , 
+NeoBundle 'yuratomo/java-api-complete' , 
             \ { 'autoload' :  { 'filetype' : ['java'] }}
-NeoBundleLazy 'yuratomo/java-api-complete.git' , 
+NeoBundle 'yuratomo/java-api-complete.git' , 
             \ { 'autoload' :  { 'filetype' : ['java'] }}
-NeoBundleLazy 'yuratomo/java-api-javax.git' , 
+NeoBundle 'yuratomo/java-api-javax.git' , 
             \ { 'autoload' :  { 'filetype' : ['java'] }}
-NeoBundleLazy 'yuratomo/java-api-org.git' , 
+NeoBundle 'yuratomo/java-api-org.git' , 
             \ { 'autoload' :  { 'filetype' : ['java'] }}
-NeoBundleLazy 'yuratomo/java-api-sun.git' , 
+NeoBundle 'yuratomo/java-api-sun.git' , 
             \ { 'autoload' :  { 'filetype' : ['java'] }}
-NeoBundleLazy 'yuratomo/java-api-servlet2.3.git' , 
+NeoBundle 'yuratomo/java-api-servlet2.3.git' , 
             \ { 'autoload' :  { 'filetype' : ['java'] }}
-NeoBundleLazy 'yuratomo/java-api-android.git' , 
+NeoBundle 'yuratomo/java-api-android.git' , 
             \ { 'autoload' :  { 'filetype' : ['java'] }}
 " }}}
 " Ruby {{{
@@ -293,7 +292,9 @@ NeoBundle 'kana/vim-smartinput'
 NeoBundle 'taichouchou2/vim-endwise'
 NeoBundle 'tsaleh/vim-matchit'
 " }}}
-NeoBundle 'supermomonga/shaberu.vim'
+" Game{{{
+NeoBundleLazy 'deris/vim-duzzle'
+" }}}
 NeoBundleLazy "osyo-manga/vim-sugarpot", {
             \   'autoload' : {
             \       'commands' : [
@@ -307,6 +308,13 @@ NeoBundleLazy "osyo-manga/vim-sugarpot", {
 
 NeoBundle 'yomi322/vim-operator-suddendeath' 
 NeoBundle 'itchyny/thumbnail.vim'
+NeoBundle 'rhysd/tmpwin.vim'
+NeoBundleLazy 'terryma/vim-multiple-cursors'
+" NeoBundle 'yonchu/accelerated-smooth-scroll'
+NeoBundle 'tyru/foldballoon.vim'
+NeoBundle 'mattn/habatobi-vim'
+NeoBundle 'kannokanno/previm'
+
 filetype plugin indent on
 syntax on
 
@@ -421,6 +429,8 @@ function! Init_neocomplcache()
 
     "snippet
     imap <expr><CR> neosnippet#expandable_or_jumpable() ?   "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? neocomplcache#close_popup() : "\<CR>" 
+    imap <expr><C-y> neosnippet#expandable_or_jumpable() ?   "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? neocomplcache#close_popup() : "\<C-y>" 
+    imap <expr><C-j> neosnippet#expandable_or_jumpable() ?   "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? neocomplcache#close_popup() : "\<C-j>" pneobu
     imap <expr><TAB> neosnippet#expandable_or_jumpable() ?   "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
     smap <expr><TAB> neosnippet#expandable_or_jumpable() ?  "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
@@ -1420,35 +1430,6 @@ call submode#map('movetab', 'n', '', 'T', printf(s:movetab, -1))
 unlet s:movetab
 " }}}
 
-" shaberu.vim {{{
-let g:shaberu_user_define_say_command = 'say -v Kyoko '
-let g:shaberu_is_mute=1
-" http://blog.supermomonga.com/articles/vim/shaberu-vim.html
-" Vim core
-autocmd MyAutoCmd VimEnter * ShaberuSay 'ビムにようこそ'
-autocmd MyAutoCmd VimLeave * ShaberuSay 'さようなら'
-
-" VimShell
-autocmd FileType vimshell
-            \  call vimshell#hook#add('chpwd'   , 'my_vimshell_chpwd'   , 'g:my_vimshell_chpwd')
-            \| call vimshell#hook#add('emptycmd', 'my_vimshell_emptycmd', 'g:my_vimshell_emptycmd')
-            \| call vimshell#hook#add('notfound', 'my_vimshell_notfound', 'g:my_vimshell_notfound')
-function! g:my_vimshell_chpwd(args, context)
-    ShaberuSay 'よっこいしょ'
-endfunction
-function! g:my_vimshell_emptycmd(cmdline, context)
-    :ShaberuSay 'コマンドを入力してください'
-    return a:cmdline
-endfunction
-function! g:my_vimshell_notfound(cmdline, context)
-    :ShaberuSay 'コマンドが見つかりません'
-    return a:cmdline
-endfunction
-
-" .vimrc保存時に自動的にsource
-autocmd MyAutoCmd BufWritePost .vimrc nested source $MYVIMRC | ShaberuSay 'ビムアールシーを読み込みました'
-" }}}
-
 " sugarpot{{{
 " 設定例
 let s:bundle = neobundle#get("vim-sugarpot")
@@ -1460,6 +1441,21 @@ function! s:bundle.hooks.on_source(bundle)
     let g:sugarpot_convert_resize = "50%x34%"
 endfunction
 unlet s:bundle
+" }}}
+"
+" tmpwin.vim {{{
+"http://rhysd.hatenablog.com/entry/2013/06/01/232858
+" 絶対縦分割で開きたい
+nnoremap <silent>_ :<C-u>call tmpwin#toggle('TweetVimHomeTimeline')<CR>
+" }}}
+
+" ccelerated-smooth-scroll.vim{{{
+" http://yonchu.hatenablog.com/entry/2013/05/16/204727
+" }}}
+
+" tyru / foldballoon.vim{{{
+set ballooneval
+set balloonexpr=foldballoon#balloonexpr()
 " }}}
 "" ================================================================================ 
 " vim: set tw=0 tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
