@@ -1,0 +1,2183 @@
+;; -*- coding: utf-8 -*-
+(("名無しのvim使い" "「名無しのvim使い」へようこそ。このサイトはUnix系エディタviの後継、vimエディタの基本の基本から、スクリプトでの機能拡張までを扱うvimエディタ専門の情報サイトです。" "http://nanasi.jp/" (20693 49627 57227) feed 0 nil nil ((title nil "名無しのvim使い") (link nil "http://nanasi.jp/") (description nil "「名無しのvim使い」へようこそ。このサイトはUnix系エディタviの後継、vimエディタの基本の基本から、スクリプトでの機能拡張までを扱うvimエディタ専門の情報サイトです。") (dc:publisher nil "小見 拓 <mail@nanasi.jp>") (dc:creator nil "小見 拓 <mail@nanasi.jp>") (image ((rdf:resource . "http://nanasi.jp/logo_site.png"))) (dc:language nil "ja") (admin:errorReportsTo ((rdf:resource . "mailto:mail@nanasi.jp"))) (admin:generatorAgent ((rdf:resource . "http://nanasi.jp/"))) (items nil (rdf:Seq nil (rdf:li ((rdf:resource . "http://nanasi.jp/articles/vim/catn_vim.html"))) (rdf:li ((rdf:resource . "http://nanasi.jp/articles/vim/cmdex_vim.html"))) (rdf:li ((rdf:resource . "http://nanasi.jp/articles/vim/colorize_vim.html"))) (rdf:li ((rdf:resource . "http://nanasi.jp/articles/vim/batch_vim.html"))) (rdf:li ((rdf:resource . "http://nanasi.jp/articles/vim/evim_vim.html"))) (rdf:li ((rdf:resource . "http://nanasi.jp/articles/vim/totd_vim.html"))) (rdf:li ((rdf:resource . "http://nanasi.jp/articles/vim/broadcast_vim.html"))) (rdf:li ((rdf:resource . "http://nanasi.jp/articles/vim/vimball_vim.html"))) (rdf:li ((rdf:resource . "http://nanasi.jp/articles/vim/rltvnmbr_vim.html"))) (rdf:li ((rdf:resource . "http://nanasi.jp/articles/vim/zoom_vim.html"))) (rdf:li ((rdf:resource . "http://nanasi.jp/articles/vim/scrnmode_vim.html"))) (rdf:li ((rdf:resource . "http://nanasi.jp/articles/vim/viewoutput_vim.html"))) (rdf:li ((rdf:resource . "http://nanasi.jp/articles/vim/screenshot_vim.html"))) (rdf:li ((rdf:resource . "http://nanasi.jp/articles/vim/swapmous_vim.html"))) (rdf:li ((rdf:resource . "http://nanasi.jp/articles/vim/tagexplorer_vim.html"))))))) ("catn.vim : 行先頭に連番を挿入するスクリプト" "選択した範囲の行の先頭に連番を挿入するスクリプトです。Unixの\"cat -n\"。
+(Windows, Mac)" "http://nanasi.jp/articles/vim/catn_vim.html" (20242 50648) new 1 nil nil ((title nil "catn.vim : 行先頭に連番を挿入するスクリプト") (link nil "http://nanasi.jp/articles/vim/catn_vim.html") (description nil "選択した範囲の行の先頭に連番を挿入するスクリプトです。Unixの\"cat -n\"。 
+(Windows, Mac)                                                         
+") (dc:subject nil "vimスクリプト") (dc:creator nil "小見 拓 <mail@nanasi.jp>") (dc:date nil "2012-01-15T21:26:00+09:00") (content:encoded nil "
+
+
+<div class=\"contents topic\">
+<p class=\"topic-title first\"><a id=\"contents\" name=\"contents\">Contents</a></p>
+<ul class=\"simple\">
+<li><a class=\"reference\" href=\"#id1\" id=\"id9\" name=\"id9\">概要</a></li>
+<li><a class=\"reference\" href=\"#id2\" id=\"id10\" name=\"id10\">インストール方法</a></li>
+<li><a class=\"reference\" href=\"#id4\" id=\"id11\" name=\"id11\">使用方法</a><ul>
+<li><a class=\"reference\" href=\"#id5\" id=\"id12\" name=\"id12\">コマンドのフォーマット</a></li>
+<li><a class=\"reference\" href=\"#id6\" id=\"id13\" name=\"id13\">指定した範囲の行の先頭に、1から始まる連番を挿入</a></li>
+<li><a class=\"reference\" href=\"#id7\" id=\"id14\" name=\"id14\">指定した範囲の行の先頭に、指定した番号からの連番を挿入</a></li>
+<li><a class=\"reference\" href=\"#id8\" id=\"id15\" name=\"id15\">指定した範囲の行の先頭に、指定したフォーマットで指定した番号からの連番を挿入</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id9\" id=\"id1\" name=\"id1\">概要</a></h3>
+<p>catn.vim : 行先頭に連番を挿入するスクリプト <br />
+<a class=\"reference\" href=\"https://github.com/taku-o/downloads/raw/master/catn.vim\">https://github.com/taku-o/downloads/raw/master/catn.vim</a></p>
+<p>選択した範囲の行の先頭に連番を挿入するスクリプトです。</p>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id10\" id=\"id2\" name=\"id2\">インストール方法</a></h3>
+<p><a class=\"reference\" href=\"https://github.com/taku-o/downloads/raw/master/catn.vim\">スクリプト</a> をダウンロードして、 <br />
+pluginディレクトリにコピーしてください。</p>
+<table border=\"1\" class=\"docutils\">
+<colgroup>
+<col width=\"50%\">
+<col width=\"50%\">
+</colgroup>
+<thead valign=\"bottom\">
+<tr><th class=\"head\">ファイル</th>
+<th class=\"head\">URL</th>
+</tr>
+</thead>
+<tbody valign=\"top\">
+<tr><td>catn.vim</td>
+<td><a class=\"reference\" href=\"https://github.com/taku-o/downloads/raw/master/catn.vim\">https://github.com/taku-o/downloads/raw/master/catn.vim</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id11\" id=\"id4\" name=\"id4\">使用方法</a></h3>
+<div class=\"section\">
+<h4><a class=\"toc-backref\" href=\"#id12\" id=\"id5\" name=\"id5\">コマンドのフォーマット</a></h4>
+<p>スクリプトをインストールすると、「:Catn」コマンドを使用できるようになります。 <br />
+「:Catn」コマンドのフォーマットは3通りあります。 <br />
+どのフォーマットのコマンドを呼び出す場合にも、連番を挿入する範囲を指定する必要があります。</p>
+<pre class=\"program literal-block\">
+<strong>&quot; 指定した範囲の行の先頭に、1から始まる連番を挿入</strong>
+:'&lt;,'&gt;Catn
+
+<strong>&quot; 指定した範囲の行の先頭に、指定した番号からの連番を挿入</strong>
+:'&lt;,'&gt;Catn {開始値}
+
+<strong>&quot; 指定した範囲の行の先頭に、指定したフォーマットで指定した番号からの連番を挿入</strong>
+:'&lt;,'&gt;Catn {フォーマット} {開始値}
+</pre>
+</div>
+<div class=\"section\">
+<h4><a class=\"toc-backref\" href=\"#id13\" id=\"id6\" name=\"id6\">指定した範囲の行の先頭に、1から始まる連番を挿入</a></h4>
+<p>「:Catn」コマンドにパラメータを与えないと、1から始まる連番を、
+指定した範囲の行頭に挿入します。</p>
+<pre class=\"program literal-block\">
+public class Main {
+  public static void main(String[] args) {
+    System.out.println(&quot;Hello World&quot;);
+  }
+}
+</pre>
+<p>↑ 上のようなコードがある時に、連番を挿入したい範囲をビジュアルモードで選択するか、 <br />
+コマンドラインモードで指定して、「:Catn」コマンドを実行すると、</p>
+<pre class=\"console literal-block\">
+<strong>&quot; ファイル全体を対象に「:Catn」コマンドを実行</strong>
+:%Catn
+</pre>
+<p>↓ 次のように連番を埋め込みます。</p>
+<pre class=\"program literal-block\">
+1 public class Main {
+2   public static void main(String[] args) {
+3     System.out.println(&quot;Hello World&quot;);
+4   }
+5 }
+</pre>
+</div>
+<div class=\"section\">
+<h4><a class=\"toc-backref\" href=\"#id14\" id=\"id7\" name=\"id7\">指定した範囲の行の先頭に、指定した番号からの連番を挿入</a></h4>
+<p>「:Catn」コマンドにパラメータを1つ、数値を与えると、 <br />
+その数値から始まる連番を、指定した範囲の行頭に挿入します。 <br />
+（パラメータで指定した数値を含む）</p>
+<pre class=\"program literal-block\">
+public class Main {
+  public static void main(String[] args) {
+    System.out.println(&quot;Hello World&quot;);
+  }
+}
+</pre>
+<p>↑ 上のようなコードがある時に、連番を挿入したい範囲をビジュアルモードで選択するか、 <br />
+コマンドラインモードで指定して、「:Catn」コマンドに連番開始値を与えて実行すると、</p>
+<pre class=\"console literal-block\">
+<strong>&quot; 1行目から5行目を対象に、連番開始値50を指定して「:Catn」コマンドを実行</strong>
+:1,5Catn 50
+</pre>
+<p>↓ 次のように連番を埋め込みます。</p>
+<pre class=\"program literal-block\">
+50 public class Main {
+51   public static void main(String[] args) {
+52     System.out.println(&quot;Hello World&quot;);
+53   }
+54 }
+</pre>
+</div>
+<div class=\"section\">
+<h4><a class=\"toc-backref\" href=\"#id15\" id=\"id8\" name=\"id8\">指定した範囲の行の先頭に、指定したフォーマットで指定した番号からの連番を挿入</a></h4>
+<p>フォーマットを指定して、連番を挿入することもできます。</p>
+<pre class=\"console literal-block\">
+:'&lt;,'&gt;Catn {フォーマット} {開始値}
+</pre>
+<p>フォーマットには、vimエディタのprintf()ファンクションで使用できるフォーマットを指定します。 <br />
+例えば、次のようにコマンドを実行すると、</p>
+<pre class=\"console literal-block\">
+<strong>&quot; 数値8桁、0埋めのフォーマット</strong>
+:%Catn %08d: 500
+</pre>
+<p>↓ 次のように連番を埋め込みます。</p>
+<pre class=\"program literal-block\">
+00000500:public class Main {
+00000501:  public static void main(String[] args) {
+00000502:    System.out.println(&quot;Hello World&quot;);
+00000503:  }
+00000504:}
+</pre>
+<p>半角スペースを入れる場合は、「\\」でエスケープする必要があります。</p>
+<pre class=\"console literal-block\">
+<strong>&quot; 数値8桁、0埋めのフォーマット。間に1つスペースを入れる。</strong>
+:%Catn %08d:\\  500
+</pre>
+<pre class=\"program literal-block\">
+00000500: public class Main {
+00000501:   public static void main(String[] args) {
+00000502:     System.out.println(&quot;Hello World&quot;);
+00000503:   }
+00000504: }
+</pre>
+</div>
+</div>
+"))) ("cmdex.vim : Kaoriyaパッチ ユーティリティコマンド集" "cmdex.vimスクリプトはKaoriya版vimエディタに含まれるユーティリティコマンド定義スクリプトです。
+「:CdCurrent」「:VDsplit」「:Scratch」「:Transform」「:Tutorial」など、
+Kaoriya版に組み込まれている便利なコマンドのいくつかは、このcmdex.vimスクリプトで定義されています。
+Kaoriya版のvimエディタを使用しているなら、この記事は読んでおくべきです。
+(Windows, Mac)" "http://nanasi.jp/articles/vim/cmdex_vim.html" (20242 50656) new 2 nil nil ((title nil "cmdex.vim : Kaoriyaパッチ ユーティリティコマンド集") (link nil "http://nanasi.jp/articles/vim/cmdex_vim.html") (description nil "cmdex.vimスクリプトはKaoriya版vimエディタに含まれるユーティリティコマンド定義スクリプトです。     
+「:CdCurrent」「:VDsplit」「:Scratch」「:Transform」「:Tutorial」など、                            
+Kaoriya版に組み込まれている便利なコマンドのいくつかは、このcmdex.vimスクリプトで定義されています。 
+Kaoriya版のvimエディタを使用しているなら、この記事は読んでおくべきです。                           
+(Windows, Mac)                                                                                     
+") (dc:subject nil "vimスクリプト") (dc:creator nil "小見 拓 <mail@nanasi.jp>") (dc:date nil "2012-01-15T21:26:08+09:00") (content:encoded nil "
+
+
+<div class=\"contents topic\">
+<p class=\"topic-title first\"><a id=\"contents\" name=\"contents\">Contents</a></p>
+<ul class=\"simple\">
+<li><a class=\"reference\" href=\"#id1\" id=\"id12\" name=\"id12\">概要</a></li>
+<li><a class=\"reference\" href=\"#id2\" id=\"id13\" name=\"id13\">インストール方法</a></li>
+<li><a class=\"reference\" href=\"#cmdex-vim\" id=\"id14\" name=\"id14\">cmdex.vimにより使用できるようになるコマンド、マッピングの一覧</a></li>
+<li><a class=\"reference\" href=\"#id3\" id=\"id15\" name=\"id15\">各コマンドの使い方、説明</a><ul>
+<li><a class=\"reference\" href=\"#tutorial\" id=\"id16\" name=\"id16\">:Tutorial</a></li>
+<li><a class=\"reference\" href=\"#scratch\" id=\"id17\" name=\"id17\">:Scratch</a></li>
+<li><a class=\"reference\" href=\"#cdcurrent\" id=\"id18\" name=\"id18\">:CdCurrent</a></li>
+<li><a class=\"reference\" href=\"#transform\" id=\"id19\" name=\"id19\">:Transform</a></li>
+<li><a class=\"reference\" href=\"#vdsplit\" id=\"id20\" name=\"id20\">:VDsplit</a></li>
+<li><a class=\"reference\" href=\"#undiff\" id=\"id21\" name=\"id21\">:Undiff</a></li>
+<li><a class=\"reference\" href=\"#htmlconvert\" id=\"id22\" name=\"id22\">:HTMLConvert</a></li>
+<li><a class=\"reference\" href=\"#nohlsearch\" id=\"id23\" name=\"id23\">:Nohlsearch</a></li>
+<li><a class=\"reference\" href=\"#iminserton-iminsertoff\" id=\"id24\" name=\"id24\">:IminsertOn、:IminsertOff</a></li>
+<li><a class=\"reference\" href=\"#menulang\" id=\"id25\" name=\"id25\">:MenuLang</a></li>
+</ul>
+</li>
+<li><a class=\"reference\" href=\"#id7\" id=\"id26\" name=\"id26\">マッピングの使い方、説明</a><ul>
+<li><a class=\"reference\" href=\"#id8\" id=\"id27\" name=\"id27\">コマンドラインモードで、Ctrl-x</a></li>
+</ul>
+</li>
+<li><a class=\"reference\" href=\"#id9\" id=\"id28\" name=\"id28\">設定</a><ul>
+<li><a class=\"reference\" href=\"#id10\" id=\"id29\" name=\"id29\">cmdex.vimの使用を停止する。</a></li>
+</ul>
+</li>
+<li><a class=\"reference\" href=\"#id11\" id=\"id30\" name=\"id30\">注意事項など</a></li>
+</ul>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id12\" id=\"id1\" name=\"id1\">概要</a></h3>
+<p>cmdex.vimスクリプトはKaoriya版vimエディタに含まれるユーティリティコマンド定義スクリプトです。 <br />
+「:CdCurrent」「:VDsplit」「:Scratch」「:Transform」「:Tutorial」など、 <br />
+Kaoriya版に組み込まれている便利なコマンドのいくつかは、このcmdex.vimスクリプトで定義されています。 <br />
+Kaoriya版のvimエディタを使用しているなら、この記事は読んでおくべきです。</p>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id13\" id=\"id2\" name=\"id2\">インストール方法</a></h3>
+<p>cmdex.vimスクリプトは、Kaoriyaパッチに添付されています。 <br />
+Kaoriyaパッチ入りのvimエディタを使用している場合は、 <br />
+既に使用可能な状態になっているため、インストール作業は必要ありません。</p>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id14\" id=\"cmdex-vim\" name=\"cmdex-vim\">cmdex.vimにより使用できるようになるコマンド、マッピングの一覧</a></h3>
+<p>cmdex.vimスクリプトには、次の表のコマンド、キーマッピングが定義されています。</p>
+<table border=\"1\" class=\"docutils\">
+<caption>追加されるコマンド</caption>
+<colgroup>
+<col width=\"50%\">
+<col width=\"50%\">
+</colgroup>
+<thead valign=\"bottom\">
+<tr><th class=\"head\">コマンド</th>
+<th class=\"head\">簡易説明</th>
+</tr>
+</thead>
+<tbody valign=\"top\">
+<tr><td><a class=\"reference\" href=\"#tutorial\">:Tutorial</a></td>
+<td>vimエディタのチュートリアルを開始する。</td>
+</tr>
+<tr><td><a class=\"reference\" href=\"#scratch\">:Scratch</a></td>
+<td>作業用バッファを作成する。</td>
+</tr>
+<tr><td><a class=\"reference\" href=\"#cdcurrent\">:CdCurrent</a></td>
+<td>カレントディレクトリを、現在開いているファイルと同じディレクトリに変更する。</td>
+</tr>
+<tr><td><a class=\"reference\" href=\"#transform\">:Transform</a></td>
+<td>perl言語のtr演算子のような置換処理を行う。</td>
+</tr>
+<tr><td><a class=\"reference\" href=\"#vdsplit\">:VDsplit</a></td>
+<td>今開いているファイルと、指定したファイルとの差分表示を行う。</td>
+</tr>
+<tr><td><a class=\"reference\" href=\"#undiff\">:Undiff</a></td>
+<td>diffモードを終了させる。</td>
+</tr>
+<tr><td><a class=\"reference\" href=\"#htmlconvert\">:HTMLConvert</a></td>
+<td>見た目そのままのHTMLを生成し、拡張子.htmlを付けたファイルに出力する。</td>
+</tr>
+<tr><td><a class=\"reference\" href=\"#nohlsearch\">:Nohlsearch</a></td>
+<td>最後の検索ワード情報を消去する。「:nohlsearch」コマンドの強化版。</td>
+</tr>
+<tr><td><a class=\"reference\" href=\"#iminserton-iminsertoff\">:IminsertOff</a></td>
+<td>入力モードに入った時に、インプットメソッド（日本語入力）をオフにする。</td>
+</tr>
+<tr><td><a class=\"reference\" href=\"#iminserton-iminsertoff\">:IminsertOn</a></td>
+<td>「:IminsertOff」コマンドによって行われた変更を元に戻す。</td>
+</tr>
+<tr><td><a class=\"reference\" href=\"#menulang\">:MenuLang</a></td>
+<td>指定した言語のメニューバー設定ファイルを読み込む。</td>
+</tr>
+</tbody>
+</table>
+<table border=\"1\" class=\"docutils\">
+<caption>追加されるマッピング</caption>
+<colgroup>
+<col width=\"33%\">
+<col width=\"33%\">
+<col width=\"33%\">
+</colgroup>
+<thead valign=\"bottom\">
+<tr><th class=\"head\">マッピング</th>
+<th class=\"head\">使用できるモード</th>
+<th class=\"head\">簡易説明</th>
+</tr>
+</thead>
+<tbody valign=\"top\">
+<tr><td><a class=\"reference\" href=\"#id8\">Ctrlキーを押しながらx</a></td>
+<td>コマンドラインモード</td>
+<td>今開いているファイルのディレクトリまでのパスを出力する。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id15\" id=\"id3\" name=\"id3\">各コマンドの使い方、説明</a></h3>
+<div class=\"section\">
+<h4><a class=\"toc-backref\" href=\"#id16\" id=\"tutorial\" name=\"tutorial\">:Tutorial</a></h4>
+<p>「:Tutorial」コマンドを実行すると、vimエディタのチュートリアルが開始されます。 <br />
+このコマンドはチュートリアルの原本のファイルを「TUTORCOPY」という名前でコピーし、
+そのコピーファイルを使用してチュートリアルを行うので、 <br />
+「:Tutorial」コマンドでチュートリアルを開始した場合は、
+チュートリアル中にファイルを変更しても何ら問題ありません。</p>
+<p>参考：「 <a class=\"reference\" href=\"/articles/howto/tutorial.html\">チュートリアルでvimの使い方を覚えよう</a> 」</p>
+<pre class=\"console literal-block\">
+<strong>&quot; vimエディタのチュートリアルを開始する。</strong>
+:Tutorial
+</pre>
+<img alt=\"チュートリアルの開始\" src=\"/dist/img/vim/cmdex_tutorial.jpg\" />
+</div>
+<div class=\"section\">
+<h4><a class=\"toc-backref\" href=\"#id17\" id=\"scratch\" name=\"scratch\">:Scratch</a></h4>
+<p>「:Scratch」コマンドを実行すると、作業用の空のバッファを作成します。 <br />
+作業用バッファは一時的なメモや編集用のスペースとして利用できます。</p>
+<pre class=\"console literal-block\">
+<strong>&quot; スクラッチバッファを開く。</strong>
+:Scratch
+</pre>
+<img alt=\"スクラッチバッファを開く\" src=\"/dist/img/vim/cmdex_scratch.jpg\" />
+</div>
+<div class=\"section\">
+<h4><a class=\"toc-backref\" href=\"#id18\" id=\"cdcurrent\" name=\"cdcurrent\">:CdCurrent</a></h4>
+<p>「:CdCurrent」コマンドは、カレントディレクトリを今開いているファイルと
+同じディレクトリに変更するコマンドです。 <br />
+ファイルを引数にとるコマンドを実行する時などに便利に利用できるコマンドです。</p>
+<pre class=\"console literal-block\">
+<strong>&quot; カレントディレクトリをファイルと同じディレクトリにする。</strong>
+:CdCurrent
+</pre>
+</div>
+<div class=\"section\">
+<h4><a class=\"toc-backref\" href=\"#id19\" id=\"transform\" name=\"transform\">:Transform</a></h4>
+<p>「:Transform」コマンドを使用すると、perl言語のtr演算子のような処理を実行できます。 <br />
+このコマンドは引数として、変換対象の文字、変換後の文字の2つ受け取ります。</p>
+<pre class=\"console literal-block\">
+<strong>&quot; A→x、B→y、C→zと対応する文字に置換します。</strong>
+:Transform ABC xyz
+
+<strong>&quot; コマンド処理の範囲の指定を行わないと、カレント行にしか置換処理を行いません。</strong>
+:%:Transform abcde xxyyz
+:20,40:Transform 12345 51234
+</pre>
+<div class=\"note\">
+<p class=\"first admonition-title\">Note</p>
+<img alt=\":Transform変換の説明図\" src=\"/dist/img/vim/cmdex_transform.jpg\" />
+<p class=\"last\">左引数の1文字目が、右の引数1番目の文字に置換される。（ A → O ） <br />
+左引数の2文字目が、右の引数2番目の文字に置換される。（ B → P ） <br />
+左引数の3文字目が、右の引数3番目の文字に置換される。（ C → Q ） <br />
+左引数の4文字目が、...</p>
+</div>
+</div>
+<div class=\"section\">
+<h4><a class=\"toc-backref\" href=\"#id20\" id=\"vdsplit\" name=\"vdsplit\">:VDsplit</a></h4>
+<p>「:VDsplit」コマンドは今開いているファイルと指定したファイルとで差分比較を行うコマンドです。 <br />
+コマンドの引数として比較対象のファイルを受け取ります。</p>
+<p>参考：「 <a class=\"reference\" href=\"/articles/howto/diff/diff_text.html\">2つのテキストファイルの差分を取る</a> 」</p>
+<pre class=\"console literal-block\">
+<strong>&quot; カレントファイルと、'another.txt'とで比較を行う。</strong>
+:VDsplit another.txt
+</pre>
+<img alt=\":VDsplitコマンド実行後画面例\" src=\"/dist/img/howto/diff/vertical_diff.jpg\" />
+</div>
+<div class=\"section\">
+<h4><a class=\"toc-backref\" href=\"#id21\" id=\"undiff\" name=\"undiff\">:Undiff</a></h4>
+<p>「:Undiff」コマンドは、カレントウィンドウのdiffモードを解除するコマンドです。 <br />
+diffによる比較が終わった後に、元の状態に戻すのに使用できます。</p>
+<pre class=\"console literal-block\">
+<strong>&quot; diffモードを解除する。</strong>
+:Undiff
+</pre>
+<img alt=\"diffモードの解除、図解。\" src=\"/dist/img/vim/cmdex_undiff.jpg\" />
+</div>
+<div class=\"section\">
+<h4><a class=\"toc-backref\" href=\"#id22\" id=\"htmlconvert\" name=\"htmlconvert\">:HTMLConvert</a></h4>
+<p>「:HTMLConvert」コマンドを実行すると、今開いているファイルを見た目そのままの形式で
+HTMLに変換し、 <br />
+「カレントファイルの名前 + .html」という名前のファイルに出力します。 <br />
+この機能は2html.vimスクリプトに用意されている機能です。</p>
+<p>参考：「 <a class=\"reference\" href=\"/articles/vim/2html_vim.html\">2html.vim : Transform a file into HTML, using the current syntax highlighting.</a> 」</p>
+<pre class=\"console literal-block\">
+<strong>&quot; HTMLを生成する。</strong>
+:HTMLConvert
+</pre>
+<img alt=\"HTML変換後のビュー\" src=\"/dist/img/vim/cmdex_htmlconvert.jpg\" />
+</div>
+<div class=\"section\">
+<h4><a class=\"toc-backref\" href=\"#id23\" id=\"nohlsearch\" name=\"nohlsearch\">:Nohlsearch</a></h4>
+<p>「/」「?」による検索を行った後、「:nohlsearch」コマンドを実行すると
+検索のハイライトを消去することが出来ますが、 <br />
+その状態でも「n」キーを押してしまうと、再び検索が始まり、
+検索にマッチするテキストのハイライトが行われてしまいます。 <br />
+「:Nohlsearch」コマンドを使用すると、前回の検索テキストの記録を消去することができるので、
+そのような事態を避けることができます。</p>
+<pre class=\"console literal-block\">
+<strong>&quot; このコマンドは「:nohlsearch」コマンドの代替として使用できる。</strong>
+:Nohlsearch
+</pre>
+</div>
+<div class=\"section\">
+<h4><a class=\"toc-backref\" href=\"#id24\" id=\"iminserton-iminsertoff\" name=\"iminserton-iminsertoff\">:IminsertOn、:IminsertOff</a></h4>
+<p>「:IminsertOff」コマンドを実行すると、ノーマルモードなどから入力モードに入った時に、
+必ず日本語入力がオフの状態から始まるようになります。 <br />
+（つまり、アスキー入力の状態から始まります。）</p>
+<p>「:IminsertOn」コマンドは、その「:IminsertOff」コマンドと対になるコマンドで、 <br />
+「:IminsertOff」コマンドによって変更された状態をクリアし、初期の状態に戻すことができます。</p>
+<pre class=\"console literal-block\">
+<strong>&quot; 入力モード開始時は日本語入力オフ。</strong>
+:IminsertOff
+
+<strong>&quot; 「:IminsertOff」コマンドの変更をリセットする。</strong>
+:IminsertOn
+</pre>
+</div>
+<div class=\"section\">
+<h4><a class=\"toc-backref\" href=\"#id25\" id=\"menulang\" name=\"menulang\">:MenuLang</a></h4>
+<p>「:MenuLang」コマンドは、指定した言語のメニュー定義ファイルを読み込み、
+メニューをロードしなおすコマンドです。 <br />
+次のコマンド例のように、メニューの言語を引数に取ります。</p>
+<pre class=\"console literal-block\">
+<strong>&quot; 「:MenuLang」コマンドの使用例。</strong>
+:MenuLang ja_jp.ujis
+:MenuLang en
+:MenuLang nl_NL.ISO_8859-1
+</pre>
+</div>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id26\" id=\"id7\" name=\"id7\">マッピングの使い方、説明</a></h3>
+<div class=\"section\">
+<h4><a class=\"toc-backref\" href=\"#id27\" id=\"id8\" name=\"id8\">コマンドラインモードで、Ctrl-x</a></h4>
+<p>コマンドラインモードでCtrl-x (Ctrlキーを押しながらx)を押すと、
+編集ファイルの親ディレクトリまでのパスが出力されます。</p>
+<p>例えば、次のような状態で、</p>
+<img alt=\"入力前の状態\" src=\"/dist/img/vim/cmdex_cx1.jpg\" />
+<p>↓ Ctrl-xを入力すると、ファイルのあるディレクトリまでのパスが出力されます。</p>
+<img alt=\"Ctrl-x入力後\" src=\"/dist/img/vim/cmdex_cx2.jpg\" />
+</div>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id28\" id=\"id9\" name=\"id9\">設定</a></h3>
+<div class=\"section\">
+<h4><a class=\"toc-backref\" href=\"#id29\" id=\"id10\" name=\"id10\">cmdex.vimの使用を停止する。</a></h4>
+<p>cmdex.vimスクリプトはvimエディタ起動時に読み込まれます。 <br />
+スクリプトで定義されたコマンド、マッピングが読み込まないようにするには、
+次の設定をvimエディタの設定ファイルに追加してください。</p>
+<pre class=\"program literal-block\">
+<strong>&quot; cmdex.vimスクリプトの読込を停止する。</strong>
+:let plugin_cmdex_disable = 1
+</pre>
+</div>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id30\" id=\"id11\" name=\"id11\">注意事項など</a></h3>
+<p>この記事は2008年1月7日に記述されました。 <br />
+今後、このcmdex.vimスクリプトファイルが変更され、
+この記事どおりに行かない可能性がいくらかあります。</p>
+</div>
+"))) ("colorize.vim : 入力モード時は背景色を変更" "入力モード時と、それ以外のモードの時で背景色を切り替えるGUI用スクリプトです。
+(Windows, Mac)" "http://nanasi.jp/articles/vim/colorize_vim.html" (20242 50663) new 3 nil nil ((title nil "colorize.vim : 入力モード時は背景色を変更") (link nil "http://nanasi.jp/articles/vim/colorize_vim.html") (description nil "入力モード時と、それ以外のモードの時で背景色を切り替えるGUI用スクリプトです。 
+(Windows, Mac)                                                                
+") (dc:subject nil "vimスクリプト") (dc:creator nil "小見 拓 <mail@nanasi.jp>") (dc:date nil "2012-01-15T21:26:15+09:00") (content:encoded nil "
+
+
+<div class=\"contents topic\">
+<p class=\"topic-title first\"><a id=\"contents\" name=\"contents\">Contents</a></p>
+<ul class=\"simple\">
+<li><a class=\"reference\" href=\"#id1\" id=\"id8\" name=\"id8\">概要</a></li>
+<li><a class=\"reference\" href=\"#id2\" id=\"id9\" name=\"id9\">インストール方法</a><ul>
+<li><a class=\"reference\" href=\"#mac-osx\" id=\"id10\" name=\"id10\">Mac OSX の場合</a></li>
+</ul>
+</li>
+<li><a class=\"reference\" href=\"#id4\" id=\"id11\" name=\"id11\">使用方法</a></li>
+<li><a class=\"reference\" href=\"#id5\" id=\"id12\" name=\"id12\">スクリプトの改造</a></li>
+<li><a class=\"reference\" href=\"#id7\" id=\"id13\" name=\"id13\">注意事項など</a></li>
+</ul>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id8\" id=\"id1\" name=\"id1\">概要</a></h3>
+<p>colorize.vim : Change background color when in insert mode <br />
+<a class=\"reference\" href=\"http://www.vim.org/scripts/script.php?script_id=53\">http://www.vim.org/scripts/script.php?script_id=53</a></p>
+<p>入力モードと、それ以外のモードで背景色を切り替えるスクリプトです。</p>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id9\" id=\"id2\" name=\"id2\">インストール方法</a></h3>
+<p><a class=\"reference\" href=\"http://www.vim.org/scripts/script.php?script_id=53\">colorize.vimスクリプト</a> を
+適当なディレクトリに配置します。</p>
+<table border=\"1\" class=\"docutils\">
+<colgroup>
+<col width=\"50%\">
+<col width=\"50%\">
+</colgroup>
+<thead valign=\"bottom\">
+<tr><th class=\"head\">ファイル</th>
+<th class=\"head\">URL</th>
+</tr>
+</thead>
+<tbody valign=\"top\">
+<tr><td>colorize.vim</td>
+<td><a class=\"reference\" href=\"http://www.vim.org/scripts/script.php?script_id=53\">http://www.vim.org/scripts/script.php?script_id=53</a></td>
+</tr>
+</tbody>
+</table>
+<p>次にvimのGUI設定ファイル、_gvimrcファイル、もしくは.gvimrcファイルで、 <br />
+そのcolorize.vimスクリプトをロードするように設定します。</p>
+<p>スクリプトは:source命令でロードできます。</p>
+<pre class=\"console literal-block\">
+:source colorize.vimファイルを置いたディレクトリ/colorize.vim
+</pre>
+<p>下記は、ユーザーのホームディレクトリにあるvim設定ファイルディレクトリの
+macrosディレクトリににcolorize.vimスクリプトを配置する時の設定例です。</p>
+<pre class=\"console literal-block\">
+<strong>&quot; macrosディレクトリにcolorize.vimを入れた場合の_gvimrcでの指定例 (Windows)</strong>
+:source $HOME/vimfiles/macros/colorize.vim
+</pre>
+<pre class=\"console literal-block\">
+<strong>&quot; macrosディレクトリにcolorize.vimを入れた場合の.gvimrcでの指定例 (Mac OSX)</strong>
+:source $HOME/.vim/macros/colorize.vim
+</pre>
+<div class=\"section\">
+<h4><a class=\"toc-backref\" href=\"#id10\" id=\"mac-osx\" name=\"mac-osx\">Mac OSX の場合</a></h4>
+<p>colorize.vimスクリプトで使用されている色定義に
+Mac OSXでは使用できない色定義があるので、
+そのままではエラーが発生してしまいます。</p>
+<p>colorize.vimスクリプトファイルの下の方に、
+下のような記述があるので、</p>
+<pre class=\"program literal-block\">
+<strong>修正前</strong>
+&quot;You need the next line to change the color back when you hit escape.
+inoremap &lt;Esc&gt; &lt;Esc&gt;:highlight Normal guibg=Sys_Window&lt;cr&gt;
+</pre>
+<p>例えば、下のように修正してください。</p>
+<pre class=\"program literal-block\">
+<strong>修正後</strong>
+&quot;You need the next line to change the color back when you hit escape.
+inoremap &lt;Esc&gt; &lt;Esc&gt;:highlight Normal guibg=lightgrey&lt;cr&gt;
+</pre>
+</div>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id11\" id=\"id4\" name=\"id4\">使用方法</a></h3>
+<p>入力モードと、その他のモードを切り替える度に、
+背景色が変化します。</p>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id12\" id=\"id5\" name=\"id5\">スクリプトの改造</a></h3>
+<p>このスクリプトは、背景色を指定することができません。 <br />
+しかも、入力モードを抜けると、元の背景色に戻るのではなく、
+colorize.vimスクリプト指定の背景色になってしまいます。</p>
+<p>これはとても良くありません。</p>
+<p>幸い、スクリプトはとても短いので、改造してしまおうと思います。</p>
+<pre class=\"program literal-block\">
+<strong>&quot; colorize.vimスクリプトの中身</strong>
+&quot;the main keystrokes that put you into insert mode
+noremap i :highlight Normal guibg=lightyellow&lt;cr&gt;i
+noremap o :highlight Normal guibg=lightyellow&lt;cr&gt;o
+noremap s :highlight Normal guibg=lightyellow&lt;cr&gt;s
+noremap a :highlight Normal guibg=lightyellow&lt;cr&gt;a
+noremap I :highlight Normal guibg=lightyellow&lt;cr&gt;I
+noremap O :highlight Normal guibg=lightyellow&lt;cr&gt;O
+noremap S :highlight Normal guibg=lightyellow&lt;cr&gt;S
+noremap A :highlight Normal guibg=lightyellow&lt;cr&gt;A
+
+&quot;You need the next line to change the color back when you hit escape.
+inoremap &lt;Esc&gt; &lt;Esc&gt;:highlight Normal guibg=Sys_Window&lt;cr&gt;
+</pre>
+<p>スクリプトの定義は上のようになっているので、
+例えば、下のように変更します。</p>
+<pre class=\"program literal-block\">
+<strong>&quot; colorize.vimスクリプト変更例</strong>
+noremap i :colorscheme blue&lt;cr&gt;i
+noremap o :colorscheme blue&lt;cr&gt;o
+noremap s :colorscheme blue&lt;cr&gt;s
+noremap a :colorscheme blue&lt;cr&gt;a
+noremap I :colorscheme blue&lt;cr&gt;I
+noremap O :colorscheme blue&lt;cr&gt;O
+noremap S :colorscheme blue&lt;cr&gt;S
+noremap A :colorscheme blue&lt;cr&gt;A
+inoremap &lt;Esc&gt; &lt;Esc&gt;:colorscheme torte&lt;cr&gt;
+</pre>
+<p><a class=\"reference\" href=\"https://github.com/taku-o/downloads/raw/master/colorize_scheme.vim\">面倒くさがりな方用</a></p>
+<p>このスクリプトを使う人は、
+colorscheme blue や、 <br />
+colorscheme torte となってる所を、 <br />
+自分の好きなカラースキーマに変更して下さい。</p>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id13\" id=\"id7\" name=\"id7\">注意事項など</a></h3>
+<p>このスクリプトは、ウィンドウが分割されている時に正しく動作しなくなります。 <br />
+なので、残念ながら、ウィンドウマネージャー系のスクリプトとは共存できません。</p>
+</div>
+"))) ("batch.vim : 選択した範囲に記述されたvimスクリプトを実行する" "選択した範囲に記述されたvimエディタのコマンドを、
+順々に実行するスクリプトです。
+vimエディタ設定の確認や、vimスクリプトのデバッグで使用します。
+(Windows, Mac)" "http://nanasi.jp/articles/vim/batch_vim.html" (20242 50639) new 4 nil nil ((title nil "batch.vim : 選択した範囲に記述されたvimスクリプトを実行する") (link nil "http://nanasi.jp/articles/vim/batch_vim.html") (description nil "選択した範囲に記述されたvimエディタのコマンドを、              
+順々に実行するスクリプトです。                                 
+vimエディタ設定の確認や、vimスクリプトのデバッグで使用します。 
+(Windows, Mac)                                                 
+") (dc:subject nil "vimスクリプト") (dc:creator nil "小見 拓 <mail@nanasi.jp>") (dc:date nil "2012-01-15T21:25:51+09:00") (content:encoded nil "
+
+
+<div class=\"contents topic\">
+<p class=\"topic-title first\"><a id=\"contents\" name=\"contents\">Contents</a></p>
+<ul class=\"simple\">
+<li><a class=\"reference\" href=\"#id1\" id=\"id6\" name=\"id6\">概要</a></li>
+<li><a class=\"reference\" href=\"#id2\" id=\"id7\" name=\"id7\">インストール方法</a></li>
+<li><a class=\"reference\" href=\"#id4\" id=\"id8\" name=\"id8\">使用方法</a></li>
+<li><a class=\"reference\" href=\"#id5\" id=\"id9\" name=\"id9\">注意事項など</a></li>
+</ul>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id6\" id=\"id1\" name=\"id1\">概要</a></h3>
+<p>batch.vim : 選択した範囲に記述されたvimスクリプトを実行する <br />
+<a class=\"reference\" href=\"https://github.com/taku-o/downloads/raw/master/batch.vim\">https://github.com/taku-o/downloads/raw/master/batch.vim</a></p>
+<p>選択した範囲に記述されたvimエディタのコマンドを、
+順々に実行するスクリプトです。 <br />
+vimエディタ設定の確認や、vimスクリプトのデバッグで使用します。</p>
+<p>または、vimエディタのコマンドの入力が面倒になってきた時に、 <br />
+ファイルにコマンドを記述して簡易入力で実行するために用います。</p>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id7\" id=\"id2\" name=\"id2\">インストール方法</a></h3>
+<p><a class=\"reference\" href=\"https://github.com/taku-o/downloads/raw/master/batch.vim\">プラグイン</a> をダウンロードして、 <br />
+pluginディレクトリにコピーしてください。</p>
+<table border=\"1\" class=\"docutils\">
+<colgroup>
+<col width=\"50%\">
+<col width=\"50%\">
+</colgroup>
+<thead valign=\"bottom\">
+<tr><th class=\"head\">ファイル</th>
+<th class=\"head\">URL</th>
+</tr>
+</thead>
+<tbody valign=\"top\">
+<tr><td>batch.vim</td>
+<td><a class=\"reference\" href=\"https://github.com/taku-o/downloads/raw/master/batch.vim\">https://github.com/taku-o/downloads/raw/master/batch.vim</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id8\" id=\"id4\" name=\"id4\">使用方法</a></h3>
+<p>まず、vimスクリプトのコマンド、もしくはvimスクリプトの文を記述します。 <br />
+次に、それらのコードをビジュアルモードで選択するか、コマンドラインモードで指定して、 <br />
+「:Batch」コマンドを実行してください。</p>
+<pre class=\"console literal-block\">
+:{range}Batch
+
+<strong>&quot; コマンド実行のサンプル</strong>
+<strong>&quot; 1から20行目の範囲のvimスクリプトのコードを実行</strong>
+:1,20Batch
+</pre>
+<p>「:Batch」コマンドは選択した範囲のコードを一時ファイルにコピーし、 <br />
+その後に、そのファイルをvimスクリプトとして実行します。</p>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id9\" id=\"id5\" name=\"id5\">注意事項など</a></h3>
+<p>「:Batch」コマンドによる選択スクリプトの実行処理は、 <br />
+選択したコードが単体で実行できないような場合
+（たとえば、スクリプトローカルな関数に依存している場合）、 <br />
+コードの実行に失敗します。 <br /></p>
+</div>
+"))) ("evim.vim : vimエディタを一般のWindowsエディタと同じように操作できるようにする" "このスクリプトはvimエディタの挙動を、MS-Windowsのエディタ風の挙動に変更します。
+このスクリプトを利用すると、やや特殊な操作体系をもつvimエディタも、
+他の数多くの一般のエディタと同じように操作できるようになります。
+(Windows, Mac)" "http://nanasi.jp/articles/vim/evim_vim.html" (20242 50630) new 5 nil nil ((title nil "evim.vim : vimエディタを一般のWindowsエディタと同じように操作できるようにする") (link nil "http://nanasi.jp/articles/vim/evim_vim.html") (description nil "このスクリプトはvimエディタの挙動を、MS-Windowsのエディタ風の挙動に変更します。 
+このスクリプトを利用すると、やや特殊な操作体系をもつvimエディタも、             
+他の数多くの一般のエディタと同じように操作できるようになります。                
+(Windows, Mac)                                                                  
+") (dc:subject nil "vimスクリプト") (dc:creator nil "小見 拓 <mail@nanasi.jp>") (dc:date nil "2012-01-15T21:25:42+09:00") (content:encoded nil "
+
+
+<div class=\"contents topic\">
+<p class=\"topic-title first\"><a id=\"contents\" name=\"contents\">Contents</a></p>
+<ul class=\"simple\">
+<li><a class=\"reference\" href=\"#id1\" id=\"id5\" name=\"id5\">概要</a></li>
+<li><a class=\"reference\" href=\"#id2\" id=\"id6\" name=\"id6\">インストール方法</a></li>
+<li><a class=\"reference\" href=\"#id3\" id=\"id7\" name=\"id7\">使用方法</a></li>
+<li><a class=\"reference\" href=\"#id4\" id=\"id8\" name=\"id8\">注意事項など</a></li>
+</ul>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id5\" id=\"id1\" name=\"id1\">概要</a></h3>
+<p>このスクリプトはvimエディタの挙動を、MS-Windowsのエディタ風の挙動に変更します。 <br />
+このスクリプトを利用すると、やや特殊な操作体系をもつvimエディタも、
+他の数多くの一般のエディタと同じように操作できるようになります。</p>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id6\" id=\"id2\" name=\"id2\">インストール方法</a></h3>
+<p>このスクリプトはvimエディタのバージョン6にデフォルトで添付されています。 <br />
+このスクリプトの機能を有効にするには、vimエディタの起動中に下のコマンドを実行するか、 <br />
+(GUIでvimを立ち上げている時のみ実行すること)</p>
+<pre class=\"console literal-block\">
+:source $VIMRUNTIME/evim.vim
+</pre>
+<p>vimエディタの設定ファイル.vimrc、もしくは_vimrcに次の設定を書き込んでください。</p>
+<pre class=\"program literal-block\">
+if has(&quot;gui&quot;)
+    :source $VIMRUNTIME/evim.vim
+endif
+</pre>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id7\" id=\"id3\" name=\"id3\">使用方法</a></h3>
+<p>evim.vimスクリプトをsourceコマンドで読み込むと、
+vimエディタの挙動がMS-Windowsエディタ風の挙動に変わります。</p>
+<p>下の表は、このスクリプトを利用する場合の基本的なショートカットの一覧です。 <br />
+環境によっては、コマンド入力を他のアプリケーションに横取りされて
+機能しないショートカットもあるかと思います。</p>
+<table border=\"1\" class=\"docutils\">
+<colgroup>
+<col width=\"50%\">
+<col width=\"50%\">
+</colgroup>
+<thead valign=\"bottom\">
+<tr><th class=\"head\">ショートカット</th>
+<th class=\"head\">説明</th>
+</tr>
+</thead>
+<tbody valign=\"top\">
+<tr><td>Ctrl-S</td>
+<td>保存</td>
+</tr>
+<tr><td>Ctrl-C</td>
+<td>コピー</td>
+</tr>
+<tr><td>Ctrl-V</td>
+<td>ペースト</td>
+</tr>
+<tr><td>Ctrl-A</td>
+<td>全選択</td>
+</tr>
+<tr><td>Ctrl-Z</td>
+<td>アンドゥ</td>
+</tr>
+<tr><td>Ctrl-Y</td>
+<td>リドゥ</td>
+</tr>
+<tr><td>Ctrl-Q</td>
+<td>Ctrl-Q入力後、続けて入力すると、特殊な文字を入力可能になる。vimエディタの元Ctrl-Vと同じ挙動。</td>
+</tr>
+<tr><td>Ctrl-Tab</td>
+<td>次のウィンドウにカーソルを移動する。</td>
+</tr>
+<tr><td>Ctrl-F4</td>
+<td>ウィンドウを閉じます。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id8\" id=\"id4\" name=\"id4\">注意事項など</a></h3>
+<p>このスクリプトはGUI版vim専用のスクリプトです。 <br />
+CUIでは使用しない方が良いでしょう。</p>
+<p>このスクリプトを利用すると、
+vimエディタの動きが根本から変わってしまうので、 <br />
+複数人で共有するユーザーのvim設定ファイルに、
+このスクリプトをロードするように記述してはいけません。</p>
+</div>
+"))) ("totd.vim : その日最初にvimエディタを起動した時にVimのTipsを表示" "その日最初にvimエディタを起動した時に、
+vimオフィシャルサイトに投稿されているVim Tipsを表示するスクリプトです。
+(Windows, Mac)" "http://nanasi.jp/articles/vim/totd_vim.html" (20242 3766) new 6 nil nil ((title nil "totd.vim : その日最初にvimエディタを起動した時にVimのTipsを表示") (link nil "http://nanasi.jp/articles/vim/totd_vim.html") (description nil "その日最初にvimエディタを起動した時に、                                 
+vimオフィシャルサイトに投稿されているVim Tipsを表示するスクリプトです。 
+(Windows, Mac)                                                          
+") (dc:subject nil "vimスクリプト") (dc:creator nil "小見 拓 <mail@nanasi.jp>") (dc:date nil "2012-01-15T08:24:38+09:00") (content:encoded nil "
+
+
+<div class=\"contents topic\">
+<p class=\"topic-title first\"><a id=\"contents\" name=\"contents\">Contents</a></p>
+<ul class=\"simple\">
+<li><a class=\"reference\" href=\"#id1\" id=\"id9\" name=\"id9\">概要</a></li>
+<li><a class=\"reference\" href=\"#id2\" id=\"id10\" name=\"id10\">インストール方法</a><ul>
+<li><a class=\"reference\" href=\"#id3\" id=\"id11\" name=\"id11\">プラグインのインストール</a></li>
+<li><a class=\"reference\" href=\"#vip-tips\" id=\"id12\" name=\"id12\">Vip Tipsのインストール</a></li>
+</ul>
+</li>
+<li><a class=\"reference\" href=\"#id7\" id=\"id13\" name=\"id13\">使用方法</a></li>
+<li><a class=\"reference\" href=\"#id8\" id=\"id14\" name=\"id14\">注意事項など</a></li>
+</ul>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id9\" id=\"id1\" name=\"id1\">概要</a></h3>
+<p>vimtips.zip : Display a helpful tip the first time you start Vim each day. <br />
+<a class=\"reference\" href=\"http://www.vim.org/scripts/script.php?script_id=88\">http://www.vim.org/scripts/script.php?script_id=88</a></p>
+<p>その日最初にvimエディタを起動した時に、 <br />
+vimオフィシャルサイトに投稿されているVim Tipsを表示するスクリプトです。</p>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id10\" id=\"id2\" name=\"id2\">インストール方法</a></h3>
+<div class=\"section\">
+<h4><a class=\"toc-backref\" href=\"#id11\" id=\"id3\" name=\"id3\">プラグインのインストール</a></h4>
+<p>まず、 <a class=\"reference\" href=\"http://www.vim.org/scripts/script.php?script_id=88\">配布ファイル</a> をダウンロードしてください。</p>
+<p>ダウンロードしたファイルは圧縮ファイルになっているので <br />
+何らかの解凍ツールを使用して解凍します。</p>
+<p>このファイルを解凍すると、以下のように展開されます。</p>
+<pre class=\"program literal-block\">
+<strong>圧縮ファイルの構成</strong>
+doc/
+  +
+  +---  totd.txt
+
+plugin/
+  +
+  +---  totd.vim
+  +
+  +---  vimtips/
+          +
+          +---  vimtips.txt
+</pre>
+<p>docディレクトリ以下のファイルをローカルのdocディレクトリに、 <br />
+pluginディレクトリ以下のファイルをそのままローカルのpluginディレクトリにコピーします。</p>
+<p>ここまで作業したら、一度vimエディタを起動して、 <br />
+エディタ起動時にウィンドウが分割された状態になるか確認してください。</p>
+<img alt=\"プラグインインストール後の初期画面\" src=\"/dist/img/vim/vimtips_initial.jpg\" />
+</div>
+<div class=\"section\">
+<h4><a class=\"toc-backref\" href=\"#id12\" id=\"vip-tips\" name=\"vip-tips\">Vip Tipsのインストール</a></h4>
+<p>次にVimのオフィシャルサイトで配布しているVip Tipsのデータを入手して、 <br />
+スクリプトから読める位置にコピーします。</p>
+<p>Vip Tipsのデータは、 <a class=\"reference\" href=\"http://www.vim.org/tips/\">オフィシャルサイトのこのページ</a> からダウンロードできます。</p>
+<img alt=\"ダウンロード画面へのリンクの場所\" src=\"/dist/img/vim/vimtips_download.jpg\" />
+<p>ファイルサイズは2006年2月13日現在で1.2MBほどあります。</p>
+<div class=\"note\">
+<p class=\"first admonition-title\">Note</p>
+<p class=\"last\">環境によってはダウンロードしづらいかもしれません。
+2006年2月13日時点のVim Tipsのデータファイルをこちらに置いておきます。
+解凍ツールで解凍してから利用してください。中身はテキストファイルです。
+<a class=\"reference\" href=\"https://github.com/taku-o/downloads/raw/master/vimtips20060213.zip\">Vim Tipsデータ</a></p>
+</div>
+<p>ダウンロードしたテキストファイルで、 <br />
+先ほどローカルのpluginディレクトリ内に作成した <br />
+vimtipsディレクトリ内のvimtips.txtファイルを上書きしてください。</p>
+<table border=\"1\" class=\"docutils\">
+<colgroup>
+<col width=\"50%\">
+<col width=\"50%\">
+</colgroup>
+<thead valign=\"bottom\">
+<tr><th class=\"head\">ファイル</th>
+<th class=\"head\">URL</th>
+</tr>
+</thead>
+<tbody valign=\"top\">
+<tr><td>vimtips.zip</td>
+<td><a class=\"reference\" href=\"http://www.vim.org/scripts/script.php?script_id=88\">http://www.vim.org/scripts/script.php?script_id=88</a></td>
+</tr>
+<tr><td>vimtips.txt</td>
+<td><a class=\"reference\" href=\"http://www.vim.org/tips/\">http://www.vim.org/tips/</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id13\" id=\"id7\" name=\"id7\">使用方法</a></h3>
+<p>日付が変わって、最初にvimエディタを起動した時にVim Tipsが表示されるようになります。 <br />
+表示されるVim Tipsは、前回表示したTipsの次のTipsです。</p>
+<p>日付が変わるまで待つ以外に、
+下のコマンドをvimエディタで入力して、直接呼び出すこともできます。</p>
+<pre class=\"console literal-block\">
+:TipOfTheDay
+</pre>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id14\" id=\"id8\" name=\"id8\">注意事項など</a></h3>
+<p>このスクリプトは、Vim Tipsをどこまで表示したかの情報を <br />
+自身のスクリプト内で保持しているので、 <br />
+Vim Tipsをまた最初から見る場合は、 <br />
+totd.vimスクリプトを最新のファイルと入れ替えてください。</p>
+</div>
+"))) ("broadcast.vim : 他のリモートウィンドウにキーストローク送信" "操作中のvimエディタのウィンドウから、
+他のvimエディタのウィンドウに、キーストロークを送信できるようになります。
+このスクリプトを使用すれば、エディタのウィンドウを切り替えなくても他のウィンドウに、
+テキスト入力や、検索、置換、コマンド実行、編集作業の終了などの操作を行えます。
+複数のウィンドウを同時にいくつも開いて作業することの多い人には、おすすめのスクリプトです。
+(Windows)" "http://nanasi.jp/articles/vim/broadcast_vim.html" (20242 3307) new 7 nil nil ((title nil "broadcast.vim : 他のリモートウィンドウにキーストローク送信") (link nil "http://nanasi.jp/articles/vim/broadcast_vim.html") (description nil "操作中のvimエディタのウィンドウから、                                                      
+他のvimエディタのウィンドウに、キーストロークを送信できるようになります。                  
+                                                                                           
+このスクリプトを使用すれば、エディタのウィンドウを切り替えなくても他のウィンドウに、       
+テキスト入力や、検索、置換、コマンド実行、編集作業の終了などの操作を行えます。             
+                                                                                           
+複数のウィンドウを同時にいくつも開いて作業することの多い人には、おすすめのスクリプトです。 
+(Windows)                                                                                  
+") (dc:subject nil "vimスクリプト") (dc:creator nil "小見 拓 <mail@nanasi.jp>") (dc:date nil "2012-01-15T08:16:59+09:00") (content:encoded nil "
+
+
+<div class=\"contents topic\">
+<p class=\"topic-title first\"><a id=\"contents\" name=\"contents\">Contents</a></p>
+<ul class=\"simple\">
+<li><a class=\"reference\" href=\"#id1\" id=\"id6\" name=\"id6\">概要</a></li>
+<li><a class=\"reference\" href=\"#id2\" id=\"id7\" name=\"id7\">インストール方法</a></li>
+<li><a class=\"reference\" href=\"#id4\" id=\"id8\" name=\"id8\">使用方法</a></li>
+<li><a class=\"reference\" href=\"#id5\" id=\"id9\" name=\"id9\">注意事項など</a></li>
+</ul>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id6\" id=\"id1\" name=\"id1\">概要</a></h3>
+<p>broadcast.vim : Send keystrokes to all VIM windows <br />
+<a class=\"reference\" href=\"http://www.vim.org/scripts/script.php?script_id=316\">http://www.vim.org/scripts/script.php?script_id=316</a></p>
+<p>操作中のvimエディタのウィンドウから、 <br />
+他のvimエディタのウィンドウに、キーストロークを送信できるようになります。</p>
+<p>このスクリプトを使用すれば、エディタのウィンドウを切り替えなくても他のウィンドウに、 <br />
+テキスト入力や、検索、置換、コマンド実行、編集作業の終了などの操作を行えます。</p>
+<p>複数のウィンドウを同時にいくつも開いて作業することの多い人には、おすすめのスクリプトです。</p>
+<img alt=\"スクリプトの動作イメージ。「こういう入力を行え」という命令を他のウィンドウに送信できる。\" src=\"/dist/img/vim/broadcast_vim_cast.jpg\" />
+<div class=\"note\">
+<p class=\"first admonition-title\">Note</p>
+<p class=\"last\">スクリプトの動作イメージ。「こういう入力を行え」という命令を他のウィンドウに送信できる。</p>
+</div>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id7\" id=\"id2\" name=\"id2\">インストール方法</a></h3>
+<p><a class=\"reference\" href=\"http://www.vim.org/scripts/script.php?script_id=316\">スクリプト</a> をダウンロードして、 <br />
+pluginディレクトリにコピーしてください。</p>
+<table border=\"1\" class=\"docutils\">
+<colgroup>
+<col width=\"50%\">
+<col width=\"50%\">
+</colgroup>
+<thead valign=\"bottom\">
+<tr><th class=\"head\">ファイル</th>
+<th class=\"head\">URL</th>
+</tr>
+</thead>
+<tbody valign=\"top\">
+<tr><td>broadcast.vim</td>
+<td><a class=\"reference\" href=\"http://www.vim.org/scripts/script.php?script_id=316\">http://www.vim.org/scripts/script.php?script_id=316</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id8\" id=\"id4\" name=\"id4\">使用方法</a></h3>
+<p>このスクリプトをインストールすると、2つのコマンドが追加されます。 <br />
+どちらのコマンドも引数に与えられたキーストロークを他のウィンドウに送信するコマンドですが、 <br />
+「:Bcast0」の方は、操作中のウィンドウには、キーストロークを送信しません。</p>
+<table border=\"1\" class=\"docutils\">
+<colgroup>
+<col width=\"50%\">
+<col width=\"50%\">
+</colgroup>
+<thead valign=\"bottom\">
+<tr><th class=\"head\">用意されているコマンド</th>
+<th class=\"head\">説明</th>
+</tr>
+</thead>
+<tbody valign=\"top\">
+<tr><td>:Bcast</td>
+<td>他のウィンドウにキーストロークを送信します。送信対象に作業ウィンドウも含まれます。</td>
+</tr>
+<tr><td>:Bcast0</td>
+<td>他のウィンドウにキーストロークを送信します。送信対象に作業ウィンドウは含まれません。ちなみに最後の文字はアルファベットの「O」ではなく、数字の「0」</td>
+</tr>
+</tbody>
+</table>
+<p>コマンドは送信したいキーストロークを引数にとります。</p>
+<pre class=\"console literal-block\">
+<strong>&quot; コマンドの書式</strong>
+:Bcast keystrokes
+</pre>
+<img alt=\"このように送信したいキーストロークをコマンドの引数に渡す。\" src=\"/dist/img/vim/broadcast_vim_command_sample.jpg\" />
+<p>送信したいキーストロークをコマンドの引数に渡します。</p>
+<pre class=\"console literal-block\">
+<strong>&quot; コマンドの実行例 その1 「検索の実行」</strong>
+:Bcast /search_word&lt;CR&gt;
+</pre>
+<pre class=\"console literal-block\">
+<strong>&quot; コマンドの実行例 その2 「置換処理の実行」</strong>
+:Bcast :%s/pre/post/g&lt;CR&gt;
+</pre>
+<pre class=\"console literal-block\">
+<strong>&quot; コマンドの実行例 その3 「保存してからウィンドウを閉じる」</strong>
+:Bcast :wqa&lt;CR&gt;
+</pre>
+<pre class=\"console literal-block\">
+<strong>&quot; コマンドの実行例 その4 「操作中でない他のウィンドウを全て閉じる」</strong>
+:Bcast0 :qa!&lt;CR&gt;
+</pre>
+<pre class=\"console literal-block\">
+<strong>&quot; コマンドの実行例 その5 「1行目にhello worldという文字を入力する」</strong>
+:Bcast &lt;ESC&gt;ggOhello world&lt;ESC&gt;
+</pre>
+<p>エスケープキー、タブキー、エンターキーの入力などは、 <br />
+それぞれ、「&lt;ESC&gt;」、「&lt;TAB&gt;」、「&lt;CR&gt;」と指定します。 <br />
+検索、置換、コマンド実行の場合、最後に&lt;CR&gt;を入れておかないと、 <br />
+処理を実行できません。</p>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id9\" id=\"id5\" name=\"id5\">注意事項など</a></h3>
+<p>vimエディタの「clientserver」の機能が有効になっていないと、 <br />
+このスクリプトを使用することはできません。</p>
+<p>「clientserver」の機能が有効であるかどうかは、 <br />
+vimエディタを立ち上げて下のコマンドを入力すれば確認することができます。</p>
+<pre class=\"console literal-block\">
+:version
+</pre>
+</div>
+"))) ("Vimball : インストールしたvimスクリプトを管理するプラグイン" "このページではvimエディタのバージョン7から同梱されているスクリプト、Vimballの使い方を紹介します。
+Vimballはvimスクリプトのパッケージマネージャーのようなツールで、
+Vimball独自の形式のアーカイブファイルからスクリプトをインストールしたり、
+インストールしたスクリプトをアンインストールしたりできます。
+(Windows, Mac)" "http://nanasi.jp/articles/vim/vimball_vim.html" (20242 3300) new 8 nil nil ((title nil "Vimball : インストールしたvimスクリプトを管理するプラグイン") (link nil "http://nanasi.jp/articles/vim/vimball_vim.html") (description nil "このページではvimエディタのバージョン7から同梱されているスクリプト、Vimballの使い方を紹介します。 
+Vimballはvimスクリプトのパッケージマネージャーのようなツールで、                                  
+Vimball独自の形式のアーカイブファイルからスクリプトをインストールしたり、                         
+インストールしたスクリプトをアンインストールしたりできます。                                      
+(Windows, Mac)                                                                                    
+") (dc:subject nil "vimスクリプト") (dc:creator nil "小見 拓 <mail@nanasi.jp>") (dc:date nil "2012-01-15T08:16:52+09:00") (content:encoded nil "
+
+
+<div class=\"contents topic\">
+<p class=\"topic-title first\"><a id=\"contents\" name=\"contents\">Contents</a></p>
+<ul class=\"simple\">
+<li><a class=\"reference\" href=\"#id1\" id=\"id15\" name=\"id15\">概要</a></li>
+<li><a class=\"reference\" href=\"#id2\" id=\"id16\" name=\"id16\">インストール方法</a></li>
+<li><a class=\"reference\" href=\"#vimball\" id=\"id17\" name=\"id17\">Vimball形式で配布されたスクリプトをインストールする</a><ul>
+<li><a class=\"reference\" href=\"#id3\" id=\"id18\" name=\"id18\">基本的なインストール方法</a></li>
+<li><a class=\"reference\" href=\"#id4\" id=\"id19\" name=\"id19\">インストール先を変更する</a></li>
+<li><a class=\"reference\" href=\"#id5\" id=\"id20\" name=\"id20\">インストールされるファイルを確認する</a></li>
+<li><a class=\"reference\" href=\"#id6\" id=\"id21\" name=\"id21\">Vimballアーカイブファイルでのインストールで行われること</a></li>
+</ul>
+</li>
+<li><a class=\"reference\" href=\"#id7\" id=\"id22\" name=\"id22\">Vimballでインストールしたスクリプトをアンインストールする</a><ul>
+<li><a class=\"reference\" href=\"#id8\" id=\"id23\" name=\"id23\">基本的なアンインストール方法</a></li>
+<li><a class=\"reference\" href=\"#id9\" id=\"id24\" name=\"id24\">アンインストール処理を行うディレクトリを指定する</a></li>
+</ul>
+</li>
+<li><a class=\"reference\" href=\"#id10\" id=\"id25\" name=\"id25\">Vimball形式のアーカイブファイルを作成する</a><ul>
+<li><a class=\"reference\" href=\"#id11\" id=\"id26\" name=\"id26\">インストールさせたい構成で、ファイルを特定ディレクトリに配置する</a></li>
+<li><a class=\"reference\" href=\"#id12\" id=\"id27\" name=\"id27\">Vimballアーカイブファイルの構成を書いたファイルを用意する</a></li>
+<li><a class=\"reference\" href=\"#vim\" id=\"id28\" name=\"id28\">vimエディタを起動し、カレントディレクトリを配布ファイルディレクトリに変更する</a></li>
+<li><a class=\"reference\" href=\"#id13\" id=\"id29\" name=\"id29\">一覧ファイルをvimエディタで開く</a></li>
+<li><a class=\"reference\" href=\"#mkvimball-vimball\" id=\"id30\" name=\"id30\">「:MkVimball」コマンドでVimballアーカイブファイルを作成する</a></li>
+</ul>
+</li>
+<li><a class=\"reference\" href=\"#id14\" id=\"id31\" name=\"id31\">注意事項など</a></li>
+</ul>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id15\" id=\"id1\" name=\"id1\">概要</a></h3>
+<p>Vimball : vim-based archiver: builds, extracts, and previews <br />
+<a class=\"reference\" href=\"http://www.vim.org/scripts/script.php?script_id=1502\">http://www.vim.org/scripts/script.php?script_id=1502</a></p>
+<p>このページではvimエディタのバージョン7から同梱されているスクリプト、Vimballの使い方を紹介します。 <br />
+Vimballはvimスクリプトのパッケージマネージャーのようなツールで、
+Vimball独自の形式のアーカイブファイルからスクリプトをインストールしたり、 <br />
+インストールしたスクリプトをアンインストールしたりできます。</p>
+<img alt=\"Vimball形式のファイルでインストール\" src=\"/dist/img/vim/vimball_flow.jpg\" />
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id16\" id=\"id2\" name=\"id2\">インストール方法</a></h3>
+<p>Vimballはvimエディタのバージョン7から同梱されているので、
+最新のバージョンを使用しているなら、新たにVimballを入れる必要はありません。 <br />
+古いバージョンのVimballを使用していて、最新のVimballに入れ替える場合は、 <br />
+古いバージョンを削除してから、新しいバージョンのVimballスクリプトをコピーしてください。</p>
+<table border=\"1\" class=\"docutils\">
+<colgroup>
+<col width=\"50%\">
+<col width=\"50%\">
+</colgroup>
+<thead valign=\"bottom\">
+<tr><th class=\"head\">ファイル</th>
+<th class=\"head\">URL</th>
+</tr>
+</thead>
+<tbody valign=\"top\">
+<tr><td>vimball.tar.gz</td>
+<td><a class=\"reference\" href=\"http://www.vim.org/scripts/script.php?script_id=1502\">http://www.vim.org/scripts/script.php?script_id=1502</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id17\" id=\"vimball\" name=\"vimball\">Vimball形式で配布されたスクリプトをインストールする</a></h3>
+<div class=\"section\">
+<h4><a class=\"toc-backref\" href=\"#id18\" id=\"id3\" name=\"id3\">基本的なインストール方法</a></h4>
+<p>Vimballアーカイブファイルは通常、拡張子「.vba」のファイルとして配布されます。 <br />
+このVimballアーカイブファイルからスクリプトをインストールするには、 <br />
+vimエディタで拡張子「.vba」のファイルを開き、次のコマンドを実行してください。</p>
+<pre class=\"console literal-block\">
+<strong>&quot; Vimball形式のファイルからスクリプトをインストールする</strong>
+:source %
+</pre>
+<img alt=\"vimballをエディタで開いて\" src=\"/dist/img/vim/vimball_open.jpg\" />
+<p>↓ インストールするには、まずエディタで.vbaファイルを開いてから、「:source %」コマンドを実行します。</p>
+<img alt=\"「:source」コマンドでインストール\" src=\"/dist/img/vim/vimball_install.jpg\" />
+<div class=\"note\">
+<p class=\"first admonition-title\">Note</p>
+<p class=\"last\">vimエディタの「runtimepath」の設定ディレクトリを順に検索し、
+最初に利用可能なディレクトリがインストール先ディレクトリとなります。 <br />
+通常は「$HOME/vimfiles」か「$HOME/.vim」があればそのディレクトリに、 <br />
+なければvimエディタのインストールディレクトリにインストールされることになります。</p>
+</div>
+</div>
+<div class=\"section\">
+<h4><a class=\"toc-backref\" href=\"#id19\" id=\"id4\" name=\"id4\">インストール先を変更する</a></h4>
+<p>Vimballでスクリプトをインストールする場合、vimエディタの「runtimepath」オプションの設定ディレクトリを順に検索し、 <br />
+最初に利用可能なディレクトリに、スクリプトがインストールされます。 <br />
+インストール先ディレクトリを変更するには、vimエディタの「runtimepath」オプションを変更するか、 <br />
+「g:vimball_home」変数でインストール先ディレクトリを指定します。</p>
+<pre class=\"program literal-block\">
+<strong>&quot; vimエディタの設定ファイルで、インストール先ディレクトリを指定</strong>
+:let g:vimball_home = &quot;C:/Users/home&quot;
+</pre>
+</div>
+<div class=\"section\">
+<h4><a class=\"toc-backref\" href=\"#id20\" id=\"id5\" name=\"id5\">インストールされるファイルを確認する</a></h4>
+<p>Vimballでインストールされるファイルのリストを確認するには、 <br />
+インストールするVimball形式のファイルをvimエディタで開いてから、次のコマンドを実行します。</p>
+<pre class=\"console literal-block\">
+<strong>&quot; インストールされるファイルを確認する</strong>
+:VimballList
+</pre>
+<img alt=\"「:VimballList」コマンドでインストールファイルを表示\" src=\"/dist/img/vim/vimball_list.jpg\" />
+</div>
+<div class=\"section\">
+<h4><a class=\"toc-backref\" href=\"#id21\" id=\"id6\" name=\"id6\">Vimballアーカイブファイルでのインストールで行われること</a></h4>
+<p>Vimballでスクリプトをインストールすると、</p>
+<ul class=\"simple\">
+<li>インストール先ディレクトリに必要なファイルがコピーされます。</li>
+<li>docディレクトリのファイルに「:helptags」コマンドが実行されます。</li>
+<li>インストール先ディレクトリの「.VimballRecord」ファイルにインストール情報が記録されます。</li>
+</ul>
+<p>「.VimballRecord」ファイルに記録した情報は、アンインストール時、再インストール時に使用されます。</p>
+</div>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id22\" id=\"id7\" name=\"id7\">Vimballでインストールしたスクリプトをアンインストールする</a></h3>
+<div class=\"section\">
+<h4><a class=\"toc-backref\" href=\"#id23\" id=\"id8\" name=\"id8\">基本的なアンインストール方法</a></h4>
+<p>Vimball形式のアーカイブファイルでスクリプトをインストールした場合は、 <br />
+そのスクリプトを「:RmVimball」コマンドでアンインストールできます。</p>
+<pre class=\"console literal-block\">
+:RmVimball {拡張子「.vba」ファイルのファイル名}
+</pre>
+<p>アンインストールする場合に指定する「.vba」ファイルのファイル名にはファイルまでのパスを含みません。ファイル名のみを指定します。 <br />
+ファイル名を忘れてしまった場合は、インストール情報を記録している「.VimballRecord」ファイルを見てください。</p>
+<pre class=\"console literal-block\">
+<strong>&quot; アンインストールする場合のコマンドの例</strong>
+:RmVimball rainbow-4.0.vba
+</pre>
+</div>
+<div class=\"section\">
+<h4><a class=\"toc-backref\" href=\"#id24\" id=\"id9\" name=\"id9\">アンインストール処理を行うディレクトリを指定する</a></h4>
+<p>アンインストール処理を行う先のディレクトリは、インストール時と同じく、 <br />
+vimエディタの「runtimepath」オプションの設定ディレクトリを順に検索し、 <br />
+最初に利用できるディレクトリとなります。</p>
+<p>この条件に合わないディレクトリにインストールしたスクリプトをアンインストールするには、 <br />
+vimエディタの設定ファイルでインストール先ディレクトリを示す「g:vimball_home」変数を設定するか、</p>
+<pre class=\"program literal-block\">
+<strong>&quot; vimエディタの設定ファイルで、インストール先ディレクトリを指定</strong>
+:let g:vimball_home = &quot;C:/Users/home&quot;
+</pre>
+<p>「:RmVimball」コマンド実行時にアンインストール処理を行うディレクトリを指定します。</p>
+<pre class=\"console literal-block\">
+<strong>&quot; アンインストールディレクトリを指定する場合のコマンド例</strong>
+:RmVimball rainbow-4.0.vba C:/Users/home
+</pre>
+</div>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id25\" id=\"id10\" name=\"id10\">Vimball形式のアーカイブファイルを作成する</a></h3>
+<p>配布用のVimball形式のファイルを作成する最も基本的な方法を説明します。 <br />
+この章の情報はvimスクリプトを、Vimballで配布したい方にのみ必要となります。</p>
+<div class=\"section\">
+<h4><a class=\"toc-backref\" href=\"#id26\" id=\"id11\" name=\"id11\">インストールさせたい構成で、ファイルを特定ディレクトリに配置する</a></h4>
+<p>まず適当なディレクトリを用意し（$HOME/vimfiles、$HOME/.vimでも構わない）、 <br />
+そのディレクトリにインストールするファイルを配置します。</p>
+<pre class=\"program literal-block\">
+<strong>あるディレクトリ以下にインストールするファイルを置く（例）</strong>
+directory/
+  |
+  +-- autoload/
+  |     |
+  |     +-- Align.vim
+  |
+  +-- doc/
+  |     |
+  |     +-- Align.txt
+  |
+  +-- plugin/
+        |
+        +-- AlignMaps.vim
+        +-- AlignPlugin.vim
+</pre>
+</div>
+<div class=\"section\">
+<h4><a class=\"toc-backref\" href=\"#id27\" id=\"id12\" name=\"id12\">Vimballアーカイブファイルの構成を書いたファイルを用意する</a></h4>
+<p>テキストファイルを用意して、
+そのファイルにインストールするファイルの一覧を書きます。 <br />
+（仮に「filelist.txt」としておきます）</p>
+<pre class=\"program literal-block\">
+<strong>一覧ファイルの書き方サンプル</strong>
+autoload/Align.vim
+doc/Align.txt
+plugin/AlignMaps.vim
+plugin/AlignPlugin.vim
+</pre>
+</div>
+<div class=\"section\">
+<h4><a class=\"toc-backref\" href=\"#id28\" id=\"vim\" name=\"vim\">vimエディタを起動し、カレントディレクトリを配布ファイルディレクトリに変更する</a></h4>
+<p>vimエディタを起動し、カレントディレクトリを配布ファイルディレクトリのルートディレクトリに変更します。 <br />
+ディレクトリの移動には「:cd」コマンドが利用できます。</p>
+<div class=\"note\">
+<p class=\"first admonition-title\">Note</p>
+<p>Windowsの場合はルートディレクトリにファイルを置いて、 <br />
+そのファイルを「Shift」キーを押しながらvimエディタで開くと、楽に移動できます。</p>
+<img alt=\"Shiftキーを押しながらドロップ\" class=\"last\" src=\"/dist/img/vim/vimball_shift_to_vim.jpg\" />
+</div>
+</div>
+<div class=\"section\">
+<h4><a class=\"toc-backref\" href=\"#id29\" id=\"id13\" name=\"id13\">一覧ファイルをvimエディタで開く</a></h4>
+<p>インストールファイル一覧をvimエディタで開きます。 <br />
+（このファイルは、さきほど作成した「filelist.txt」のことです。）</p>
+</div>
+<div class=\"section\">
+<h4><a class=\"toc-backref\" href=\"#id30\" id=\"mkvimball-vimball\" name=\"mkvimball-vimball\">「:MkVimball」コマンドでVimballアーカイブファイルを作成する</a></h4>
+<p>ここまでの作業で、カレントディレクトリを配布ファイルディレクトリルートにし、
+インストールファイル一覧をvimエディタで開いたら、 <br />
+「:MkVimball」コマンドを実行し、Vimballアーカイブファイルを作成します。</p>
+<pre class=\"console literal-block\">
+:%MkVimball {作成するVimballファイル名}
+</pre>
+<pre class=\"console literal-block\">
+<strong>&quot; 「:MkVimball」コマンドの実行例</strong>
+:%MkVimball rainbow-4.0.vba
+</pre>
+<p>これでVimballファイルが作成されます。 <br />
+動作確認を行ったら、このアーカイブファイルを配布してください。</p>
+</div>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id31\" id=\"id14\" name=\"id14\">注意事項など</a></h3>
+<p>Vimballには、現状、問題点が少なくとも1つあります。</p>
+<p>Vimballアーカイブファイルのファイル名に&quot;[1]&quot;、&quot;[2]&quot;、&quot;[3]&quot;などが含まれていると、 <br />
+インストールは成功するものの、Vimballによるアンインストールが空振りします。 <br />
+（アンインストールが失敗します）</p>
+<p>この問題はファイル名に&quot;[1]&quot;などの文字が入っていたら、
+その文字を取り除くだけで回避できますが、 <br />
+Internet Explorerを使用している方はダウンロードファイルのファイル名に
+&quot;[1]&quot;が入りやすいようなので、気をつけてください。</p>
+</div>
+"))) ("RltvNmbr.vim : カレント行からの相対行数を表示するプラグイン" "RltvNmbr.vimは、カレント行からそれぞれの行が何行離れているかを表示するプラグインです。
+(Windows, Mac)" "http://nanasi.jp/articles/vim/rltvnmbr_vim.html" (20238 22453) new 9 nil nil ((title nil "RltvNmbr.vim : カレント行からの相対行数を表示するプラグイン") (link nil "http://nanasi.jp/articles/vim/rltvnmbr_vim.html") (description nil "RltvNmbr.vimは、カレント行からそれぞれの行が何行離れているかを表示するプラグインです。 
+(Windows, Mac)                                                                         
+") (dc:subject nil "vimスクリプト") (dc:creator nil "小見 拓 <mail@nanasi.jp>") (dc:date nil "2012-01-12T12:47:01+09:00") (content:encoded nil "
+
+
+<div class=\"contents topic\">
+<p class=\"topic-title first\"><a id=\"contents\" name=\"contents\">Contents</a></p>
+<ul class=\"simple\">
+<li><a class=\"reference\" href=\"#id1\" id=\"id9\" name=\"id9\">概要</a></li>
+<li><a class=\"reference\" href=\"#id2\" id=\"id10\" name=\"id10\">インストール方法</a></li>
+<li><a class=\"reference\" href=\"#id3\" id=\"id11\" name=\"id11\">使用方法</a><ul>
+<li><a class=\"reference\" href=\"#id4\" id=\"id12\" name=\"id12\">コマンドから使用する</a></li>
+<li><a class=\"reference\" href=\"#id5\" id=\"id13\" name=\"id13\">メニューから使用する</a></li>
+</ul>
+</li>
+<li><a class=\"reference\" href=\"#id6\" id=\"id14\" name=\"id14\">注意事項など</a><ul>
+<li><a class=\"reference\" href=\"#id7\" id=\"id15\" name=\"id15\">必要なコンパイルオプション</a></li>
+<li><a class=\"reference\" href=\"#id8\" id=\"id16\" name=\"id16\">描画が重い</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id9\" id=\"id1\" name=\"id1\">概要</a></h3>
+<p>RltvNmbr.vim : Display relative line numbers <br />
+<a class=\"reference\" href=\"http://www.vim.org/scripts/script.php?script_id=2351\">http://www.vim.org/scripts/script.php?script_id=2351</a></p>
+<p>RltvNmbr.vimは、カレント行からそれぞれの行が何行離れているかを表示するプラグインです。</p>
+<img alt=\"相対行数表示\" src=\"/dist/img/vim/rltvnmbr_vim.png\" />
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id10\" id=\"id2\" name=\"id2\">インストール方法</a></h3>
+<p>まず、プラグインをダウンロードします。 <br />
+次に、配布ファイルはgzip形式で圧縮されているので、
+このファイルを何らかの解凍ツールによって解凍します。 <br />
+最後に、解凍後、生成された「RltvNmbr.vba」ファイルをvimエディタで開き、
+次のコマンドを実行してください。</p>
+<pre class=\"console literal-block\">
+:source %
+</pre>
+<img alt=\":sourceコマンド\" src=\"/dist/img/vim/rltvnmbr_vim_source.png\" />
+<table border=\"1\" class=\"docutils\">
+<colgroup>
+<col width=\"50%\">
+<col width=\"50%\">
+</colgroup>
+<thead valign=\"bottom\">
+<tr><th class=\"head\">ファイル</th>
+<th class=\"head\">URL</th>
+</tr>
+</thead>
+<tbody valign=\"top\">
+<tr><td>RltvNmbr.vba.gz</td>
+<td><a class=\"reference\" href=\"http://www.vim.org/scripts/script.php?script_id=2351\">http://www.vim.org/scripts/script.php?script_id=2351</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id11\" id=\"id3\" name=\"id3\">使用方法</a></h3>
+<div class=\"section\">
+<h4><a class=\"toc-backref\" href=\"#id12\" id=\"id4\" name=\"id4\">コマンドから使用する</a></h4>
+<p>RltvNmbr.vimプラグインでは、相対行数を表示するコマンドと、 <br />
+非表示に切り替えるコマンド（無効にするコマンド）が用意されています。</p>
+<p>まず、次の「:RltvNmbr」コマンドを実行すると、相対行数表示が有効になります。</p>
+<pre class=\"console literal-block\">
+:RltvNmbr
+</pre>
+<p>表示している相対行数の表示を消すには「!」をつけて、
+「:RltvNmbr!」とコマンドを実行してください。</p>
+<pre class=\"console literal-block\">
+:RltvNmbr!
+</pre>
+<table border=\"1\" class=\"docutils\">
+<colgroup>
+<col width=\"50%\">
+<col width=\"50%\">
+</colgroup>
+<thead valign=\"bottom\">
+<tr><th class=\"head\">コマンド</th>
+<th class=\"head\">説明</th>
+</tr>
+</thead>
+<tbody valign=\"top\">
+<tr><td>:RltvNmbr</td>
+<td>相対行数表示を有効にする。</td>
+</tr>
+<tr><td>:RltvNmbr!</td>
+<td>相対行数表示を無効にする。</td>
+</tr>
+<tr><td>:RN</td>
+<td>相対行数表示の有効、無効を切り替える。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class=\"section\">
+<h4><a class=\"toc-backref\" href=\"#id13\" id=\"id5\" name=\"id5\">メニューから使用する</a></h4>
+<p>GUI版vimエディタを使用していて、メニューを表示している場合は、 <br />
+メニュー項目でRltvNmbr.vimプラグインの機能の有効、無効を切り替えることもできます。</p>
+<img alt=\"メニューで機能を有効に\" src=\"/dist/img/vim/rltvnmbr_vim_menu_start.png\" />
+</div>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id14\" id=\"id6\" name=\"id6\">注意事項など</a></h3>
+<div class=\"section\">
+<h4><a class=\"toc-backref\" href=\"#id15\" id=\"id7\" name=\"id7\">必要なコンパイルオプション</a></h4>
+<p>このRltvNmbr.vimプラグインを使用するには、vimエディタが「+signs」オプション付きで
+コンパイルされている必要があります。 <br />
+使用しているvimエディタのコンパイルオプションを調べるには、次のコマンドを実行します。</p>
+<pre class=\"console literal-block\">
+:version
+</pre>
+</div>
+<div class=\"section\">
+<h4><a class=\"toc-backref\" href=\"#id16\" id=\"id8\" name=\"id8\">描画が重い</a></h4>
+<p>相対行表示を描画しているのは、カレントウィンドウで表示している範囲の行のみですが、
+カーソル移動が発生するたびに消去、再描画しているので、かなり重いプラグインになっています。
+特に、素の「j」や「k」によるカーソル移動を多用する方には、ストレスのたまるプラグインです。</p>
+<p>処理が重くて描画を途中で止めたい場合には、 <br />
+「Control」キーを押しながら「c」キーで描画を停止できます。</p>
+</div>
+</div>
+"))) ("zoom.vim : 「+」、「-」キーで文字の大きさを変更" "vimエディタで使用しているフォントの大きさを、
+「+」キーで大きく、「-」キーで小さく変更するスクリプトです。
+GUI版のvimエディタでのみ使用できます。
+(Windows, Mac)" "http://nanasi.jp/articles/vim/zoom_vim.html" (20238 22472) new 10 nil nil ((title nil "zoom.vim : 「+」、「-」キーで文字の大きさを変更") (link nil "http://nanasi.jp/articles/vim/zoom_vim.html") (description nil "vimエディタで使用しているフォントの大きさを、                
+「+」キーで大きく、「-」キーで小さく変更するスクリプトです。 
+GUI版のvimエディタでのみ使用できます。                       
+(Windows, Mac)                                               
+") (dc:subject nil "vimスクリプト") (dc:creator nil "小見 拓 <mail@nanasi.jp>") (dc:date nil "2012-01-12T12:47:20+09:00") (content:encoded nil "
+
+
+<div class=\"contents topic\">
+<p class=\"topic-title first\"><a id=\"contents\" name=\"contents\">Contents</a></p>
+<ul class=\"simple\">
+<li><a class=\"reference\" href=\"#id1\" id=\"id8\" name=\"id8\">概要</a></li>
+<li><a class=\"reference\" href=\"#id2\" id=\"id9\" name=\"id9\">インストール方法</a></li>
+<li><a class=\"reference\" href=\"#id4\" id=\"id10\" name=\"id10\">使用方法</a><ul>
+<li><a class=\"reference\" href=\"#id5\" id=\"id11\" name=\"id11\">マッピングから実行</a></li>
+<li><a class=\"reference\" href=\"#id6\" id=\"id12\" name=\"id12\">コマンドから実行</a></li>
+</ul>
+</li>
+<li><a class=\"reference\" href=\"#id7\" id=\"id13\" name=\"id13\">注意事項など</a></li>
+</ul>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id8\" id=\"id1\" name=\"id1\">概要</a></h3>
+<p>zoom.vim : 「+」、「-」キーで文字の大きさを変更 <br />
+<a class=\"reference\" href=\"https://github.com/taku-o/downloads/raw/master/zoom.vim\">https://github.com/taku-o/downloads/raw/master/zoom.vim</a></p>
+<p>vimエディタで使用しているフォントの大きさを、
+「+」キーで大きく、「-」キーで小さく変更するスクリプトです。 <br />
+GUI版のvimエディタでのみ使用できます。</p>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id9\" id=\"id2\" name=\"id2\">インストール方法</a></h3>
+<p><a class=\"reference\" href=\"https://github.com/taku-o/downloads/raw/master/zoom.vim\">スクリプト</a> をダウンロードして、 <br />
+pluginディレクトリにコピーしてください。</p>
+<table border=\"1\" class=\"docutils\">
+<colgroup>
+<col width=\"50%\">
+<col width=\"50%\">
+</colgroup>
+<thead valign=\"bottom\">
+<tr><th class=\"head\">ファイル</th>
+<th class=\"head\">URL</th>
+</tr>
+</thead>
+<tbody valign=\"top\">
+<tr><td>zoom.vim</td>
+<td><a class=\"reference\" href=\"https://github.com/taku-o/downloads/raw/master/zoom.vim\">https://github.com/taku-o/downloads/raw/master/zoom.vim</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id10\" id=\"id4\" name=\"id4\">使用方法</a></h3>
+<p>プラグインの使用方法として、マッピングから実行する方法、
+コマンドから実行する方法が用意されています。</p>
+<div class=\"section\">
+<h4><a class=\"toc-backref\" href=\"#id11\" id=\"id5\" name=\"id5\">マッピングから実行</a></h4>
+<p>用意されているマッピングは2種類です。
+ノーマルモード「+」キーでフォントのサイズを拡大、
+「-」キーでフォントのサイズを縮小します。 <br />
+なお、フォントのサイズを変更すると、それに伴い、ウィンドウの大きさも変化します。</p>
+<table border=\"1\" class=\"docutils\">
+<colgroup>
+<col width=\"33%\">
+<col width=\"33%\">
+<col width=\"33%\">
+</colgroup>
+<thead valign=\"bottom\">
+<tr><th class=\"head\">キー</th>
+<th class=\"head\">モード</th>
+<th class=\"head\">説明</th>
+</tr>
+</thead>
+<tbody valign=\"top\">
+<tr><td>+</td>
+<td>ノーマルモード</td>
+<td>フォントのサイズを1サイズ拡大する。</td>
+</tr>
+<tr><td>-</td>
+<td>ノーマルモード</td>
+<td>フォントのサイズを1サイズ縮小する。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class=\"section\">
+<h4><a class=\"toc-backref\" href=\"#id12\" id=\"id6\" name=\"id6\">コマンドから実行</a></h4>
+<p>コマンドからフォントのサイズを変更する方法も用意してあります。 <br />
+「:ZoomReset」コマンドを使用すると、変更したフォントのサイズを初期状態にリセットできます。</p>
+<table border=\"1\" class=\"docutils\">
+<colgroup>
+<col width=\"50%\">
+<col width=\"50%\">
+</colgroup>
+<thead valign=\"bottom\">
+<tr><th class=\"head\">コマンド</th>
+<th class=\"head\">説明</th>
+</tr>
+</thead>
+<tbody valign=\"top\">
+<tr><td>:ZoomIn</td>
+<td>フォントのサイズを1サイズ拡大する。</td>
+</tr>
+<tr><td>:ZoomOut</td>
+<td>フォントのサイズを1サイズ縮小する。</td>
+</tr>
+<tr><td>:ZoomReset</td>
+<td>変更したフォントのサイズを、元の状態に戻す。</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id13\" id=\"id7\" name=\"id7\">注意事項など</a></h3>
+<p>このプラグインの機能はGUI版のvimエディタでのみ使用できます。</p>
+</div>
+"))) ("scrnmode.vim : スクリーンのサイズを簡単切替え" "scrnmode.vimスクリプトは、スクリーンの状態を変更する機能をもつスクリプトです。
+このスクリプトを使用すると、vimエディタのスクリーンのサイズを、
+通常サイズ、横幅2倍、フルスクリーン、それ以上の大きさにと、すばやく切替られます。
+scrnmode.vimスクリプトは、Kaoriyaパッチに添付されています。
+(Windows)" "http://nanasi.jp/articles/vim/scrnmode_vim.html" (20238 22445) new 11 nil nil ((title nil "scrnmode.vim : スクリーンのサイズを簡単切替え") (link nil "http://nanasi.jp/articles/vim/scrnmode_vim.html") (description nil "scrnmode.vimスクリプトは、スクリーンの状態を変更する機能をもつスクリプトです。    
+このスクリプトを使用すると、vimエディタのスクリーンのサイズを、                   
+通常サイズ、横幅2倍、フルスクリーン、それ以上の大きさにと、すばやく切替られます。 
+scrnmode.vimスクリプトは、Kaoriyaパッチに添付されています。                       
+(Windows)                                                                         
+") (dc:subject nil "vimスクリプト") (dc:creator nil "小見 拓 <mail@nanasi.jp>") (dc:date nil "2012-01-12T12:46:53+09:00") (content:encoded nil "
+
+
+<div class=\"contents topic\">
+<p class=\"topic-title first\"><a id=\"contents\" name=\"contents\">Contents</a></p>
+<ul class=\"simple\">
+<li><a class=\"reference\" href=\"#id1\" id=\"id9\" name=\"id9\">概要</a></li>
+<li><a class=\"reference\" href=\"#id2\" id=\"id10\" name=\"id10\">インストール方法</a></li>
+<li><a class=\"reference\" href=\"#scrnmode-vim\" id=\"id11\" name=\"id11\">scrnmode.vimにより使用できるようになるコマンド</a></li>
+<li><a class=\"reference\" href=\"#screenmode\" id=\"id12\" name=\"id12\">「:ScreenMode」コマンドの使い方</a><ul>
+<li><a class=\"reference\" href=\"#id3\" id=\"id13\" name=\"id13\">各スクリーンモードの説明</a></li>
+<li><a class=\"reference\" href=\"#id4\" id=\"id14\" name=\"id14\">覚えておくべきスクリーンモード</a></li>
+<li><a class=\"reference\" href=\"#id5\" id=\"id15\" name=\"id15\">元の表示に戻すには</a></li>
+</ul>
+</li>
+<li><a class=\"reference\" href=\"#fullscreen\" id=\"id16\" name=\"id16\">「:FullScreen」コマンドの使い方</a></li>
+<li><a class=\"reference\" href=\"#id6\" id=\"id17\" name=\"id17\">設定</a><ul>
+<li><a class=\"reference\" href=\"#screenmode-7-screenmode-8\" id=\"id18\" name=\"id18\">「:ScreenMode 7」「:ScreenMode 8」の時の、フォントの大きさを変更する。</a></li>
+<li><a class=\"reference\" href=\"#id7\" id=\"id19\" name=\"id19\">scrnmode.vimの使用を停止する。</a></li>
+</ul>
+</li>
+<li><a class=\"reference\" href=\"#id8\" id=\"id20\" name=\"id20\">注意事項など</a></li>
+</ul>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id9\" id=\"id1\" name=\"id1\">概要</a></h3>
+<p>scrnmode.vimスクリプトは、スクリーンの状態を変更する機能をもつスクリプトです。 <br />
+このスクリプトを使用すると、vimエディタのスクリーンのサイズを、
+通常サイズ、横幅2倍、フルスクリーン、それ以上の大きさにと、すばやく切替られます。 <br />
+scrnmode.vimスクリプトは、Kaoriyaパッチに添付されています。</p>
+<img alt=\"各スクリーンのリスト\" src=\"/dist/img/vim/scrnmode_sm_list.jpg\" />
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id10\" id=\"id2\" name=\"id2\">インストール方法</a></h3>
+<p>Kaoriyaパッチに添付されています。 <br />
+Kaoriyaパッチ入りのvimエディタを使用している場合は、
+インストール作業の必要はありません。</p>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id11\" id=\"scrnmode-vim\" name=\"scrnmode-vim\">scrnmode.vimにより使用できるようになるコマンド</a></h3>
+<p>scrnmode.vimスクリプトをインストールすると、下の表にあるコマンドを使用できます。 <br />
+このスクリプトの主なコマンドは「:ScreenMode」と「:FullScreen」の2つで、 <br />
+残りのコマンドは「:ScreenMode」コマンドの変形の呼び出し方になっています。</p>
+<table border=\"1\" class=\"docutils\">
+<colgroup>
+<col width=\"33%\">
+<col width=\"33%\">
+<col width=\"33%\">
+</colgroup>
+<thead valign=\"bottom\">
+<tr><th class=\"head\">コマンド</th>
+<th class=\"head\">説明</th>
+<th class=\"head\">コマンド例</th>
+</tr>
+</thead>
+<tbody valign=\"top\">
+<tr><td>:ScreenMode</td>
+<td>指定したスクリーンモードに状態を変更する。0～8の数字を引数に取ります。</td>
+<td>:FullScreen 4</td>
+</tr>
+<tr><td>:SM</td>
+<td>「:ScreenMode」と同じ。0～8の数字を引数に取ります。</td>
+<td>:SM 1</td>
+</tr>
+<tr><td>:Revert</td>
+<td>「:ScreenMode 0」と同じ。</td>
+<td>:Revert</td>
+</tr>
+<tr><td>:Double</td>
+<td>「:ScreenMode 2」と同じ。</td>
+<td>:Double</td>
+</tr>
+<tr><td>:Fever</td>
+<td>「:ScreenMode 8」と同じ。</td>
+<td>:Fever</td>
+</tr>
+<tr><td>:FullScreen</td>
+<td>フルスクリーンで、メニューなどのUIコンポーネント非表示状態に切り替える。「:ScreenMode 5」を実行した状態に近い。</td>
+<td>:FullScreen</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id12\" id=\"screenmode\" name=\"screenmode\">「:ScreenMode」コマンドの使い方</a></h3>
+<p>「:ScreenMode」コマンド（「:SM」コマンドでも良い）を、数字パラメータ付きで呼び出すと、 <br />
+vimエディタの状態を、指定したスクリーンモードの状態に変更します。 <br />
+数字は0～8までを指定でき、数字が大きくなるほど、多くの文字を表示できるように
+スクリーンの状態が変化します。</p>
+<pre class=\"console literal-block\">
+<strong>&quot; :SMコマンドと、:ScreenModeコマンドの機能は同じ。</strong>
+:SM {数字}
+</pre>
+<img alt=\"「:SM」コマンドの入力\" src=\"/dist/img/vim/scrnmode_command.jpg\" />
+<div class=\"section\">
+<h4><a class=\"toc-backref\" href=\"#id13\" id=\"id3\" name=\"id3\">各スクリーンモードの説明</a></h4>
+<p>「:ScreenMode」コマンドに渡すパラメータと、その結果の画面の状態変化の関連は次の表の通りです。</p>
+<table border=\"1\" class=\"docutils\">
+<colgroup>
+<col width=\"13%\">
+<col width=\"13%\">
+<col width=\"13%\">
+<col width=\"13%\">
+<col width=\"13%\">
+<col width=\"13%\">
+<col width=\"13%\">
+<col width=\"13%\">
+</colgroup>
+<thead valign=\"bottom\">
+<tr><th class=\"head\">パラメータ</th>
+<th class=\"head\">画面サイズ</th>
+<th class=\"head\">スクロールバー</th>
+<th class=\"head\">メニュー</th>
+<th class=\"head\">ツールバー</th>
+<th class=\"head\">キャプションタイトルバー</th>
+<th class=\"head\">文字サイズ</th>
+<th class=\"head\">行間</th>
+</tr>
+</thead>
+<tbody valign=\"top\">
+<tr><td>0</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr><td>1</td>
+<td>-</td>
+<td>非表示</td>
+<td>非表示</td>
+<td>非表示</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr><td>2</td>
+<td>横幅2倍</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr><td>3</td>
+<td>横幅2倍</td>
+<td>非表示</td>
+<td>非表示</td>
+<td>非表示</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr><td>4</td>
+<td>フルスクリーン</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr><td>5</td>
+<td>フルスクリーン</td>
+<td>非表示</td>
+<td>非表示</td>
+<td>非表示</td>
+<td>非表示</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr><td>6</td>
+<td>フルスクリーン</td>
+<td>非表示</td>
+<td>非表示</td>
+<td>非表示</td>
+<td>非表示</td>
+<td>-</td>
+<td>狭い</td>
+</tr>
+<tr><td>7</td>
+<td>フルスクリーン</td>
+<td>非表示</td>
+<td>非表示</td>
+<td>非表示</td>
+<td>非表示</td>
+<td>小さい</td>
+<td>-</td>
+</tr>
+<tr><td>8</td>
+<td>フルスクリーン</td>
+<td>非表示</td>
+<td>非表示</td>
+<td>非表示</td>
+<td>非表示</td>
+<td>小さい</td>
+<td>狭い</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class=\"section\">
+<h4><a class=\"toc-backref\" href=\"#id14\" id=\"id4\" name=\"id4\">覚えておくべきスクリーンモード</a></h4>
+<p>0～8で9種類の状態がありますが、次の4種だけ覚えておけば、 <br />
+スクリプトは問題なく利用できます。</p>
+<ul class=\"simple\">
+<li>「:SM 0」 元の表示状態に戻す。（元の状態はvimエディタ起動時に記録されています。）</li>
+<li>「:SM 2」 画面の横幅を2倍に。</li>
+<li>「:SM 4」 フルスクリーン表示にする。</li>
+<li>「:SM 8」 文字を縮小して、フルスクリーン表示。</li>
+</ul>
+<img alt=\"各スクリーンのスライド\" src=\"/dist/img/vim/scrnmode_sm_slide.jpg\" />
+</div>
+<div class=\"section\">
+<h4><a class=\"toc-backref\" href=\"#id15\" id=\"id5\" name=\"id5\">元の表示に戻すには</a></h4>
+<p>スクリーンモードを変更した後、元の表示状態に戻すには「:ScreenMode 0」コマンドを使用します。</p>
+<pre class=\"console literal-block\">
+<strong>&quot; 下のどのコマンドを呼び出しても、元の状態に戻せる。</strong>
+:ScreenMode 0
+:SM 0
+:Revert
+</pre>
+</div>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id16\" id=\"fullscreen\" name=\"fullscreen\">「:FullScreen」コマンドの使い方</a></h3>
+<p>「:ScreenMode」コマンドとは別に、「:FullScreen」コマンドも用意されています。 <br />
+この「:FullScreen」コマンドを使用すると、vimエディタをフルスクリーン表示します。 <br />
+メニュー、ツールバー、スクロールバーも非表示に切り替わります。</p>
+<pre class=\"console literal-block\">
+:FullScreen
+</pre>
+<div class=\"note\">
+<p class=\"first admonition-title\">Note</p>
+<p class=\"last\">「:ScreenMode 5」と、「:FullScreen」の違いは、 <br />
+キャプションタイトルバーの表示、非表示ぐらいしかありません。</p>
+</div>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id17\" id=\"id6\" name=\"id6\">設定</a></h3>
+<div class=\"section\">
+<h4><a class=\"toc-backref\" href=\"#id18\" id=\"screenmode-7-screenmode-8\" name=\"screenmode-7-screenmode-8\">「:ScreenMode 7」「:ScreenMode 8」の時の、フォントの大きさを変更する。</a></h4>
+<p>「:ScreenMode 7」「:ScreenMode 8」で拡大表示した際のフォントを設定により変更できます。 <br />
+小さい表示では見づらいフォントを使用している場合は、設定する価値があるでしょう。 <br />
+フォントを変更するには、「g:fever_guifont」の設定を、vimエディタの設定ファイルに追加します。</p>
+<pre class=\"program literal-block\">
+<strong>&quot; scrnmode.vimのスクリーンモード7、8の時のフォント</strong>
+:let g:fever_guifont = &quot;MS_Gothic:h7.5:cSHIFTJIS&quot;
+</pre>
+<div class=\"note\">
+<p class=\"first admonition-title\">Note</p>
+<p class=\"last\">「g:fever_guifont」を指定していない場合は、現在使用中のフォントの
+7.5のサイズが使われます。</p>
+</div>
+</div>
+<div class=\"section\">
+<h4><a class=\"toc-backref\" href=\"#id19\" id=\"id7\" name=\"id7\">scrnmode.vimの使用を停止する。</a></h4>
+<p>scrnmode.vimスクリプトは、$VIMRUNTIME/plugin/ディレクトリに入れられているため、
+特に設定しなくても、vimエディタ起動時に読み込まれます。 <br />
+スクリプトを読み込まないようにするには、次の設定をvimエディタの設定ファイルに追加してください。</p>
+<pre class=\"program literal-block\">
+:let g:plugin_scrnmode_disable = 1
+</pre>
+</div>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id20\" id=\"id8\" name=\"id8\">注意事項など</a></h3>
+<p>このスクリプトはGUI専用のスクリプトです。GUI用のvimエディタでしか使用できません。 <br />
+また、Windows用でないか、+kaoriyaでコンパイルされていないvimエディタの場合、
+scrnmode.vimスクリプトの機能は幾分制限されます。</p>
+</div>
+"))) ("viewoutput.vim : vimのコマンドの実行結果を読み取る" "vimのコマンドの実行結果をバッファに出力するスクリプトです。
+:let、:set、:au、:map、:versionなどのコマンドの結果を
+じっくり見たい時、保存したい時、加工したい時などに
+使用するスクリプトです。
+(Windows, Mac)" "http://nanasi.jp/articles/vim/viewoutput_vim.html" (20238 22436) new 12 nil nil ((title nil "viewoutput.vim : vimのコマンドの実行結果を読み取る") (link nil "http://nanasi.jp/articles/vim/viewoutput_vim.html") (description nil "vimのコマンドの実行結果をバッファに出力するスクリプトです。 
+:let、:set、:au、:map、:versionなどのコマンドの結果を       
+じっくり見たい時、保存したい時、加工したい時などに          
+使用するスクリプトです。                                    
+(Windows, Mac)                                              
+") (dc:subject nil "vimスクリプト") (dc:creator nil "小見 拓 <mail@nanasi.jp>") (dc:date nil "2012-01-12T12:46:44+09:00") (content:encoded nil "
+
+
+<div class=\"contents topic\">
+<p class=\"topic-title first\"><a id=\"contents\" name=\"contents\">Contents</a></p>
+<ul class=\"simple\">
+<li><a class=\"reference\" href=\"#id1\" id=\"id5\" name=\"id5\">概要</a></li>
+<li><a class=\"reference\" href=\"#id2\" id=\"id6\" name=\"id6\">インストール方法</a></li>
+<li><a class=\"reference\" href=\"#id4\" id=\"id7\" name=\"id7\">使用方法</a></li>
+</ul>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id5\" id=\"id1\" name=\"id1\">概要</a></h3>
+<p>ViewOutput : scroll back and search [long] output of vim command <br />
+<a class=\"reference\" href=\"http://www.vim.org/scripts/script.php?script_id=897\">http://www.vim.org/scripts/script.php?script_id=897</a></p>
+<p>vimのコマンドの実行結果をバッファに出力するスクリプトです。 <br />
+:let、:set、:au、:map、:versionなどのコマンドの結果を <br />
+じっくり見たい時、保存したい時、加工したい時などに使用するスクリプトです。</p>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id6\" id=\"id2\" name=\"id2\">インストール方法</a></h3>
+<p><a class=\"reference\" href=\"http://www.vim.org/scripts/script.php?script_id=897\">スクリプト</a> をダウンロードして、 <br />
+pluginディレクトリにコピーしてください。</p>
+<table border=\"1\" class=\"docutils\">
+<colgroup>
+<col width=\"50%\">
+<col width=\"50%\">
+</colgroup>
+<thead valign=\"bottom\">
+<tr><th class=\"head\">ファイル</th>
+<th class=\"head\">URL</th>
+</tr>
+</thead>
+<tbody valign=\"top\">
+<tr><td>viewoutput.vim</td>
+<td><a class=\"reference\" href=\"http://www.vim.org/scripts/script.php?script_id=897\">http://www.vim.org/scripts/script.php?script_id=897</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id7\" id=\"id4\" name=\"id4\">使用方法</a></h3>
+<p>結果をバッファに書き出したいvimエディタのコマンドを、 <br />
+「:VO」の後に続けて入力してから、コマンドを実行してください。</p>
+<pre class=\"console literal-block\">
+<strong>&quot; コマンド実行例</strong>
+:VO :set
+</pre>
+<p>コマンドを実行するとウィンドウが上下に分割されて、 <br />
+その分割されたウィンドウにコマンドの結果が出力されます。</p>
+</div>
+"))) ("ScreenShot.vim : Vimエディタでの表示内容をHTML化するプラグイン" "Vimエディタで表示している内容をHTML化して、Webブラウザで表示、印刷できるようにするプラグインです。
+同様の機能をもったプラグインである 2html.vim との違いとして、
+VimエディタのタイトルバーごとHTML化したり、差分diff結果をHTML化する機能を持ちます。
+(Windows, Mac)" "http://nanasi.jp/articles/vim/screenshot_vim.html" (20238 22327) new 13 nil nil ((title nil "ScreenShot.vim : Vimエディタでの表示内容をHTML化するプラグイン") (link nil "http://nanasi.jp/articles/vim/screenshot_vim.html") (description nil "Vimエディタで表示している内容をHTML化して、Webブラウザで表示、印刷できるようにするプラグインです。 
+同様の機能をもったプラグインである 2html.vim との違いとして、                                      
+VimエディタのタイトルバーごとHTML化したり、差分diff結果をHTML化する機能を持ちます。                
+(Windows, Mac)                                                                                     
+") (dc:subject nil "vimスクリプト") (dc:creator nil "小見 拓 <mail@nanasi.jp>") (dc:date nil "2012-01-12T12:44:55+09:00") (content:encoded nil "
+
+
+<div class=\"contents topic\">
+<p class=\"topic-title first\"><a id=\"contents\" name=\"contents\">Contents</a></p>
+<ul class=\"simple\">
+<li><a class=\"reference\" href=\"#id1\" id=\"id8\" name=\"id8\">概要</a></li>
+<li><a class=\"reference\" href=\"#id2\" id=\"id9\" name=\"id9\">インストール方法</a></li>
+<li><a class=\"reference\" href=\"#id4\" id=\"id10\" name=\"id10\">使用方法</a><ul>
+<li><a class=\"reference\" href=\"#screenshot\" id=\"id11\" name=\"id11\">:ScreenShot</a></li>
+<li><a class=\"reference\" href=\"#text2html\" id=\"id12\" name=\"id12\">:Text2Html</a></li>
+<li><a class=\"reference\" href=\"#diff2html\" id=\"id13\" name=\"id13\">:Diff2Html</a></li>
+</ul>
+</li>
+<li><a class=\"reference\" href=\"#id7\" id=\"id14\" name=\"id14\">設定</a></li>
+</ul>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id8\" id=\"id1\" name=\"id1\">概要</a></h3>
+<p>ScreenShot : ScreenShot.vim enables you make screenshot of your VIM session as HTML code. <br />
+<a class=\"reference\" href=\"http://www.vim.org/scripts/script.php?script_id=1552\">http://www.vim.org/scripts/script.php?script_id=1552</a></p>
+<p>Vimエディタで表示している内容をHTML化して、Webブラウザで表示、印刷できるようにするプラグインです。 <br />
+同様の機能をもったプラグインである <a class=\"reference\" href=\"/articles/vim/2html_vim.html\">2html.vim</a> との違いとして、
+VimエディタのタイトルバーごとHTML化したり、差分diff結果をHTML化する機能を持ちます。</p>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id9\" id=\"id2\" name=\"id2\">インストール方法</a></h3>
+<p>日本語環境用に少し修正を入れたプラグインを作成してあります。 <br />
+プラグインをセットアップするには <a class=\"reference\" href=\"https://github.com/taku-o/downloads/raw/master/ScreenShot_mb.vim\">プラグインファイル</a> をダウンロード後、
+vim設定ファイルディレクトリのpluginディレクトリにコピーしてください。</p>
+<table border=\"1\" class=\"docutils\">
+<colgroup>
+<col width=\"33%\">
+<col width=\"33%\">
+<col width=\"33%\">
+</colgroup>
+<thead valign=\"bottom\">
+<tr><th class=\"head\">説明</th>
+<th class=\"head\">ファイル</th>
+<th class=\"head\">URL</th>
+</tr>
+</thead>
+<tbody valign=\"top\">
+<tr><td>オリジナル</td>
+<td>ScreenShot.vim</td>
+<td><a class=\"reference\" href=\"http://www.vim.org/scripts/script.php?script_id=1552\">http://www.vim.org/scripts/script.php?script_id=1552</a></td>
+</tr>
+<tr><td>修正版</td>
+<td>ScreenShot_mb.vim</td>
+<td><a class=\"reference\" href=\"https://github.com/taku-o/downloads/raw/master/ScreenShot_mb.vim\">https://github.com/taku-o/downloads/raw/master/ScreenShot_mb.vim</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id10\" id=\"id4\" name=\"id4\">使用方法</a></h3>
+<p>ScreenShot.vimプラグインには、3つのコマンドが用意されています。</p>
+<table border=\"1\" class=\"docutils\">
+<colgroup>
+<col width=\"50%\">
+<col width=\"50%\">
+</colgroup>
+<thead valign=\"bottom\">
+<tr><th class=\"head\">コマンド</th>
+<th class=\"head\">説明</th>
+</tr>
+</thead>
+<tbody valign=\"top\">
+<tr><td>:ScreenShot</td>
+<td>ウィンドウも含めて、スクリーンショットをHTML化します。</td>
+</tr>
+<tr><td>:Text2Html</td>
+<td>選択したテキストをHTML化します。</td>
+</tr>
+<tr><td>:Diff2Html</td>
+<td>差分diff実行時に、そのdiffの状態をHTML化します。</td>
+</tr>
+</tbody>
+</table>
+<div class=\"section\">
+<h4><a class=\"toc-backref\" href=\"#id11\" id=\"screenshot\" name=\"screenshot\">:ScreenShot</a></h4>
+<p>「:ScreenShot」コマンドを実行すると、ウィンドウも含めて、Vimエディタに表示している内容をHTML化します。</p>
+<pre class=\"console literal-block\">
+:ScreenShot
+</pre>
+<p>下画像は、左上がVimエディタ上での表示で、右下がHTML化したテキストをWebブラウザで表示した様子です。</p>
+<img alt=\"「:ScreenShot」コマンド結果\" src=\"/dist/img/vim/screenshot_screenshot.png\" />
+</div>
+<div class=\"section\">
+<h4><a class=\"toc-backref\" href=\"#id12\" id=\"text2html\" name=\"text2html\">:Text2Html</a></h4>
+<p>「:Text2Html」コマンドは、選択した範囲のテキストをHTML化します。テキスト未選択時はファイル全体が対象となります。 <br />
+「 <a class=\"reference\" href=\"/articles/vim/2html_vim.html\">2html.vim</a> 」プラグインの挙動に最も近いのが、この「:Text2Html」コマンドだと思います。</p>
+<pre class=\"console literal-block\">
+:'&lt;,'&gt;Text2Html
+</pre>
+<p>左上がVimエディタ上での表示で、右下がHTML化したテキストをWebブラウザで表示したものです。
+選択した範囲のみ、HTML化されます。</p>
+<img alt=\"「:Text2Html」コマンド結果\" src=\"/dist/img/vim/screenshot_text2html.png\" />
+<div class=\"note\">
+<p class=\"first admonition-title\">Note</p>
+<p class=\"last\">2html.vimプラグインのドキュメントも参考にしてください。 <br />
+<a class=\"reference\" href=\"/articles/vim/2html_vim.html\">2html.vim : ファイルをシンタックスハイライトつきのHTMLに変換</a></p>
+</div>
+</div>
+<div class=\"section\">
+<h4><a class=\"toc-backref\" href=\"#id13\" id=\"diff2html\" name=\"diff2html\">:Diff2Html</a></h4>
+<p>diffモードでのみ、動作します。
+差分diff実行後に「Diff2Html」コマンドを実行すると、差分diffの状態をHTML化します。</p>
+<pre class=\"console literal-block\">
+:Diff2Html
+</pre>
+<p>下画像は、左上がVimエディタでの差分diffの状態、右下が「Diff2Html」コマンドで、HTML化した様子です。 <br />
+上下ウィンドウで分割して比較しても、左右比較した状態でHTML化されます。</p>
+<img alt=\"「:Diff2Html」コマンド結果\" src=\"/dist/img/vim/screenshot_diff2html.png\" />
+<div class=\"note\">
+<p class=\"first admonition-title\">Note</p>
+<p class=\"last\">差分diffの使い方が分らない場合は、いくつかドキュメントを用意してあるので、そちらのペースを参照してください。 <br />
+<a class=\"reference\" href=\"/howto/diff.html\">2つのテキストファイルのdiff</a></p>
+</div>
+</div>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id14\" id=\"id7\" name=\"id7\">設定</a></h3>
+<p>ScreenShot.vimプラグインには、次の設定が用意されています。
+これらの設定を有効にするには、Vimエディタの設定ファイルに記述してください。 <br />
+いくつかの設定は「:ScreenShot」コマンドの結果のみで有効です。</p>
+<table border=\"1\" class=\"docutils\">
+<colgroup>
+<col width=\"50%\">
+<col width=\"50%\">
+</colgroup>
+<thead valign=\"bottom\">
+<tr><th class=\"head\">オプション</th>
+<th class=\"head\">説明</th>
+</tr>
+</thead>
+<tbody valign=\"top\">
+<tr><td>Title</td>
+<td>タイトルバーを表示するか。1で表示、0で非表示。</td>
+</tr>
+<tr><td>Icon</td>
+<td>アイコンをタイトルバーに表示するか。1で表示、0で非表示。</td>
+</tr>
+<tr><td>Credits</td>
+<td>クレジットを表示するか。1で表示、0で非表示。</td>
+</tr>
+<tr><td>force_background</td>
+<td>背景色を特定の色にする。</td>
+</tr>
+</tbody>
+</table>
+<img alt=\"ScreenShot.vim設定項目\" src=\"/dist/img/vim/screenshot_options.png\" />
+<p>各設定は「g:ScreenShot」ディクショナリのキーとして、次のように指定します。</p>
+<pre class=\"program literal-block\">
+&quot; 設定例
+:let g:ScreenShot = {'Title':1, 'Icon':1, 'Credits':1, 'force_background':'#000000', 'fill_screen':1}
+</pre>
+</div>
+"))) ("swapmous.vim : マウスの左右ボタン機能を入れ替え" "vimスクリプトで、マウスの左右ボタンの役目を切り替えます。
+(Windows, Mac)" "http://nanasi.jp/articles/vim/swapmous_vim.html" (20238 22320) new 14 nil nil ((title nil "swapmous.vim : マウスの左右ボタン機能を入れ替え") (link nil "http://nanasi.jp/articles/vim/swapmous_vim.html") (description nil "vimスクリプトで、マウスの左右ボタンの役目を切り替えます。 
+(Windows, Mac)                                            
+") (dc:subject nil "vimスクリプト") (dc:creator nil "小見 拓 <mail@nanasi.jp>") (dc:date nil "2012-01-12T12:44:48+09:00") (content:encoded nil "
+
+
+<div class=\"contents topic\">
+<p class=\"topic-title first\"><a id=\"contents\" name=\"contents\">Contents</a></p>
+<ul class=\"simple\">
+<li><a class=\"reference\" href=\"#id1\" id=\"id5\" name=\"id5\">概要</a></li>
+<li><a class=\"reference\" href=\"#id2\" id=\"id6\" name=\"id6\">インストール方法</a></li>
+<li><a class=\"reference\" href=\"#id3\" id=\"id7\" name=\"id7\">使用方</a></li>
+<li><a class=\"reference\" href=\"#id4\" id=\"id8\" name=\"id8\">注意事項など</a></li>
+</ul>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id5\" id=\"id1\" name=\"id1\">概要</a></h3>
+<p>swapmous.vim <br />
+<a class=\"reference\" href=\"ftp://ftp.vim.org/pub/vim/runtime/macros/\">ftp://ftp.vim.org/pub/vim/runtime/macros/</a></p>
+<p>左利きの方専用スクリプト。マウスの左右のボタンの機能をVimスクリプト的で入れ替えます。 <br />
+このスクリプトはVim6.2の配布に含まれています。</p>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id6\" id=\"id2\" name=\"id2\">インストール方法</a></h3>
+<p>swapmous.vimは、Vim6.2の配布に含まれていますので、
+新たにスクリプトを入手する必要はありません。</p>
+<p>swapmous.vimを有効にするには、Vimの設定ファイル_gvimrcに下の設定を
+書き足します。</p>
+<pre class=\"program literal-block\">
+:source $VIMRUNTIME/macros/swapmous.vim
+</pre>
+<p>マウスが使用できる状態でなければ、
+下の設定も書き足してマウスを使用できる状態にします。</p>
+<pre class=\"program literal-block\">
+:set mouse=a
+</pre>
+<table border=\"1\" class=\"docutils\">
+<colgroup>
+<col width=\"50%\">
+<col width=\"50%\">
+</colgroup>
+<thead valign=\"bottom\">
+<tr><th class=\"head\">ファイル</th>
+<th class=\"head\">URL</th>
+</tr>
+</thead>
+<tbody valign=\"top\">
+<tr><td>swapmous.vim</td>
+<td><a class=\"reference\" href=\"ftp://ftp.vim.org/pub/vim/runtime/macros/\">ftp://ftp.vim.org/pub/vim/runtime/macros/</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id7\" id=\"id3\" name=\"id3\">使用方</a></h3>
+<p>実際にマウスを使ってみれば、どう変わったか、すぐに分かると思います。</p>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id8\" id=\"id4\" name=\"id4\">注意事項など</a></h3>
+<p>もちろん、別の方法でマウスの右と左を入れ替えたら、このスクリプトは用なしです。
+その時はスクリプトを外してください。</p>
+</div>
+"))) ("tagexplorer.vim : ソースファイルの変数、メソッド、クラス名をファイル別に一覧表示" "ctagsの機能を利用して編集中のファイルを解析して、
+Java, C++, Perl, PHP, Python, Rubyの変数、メソッドを別のウィンドウに表示する、
+クラスブラウザ機能を提供するスクリプトです。
+(Windows, Mac)" "http://nanasi.jp/articles/vim/tagexplorer_vim.html" (20238 22309) new 15 nil nil ((title nil "tagexplorer.vim : ソースファイルの変数、メソッド、クラス名をファイル別に一覧表示") (link nil "http://nanasi.jp/articles/vim/tagexplorer_vim.html") (description nil "ctagsの機能を利用して編集中のファイルを解析して、                              
+Java, C++, Perl, PHP, Python, Rubyの変数、メソッドを別のウィンドウに表示する、 
+クラスブラウザ機能を提供するスクリプトです。                                   
+(Windows, Mac)                                                                 
+") (dc:subject nil "vimスクリプト") (dc:creator nil "小見 拓 <mail@nanasi.jp>") (dc:date nil "2012-01-12T12:44:37+09:00") (content:encoded nil "
+
+
+<div class=\"contents topic\">
+<p class=\"topic-title first\"><a id=\"contents\" name=\"contents\">Contents</a></p>
+<ul class=\"simple\">
+<li><a class=\"reference\" href=\"#id1\" id=\"id7\" name=\"id7\">概要</a></li>
+<li><a class=\"reference\" href=\"#id3\" id=\"id8\" name=\"id8\">インストール方法</a></li>
+<li><a class=\"reference\" href=\"#id5\" id=\"id9\" name=\"id9\">使用方法</a></li>
+<li><a class=\"reference\" href=\"#id6\" id=\"id10\" name=\"id10\">注意事項など</a></li>
+</ul>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id7\" id=\"id1\" name=\"id1\">概要</a></h3>
+<p>tagexplorer.vim : Tag explorer for various programming language files <br />
+<a class=\"reference\" href=\"http://www.vim.org/scripts/script.php?script_id=483\">http://www.vim.org/scripts/script.php?script_id=483</a></p>
+<p>クラスブラウザの機能を提供します。 <br />
+その種類により、タグをグループ化し、左側のウィンドウにフォールド形式のツリーで表示します。
+右ウィンドウのファイルを、そのウィンドウで切り替えつつ、編集できます。
+<a class=\"reference\" href=\"/articles/vim/taglist_vim.html\">taglist.vim</a> と違い、複数のファイルの変数、メソッドを同時に参照できます。
+このスクリプトはJava, C++, Perl, PHP, Python, Rubyなど、複数の言語で使用できます。</p>
+<img alt=\"デフォルトの状態\" src=\"/dist/img/vim/tagexplorer.jpg\" />
+<p>↑この状態から、
+参照したいファイルのクラスブラウズを行います。</p>
+<img alt=\"クラスブラウズ\" src=\"/dist/img/vim/tagexplorer_open.jpg\" />
+<p>また、ファイルエクスプローラーとしても機能します。</p>
+<img alt=\"ファイルエクスプローラー\" src=\"/dist/img/vim/tagexplorer_filer.jpg\" />
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id8\" id=\"id3\" name=\"id3\">インストール方法</a></h3>
+<p>このスクリプトは、Exuberant Ctagsが必要なので、
+インストールされていないのであれば、インストールしてください。</p>
+<p>_vimrc、もしくは.vimrcファイルに下記の設定を追加します。</p>
+<pre class=\"program literal-block\">
+:set tags=tags
+</pre>
+<p><a class=\"reference\" href=\"http://www.vim.org/scripts/script.php?script_id=483\">vim online</a> から、
+スクリプトをダウンロードしたら、 <br />
+$VIMRUNTIME/pluginなどの <br />
+プラグインディレクトリに、コピーしてください。</p>
+<table border=\"1\" class=\"docutils\">
+<colgroup>
+<col width=\"50%\">
+<col width=\"50%\">
+</colgroup>
+<thead valign=\"bottom\">
+<tr><th class=\"head\">ファイル</th>
+<th class=\"head\">URL</th>
+</tr>
+</thead>
+<tbody valign=\"top\">
+<tr><td>Exuberant Ctags</td>
+<td><a class=\"reference\" href=\"http://ctags.sourceforge.net/\">http://ctags.sourceforge.net/</a></td>
+</tr>
+<tr><td>tagexplorer.vim</td>
+<td><a class=\"reference\" href=\"http://www.vim.org/scripts/script.php?script_id=483\">http://www.vim.org/scripts/script.php?script_id=483</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id9\" id=\"id5\" name=\"id5\">使用方法</a></h3>
+<p>タグファイルはあらかじめ、生成しておきます。</p>
+<pre class=\"console literal-block\">
+:TagExplorer
+</pre>
+<p>を入力するたびに、TagExplorerの表示 ←→ 非表示が入れ替わります。</p>
+<img alt=\"tagexplorer\" src=\"/dist/img/vim/tagexplorer.jpg\" />
+<p>指定のファイルの上にカーソルを持っていき、</p>
+<pre class=\"console literal-block\">
+o
+</pre>
+<p>で、ファイルの情報を表示します。</p>
+<img alt=\"クラスブラウズ\" src=\"/dist/img/vim/tagexplorer_open.jpg\" />
+<p>そのファイルの情報を隠す時は、
+次のコマンドを入力します。</p>
+<pre class=\"console literal-block\">
+c
+</pre>
+<p>以下は、用意されているコマンドです。</p>
+<table border=\"1\" class=\"docutils\">
+<colgroup>
+<col width=\"50%\">
+<col width=\"50%\">
+</colgroup>
+<thead valign=\"bottom\">
+<tr><th class=\"head\">コマンド</th>
+<th class=\"head\">効果</th>
+</tr>
+</thead>
+<tbody valign=\"top\">
+<tr><td>o</td>
+<td>カーソル下のクラスブラウズをします。</td>
+</tr>
+<tr><td>c</td>
+<td>カーソルの下のファイルの情報を閉じます。-と違い、メソッド、変数上にカーソルがあっても閉じる。</td>
+</tr>
+<tr><td>u</td>
+<td>タグファイルを更新します。</td>
+</tr>
+<tr><td>&lt;Enter&gt;</td>
+<td>カーソル下のファイルを開きます。</td>
+</tr>
+<tr><td>O</td>
+<td>カーソル下のファイルを別のウィンドウで開きます。</td>
+</tr>
+<tr><td>&lt;Space&gt;</td>
+<td>TagExplorerのメソッド、フィールドの上で押すと、そのメソッド、フィールドの情報を表示します。1</td>
+</tr>
+<tr><td>-</td>
+<td>クラスブラウズしたファイルの情報を閉じます。</td>
+</tr>
+<tr><td>+</td>
+<td>-、cで閉じられたフォールドを開きます。</td>
+</tr>
+<tr><td>s</td>
+<td>メソッド、フィールドを名前でソートします。</td>
+</tr>
+<tr><td>g</td>
+<td>ディレクトリを移動します。</td>
+</tr>
+<tr><td>q</td>
+<td>TagExplorerを閉じます。</td>
+</tr>
+</tbody>
+</table>
+<p>これらのコマンド群は、</p>
+<pre class=\"console literal-block\">
+?
+</pre>
+<p>を入力しても確認できます。</p>
+<img alt=\"tagexplorer\" src=\"/dist/img/vim/tagexplorer_help.jpg\" />
+</div>
+<div class=\"section\">
+<h3><a class=\"toc-backref\" href=\"#id10\" id=\"id6\" name=\"id6\">注意事項など</a></h3>
+<p>このTagExplorerは、カレントディレクトリのファイル群をブラウズしますが、
+そのカレントディレクトリは、TagExplorerのウィンドウと、編集しているウィンドウで異なることがあります。
+注意してください。</p>
+</div>
+"))))

@@ -1,0 +1,219 @@
+;; -*- coding: utf-8 -*-
+(("Geekなぺーじ" "ネットワーク技術、プロトコル、プログラミングなどを初心者から中級者向けに解説したサイト。プログラミング、Web、その他技術ネタブログ。" "http://www.geekpage.jp/" (20693 49508 956544) feed 0 nil nil ((title nil "Geekなぺーじ") (link nil "http://www.geekpage.jp/") (dc:date nil "2012-12-22T14:36:36") (description nil "ネットワーク技術、プロトコル、プログラミングなどを初心者から中級者向けに解説したサイト。プログラミング、Web、その他技術ネタブログ。") (items nil (rdf:Seq nil (rdf:li ((rdf:resource . "http://www.geekpage.jp/blog/?id=2012/12/22/1"))) (rdf:li ((rdf:resource . "http://www.geekpage.jp/blog/?id=2012/12/21/1"))) (rdf:li ((rdf:resource . "http://www.geekpage.jp/blog/?id=2012/12/18/1"))) (rdf:li ((rdf:resource . "http://www.geekpage.jp/blog/?id=2012/12/13/2"))) (rdf:li ((rdf:resource . "http://www.geekpage.jp/blog/?id=2012/12/13/1"))) (rdf:li ((rdf:resource . "http://www.geekpage.jp/blog/?id=2012/12/12/2"))) (rdf:li ((rdf:resource . "http://www.geekpage.jp/blog/?id=2012/12/12/1"))) (rdf:li ((rdf:resource . "http://www.geekpage.jp/blog/?id=2012/12/4/2"))) (rdf:li ((rdf:resource . "http://www.geekpage.jp/blog/?id=2012/12/4/1"))) (rdf:li ((rdf:resource . "http://www.geekpage.jp/blog/?id=2012/12/3/1"))) (rdf:li ((rdf:resource . "http://www.geekpage.jp/blog/?id=2012/11/29/2"))) (rdf:li ((rdf:resource . "http://www.geekpage.jp/blog/?id=2012/11/29/1"))) (rdf:li ((rdf:resource . "http://www.geekpage.jp/blog/?id=2012/11/28/1"))) (rdf:li ((rdf:resource . "http://www.geekpage.jp/blog/?id=2012/11/26/1"))) (rdf:li ((rdf:resource . "http://www.geekpage.jp/blog/?id=2012/11/23/1"))) (rdf:li ((rdf:resource . "http://www.geekpage.jp/blog/?id=2012/11/22/2"))) (rdf:li ((rdf:resource . "http://www.geekpage.jp/blog/?id=2012/11/22/1"))) (rdf:li ((rdf:resource . "http://www.geekpage.jp/blog/?id=2012/11/18/1"))) (rdf:li ((rdf:resource . "http://www.geekpage.jp/blog/?id=2012/11/14/2"))) (rdf:li ((rdf:resource . "http://www.geekpage.jp/blog/?id=2012/11/14/1"))) (rdf:li ((rdf:resource . "http://www.geekpage.jp/blog/?id=2012/11/12/1"))) (rdf:li ((rdf:resource . "http://www.geekpage.jp/blog/?id=2012/11/9/1"))) (rdf:li ((rdf:resource . "http://www.geekpage.jp/blog/?id=2012/11/7/1"))) (rdf:li ((rdf:resource . "http://www.geekpage.jp/blog/?id=2012/11/5/1"))) (rdf:li ((rdf:resource . "http://www.geekpage.jp/blog/?id=2012/10/30/1"))))))) ("Geekなぺーじ：レストラン「アローム」の思い出" nil "http://www.geekpage.jp/blog/?id=2012/12/22/1" (20693 50548) new 1 nil nil ((title nil "Geekなぺーじ：レストラン「アローム」の思い出") (link nil "http://www.geekpage.jp/blog/?id=2012/12/22/1") (dc:date nil "2012-12-22T14:36:36") (content:encoded nil "
+
+<p>
+湘南台に<a href=\"http://arome.jp/\">アローム</a>というレストランがあります。
+最近は年に数度行くか行かないかになってしまいましたが、学生時代に非常に良く通ったお店でした。
+</p><div class=\"center\"><img src=\"/blog/img/2012/12-arome.jpg\" class=\"blackborder\" /></div><p>
+いまでは「学生向けの定食屋」と認識されることが多いアロームですが、約20年前は準高級洋食屋のようなお店でした。
+昼は800円のランチがありましたが、夜はお店で食べると2000円ぐらいかかるような感じです。
+ただ、アロームは当時から非常に不思議な店で、800円ぐらいの出前メニューも存在していました。
+高級洋食店を目指しているお店だけあって、おいしいというのが何よりも重要なポイントだったりもします。
+</p><p><a href=\"http://www.geekpage.jp/blog/?id=2012/12/22/1\">続きを読む...</a></p>
+"))) ("Geekなぺーじ：WCIT-12のFinal Actにサインした国、してない国" nil "http://www.geekpage.jp/blog/?id=2012/12/21/1" (20692 35429) new 2 nil nil ((title nil "Geekなぺーじ：WCIT-12のFinal Actにサインした国、してない国") (link nil "http://www.geekpage.jp/blog/?id=2012/12/21/1") (dc:date nil "2012-12-21T16:12:21") (content:encoded nil "
+
+<p>
+ITUで公開されているWCIT-12のFinal Actにサインした国とサインしてない国のリストがフランス語なので、日本語版を作りました。
+サインした国は89カ国、サインしていない国は55カ国です。
+</p><ul><li><a href=\"http://www.itu.int/osg/wcit-12/highlights/signatories.html\">ITU: Signatories of the Final Acts: 89 (in green)</a></li><li><a href=\"http://www.soumu.go.jp/menu_news/s-news/01tsushin06_02000042.html\">総務省: 国際電気通信連合（ITU）2012年世界国際電気通信会議（WCIT-12）の結果</a></li></ul><h2>サインした国</h2><table border=\"1\" cellpadding=\"8\" cellspacing=\"0\"><tr><td>アフガニスタン</td><td>アルジェリア</td><td>アンゴラ</td><td>サウジアラビア</td></tr><tr><td>アルゼンチン</td><td>アゼルバイジャン</td><td>バーレーン</td><td>バングラデシュ</td></tr><tr><td>バルバドス</td><td>ベリーズ</td><td>ベナン</td><td>ブータン</td></tr><tr><td>ボツワナ</td><td>ブラジル</td><td>ブルネイ</td><td>ブルキナファソ</td></tr><tr><td>ブルンジ</td><td>カンボジア</td><td>カーボベルデ</td><td>中央アフリカ共和国</td></tr><tr><td>中国</td><td>コモロ連合</td><td>コンゴ共和国</td><td>韓国</td></tr><tr><td>コートジボワール</td><td>キューバ</td><td>ジブチ</td><td>ドミニカ共和国</td></tr><tr><td>エジプト</td><td>エルサルバドル</td><td>アラブ首長国連邦</td><td>ロシア</td></tr><tr><td>ガボン</td><td>ガーナ</td><td>グアテマラ</td><td>ガイアナ</td></tr><tr><td>ハイチ</td><td>インドネシア</td><td>イラン</td><td>イラク</td></tr><tr><td>ジャマイカ</td><td>ヨルダン</td><td>カザフスタン</td><td>クゥエート</td></tr><tr><td>レソト</td><td>レバノン</td><td>リベリア</td><td>リビア</td></tr><tr><td>マレーシア</td><td>マリ共和国</td><td>モロッコ</td><td>モーリシャス</td></tr><tr><td>メキシコ</td><td>モザンビーク</td><td>ナミビア</td><td>ネパール</td></tr><tr><td>ニジェール</td><td>ナイジェリア</td><td>オマーン</td><td>ウガンダ</td></tr><tr><td>ウズベキスタン</td><td>パナマ</td><td>パプアニューギニア</td><td>パラグアイ</td></tr><tr><td>カタール</td><td>キルギス</td><td>ルワンダ</td><td>セントルシア</td></tr><tr><td>セネガル</td><td>シエラレオネ</td><td>シンガポール</td><td>ソマリア</td></tr><tr><td>スーダン</td><td>南スーダン</td><td>スリランカ</td><td>南アフリカ共和国</td></tr><tr><td>スワジランド</td><td>タンザニア</td><td>タイ</td><td>トーゴ</td></tr><tr><td>トリニダード・トバゴ</td><td>チュニジア</td><td>トルコ</td><td>ウクライナ</td></tr><tr><td>ウルグアイ</td><td>ベネズエラ</td><td>ベトナム</td><td>イエメン</td></tr><tr><td>ジンバブエ</td></tr></table><p><a href=\"http://www.geekpage.jp/blog/?id=2012/12/21/1\">続きを読む...</a></p>
+"))) ("Geekなぺーじ：日本でもKindleで70%ロイヤリティが可能に" nil "http://www.geekpage.jp/blog/?id=2012/12/18/1" (20692 35429) new 3 nil nil ((title nil "Geekなぺーじ：日本でもKindleで70%ロイヤリティが可能に") (link nil "http://www.geekpage.jp/blog/?id=2012/12/18/1") (dc:date nil "2012-12-18T8:58:38") (content:encoded nil "
+
+<p>
+Amazon Kindleが日本で開始された当初は35%ロイヤリティのみでしたが、日本でもAmazon Kindleで70%ロイヤリティが可能になりました。
+ただし、日本での70%ロイヤリティを受け取るには、KDPセレクトへの登録が条件になっています。
+</p><p>
+電子書籍をKDPセレクトに登録された書籍は、Amazon Kindle専用図書館に所蔵されたような状態になります。
+Amazonプライム会員が月に1冊無償で読めるようになります。
+</p><p><a href=\"http://www.geekpage.jp/blog/?id=2012/12/18/1\">続きを読む...</a></p>
+"))) ("Geekなぺーじ：Facebookコメント欄を汚さないで下さい" nil "http://www.geekpage.jp/blog/?id=2012/12/13/2" (20681 61296) new 4 nil nil ((title nil "Geekなぺーじ：Facebookコメント欄を汚さないで下さい") (link nil "http://www.geekpage.jp/blog/?id=2012/12/13/2") (dc:date nil "2012-12-13T15:08:32") (content:encoded nil "
+
+<p>
+最近、各所で「Facebookのコメント欄を汚さないで欲しい」という要求を見ることが増えてきました。
+</p><p>
+たとえば、何らかの投稿に対して、投稿者ではない人が意見を述べ、それに対する反論を別の人が行って延々と議論を続けるような状況があります。
+その他、途中で誰かがボケを書いたため、その後の皆でボケ合戦となるような場面もしばしば発生しています。
+</p><p><a href=\"http://www.geekpage.jp/blog/?id=2012/12/13/2\">続きを読む...</a></p>
+"))) ("Geekなぺーじ：[書き起こし]親の心子知らず？委任にまつわる諸問題について考える 〜ランチのおともにDNS〜" nil "http://www.geekpage.jp/blog/?id=2012/12/13/1" (20681 61296) new 5 nil nil ((title nil "Geekなぺーじ：[書き起こし]親の心子知らず？委任にまつわる諸問題について考える 〜ランチのおともにDNS〜") (link nil "http://www.geekpage.jp/blog/?id=2012/12/13/1") (dc:date nil "2012-12-13T9:34:10") (content:encoded nil "
+
+<p>
+Internet Week 2012で行われたランチセミナーの書き起こしです。
+本来であれば、記事として要約してまとめるべきなのでしょうが、セミナーそのものが高度に要約された内容であり、かつ、微妙なバランスが考慮された芸術作品のような発表であったため、過不足なくかつ発表されたニュアンスを可能な限り正確に伝える文章を書ける自信が全くなかったので、発表者の方々の許可を頂いたうえで書き起こしという手法にしました。
+</p><p>
+前半は最後の「最近のDNSトピックス」を理解するための伏線のような構成となっています。
+一番キャッチーな部分だけをご希望な方は、後半に説明されている、example.jpを特定の条件下で管理しているとmail.example.jpやwww.example.jpやns.example.jpなどを簡単にハイジャックできてしまう共用DNSなどの話を最初にご覧頂いたうえで、その内容を理解するための最初から再度読み直して頂ければと個人的には思います。
+</p><p><a href=\"http://www.geekpage.jp/blog/?id=2012/12/13/1\">続きを読む...</a></p>
+"))) ("Geekなぺーじ：APNIC逆引きDNSSECでゾーン検証エラー" nil "http://www.geekpage.jp/blog/?id=2012/12/12/2" (20680 36181) new 6 nil nil ((title nil "Geekなぺーじ：APNIC逆引きDNSSECでゾーン検証エラー") (link nil "http://www.geekpage.jp/blog/?id=2012/12/12/2") (dc:date nil "2012-12-12T13:57:41") (content:encoded nil "
+
+<p>
+APNICにおける障害に起因する、APNIC管理下の逆引きゾーンでのDNSSEC検証エラーが発生しました。
+問題は12月7日に発生し、最大で24時間の間、逆引きDNSSEC検証エラーが発生した可能性があります。
+</p><ul><li><a href=\"http://www.apnic.net/publications/news/2012/service-announcement-7-december\">APNIC: Service announcement 7 December</a></li></ul><p>
+dns-operationsメーリングリストでの投稿を見ると、APNICでのネットワーク機器の障害以降、active DNSSEC signerが不通となり、バックアップを用意したけど毎月自動的に行われるZSKロールオーバー時に古い鍵を考慮した更新ができずに、古い鍵がキャッシュに残る間は検証エラーが発生する状態になってしまった、ということですかね？（間違ってたら、ごめんなさい。。。）
+</p><ul><li><a href=\"https://lists.dns-oarc.net/pipermail/dns-operations/2012-December/009425.html\">[dns-operations] DNSSEC validation failures for reverse delegations?</a></li></ul><p><a href=\"http://www.geekpage.jp/blog/?id=2012/12/12/2\">続きを読む...</a></p>
+"))) ("Geekなぺーじ：今度はセルビアのccTLDを扱うレジストラがクラックされる" nil "http://www.geekpage.jp/blog/?id=2012/12/12/1" (20680 35934) new 7 nil nil ((title nil "Geekなぺーじ：今度はセルビアのccTLDを扱うレジストラがクラックされる") (link nil "http://www.geekpage.jp/blog/?id=2012/12/12/1") (dc:date nil "2012-12-12T13:53:34") (content:encoded nil "
+
+<p>
+今年10月に<a href=\"/blog/?id=2012/11/12/1\">アイルランドのccTLDレジストリがクラックされ</a>、11月に<a href=\"/blog/?id=2012/11/29/1\">ルーマニアのccTLDレジストリがクラック</a>されました。
+</p><p>
+今度は、セルビアのccTLDを管理するレジストリではなく、「NINET Company d.o.o」というレジストラがクラックされました。
+</p><p><a href=\"http://www.geekpage.jp/blog/?id=2012/12/12/1\">続きを読む...</a></p>
+"))) ("Geekなぺーじ：JPRS「黒猫の不思議な旅」の映像が凄い" nil "http://www.geekpage.jp/blog/?id=2012/12/4/2" (20670 15487) new 8 nil nil ((title nil "Geekなぺーじ：JPRS「黒猫の不思議な旅」の映像が凄い") (link nil "http://www.geekpage.jp/blog/?id=2012/12/4/2") (dc:date nil "2012-12-04T18:10:07") (content:encoded nil "
+
+<p>
+JPRSによるプロモーション映像が何か凄いです。
+</p><div class=\"center\"><iframe width=\"520\" height=\"293\" src=\"http://www.youtube.com/embed/yAxvTBRfNSo\" frameborder=\"0\" allowfullscreen></iframe></div><p>
+ストーリーは、以下のようになっています。
+</p><blockquote class=\"dotted\">
+ヨーロッパのとある街に暮らす少女ジェシカと彼女の飼い猫ポール。
+ある日ジェシカは遠い日本に引っ越してしまった親友ゆいに手紙を書く事を思い立つ。
+想いを込めた手紙を書き終えて眠りにつくジェシカ。
+すると机の上の封筒の宛名を見つめていたポールが窓から外へ飛び出して行く。
+世界中を移動するなかで様々な人物と出会い、次の行き先を告げられることでポールは少しずつ目的地へと近づいていく...。
+この不思議な旅は、実はインターネットの「DNS」と呼ばれる仕組みのお話。
+メールを届けるために必要な数字を探して奔走する、黒猫の冒険が今、始まる。
+</blockquote><p><a href=\"http://www.geekpage.jp/blog/?id=2012/12/4/2\">続きを読む...</a></p>
+"))) ("Geekなぺーじ：「Yahoo!ニュース-個人」で枠を頂きました" nil "http://www.geekpage.jp/blog/?id=2012/12/4/1" (20670 6067) new 9 nil nil ((title nil "Geekなぺーじ：「Yahoo!ニュース-個人」で枠を頂きました") (link nil "http://www.geekpage.jp/blog/?id=2012/12/4/1") (dc:date nil "2012-12-04T15:33:07") (content:encoded nil "
+
+<p>
+「Yahoo!ニュース-個人」で枠を頂きました。
+今朝、記事第一号として、WCIT-12に関する記事を公開しました。
+</p><ul><li><a href=\"http://bylines.news.yahoo.co.jp/akimichi/20121204-00022627/\">\"国連がインターネットを規制する\"と話題のWCIT-12開始</a></li></ul><p>
+基本的に、このブログで書いた記事をもう少し噛み砕いて解説した文章を掲載しようと考えています。
+</p>
+"))) ("Geekなぺーじ：「国連がインターネットを規制する」と話題のWCIT-12開始" nil "http://www.geekpage.jp/blog/?id=2012/12/3/1" (20669 14657) new 10 nil nil ((title nil "Geekなぺーじ：「国連がインターネットを規制する」と話題のWCIT-12開始") (link nil "http://www.geekpage.jp/blog/?id=2012/12/3/1") (dc:date nil "2012-12-03T23:44:01") (content:encoded nil "
+
+<p>
+「国連がインターネットを規制する」と一部方面で話題になっているWCIT-12が、本日ドバイで開始されました。
+WCIT-12は、本日から14日(金曜日)まで10日間開催されます。
+</p><p>
+WCIT-12は、国際的な電話網における規制を規定した通信の国際規則であるITR(International Telecommunication Regulations/国際電気通信規則)を改訂するために行われます。
+</p><p><a href=\"http://www.geekpage.jp/blog/?id=2012/12/3/1\">続きを読む...</a></p>
+"))) ("Geekなぺーじ：「汚いコードでいいよ」は夢の環境であると同時に悪魔の囁き" nil "http://www.geekpage.jp/blog/?id=2012/11/29/2" (20663 55605) new 11 nil nil ((title nil "Geekなぺーじ：「汚いコードでいいよ」は夢の環境であると同時に悪魔の囁き") (link nil "http://www.geekpage.jp/blog/?id=2012/11/29/2") (dc:date nil "2012-11-29T21:52:53") (content:encoded nil "
+
+<p>
+「コードがもうメチャメチャでも、動いて金が回れば正解なんですよ」という発言を含むインタビューが話題です。
+</p><ul><li><a href=\"http://careerhack.en-japan.com/report/detail/66\">エンジニアよ、ゼネラリストなんて目指すな！- VASILY 金山裕樹のキャリア論［2］</a></li></ul><p>
+一部界隈で大きな話題になっているのは、主に以下の部分です。
+</p><blockquote class=\"dotted\">
+極端な話、コードがもうメチャメチャでも、動いて金が回れば正解なんですよ。「アイツの書くコードは汚いけど、アイツが入ったプロジェクトは絶対勝つよね」ってエンジニアは、絶対に呼ばれます。もう間違いない。少なくとも、僕は欲しいですし。
+</blockquote><p><a href=\"http://www.geekpage.jp/blog/?id=2012/11/29/2\">続きを読む...</a></p>
+"))) ("Geekなぺーじ：ルーマニアのccTLDレジストリが乗っ取られた？" nil "http://www.geekpage.jp/blog/?id=2012/11/29/1" (20663 55605) new 12 nil nil ((title nil "Geekなぺーじ：ルーマニアのccTLDレジストリが乗っ取られた？") (link nil "http://www.geekpage.jp/blog/?id=2012/11/29/1") (dc:date nil "2012-11-29T9:52:24") (content:encoded nil "
+
+<p>
+アンチウィルスソフトのカスペルスキーが運営しているブログで、ルーマニアのTLDレジストリであるRoTLDがクラックされたのではないかと推測しています。
+今月はじめに<a href=\"/blog/?id=2012/11/12/1\">アイルランドのIEDRがクラックされたことを認める報告書を公表</a>しましたが、もしかしたら、ルーマニアでも類似する事例が発生したのかも知れません。
+</p><p>
+当初、カスペルスキーブログでは、8.8.8.8および8.8.4.4のGoogle Public DNSに対して、俗称「毒盛り」とも言われているDNSキャッシュポイズニングが成功していたのではないかと推測していましたが、その後、実は.ieの場合と同じように.roのccTLDレジストリがクラックされたのではないかと追記されています。
+</p><p><a href=\"http://www.geekpage.jp/blog/?id=2012/11/29/1\">続きを読む...</a></p>
+"))) ("Geekなぺーじ：ソフトバンクモバイルでの通信制御" nil "http://www.geekpage.jp/blog/?id=2012/11/28/1" (20662 7839) new 13 nil nil ((title nil "Geekなぺーじ：ソフトバンクモバイルでの通信制御") (link nil "http://www.geekpage.jp/blog/?id=2012/11/28/1") (dc:date nil "2012-11-28T14:24:31") (content:encoded nil "
+
+<p>
+ソフトバンクモバイルでの通信制御に関する説明が含まれるページが11月28日付けで更新されています。
+更新前の内容を知らないので、以前から記述されていたのかどうかを私は知らないのですが、通信制限の内容が非常に興味深かったです。
+</p><ul><li><a href=\"http://mb.softbank.jp/mb/news/contents/201211091811300000/\">ソフトバンクモバイル: ご利用の際に通信制御することがある内容について</a></li></ul><p>
+まず、最初に、以下のようにあります。
+</p><blockquote class=\"dotted\">
+いつもソフトバンクモバイルをご利用いただき、ありがとうございます。<br /><br />
+
+通信品質およびネットワーク利用の公平性確保のために、パケット定額サービスにご加入で一定期間に大量の通信をご利用される一部のお客さまに対して、通信速度の制御を実施する場合があります。なお、通信の切断は行いません。<br /><br />
+
+よりよいネットワーク品質を提供するため、通信ごとにトラフィック情報の収集、分析、蓄積を行います。
+</blockquote><p><a href=\"http://www.geekpage.jp/blog/?id=2012/11/28/1\">続きを読む...</a></p>
+"))) ("Geekなぺーじ：JPNIC、AS番号維持料を巡り訴えられる" nil "http://www.geekpage.jp/blog/?id=2012/11/26/1" (20659 40621) new 14 nil nil ((title nil "Geekなぺーじ：JPNIC、AS番号維持料を巡り訴えられる") (link nil "http://www.geekpage.jp/blog/?id=2012/11/26/1") (dc:date nil "2012-11-26T16:54:05") (content:encoded nil "
+
+<p>
+「浸透いうな！の先生」として一部界隈で有名な鈴木氏が、JPNICを訴えました。
+訴状は、10月22日に名古屋地裁に提出されたようです。
+</p><ul><li><a href=\"http://www.e-ontap.com/blog/20121126.html\">インターノット崩壊論者の独り言：JPNICを訴えました</a></li></ul><p>
+訴えは、歴史的PI(Provider Independent)アドレスに関してではなく、AS番号に関するものです。
+鈴木氏のブログに、その理由が書かれています。
+</p><blockquote class=\"dotted\">
+本当は歴史的PIアドレスへの課金について争いたかったのですが、大学を原告にするのは困難でしたので、私の管理するAS番号で争うことにしたものです。
+</blockquote><p><a href=\"http://www.geekpage.jp/blog/?id=2012/11/26/1\">続きを読む...</a></p>
+"))) ("Geekなぺーじ：新gTLDに対する各国政府からの事前警告" nil "http://www.geekpage.jp/blog/?id=2012/11/23/1" (20655 36468) new 15 nil nil ((title nil "Geekなぺーじ：新gTLDに対する各国政府からの事前警告") (link nil "http://www.geekpage.jp/blog/?id=2012/11/23/1") (dc:date nil "2012-11-23T14:55:48") (content:encoded nil "
+
+<p>
+新gTLDに対する各国政府(GAC/Govermental Advisry Committee)からの反対意見がGAC Early Warningとして公開されています。
+今回公開されたのは、フォーマルな反対意見ではなく、あくまで「事前警告」であるため、直接的に何らかの行動がおこされるものではありません。
+また、GACによる意見は、あくまで「ICANNに対するアドバイス」であり、強制力はありません(<a href=\"https://gacweb.icann.org/display/gacweb/Core+Principles\">参考</a>)。
+しかし、これらを完全に無視することは恐らく難しいと思われるので、何らかの影響はありそうな気もします。
+</p><ul><li><a href=\"https://gacweb.icann.org/display/gacweb/GAC+Early+Warnings\">ICANN: GAC Early Warnings</a></li></ul><h2>オーストラリアが大量に事前警告を発行</h2><p><a href=\"http://www.geekpage.jp/blog/?id=2012/11/23/1\">続きを読む...</a></p>
+"))) ("Geekなぺーじ：IPv4アドレスの移転と売買 [IW2012発表資料]" nil "http://www.geekpage.jp/blog/?id=2012/11/22/2" (20654 20655) new 16 nil nil ((title nil "Geekなぺーじ：IPv4アドレスの移転と売買 [IW2012発表資料]") (link nil "http://www.geekpage.jp/blog/?id=2012/11/22/2") (dc:date nil "2012-11-22T16:19:59") (content:encoded nil "
+
+<p>
+Internet Week 2012発表資料です。
+</p><div class=\"center\"><iframe src=\"http://www.slideshare.net/slideshow/embed_code/15293494\" width=\"427\" height=\"356\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" style=\"border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px\" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe><div style=\"margin-bottom:5px\"><strong><a href=\"http://www.slideshare.net/geekpage/ipv4-15293494\" title=\"IPv4アドレスの移転と売買\" target=\"_blank\">IPv4アドレスの移転と売買</a></strong> from <strong><a href=\"http://www.slideshare.net/geekpage\" target=\"_blank\">geekpage</a></strong></div></div>
+"))) ("Geekなぺーじ：IPv6 IPoE接続事業者数拡大とIPv6アドレス申請について" nil "http://www.geekpage.jp/blog/?id=2012/11/22/1" (20654 14026) new 17 nil nil ((title nil "Geekなぺーじ：IPv6 IPoE接続事業者数拡大とIPv6アドレス申請について") (link nil "http://www.geekpage.jp/blog/?id=2012/11/22/1") (dc:date nil "2012-11-22T14:29:30") (content:encoded nil "
+
+<p>
+9月に、NTT東日本/NTT西日本によるIPv6 IPoE接続事業者数拡大が発表され、現行3であった接続事業者数が最大16へと拡大する変更案が総務省に提出されています。
+</p><p>
+それに対するパブコメでのJPNICの意見として面白いものがありました。
+</p><ul><li><a href=\"http://www.soumu.go.jp/menu_news/s-news/01kiban03_02000163.html\">東日本電信電話株式会社及び西日本電信電話株式会社の第一種指定電気通信設備に関する接続約款の変更案に対する意見募集の結果及び再意見募集 - NGNのIPv6インターネット接続における接続事業者数の拡大 -</a></li></ul><p><a href=\"http://www.geekpage.jp/blog/?id=2012/11/22/1\">続きを読む...</a></p>
+"))) ("Geekなぺーじ：FreeBSD.orgがクラックされる" nil "http://www.geekpage.jp/blog/?id=2012/11/18/1" (20654 14026) new 18 nil nil ((title nil "Geekなぺーじ：FreeBSD.orgがクラックされる") (link nil "http://www.geekpage.jp/blog/?id=2012/11/18/1") (dc:date nil "2012-11-18T7:58:09") (content:encoded nil "
+
+<p>
+11月17日付けで、FreeBSD.orgをのクラスタを構成する機器が侵入されたことが公表されています。
+発見は、11月11日で、9月19日から侵入されていた可能性があるようです。
+</p><ul><li><a href=\"http://www.freebsd.org/news/2012-compromise.html\">FreeBSD.org: FreeBSD.org intrusion announced November 17th 2012</a></li></ul><p>
+侵入経路は、機器にアカウントを持つユーザのSSH鍵がリークしてしまったことと書かれています。
+現時点では、侵入の痕跡はFreeBSD本体ではなく、サードパーティのパッケージシステムを扱うサーバのみで発見されているようです。
+そのため、本体は影響を受けていないと推測されるものの、パッケージシステムの一部が変更されてしまった可能性を考慮して調査が続けられているとあります。
+</p><p><a href=\"http://www.geekpage.jp/blog/?id=2012/11/18/1\">続きを読む...</a></p>
+"))) ("Geekなぺーじ：初期の熱狂が永遠に続くわけではない" nil "http://www.geekpage.jp/blog/?id=2012/11/14/2" (20643 40862) new 19 nil nil ((title nil "Geekなぺーじ：初期の熱狂が永遠に続くわけではない") (link nil "http://www.geekpage.jp/blog/?id=2012/11/14/2") (dc:date nil "2012-11-14T13:41:50") (content:encoded nil "
+
+<p>
+ネットにおける議論は、立ち上がり時期の熱狂が続くという前提で行われているものが多いような気がしています。
+最近、わりとそういう感想を持つことが多いのですが、Twitterに関して「昔は良かった」と語っている記事を読んで、あらためてそう思いました。
+</p><ul><li><a href=\"http://toyokeizai.net/articles/-/11669\">東洋経済オンライン: Twitterがいつの間にか変わっていた - ソーシャルから\"マス\"へ</a></li></ul><p>
+Twitterが日本で大きな話題になりはじめたとき、Twitterユーザの間で凄い熱狂がありました。
+有名人がTwitterアカウントを作っただけでニュースになったり、「Twitterをやっているのであればどんな政党の政治家であっても応援します！」みたいなノリも普通にありました(<a href=\"/blog/?id=2009/11/30/1\">2009年に書いた文章</a>)。
+</p><p><a href=\"http://www.geekpage.jp/blog/?id=2012/11/14/2\">続きを読む...</a></p>
+"))) ("Geekなぺーじ：IANAへのIPv4アドレス返却" nil "http://www.geekpage.jp/blog/?id=2012/11/14/1" (20643 33026) new 20 nil nil ((title nil "Geekなぺーじ：IANAへのIPv4アドレス返却") (link nil "http://www.geekpage.jp/blog/?id=2012/11/14/1") (dc:date nil "2012-11-14T11:31:14") (content:encoded nil "
+
+<p>
+2011年2月にIANAで管理されているIPv4アドレスの中央在庫が枯渇しました。
+しかし、その後、RIRからIANAに返却されたIPv4アドレスがあります。
+そのため、現在はIANAのIPv4アドレス中央在庫にIPv4アドレスが多少復活しています。
+</p><p>
+RIRからIANAへの返却は任意であり、RIRに対してIPv4アドレス返却が行われたとしても、それをIANAへと返却しなければならないという義務はありません。
+しかし、RIR設立以前に分配された歴史的経緯を持つPI(Provider Independent)アドレスが返却された場合、本来IANAが管理するべきとの考えに基づいて返却が行われました。
+</p><p><a href=\"http://www.geekpage.jp/blog/?id=2012/11/14/1\">続きを読む...</a></p>
+"))) ("Geekなぺーじ：.ieレジストリがクラックを認める報告書を公表" nil "http://www.geekpage.jp/blog/?id=2012/11/12/1" (20640 58264) new 21 nil nil ((title nil "Geekなぺーじ：.ieレジストリがクラックを認める報告書を公表") (link nil "http://www.geekpage.jp/blog/?id=2012/11/12/1") (dc:date nil "2012-11-12T11:55:04") (content:encoded nil "
+
+<p>
+先月、.ieのレジストリがクラックされ、権威DNSサーバ等の情報が書き換えられていたのではないかというニュースがありました(<a href=\"/blog/?id=2012/10/11/1\">Google.ieとYahoo.ieがハイジャックされた？レジストリがクラックされた？</a>)。
+</p><p>
+その後、.ieのレジストリであるIEDR(IE Domain Registry)のwhoisおよびWebサイトがオフラインになり、IEDRがアイルランド警察と相談中であるというメールがレジストラに送られたようだという状況になっていましたが、事件から約1ヶ月が経過した11月9日に報告書が公表されました。
+</p><ul><li><a href=\"http://www.iedr.ie/docs/IEDR_Statement_F_issued_9_November_2012.pdf\">IEDR Statement(PDF)</a></li></ul><p><a href=\"http://www.geekpage.jp/blog/?id=2012/11/12/1\">続きを読む...</a></p>
+"))) ("Geekなぺーじ：Google Appsの障害はBGPハイジャック？" nil "http://www.geekpage.jp/blog/?id=2012/11/9/1" (20637 8685) new 22 nil nil ((title nil "Geekなぺーじ：Google Appsの障害はBGPハイジャック？") (link nil "http://www.geekpage.jp/blog/?id=2012/11/9/1") (dc:date nil "2012-11-09T15:31:57") (content:encoded nil "
+
+<p>
+先日、Google Appsでの大規模障害が発生したことが話題でしたが、その原因はインドネシアのISPによるBGPハイジャックなのではないかという記事がありました。
+</p><ul><li><a href=\"http://blog.cloudflare.com/why-google-went-offline-today-and-a-bit-about\">CloudFlare blog: Why Google Went Offline Today and a Bit about How the Internet Works</a> (via <a href=\"http://it.slashdot.jp/story/12/11/08/2236249/Google-%E3%81%AB%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E7%90%86%E7%94%B1\">slashdot.jp</a>)</li></ul><p>
+本来、Googleへと向かう筈の経路がインドネシアのISPであるMoratelへと向かってしまったということだったようです。
+(ただ、なぜインドネシアの経路が優先されたのか、ちょっと不思議に思ったりはしますが。。。YouTubeの時と同じでプレフィックス長が要素だったりするんですかね？)
+</p><p><a href=\"http://www.geekpage.jp/blog/?id=2012/11/9/1\">続きを読む...</a></p>
+"))) ("Geekなぺーじ：新品PCにこんなものが！" nil "http://www.geekpage.jp/blog/?id=2012/11/7/1" (20634 24049) new 23 nil nil ((title nil "Geekなぺーじ：新品PCにこんなものが！") (link nil "http://www.geekpage.jp/blog/?id=2012/11/7/1") (dc:date nil "2012-11-07T13:11:13") (content:encoded nil "
+
+<p>
+知人が購入した新品のLenovoウルトラブックにこんな貼り紙が。。。。
+</p><p>
+最近よく目にする「尖閣諸島は我々のモノ、蒼井そらは世界のモノ」と思いきや、「蒼井そらはみんなのモノ/世界のモノ (蒼井空是大家的)」の部分が、この貼り紙だと「蒼井そらはオレのモノ (蒼井空是我的)」に変化していますね。
+</p><div class=\"center\"><img src=\"/blog/img/2012/1107-1.jpg\" /><br /><br /><img src=\"/blog/img/2012/1107-2.jpg\" /></div><p><a href=\"http://www.geekpage.jp/blog/?id=2012/11/7/1\">続きを読む...</a></p>
+"))) ("Geekなぺーじ：ソーシャルメディア大会中継現場の裏側" nil "http://www.geekpage.jp/blog/?id=2012/11/5/1" (20631 57434) new 24 nil nil ((title nil "Geekなぺーじ：ソーシャルメディア大会中継現場の裏側") (link nil "http://www.geekpage.jp/blog/?id=2012/11/5/1") (dc:date nil "2012-11-05T15:50:50") (content:encoded nil "
+
+<div class=\"center\"><a href=\"http://www.flickr.com/photos/aj_kendo_f/8150629511/\" title=\"ajkf-flickr_20121103_146 by aj_kendo_f, on Flickr\"><img src=\"http://farm9.staticflickr.com/8055/8150629511_2ca5eb7875.jpg\" width=\"500\" height=\"333\" alt=\"ajkf-flickr_20121103_146\" class=\"blackborder\"></a></div><p>
+11月3日に、第60回全日本剣道選手権大会が開催されました。
+今年もネット中継班として手伝いに行ってきました。
+ソーシャルメディアを活用した大会情報発信の手伝いを2008年から行っていますが、毎回何らかの新しい取り組みをしており、徐々にノウハウが溜まって来たので、それらを紹介しようと思います。
+</p><h2>これまでの取り組み</h2><p><a href=\"http://www.geekpage.jp/blog/?id=2012/11/5/1\">続きを読む...</a></p>
+"))) ("Geekなぺーじ：書籍執筆提案を受けるブロガー" nil "http://www.geekpage.jp/blog/?id=2012/10/30/1" (20624 19006) new 25 nil nil ((title nil "Geekなぺーじ：書籍執筆提案を受けるブロガー") (link nil "http://www.geekpage.jp/blog/?id=2012/10/30/1") (dc:date nil "2012-10-30T21:44:30") (content:encoded nil "
+
+<p>
+いつもTwitterで面白いことを発言されているraf00さんが、面白いブログ記事を書かれていたので、ちょっと補足というか、個人的に思う所を書いてみます。
+</p><ul><li><a href=\"http://coziest.net/?p=187\">単著を出すブログってどんなんだっけ？</a></li></ul><p>
+raf00さんの「どんなブロガーが単著を出せるか。」というテーマで書かれています。
+具体的には、以下の3パターンとあります。
+</p><ul><li>1:卓越した文章力と切り口、取材能力を持つネットワーカー</li><li>2:特化した専門性とネット知名度を元に書籍化</li><li>3:編集者のハートを直撃する企画で一本釣り</li></ul><p><a href=\"http://www.geekpage.jp/blog/?id=2012/10/30/1\">続きを読む...</a></p>
+"))))

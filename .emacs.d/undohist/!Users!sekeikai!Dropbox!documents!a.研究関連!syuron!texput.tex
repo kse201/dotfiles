@@ -1,0 +1,190 @@
+
+((digest . "5d654eba332d8bee3aba8c4b6014fb12") (undo-list (1 . 2478) (#("%#BIBTEX jbibtex -kanji=euc syuron
+% -*- coding: euc-jp -*-
+% vim:set fe=euc-jp
+% 半角カナ、規格外文字を=に変換 (text-adjust-codecheck-buffer)
+% 全角英数文字を半角に置換 (progn (text-adjust-hankaku-buffer) t)
+% 句読点を「、。」に置換 (text-adjust-kutouten-buffer)
+% 全角文字と半角文字の間に空白を入れる (text-adjust-space-buffer)
+% 全て実行 (text-adjust-buffer)
+%\\documentclass[a4j,12pt]{jbook}
+\\documentclass[a4j,10pt]{jarticle}
+%\\documentclass[mentuke,letter]{ieej}
+\\usepackage[dvips]{graphics}
+\\usepackage[dvipdfmx]{graphicx}
+\\usepackage{graphicx}
+\\pagestyle{headings}
+\\usepackage{enumerate}
+\\usepackage{algorithm}
+\\usepackage{algorithmic}
+%\\newcommand{\\AND}{\\algorithmicand{}}
+%\\renewcommand{\\baselinestretch}{1.0}
+\\renewcommand{\\baselinestretch}{1.0}
+% \\setlength{\\topmargin}{20mm}
+% \\addtolength{\\topmargin}{-2in}
+% \\setlength{\\textwidth}{193mm}
+% \\setlength{\\textheight}{278mm}
+% \\setlength{\\oddsidemargin}{10mm}
+% \\addtolength{\\oddsidemargin}{-1in}
+% \\setlength{\\evensidemargin}{10mm}
+% \\addtolength{\\evensidemargin}{-1in}
+% \\setlength{\\abovecaptionskip}{0mm}
+% \\setlength{\\belowcaptionskip}{0mm}
+% \\setlength{\\textheight}{240mm}
+%\\renewcommand{\\bibname}{参考文献}
+%%% Gceneterの定義
+\\newcommand{\\Gcenter}[2]{
+  \\dimen0=\\ht\\strutbox%	%					%１行の高さに
+  \\advance\\dimen0\\dp\\strutbox% %				%一行の深さを加えて
+  \\multiply\\dimen0 by#1% 						%行数で乗じて
+  \\divide\\dimen0 by2% %						%等分し
+  \\advance\\dimen0 by -.5\\normalbaselineskip% 	%半行だけ上げる．
+  \\raisebox{-\\dimen0}[0pt][0pt]{#2}} %		%求めた値の分だけ字下げする
+  % 定義
+\\newcommand{\\argmax}{\\mathop{\\rm arg~max}\\limits}
+\\newcommand{\\argmin}{\\mathop{\\rm arg~min}\\limits}
+
+\\begin{document}
+
+\\begin{document}
+\\begin{titlepage}
+ \\begin{center}
+  \\vspace*{80pt}
+  {\\huge
+  修士論文                                             \\\\
+  オプティカルフローを用いた発話態度の認識に関する研究 \\\\
+  \\vspace*{160pt}
+  指導教員  木村春彦 教授                              \\\\
+  \\vspace*{80pt}
+  平成 25 年 1 月 xx 日 提出                          \\\\
+  金沢大学 大学院 自然科学研究科                       \\\\
+  博士前期課程 電子情報工学専攻                        \\\\
+  人工知能研究室                                       \\\\
+  脊渓介                                               \\\\
+  }
+ \\end{center}
+\\end{titlepage}
+
+\\pagenumbering{roman}
+\\tableofcontents
+\\listoffigures
+\\listoftables
+
+% 序論
+\\include{src/introduction}
+% 手法
+\\include{src/method}
+% 実験
+\\include{src/experiment}
+% まとめ
+\\include{src/conclusion}
+% 謝辞
+\\include{src/acknowledgment}
+
+% 参考文献
+\\bibliographystyle{tieice}
+\\bibliography{syuron}
+
+% 付録
+\\include{src/appendix}
+\\include{flow}
+
+\\end{document}
+\\typeout{=== Region from (point) to (mark) ===}
+
+\\end{document}
+" 0 2475 (fontified nil)) . -1) (t 20737 . 24645) (1 . 2476) (#("%#BIBTEX jbibtex -kanji=euc syuron
+% -*- coding: euc-jp -*-
+% vim:set fe=euc-jp
+% 半角カナ、規格外文字を=に変換 (text-adjust-codecheck-buffer)
+% 全角英数文字を半角に置換 (progn (text-adjust-hankaku-buffer) t)
+% 句読点を「、。」に置換 (text-adjust-kutouten-buffer)
+% 全角文字と半角文字の間に空白を入れる (text-adjust-space-buffer)
+% 全て実行 (text-adjust-buffer)
+%\\documentclass[a4j,12pt]{jbook}
+\\documentclass[a4j,10pt]{jarticle}
+%\\documentclass[mentuke,letter]{ieej}
+\\usepackage[dvips]{graphics}
+\\usepackage[dvipdfmx]{graphicx}
+\\usepackage{graphicx}
+\\pagestyle{headings}
+\\usepackage{enumerate}
+\\usepackage{algorithm}
+\\usepackage{algorithmic}
+%\\newcommand{\\AND}{\\algorithmicand{}}
+%\\renewcommand{\\baselinestretch}{1.0}
+\\renewcommand{\\baselinestretch}{1.0}
+% \\setlength{\\topmargin}{20mm}
+% \\addtolength{\\topmargin}{-2in}
+% \\setlength{\\textwidth}{193mm}
+% \\setlength{\\textheight}{278mm}
+% \\setlength{\\oddsidemargin}{10mm}
+% \\addtolength{\\oddsidemargin}{-1in}
+% \\setlength{\\evensidemargin}{10mm}
+% \\addtolength{\\evensidemargin}{-1in}
+% \\setlength{\\abovecaptionskip}{0mm}
+% \\setlength{\\belowcaptionskip}{0mm}
+% \\setlength{\\textheight}{240mm}
+%\\renewcommand{\\bibname}{参考文献}
+%%% Gceneterの定義
+\\newcommand{\\Gcenter}[2]{
+  \\dimen0=\\ht\\strutbox%	%					%１行の高さに
+  \\advance\\dimen0\\dp\\strutbox% %				%一行の深さを加えて
+  \\multiply\\dimen0 by#1% 						%行数で乗じて
+  \\divide\\dimen0 by2% %						%等分し
+  \\advance\\dimen0 by -.5\\normalbaselineskip% 	%半行だけ上げる．
+  \\raisebox{-\\dimen0}[0pt][0pt]{#2}} %		%求めた値の分だけ字下げする
+  % 定義
+\\newcommand{\\argmax}{\\mathop{\\rm arg~max}\\limits}
+\\newcommand{\\argmin}{\\mathop{\\rm arg~min}\\limits}
+
+\\begin{document}
+
+\\begin{document}
+\\begin{titlepage}
+ \\begin{center}
+  \\vspace*{80pt}
+  {\\huge
+  修士論文                                             \\\\
+  オプティカルフローを用いた発話態度の認識に関する研究 \\\\
+  \\vspace*{160pt}
+  指導教員  木村春彦 教授                              \\\\
+  \\vspace*{80pt}
+  平成 25 年 1 月 xx 日 提出                          \\\\
+  金沢大学 大学院 自然科学研究科                       \\\\
+  博士前期課程 電子情報工学専攻                        \\\\
+  人工知能研究室                                       \\\\
+  脊渓介                                               \\\\
+  }
+ \\end{center}
+\\end{titlepage}
+
+\\pagenumbering{roman}
+\\tableofcontents
+\\listoffigures
+\\listoftables
+
+% 序論
+\\include{src/introduction}
+% 手法
+\\include{src/method}
+% 実験
+\\include{src/experiment}
+% まとめ
+\\include{src/conclusion}
+% 謝辞
+\\include{src/acknowledgment}
+
+% 参考文献
+\\bibliographystyle{tieice}
+\\bibliography{syuron}
+
+% 付録
+\\include{src/appendix}
+\\include{flow}
+
+\\end{document}
+\\typeout{=== Region from (point) to (mark) ===}
+
+\\end{document}
+" 0 2475 (fontified nil)) . -1) (t 20737 . 24637) (1 . 2476) (t 65535 . 65535)))

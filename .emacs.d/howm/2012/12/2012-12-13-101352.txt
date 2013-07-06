@@ -1,0 +1,11 @@
+= メモ
+eval-last-sexp とeval-regionの結合
+regionがセットされていたら eval-region
+されていなかったら eval-last-sexp
+
+[2012-12-13 10:13] 
+
+=  window 移動
+C-c C-w C-w 画面分割
+C-c C-w [hjkl] 任意の方向に移動
+ 

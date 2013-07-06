@@ -1,0 +1,180 @@
+;; -*- coding: utf-8 -*-
+(("(rubikitch loves (Emacs Ruby CUI Books))" "(rubikitch loves (Emacs Ruby CUI Books))" "http://d.hatena.ne.jp/rubikitch/" (20693 49517 722730) feed 0 nil nil ((title nil "(rubikitch loves (Emacs Ruby CUI Books))") (link nil "http://d.hatena.ne.jp/rubikitch/") (description nil "(rubikitch loves (Emacs Ruby CUI Books))") (dc:creator nil "rubikitch") (dc:date nil "2012-10-09T17:45:44+09:00") (items nil (rdf:Seq nil (rdf:li ((rdf:resource . "http://d.hatena.ne.jp/rubikitch/20991231/rubybook"))) (rdf:li ((rdf:resource . "http://d.hatena.ne.jp/rubikitch/20121009/expectations"))) (rdf:li ((rdf:resource . "http://d.hatena.ne.jp/rubikitch/20120706/anythinggrep"))) (rdf:li ((rdf:resource . "http://d.hatena.ne.jp/rubikitch/20120623/1340444920"))) (rdf:li ((rdf:resource . "http://d.hatena.ne.jp/rubikitch/20120104/elispbookerrata"))))))) ("『Emacsメルマガ公開』＆『Emacs Lispテクニックバイブル　〜真髄を知るLispの掟〜』発売中" "プロジェクトその2　メルマガ「Emacsの鬼るびきちのココだけの話」発行！ - (rubikitch loves (Emacs Ruby CUI Books)) 【特典付】『Emacs Lispテクニックバイブル』発売します - (rubikitch loves (Emacs Ruby CUI Books)) 新刊『Emacsテクニックバイブル　〜作業効率をカ" "http://d.hatena.ne.jp/rubikitch/20991231/rubybook" (62597 1408) new 1 nil nil ((title nil "『Emacsメルマガ公開』＆『Emacs Lispテクニックバイブル　〜真髄を知るLispの掟〜』発売中") (link nil "http://d.hatena.ne.jp/rubikitch/20991231/rubybook") (description nil " プロジェクトその2　メルマガ「Emacsの鬼るびきちのココだけの話」発行！ - (rubikitch loves (Emacs Ruby CUI Books)) 【特典付】『Emacs Lispテクニックバイブル』発売します - (rubikitch loves (Emacs Ruby CUI Books)) 新刊『Emacsテクニックバイブル　〜作業効率をカ") (content:encoded nil "
+<div class=\"section\"><ul><li><a href=\"http://d.hatena.ne.jp/rubikitch/20111127/emacsmelmag\" target=\"_blank\">プロジェクトその2　メルマガ「Emacsの鬼るびきちのココだけの話」発行！ - (rubikitch loves (Emacs Ruby CUI Books))</a></li><li><a href=\"http://d.hatena.ne.jp/rubikitch/20111120/elispbook\" target=\"_blank\">【特典付】『Emacs Lispテクニックバイブル』発売します - (rubikitch loves (Emacs Ruby CUI Books))</a></li><li><a href=\"http://d.hatena.ne.jp/rubikitch/20100713/emacsbook\" target=\"_blank\">新刊『Emacsテクニックバイブル　〜作業効率をカイゼンする200の技〜』8/3発売 - (rubikitch loves (Emacs Ruby CUI Books))</a></li><li><a href=\"http://d.hatena.ne.jp/rubikitch/20090525/rubybook\" target=\"_blank\"> 『Ruby逆引きハンドブック』出版 - (rubikitch loves (Emacs Ruby CUI Books))</a></li></ul></div>
+") (dc:creator nil "rubikitch") (dc:date nil "2099-12-31"))) ("[emacs][el-expectations]ert-expectations: 新世代ユニットテストフレームワーク in Emacs Lisp" "お久しぶりです。 世の中はすっかりEmacs24になってきたようですね。 本日、el-expectations.elの後継となるert-expectations.elをリリースしたのでお知らせします。 el-expectations.elは現役で使っているのですが、テストが失敗したときのレポート機能が弱くて不便に思っ" "http://d.hatena.ne.jp/rubikitch/20121009/expectations" (20595 26880) new 2 nil nil ((title nil "[emacs][el-expectations]ert-expectations: 新世代ユニットテストフレームワーク in Emacs Lisp") (link nil "http://d.hatena.ne.jp/rubikitch/20121009/expectations") (description nil " お久しぶりです。 世の中はすっかりEmacs24になってきたようですね。 本日、el-expectations.elの後継となるert-expectations.elをリリースしたのでお知らせします。 el-expectations.elは現役で使っているのですが、テストが失敗したときのレポート機能が弱くて不便に思っ") (content:encoded nil "
+<div class=\"section\"><p>お久しぶりです。</p><p>世の中はすっかりEmacs24になってきたようですね。</p><p>本日、el-expectations.elの後継となるert-expectations.elをリリースしたのでお知らせします。</p><p>el-expectations.elは現役で使っているのですが、テストが失敗したときのレポート機能が弱くて不便に思っていました。</p><p>Emacs24ではユニットテストフレームワークのERTが標準添付になったことにより、ERTを内部で呼び出すことでその問題を克服しました。</p><p>基本的な使い方はel-expectationsと変わりません。</p><p>ERTについて学んでなくても今すぐ使えます。</p><p>M-x install-elisp-from-emacswiki ert-expectations.el</p><p>M-x install-elisp-from-emacswiki el-mock.el</p><p>あるいは</p><p>M-x auto-install-batch el-expectations</p><p>でインストールしてください。</p><p>※auto-install-batch-list.elはert-expectations.elを読むように更新しました。</p><p><a href=\"http://www.emacswiki.org/emacs/download/ert-expectations.el\" target=\"_blank\">http://www.emacswiki.org/emacs/download/ert-expectations.el</a></p><p><a href=\"http://www.emacswiki.org/emacs/download/el-mock.el\" target=\"_blank\">http://www.emacswiki.org/emacs/download/el-mock.el</a></p><p>たとえば、成功するテスト2つと失敗するテスト2つを実行させましょう。</p><p>el-expectationsと同じようにS式にてC-M-xを押します。</p><blockquote><pre class=\"syntax-highlight\"><span class=\"synSpecial\">(</span>expectations
+  <span class=\"synSpecial\">(</span>desc <span class=\"synConstant\">&#34;success&#34;</span><span class=\"synSpecial\">)</span><span class=\"synSpecial\">(</span>expect <span class=\"synConstant\">10</span><span class=\"synSpecial\">(</span><span class=\"synStatement\">+</span><span class=\"synConstant\">4</span><span class=\"synConstant\">6</span><span class=\"synSpecial\">))</span><span class=\"synSpecial\">(</span>expect <span class=\"synConstant\">5</span><span class=\"synSpecial\">(</span><span class=\"synStatement\">length</span><span class=\"synConstant\">&#34;abcde&#34;</span><span class=\"synSpecial\">))</span><span class=\"synSpecial\">(</span>desc <span class=\"synConstant\">&#34;fail&#34;</span><span class=\"synSpecial\">)</span><span class=\"synSpecial\">(</span>expect <span class=\"synConstant\">11</span><span class=\"synSpecial\">(</span><span class=\"synStatement\">+</span><span class=\"synConstant\">4</span><span class=\"synConstant\">6</span><span class=\"synSpecial\">))</span><span class=\"synSpecial\">(</span>expect <span class=\"synConstant\">6</span><span class=\"synSpecial\">(</span><span class=\"synStatement\">length</span><span class=\"synConstant\">&#34;abcde&#34;</span><span class=\"synSpecial\">)))</span></pre></blockquote><p>すると、*ert*バッファに次のように出力されます。</p><p>テスト失敗時のレポートがより詳しく出力されるのです。</p><blockquote><pre>
+Selector: t
+Passed: 2
+Failed: 2 (2 unexpected)
+Total:  4/4
+
+Started at:   2012-10-09 15:37:17+0900
+Finished.
+Finished at:  2012-10-09 15:37:17+0900
+
+..FF
+
+F erte-test-00003
+    (ert-test-failed
+     ((should
+       (equal 11
+              (mock-protect
+               (lambda nil
+                 (+ 4 6)))))
+      :form
+      (equal 11 10)
+      :value nil :explanation
+      (different-atoms
+       (11 &#34;#xb&#34; &#34;?^K&#34;)
+       (10 &#34;#xa&#34; &#34;?&#92;n&#34;))))
+
+F erte-test-00004
+    (ert-test-failed
+     ((should
+       (equal 6
+              (mock-protect
+               (lambda nil
+                 (length &#34;abcde&#34;)))))
+      :form
+      (equal 6 5)
+      :value nil :explanation
+      (different-atoms
+       (6 &#34;#x6&#34; &#34;?^F&#34;)
+       (5 &#34;#x5&#34; &#34;?^E&#34;))))
+
+</pre></blockquote><p>また、desc式を置いていれば、テスト名(erte-test-00003など)のリンクを辿ればジャンプできます。</p><p>その他はel-expectations.elの説明を参照してください。</p><p><a href=\"http://d.hatena.ne.jp/rubikitch/20080409/elexpectations\" target=\"_blank\">http://d.hatena.ne.jp/rubikitch/20080409/elexpectations</a></p><p>P.S.</p><p><a href=\"http://d.hatena.ne.jp/rubikitch/20111127/emacsmelmag\" target=\"_blank\">Emacsのネット塾を運営しています。</a></p><p>最新の技術を数分で自分のものにすることができます。</p><p>ここで一気にライバルに差をつけてしまいましょう。</p><p>週1のメルマガに加え、僕がアドバイザーとなり無制限サポートを行っています。</p></div>
+") (dc:creator nil "rubikitch") (dc:date nil "2012-10-09") (dc:subject nil "emacs") (dc:subject nil "el-expectations"))) ("[anything]anything-grep.elで最初からマッチ行をハイライトするようにした" "anything.elの後継としてhelm.elが開発されていますが、anything.elはまだ死んでいません。 anything.elの現行ユーザのために、バグ修正をメインにメンテナンスし続けます。 ものすごい久し振りですがanything-grep.elを修正しました。 grepの結果をanything.elで絞り込む a" "http://d.hatena.ne.jp/rubikitch/20120706/anythinggrep" (20470 10880) new 3 nil nil ((title nil "[anything]anything-grep.elで最初からマッチ行をハイライトするようにした") (link nil "http://d.hatena.ne.jp/rubikitch/20120706/anythinggrep") (description nil " anything.elの後継としてhelm.elが開発されていますが、anything.elはまだ死んでいません。 anything.elの現行ユーザのために、バグ修正をメインにメンテナンスし続けます。 ものすごい久し振りですがanything-grep.elを修正しました。 grepの結果をanything.elで絞り込む a") (content:encoded nil "
+<div class=\"section\"><p>anything.elの後継としてhelm.elが開発されていますが、anything.elはまだ死んでいません。</p><p>anything.elの現行ユーザのために、バグ修正をメインにメンテナンスし続けます。</p><p>ものすごい久し振りですがanything-grep.elを修正しました。</p><p><a href=\"http://d.hatena.ne.jp/rubikitch/20090106/anythinggrep\" target=\"_blank\">grepの結果をanything.elで絞り込む anything-grep.el をリリース - (rubikitch loves (Emacs Ruby CUI Books))</a></p><p>変更点はたった1点で、何も設定しなくてもpersistent-actionでマッチした行をハイライトできるようにしました。</p><p>(require 'anything-grep) のみでおｋです。</p><p>M-x install-elisp-from-emacswiki anything-grep.el</p><p>Gitリポジトリではcontribに入っているので注意。</p></div>
+") (dc:creator nil "rubikitch") (dc:date nil "2012-07-06") (dc:subject nil "anything"))) ("[emacs]Emacs24のelispは速いぞ！ベンチマークを測定してみた" "Emacs24「ねんがんのlexical-bindingをてにいれたぞ！」 10年にわたって開発してきたlexical-bindingがついにEmacs24に取り込まれました。 これはEmacs界の大大大ニュースです！ lexical-bindingが有効になると、letがlexical-letに化けます。 lexical-bindingは速いという" "http://d.hatena.ne.jp/rubikitch/20120623/1340444920" (20453 37112) new 4 nil nil ((title nil "[emacs]Emacs24のelispは速いぞ！ベンチマークを測定してみた") (link nil "http://d.hatena.ne.jp/rubikitch/20120623/1340444920") (description nil " Emacs24「ねんがんのlexical-bindingをてにいれたぞ！」 10年にわたって開発してきたlexical-bindingがついにEmacs24に取り込まれました。 これはEmacs界の大大大ニュースです！ lexical-bindingが有効になると、letがlexical-letに化けます。 lexical-bindingは速いという") (content:encoded nil "
+<div class=\"section\"><p>Emacs24「ねんがんのlexical-bindingをてにいれたぞ！」</p><p>10年にわたって開発してきたlexical-bindingがついにEmacs24に取り込まれました。</p><p>これはEmacs界の大大大ニュースです！</p><p>lexical-bindingが有効になると、letがlexical-letに化けます。</p><p>lexical-bindingは速いということらしいのですが、現時点でベンチマークをみかけないので測定してみました。</p><p>lexical-bindingは変数lexical-bindingをtにすると有効になります。</p><p>この変数は、バッファローカル変数なのでsetqで設定しても他のバッファに影響はありません。</p><p>M-x ielmで実験してみましょう。</p><blockquote><pre>
+ELISP&#62; (setq lexical-binding t)
+t
+ELISP&#62; (defun f1 (n) (let ((i 1) (s 0)) (while (&#60;= i n) (setq s (+ s i)) (setq i (1+ i))) s))
+f1
+ELISP&#62; (f1 10)
+55
+ELISP&#62; (byte-compile &#39;f1)
+nil
+ELISP&#62; (symbol-function &#39;f1)
+(closure
+ (t)
+ (n)
+ (let
+     ((i 1)
+      (s 0))
+   (while
+       (&#60;= i n)
+     (setq s
+           (+ s i))
+     (setq i
+           (1+ i)))
+   s))
+
+</pre></blockquote><p>ぬ、lexical-bindingを設定したらielmではバイトコンパイルできないぞ？？</p><p>とりあえず、適当なファイルを開いて以下の内容にして、C-u M-x byte-compile-file。</p><p>lexical-bindingをファイル内で有効にするには、こんなふうに一行目に -*- lexical-binding: t -*- を入れること。</p><blockquote><pre>
+;; -&#42;- lexical-binding: t -&#42;-
+(defun f1 (n) (let ((i 1) (s 0)) (while (&#60;= i n) (setq s (+ s i)) (setq i (1+ i))) s))
+</pre></blockquote><br><p>そこでM-x rename-uniquelyでバッファ名を変えて、再びM-x ielm。</p><p>こっちはlexical-bindingを使わない方。</p><blockquote><pre>
+ELISP&#62; (defun f2 (n) (let ((i 1) (s 0)) (while (&#60;= i n) (setq s (+ s i)) (setq i (1+ i))) s))
+f2
+ELISP&#62; (byte-compile &#39;f2)
+#&#91;(n)
+  略(バイトコード)
+  &#91;s i n 1 0]
+  3]
+
+</pre></blockquote><p>さっそく測定。</p><blockquote><pre>
+ELISP&#62; (benchmark-run 1 (f1 100000))
+(0.016059 0 0.0)
+ELISP&#62; (benchmark-run 1 (f2 100000))
+(0.022624 0 0.0)
+
+</pre></blockquote><p>lexical-bindingによって3割ほど高速化しました。</p><p>P.S.</p><p><a href=\"http://d.hatena.ne.jp/rubikitch/20111127/emacsmelmag\" target=\"_blank\">Emacsのネット塾を運営しています。</a></p><p>最新の技術を数分で自分のものにすることができます。</p><p>ここで一気にライバルに差をつけてしまいましょう。</p></div>
+") (dc:creator nil "rubikitch") (dc:date nil "2012-06-23T18:48:40+09:00") (dc:subject nil "emacs"))) ("[emacs]Emacs Lispテクニックバイブル正誤" "明けまして、おめでとうございます。 今年もよろしくお願いします。 昨年発行したEmacs Lispテクニックバイブルは好評です。 絶賛の声をたくさんいただきました。 本当にありがとうございます。 万全を期していたのですが、残念 ながら誤植がみつかってしまいました。 読者" "http://d.hatena.ne.jp/rubikitch/20120104/elispbookerrata" (20227 38528) new 5 nil nil ((title nil "[emacs]Emacs Lispテクニックバイブル正誤") (link nil "http://d.hatena.ne.jp/rubikitch/20120104/elispbookerrata") (description nil " 明けまして、おめでとうございます。 今年もよろしくお願いします。 昨年発行したEmacs Lispテクニックバイブルは好評です。 絶賛の声をたくさんいただきました。 本当にありがとうございます。 万全を期していたのですが、残念 ながら誤植がみつかってしまいました。 読者") (content:encoded nil "
+<div class=\"section\"><p><pre>
+明けまして、おめでとうございます。
+
+今年もよろしくお願いします。
+
+昨年発行した<a href=\"http://d.hatena.ne.jp/rubikitch/20111120/elispbook\" target=\"_blank\">Emacs Lispテクニックバイブル</a>は好評です。
+
+絶賛の声をたくさんいただきました。
+
+本当にありがとうございます。
+
+万全を期していたのですが、残念
+ながら誤植がみつかってしまいました。
+
+読者の皆様には大変御迷惑をおかけしました。
+
+================================================================
+p132 4-3-2
+注1が行方不明
+
+注1 筆者は4分割以上はしていません。
+================================================================
+
+
+================================================================
+p142 5-1-2
+誤
+書式 (round &optional 整数) 
+正
+書式 (random &optional 整数) 
+================================================================
+
+================================================================
+p161 6-3-2
+誤
+書式 (make-hash-table :key 'equal)
+正
+書式 (make-hash-table :test 'equal)
+================================================================
+
+================================================================
+p184 6-9-7
+誤
+gensymは展開式の「外側」で使います。、
+正
+gensymは展開式の「外側」で使います。
+================================================================
+
+================================================================
+p195 7-2-3
+誤
+;;; defmacroにはリスト分解機能がある 
+正
+;;; defmacro*にはリスト分解機能がある 
+================================================================
+
+================================================================
+p200 7-4-2
+誤
+(f1 (lambda () v))) ; =&#62; externa 
+正
+(f1 (lambda () v))) ; =&#62; external
+================================================================
+
+================================================================
+p205 7-6-1
+誤
+分岐節にい「型名」を指定するところが異なります。
+正
+分岐節に「型名」を指定するところが異なります。
+================================================================
+
+================================================================
+p248 9-3-3 表9.1
+誤
+window-configuration-change-hook ウィンドウ構成構成変更後 
+正
+window-configuration-change-hook ウィンドウ構成変更後 
+================================================================
+
+P.S.
+<a href=\"http://www.rubyist.net/~rubikitch/melmag.html\" target=\"_blank\">Emacsメールマガジン発行しています。</a>
+
+完全メールサポートつきで初月無料
+でなので安心してご登録ください。
+</pre></p></div>
+") (dc:creator nil "rubikitch") (dc:date nil "2012-01-04") (dc:subject nil "emacs"))))

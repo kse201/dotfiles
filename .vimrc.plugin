@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 15-Jun-2013.                 |
+"                 Last Change: 06-Jul-2013.                 |
 "============================================================
 
 augroup MyAutoCmd
@@ -97,7 +97,7 @@ NeoBundleLazy 'jelera/vim-javascript-syntax',
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'tsukkee/unite-tag'
 NeoBundleLazy 'tsukkee/unite-help'
-NeoBundle 'shougo/unite-outline'
+NeoBundle 'h1mesuke/unite-outline'
 NeoBundleLazy 'tacroe/unite-mark'
 NeoBundle 'thinca/vim-unite-history'
 NeoBundle 'unite-colorscheme'
@@ -218,8 +218,6 @@ NeoBundleLazy 'vim-scripts/teol.vim.git' ,
 " }}}
 " Java {{{
 NeoBundle 'yuratomo/java-api-complete' , 
-            \ { 'autoload' :  { 'filetype' : ['java'] }}
-NeoBundle 'yuratomo/java-api-complete.git' , 
             \ { 'autoload' :  { 'filetype' : ['java'] }}
 NeoBundle 'yuratomo/java-api-javax.git' , 
             \ { 'autoload' :  { 'filetype' : ['java'] }}
@@ -561,25 +559,25 @@ nnoremap <silent> <SID>[unite]/ :<C-u>Unite line<CR>
 nnoremap <silent> <SID>[unite]; :<C-u>Unite command<CR>
 
 " 曖昧検索
-call unite#set_substitute_pattern('file,file_mru,history/command,directory_mru', '[[:alnum:]]', '*\0', 100)
+call unite#custom#substitute('file,file_mru,history/command,directory_mru', '[[:alnum:]]', '*\0', 100)
 
 " 様々なショートカット
 " http://d.hatena.ne.jp/thinca/20101027/1288190498
-call unite#set_substitute_pattern('file,file_mru', '\$\w\+', '\=eval(submatch(0))', 200)
-call unite#set_substitute_pattern('file,file_mru', '[^~.]\zs/', '*/*', 20)
-call unite#set_substitute_pattern('file,file_mru', '/\ze[^*]', '/*', 10)
-call unite#set_substitute_pattern('file,file_mru', '^@@', '\=fnamemodify(expand("#"), ":p:h")."/*"', 2)
-call unite#set_substitute_pattern('file,file_mru', '^@', '\=getcwd()."/*"', 1)
-call unite#set_substitute_pattern('file,file_mru', '^;r', '\=$VIMRUNTIME."/"')
-call unite#set_substitute_pattern('file,file_mru', '^\~', escape($HOME, '\'), -2)
-call unite#set_substitute_pattern('file,file_mru', '^\\', escape($HOME, '\'), -2)
-call unite#set_substitute_pattern('file,file_mru', '\\\@<! ', '\\ ', -20)
-call unite#set_substitute_pattern('file,file_mru', '\\ \@!', '/', -30)
+call unite#custom#substitute('file,file_mru', '\$\w\+', '\=eval(submatch(0))', 200)
+call unite#custom#substitute('file,file_mru', '[^~.]\zs/', '*/*', 20)
+call unite#custom#substitute('file,file_mru', '/\ze[^*]', '/*', 10)
+call unite#custom#substitute('file,file_mru', '^@@', '\=fnamemodify(expand("#"), ":p:h")."/*"', 2)
+call unite#custom#substitute('file,file_mru', '^@', '\=getcwd()."/*"', 1)
+call unite#custom#substitute('file,file_mru', '^;r', '\=$VIMRUNTIME."/"')
+call unite#custom#substitute('file,file_mru', '^\~', escape($HOME, '\'), -2)
+call unite#custom#substitute('file,file_mru', '^\\', escape($HOME, '\'), -2)
+call unite#custom#substitute('file,file_mru', '\\\@<! ', '\\ ', -20)
+call unite#custom#substitute('file,file_mru', '\\ \@!', '/', -30)
 if has('win32') || has('win64') || has('win32unix')
-    call unite#set_substitute_pattern('file,file_mru', '^;p', 'C:\Program File,file_mrus\')
-    call unite#set_substitute_pattern('file,file_mru', '^;v', '~/vimfile,file_mru/')
+    call unite#custom#substitute('file,file_mru', '^;p', 'C:\Program File,file_mrus\')
+    call unite#custom#substitute('file,file_mru', '^;v', '~/vimfile,file_mru/')
 else
-    call unite#set_substitute_pattern('file,file_mru', '^;v', '~/.vim/')
+    call unite#custom#substitute('file,file_mru', '^;v', '~/.vim/')
 endif
 
 " よくコマンドを登録してuniteで選択して起動 {{{ 
@@ -1386,8 +1384,8 @@ let g:gmail_user_name="kse.201@gmail.com"
 
 " java-api-complete {{{
 " https://github.com/yuratomo/java-api-complete
-au BufNewFile,BufRead *.java    setl omnifunc=javaapi#complete
-au CompleteDone *.java          call javaapi#showRef()
+au MyAutoCmd BufNewFile,BufRead *.java    setl omnifunc=javaapi#complete
+" au MyAutoCmd CompleteDone *.java          call javaapi#showRef()
 inoremap <expr> <c-down> javaapi#nextRef()
 inoremap <expr> <c-up>   javaapi#prevRef()
 if has("balloon_eval") && has("balloon_multiline") 
@@ -1454,8 +1452,10 @@ nnoremap <silent>_ :<C-u>call tmpwin#toggle('TweetVimHomeTimeline')<CR>
 " }}}
 
 " tyru / foldballoon.vim{{{
-set ballooneval
-set balloonexpr=foldballoon#balloonexpr()
+if has("balloon_eval") && has("balloon_multiline") 
+    set ballooneval
+    set balloonexpr=foldballoon#balloonexpr()
+endif
 " }}}
 "" ================================================================================ 
 " vim: set tw=0 tabstop=4 shiftwidth=4  fdm=marker fdl=0 :

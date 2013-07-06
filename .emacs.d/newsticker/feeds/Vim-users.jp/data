@@ -1,0 +1,561 @@
+;; -*- coding: utf-8 -*-
+(("Vim-users.jp" "日本の Vim ユーザのためのハブサイト" "http://vim-users.jp" (20693 49624 300502) feed 0 nil nil ((title nil "Vim-users.jp") (atom:link ((href . "http://vim-users.jp/feed/") (rel . "self") (type . "application/rss+xml"))) (link nil "http://vim-users.jp") (description nil "日本の Vim ユーザのためのハブサイト") (lastBuildDate nil "Wed, 12 Dec 2012 06:40:22 +0000") (language nil "ja") (sy:updatePeriod nil "hourly") (sy:updateFrequency nil "1") (generator nil "http://wordpress.org/?v=3.3.1") (atom:link ((rel . "hub") (href . "http://vim-users.jp/?pushpress=hub"))) (item nil (title nil "Vim Advent Calendar 2012 ujihisa 1") (link nil "http://vim-users.jp/2012/12/vim-advent-2012-ujihisa-1/") (comments nil "http://vim-users.jp/2012/12/vim-advent-2012-ujihisa-1/#comments") (pubDate nil "Mon, 10 Dec 2012 15:00:21 +0000") (dc:creator nil "ujihisa") (category nil "その他") (guid ((isPermaLink . "false")) "http://vim-users.jp/?p=2777") (description nil "本記事はujihisaさん担当のVim Advent Calendar 2012の11日目です。 先日の記事は @dice_zuさんによる http://daisuzu.hatenablog.com/entry/2012 [...]") (content:encoded nil "				<p>本記事はujihisaさん担当の<a href=\"http://atnd.org/events/33746\">Vim Advent Calendar 2012</a>の11日目です。
+				先日の記事は <a href=\"https://twitter.com/dice_zu\">@dice_zu</a>さんによる <a href=\"http://daisuzu.hatenablog.com/entry/2012/12/10/001228\">http://daisuzu.hatenablog.com/entry/2012/12/10/001228</a>でした。</p><p>この記事は豪華二本立てでお送りします。</p><h2>vimshellの紹介</h2><p>vimshellを紹介する日本語記事はたくさんありますが、英語の記事があまりなかったので、書きました。</p><p><a href=\"http://code.hootsuite.com/2012/12/11/vimshell/\">http://code.hootsuite.com/2012/12/11/vimshell/</a></p><p>弊社HootSuiteが技術ブログをはじめようという案が出たので、我先にと一番最初に投稿したのがこの記事です。現在HootSuite技術ブログの記事のうち100%がVimShellの話題です。</p><h2>ujihisa.vim#3の紹介</h2><p>vim-users.jp上でも<a href=\"http://vim-users.jp/2012/11/ujihisa-vim-3-pre-2/\">紹介していた</a>東京で行われたVimのカンファレンスである<a href=\"http://vim-jp.org/ujihisa.vim-3/\">ujihisa.vim#3</a>が無事開催されました。</p><p><img src=\"http://farm9.staticflickr.com/8065/8264224416_c6787e1a6f_c.jpg\" alt=\"ujihisa.vim#3\" /></p><p><a href=\"http://www.flickr.com/photos/sora_h/8264224416/in/photostream\">http://www.flickr.com/photos/sora_h/8264224416/in/photostream</a></p><p>高まるVim熱</p><p><img src=\"http://farm9.staticflickr.com/8354/8264226102_1c62b0ef53_c.jpg\" alt=\"ujihisa.vim#3\" /></p><p><a href=\"http://www.flickr.com/photos/sora_h/8264226102/in/photostream\">http://www.flickr.com/photos/sora_h/8264226102/in/photostream</a></p><p>マクロ漁船</p><p><img src=\"http://farm9.staticflickr.com/8078/8264223278_5bb0eb7ae8_z.jpg\" alt=\"ujihisa.vim#3\" /></p><p><a href=\"http://www.flickr.com/photos/sora_h/8264223278/in/photostream\">http://www.flickr.com/photos/sora_h/8264223278/in/photostream</a></p><p>会場は株式会社mixi様に貸していただきました。ありがとうございました!</p><p>(写真提供: <a href=\"http://www.flickr.com/photos/sora_h/\">sora_h</a>)</p><h2>次回</h2><p>次回は<a href=\"https://twitter.com/wiredool\">@wiredool</a>さんです。</p><address class=\"hack-author\">ujihisa</address>
+") (wfw:commentRss nil "http://vim-users.jp/2012/12/vim-advent-2012-ujihisa-1/feed/") (slash:comments nil "0")) (item nil (title nil "neco-rubyがneocomplcacheに統合されました") (link nil "http://vim-users.jp/2012/12/neco-ruby-to-neocomplcache/") (comments nil "http://vim-users.jp/2012/12/neco-ruby-to-neocomplcache/#comments") (pubDate nil "Wed, 05 Dec 2012 15:00:14 +0000") (dc:creator nil "ujihisa") (category nil "その他") (guid ((isPermaLink . "false")) "http://vim-users.jp/?p=2770") (description nil "neco-rubyはRubyのためのneocomplcacheプラギンで、実質Rubyのrequire_relative専用補完機構でした。この機能がneocomplcache本家に統合されました。 そのためのコミット  [...]") (content:encoded nil "				<p><a href=\"https://github.com/ujihisa/neco-ruby\">neco-ruby</a>はRubyのためのneocomplcacheプラギンで、実質Rubyの<code>require_relative</code>専用補完機構でした。この機能がneocomplcache本家に統合されました。</p><ul><li>そのためのコミット <a href=\"https://github.com/Shougo/neocomplcache/compare/9193f944af59...9823b06a2405\">https://github.com/Shougo/neocomplcache/compare/9193f944af59&#8230;9823b06a2405</a></li></ul><p><code>filename_complete</code>として実装されています。特別な設定なしにいきなり利用可能なはずです。</p><p><img src=\"http://cache.gyazo.com/f7907279e4379e2d20fb0f37fce59349.png\" alt=\" \" /></p><p>neco-rubyをインストールしている人は、削除してください。</p><address class=\"hack-author\">ujihisa</address>
+") (wfw:commentRss nil "http://vim-users.jp/2012/12/neco-ruby-to-neocomplcache/feed/") (slash:comments nil "0")) (item nil (title nil "Vim勉強会#11 が尼崎市で開催されました") (link nil "http://vim-users.jp/2012/11/vim11/") (comments nil "http://vim-users.jp/2012/11/vim11/#comments") (pubDate nil "Mon, 12 Nov 2012 06:18:27 +0000") (dc:creator nil "ujihisa") (category nil "その他") (category nil "イベント") (guid ((isPermaLink . "false")) "http://vim-users.jp/?p=2752") (description nil "Vim勉強会#11 (http://cotocoto.jp/event/71098) (&#42;1) 公式ハッシュタグ#vim11 のまとめ http://togetter.com/li/405475 感想記事 htt [...]") (content:encoded nil "				<p>Vim勉強会#11 (<a href=\"http://cotocoto.jp/event/71098\">http://cotocoto.jp/event/71098</a>)</p><p><img src=\"http://bbs50.meiwasuisan.com/bbs/kaiki/img/13265275940001.jpg\" alt=\"マグロ漁船\" /> (&#42;1)</p><p>公式ハッシュタグ#vim11 のまとめ <a href=\"http://togetter.com/li/405475\">http://togetter.com/li/405475</a></p><p>感想記事</p><ul><li><a href=\"http://rhysd.hatenablog.com/entry/2012/11/11/215849\">http://rhysd.hatenablog.com/entry/2012/11/11/215849</a></li><li><a href=\"http://leafcage.hateblo.jp/entry/2012/11/16/172501\">http://leafcage.hateblo.jp/entry/2012/11/16/172501</a></li></ul><h2>ujihisaによるまとめ</h2><p>ujihisaさんによる発表が3つありました。すべてGentoo Linux上で行われました。使用しているラップトップがAcerのAspire S3というVGA出力ができないものだったため、<a href=\"http://twitter.com/cuzic\">cuzic</a>さんのWindows 8のラップトップからVNCで接続し、cuzicラップトップをプロジェクタに投影することで対応しました。ujihisaさんの発表はgvim上でshowtime.vimを用いたもので、今回再びgvimがクラッシュし、さらにそのときvncサーバもgvim上で起動していたため、同時に死亡するという痛ましい事件が起きました。</p><p>neocomplcacheやvimshellの重要性について詳しく解説しました。いまだにこれらのプラギンを導入していない者を洗脳することに成功し、この歪曲された空間で、すべての参加者は勉強会終了後にはneosnippetのない生活が考えられないようなものとなったでしょう。</p><p>kozo2さんによるjedi.vimの発表はGentoo Linux上で行われました。jedi.vimは一言でいうと「RSenseのPython版」です。RSenseと違って締め切りの制約がなかったためJavaを用いずPure Pythonで動作します。常駐するサーバを必要としないため、かなりカジュアルに使えるようです。これからの動的型言語の自動補完機構は、RubyやPythonに限らず、このような方式で強化されていくのではないでしょうか。</p><p>LeafCageさんによるaltercmdの発表。ラップトップを2台保有しているもののどちらも故障中のため、他人のものを借りて発表したものの、デモの際にキーボードの配置が異なるという問題に悩まされているようでした。僕も同様の問題に直面しましたが、VNCを使うことで解決しました。今後プレゼン時のVNCの使用がますます流行っていくことでしょう(といってもマシンが壊れているならどうしようもないですが・・・)。altercmdは一言でいうと「command-line modeのためのabbrを宣言的に定義する」ためのもので、大文字のコマンドなど入力が困難なもののkey mappingを与えるほどのものではないというものを最適化するのに大変便利です。勉強会の休憩時間には有志数名がaltercmdの実装を読むなどしていました。</p><p>kozo2さん二回目の発表、tcodeについての前に、kozo2さんとujihisaさんの間でこのような会話が行われたそうです。「ujihisaさんは昔t-codeをどのように学習しはりましたか」「根性です」「そりゃ無理すわ」。今回発表されたtcvimeは根性非依存のt-code用ツールで、この発表の後には、t-code挫折組の多くの人が即座にtcvimeをインストールしたほどの影響力のあるものでした。</p><p>匿名希望の謎の方によるマクロ漁船の発表は、まさにつらい戦いでした。数多くの溺死者が出るなか、nviによるbrainf&#42;&#42;k処理系が、ユーザ入力された大文字文字列を小文字文字列に変換する処理を24時間行いつづけました。なおマクロとは関係ないですが、すべてのプログラマが必ず一度はbrainf&#42;&#42;k処理系を実装すべきと私は考えています。</p><p>Vim勉強会#11は、まとめ記事を書き、twitterなどでその記事をハッシュタグ付きで投稿することで、はじめて終わります。というわけで、これでujihisaのVim勉強会#11が終わりました。 <a href=\"https://twitter.com/ujm/status/267878661414338560\">https://twitter.com/ujm/status/267878661414338560</a></p><ul><li>ujihisaさん発表資料
+				
+				<ul><li>neocomplcache, vimshell, neosnippetすべての個別の発表を一つにまとめたもの <a href=\"https://gist.github.com/4054220\">https://gist.github.com/4054220</a></li></ul></li><li>kozo2さん発表資料
+				
+				<ul><li>jedi.vim (ここにURL)</li><li>tcvime <a href=\"https://gist.github.com/4076375\">https://gist.github.com/4076375</a></li></ul></li><li>LeafCageさん発表資料
+				
+				<ul><li><a href=\"https://gist.github.com/4085361\">https://gist.github.com/4085361</a></li></ul></li><li>匿さん発表資料</li></ul><h2>今後のVim勉強会について</h2><p>Vimを勉強したい、そう思ったときがVim勉強会開催の瞬間です。今回は<a href=\"http://twitter.com/ujm\">ujihisa</a>さんが主催しましたが、<em>Vim勉強会はどなたでも主催できます</em>ので、ぜひいますぐ主催してみませんか。</p><h2>脚注</h2><ul><li>(&#42;1) 出展: http://bbs50.meiwasuisan.com/bbs/bin/read/kaiki/1326527594/l50</li></ul>
+") (wfw:commentRss nil "http://vim-users.jp/2012/11/vim11/feed/") (slash:comments nil "0")) (item nil (title nil "ujihisa.vim#3が開催されます！") (link nil "http://vim-users.jp/2012/11/ujihisa-vim-3-pre-2/") (comments nil "http://vim-users.jp/2012/11/ujihisa-vim-3-pre-2/#comments") (pubDate nil "Fri, 02 Nov 2012 01:51:49 +0000") (dc:creator nil "thinca") (category nil "イベント") (category nil "ujihisa") (guid ((isPermaLink . "false")) "http://vim-users.jp/?p=2739") (description nil "明日の2012年11月3日(土)、ujihisa.vim#3 が開催されます！ 開催概要の確認及び参加登録は以下のページから行えます。 http://vim-jp.org/ujihisa.vim-3/ Twitterでの [...]") (content:encoded nil "				<p>明日の2012年11月3日(土)、ujihisa.vim#3 が開催されます！</p><p><img src=\"http://atnd.org/pict/3/82/C00000031823/a/71/379692063216074_bf55471a.gif\" alt=\" \" /></p><p>開催概要の確認及び参加登録は以下のページから行えます。</p><p><a href=\"http://vim-jp.org/ujihisa.vim-3/\">http://vim-jp.org/ujihisa.vim-3/</a></p><p>Twitterでの公式ハッシュタグは <code>#ujihisa.vim</code> です。</p><p>当日の様子はustreamで配信される予定です。→ <a href=\"http://www.ustream.tv/channel/uji\">http://www.ustream.tv/channel/uji</a></p><p>公式Lingrチャットルームもぜひご活用ください。→ <a href=\"http://lingr.com/room/vim\">http://lingr.com/room/vim</a></p><p>みなさんの参加お待ちしています!</p><h2>発表者の方へ</h2><p>発表者の方は、事前に打ち合わせをしておきたいので、12:30pmくらいに来てください。</p><p>発表者でなくても早くこれる方は早く会場入りすることが可能です。会場は12pmあたりからあいています。</p>
+") (wfw:commentRss nil "http://vim-users.jp/2012/11/ujihisa-vim-3-pre-2/feed/") (slash:comments nil "0")) (item nil (title nil "東京都渋谷と兵庫県尼崎市でVimの勉強会があります") (link nil "http://vim-users.jp/2012/10/ujihisa-vim-3-pre/") (comments nil "http://vim-users.jp/2012/10/ujihisa-vim-3-pre/#comments") (pubDate nil "Mon, 22 Oct 2012 05:34:11 +0000") (dc:creator nil "ujihisa") (category nil "イベント") (guid ((isPermaLink . "false")) "http://vim-users.jp/?p=2734") (description nil "こんにちは、ujihisaです。10月末から11月中旬まで来日している予定です。日本の料理をたくさん堪能する予定です。 さて、2つのカンファレンスが企画されています。 ujihisa.vim&#35;3 (東京都渋谷,  [...]") (content:encoded nil "				<p>こんにちは、ujihisaです。10月末から11月中旬まで来日している予定です。日本の料理をたくさん堪能する予定です。</p><p>さて、2つのカンファレンスが企画されています。</p><ul><li>ujihisa.vim&#35;3 (東京都渋谷, 11月3日)
+				
+				<ul><li><a href=\"http://vim-jp.org/ujihisa.vim-3/\">http://vim-jp.org/ujihisa.vim-3/</a></li></ul></li><li>Vim勉強会&#35;11 (兵庫県尼崎市, 11月11日)
+				
+				<ul><li><a href=\"http://cotocoto.jp/event/71098\">http://cotocoto.jp/event/71098</a></li></ul></li></ul><p>発表者募集中です。われこそはと思う方は気軽にtwitterや<a href=\"http://vim-users.jp/vim-users-jp-official-lingr-chat-room/\">lingr</a>やgithubで連絡ください。詳しくは上記URLを。現在のところガチムチな発表が多いものの、初級者・中級者向けの発表も絶賛募集中です。</p><p>Emacs使いのお友達にも伝えてください。</p><address class=\"hack-author\">ujihisa</address>
+") (wfw:commentRss nil "http://vim-users.jp/2012/10/ujihisa-vim-3-pre/feed/") (slash:comments nil "0")) (item nil (title nil "vimrc読書会開催のお知らせ") (link nil "http://vim-users.jp/2012/09/vimrc%e8%aa%ad%e6%9b%b8%e4%bc%9a%e9%96%8b%e5%82%ac%e3%81%ae%e3%81%8a%e7%9f%a5%e3%82%89%e3%81%9b/") (comments nil "http://vim-users.jp/2012/09/vimrc%e8%aa%ad%e6%9b%b8%e4%bc%9a%e9%96%8b%e5%82%ac%e3%81%ae%e3%81%8a%e7%9f%a5%e3%82%89%e3%81%9b/#comments") (pubDate nil "Sat, 01 Sep 2012 05:32:13 +0000") (dc:creator nil "ujihisa") (category nil "イベント") (guid ((isPermaLink . "false")) "http://vim-users.jp/?p=2728") (description nil "今晩オンラインでこのようなイベントが開催されるとのことです。 http://vim-jp.org/reading-vimrc/ vimrc力を高めてみたいとお思いの方、ふるってご参加ください。 今回読むvimrcはuji [...]") (content:encoded nil "				<p>今晩オンラインでこのようなイベントが開催されるとのことです。</p><p><a href=\"http://vim-jp.org/reading-vimrc/\">http://vim-jp.org/reading-vimrc/</a></p><p>vimrc力を高めてみたいとお思いの方、ふるってご参加ください。</p><p>今回読むvimrcはujihisaさんのものです。<a href=\"https://github.com/ujihisa/config/blob/master/_vimrc\">https://github.com/ujihisa/config/blob/master/_vimrc</a> 全く整理されておらずひどいvimrcになっているとのことですが、遺跡を発掘するような気持ちでアドベンチャーを楽しむことができるかもしれません。</p><p>それでは、lingr上でお会いしましょう。</p><address class=\"hack-author\">ujihisa</address>
+") (wfw:commentRss nil "http://vim-users.jp/2012/09/vimrc%e8%aa%ad%e6%9b%b8%e4%bc%9a%e9%96%8b%e5%82%ac%e3%81%ae%e3%81%8a%e7%9f%a5%e3%82%89%e3%81%9b/feed/") (slash:comments nil "0")) (item nil (title nil "[英語]あまりにも効率的で秘密にしておきたいとっておきの学習法") (link nil "http://vim-users.jp/2012/02/english/") (comments nil "http://vim-users.jp/2012/02/english/#comments") (pubDate nil "Sun, 05 Feb 2012 10:50:37 +0000") (dc:creator nil "ujihisa") (category nil "告知") (guid ((isPermaLink . "false")) "http://vim-users.jp/?p=2717") (description nil "プログラマにとって必要な素養は1に英語力と言われて久しいものです (*1)。 その英語力を簡単に、それもあっけないくらいに、大幅に向上する学習法があります。 この学習法を採用したプログラマの方は、現在は英語圏の会社で、英 [...]") (content:encoded nil "				<p>プログラマにとって必要な素養は1に英語力と言われて久しいものです (*1)。</p><p>その英語力を簡単に、それもあっけないくらいに、大幅に向上する学習法があります。</p><p>この学習法を採用したプログラマの方は、現在は英語圏の会社で、英語に何不自由することなくバリバリと働いているとのことです。</p><p>一般に英語学習は費用がかさむことで有名です。しかし、この学習法を用いれば、費用はいっさいかかりません。</p><div class=\"figure\"><img src=\"http://rst.gsfc.nasa.gov/Sect16/full-20earth2.jpg\" alt=\"earth\" /></div><h2 id=\"&#26041;&#27861;\">方法</h2><p><a href=\"https://github.com/shougo/vimshell\">vimshell</a>のドキュメントの翻訳プロジェクトに参加します。</p><p>vimshellのドキュメントは以下の2つのファイルから構成されています。</p><ul><li>doc/vimshell.jax</li><li>doc/vimshell.txt</li></ul><p>前者は日本語の、後者は英語の同一の内容のファイルです。いや、同一の内容であることを目指してある状態です。実際には英語版、vimshell.txtは大量の&quot;TODO&quot;とだけ書かれたセンテンスでいっぱいです。</p><p>この翻訳作業をおこなっていただく方を大募集しています。現時点でのVim力は不問、明るく楽しい職場 (* 2)です。 英語力だけでなくVim力も向上でき、一石二鳥です。学生の方は、この活動のおかげで就職もできるかもしれません。</p><p>参加するには、いきなり翻訳し、github上でpull requestを送ります。他の人と同じ部分を翻訳してしまうとその作業が若干もったいないため、なるべく細かい単位でさくっと翻訳してさくっとpull requestを送るのがよいでしょう。</p><p>翻訳にあたって元の文書の意味がよくわからないときなど、質問があれば、 <a href=\"http://lingr.com/room/vim\">lingr</a>で聞いてみたり、やtwitter上で #vimshell ハッシュタグをつけて発言してみましょう。</p><div class=\"figure\"><img src=\"http://images.paraorkut.com/img/pics/images/a/airplane-13372.jpg\" alt=\"airplane\" /></div><p>世界をまたにかけたVim使いへの第一歩です。</p><ul><li>*1 実際に必要な素養はVim力です</li><li>*2 http://lingr.com/room/vim</li></ul><address class=\"hack-author\">
+				ujihisa
+				</address>
+") (wfw:commentRss nil "http://vim-users.jp/2012/02/english/feed/") (slash:comments nil "0")) (item nil (title nil "新年あけましておめでとうございます") (link nil "http://vim-users.jp/2012/01/happy-new-year-vim/") (comments nil "http://vim-users.jp/2012/01/happy-new-year-vim/#comments") (pubDate nil "Sat, 31 Dec 2011 15:00:45 +0000") (dc:creator nil "ujihisa") (category nil "その他") (category nil "Vim Advent Calendar") (guid ((isPermaLink . "false")) "http://vim-users.jp/?p=2713") (description nil "新年あけましておめでとうございます。いまこの記事はAmtrak Cascadesという大陸縦断鉄道の中で執筆しています。さきほどカナダからの出国を済ませました。時刻は6:18amで、日の出は8:07amの予定なので、初日 [...]") (content:encoded nil "				<p>新年あけましておめでとうございます。いまこの記事はAmtrak Cascadesという大陸縦断鉄道の中で執筆しています。さきほどカナダからの出国を済ませました。時刻は6:18amで、日の出は8:07amの予定なので、初日の出までまだまだ時間があります。</p><p><img src=\"http://cache.gyazo.com/a6aa9d66e5efed7aeced49cc1c260373.png\" alt=\"amtrak cascades\" /></p><p>車内にはかなり安定したwifiがあり、ssh接続すら切れません。当然各席に電源があり、3時間程度しかバッテリのもたない初代MacBook Airでも平然と作業をすすめることができます。</p><p><img src=\"http://www.yougottabehere.com/media/resampled/articleElement/1026/resampled_Jan_11_2010_amtrak_cascades_train_600.jpg\" alt=\"amtrak cascades\" /></p><p>お腹が減ったら食堂車で朝食Vimをキメることも可能です。</p><p><img src=\"http://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/AmtrakCascadesDiner.JPG/220px-AmtrakCascadesDiner.JPG\" alt=\"amtrak cascades\" /></p><h2>スピリチュアルな話</h2><p>をして感極まる元旦を迎えるというのも良いですが、あんまりそういう話は得意でないので、Vimの話をします。</p><p>プログラミング関する何かを新たに学ぶとき、まずVimでそれをどのようにラクに行なうかを考える、ということは日常的に行なわれていることだと思います。たとえば普段はVim scriptとRubyしか書かない人が急にPythonをはじめるときは、neocomplcacheの自動補完やref.vimを駆使してVim内でPythonの学習を行なうでしょう。</p><p>これにちなんで、ちょっと個人的な話と、プラギンの紹介を行ないます。</p><h2>時代は低レイヤ</h2><p>僕はRubyでらくらくスクリプト書きなぐりやHaskellで宣言的に書きなぐりといった高レイヤ部分ばかりに慣れ親しみすぎたため、アセンブラやそれ以前にCやJavaといった低水準言語すらもうまく使えない軟弱プログラマなのでした。最も低水準な言語はJavaScriptやVim scriptだったと思います。このままではまずいと思い、青木峰郎先生の<a href=\"http://www.amazon.co.jp/%E3%81%B5%E3%81%A4%E3%81%86%E3%81%AE%E3%82%B3%E3%83%B3%E3%83%91%E3%82%A4%E3%83%A9%E3%82%92%E3%81%A4%E3%81%8F%E3%82%8D%E3%81%86-%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86%E7%B3%BB%E3%82%92%E3%81%A4%E3%81%8F%E3%82%8A%E3%81%AA%E3%81%8C%E3%82%89%E5%AD%A6%E3%81%B6%E3%82%B3%E3%83%B3%E3%83%91%E3%82%A4%E3%83%AB%E3%81%A8%E5%AE%9F%E8%A1%8C%E7%92%B0%E5%A2%83%E3%81%AE%E4%BB%95%E7%B5%84%E3%81%BF-%E9%9D%92%E6%9C%A8-%E5%B3%B0%E9%83%8E/dp/4797337958\">ふつうのコンパイラ</a>などを片手にアセンブラやその周辺技術、とくにコンパイラの最適化あたりの勉強に集中することに決めました。</p><p>大抵のC言語コンパイラは末尾再帰最適化を行なっているということは、低レイヤにあまり慣れ親しんでいない人でも、耳にしたことがあるのではないでしょうか。さて、最適化が行なわれたか否かを実際に確かめるには、実際にアセンブラを確認するとよいでしょう。</p><pre><code>int f(int acc, int n)
+{
+  return n &lt; 0 ? acc : f(acc + n, n - 1);
+}
+</code></pre><p>0からnまでの和を得る末尾再帰の関数です。f(0, 10) == 55です。</p><pre><code>$ gcc a.c -S -m32 -O2 -o -
+
+_f:
+  pushl %ebp
+  movl  %esp, %ebp
+  movl  8(%ebp), %eax
+  movl  12(%ebp), %edx
+  testl %edx, %edx
+  jns   L7
+  jmp   L3
+  .align 4,0x90
+L9:
+  movl  %ecx, %edx
+L7:
+  leal  -1(%edx), %ecx
+  addl  %edx, %eax
+  cmpl  $-1, %ecx
+  jne   L9
+L3:
+  leave
+  ret
+</code></pre><p>詳しい解説は省略しますが、ようするに再帰的に関数呼び出しを行なうかわりに、単なるループに変換されています。</p><p>これはGCCでx86アセンブリ言語に変換するよりもClangでLLVM IRに変換する方が直感的で読みやすいでしょう。</p><pre><code>$ clang -O3 a.c -S -emit-llvm -o -
+define i32 @f(i32 %acc, i32 %n) nounwind uwtable readnone ssp {
+entry:
+  %cmp1 = icmp slt i32 %n, 0
+  br i1 %cmp1, label %cond.end, label %cond.false.lr.ph
+
+cond.false.lr.ph:                                 ; preds = %entry
+  %0 = mul i32 %n, %n
+  %1 = zext i32 %n to i33
+  %2 = add i32 %n, -1
+  %3 = zext i32 %2 to i33
+  %4 = mul i33 %1, %3
+  %5 = lshr i33 %4, 1
+  %6 = trunc i33 %5 to i32
+  %7 = add i32 %0, %acc
+  %8 = sub i32 %7, %6
+  br label %cond.end
+
+cond.end:                                         ; preds = %cond.false.lr.ph, %entry
+  %acc.tr.lcssa = phi i32 [ %8, %cond.false.lr.ph ], [ %acc, %entry ]
+  ret i32 %acc.tr.lcssa
+}
+</code></pre><p>要するにループに変換されています。</p><p>つづいて、末尾再帰ではない形でも確認してみましょう。</p><pre><code>int f(int n)
+{
+  return n &lt; 0 ? 0 : n + f(n - 1);
+}
+</code></pre><p>実はこれでも先ほどとほとんど同じ結果が得られます。わざわざ人間が末尾再帰の形に変形する必要はないのでした。</p><p>これらのような事実が実際に目で確認できることがわかりました。しかし毎回gccやclangコマンドをvimshellから入力するのは大変です。それどころか、さきほど記述したCのコードにファイル名を与えて保存することは大変で、そんなことをしていると学習以前に一年が過ぎてしまい、次の元旦を迎えてしまいます。このような事態に陥ったとき、訓練されたVim使いは「そうだquickrun、使おう」となります。</p><pre><code>:QuickRun -type c/gcc  -exec '%c %o %s -S -o -' -cmdopt '-m32 -O2'
+</code></pre><p>これで動作することが分かるので、よし、<code>~/.vimrc</code>を開いて<code>g:quickrun_config</code>に・・・おっと、それだとclangの例を試せません。</p><pre><code>:QuickRun -type c/clang  -exec '%c %o %s -S -emit-llvm -o -' -cmdopt '-O3'
+</code></pre><p>複数の候補から選択したい。<a href=\"http://vim-users.jp/2011/02/hack200/\">Hack #200: 候補を選択し、実行する</a>にあるように、これはunite.vimの出番です。</p><p>欲深いもので、Cという1つの言語だけをサポートするのではなく、RubyにはYARV instructionを、CoffeeScriptにはJavaScriptを、といった具合で、人間の煩悩が108あるように、複数の要求をすべて満たしてみたくなるものです。</p><p>というわけでプラギンにしてみました。すばやく学習を支援するという意味で、quicklearn.vimという名前にしました。quickrunとquicklearnでrとlの発音をそれぞれ学習でき、一石二鳥です。</p><ul><li><a href=\"https://github.com/ujihisa/quicklearn\">https://github.com/ujihisa/quicklearn</a></li></ul><p>紹介動画</p><p><object width=\"480\" height=\"386\" classid=\"clsid:d27cdb6e-ae6d-11cf-96b8-444553540000\"><param name=\"flashvars\" value=\"vid=18198707&amp;autoplay=false\" /><param name=\"allowfullscreen\" value=\"true\" /><param name=\"allowscriptaccess\" value=\"always\" /><param name=\"src\" value=\"http://www.ustream.tv/flash/viewer.swf\" /><embed flashvars=\"vid=18198707&amp;autoplay=false\" width=\"480\" height=\"386\" allowfullscreen=\"true\" allowscriptaccess=\"always\" src=\"http://www.ustream.tv/flash/viewer.swf\" type=\"application/x-shockwave-flash\" /></object></p><p><br /><a href=\"http://www.ustream.tv/\" style=\"padding: 2px 0px 4px; width: 400px; background: #ffffff; display: block; color: #000000; font-weight: normal; font-size: 10px; text-decoration: underline; text-align: center;\" target=\"_blank\">Video streaming by Ustream</a></p><p>以下の言語/処理系/中間言語をサポートしています。</p><ul><li>C
+				    <ul><li>Assembly language (gcc)</li><li>LLVM IR (clang)</li></ul></li><li>Haskell
+				    <ul><li>Core (ghc)</li></ul></li><li>CoffeeScript
+				    <ul><li>JavaScript</li></ul></li><li>Ruby
+				    <ul><li>YARV Instructions (CRuby)</li></ul></li></ul><p>quicklearnは</p><pre><code>:Unite quicklearn -immediately
+</code></pre><p>のようにして実行できます。筆者は</p><pre><code>nnoremap &lt;space&gt;R :&lt;C-u&gt;Unite quicklearn -immediately&lt;Cr&gt;
+</code></pre><p>と<code>~/.vimrc</code>で設定し、<kbd>&lt;space&gt;R</kbd>で実行できるようにしています。なお、quickrunは<kbd>&lt;space&gt;r</kbd>にしています。</p><p><code>-immediately</code>オプションがとても便利です。</p><p>なお、quickrunはアセンブリ言語やLLVM IRをサポートしています。つまり、quicklearnによって生成させたアセンブリ言語やLLVM IRのバッファでさらにquickrunを行なうことで、それを実行することができ、とても便利です。</p><h2>実装</h2><p>たったの98行です。</p><p>autoload/unite/sources/quicklearn.vim</p><pre><code>let s:save_cpo = &amp;cpo
+set cpo&amp;vim
+
+\" fmap([a, b, c], f) =&gt; [f(a), f(b), f(c)]
+\" fmap(a, f) =&gt; [f(a)]
+function! s:fmap(xs, f)
+  if type(a:xs) == type([])
+    return map(a:xs, a:f)
+  else
+    return map([a:xs], a:f)
+  endif
+endfunction
+
+let g:quicklearn_gcc_remote_url = get(g:, 'quicklearn_gcc_remote_url', 'localhost')
+
+let s:quicklearn = {}
+let s:source = {
+      \\ 'name': 'quicklearn',
+      \\ }
+let s:quicklearn['c/clang/intermediate'] = {
+      \\ 'meta': {
+      \\   'parent': 'c/clang'},
+      \\ 'exec': '%c %o %s -S -emit-llvm -o -'}
+let s:quicklearn['c/clang-O3/intermediate'] = {
+      \\ 'meta': {
+      \\   'parent': 'c/clang'},
+      \\ 'cmdopt': '-O3',
+      \\ 'exec': '%c %o %s -S -emit-llvm -o -'}
+let s:quicklearn['c/gcc/intermediate'] = {
+      \\ 'meta': {
+      \\   'parent': 'c/gcc'},
+      \\ 'exec': '%c %o %s -S -o -'}
+let s:quicklearn['c/gcc-32/intermediate'] = {
+      \\ 'meta': {
+      \\   'parent': 'c/gcc'},
+      \\ 'cmdopt': '-m32',
+      \\ 'exec': '%c %o %s -S -o -'}
+let s:quicklearn['c/gcc-remote/intermediate'] = {
+      \\ 'meta': {
+      \\   'parent': 'c/gcc'},
+      \\ 'exec': 'ssh ' . g:quicklearn_gcc_remote_url . ' %c %o %s -S -o -'}
+let s:quicklearn['haskell/ghc/intermediate'] = {
+      \\ 'meta': {
+      \\   'parent': 'haskell/ghc'},
+      \\ 'exec': [
+      \\   '%c %o -ddump-simpl -dsuppress-coercions %s',
+      \\   'rm %s:p:r %s:p:r.o %s:p:r.hi'],
+      \\ 'cmdopt': '-v0 --make'}
+let s:quicklearn['coffee/intermediate'] = {
+      \\ 'meta': {
+      \\   'parent': '_'},
+      \\ 'exec': ['%c %o -cbp %s %a']}
+let s:quicklearn['ruby/intermediate'] = {
+      \\ 'meta': {
+      \\   'parent': 'ruby'},
+      \\ 'cmdopt': '--dump=insns'}
+
+\" inheritance
+for k in keys(s:quicklearn)
+  let v = s:quicklearn[k]
+  for item in ['command', 'exec', 'cmdopt', 'tempfile', 'eval_template']
+    let ofParent = get(g:quickrun#default_config[v.meta.parent], item)
+    if type(ofParent) != type(0) || ofParent != 0
+      let s:quicklearn[k][item] = get(v, item, ofParent)
+    endif
+    unlet ofParent
+  endfor
+endfor
+
+\" build quickrun command
+for k in keys(s:quicklearn)
+  let v = s:quicklearn[k]
+  let s:quicklearn[k].quickrun_command = printf(
+        \\ 'QuickRun %s %s %s -cmdopt %s',
+        \\ v.meta.parent == '_' ? '' : '-type ' . v.meta.parent,
+        \\ get(v, 'command') ? '-command ' . string(v.command) : '',
+        \\ join(s:fmap(get(v, 'exec', []), '\"-exec \" . string(v:val)'), ' '),
+        \\ string(get(v, 'cmdopt', '')))
+endfor
+lockvar s:quicklearn
+
+function! unite#sources#quicklearn#define()
+  return s:source
+endfunction
+
+function! s:source.gather_candidates(args, context)
+  let configs = filter(copy(s:quicklearn), 'v:key =~ \"^\" . &amp;filetype . \"/\"')
+
+  return values(map(configs, '{
+        \\ \"word\": substitute(v:key, \"/intermediate$\", \"\", \"\"),
+        \\ \"source\": s:source.name,
+        \\ \"kind\": [\"command\"],
+        \\ \"action__command\": v:val.quickrun_command,
+        \\ }'))
+        \"\\ \"action__type\": \": \",
+endfunction
+
+let &amp;cpo = s:save_cpo
+</code></pre><p>適当な辞書を事前に作っておき、uniteから実際に実行させたいコマンド文字列を事前に生成しておきます。それを対応するfiletypeごとにs:source.gather_candidatesで適切な辞書の配列を返すことによって行なっています。uniteのkindはcommandです。</p><p>冒頭のローカル関数fmapはfunctorっぽいものの実現です。対象が複数でも単数でも気にせず使えます。JavaScriptに詳しい方には、jQueryのアレ、といえば通じるかもしれません。</p><h2>以上</h2><p>Vim Advent Calendar 2011の32本目の記事でした。今年もよろしくお願いいたします。</p>
+") (wfw:commentRss nil "http://vim-users.jp/2012/01/happy-new-year-vim/feed/") (slash:comments nil "0")) (item nil (title nil "Hack #241: Haskellで使いたい関数を使ってからそのモジュールをimportする") (link nil "http://vim-users.jp/2011/12/hack241/") (comments nil "http://vim-users.jp/2011/12/hack241/#comments") (pubDate nil "Sun, 18 Dec 2011 15:00:05 +0000") (dc:creator nil "ujihisa") (category nil "Vim Hacks") (category nil "lv2") (guid ((isPermaLink . "false")) "http://vim-users.jp/?p=2708") (description nil "Haskell Advent Calendar 2011への寄稿記事です。 問題 Haskellを書いていて、長いソースコードの末尾の方にて、急にとあるモジュールのとある関数を使いたい、そんなときはよくあります。ありがち [...]") (content:encoded nil "				<p><a href=\"http://partake.in/events/eaea52c2-61ef-46d5-a855-3a2dde459e3a\">Haskell Advent Calendar 2011</a>への寄稿記事です。</p><h2>問題</h2><p>Haskellを書いていて、長いソースコードの末尾の方にて、急にとあるモジュールのとある関数を使いたい、そんなときはよくあります。ありがちなのがApplicativeの演算子いくつかと、Data.Function.onと、Data.Listのアレとコレと・・・。いくらでもあります。</p><p>Haskellでは一般的に、モジュールのimportはソースコードのかなりはじめの方にまとめて記述します。importしたい関数を一度しか使わず、しかもソースコードの末尾の方に位置していようと、おかまい無しです。このとき、<kbd>gg</kbd>などでソースコード上部まで移動し、<a href=\"http://vim-users.jp/2011/04/hack211/\">neco-ghc</a>などを駆使してmoduleとその関数を的確にimportし、そして<kbd>&lt;C-o&gt;</kbd>などでもといた場所に戻ることになると思います。<code>:sp</code>などで画面分割してから行ったり、あるいはmarkをつけるという方法もありますが、いずれにせよこれらの作業のため脳内の作業メモリがスタックオーバーフローするのは明らかでしょう。</p><h2>解決</h2><p>unite-haskellimportを用います。</p><p><a href=\"https://github.com/ujihisa/unite-haskellimport\">https://github.com/ujihisa/unite-haskellimport</a></p><p>まずは上記プラギンをインストールします。依存プラギンはunite.vim、依存ツールは<code>hoogle</code>です。</p><pre><code>$ cabal update &amp;&amp; cabal install hoogle &amp;&amp; hoogle data
+</code></pre><p>たとえば急に<code>==&gt;</code>という関数を使いたくなったとしましょう。</p><pre><code>:Unite haskellimport
+</code></pre><p>としてunite窓を開き、<code>==&gt;</code>と打鍵しましょう。</p><pre><code>Test.QuickCheck.Property (==&gt;) :: Testable prop =&gt; Bool -&gt; prop -&gt; Property
+Test.QuickCheck (==&gt;) :: Testable prop =&gt; Bool -&gt; prop -&gt; Property
+</code></pre><p>インストールしているcabalパッケージにもよりますが、たとえば上記のような項目が選択肢にでてくることでしょう。実際にimportしたい側を選択します。</p><p>候補を選択すると、unite-haskellimportはdefaultのactionとして:Haskellimportコマンドを発行します。これは、対象を、ソースコードのそれらしい場所に挿入するものです。既に他のimport文がある場合は、最後のimportのあとに挿入します。</p><p>Before</p><pre><code>import qualified Data.Text as T
+
+f x = ...
+</code></pre><p>After</p><pre><code>import qualified Data.Text as T
+import Test.QuickCheck ((==&gt;))
+
+f x = ...
+</code></pre><p>今回importしたのは記号からなる関数でした。が、もしも記号ではない関数、つまりVimの<code>&lt;cword&gt;</code>になるようなものならば、<code>:Unite</code>のかわりに</p><pre><code>:UniteWithCursorWord haskellimport
+</code></pre><p>とするとよいでしょう。これを頻繁に行うようならば、適切なキーにマッピングしておくべきです。たとえば以下を <code>~/.vim/ftplugin/haskell.vim</code>に記述すると、<kbd>&lt;space&gt;I</kbd>と打鍵するだけでカーソル以下にある単語の関数をimportしてくれます。</p><pre><code>nnoremap &lt;buffer&gt; &lt;space&gt;I :&lt;C-u&gt;UniteWithCursorWord haskellimport&lt;Cr&gt;
+</code></pre><address class=\"hack-author\">ujihisa</address>
+") (wfw:commentRss nil "http://vim-users.jp/2011/12/hack241/feed/") (slash:comments nil "0")) (item nil (title nil "Hack #240: <C-[> での誤爆を防止する") (link nil "http://vim-users.jp/2011/12/hack240/") (comments nil "http://vim-users.jp/2011/12/hack240/#comments") (pubDate nil "Sun, 11 Dec 2011 15:00:06 +0000") (dc:creator nil "thinca") (category nil "Vim Hacks") (category nil "lv2") (guid ((isPermaLink . "false")) "http://vim-users.jp/?p=2703") (description nil "挿入モードから抜ける方法は多数ありますが、その中に &#60;C-[&#62; キーがあります。 しかしこの [ キーは、日本語キーボードではすぐ左に @ キーがあり、誤って &#60;C-@&#62; を押してしまうと直前に挿 [...]") (content:encoded nil "				<p>挿入モードから抜ける方法は多数ありますが、その中に &lt;C-[&gt; キーがあります。</p><p>しかしこの [ キーは、日本語キーボードではすぐ左に @ キーがあり、誤って &lt;C-@&gt; を押してしまうと直前に挿入したテキストがさらに挿入されてから挿入モードを抜けるため、誤爆すると大惨事となります。</p><h3>誤爆を防止する</h3><p>誤爆をすると言うことは、本来行いたい操作があるということです。
+				このような誤爆を簡単かつ確実に防止するには、対象の機能を本来押したいキーに置き換えてしまうのが効果的です。</p><p>考えてみましょう。この &lt;C-@&gt; の機能「直前に挿入されたテキストをもう一度挿入し、挿入を終了する。」は、あなたにとって必要でしょうか?
+				もし必要ないと判断したら、本来押したいキー、この場合は &lt;C-[&gt; に置き換えましょう。以下のようにします。</p><pre><code>imap &lt;C-@&gt; &lt;C-[&gt;
+</code></pre><p>こうすることで誤爆を防ぐことができます。この @ は [ よりも近いため押し易く、しかもこの位置は英字キーボードと同じ位置であるため、英字キーボードに乗り換える練習にもなります。</p><p>もし万が一 &lt;C-@&gt; の機能が使いたい場合、しかし誤爆は避けたい場合は、別の位置に &lt;C-@&gt; をマッピングするとよいでしょう。</p><address class=\"hack-author\">thinca</address>
+") (wfw:commentRss nil "http://vim-users.jp/2011/12/hack240/feed/") (slash:comments nil "0")))) ("Vim Advent Calendar 2012 ujihisa 1" "<p>本記事はujihisaさん担当の<a href=\"http://atnd.org/events/33746\">Vim Advent Calendar 2012</a>の11日目です。
+先日の記事は <a href=\"https://twitter.com/dice_zu\">@dice_zu</a>さんによる <a href=\"http://daisuzu.hatenablog.com/entry/2012/12/10/001228\">http://daisuzu.hatenablog.com/entry/2012/12/10/001228</a>でした。</p><p>この記事は豪華二本立てでお送りします。</p><h2>vimshellの紹介</h2><p>vimshellを紹介する日本語記事はたくさんありますが、英語の記事があまりなかったので、書きました。</p><p><a href=\"http://code.hootsuite.com/2012/12/11/vimshell/\">http://code.hootsuite.com/2012/12/11/vimshell/</a></p><p>弊社HootSuiteが技術ブログをはじめようという案が出たので、我先にと一番最初に投稿したのがこの記事です。現在HootSuite技術ブログの記事のうち100%がVimShellの話題です。</p><h2>ujihisa.vim#3の紹介</h2><p>vim-users.jp上でも<a href=\"http://vim-users.jp/2012/11/ujihisa-vim-3-pre-2/\">紹介していた</a>東京で行われたVimのカンファレンスである<a href=\"http://vim-jp.org/ujihisa.vim-3/\">ujihisa.vim#3</a>が無事開催されました。</p><p><img src=\"http://farm9.staticflickr.com/8065/8264224416_c6787e1a6f_c.jpg\" alt=\"ujihisa.vim#3\" /></p><p><a href=\"http://www.flickr.com/photos/sora_h/8264224416/in/photostream\">http://www.flickr.com/photos/sora_h/8264224416/in/photostream</a></p><p>高まるVim熱</p><p><img src=\"http://farm9.staticflickr.com/8354/8264226102_1c62b0ef53_c.jpg\" alt=\"ujihisa.vim#3\" /></p><p><a href=\"http://www.flickr.com/photos/sora_h/8264226102/in/photostream\">http://www.flickr.com/photos/sora_h/8264226102/in/photostream</a></p><p>マクロ漁船</p><p><img src=\"http://farm9.staticflickr.com/8078/8264223278_5bb0eb7ae8_z.jpg\" alt=\"ujihisa.vim#3\" /></p><p><a href=\"http://www.flickr.com/photos/sora_h/8264223278/in/photostream\">http://www.flickr.com/photos/sora_h/8264223278/in/photostream</a></p><p>会場は株式会社mixi様に貸していただきました。ありがとうございました!</p><p>(写真提供: <a href=\"http://www.flickr.com/photos/sora_h/\">sora_h</a>)</p><h2>次回</h2><p>次回は<a href=\"https://twitter.com/wiredool\">@wiredool</a>さんです。</p><address class=\"hack-author\">ujihisa</address>" "http://vim-users.jp/2012/12/vim-advent-2012-ujihisa-1/" (20677 63749) new 1 nil nil ((title nil "Vim Advent Calendar 2012 ujihisa 1") (link nil "http://vim-users.jp/2012/12/vim-advent-2012-ujihisa-1/") (comments nil "http://vim-users.jp/2012/12/vim-advent-2012-ujihisa-1/#comments") (pubDate nil "Mon, 10 Dec 2012 15:00:21 +0000") (dc:creator nil "ujihisa") (category nil "その他") (guid ((isPermaLink . "false")) "http://vim-users.jp/?p=2777") (description nil "本記事はujihisaさん担当のVim Advent Calendar 2012の11日目です。 先日の記事は @dice_zuさんによる http://daisuzu.hatenablog.com/entry/2012 [...]") (content:encoded nil "				<p>本記事はujihisaさん担当の<a href=\"http://atnd.org/events/33746\">Vim Advent Calendar 2012</a>の11日目です。
+				先日の記事は <a href=\"https://twitter.com/dice_zu\">@dice_zu</a>さんによる <a href=\"http://daisuzu.hatenablog.com/entry/2012/12/10/001228\">http://daisuzu.hatenablog.com/entry/2012/12/10/001228</a>でした。</p><p>この記事は豪華二本立てでお送りします。</p><h2>vimshellの紹介</h2><p>vimshellを紹介する日本語記事はたくさんありますが、英語の記事があまりなかったので、書きました。</p><p><a href=\"http://code.hootsuite.com/2012/12/11/vimshell/\">http://code.hootsuite.com/2012/12/11/vimshell/</a></p><p>弊社HootSuiteが技術ブログをはじめようという案が出たので、我先にと一番最初に投稿したのがこの記事です。現在HootSuite技術ブログの記事のうち100%がVimShellの話題です。</p><h2>ujihisa.vim#3の紹介</h2><p>vim-users.jp上でも<a href=\"http://vim-users.jp/2012/11/ujihisa-vim-3-pre-2/\">紹介していた</a>東京で行われたVimのカンファレンスである<a href=\"http://vim-jp.org/ujihisa.vim-3/\">ujihisa.vim#3</a>が無事開催されました。</p><p><img src=\"http://farm9.staticflickr.com/8065/8264224416_c6787e1a6f_c.jpg\" alt=\"ujihisa.vim#3\" /></p><p><a href=\"http://www.flickr.com/photos/sora_h/8264224416/in/photostream\">http://www.flickr.com/photos/sora_h/8264224416/in/photostream</a></p><p>高まるVim熱</p><p><img src=\"http://farm9.staticflickr.com/8354/8264226102_1c62b0ef53_c.jpg\" alt=\"ujihisa.vim#3\" /></p><p><a href=\"http://www.flickr.com/photos/sora_h/8264226102/in/photostream\">http://www.flickr.com/photos/sora_h/8264226102/in/photostream</a></p><p>マクロ漁船</p><p><img src=\"http://farm9.staticflickr.com/8078/8264223278_5bb0eb7ae8_z.jpg\" alt=\"ujihisa.vim#3\" /></p><p><a href=\"http://www.flickr.com/photos/sora_h/8264223278/in/photostream\">http://www.flickr.com/photos/sora_h/8264223278/in/photostream</a></p><p>会場は株式会社mixi様に貸していただきました。ありがとうございました!</p><p>(写真提供: <a href=\"http://www.flickr.com/photos/sora_h/\">sora_h</a>)</p><h2>次回</h2><p>次回は<a href=\"https://twitter.com/wiredool\">@wiredool</a>さんです。</p><address class=\"hack-author\">ujihisa</address>
+") (wfw:commentRss nil "http://vim-users.jp/2012/12/vim-advent-2012-ujihisa-1/feed/") (slash:comments nil "0"))) ("neco-rubyがneocomplcacheに統合されました" "<p><a href=\"https://github.com/ujihisa/neco-ruby\">neco-ruby</a>はRubyのためのneocomplcacheプラギンで、実質Rubyの<code>require_relative</code>専用補完機構でした。この機能がneocomplcache本家に統合されました。</p><ul><li>そのためのコミット <a href=\"https://github.com/Shougo/neocomplcache/compare/9193f944af59...9823b06a2405\">https://github.com/Shougo/neocomplcache/compare/9193f944af59…9823b06a2405</a></li></ul><p><code>filename_complete</code>として実装されています。特別な設定なしにいきなり利用可能なはずです。</p><p><img src=\"http://cache.gyazo.com/f7907279e4379e2d20fb0f37fce59349.png\" alt=\" \" /></p><p>neco-rubyをインストールしている人は、削除してください。</p><address class=\"hack-author\">ujihisa</address>" "http://vim-users.jp/2012/12/neco-ruby-to-neocomplcache/" (20671 24958) new 2 nil nil ((title nil "neco-rubyがneocomplcacheに統合されました") (link nil "http://vim-users.jp/2012/12/neco-ruby-to-neocomplcache/") (comments nil "http://vim-users.jp/2012/12/neco-ruby-to-neocomplcache/#comments") (pubDate nil "Wed, 05 Dec 2012 15:00:14 +0000") (dc:creator nil "ujihisa") (category nil "その他") (guid ((isPermaLink . "false")) "http://vim-users.jp/?p=2770") (description nil "neco-rubyはRubyのためのneocomplcacheプラギンで、実質Rubyのrequire_relative専用補完機構でした。この機能がneocomplcache本家に統合されました。 そのためのコミット  [...]") (content:encoded nil "				<p><a href=\"https://github.com/ujihisa/neco-ruby\">neco-ruby</a>はRubyのためのneocomplcacheプラギンで、実質Rubyの<code>require_relative</code>専用補完機構でした。この機能がneocomplcache本家に統合されました。</p><ul><li>そのためのコミット <a href=\"https://github.com/Shougo/neocomplcache/compare/9193f944af59...9823b06a2405\">https://github.com/Shougo/neocomplcache/compare/9193f944af59&#8230;9823b06a2405</a></li></ul><p><code>filename_complete</code>として実装されています。特別な設定なしにいきなり利用可能なはずです。</p><p><img src=\"http://cache.gyazo.com/f7907279e4379e2d20fb0f37fce59349.png\" alt=\" \" /></p><p>neco-rubyをインストールしている人は、削除してください。</p><address class=\"hack-author\">ujihisa</address>
+") (wfw:commentRss nil "http://vim-users.jp/2012/12/neco-ruby-to-neocomplcache/feed/") (slash:comments nil "0"))) ("Vim勉強会#11 が尼崎市で開催されました" "<p>Vim勉強会#11 (<a href=\"http://cotocoto.jp/event/71098\">http://cotocoto.jp/event/71098</a>)</p><p><img src=\"http://bbs50.meiwasuisan.com/bbs/kaiki/img/13265275940001.jpg\" alt=\"マグロ漁船\" /> (*1)</p><p>公式ハッシュタグ#vim11 のまとめ <a href=\"http://togetter.com/li/405475\">http://togetter.com/li/405475</a></p><p>感想記事</p><ul><li><a href=\"http://rhysd.hatenablog.com/entry/2012/11/11/215849\">http://rhysd.hatenablog.com/entry/2012/11/11/215849</a></li><li><a href=\"http://leafcage.hateblo.jp/entry/2012/11/16/172501\">http://leafcage.hateblo.jp/entry/2012/11/16/172501</a></li></ul><h2>ujihisaによるまとめ</h2><p>ujihisaさんによる発表が3つありました。すべてGentoo Linux上で行われました。使用しているラップトップがAcerのAspire S3というVGA出力ができないものだったため、<a href=\"http://twitter.com/cuzic\">cuzic</a>さんのWindows 8のラップトップからVNCで接続し、cuzicラップトップをプロジェクタに投影することで対応しました。ujihisaさんの発表はgvim上でshowtime.vimを用いたもので、今回再びgvimがクラッシュし、さらにそのときvncサーバもgvim上で起動していたため、同時に死亡するという痛ましい事件が起きました。</p><p>neocomplcacheやvimshellの重要性について詳しく解説しました。いまだにこれらのプラギンを導入していない者を洗脳することに成功し、この歪曲された空間で、すべての参加者は勉強会終了後にはneosnippetのない生活が考えられないようなものとなったでしょう。</p><p>kozo2さんによるjedi.vimの発表はGentoo Linux上で行われました。jedi.vimは一言でいうと「RSenseのPython版」です。RSenseと違って締め切りの制約がなかったためJavaを用いずPure Pythonで動作します。常駐するサーバを必要としないため、かなりカジュアルに使えるようです。これからの動的型言語の自動補完機構は、RubyやPythonに限らず、このような方式で強化されていくのではないでしょうか。</p><p>LeafCageさんによるaltercmdの発表。ラップトップを2台保有しているもののどちらも故障中のため、他人のものを借りて発表したものの、デモの際にキーボードの配置が異なるという問題に悩まされているようでした。僕も同様の問題に直面しましたが、VNCを使うことで解決しました。今後プレゼン時のVNCの使用がますます流行っていくことでしょう(といってもマシンが壊れているならどうしようもないですが・・・)。altercmdは一言でいうと「command-line modeのためのabbrを宣言的に定義する」ためのもので、大文字のコマンドなど入力が困難なもののkey mappingを与えるほどのものではないというものを最適化するのに大変便利です。勉強会の休憩時間には有志数名がaltercmdの実装を読むなどしていました。</p><p>kozo2さん二回目の発表、tcodeについての前に、kozo2さんとujihisaさんの間でこのような会話が行われたそうです。「ujihisaさんは昔t-codeをどのように学習しはりましたか」「根性です」「そりゃ無理すわ」。今回発表されたtcvimeは根性非依存のt-code用ツールで、この発表の後には、t-code挫折組の多くの人が即座にtcvimeをインストールしたほどの影響力のあるものでした。</p><p>匿名希望の謎の方によるマクロ漁船の発表は、まさにつらい戦いでした。数多くの溺死者が出るなか、nviによるbrainf**k処理系が、ユーザ入力された大文字文字列を小文字文字列に変換する処理を24時間行いつづけました。なおマクロとは関係ないですが、すべてのプログラマが必ず一度はbrainf**k処理系を実装すべきと私は考えています。</p><p>Vim勉強会#11は、まとめ記事を書き、twitterなどでその記事をハッシュタグ付きで投稿することで、はじめて終わります。というわけで、これでujihisaのVim勉強会#11が終わりました。 <a href=\"https://twitter.com/ujm/status/267878661414338560\">https://twitter.com/ujm/status/267878661414338560</a></p><ul><li>ujihisaさん発表資料
+<ul><li>neocomplcache, vimshell, neosnippetすべての個別の発表を一つにまとめたもの <a href=\"https://gist.github.com/4054220\">https://gist.github.com/4054220</a></li></ul></li><li>kozo2さん発表資料
+<ul><li>jedi.vim (ここにURL)</li><li>tcvime <a href=\"https://gist.github.com/4076375\">https://gist.github.com/4076375</a></li></ul></li><li>LeafCageさん発表資料
+<ul><li><a href=\"https://gist.github.com/4085361\">https://gist.github.com/4085361</a></li></ul></li><li>匿さん発表資料</li></ul><h2>今後のVim勉強会について</h2><p>Vimを勉強したい、そう思ったときがVim勉強会開催の瞬間です。今回は<a href=\"http://twitter.com/ujm\">ujihisa</a>さんが主催しましたが、<em>Vim勉強会はどなたでも主催できます</em>ので、ぜひいますぐ主催してみませんか。</p><h2>脚注</h2><ul><li>(*1) 出展: http://bbs50.meiwasuisan.com/bbs/bin/read/kaiki/1326527594/l50</li></ul>" "http://vim-users.jp/2012/11/vim11/" (20640 38067) new 3 nil nil ((title nil "Vim勉強会#11 が尼崎市で開催されました") (link nil "http://vim-users.jp/2012/11/vim11/") (comments nil "http://vim-users.jp/2012/11/vim11/#comments") (pubDate nil "Mon, 12 Nov 2012 06:18:27 +0000") (dc:creator nil "ujihisa") (category nil "その他") (category nil "イベント") (guid ((isPermaLink . "false")) "http://vim-users.jp/?p=2752") (description nil "Vim勉強会#11 (http://cotocoto.jp/event/71098) (&#42;1) 公式ハッシュタグ#vim11 のまとめ http://togetter.com/li/405475 感想記事 htt [...]") (content:encoded nil "				<p>Vim勉強会#11 (<a href=\"http://cotocoto.jp/event/71098\">http://cotocoto.jp/event/71098</a>)</p><p><img src=\"http://bbs50.meiwasuisan.com/bbs/kaiki/img/13265275940001.jpg\" alt=\"マグロ漁船\" /> (&#42;1)</p><p>公式ハッシュタグ#vim11 のまとめ <a href=\"http://togetter.com/li/405475\">http://togetter.com/li/405475</a></p><p>感想記事</p><ul><li><a href=\"http://rhysd.hatenablog.com/entry/2012/11/11/215849\">http://rhysd.hatenablog.com/entry/2012/11/11/215849</a></li><li><a href=\"http://leafcage.hateblo.jp/entry/2012/11/16/172501\">http://leafcage.hateblo.jp/entry/2012/11/16/172501</a></li></ul><h2>ujihisaによるまとめ</h2><p>ujihisaさんによる発表が3つありました。すべてGentoo Linux上で行われました。使用しているラップトップがAcerのAspire S3というVGA出力ができないものだったため、<a href=\"http://twitter.com/cuzic\">cuzic</a>さんのWindows 8のラップトップからVNCで接続し、cuzicラップトップをプロジェクタに投影することで対応しました。ujihisaさんの発表はgvim上でshowtime.vimを用いたもので、今回再びgvimがクラッシュし、さらにそのときvncサーバもgvim上で起動していたため、同時に死亡するという痛ましい事件が起きました。</p><p>neocomplcacheやvimshellの重要性について詳しく解説しました。いまだにこれらのプラギンを導入していない者を洗脳することに成功し、この歪曲された空間で、すべての参加者は勉強会終了後にはneosnippetのない生活が考えられないようなものとなったでしょう。</p><p>kozo2さんによるjedi.vimの発表はGentoo Linux上で行われました。jedi.vimは一言でいうと「RSenseのPython版」です。RSenseと違って締め切りの制約がなかったためJavaを用いずPure Pythonで動作します。常駐するサーバを必要としないため、かなりカジュアルに使えるようです。これからの動的型言語の自動補完機構は、RubyやPythonに限らず、このような方式で強化されていくのではないでしょうか。</p><p>LeafCageさんによるaltercmdの発表。ラップトップを2台保有しているもののどちらも故障中のため、他人のものを借りて発表したものの、デモの際にキーボードの配置が異なるという問題に悩まされているようでした。僕も同様の問題に直面しましたが、VNCを使うことで解決しました。今後プレゼン時のVNCの使用がますます流行っていくことでしょう(といってもマシンが壊れているならどうしようもないですが・・・)。altercmdは一言でいうと「command-line modeのためのabbrを宣言的に定義する」ためのもので、大文字のコマンドなど入力が困難なもののkey mappingを与えるほどのものではないというものを最適化するのに大変便利です。勉強会の休憩時間には有志数名がaltercmdの実装を読むなどしていました。</p><p>kozo2さん二回目の発表、tcodeについての前に、kozo2さんとujihisaさんの間でこのような会話が行われたそうです。「ujihisaさんは昔t-codeをどのように学習しはりましたか」「根性です」「そりゃ無理すわ」。今回発表されたtcvimeは根性非依存のt-code用ツールで、この発表の後には、t-code挫折組の多くの人が即座にtcvimeをインストールしたほどの影響力のあるものでした。</p><p>匿名希望の謎の方によるマクロ漁船の発表は、まさにつらい戦いでした。数多くの溺死者が出るなか、nviによるbrainf&#42;&#42;k処理系が、ユーザ入力された大文字文字列を小文字文字列に変換する処理を24時間行いつづけました。なおマクロとは関係ないですが、すべてのプログラマが必ず一度はbrainf&#42;&#42;k処理系を実装すべきと私は考えています。</p><p>Vim勉強会#11は、まとめ記事を書き、twitterなどでその記事をハッシュタグ付きで投稿することで、はじめて終わります。というわけで、これでujihisaのVim勉強会#11が終わりました。 <a href=\"https://twitter.com/ujm/status/267878661414338560\">https://twitter.com/ujm/status/267878661414338560</a></p><ul><li>ujihisaさん発表資料
+				
+				<ul><li>neocomplcache, vimshell, neosnippetすべての個別の発表を一つにまとめたもの <a href=\"https://gist.github.com/4054220\">https://gist.github.com/4054220</a></li></ul></li><li>kozo2さん発表資料
+				
+				<ul><li>jedi.vim (ここにURL)</li><li>tcvime <a href=\"https://gist.github.com/4076375\">https://gist.github.com/4076375</a></li></ul></li><li>LeafCageさん発表資料
+				
+				<ul><li><a href=\"https://gist.github.com/4085361\">https://gist.github.com/4085361</a></li></ul></li><li>匿さん発表資料</li></ul><h2>今後のVim勉強会について</h2><p>Vimを勉強したい、そう思ったときがVim勉強会開催の瞬間です。今回は<a href=\"http://twitter.com/ujm\">ujihisa</a>さんが主催しましたが、<em>Vim勉強会はどなたでも主催できます</em>ので、ぜひいますぐ主催してみませんか。</p><h2>脚注</h2><ul><li>(&#42;1) 出展: http://bbs50.meiwasuisan.com/bbs/bin/read/kaiki/1326527594/l50</li></ul>
+") (wfw:commentRss nil "http://vim-users.jp/2012/11/vim11/feed/") (slash:comments nil "0"))) ("ujihisa.vim#3が開催されます！" "<p>明日の2012年11月3日(土)、ujihisa.vim#3 が開催されます！</p><p><img src=\"http://atnd.org/pict/3/82/C00000031823/a/71/379692063216074_bf55471a.gif\" alt=\" \" /></p><p>開催概要の確認及び参加登録は以下のページから行えます。</p><p><a href=\"http://vim-jp.org/ujihisa.vim-3/\">http://vim-jp.org/ujihisa.vim-3/</a></p><p>Twitterでの公式ハッシュタグは <code>#ujihisa.vim</code> です。</p><p>当日の様子はustreamで配信される予定です。→ <a href=\"http://www.ustream.tv/channel/uji\">http://www.ustream.tv/channel/uji</a></p><p>公式Lingrチャットルームもぜひご活用ください。→ <a href=\"http://lingr.com/room/vim\">http://lingr.com/room/vim</a></p><p>みなさんの参加お待ちしています!</p><h2>発表者の方へ</h2><p>発表者の方は、事前に打ち合わせをしておきたいので、12:30pmくらいに来てください。</p><p>発表者でなくても早くこれる方は早く会場入りすることが可能です。会場は12pmあたりからあいています。</p>" "http://vim-users.jp/2012/11/ujihisa-vim-3-pre-2/" (20627 10037) new 4 nil nil ((title nil "ujihisa.vim#3が開催されます！") (link nil "http://vim-users.jp/2012/11/ujihisa-vim-3-pre-2/") (comments nil "http://vim-users.jp/2012/11/ujihisa-vim-3-pre-2/#comments") (pubDate nil "Fri, 02 Nov 2012 01:51:49 +0000") (dc:creator nil "thinca") (category nil "イベント") (category nil "ujihisa") (guid ((isPermaLink . "false")) "http://vim-users.jp/?p=2739") (description nil "明日の2012年11月3日(土)、ujihisa.vim#3 が開催されます！ 開催概要の確認及び参加登録は以下のページから行えます。 http://vim-jp.org/ujihisa.vim-3/ Twitterでの [...]") (content:encoded nil "				<p>明日の2012年11月3日(土)、ujihisa.vim#3 が開催されます！</p><p><img src=\"http://atnd.org/pict/3/82/C00000031823/a/71/379692063216074_bf55471a.gif\" alt=\" \" /></p><p>開催概要の確認及び参加登録は以下のページから行えます。</p><p><a href=\"http://vim-jp.org/ujihisa.vim-3/\">http://vim-jp.org/ujihisa.vim-3/</a></p><p>Twitterでの公式ハッシュタグは <code>#ujihisa.vim</code> です。</p><p>当日の様子はustreamで配信される予定です。→ <a href=\"http://www.ustream.tv/channel/uji\">http://www.ustream.tv/channel/uji</a></p><p>公式Lingrチャットルームもぜひご活用ください。→ <a href=\"http://lingr.com/room/vim\">http://lingr.com/room/vim</a></p><p>みなさんの参加お待ちしています!</p><h2>発表者の方へ</h2><p>発表者の方は、事前に打ち合わせをしておきたいので、12:30pmくらいに来てください。</p><p>発表者でなくても早くこれる方は早く会場入りすることが可能です。会場は12pmあたりからあいています。</p>
+") (wfw:commentRss nil "http://vim-users.jp/2012/11/ujihisa-vim-3-pre-2/feed/") (slash:comments nil "0"))) ("東京都渋谷と兵庫県尼崎市でVimの勉強会があります" "<p>こんにちは、ujihisaです。10月末から11月中旬まで来日している予定です。日本の料理をたくさん堪能する予定です。</p><p>さて、2つのカンファレンスが企画されています。</p><ul><li>ujihisa.vim#3 (東京都渋谷, 11月3日)
+<ul><li><a href=\"http://vim-jp.org/ujihisa.vim-3/\">http://vim-jp.org/ujihisa.vim-3/</a></li></ul></li><li>Vim勉強会#11 (兵庫県尼崎市, 11月11日)
+<ul><li><a href=\"http://cotocoto.jp/event/71098\">http://cotocoto.jp/event/71098</a></li></ul></li></ul><p>発表者募集中です。われこそはと思う方は気軽にtwitterや<a href=\"http://vim-users.jp/vim-users-jp-official-lingr-chat-room/\">lingr</a>やgithubで連絡ください。詳しくは上記URLを。現在のところガチムチな発表が多いものの、初級者・中級者向けの発表も絶賛募集中です。</p><p>Emacs使いのお友達にも伝えてください。</p><address class=\"hack-author\">ujihisa</address>" "http://vim-users.jp/2012/10/ujihisa-vim-3-pre/" (20612 56019) new 5 nil nil ((title nil "東京都渋谷と兵庫県尼崎市でVimの勉強会があります") (link nil "http://vim-users.jp/2012/10/ujihisa-vim-3-pre/") (comments nil "http://vim-users.jp/2012/10/ujihisa-vim-3-pre/#comments") (pubDate nil "Mon, 22 Oct 2012 05:34:11 +0000") (dc:creator nil "ujihisa") (category nil "イベント") (guid ((isPermaLink . "false")) "http://vim-users.jp/?p=2734") (description nil "こんにちは、ujihisaです。10月末から11月中旬まで来日している予定です。日本の料理をたくさん堪能する予定です。 さて、2つのカンファレンスが企画されています。 ujihisa.vim&#35;3 (東京都渋谷,  [...]") (content:encoded nil "				<p>こんにちは、ujihisaです。10月末から11月中旬まで来日している予定です。日本の料理をたくさん堪能する予定です。</p><p>さて、2つのカンファレンスが企画されています。</p><ul><li>ujihisa.vim&#35;3 (東京都渋谷, 11月3日)
+				
+				<ul><li><a href=\"http://vim-jp.org/ujihisa.vim-3/\">http://vim-jp.org/ujihisa.vim-3/</a></li></ul></li><li>Vim勉強会&#35;11 (兵庫県尼崎市, 11月11日)
+				
+				<ul><li><a href=\"http://cotocoto.jp/event/71098\">http://cotocoto.jp/event/71098</a></li></ul></li></ul><p>発表者募集中です。われこそはと思う方は気軽にtwitterや<a href=\"http://vim-users.jp/vim-users-jp-official-lingr-chat-room/\">lingr</a>やgithubで連絡ください。詳しくは上記URLを。現在のところガチムチな発表が多いものの、初級者・中級者向けの発表も絶賛募集中です。</p><p>Emacs使いのお友達にも伝えてください。</p><address class=\"hack-author\">ujihisa</address>
+") (wfw:commentRss nil "http://vim-users.jp/2012/10/ujihisa-vim-3-pre/feed/") (slash:comments nil "0"))) ("vimrc読書会開催のお知らせ" "<p>今晩オンラインでこのようなイベントが開催されるとのことです。</p><p><a href=\"http://vim-jp.org/reading-vimrc/\">http://vim-jp.org/reading-vimrc/</a></p><p>vimrc力を高めてみたいとお思いの方、ふるってご参加ください。</p><p>今回読むvimrcはujihisaさんのものです。<a href=\"https://github.com/ujihisa/config/blob/master/_vimrc\">https://github.com/ujihisa/config/blob/master/_vimrc</a> 全く整理されておらずひどいvimrcになっているとのことですが、遺跡を発掘するような気持ちでアドベンチャーを楽しむことができるかもしれません。</p><p>それでは、lingr上でお会いしましょう。</p><address class=\"hack-author\">ujihisa</address>" "http://vim-users.jp/2012/09/vimrc%e8%aa%ad%e6%9b%b8%e4%bc%9a%e9%96%8b%e5%82%ac%e3%81%ae%e3%81%8a%e7%9f%a5%e3%82%89%e3%81%9b/" (20545 40413) new 6 nil nil ((title nil "vimrc読書会開催のお知らせ") (link nil "http://vim-users.jp/2012/09/vimrc%e8%aa%ad%e6%9b%b8%e4%bc%9a%e9%96%8b%e5%82%ac%e3%81%ae%e3%81%8a%e7%9f%a5%e3%82%89%e3%81%9b/") (comments nil "http://vim-users.jp/2012/09/vimrc%e8%aa%ad%e6%9b%b8%e4%bc%9a%e9%96%8b%e5%82%ac%e3%81%ae%e3%81%8a%e7%9f%a5%e3%82%89%e3%81%9b/#comments") (pubDate nil "Sat, 01 Sep 2012 05:32:13 +0000") (dc:creator nil "ujihisa") (category nil "イベント") (guid ((isPermaLink . "false")) "http://vim-users.jp/?p=2728") (description nil "今晩オンラインでこのようなイベントが開催されるとのことです。 http://vim-jp.org/reading-vimrc/ vimrc力を高めてみたいとお思いの方、ふるってご参加ください。 今回読むvimrcはuji [...]") (content:encoded nil "				<p>今晩オンラインでこのようなイベントが開催されるとのことです。</p><p><a href=\"http://vim-jp.org/reading-vimrc/\">http://vim-jp.org/reading-vimrc/</a></p><p>vimrc力を高めてみたいとお思いの方、ふるってご参加ください。</p><p>今回読むvimrcはujihisaさんのものです。<a href=\"https://github.com/ujihisa/config/blob/master/_vimrc\">https://github.com/ujihisa/config/blob/master/_vimrc</a> 全く整理されておらずひどいvimrcになっているとのことですが、遺跡を発掘するような気持ちでアドベンチャーを楽しむことができるかもしれません。</p><p>それでは、lingr上でお会いしましょう。</p><address class=\"hack-author\">ujihisa</address>
+") (wfw:commentRss nil "http://vim-users.jp/2012/09/vimrc%e8%aa%ad%e6%9b%b8%e4%bc%9a%e9%96%8b%e5%82%ac%e3%81%ae%e3%81%8a%e7%9f%a5%e3%82%89%e3%81%9b/feed/") (slash:comments nil "0"))) ("[英語]あまりにも効率的で秘密にしておきたいとっておきの学習法" "<p>プログラマにとって必要な素養は1に英語力と言われて久しいものです (*1)。</p><p>その英語力を簡単に、それもあっけないくらいに、大幅に向上する学習法があります。</p><p>この学習法を採用したプログラマの方は、現在は英語圏の会社で、英語に何不自由することなくバリバリと働いているとのことです。</p><p>一般に英語学習は費用がかさむことで有名です。しかし、この学習法を用いれば、費用はいっさいかかりません。</p><div class=\"figure\"><img src=\"http://rst.gsfc.nasa.gov/Sect16/full-20earth2.jpg\" alt=\"earth\" /></div><h2 id=\"方法\">方法</h2><p><a href=\"https://github.com/shougo/vimshell\">vimshell</a>のドキュメントの翻訳プロジェクトに参加します。</p><p>vimshellのドキュメントは以下の2つのファイルから構成されています。</p><ul><li>doc/vimshell.jax</li><li>doc/vimshell.txt</li></ul><p>前者は日本語の、後者は英語の同一の内容のファイルです。いや、同一の内容であることを目指してある状態です。実際には英語版、vimshell.txtは大量の&quot;TODO&quot;とだけ書かれたセンテンスでいっぱいです。</p><p>この翻訳作業をおこなっていただく方を大募集しています。現時点でのVim力は不問、明るく楽しい職場 (* 2)です。 英語力だけでなくVim力も向上でき、一石二鳥です。学生の方は、この活動のおかげで就職もできるかもしれません。</p><p>参加するには、いきなり翻訳し、github上でpull requestを送ります。他の人と同じ部分を翻訳してしまうとその作業が若干もったいないため、なるべく細かい単位でさくっと翻訳してさくっとpull requestを送るのがよいでしょう。</p><p>翻訳にあたって元の文書の意味がよくわからないときなど、質問があれば、 <a href=\"http://lingr.com/room/vim\">lingr</a>で聞いてみたり、やtwitter上で #vimshell ハッシュタグをつけて発言してみましょう。</p><div class=\"figure\"><img src=\"http://images.paraorkut.com/img/pics/images/a/airplane-13372.jpg\" alt=\"airplane\" /></div><p>世界をまたにかけたVim使いへの第一歩です。</p><ul><li>*1 実際に必要な素養はVim力です</li><li>*2 http://lingr.com/room/vim</li></ul><address class=\"hack-author\">
+ujihisa
+</address>" "http://vim-users.jp/2012/02/english/" (20270 24317) new 7 nil nil ((title nil "[英語]あまりにも効率的で秘密にしておきたいとっておきの学習法") (link nil "http://vim-users.jp/2012/02/english/") (comments nil "http://vim-users.jp/2012/02/english/#comments") (pubDate nil "Sun, 05 Feb 2012 10:50:37 +0000") (dc:creator nil "ujihisa") (category nil "告知") (guid ((isPermaLink . "false")) "http://vim-users.jp/?p=2717") (description nil "プログラマにとって必要な素養は1に英語力と言われて久しいものです (*1)。 その英語力を簡単に、それもあっけないくらいに、大幅に向上する学習法があります。 この学習法を採用したプログラマの方は、現在は英語圏の会社で、英 [...]") (content:encoded nil "				<p>プログラマにとって必要な素養は1に英語力と言われて久しいものです (*1)。</p><p>その英語力を簡単に、それもあっけないくらいに、大幅に向上する学習法があります。</p><p>この学習法を採用したプログラマの方は、現在は英語圏の会社で、英語に何不自由することなくバリバリと働いているとのことです。</p><p>一般に英語学習は費用がかさむことで有名です。しかし、この学習法を用いれば、費用はいっさいかかりません。</p><div class=\"figure\"><img src=\"http://rst.gsfc.nasa.gov/Sect16/full-20earth2.jpg\" alt=\"earth\" /></div><h2 id=\"&#26041;&#27861;\">方法</h2><p><a href=\"https://github.com/shougo/vimshell\">vimshell</a>のドキュメントの翻訳プロジェクトに参加します。</p><p>vimshellのドキュメントは以下の2つのファイルから構成されています。</p><ul><li>doc/vimshell.jax</li><li>doc/vimshell.txt</li></ul><p>前者は日本語の、後者は英語の同一の内容のファイルです。いや、同一の内容であることを目指してある状態です。実際には英語版、vimshell.txtは大量の&quot;TODO&quot;とだけ書かれたセンテンスでいっぱいです。</p><p>この翻訳作業をおこなっていただく方を大募集しています。現時点でのVim力は不問、明るく楽しい職場 (* 2)です。 英語力だけでなくVim力も向上でき、一石二鳥です。学生の方は、この活動のおかげで就職もできるかもしれません。</p><p>参加するには、いきなり翻訳し、github上でpull requestを送ります。他の人と同じ部分を翻訳してしまうとその作業が若干もったいないため、なるべく細かい単位でさくっと翻訳してさくっとpull requestを送るのがよいでしょう。</p><p>翻訳にあたって元の文書の意味がよくわからないときなど、質問があれば、 <a href=\"http://lingr.com/room/vim\">lingr</a>で聞いてみたり、やtwitter上で #vimshell ハッシュタグをつけて発言してみましょう。</p><div class=\"figure\"><img src=\"http://images.paraorkut.com/img/pics/images/a/airplane-13372.jpg\" alt=\"airplane\" /></div><p>世界をまたにかけたVim使いへの第一歩です。</p><ul><li>*1 実際に必要な素養はVim力です</li><li>*2 http://lingr.com/room/vim</li></ul><address class=\"hack-author\">
+				ujihisa
+				</address>
+") (wfw:commentRss nil "http://vim-users.jp/2012/02/english/feed/") (slash:comments nil "0"))) ("新年あけましておめでとうございます" "<p>新年あけましておめでとうございます。いまこの記事はAmtrak Cascadesという大陸縦断鉄道の中で執筆しています。さきほどカナダからの出国を済ませました。時刻は6:18amで、日の出は8:07amの予定なので、初日の出までまだまだ時間があります。</p><p><img src=\"http://cache.gyazo.com/a6aa9d66e5efed7aeced49cc1c260373.png\" alt=\"amtrak cascades\" /></p><p>車内にはかなり安定したwifiがあり、ssh接続すら切れません。当然各席に電源があり、3時間程度しかバッテリのもたない初代MacBook Airでも平然と作業をすすめることができます。</p><p><img src=\"http://www.yougottabehere.com/media/resampled/articleElement/1026/resampled_Jan_11_2010_amtrak_cascades_train_600.jpg\" alt=\"amtrak cascades\" /></p><p>お腹が減ったら食堂車で朝食Vimをキメることも可能です。</p><p><img src=\"http://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/AmtrakCascadesDiner.JPG/220px-AmtrakCascadesDiner.JPG\" alt=\"amtrak cascades\" /></p><h2>スピリチュアルな話</h2><p>をして感極まる元旦を迎えるというのも良いですが、あんまりそういう話は得意でないので、Vimの話をします。</p><p>プログラミング関する何かを新たに学ぶとき、まずVimでそれをどのようにラクに行なうかを考える、ということは日常的に行なわれていることだと思います。たとえば普段はVim scriptとRubyしか書かない人が急にPythonをはじめるときは、neocomplcacheの自動補完やref.vimを駆使してVim内でPythonの学習を行なうでしょう。</p><p>これにちなんで、ちょっと個人的な話と、プラギンの紹介を行ないます。</p><h2>時代は低レイヤ</h2><p>僕はRubyでらくらくスクリプト書きなぐりやHaskellで宣言的に書きなぐりといった高レイヤ部分ばかりに慣れ親しみすぎたため、アセンブラやそれ以前にCやJavaといった低水準言語すらもうまく使えない軟弱プログラマなのでした。最も低水準な言語はJavaScriptやVim scriptだったと思います。このままではまずいと思い、青木峰郎先生の<a href=\"http://www.amazon.co.jp/%E3%81%B5%E3%81%A4%E3%81%86%E3%81%AE%E3%82%B3%E3%83%B3%E3%83%91%E3%82%A4%E3%83%A9%E3%82%92%E3%81%A4%E3%81%8F%E3%82%8D%E3%81%86-%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86%E7%B3%BB%E3%82%92%E3%81%A4%E3%81%8F%E3%82%8A%E3%81%AA%E3%81%8C%E3%82%89%E5%AD%A6%E3%81%B6%E3%82%B3%E3%83%B3%E3%83%91%E3%82%A4%E3%83%AB%E3%81%A8%E5%AE%9F%E8%A1%8C%E7%92%B0%E5%A2%83%E3%81%AE%E4%BB%95%E7%B5%84%E3%81%BF-%E9%9D%92%E6%9C%A8-%E5%B3%B0%E9%83%8E/dp/4797337958\">ふつうのコンパイラ</a>などを片手にアセンブラやその周辺技術、とくにコンパイラの最適化あたりの勉強に集中することに決めました。</p><p>大抵のC言語コンパイラは末尾再帰最適化を行なっているということは、低レイヤにあまり慣れ親しんでいない人でも、耳にしたことがあるのではないでしょうか。さて、最適化が行なわれたか否かを実際に確かめるには、実際にアセンブラを確認するとよいでしょう。</p><pre><code>int f(int acc, int n)
+{
+return n &lt; 0 ? acc : f(acc + n, n - 1);
+}
+</code></pre><p>0からnまでの和を得る末尾再帰の関数です。f(0, 10) == 55です。</p><pre><code>$ gcc a.c -S -m32 -O2 -o -
+_f:
+pushl %ebp
+movl  %esp, %ebp
+movl  8(%ebp), %eax
+movl  12(%ebp), %edx
+testl %edx, %edx
+jns   L7
+jmp   L3
+.align 4,0x90
+L9:
+movl  %ecx, %edx
+L7:
+leal  -1(%edx), %ecx
+addl  %edx, %eax
+cmpl  $-1, %ecx
+jne   L9
+L3:
+leave
+ret
+</code></pre><p>詳しい解説は省略しますが、ようするに再帰的に関数呼び出しを行なうかわりに、単なるループに変換されています。</p><p>これはGCCでx86アセンブリ言語に変換するよりもClangでLLVM IRに変換する方が直感的で読みやすいでしょう。</p><pre><code>$ clang -O3 a.c -S -emit-llvm -o -
+define i32 @f(i32 %acc, i32 %n) nounwind uwtable readnone ssp {
+entry:
+%cmp1 = icmp slt i32 %n, 0
+br i1 %cmp1, label %cond.end, label %cond.false.lr.ph
+cond.false.lr.ph:                                 ; preds = %entry
+%0 = mul i32 %n, %n
+%1 = zext i32 %n to i33
+%2 = add i32 %n, -1
+%3 = zext i32 %2 to i33
+%4 = mul i33 %1, %3
+%5 = lshr i33 %4, 1
+%6 = trunc i33 %5 to i32
+%7 = add i32 %0, %acc
+%8 = sub i32 %7, %6
+br label %cond.end
+cond.end:                                         ; preds = %cond.false.lr.ph, %entry
+%acc.tr.lcssa = phi i32 [ %8, %cond.false.lr.ph ], [ %acc, %entry ]
+ret i32 %acc.tr.lcssa
+}
+</code></pre><p>要するにループに変換されています。</p><p>つづいて、末尾再帰ではない形でも確認してみましょう。</p><pre><code>int f(int n)
+{
+return n &lt; 0 ? 0 : n + f(n - 1);
+}
+</code></pre><p>実はこれでも先ほどとほとんど同じ結果が得られます。わざわざ人間が末尾再帰の形に変形する必要はないのでした。</p><p>これらのような事実が実際に目で確認できることがわかりました。しかし毎回gccやclangコマンドをvimshellから入力するのは大変です。それどころか、さきほど記述したCのコードにファイル名を与えて保存することは大変で、そんなことをしていると学習以前に一年が過ぎてしまい、次の元旦を迎えてしまいます。このような事態に陥ったとき、訓練されたVim使いは「そうだquickrun、使おう」となります。</p><pre><code>:QuickRun -type c/gcc  -exec '%c %o %s -S -o -' -cmdopt '-m32 -O2'
+</code></pre><p>これで動作することが分かるので、よし、<code>~/.vimrc</code>を開いて<code>g:quickrun_config</code>に・・・おっと、それだとclangの例を試せません。</p><pre><code>:QuickRun -type c/clang  -exec '%c %o %s -S -emit-llvm -o -' -cmdopt '-O3'
+</code></pre><p>複数の候補から選択したい。<a href=\"http://vim-users.jp/2011/02/hack200/\">Hack #200: 候補を選択し、実行する</a>にあるように、これはunite.vimの出番です。</p><p>欲深いもので、Cという1つの言語だけをサポートするのではなく、RubyにはYARV instructionを、CoffeeScriptにはJavaScriptを、といった具合で、人間の煩悩が108あるように、複数の要求をすべて満たしてみたくなるものです。</p><p>というわけでプラギンにしてみました。すばやく学習を支援するという意味で、quicklearn.vimという名前にしました。quickrunとquicklearnでrとlの発音をそれぞれ学習でき、一石二鳥です。</p><ul><li><a href=\"https://github.com/ujihisa/quicklearn\">https://github.com/ujihisa/quicklearn</a></li></ul><p>紹介動画</p><p><object width=\"480\" height=\"386\" classid=\"clsid:d27cdb6e-ae6d-11cf-96b8-444553540000\"><param name=\"flashvars\" value=\"vid=18198707&amp;autoplay=false\" /><param name=\"allowfullscreen\" value=\"true\" /><param name=\"allowscriptaccess\" value=\"always\" /><param name=\"src\" value=\"http://www.ustream.tv/flash/viewer.swf\" /><embed flashvars=\"vid=18198707&amp;autoplay=false\" width=\"480\" height=\"386\" allowfullscreen=\"true\" allowscriptaccess=\"always\" src=\"http://www.ustream.tv/flash/viewer.swf\" type=\"application/x-shockwave-flash\" /></object></p><p><br /><a href=\"http://www.ustream.tv/\" style=\"padding: 2px 0px 4px; width: 400px; background: #ffffff; display: block; color: #000000; font-weight: normal; font-size: 10px; text-decoration: underline; text-align: center;\" target=\"_blank\">Video streaming by Ustream</a></p><p>以下の言語/処理系/中間言語をサポートしています。</p><ul><li>C
+<ul><li>Assembly language (gcc)</li><li>LLVM IR (clang)</li></ul></li><li>Haskell
+<ul><li>Core (ghc)</li></ul></li><li>CoffeeScript
+<ul><li>JavaScript</li></ul></li><li>Ruby
+<ul><li>YARV Instructions (CRuby)</li></ul></li></ul><p>quicklearnは</p><pre><code>:Unite quicklearn -immediately
+</code></pre><p>のようにして実行できます。筆者は</p><pre><code>nnoremap &lt;space&gt;R :&lt;C-u&gt;Unite quicklearn -immediately&lt;Cr&gt;
+</code></pre><p>と<code>~/.vimrc</code>で設定し、<kbd>&lt;space&gt;R</kbd>で実行できるようにしています。なお、quickrunは<kbd>&lt;space&gt;r</kbd>にしています。</p><p><code>-immediately</code>オプションがとても便利です。</p><p>なお、quickrunはアセンブリ言語やLLVM IRをサポートしています。つまり、quicklearnによって生成させたアセンブリ言語やLLVM IRのバッファでさらにquickrunを行なうことで、それを実行することができ、とても便利です。</p><h2>実装</h2><p>たったの98行です。</p><p>autoload/unite/sources/quicklearn.vim</p><pre><code>let s:save_cpo = &amp;cpo
+set cpo&amp;vim
+\" fmap([a, b, c], f) =&gt; [f(a), f(b), f(c)]
+\" fmap(a, f) =&gt; [f(a)]
+function! s:fmap(xs, f)
+if type(a:xs) == type([])
+return map(a:xs, a:f)
+else
+return map([a:xs], a:f)
+endif
+endfunction
+let g:quicklearn_gcc_remote_url = get(g:, 'quicklearn_gcc_remote_url', 'localhost')
+let s:quicklearn = {}
+let s:source = {
+\\ 'name': 'quicklearn',
+\\ }
+let s:quicklearn['c/clang/intermediate'] = {
+\\ 'meta': {
+\\   'parent': 'c/clang'},
+\\ 'exec': '%c %o %s -S -emit-llvm -o -'}
+let s:quicklearn['c/clang-O3/intermediate'] = {
+\\ 'meta': {
+\\   'parent': 'c/clang'},
+\\ 'cmdopt': '-O3',
+\\ 'exec': '%c %o %s -S -emit-llvm -o -'}
+let s:quicklearn['c/gcc/intermediate'] = {
+\\ 'meta': {
+\\   'parent': 'c/gcc'},
+\\ 'exec': '%c %o %s -S -o -'}
+let s:quicklearn['c/gcc-32/intermediate'] = {
+\\ 'meta': {
+\\   'parent': 'c/gcc'},
+\\ 'cmdopt': '-m32',
+\\ 'exec': '%c %o %s -S -o -'}
+let s:quicklearn['c/gcc-remote/intermediate'] = {
+\\ 'meta': {
+\\   'parent': 'c/gcc'},
+\\ 'exec': 'ssh ' . g:quicklearn_gcc_remote_url . ' %c %o %s -S -o -'}
+let s:quicklearn['haskell/ghc/intermediate'] = {
+\\ 'meta': {
+\\   'parent': 'haskell/ghc'},
+\\ 'exec': [
+\\   '%c %o -ddump-simpl -dsuppress-coercions %s',
+\\   'rm %s:p:r %s:p:r.o %s:p:r.hi'],
+\\ 'cmdopt': '-v0 --make'}
+let s:quicklearn['coffee/intermediate'] = {
+\\ 'meta': {
+\\   'parent': '_'},
+\\ 'exec': ['%c %o -cbp %s %a']}
+let s:quicklearn['ruby/intermediate'] = {
+\\ 'meta': {
+\\   'parent': 'ruby'},
+\\ 'cmdopt': '--dump=insns'}
+\" inheritance
+for k in keys(s:quicklearn)
+let v = s:quicklearn[k]
+for item in ['command', 'exec', 'cmdopt', 'tempfile', 'eval_template']
+let ofParent = get(g:quickrun#default_config[v.meta.parent], item)
+if type(ofParent) != type(0) || ofParent != 0
+let s:quicklearn[k][item] = get(v, item, ofParent)
+endif
+unlet ofParent
+endfor
+endfor
+\" build quickrun command
+for k in keys(s:quicklearn)
+let v = s:quicklearn[k]
+let s:quicklearn[k].quickrun_command = printf(
+\\ 'QuickRun %s %s %s -cmdopt %s',
+\\ v.meta.parent == '_' ? '' : '-type ' . v.meta.parent,
+\\ get(v, 'command') ? '-command ' . string(v.command) : '',
+\\ join(s:fmap(get(v, 'exec', []), '\"-exec \" . string(v:val)'), ' '),
+\\ string(get(v, 'cmdopt', '')))
+endfor
+lockvar s:quicklearn
+function! unite#sources#quicklearn#define()
+return s:source
+endfunction
+function! s:source.gather_candidates(args, context)
+let configs = filter(copy(s:quicklearn), 'v:key =~ \"^\" . &amp;filetype . \"/\"')
+return values(map(configs, '{
+\\ \"word\": substitute(v:key, \"/intermediate$\", \"\", \"\"),
+\\ \"source\": s:source.name,
+\\ \"kind\": [\"command\"],
+\\ \"action__command\": v:val.quickrun_command,
+\\ }'))
+\"\\ \"action__type\": \": \",
+endfunction
+let &amp;cpo = s:save_cpo
+</code></pre><p>適当な辞書を事前に作っておき、uniteから実際に実行させたいコマンド文字列を事前に生成しておきます。それを対応するfiletypeごとにs:source.gather_candidatesで適切な辞書の配列を返すことによって行なっています。uniteのkindはcommandです。</p><p>冒頭のローカル関数fmapはfunctorっぽいものの実現です。対象が複数でも単数でも気にせず使えます。JavaScriptに詳しい方には、jQueryのアレ、といえば通じるかもしれません。</p><h2>以上</h2><p>Vim Advent Calendar 2011の32本目の記事でした。今年もよろしくお願いいたします。</p>" "http://vim-users.jp/2012/01/happy-new-year-vim/" (20223 9117) new 8 nil nil ((title nil "新年あけましておめでとうございます") (link nil "http://vim-users.jp/2012/01/happy-new-year-vim/") (comments nil "http://vim-users.jp/2012/01/happy-new-year-vim/#comments") (pubDate nil "Sat, 31 Dec 2011 15:00:45 +0000") (dc:creator nil "ujihisa") (category nil "その他") (category nil "Vim Advent Calendar") (guid ((isPermaLink . "false")) "http://vim-users.jp/?p=2713") (description nil "新年あけましておめでとうございます。いまこの記事はAmtrak Cascadesという大陸縦断鉄道の中で執筆しています。さきほどカナダからの出国を済ませました。時刻は6:18amで、日の出は8:07amの予定なので、初日 [...]") (content:encoded nil "				<p>新年あけましておめでとうございます。いまこの記事はAmtrak Cascadesという大陸縦断鉄道の中で執筆しています。さきほどカナダからの出国を済ませました。時刻は6:18amで、日の出は8:07amの予定なので、初日の出までまだまだ時間があります。</p><p><img src=\"http://cache.gyazo.com/a6aa9d66e5efed7aeced49cc1c260373.png\" alt=\"amtrak cascades\" /></p><p>車内にはかなり安定したwifiがあり、ssh接続すら切れません。当然各席に電源があり、3時間程度しかバッテリのもたない初代MacBook Airでも平然と作業をすすめることができます。</p><p><img src=\"http://www.yougottabehere.com/media/resampled/articleElement/1026/resampled_Jan_11_2010_amtrak_cascades_train_600.jpg\" alt=\"amtrak cascades\" /></p><p>お腹が減ったら食堂車で朝食Vimをキメることも可能です。</p><p><img src=\"http://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/AmtrakCascadesDiner.JPG/220px-AmtrakCascadesDiner.JPG\" alt=\"amtrak cascades\" /></p><h2>スピリチュアルな話</h2><p>をして感極まる元旦を迎えるというのも良いですが、あんまりそういう話は得意でないので、Vimの話をします。</p><p>プログラミング関する何かを新たに学ぶとき、まずVimでそれをどのようにラクに行なうかを考える、ということは日常的に行なわれていることだと思います。たとえば普段はVim scriptとRubyしか書かない人が急にPythonをはじめるときは、neocomplcacheの自動補完やref.vimを駆使してVim内でPythonの学習を行なうでしょう。</p><p>これにちなんで、ちょっと個人的な話と、プラギンの紹介を行ないます。</p><h2>時代は低レイヤ</h2><p>僕はRubyでらくらくスクリプト書きなぐりやHaskellで宣言的に書きなぐりといった高レイヤ部分ばかりに慣れ親しみすぎたため、アセンブラやそれ以前にCやJavaといった低水準言語すらもうまく使えない軟弱プログラマなのでした。最も低水準な言語はJavaScriptやVim scriptだったと思います。このままではまずいと思い、青木峰郎先生の<a href=\"http://www.amazon.co.jp/%E3%81%B5%E3%81%A4%E3%81%86%E3%81%AE%E3%82%B3%E3%83%B3%E3%83%91%E3%82%A4%E3%83%A9%E3%82%92%E3%81%A4%E3%81%8F%E3%82%8D%E3%81%86-%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86%E7%B3%BB%E3%82%92%E3%81%A4%E3%81%8F%E3%82%8A%E3%81%AA%E3%81%8C%E3%82%89%E5%AD%A6%E3%81%B6%E3%82%B3%E3%83%B3%E3%83%91%E3%82%A4%E3%83%AB%E3%81%A8%E5%AE%9F%E8%A1%8C%E7%92%B0%E5%A2%83%E3%81%AE%E4%BB%95%E7%B5%84%E3%81%BF-%E9%9D%92%E6%9C%A8-%E5%B3%B0%E9%83%8E/dp/4797337958\">ふつうのコンパイラ</a>などを片手にアセンブラやその周辺技術、とくにコンパイラの最適化あたりの勉強に集中することに決めました。</p><p>大抵のC言語コンパイラは末尾再帰最適化を行なっているということは、低レイヤにあまり慣れ親しんでいない人でも、耳にしたことがあるのではないでしょうか。さて、最適化が行なわれたか否かを実際に確かめるには、実際にアセンブラを確認するとよいでしょう。</p><pre><code>int f(int acc, int n)
+{
+  return n &lt; 0 ? acc : f(acc + n, n - 1);
+}
+</code></pre><p>0からnまでの和を得る末尾再帰の関数です。f(0, 10) == 55です。</p><pre><code>$ gcc a.c -S -m32 -O2 -o -
+
+_f:
+  pushl %ebp
+  movl  %esp, %ebp
+  movl  8(%ebp), %eax
+  movl  12(%ebp), %edx
+  testl %edx, %edx
+  jns   L7
+  jmp   L3
+  .align 4,0x90
+L9:
+  movl  %ecx, %edx
+L7:
+  leal  -1(%edx), %ecx
+  addl  %edx, %eax
+  cmpl  $-1, %ecx
+  jne   L9
+L3:
+  leave
+  ret
+</code></pre><p>詳しい解説は省略しますが、ようするに再帰的に関数呼び出しを行なうかわりに、単なるループに変換されています。</p><p>これはGCCでx86アセンブリ言語に変換するよりもClangでLLVM IRに変換する方が直感的で読みやすいでしょう。</p><pre><code>$ clang -O3 a.c -S -emit-llvm -o -
+define i32 @f(i32 %acc, i32 %n) nounwind uwtable readnone ssp {
+entry:
+  %cmp1 = icmp slt i32 %n, 0
+  br i1 %cmp1, label %cond.end, label %cond.false.lr.ph
+
+cond.false.lr.ph:                                 ; preds = %entry
+  %0 = mul i32 %n, %n
+  %1 = zext i32 %n to i33
+  %2 = add i32 %n, -1
+  %3 = zext i32 %2 to i33
+  %4 = mul i33 %1, %3
+  %5 = lshr i33 %4, 1
+  %6 = trunc i33 %5 to i32
+  %7 = add i32 %0, %acc
+  %8 = sub i32 %7, %6
+  br label %cond.end
+
+cond.end:                                         ; preds = %cond.false.lr.ph, %entry
+  %acc.tr.lcssa = phi i32 [ %8, %cond.false.lr.ph ], [ %acc, %entry ]
+  ret i32 %acc.tr.lcssa
+}
+</code></pre><p>要するにループに変換されています。</p><p>つづいて、末尾再帰ではない形でも確認してみましょう。</p><pre><code>int f(int n)
+{
+  return n &lt; 0 ? 0 : n + f(n - 1);
+}
+</code></pre><p>実はこれでも先ほどとほとんど同じ結果が得られます。わざわざ人間が末尾再帰の形に変形する必要はないのでした。</p><p>これらのような事実が実際に目で確認できることがわかりました。しかし毎回gccやclangコマンドをvimshellから入力するのは大変です。それどころか、さきほど記述したCのコードにファイル名を与えて保存することは大変で、そんなことをしていると学習以前に一年が過ぎてしまい、次の元旦を迎えてしまいます。このような事態に陥ったとき、訓練されたVim使いは「そうだquickrun、使おう」となります。</p><pre><code>:QuickRun -type c/gcc  -exec '%c %o %s -S -o -' -cmdopt '-m32 -O2'
+</code></pre><p>これで動作することが分かるので、よし、<code>~/.vimrc</code>を開いて<code>g:quickrun_config</code>に・・・おっと、それだとclangの例を試せません。</p><pre><code>:QuickRun -type c/clang  -exec '%c %o %s -S -emit-llvm -o -' -cmdopt '-O3'
+</code></pre><p>複数の候補から選択したい。<a href=\"http://vim-users.jp/2011/02/hack200/\">Hack #200: 候補を選択し、実行する</a>にあるように、これはunite.vimの出番です。</p><p>欲深いもので、Cという1つの言語だけをサポートするのではなく、RubyにはYARV instructionを、CoffeeScriptにはJavaScriptを、といった具合で、人間の煩悩が108あるように、複数の要求をすべて満たしてみたくなるものです。</p><p>というわけでプラギンにしてみました。すばやく学習を支援するという意味で、quicklearn.vimという名前にしました。quickrunとquicklearnでrとlの発音をそれぞれ学習でき、一石二鳥です。</p><ul><li><a href=\"https://github.com/ujihisa/quicklearn\">https://github.com/ujihisa/quicklearn</a></li></ul><p>紹介動画</p><p><object width=\"480\" height=\"386\" classid=\"clsid:d27cdb6e-ae6d-11cf-96b8-444553540000\"><param name=\"flashvars\" value=\"vid=18198707&amp;autoplay=false\" /><param name=\"allowfullscreen\" value=\"true\" /><param name=\"allowscriptaccess\" value=\"always\" /><param name=\"src\" value=\"http://www.ustream.tv/flash/viewer.swf\" /><embed flashvars=\"vid=18198707&amp;autoplay=false\" width=\"480\" height=\"386\" allowfullscreen=\"true\" allowscriptaccess=\"always\" src=\"http://www.ustream.tv/flash/viewer.swf\" type=\"application/x-shockwave-flash\" /></object></p><p><br /><a href=\"http://www.ustream.tv/\" style=\"padding: 2px 0px 4px; width: 400px; background: #ffffff; display: block; color: #000000; font-weight: normal; font-size: 10px; text-decoration: underline; text-align: center;\" target=\"_blank\">Video streaming by Ustream</a></p><p>以下の言語/処理系/中間言語をサポートしています。</p><ul><li>C
+				    <ul><li>Assembly language (gcc)</li><li>LLVM IR (clang)</li></ul></li><li>Haskell
+				    <ul><li>Core (ghc)</li></ul></li><li>CoffeeScript
+				    <ul><li>JavaScript</li></ul></li><li>Ruby
+				    <ul><li>YARV Instructions (CRuby)</li></ul></li></ul><p>quicklearnは</p><pre><code>:Unite quicklearn -immediately
+</code></pre><p>のようにして実行できます。筆者は</p><pre><code>nnoremap &lt;space&gt;R :&lt;C-u&gt;Unite quicklearn -immediately&lt;Cr&gt;
+</code></pre><p>と<code>~/.vimrc</code>で設定し、<kbd>&lt;space&gt;R</kbd>で実行できるようにしています。なお、quickrunは<kbd>&lt;space&gt;r</kbd>にしています。</p><p><code>-immediately</code>オプションがとても便利です。</p><p>なお、quickrunはアセンブリ言語やLLVM IRをサポートしています。つまり、quicklearnによって生成させたアセンブリ言語やLLVM IRのバッファでさらにquickrunを行なうことで、それを実行することができ、とても便利です。</p><h2>実装</h2><p>たったの98行です。</p><p>autoload/unite/sources/quicklearn.vim</p><pre><code>let s:save_cpo = &amp;cpo
+set cpo&amp;vim
+
+\" fmap([a, b, c], f) =&gt; [f(a), f(b), f(c)]
+\" fmap(a, f) =&gt; [f(a)]
+function! s:fmap(xs, f)
+  if type(a:xs) == type([])
+    return map(a:xs, a:f)
+  else
+    return map([a:xs], a:f)
+  endif
+endfunction
+
+let g:quicklearn_gcc_remote_url = get(g:, 'quicklearn_gcc_remote_url', 'localhost')
+
+let s:quicklearn = {}
+let s:source = {
+      \\ 'name': 'quicklearn',
+      \\ }
+let s:quicklearn['c/clang/intermediate'] = {
+      \\ 'meta': {
+      \\   'parent': 'c/clang'},
+      \\ 'exec': '%c %o %s -S -emit-llvm -o -'}
+let s:quicklearn['c/clang-O3/intermediate'] = {
+      \\ 'meta': {
+      \\   'parent': 'c/clang'},
+      \\ 'cmdopt': '-O3',
+      \\ 'exec': '%c %o %s -S -emit-llvm -o -'}
+let s:quicklearn['c/gcc/intermediate'] = {
+      \\ 'meta': {
+      \\   'parent': 'c/gcc'},
+      \\ 'exec': '%c %o %s -S -o -'}
+let s:quicklearn['c/gcc-32/intermediate'] = {
+      \\ 'meta': {
+      \\   'parent': 'c/gcc'},
+      \\ 'cmdopt': '-m32',
+      \\ 'exec': '%c %o %s -S -o -'}
+let s:quicklearn['c/gcc-remote/intermediate'] = {
+      \\ 'meta': {
+      \\   'parent': 'c/gcc'},
+      \\ 'exec': 'ssh ' . g:quicklearn_gcc_remote_url . ' %c %o %s -S -o -'}
+let s:quicklearn['haskell/ghc/intermediate'] = {
+      \\ 'meta': {
+      \\   'parent': 'haskell/ghc'},
+      \\ 'exec': [
+      \\   '%c %o -ddump-simpl -dsuppress-coercions %s',
+      \\   'rm %s:p:r %s:p:r.o %s:p:r.hi'],
+      \\ 'cmdopt': '-v0 --make'}
+let s:quicklearn['coffee/intermediate'] = {
+      \\ 'meta': {
+      \\   'parent': '_'},
+      \\ 'exec': ['%c %o -cbp %s %a']}
+let s:quicklearn['ruby/intermediate'] = {
+      \\ 'meta': {
+      \\   'parent': 'ruby'},
+      \\ 'cmdopt': '--dump=insns'}
+
+\" inheritance
+for k in keys(s:quicklearn)
+  let v = s:quicklearn[k]
+  for item in ['command', 'exec', 'cmdopt', 'tempfile', 'eval_template']
+    let ofParent = get(g:quickrun#default_config[v.meta.parent], item)
+    if type(ofParent) != type(0) || ofParent != 0
+      let s:quicklearn[k][item] = get(v, item, ofParent)
+    endif
+    unlet ofParent
+  endfor
+endfor
+
+\" build quickrun command
+for k in keys(s:quicklearn)
+  let v = s:quicklearn[k]
+  let s:quicklearn[k].quickrun_command = printf(
+        \\ 'QuickRun %s %s %s -cmdopt %s',
+        \\ v.meta.parent == '_' ? '' : '-type ' . v.meta.parent,
+        \\ get(v, 'command') ? '-command ' . string(v.command) : '',
+        \\ join(s:fmap(get(v, 'exec', []), '\"-exec \" . string(v:val)'), ' '),
+        \\ string(get(v, 'cmdopt', '')))
+endfor
+lockvar s:quicklearn
+
+function! unite#sources#quicklearn#define()
+  return s:source
+endfunction
+
+function! s:source.gather_candidates(args, context)
+  let configs = filter(copy(s:quicklearn), 'v:key =~ \"^\" . &amp;filetype . \"/\"')
+
+  return values(map(configs, '{
+        \\ \"word\": substitute(v:key, \"/intermediate$\", \"\", \"\"),
+        \\ \"source\": s:source.name,
+        \\ \"kind\": [\"command\"],
+        \\ \"action__command\": v:val.quickrun_command,
+        \\ }'))
+        \"\\ \"action__type\": \": \",
+endfunction
+
+let &amp;cpo = s:save_cpo
+</code></pre><p>適当な辞書を事前に作っておき、uniteから実際に実行させたいコマンド文字列を事前に生成しておきます。それを対応するfiletypeごとにs:source.gather_candidatesで適切な辞書の配列を返すことによって行なっています。uniteのkindはcommandです。</p><p>冒頭のローカル関数fmapはfunctorっぽいものの実現です。対象が複数でも単数でも気にせず使えます。JavaScriptに詳しい方には、jQueryのアレ、といえば通じるかもしれません。</p><h2>以上</h2><p>Vim Advent Calendar 2011の32本目の記事でした。今年もよろしくお願いいたします。</p>
+") (wfw:commentRss nil "http://vim-users.jp/2012/01/happy-new-year-vim/feed/") (slash:comments nil "0"))) ("Hack #241: Haskellで使いたい関数を使ってからそのモジュールをimportする" "<p><a href=\"http://partake.in/events/eaea52c2-61ef-46d5-a855-3a2dde459e3a\">Haskell Advent Calendar 2011</a>への寄稿記事です。</p><h2>問題</h2><p>Haskellを書いていて、長いソースコードの末尾の方にて、急にとあるモジュールのとある関数を使いたい、そんなときはよくあります。ありがちなのがApplicativeの演算子いくつかと、Data.Function.onと、Data.Listのアレとコレと・・・。いくらでもあります。</p><p>Haskellでは一般的に、モジュールのimportはソースコードのかなりはじめの方にまとめて記述します。importしたい関数を一度しか使わず、しかもソースコードの末尾の方に位置していようと、おかまい無しです。このとき、<kbd>gg</kbd>などでソースコード上部まで移動し、<a href=\"http://vim-users.jp/2011/04/hack211/\">neco-ghc</a>などを駆使してmoduleとその関数を的確にimportし、そして<kbd>&lt;C-o&gt;</kbd>などでもといた場所に戻ることになると思います。<code>:sp</code>などで画面分割してから行ったり、あるいはmarkをつけるという方法もありますが、いずれにせよこれらの作業のため脳内の作業メモリがスタックオーバーフローするのは明らかでしょう。</p><h2>解決</h2><p>unite-haskellimportを用います。</p><p><a href=\"https://github.com/ujihisa/unite-haskellimport\">https://github.com/ujihisa/unite-haskellimport</a></p><p>まずは上記プラギンをインストールします。依存プラギンはunite.vim、依存ツールは<code>hoogle</code>です。</p><pre><code>$ cabal update &amp;&amp; cabal install hoogle &amp;&amp; hoogle data
+</code></pre><p>たとえば急に<code>==&gt;</code>という関数を使いたくなったとしましょう。</p><pre><code>:Unite haskellimport
+</code></pre><p>としてunite窓を開き、<code>==&gt;</code>と打鍵しましょう。</p><pre><code>Test.QuickCheck.Property (==&gt;) :: Testable prop =&gt; Bool -&gt; prop -&gt; Property
+Test.QuickCheck (==&gt;) :: Testable prop =&gt; Bool -&gt; prop -&gt; Property
+</code></pre><p>インストールしているcabalパッケージにもよりますが、たとえば上記のような項目が選択肢にでてくることでしょう。実際にimportしたい側を選択します。</p><p>候補を選択すると、unite-haskellimportはdefaultのactionとして:Haskellimportコマンドを発行します。これは、対象を、ソースコードのそれらしい場所に挿入するものです。既に他のimport文がある場合は、最後のimportのあとに挿入します。</p><p>Before</p><pre><code>import qualified Data.Text as T
+f x = ...
+</code></pre><p>After</p><pre><code>import qualified Data.Text as T
+import Test.QuickCheck ((==&gt;))
+f x = ...
+</code></pre><p>今回importしたのは記号からなる関数でした。が、もしも記号ではない関数、つまりVimの<code>&lt;cword&gt;</code>になるようなものならば、<code>:Unite</code>のかわりに</p><pre><code>:UniteWithCursorWord haskellimport
+</code></pre><p>とするとよいでしょう。これを頻繁に行うようならば、適切なキーにマッピングしておくべきです。たとえば以下を <code>~/.vim/ftplugin/haskell.vim</code>に記述すると、<kbd>&lt;space&gt;I</kbd>と打鍵するだけでカーソル以下にある単語の関数をimportしてくれます。</p><pre><code>nnoremap &lt;buffer&gt; &lt;space&gt;I :&lt;C-u&gt;UniteWithCursorWord haskellimport&lt;Cr&gt;
+</code></pre><address class=\"hack-author\">ujihisa</address>" "http://vim-users.jp/2011/12/hack241/" (20205 65525) new 9 nil nil ((title nil "Hack #241: Haskellで使いたい関数を使ってからそのモジュールをimportする") (link nil "http://vim-users.jp/2011/12/hack241/") (comments nil "http://vim-users.jp/2011/12/hack241/#comments") (pubDate nil "Sun, 18 Dec 2011 15:00:05 +0000") (dc:creator nil "ujihisa") (category nil "Vim Hacks") (category nil "lv2") (guid ((isPermaLink . "false")) "http://vim-users.jp/?p=2708") (description nil "Haskell Advent Calendar 2011への寄稿記事です。 問題 Haskellを書いていて、長いソースコードの末尾の方にて、急にとあるモジュールのとある関数を使いたい、そんなときはよくあります。ありがち [...]") (content:encoded nil "				<p><a href=\"http://partake.in/events/eaea52c2-61ef-46d5-a855-3a2dde459e3a\">Haskell Advent Calendar 2011</a>への寄稿記事です。</p><h2>問題</h2><p>Haskellを書いていて、長いソースコードの末尾の方にて、急にとあるモジュールのとある関数を使いたい、そんなときはよくあります。ありがちなのがApplicativeの演算子いくつかと、Data.Function.onと、Data.Listのアレとコレと・・・。いくらでもあります。</p><p>Haskellでは一般的に、モジュールのimportはソースコードのかなりはじめの方にまとめて記述します。importしたい関数を一度しか使わず、しかもソースコードの末尾の方に位置していようと、おかまい無しです。このとき、<kbd>gg</kbd>などでソースコード上部まで移動し、<a href=\"http://vim-users.jp/2011/04/hack211/\">neco-ghc</a>などを駆使してmoduleとその関数を的確にimportし、そして<kbd>&lt;C-o&gt;</kbd>などでもといた場所に戻ることになると思います。<code>:sp</code>などで画面分割してから行ったり、あるいはmarkをつけるという方法もありますが、いずれにせよこれらの作業のため脳内の作業メモリがスタックオーバーフローするのは明らかでしょう。</p><h2>解決</h2><p>unite-haskellimportを用います。</p><p><a href=\"https://github.com/ujihisa/unite-haskellimport\">https://github.com/ujihisa/unite-haskellimport</a></p><p>まずは上記プラギンをインストールします。依存プラギンはunite.vim、依存ツールは<code>hoogle</code>です。</p><pre><code>$ cabal update &amp;&amp; cabal install hoogle &amp;&amp; hoogle data
+</code></pre><p>たとえば急に<code>==&gt;</code>という関数を使いたくなったとしましょう。</p><pre><code>:Unite haskellimport
+</code></pre><p>としてunite窓を開き、<code>==&gt;</code>と打鍵しましょう。</p><pre><code>Test.QuickCheck.Property (==&gt;) :: Testable prop =&gt; Bool -&gt; prop -&gt; Property
+Test.QuickCheck (==&gt;) :: Testable prop =&gt; Bool -&gt; prop -&gt; Property
+</code></pre><p>インストールしているcabalパッケージにもよりますが、たとえば上記のような項目が選択肢にでてくることでしょう。実際にimportしたい側を選択します。</p><p>候補を選択すると、unite-haskellimportはdefaultのactionとして:Haskellimportコマンドを発行します。これは、対象を、ソースコードのそれらしい場所に挿入するものです。既に他のimport文がある場合は、最後のimportのあとに挿入します。</p><p>Before</p><pre><code>import qualified Data.Text as T
+
+f x = ...
+</code></pre><p>After</p><pre><code>import qualified Data.Text as T
+import Test.QuickCheck ((==&gt;))
+
+f x = ...
+</code></pre><p>今回importしたのは記号からなる関数でした。が、もしも記号ではない関数、つまりVimの<code>&lt;cword&gt;</code>になるようなものならば、<code>:Unite</code>のかわりに</p><pre><code>:UniteWithCursorWord haskellimport
+</code></pre><p>とするとよいでしょう。これを頻繁に行うようならば、適切なキーにマッピングしておくべきです。たとえば以下を <code>~/.vim/ftplugin/haskell.vim</code>に記述すると、<kbd>&lt;space&gt;I</kbd>と打鍵するだけでカーソル以下にある単語の関数をimportしてくれます。</p><pre><code>nnoremap &lt;buffer&gt; &lt;space&gt;I :&lt;C-u&gt;UniteWithCursorWord haskellimport&lt;Cr&gt;
+</code></pre><address class=\"hack-author\">ujihisa</address>
+") (wfw:commentRss nil "http://vim-users.jp/2011/12/hack241/feed/") (slash:comments nil "0"))) ("Hack #240: <C-[> での誤爆を防止する" "<p>挿入モードから抜ける方法は多数ありますが、その中に &lt;C-[&gt; キーがあります。</p><p>しかしこの [ キーは、日本語キーボードではすぐ左に @ キーがあり、誤って &lt;C-@&gt; を押してしまうと直前に挿入したテキストがさらに挿入されてから挿入モードを抜けるため、誤爆すると大惨事となります。</p><h3>誤爆を防止する</h3><p>誤爆をすると言うことは、本来行いたい操作があるということです。
+このような誤爆を簡単かつ確実に防止するには、対象の機能を本来押したいキーに置き換えてしまうのが効果的です。</p><p>考えてみましょう。この &lt;C-@&gt; の機能「直前に挿入されたテキストをもう一度挿入し、挿入を終了する。」は、あなたにとって必要でしょうか?
+もし必要ないと判断したら、本来押したいキー、この場合は &lt;C-[&gt; に置き換えましょう。以下のようにします。</p><pre><code>imap &lt;C-@&gt; &lt;C-[&gt;
+</code></pre><p>こうすることで誤爆を防ぐことができます。この @ は [ よりも近いため押し易く、しかもこの位置は英字キーボードと同じ位置であるため、英字キーボードに乗り換える練習にもなります。</p><p>もし万が一 &lt;C-@&gt; の機能が使いたい場合、しかし誤爆は避けたい場合は、別の位置に &lt;C-@&gt; をマッピングするとよいでしょう。</p><address class=\"hack-author\">thinca</address>" "http://vim-users.jp/2011/12/hack240/" (20196 50550) new 10 nil nil ((title nil "Hack #240: <C-[> での誤爆を防止する") (link nil "http://vim-users.jp/2011/12/hack240/") (comments nil "http://vim-users.jp/2011/12/hack240/#comments") (pubDate nil "Sun, 11 Dec 2011 15:00:06 +0000") (dc:creator nil "thinca") (category nil "Vim Hacks") (category nil "lv2") (guid ((isPermaLink . "false")) "http://vim-users.jp/?p=2703") (description nil "挿入モードから抜ける方法は多数ありますが、その中に &#60;C-[&#62; キーがあります。 しかしこの [ キーは、日本語キーボードではすぐ左に @ キーがあり、誤って &#60;C-@&#62; を押してしまうと直前に挿 [...]") (content:encoded nil "				<p>挿入モードから抜ける方法は多数ありますが、その中に &lt;C-[&gt; キーがあります。</p><p>しかしこの [ キーは、日本語キーボードではすぐ左に @ キーがあり、誤って &lt;C-@&gt; を押してしまうと直前に挿入したテキストがさらに挿入されてから挿入モードを抜けるため、誤爆すると大惨事となります。</p><h3>誤爆を防止する</h3><p>誤爆をすると言うことは、本来行いたい操作があるということです。
+				このような誤爆を簡単かつ確実に防止するには、対象の機能を本来押したいキーに置き換えてしまうのが効果的です。</p><p>考えてみましょう。この &lt;C-@&gt; の機能「直前に挿入されたテキストをもう一度挿入し、挿入を終了する。」は、あなたにとって必要でしょうか?
+				もし必要ないと判断したら、本来押したいキー、この場合は &lt;C-[&gt; に置き換えましょう。以下のようにします。</p><pre><code>imap &lt;C-@&gt; &lt;C-[&gt;
+</code></pre><p>こうすることで誤爆を防ぐことができます。この @ は [ よりも近いため押し易く、しかもこの位置は英字キーボードと同じ位置であるため、英字キーボードに乗り換える練習にもなります。</p><p>もし万が一 &lt;C-@&gt; の機能が使いたい場合、しかし誤爆は避けたい場合は、別の位置に &lt;C-@&gt; をマッピングするとよいでしょう。</p><address class=\"hack-author\">thinca</address>
+") (wfw:commentRss nil "http://vim-users.jp/2011/12/hack240/feed/") (slash:comments nil "0"))))

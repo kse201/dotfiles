@@ -1,0 +1,108 @@
+;; -*- coding: utf-8 -*-
+(("だらだら毎日" "なんとかなるだろうと思って、毎日だらだらしています。" "http://daradaramainichi.com" (20693 49552 444771) feed 0 nil nil ((title nil "だらだら毎日") (atom:link ((href . "http://daradaramainichi.com/feed") (rel . "self") (type . "application/rss+xml"))) (link nil "http://daradaramainichi.com") (description nil "なんとかなるだろうと思って、毎日だらだらしています。") (lastBuildDate nil "Fri, 21 Dec 2012 07:59:00 +0000") (language nil "ja") (sy:updatePeriod nil "hourly") (sy:updateFrequency nil "1") (generator nil "http://wordpress.org/?v=3.3") (xhtml:link ((rel . "alternate") (media . "handheld") (type . "text/html") (href . "http://daradaramainichi.com/feed"))) (item nil (title nil "だらだら４コマ１０５１「それは心が折れる音にも似て」") (link nil "http://daradaramainichi.com/archives/981") (comments nil "http://daradaramainichi.com/archives/981#comments") (pubDate nil "Fri, 21 Dec 2012 07:57:58 +0000") (dc:creator nil "とぽすけ") (category nil "1001～1100") (category nil "クリスマス") (guid ((isPermaLink . "false")) "http://daradaramainichi.com/?p=981") (description nil "背面の壁が割れる→余った生地で作り直す→側面が 折れる→アイシングで補強→前面落として 粉々→心が折れる→ものすごい勢いで４コマ描く←ｲﾏｺｺ メリークリスマス！！！！！！！！！") (content:encoded nil "				
+				<p style=\"text-align: center;\"><img class=\"aligncenter\" title=\"4コマ1051\" src=\"http://toposuke.com/4koma/1051merikuri.gif\" alt=\"4コマ1051\" width=\"300\" height=\"819\" /></p><p style=\"text-align: center;\">
+				背面の壁が割れる→余った生地で作り直す→側面が<br />
+				折れる→アイシングで補強→前面落として<br />
+				粉々→心が折れる→ものすごい勢いで４コマ描く←ｲﾏｺｺ
+				</p><p style=\"text-align: center;\"><img class=\"aligncenter\" title=\"4コマ1051_2\" src=\"http://toposuke.com/4koma/1051merikuri_2.jpg\" alt=\"4コマ1051_2\" width=\"300\" height=\"380\" /><br />
+				メリークリスマス！！！！！！！！！</p>
+") (wfw:commentRss nil "http://daradaramainichi.com/archives/981/feed") (slash:comments nil "0") (xhtml:link ((rel . "alternate") (media . "handheld") (type . "text/html") (href . "http://daradaramainichi.com/archives/981")))) (item nil (title nil "だらだら４コマ１０５０「ケーキを予約する」") (link nil "http://daradaramainichi.com/archives/980") (comments nil "http://daradaramainichi.com/archives/980#comments") (pubDate nil "Fri, 21 Dec 2012 02:47:28 +0000") (dc:creator nil "とぽすけ") (category nil "1001～1100") (category nil "クリスマス") (guid ((isPermaLink . "false")) "http://daradaramainichi.com/?p=980") (description nil "「栗のケーキと苦いチョコのケーキと 甘酸っぱいケーキと洋酒の味がするケーキは嫌。 タルトも避けたいです。あと、１５ｃｍの ケーキを２個買っても、体積的には１８ｃｍの ケーキの１．４個分くらいだから、たぶん 楽勝です」（本 [...]") (content:encoded nil "				
+				<p style=\"text-align: center;\"><img class=\"aligncenter\" title=\"4コマ1050\" src=\"http://toposuke.com/4koma/1050cakemarumaru.gif\" alt=\"4コマ1050\" width=\"300\" height=\"819\" /></p><p style=\"text-align: center;\">
+				「栗のケーキと苦いチョコのケーキと<br />
+				甘酸っぱいケーキと洋酒の味がするケーキは嫌。<br />
+				タルトも避けたいです。あと、１５ｃｍの<br />
+				ケーキを２個買っても、体積的には１８ｃｍの<br />
+				ケーキの１．４個分くらいだから、たぶん<br />
+				楽勝です」（本人談）
+				</p><p style=\"text-align: center;\">
+				今年はショートケーキとチョコレート<br />
+				ケーキの大連立となりました。</p>
+") (wfw:commentRss nil "http://daradaramainichi.com/archives/980/feed") (slash:comments nil "0") (xhtml:link ((rel . "alternate") (media . "handheld") (type . "text/html") (href . "http://daradaramainichi.com/archives/980")))) (item nil (title nil "だらだら４コマ１０４９「病理検査の結果」") (link nil "http://daradaramainichi.com/archives/979") (comments nil "http://daradaramainichi.com/archives/979#comments") (pubDate nil "Thu, 20 Dec 2012 02:19:16 +0000") (dc:creator nil "とぽすけ") (category nil "1001～1100") (category nil "ハリネズミ") (guid ((isPermaLink . "false")) "http://daradaramainichi.com/?p=979") (description nil "転移した腫瘍がどうなるかまだわからないので、 今後は今まで以上にはりちょさんの健康管理に 気を使わなくてはならないのです。 でも、飼い主にできることがあるとわかると、 不思議と前向きになれるもんでして。 　 まだまだ描き [...]") (content:encoded nil "				
+				<p style=\"text-align: center;\"><img class=\"aligncenter\" title=\"4コマ1049\" src=\"http://toposuke.com/4koma/1049hari10.gif\" alt=\"4コマ1049\" width=\"300\" height=\"819\" /></p><p style=\"text-align: center;\">
+				転移した腫瘍がどうなるかまだわからないので、<br />
+				今後は今まで以上にはりちょさんの健康管理に<br />
+				気を使わなくてはならないのです。<br />
+				でも、飼い主にできることがあるとわかると、<br />
+				不思議と前向きになれるもんでして。<br />
+				　<br />
+				まだまだ描きたいことはあるのですが、怒涛の<br />
+				はりちょ闘病編はこの辺までにしておきます！<br />
+				自分を人間で描くの超照れくさい！！！ｗ</p>
+") (wfw:commentRss nil "http://daradaramainichi.com/archives/979/feed") (slash:comments nil "0") (xhtml:link ((rel . "alternate") (media . "handheld") (type . "text/html") (href . "http://daradaramainichi.com/archives/979")))) (item nil (title nil "だらだら４コマ１０４８「白く赤く」") (link nil "http://daradaramainichi.com/archives/978") (comments nil "http://daradaramainichi.com/archives/978#comments") (pubDate nil "Wed, 19 Dec 2012 02:17:01 +0000") (dc:creator nil "とぽすけ") (category nil "1001～1100") (category nil "ハリネズミ") (guid ((isPermaLink . "false")) "http://daradaramainichi.com/?p=978") (description nil "食ったもん咀嚼して泡にして自分の身体に 擦り付けるハリネズミさんマジすぷらった。 　 　 　 　 ハリネズミとは全然関係ありませんが、 ゴーバスターな方々はマジでこれ買え。 悲鳴上げましたわ(^q^)") (content:encoded nil "				
+				<p style=\"text-align: center;\"><img class=\"aligncenter\" title=\"4コマ1048\" src=\"http://toposuke.com/4koma/1048hari9.gif\" alt=\"4コマ1048\" width=\"300\" height=\"819\" /></p><p style=\"text-align: center;\">
+				食ったもん咀嚼して泡にして自分の身体に<br />
+				擦り付けるハリネズミさんマジすぷらった。</p><p>　<br />
+				　<br />
+				　</p><p>　</p><p style=\"text-align: center;\">
+				ハリネズミとは全然関係ありませんが、<br />
+				ゴーバスターな方々はマジでこれ買え。<br /><iframe src=\"http://rcm-jp.amazon.co.jp/e/cm?lt1=_blank&#038;bc1=000000&#038;IS2=1&#038;bg1=FFFFFF&#038;fc1=000000&#038;lc1=0000FF&#038;t=daradaramaini-22&#038;o=9&#038;p=8&#038;l=as4&#038;m=amazon&#038;f=ifr&#038;ref=ss_til&#038;asins=B008GSOQTO\" style=\"width:120px;height:240px;\" scrolling=\"no\" marginwidth=\"0\" marginheight=\"0\" frameborder=\"0\"></iframe><br />
+				悲鳴上げましたわ(^q^)</p>
+") (wfw:commentRss nil "http://daradaramainichi.com/archives/978/feed") (slash:comments nil "0") (xhtml:link ((rel . "alternate") (media . "handheld") (type . "text/html") (href . "http://daradaramainichi.com/archives/978")))))) ("だらだら４コマ１０５１「それは心が折れる音にも似て」" "<p style=\"text-align: center;\"><img class=\"aligncenter\" title=\"4コマ1051\" src=\"http://toposuke.com/4koma/1051merikuri.gif\" alt=\"4コマ1051\" width=\"300\" height=\"819\" /></p><p style=\"text-align: center;\">
+背面の壁が割れる→余った生地で作り直す→側面が<br />
+折れる→アイシングで補強→前面落として<br />
+粉々→心が折れる→ものすごい勢いで４コマ描く←ｲﾏｺｺ
+</p><p style=\"text-align: center;\"><img class=\"aligncenter\" title=\"4コマ1051_2\" src=\"http://toposuke.com/4koma/1051merikuri_2.jpg\" alt=\"4コマ1051_2\" width=\"300\" height=\"380\" /><br />
+メリークリスマス！！！！！！！！！</p>" "http://daradaramainichi.com/archives/981" (20692 5766) new 1 nil nil ((title nil "だらだら４コマ１０５１「それは心が折れる音にも似て」") (link nil "http://daradaramainichi.com/archives/981") (comments nil "http://daradaramainichi.com/archives/981#comments") (pubDate nil "Fri, 21 Dec 2012 07:57:58 +0000") (dc:creator nil "とぽすけ") (category nil "1001～1100") (category nil "クリスマス") (guid ((isPermaLink . "false")) "http://daradaramainichi.com/?p=981") (description nil "背面の壁が割れる→余った生地で作り直す→側面が 折れる→アイシングで補強→前面落として 粉々→心が折れる→ものすごい勢いで４コマ描く←ｲﾏｺｺ メリークリスマス！！！！！！！！！") (content:encoded nil "				
+				<p style=\"text-align: center;\"><img class=\"aligncenter\" title=\"4コマ1051\" src=\"http://toposuke.com/4koma/1051merikuri.gif\" alt=\"4コマ1051\" width=\"300\" height=\"819\" /></p><p style=\"text-align: center;\">
+				背面の壁が割れる→余った生地で作り直す→側面が<br />
+				折れる→アイシングで補強→前面落として<br />
+				粉々→心が折れる→ものすごい勢いで４コマ描く←ｲﾏｺｺ
+				</p><p style=\"text-align: center;\"><img class=\"aligncenter\" title=\"4コマ1051_2\" src=\"http://toposuke.com/4koma/1051merikuri_2.jpg\" alt=\"4コマ1051_2\" width=\"300\" height=\"380\" /><br />
+				メリークリスマス！！！！！！！！！</p>
+") (wfw:commentRss nil "http://daradaramainichi.com/archives/981/feed") (slash:comments nil "0") (xhtml:link ((rel . "alternate") (media . "handheld") (type . "text/html") (href . "http://daradaramainichi.com/archives/981"))))) ("だらだら４コマ１０５０「ケーキを予約する」" "<p style=\"text-align: center;\"><img class=\"aligncenter\" title=\"4コマ1050\" src=\"http://toposuke.com/4koma/1050cakemarumaru.gif\" alt=\"4コマ1050\" width=\"300\" height=\"819\" /></p><p style=\"text-align: center;\">
+「栗のケーキと苦いチョコのケーキと<br />
+甘酸っぱいケーキと洋酒の味がするケーキは嫌。<br />
+タルトも避けたいです。あと、１５ｃｍの<br />
+ケーキを２個買っても、体積的には１８ｃｍの<br />
+ケーキの１．４個分くらいだから、たぶん<br />
+楽勝です」（本人談）
+</p><p style=\"text-align: center;\">
+今年はショートケーキとチョコレート<br />
+ケーキの大連立となりました。</p>" "http://daradaramainichi.com/archives/980" (20691 52672) new 2 nil nil ((title nil "だらだら４コマ１０５０「ケーキを予約する」") (link nil "http://daradaramainichi.com/archives/980") (comments nil "http://daradaramainichi.com/archives/980#comments") (pubDate nil "Fri, 21 Dec 2012 02:47:28 +0000") (dc:creator nil "とぽすけ") (category nil "1001～1100") (category nil "クリスマス") (guid ((isPermaLink . "false")) "http://daradaramainichi.com/?p=980") (description nil "「栗のケーキと苦いチョコのケーキと 甘酸っぱいケーキと洋酒の味がするケーキは嫌。 タルトも避けたいです。あと、１５ｃｍの ケーキを２個買っても、体積的には１８ｃｍの ケーキの１．４個分くらいだから、たぶん 楽勝です」（本 [...]") (content:encoded nil "				
+				<p style=\"text-align: center;\"><img class=\"aligncenter\" title=\"4コマ1050\" src=\"http://toposuke.com/4koma/1050cakemarumaru.gif\" alt=\"4コマ1050\" width=\"300\" height=\"819\" /></p><p style=\"text-align: center;\">
+				「栗のケーキと苦いチョコのケーキと<br />
+				甘酸っぱいケーキと洋酒の味がするケーキは嫌。<br />
+				タルトも避けたいです。あと、１５ｃｍの<br />
+				ケーキを２個買っても、体積的には１８ｃｍの<br />
+				ケーキの１．４個分くらいだから、たぶん<br />
+				楽勝です」（本人談）
+				</p><p style=\"text-align: center;\">
+				今年はショートケーキとチョコレート<br />
+				ケーキの大連立となりました。</p>
+") (wfw:commentRss nil "http://daradaramainichi.com/archives/980/feed") (slash:comments nil "0") (xhtml:link ((rel . "alternate") (media . "handheld") (type . "text/html") (href . "http://daradaramainichi.com/archives/980"))))) ("だらだら４コマ１０４９「病理検査の結果」" "<p style=\"text-align: center;\"><img class=\"aligncenter\" title=\"4コマ1049\" src=\"http://toposuke.com/4koma/1049hari10.gif\" alt=\"4コマ1049\" width=\"300\" height=\"819\" /></p><p style=\"text-align: center;\">
+転移した腫瘍がどうなるかまだわからないので、<br />
+今後は今まで以上にはりちょさんの健康管理に<br />
+気を使わなくてはならないのです。<br />
+でも、飼い主にできることがあるとわかると、<br />
+不思議と前向きになれるもんでして。<br />
+　<br />
+まだまだ描きたいことはあるのですが、怒涛の<br />
+はりちょ闘病編はこの辺までにしておきます！<br />
+自分を人間で描くの超照れくさい！！！ｗ</p>" "http://daradaramainichi.com/archives/979" (20690 30116) new 3 nil nil ((title nil "だらだら４コマ１０４９「病理検査の結果」") (link nil "http://daradaramainichi.com/archives/979") (comments nil "http://daradaramainichi.com/archives/979#comments") (pubDate nil "Thu, 20 Dec 2012 02:19:16 +0000") (dc:creator nil "とぽすけ") (category nil "1001～1100") (category nil "ハリネズミ") (guid ((isPermaLink . "false")) "http://daradaramainichi.com/?p=979") (description nil "転移した腫瘍がどうなるかまだわからないので、 今後は今まで以上にはりちょさんの健康管理に 気を使わなくてはならないのです。 でも、飼い主にできることがあるとわかると、 不思議と前向きになれるもんでして。 　 まだまだ描き [...]") (content:encoded nil "				
+				<p style=\"text-align: center;\"><img class=\"aligncenter\" title=\"4コマ1049\" src=\"http://toposuke.com/4koma/1049hari10.gif\" alt=\"4コマ1049\" width=\"300\" height=\"819\" /></p><p style=\"text-align: center;\">
+				転移した腫瘍がどうなるかまだわからないので、<br />
+				今後は今まで以上にはりちょさんの健康管理に<br />
+				気を使わなくてはならないのです。<br />
+				でも、飼い主にできることがあるとわかると、<br />
+				不思議と前向きになれるもんでして。<br />
+				　<br />
+				まだまだ描きたいことはあるのですが、怒涛の<br />
+				はりちょ闘病編はこの辺までにしておきます！<br />
+				自分を人間で描くの超照れくさい！！！ｗ</p>
+") (wfw:commentRss nil "http://daradaramainichi.com/archives/979/feed") (slash:comments nil "0") (xhtml:link ((rel . "alternate") (media . "handheld") (type . "text/html") (href . "http://daradaramainichi.com/archives/979"))))) ("だらだら４コマ１０４８「白く赤く」" "<p style=\"text-align: center;\"><img class=\"aligncenter\" title=\"4コマ1048\" src=\"http://toposuke.com/4koma/1048hari9.gif\" alt=\"4コマ1048\" width=\"300\" height=\"819\" /></p><p style=\"text-align: center;\">
+食ったもん咀嚼して泡にして自分の身体に<br />
+擦り付けるハリネズミさんマジすぷらった。</p><p>　<br />
+　<br />
+　</p><p>　</p><p style=\"text-align: center;\">
+ハリネズミとは全然関係ありませんが、<br />
+ゴーバスターな方々はマジでこれ買え。<br /><iframe src=\"http://rcm-jp.amazon.co.jp/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=daradaramaini-22&o=9&p=8&l=as4&m=amazon&f=ifr&ref=ss_til&asins=B008GSOQTO\" style=\"width:120px;height:240px;\" scrolling=\"no\" marginwidth=\"0\" marginheight=\"0\" frameborder=\"0\"></iframe><br />
+悲鳴上げましたわ(^q^)</p>" "http://daradaramainichi.com/archives/978" (20689 9117) new 4 nil nil ((title nil "だらだら４コマ１０４８「白く赤く」") (link nil "http://daradaramainichi.com/archives/978") (comments nil "http://daradaramainichi.com/archives/978#comments") (pubDate nil "Wed, 19 Dec 2012 02:17:01 +0000") (dc:creator nil "とぽすけ") (category nil "1001～1100") (category nil "ハリネズミ") (guid ((isPermaLink . "false")) "http://daradaramainichi.com/?p=978") (description nil "食ったもん咀嚼して泡にして自分の身体に 擦り付けるハリネズミさんマジすぷらった。 　 　 　 　 ハリネズミとは全然関係ありませんが、 ゴーバスターな方々はマジでこれ買え。 悲鳴上げましたわ(^q^)") (content:encoded nil "				
+				<p style=\"text-align: center;\"><img class=\"aligncenter\" title=\"4コマ1048\" src=\"http://toposuke.com/4koma/1048hari9.gif\" alt=\"4コマ1048\" width=\"300\" height=\"819\" /></p><p style=\"text-align: center;\">
+				食ったもん咀嚼して泡にして自分の身体に<br />
+				擦り付けるハリネズミさんマジすぷらった。</p><p>　<br />
+				　<br />
+				　</p><p>　</p><p style=\"text-align: center;\">
+				ハリネズミとは全然関係ありませんが、<br />
+				ゴーバスターな方々はマジでこれ買え。<br /><iframe src=\"http://rcm-jp.amazon.co.jp/e/cm?lt1=_blank&#038;bc1=000000&#038;IS2=1&#038;bg1=FFFFFF&#038;fc1=000000&#038;lc1=0000FF&#038;t=daradaramaini-22&#038;o=9&#038;p=8&#038;l=as4&#038;m=amazon&#038;f=ifr&#038;ref=ss_til&#038;asins=B008GSOQTO\" style=\"width:120px;height:240px;\" scrolling=\"no\" marginwidth=\"0\" marginheight=\"0\" frameborder=\"0\"></iframe><br />
+				悲鳴上げましたわ(^q^)</p>
+") (wfw:commentRss nil "http://daradaramainichi.com/archives/978/feed") (slash:comments nil "0") (xhtml:link ((rel . "alternate") (media . "handheld") (type . "text/html") (href . "http://daradaramainichi.com/archives/978"))))))

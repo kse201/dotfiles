@@ -244,12 +244,12 @@ set tabstop=4
 " }}}
 
 " ステータスライン設定 (vim-powerlineで用なしに)
-" autocmd MyAutoCmd BufEnter *   if winwidth(0) >= 60 |
-" \ set statusline=[%n]\ %t\ %m%R%H%W%y\ %([%{&fenc}][%{&ff}]%)\ %([%l(%p%%),%v]%)(%B)\ |
-" " \ set statusline=[%n]\ %t\ %m%R%H%W%y\ %([%{&fenc}][%{&ff}]%)%=\ %([%l(%p%%),%v]%)(%B)\ |
-" \ else |
-" \ set statusline=[%n]%t |
-" \ endif
+autocmd MyAutoCmd BufEnter *   if winwidth(0) >= 60 |
+\ set statusline=[%n]\ %t\ %m%R%H%W%y\ %([%{&fenc}][%{&ff}]%)\ %([%l(%p%%),%v]%)(%B)\ |
+" \ set statusline=[%n]\ %t\ %m%R%H%W%y\ %([%{&fenc}][%{&ff}]%)%=\ %([%l(%p%%),%v]%)(%B)\ |
+\ else |
+\ set statusline=[%n]%t |
+\ endif
 " }}}
 
 " カレントウィンドウのみ罫線を引く{{{
@@ -326,7 +326,11 @@ set tabline=%!MakeTabLine()
 
 function! s:tabpage_label(n)
     " t:titleという変数があったらそれを使う
-    let title = gettabvar(a:n, 'title')
+    if v:version >= 703 
+        let title = gettabvar(a:n, 'title')
+    else
+        let title = ''
+    endif
 
     if title !=# ''
         return title

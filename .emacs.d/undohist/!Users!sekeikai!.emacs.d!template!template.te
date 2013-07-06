@@ -1,0 +1,6 @@
+
+((digest . "abdb2483fb24cccb911cd07a542b0b31") (undo-list (63 . 64) nil (#("
+" 0 1 (fontified t)) . 31) nil (#("\\usepackage{mystyle}
+" 0 11 (fontified t) 11 12 (font-lock-face "rainbow-delimiters-depth-1-face" rear-nonsticky t fontified t) 12 19 (fontified t) 19 20 (font-lock-face "rainbow-delimiters-depth-1-face" rear-nonsticky t fontified t) 20 21 (fontified t)) . 31) ((marker . 31) . -19) nil (#("
+" 0 1 (fontified t)) . 1) nil (#("
+" 0 1 (fontified t)) . 1) nil (nil rear-nonsticky nil 86 . 87) (nil fontified nil 1 . 87) (1 . 87) (t . -1)))
