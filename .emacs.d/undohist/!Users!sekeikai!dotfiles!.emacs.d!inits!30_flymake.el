@@ -1,2 +1,0 @@
-
-((digest . "9cd07c05c7ba3a109ebcf125dd5e8afe") (undo-list (7538 . 7539) (nil rear-nonsticky nil 6235 . 6236) (nil fontified nil 6193 . 6236) (6193 . 6236) nil (6190 . 6193) nil (6189 . 6190) nil (nil rear-nonsticky nil 7490 . 7491) (nil fontified nil 6249 . 7491) (6249 . 7491) nil (6248 . 6249) nil (nil rear-nonsticky nil 6247 . 6248) (nil fontified nil 6193 . 6248) (6193 . 6248) nil (6190 . 6193) nil undo-tree-canary))

@@ -1,2 +1,0 @@
-
-((digest . "a85d80205dbea8962f9f76955d99746b") (undo-list (36681 . 36682) 1 nil (nil rear-nonsticky nil 36680 . 36681) (nil fontified nil 1 . 36681) (1 . 36681) nil (#("y" 0 1 (fontified nil)) . -1) ((marker . 1) . -1) ((marker) . -1) ((marker) . -1) ((marker) . -1) ((marker) . -1) ((marker) . -1) ((marker) . -1) ((marker) . -1) ((marker) . -1) ((marker) . -1) ((marker) . -1) ((marker) . -1) ((marker) . -1) ((marker) . -1) ((marker) . -1) ((marker) . -1) ((marker) . -1) ((marker) . -1) ((marker) . -1) nil (1 . 2) (t 65535 . 65535) nil undo-tree-canary))

@@ -1,2 +1,0 @@
-
-((digest . "51be7c5801e14f1946b0150f52bace95") (undo-list nil (#(" " 0 1 (fontified t face whitespace-trailing)) . -1917) (t . 1355839049) ((marker . 1917) . -1) ((marker . 1917) . -1) ((marker . 1917) . -1) ((marker . 1917) . -1) ((marker . 1917) . -1) ((marker . 1917) . -1) nil (340 . 357) (#("February 4, 2007" 0 16 (fontified nil)) . 340) 1878 nil (1875 . 1878) nil (1874 . 1876) nil (1873 . 1874) nil (1869 . 1872) nil (1868 . 1871) nil (1904 . 1905) (t . 1355838906) nil (1 . 11233) (t . 0)))

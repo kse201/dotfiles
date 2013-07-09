@@ -1,8 +1,0 @@
-
-((digest . "fab02a937e508f7306a414a094343875") (undo-list (#("
-" 0 1 (fontified nil)) . 109) (58 . 110) (#("
-" 0 1 (fontified nil)) . 58) (#("(setq user-section-table '(
-(\"cfoot\")
-))" 0 40 (fontified nil)) . -58) (t 20725 . 27301) (#("
-" 0 1 (fontified nil)) . 99) (58 . 100) (t 20725 . 25903) (#("
-" 0 1 (fontified nil)) . 58) (1 . 59) (t 65535 . 65535)))

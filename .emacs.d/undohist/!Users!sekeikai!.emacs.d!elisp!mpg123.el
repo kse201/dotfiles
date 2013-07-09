@@ -1,2 +1,0 @@
-
-((digest . "d72fb70e7db80ccdea22037d4d33a558") (undo-list nil (#("byte" 0 4 (fontified t face font-lock-comment-face)) . 11) ((marker . 11) . -1) ((marker . 11) . -2) ((marker . 11) . -3) ((marker . 11) . -4) nil (11 . 15) nil (1 . 11) (#(";;; mpg123" 0 4 (fontified t face font-lock-comment-delimiter-face) 4 10 (fontified t face font-lock-comment-face)) . 1) (t . 1355837042) nil (109248 . 109249) 1 nil (nil rear-nonsticky nil 109247 . 109248) (nil fontified nil 1 . 109248) (1 . 109248) (t . -1)))
