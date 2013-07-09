@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 01-Feb-2013.                 |
+"                 Last Change: 09-Jul-2013.                 |
 "============================================================
 
 " 基礎的な設定 {{{
@@ -51,7 +51,6 @@ set autowrite
 set backspace=indent,eol,start
 set diffopt=filler,vertical
 set showcmd
-set mouse=a
 set showtabline=2
 set guioptions+=c
 set guioptions-=e
@@ -245,11 +244,11 @@ set tabstop=4
 
 " ステータスライン設定 (vim-powerlineで用なしに)
 autocmd MyAutoCmd BufEnter *   if winwidth(0) >= 60 |
-\ set statusline=[%n]\ %t\ %m%R%H%W%y\ %([%{&fenc}][%{&ff}]%)\ %([%l(%p%%),%v]%)(%B)\ |
+            \ set statusline=[%n]\ %t\ %m%R%H%W%y\ %([%{&fenc}][%{&ff}]%)\ %([%l(%p%%),%v]%)(%B)\ |
 " \ set statusline=[%n]\ %t\ %m%R%H%W%y\ %([%{&fenc}][%{&ff}]%)%=\ %([%l(%p%%),%v]%)(%B)\ |
-\ else |
-\ set statusline=[%n]%t |
-\ endif
+            \ else |
+            \ set statusline=[%n]%t |
+            \ endif
 " }}}
 
 " カレントウィンドウのみ罫線を引く{{{
@@ -711,7 +710,9 @@ function! MycSettings()
     set dictionary=$HOME/.vim/dict/c.dict
     inoremap /* /**/<Left><Left>
     inoremap , ,<Space>
-    set fdm=indent
+    if has("folding")
+        set fdm=indent
+    endif
     inoremap <buffer>{ {}<Left><CR><Up><ESC>o
     inoremap <buffer>( ()<Left>
     inoremap <buffer>[ []<Left>
@@ -732,7 +733,9 @@ endfunction
 " cs {{{
 function! MycsSettings()
     call MycSettings()
-    set fdl = 3
+    if has("folding")
+        set fdl = 3
+    endif
 endfunction
 "}}}
 " tex{{{
@@ -862,7 +865,9 @@ endfunction
 function! MyphpSettings()
     set dictionary=$HOME/.vim/dict/PHP.dict
     inoremap , ,<Space>
-    set fdm=indent
+    if has("folding")
+        set fdm=indent
+    endif
     inoremap <buffer>{ {}<Left><CR><Up><ESC>o
     inoremap <buffer>( ()<Left>
     inoremap <buffer>[ []<Left>
@@ -874,8 +879,12 @@ endfunction
 " }}}
 " markdown {{{
 function! MymarkdownSettings()
-    setlocal foldmethod=expr
-    setlocal foldexpr=Markdown(v:lnum)
+    if has("folding")
+        setlocal foldmethod=expr
+    endif 
+    if has ("folding") &&has("eval")
+        setlocal foldexpr=Markdown(v:lnum)
+    endif
 
     function! Markdown(lnum)
         let level = matchend(getline(a:lnum), '^#\+')
@@ -1097,7 +1106,9 @@ endfunction
 let s:save_point = $HOME . "/.savepoint"
 
 " session が保存を行うデータオプション
+" if has("mksession")
 " set sessionoptions=blank,curdir,buffers,folds,help,globals,slash,tahpages,winsize,localoptions
+" endif
 
 
 " 保存
@@ -1198,6 +1209,18 @@ nnoremap <silent> co :ContinuousNumber <C-a><CR>
 vnoremap <silent> co :ContinuousNumber <C-a><CR>
 command! -count -nargs=1 ContinuousNumber let c = col('.')|for n in range(1, <count>?<count>-line('.'):1)|exec 'normal! j' . n . <q-args>|call cursor('.', c)|endfor
 " }}}
+
+" 関数コメント{{{
+function! FuncComment ()
+    normal 40a/
+    normal o// Function Name:
+    normal o// argument     :
+    normal o// return value :
+    normal o
+    normal 40a/
+endfunction
+nnoremap <Leader>cmt :call FuncComment()<CR>
+" }}}
 " }}}
 
 " Plugin{{{
@@ -1206,7 +1229,6 @@ if filereadable(expand($MYVIMRCPLUGIN))
     source $MYVIMRCPLUGIN
 endif
 " }}}
-
 
 set timeout timeoutlen=500 ttimeoutlen=75
 

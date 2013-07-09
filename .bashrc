@@ -3,9 +3,9 @@
 # if [ -f /bin/zsh ];then
 # exec /bin/zsh
 # fi
-export LANG='ja_JP.UTF8'
-export LC_ALL='ja_JP.UTF8'
-export LC_MESSAGES='ja_JP.UTF8'
+export LANG='ja_JP.UTF-8'
+export LC_ALL='ja_JP.UTF-8'
+export LC_MESSAGES='ja_JP.UTF-8'
 
 ########################################
 # prompt
@@ -51,6 +51,8 @@ HABA="\[\e[$[COLUMNS]D\]\[\e[$[COLUMNS-$(length "hogehoge")]C\]"
 # PS1=" ${BRACK}BRACK\n ${LIGHTGRAY}LIGHTGRAY\n ${DARKGRAY}DARKGRAY\n ${GREEN}GREEN\n ${LIGHTGREEN}LIGHTGREEN\n ${BLUE}BLUE\n ${LIGHTBLUE}LIGHTBLUE\n ${CYAN}CYAN\n ${LIGHTCYAN}LIGHTCYAN\n ${RED}RED\n ${LIGHTRED}LIGHTRED\n ${PURPLE}PURPLE\n ${LIGHTPURPLE}LIGHTPURPLE\n ${YELLOW}YELLOW\n ${WHITE}WHITE\n "
 PS1="-${LIGHTGREEN}\u${END}@${GREEN}\h\[${END} ${YELLOW}\w\[${END} ${DARKGRAY}[\T]${END}${PS1_GIT_BRANCH}\n-${LIGHTPURPLE}(\!)${END}\$ "
 
+export IGNOREEOF
+
 ########################################
 # alias
 ########################################
@@ -59,6 +61,7 @@ PS1="-${LIGHTGREEN}\u${END}@${GREEN}\h\[${END} ${YELLOW}\w\[${END} ${DARKGRAY}[\
 # 検索ワード色付け
 export GREP_COLOR='1;3741'
 alias grep='grep -E --color=auto'
+alias G='grep'
 
 # -i 確認 -v 詳細な情報の表示
 alias cp='cp -iv'
@@ -91,7 +94,7 @@ if [ "$TERM" == xtrem ] ; then
 fi
 
 # 補完時に大文字小文字の違いを無視する
-set completion-ignore-case=on
+set completion-ignore-case on
 
 # bash を8bitクリーンにする
 set convert-meta off
