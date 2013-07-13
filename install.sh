@@ -11,9 +11,9 @@ if ! [ -f $HOME/.vimbackup ] ; then
     mkdir $HOME/.vimbackup
 fi
 
-if ! [-f $HOME/.vim/bundle/neobundle.vim ] ; then
-    git clone https://github.com/Shougo/neobundle.vim.git $HOME/.vim/bundle/neobundle.vim
-fi
+mkdir -p $HOME/dotfiles/bundle
+git clone https://github.com/Shougo/neobundle.vim.git $HOME/.vim/bundle/neobundle.vim
+
 if [ $? != 0 ] ; then
     exit -1
 fi
