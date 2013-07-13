@@ -7,18 +7,14 @@ ln -s $HOME/dotfiles/.vimrc  $HOME/.vimrc
 ln -s $HOME/dotfiles/.gvimrc $HOME/.gvimrc
 ln -s $HOME/dotfiles/.vim    $HOME/.vim
 
-if [ $? != 0 ] ; then
-    exit -1
+if ! [ -f $HOME/.vimbackup ] ; then
+    mkdir $HOME/.vimbackup
 fi
 
-mkdir $HOME/.vimbackup
-if [ $? != 0 ] ; then
-    exit -1
+if ! [-f $HOME/.vim/bundle/neobundle.vim ] ; then
+    git clone https://github.com/Shougo/neobundle.vim.git $HOME/.vim/bundle/neobundle.vim
 fi
-
-git clone https://github.com/Shougo/neobundle.vim.git .vim/bundle/neobundle.vim
-
-if [ $? != 0 ] ;then
+if [ $? != 0 ] ; then
     exit -1
 fi
 
