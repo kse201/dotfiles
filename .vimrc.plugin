@@ -37,9 +37,9 @@ unlet g:bundle_dir
 " 必須ライブラリ {{{
 NeoBundle 'Shougo/vimproc', {'build' : {
             \ 'windows' : 'echo "Sorry, cannot update vimproc binary file in Windows."',
-            \ ' cygwin' : 'make -f make_cygwin.mak',
-            \ ' mac'    : 'make -f make_mac.mak',
-            \ ' unix'   : 'make -f make_unix.mak',
+            \ 'cygwin' : 'make -f make_cygwin.mak',
+            \ 'mac'    : 'make -f make_mac.mak',
+            \ 'unix'   : 'make -f make_unix.mak',
             \ },
             \}
 NeoBundleLazy 'mattn/webapi-vim'
