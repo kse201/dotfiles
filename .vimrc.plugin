@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 06-Jul-2013.                 |
+"                 Last Change: 13-Jul-2013.                 |
 "============================================================
 
 augroup MyAutoCmd
@@ -20,7 +20,7 @@ elseif has('win32unix')
 elseif has('mac')
     let g:vimproc_dll_path = $VIMFILE_DIR . '/bundle/vimproc/autoload/vimproc_mac.so'
 else
-    let g:vimproc_dll_path = $VIMFILE_DIR . '/bundle/vimproc/autoload/vimproc_mac.so'
+    let g:vimproc_dll_path = $VIMFILE_DIR . '/bundle/vimproc/autoload/vimproc_unix.so'
 endif
 " }}}
 

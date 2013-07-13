@@ -7,9 +7,11 @@
     branch = auto
     ui = auto
 [core]
-	excludesfile = /Users/sekeikai/.gitignore
+	excludesfile = .gitignore
 	paper = lv -c
 	pager = nkf -w | LESSCHARSET=utf-8 less
+; http://qiita.com/taise/items/73b2b295350f4fe35b65
+; git config --global url."https://".insteadOf git://
 ; [remote "origin"]
     ; fetch = +refs/heads/*:refs/remotes/origin/*
     ; url = git@github.com:kse201/dotfiles.git

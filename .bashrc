@@ -7,6 +7,8 @@ export LANG='ja_JP.UTF-8'
 export LC_ALL='ja_JP.UTF-8'
 export LC_MESSAGES='ja_JP.UTF-8'
 
+export IGNOREEOF on
+
 ########################################
 # prompt
 ########################################
@@ -76,10 +78,13 @@ alias ls='/bin/ls -F -G --color=tty --show-control-chars'
 
 alias hst='history'
 
+alias L="less"
+
 # 検索ワード色付け
 export GREP_COLOR='1;3741'
 alias grep='grep -E --color=auto'
 
+alias vi="vim"
 # スパルタンVim
 alias spvim='vim -u NONE'
 
