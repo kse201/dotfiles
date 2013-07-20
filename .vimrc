@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 09-Jul-2013.                 |
+"                 Last Change: 18-Jul-2013.                 |
 "============================================================
 
 " 基礎的な設定 {{{
@@ -8,17 +8,17 @@
 if has('win32') || has('win64') 
     let $VIMFILE_DIR   = $HOME . '/vimfiles'
     let $DROPBOX_DIR   = $HOME . '\Documents\My Dropbox'
-    let $MYVIMRC       = "~/dotfiles/.vimrc"
-    let $MYGVIMRC      = "~/dotfiles/.gvimrc"
-    let $MYVIMRCPLUGIN = "~/dotfiles/.vimrc.plugin"
+    let $MYVIMRC       = "~/vimfiles/_vimrc"
+    let $MYGVIMRC      = "~/vimfiles/_gvimrc"
+    let $MYVIMRCPLUGIN = "~/vimfiles/_vimrc.plugin"
     set backupdir=$HOME/_vimbackup
     set dir=$HOME/AppData/Local/Temp
 elseif has('win32unix')
     let $VIMFILE_DIR   = $HOME . '/vimfiles'
     let $DROPBOX_DIR   = $HOME . '/Documents/My Dropbox'
-    let $MYVIMRC       = "~/dotfiles/.vimrc"
-    let $MYGVIMRC      = "~/dotfiles/.gvimrc"
-    let $MYVIMRCPLUGIN = "~/dotfiles/.vimrc.plugin"
+    let $MYVIMRC       = "~/vimfiles/_vimrc"
+    let $MYGVIMRC      = "~/vimfiles/_gvimrc"
+    let $MYVIMRCPLUGIN = "~/vimfiles/_vimrc.plugin"
     set backupdir=$HOME/_vimbackup
     set dir=$HOME/AppData/Local/Temp
 elseif has('mac')

@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 13-Jul-2013.                 |
+"                 Last Change: 16-Jul-2013.                 |
 "============================================================
 
 augroup MyAutoCmd
@@ -48,7 +48,6 @@ NeoBundleLazy 'basyura/bitly.vim'
 " }}}
 " Plugin管理 {{{
 NeoBundle 'Shougo/neobundle.vim'
-" NeoBundleLazy 'jceb/vim-ipi'
 " }}}
 " ドキュメント管理 {{{
 " NeoBundleLazy 'thinca/vim-ref'
@@ -95,12 +94,12 @@ NeoBundleLazy 'jelera/vim-javascript-syntax',
 " }}}
 " unite関連 {{{
 NeoBundle 'Shougo/unite.vim'
-NeoBundle 'tsukkee/unite-tag'
+NeoBundleLazy 'tsukkee/unite-tag'
 NeoBundleLazy 'tsukkee/unite-help'
-NeoBundle 'h1mesuke/unite-outline'
+NeoBundleLazy 'h1mesuke/unite-outline'
 NeoBundleLazy 'tacroe/unite-mark'
 NeoBundle 'thinca/vim-unite-history'
-NeoBundle 'unite-colorscheme'
+NeoBundleLazy 'unite-colorscheme'
 " NeoBundle 'choplin/unite-vim_hacks'
 NeoBundleLazy 'ujihisa/unite-font'
 NeoBundleLazy 'Shougo/unite-build'
@@ -132,7 +131,6 @@ NeoBundleLazy 'taichouchou2/unite-reek', {
 " テキスト整形 {{{
 NeoBundle 'h1mesuke/vim-alignta'
 NeoBundle 'The-NERD-Commenter'
-NeoBundleLazy 'vim-scripts/RST-Tables'
 NeoBundleLazy 'vim-scripts/sequence'
 NeoBundle "fuenor/JpFormat.vim"
 " }}}
@@ -162,7 +160,7 @@ NeoBundleLazy 'thinca/vim-quickrun',
             \{ 'autoload' : {
             \'mappings' : ['<Plug>(quickrun)'],
             \ 'commands' : ['QuickRun']}}
-NeoBundle 'surround.vim'
+" NeoBundle 'surround.vim' " moved .vim/
 NeoBundle 'tpope/vim-fugitive'
 NeoBundleLazy 'open-browser.vim',
             \{'autoload' : {'mappings' :['<Plug>(open-browser-wwwsearch)','<Plug>(openbrowser-smart-search)']}}
@@ -291,7 +289,7 @@ NeoBundle 'taichouchou2/vim-endwise'
 NeoBundle 'tsaleh/vim-matchit'
 " }}}
 " Game{{{
-NeoBundleLazy 'deris/vim-duzzle'
+NeoBundleLazy 'mattn/habatobi-vim'
 " }}}
 NeoBundleLazy "osyo-manga/vim-sugarpot", {
             \   'autoload' : {
@@ -303,14 +301,9 @@ NeoBundleLazy "osyo-manga/vim-sugarpot", {
             \       ]
             \   }
             \}
-
-NeoBundle 'yomi322/vim-operator-suddendeath' 
-NeoBundle 'itchyny/thumbnail.vim'
 NeoBundle 'rhysd/tmpwin.vim'
 NeoBundleLazy 'terryma/vim-multiple-cursors'
-" NeoBundle 'yonchu/accelerated-smooth-scroll'
 NeoBundle 'tyru/foldballoon.vim'
-NeoBundle 'mattn/habatobi-vim'
 NeoBundle 'kannokanno/previm'
 
 filetype plugin indent on
@@ -1440,7 +1433,7 @@ function! s:bundle.hooks.on_source(bundle)
 endfunction
 unlet s:bundle
 " }}}
-"
+
 " tmpwin.vim {{{
 "http://rhysd.hatenablog.com/entry/2013/06/01/232858
 " 絶対縦分割で開きたい
@@ -1456,6 +1449,16 @@ if has("balloon_eval") && has("balloon_multiline")
     set ballooneval
     set balloonexpr=foldballoon#balloonexpr()
 endif
+" }}}
+
+" sequence{{{
+vmap <m-a> <plug>SequenceV_Increment
+vmap <m-x> <plug>SequenceV_Decrement
+nmap <m-a> <plug>SequenceN_Increment
+nmap <m-x> <plug>SequenceN_Decrement
+
+vmap <c-a> <plug>SequenceAdd
+vmap <c-x> <plug>SequenceSubtract
 " }}}
 "" ================================================================================ 
 " vim: set tw=0 tabstop=4 shiftwidth=4  fdm=marker fdl=0 :

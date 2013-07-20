@@ -1,5 +1,5 @@
 ".gvimrc
-" last change: 16-Nov-2012.
+" last change: 18-Jul-2013.
 
 colorscheme desertEx
 
@@ -24,8 +24,8 @@ augroup InsertHook
     highlight PmenuSel guibg=#8cd0d3 guifg=#666666
 
     " IME制御
-    autocmd InsertEnter,CmdwinEnter * set noimdisable
-    autocmd InsertLeave,CmdwinLeave * set imdisable
+    " autocmd InsertEnter,CmdwinEnter * set noimdisable
+    " autocmd InsertLeave,CmdwinLeave * set imdisable
 augroup END
 " }}}
 "Font{{{
