@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 16-Jul-2013.                 |
+"                 Last Change: 25-Jul-2013.                 |
 "============================================================
 
 augroup MyAutoCmd
@@ -32,6 +32,7 @@ if has('vim_starting')
     exe "set rtp+=".g:bundle_dir."neobundle.vim"
 endif
 call neobundle#rc(expand(g:bundle_dir))
+let g:neobundle#types#git#default_protocol = 'https'
 unlet g:bundle_dir
 
 " 必須ライブラリ {{{
@@ -271,7 +272,7 @@ NeoBundleLazy 'jceb/vim-hier' ,
 NeoBundleLazy 'L9'
 NeoBundle 'daisuzu/rainbowcyclone.vim'
 
-NeoBundleLazy 'git://git.wincent.com/command-t.git'
+"NeoBundleLazy 'git://git.wincent.com/command-t.git'
 
 " Game {{{
 NeoBundleLazy 'mattn/invader-vim'
@@ -1303,7 +1304,7 @@ nmap <Leader>" csw"
 " qfixhowm {{{
 let QFixHowm_Key='g' 
 
-let howm_dir = $DROPBOX_DIR. "/documents/memo/howm"
+let howm_dir = $HOME."/howm"
 let howm_filename = '%Y/%m/%Y-%m-%d-%H%M%S.txt'
 let g:qfixmemo_ext = 'howm'
 let QFixHowm_FileType = 'qfix_memo'
