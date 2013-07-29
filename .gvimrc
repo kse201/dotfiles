@@ -1,12 +1,10 @@
 ".gvimrc
-" last change: 25-Jul-2013.
+" last change: 29-Jul-2013.
 
 colorscheme desertEx
 
-set guioptions+=b
-if has('mac')
-    set guioptions-=T
-endif
+set guioptions-=b
+set guioptions-=T
 " insert-mode, IME ON/OFFに応じたカラー変更{{{
 augroup InsertHook
     autocmd!
