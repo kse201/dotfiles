@@ -1,12 +1,10 @@
 ".gvimrc
-" last change: 18-Jul-2013.
+" last change: 29-Jul-2013.
 
 colorscheme desertEx
 
-set guioptions+=b
-if has('mac')
-    set guioptions-=T
-endif
+set guioptions-=b
+set guioptions-=T
 " insert-mode, IME ON/OFFに応じたカラー変更{{{
 augroup InsertHook
     autocmd!
@@ -30,8 +28,8 @@ augroup END
 " }}}
 "Font{{{
 if has('win32') || has('win64')
-    set guifont=Inconsolata:h12:cANSI
-    set guifontwide=Migu\ 1M\ Regular:h12
+    set guifont=Inconsolata:h14:cANSI
+    set guifontwide=Migu\ 1M\ Regular:h14
 else
     set guifont=Ricty\ Regular\ for\ Powerline:h14
     " set guifont=Ricty\ Reguler:h16
