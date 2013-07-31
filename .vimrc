@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 29-Jul-2013.                 |
+"                 Last Change: 31-Jul-2013.                 |
 "============================================================
 
 " 基礎的な設定 {{{
@@ -1070,7 +1070,7 @@ command! -range=% Word :<line1>,<line2>s/\i\+//gn
 command! -nargs=? -complete=command SmartSplit call <SID>smart_split(<q-args>)
 nnoremap <silent><C-w><Space> :<C-u>SmartSplit<CR>
 function! s:smart_split(cmd)
-    if winwidth(0) > winheight(0) * 2
+    if winwidth(0)/2  >= winheight(0) * 1.6
         vsplit 
     else 
         split
