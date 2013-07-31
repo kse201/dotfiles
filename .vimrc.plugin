@@ -537,7 +537,7 @@ augroup uniteKeymap
     au FileType unite setlocal tw=0
 augroup END
 
-nnoremap <silent> <SID>[unite]b :<C-u>Unite -buffer-name=buffer buffer <CR>
+nnoremap <silent> <SID>[unite]b :<C-u>Unite -buffer-name=buffer buffer<CR>
 " ファイル 最近使用したファイル一覧
 nnoremap <silent> <SID>[unite]f :<C-u>Unite  -buffer-name=files file file/new<CR>
 nnoremap <silent> <SID>[unite]m :<C-u>Unite -buffer-name=file_mru file_mru<CR>
@@ -690,8 +690,7 @@ if s:checkplugin("vim-smartchr" )
         "四則演算
         inoremap <buffer><expr> + smartchr#loop(' + ', '++')
         inoremap <buffer><expr> - smartchr#loop(' - ', '--')
-        inoremap <buffer><expr> * smartchr#loop(' * ', '**')
-        inoremap <buffer><expr> / smartchr#loop(' / ', '//')
+        " inoremap <buffer><expr> * smartchr#loop(' * ', '**')
 
         " =の場合、単純な代入や比較演算子として入力する場合は前後にスペースをいれる。
         " 複合演算代入としての入力の場合は、直前のスペースを削除して=を入力
@@ -705,7 +704,6 @@ if s:checkplugin("vim-smartchr" )
 
         inoremap <buffer><expr> , smartchr#loop(', ', ',')
         "inoremap <buffer><expr> / smartchr#loop('/', ' / ', '//')
-        " *はポインタで使うので、空白はいれない
         inoremap <buffer><expr> & smartchr#loop('&', ' & ', ' && ')
         inoremap <buffer><expr> % smartchr#loop('%', ' % ')
         inoremap <buffer><expr> <Bar> smartchr#loop(' <Bar> ', ' <Bar><Bar> ', '<Bar>')
@@ -723,8 +721,10 @@ if s:checkplugin("vim-smartchr" )
         inoremap <buffer><expr> # search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('#define', '#include', '#ifdef', '#endif', '#'): '#'
 
         inoremap <buffer><expr> " search('^#include\%#', 'bcn')? ' ""<Left>"': '""<Left>'
-        " if文直後の(は自動で間に空白を入れる
+        " 制御構文直後の(は自動で間に空白を入れる
         inoremap <buffer><expr> ( search('\<\if\%#', 'bcn')? ' ()<Left>': '()<Left>'
+        inoremap <buffer><expr> ( search('\<\for\%#', 'bcn')? ' ()<Left>': '()<Left>'
+        inoremap <buffer><expr> ( search('\<\while\%#', 'bcn')? ' ()<Left>': '()<Left>'
     endfunction
 
     " Objective-C用(未完)
@@ -798,7 +798,7 @@ try
     " quickrunに登録
     call quickrun#register_outputter("silent_quickfix", s:silent_quickfix)
     " シンタックスチェック用のquickrun.vimのコンフィグ
-    " ファイルの保存後に uickrun.vimが実行するように設定する
+    " ファイルの保存後に Quickrun.vimが実行するように設定する
     autocmd MyAutoCmd BufWritePost *.cpp,*.h,*.hpp :QuickRun CppSyntaxCheck_gcc
     " }}}
     " Programごとの設定{{{
@@ -822,6 +822,8 @@ try
                 \ "command" : "g++",
                 \ "cmdopt" : "-fsytax-only -std=gnu++0x",
                 \ "outputter" : "silent_quickfix",
+                \ "hook/output_encode/enable" : 1,
+                \ "hook/output_encode/encoding" : "utf-8",
                 \ "runner" : "vimproc"
                 \}
     " }}}
