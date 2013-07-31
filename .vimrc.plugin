@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 25-Jul-2013.                 |
+"                 Last Change: 01-Aug-2013.                 |
 "============================================================
 
 augroup MyAutoCmd
@@ -163,6 +163,7 @@ NeoBundleLazy 'thinca/vim-quickrun',
             \ 'commands' : ['QuickRun']}}
 " NeoBundle 'surround.vim' " moved .vim/
 NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'gregsexton/gitv'
 NeoBundleLazy 'open-browser.vim',
             \{'autoload' : {'mappings' :['<Plug>(open-browser-wwwsearch)','<Plug>(openbrowser-smart-search)']}}
 " NeoBundle 'YankRing.vim'
@@ -536,7 +537,7 @@ augroup uniteKeymap
     au FileType unite setlocal tw=0
 augroup END
 
-nnoremap <silent> <SID>[unite]b :<C-u>Unite -buffer-name=buffer buffer file_mru<CR>
+nnoremap <silent> <SID>[unite]b :<C-u>Unite -buffer-name=buffer buffer <CR>
 " ファイル 最近使用したファイル一覧
 nnoremap <silent> <SID>[unite]f :<C-u>Unite  -buffer-name=files file file/new<CR>
 nnoremap <silent> <SID>[unite]m :<C-u>Unite -buffer-name=file_mru file_mru<CR>
@@ -986,7 +987,7 @@ function! s:bundle.hooks.on_source(bundle)
         nmap <buffer> Q <Plug>(vimfiler_hide)
         nmap <buffer> <TAB> <Plug>(vimfiler_switch_to_another_vimfiler)
         nmap <buffer> <C-a> <Plug>(vimfiler_toggle_mark_all_lines)
-        nnoremap <buffer><silent> / :<C-u>UniteWithBufferDir file -default-action=vimfiler -buffer-name=files<CR>
+        " nnoremap <buffer><silent> / :<C-u>UniteWithBufferDir file -default-action=vimfiler -buffer-name=files<CR>
     endfunction
 endfunction
 unlet s:bundle
@@ -1461,5 +1462,5 @@ nmap <m-x> <plug>SequenceN_Decrement
 vmap <c-a> <plug>SequenceAdd
 vmap <c-x> <plug>SequenceSubtract
 " }}}
-"" ================================================================================ 
+" ================================================================================ 
 " vim: set tw=0 tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
