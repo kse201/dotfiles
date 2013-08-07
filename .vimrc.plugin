@@ -267,7 +267,7 @@ NeoBundle 'w0ng/vim-hybrid'
 NeoBundle 'dannyob/quickfixstatus'
 NeoBundleLazy 'Takazudo/outline.vim.git'
 NeoBundleLazy 'jceb/vim-hier' ,   
-            \{ "autoload" : {"filetype" : ["cpp" , "c","cs"]}}
+            \{ "autoload" : {"filetypes" : ["cpp" , "c","cs"]}}
 " NeoBundle 'mattn/mkdpreview-vim'
 NeoBundleLazy 'L9'
 NeoBundle 'daisuzu/rainbowcyclone.vim'
