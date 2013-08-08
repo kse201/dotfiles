@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 01-Aug-2013.                 |
+"                 Last Change: 06-Aug-2013.                 |
 "============================================================
 
 augroup MyAutoCmd
@@ -551,6 +551,7 @@ nnoremap <silent> <SID>[unite]t :<C-u>Unite tab<CR>
 nnoremap <silent> <SID>[unite]j :<C-u>Unite jump<CR>
 " 検索
 nnoremap <silent> <SID>[unite]/ :<C-u>Unite line<CR>
+nnoremap <silent> <SID>[unite]l :<C-u>Unite line<CR>
 nnoremap <silent> <SID>[unite]; :<C-u>Unite command<CR>
 
 " 曖昧検索
@@ -1365,6 +1366,7 @@ map R  <Plug>(operator-replace)
 
 " HybridText {{{
 autocmd MyAutoCmd BufEnter * if &filetype =="" | setlocal ft=hybrid | endif
+autocmd MyAutoCmd BufEnter * if &filetype =="text" | setlocal ft=hybrid | endif
 " }}}
 
 " neocomplcache-clang / neocomplcache-clang_complete{{{
