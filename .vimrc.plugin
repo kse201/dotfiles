@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 08-Aug-2013.                 |
+"                 Last Change: 26-Aug-2013.                 |
 "============================================================
 
 augroup MyAutoCmd
@@ -153,7 +153,7 @@ NeoBundle 'basyura/TweetVim' ,
             \{ 'commands' : ['TweetVim', 'TweetVimSay'],
             \ 'mappings' : ['<Plug>(tweetvim_action_enter)' , '<Plug>(tweetvim_action_retweet)','<Plug>(tweetvim_action_page_next)','<Plug>(tweetvim_action_page_previous)']
             \}}
-NeoBundle 'delphinus35/TweetVim-powerline-theme'
+NeoBundle 'itchyny/lightline.vim'
 NeoBundleLazy 'mattn/calendar-vim' ,
             \{'autoload' : 
             \{'commands' : ['Calendar']}}
@@ -257,7 +257,6 @@ NeoBundleLazy 'jcf/vim-latex'
 " 見た目 {{{
 NeoBundle 'wombat256.vim'
 NeoBundle 'altercation/vim-colors-solarized'
-NeoBundle 'Lokaltog/vim-powerline'
 NeoBundle 'HybridText'
 NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'kien/rainbow_parentheses.vim'
@@ -796,9 +795,6 @@ try
     endfunction
     " quickrunに登録
     call quickrun#register_outputter("silent_quickfix", s:silent_quickfix)
-    " シンタックスチェック用のquickrun.vimのコンフィグ
-    " ファイルの保存後に Quickrun.vimが実行するように設定する
-    autocmd MyAutoCmd BufWritePost *.cpp,*.h,*.hpp :QuickRun CppSyntaxCheck_gcc
     " }}}
     " Programごとの設定{{{
     " Markdown{{{
@@ -1132,12 +1128,7 @@ command! -nargs=+ Ref
 let g:loaded_sequence=1
 " }}}
 
-" powerline {{{
-let g:Powerline_symbols='fancy'
-" }}}
-
 " CCTree.vim:"{{{
-"
 if 1 && filereadable($DOTVIM . '/Bundle/CCTree/ftplugin/cctree.vim')
     source $DOTVIM/bundle/CCTree/ftplugin/cctree.vim
 endif

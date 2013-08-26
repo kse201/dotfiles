@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 10-Aug-2013.                 |
+"                 Last Change: 26-Aug-2013.                 |
 "============================================================
 
 " 基礎的な設定 {{{
@@ -1223,6 +1223,8 @@ function! FuncComment ()
 endfunction
 nnoremap <Leader>cmt :call FuncComment()<CR>
 " }}}
+
+command! Sudowrite :w !sudo tee %
 " }}}
 
 " Plugin{{{
