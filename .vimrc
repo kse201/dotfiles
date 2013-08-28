@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 26-Aug-2013.                 |
+"                 Last Change: 28-Aug-2013.                 |
 "============================================================
 
 " 基礎的な設定 {{{
@@ -121,6 +121,7 @@ augroup END
 " Terminal用{{{
 if !has('gui')
     set t_Co=256
+    " export TERM=xterm-256color
     colorscheme desert
     inoremap 0D <Left>
     inoremap 0B <Down>
