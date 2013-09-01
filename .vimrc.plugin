@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 28-Aug-2013.                 |
+"                 Last Change: 01-Sep-2013.                 |
 "============================================================
 
 augroup MyAutoCmd
@@ -64,15 +64,15 @@ NeoBundleLazy 'Shougo/neocomplcache-clang_complete'
 NeoBundleLazy 'clang-complete'
 NeoBundleLazy 'neco-look'
 NeoBundleLazy 'yomi322/neco-tweetvim'
-NeoBundleLazy 'Shougo/neocomplcache-rsense', {
-            \ 'depends': 'Shougo/neocomplcache',
-            \ 'autoload': { 'filetypes': 'ruby' }}
-NeoBundleLazy 'taichouchou2/rsense-0.3', {
-            \ 'build' : {
-            \    'mac': 'ruby etc/config.rb > ~/.rsense',
-            \    'unix': 'ruby etc/config.rb > ~/.rsense',
-            \ },
-            \ 'autoload' : {'filetypes' : 'ruby'}}
+" NeoBundleLazy 'Shougo/neocomplcache-rsense', {
+            " \ 'depends': 'Shougo/neocomplcache',
+            " \ 'autoload': { 'filetypes': 'ruby' }}
+" NeoBundleLazy 'taichouchou2/rsense-0.3', {
+            " \ 'build' : {
+            " \    'mac': 'ruby etc/config.rb > ~/.rsense',
+            " \    'unix': 'ruby etc/config.rb > ~/.rsense',
+            " \ },
+            " \ 'autoload' : {'filetypes' : 'ruby'}}
 NeoBundleLazy 'davidhalter/jedi',
             \ { 'autoload' :{ 'filetypes' :['python',   'jedi' ]}}
 " }}}
@@ -916,7 +916,15 @@ nnoremap <SID>[vimshell] :<C-u>VimShell<CR>
 let s:bundle = neobundle#get("vimshell")
 " hooksの初期化
 let s:bundle.hooks = get(s:bundle,"hooks", {})
+let g:vimshell_prompt = "% "
+let g:vimshell_secondary_prompt = "> "
 
+autocmd FileType vimshell call vimshell#hook#add('postexec', 'change_prompt', 'g:my_vimshell_change_prompt')
+
+function! g:my_vimshell_change_prompt(args, context)
+  let g:vimshell_prompt = getcwd() . "% "
+  call vimshell#set_highlight()
+endfunction
 function! s:bundle.hooks.on_source(bundle)
     " nnoremap <SID>[vimshell]c :VimShellCreate<CR>
     " let g:vimshell_prompt = 'vimshell#vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
@@ -1427,6 +1435,7 @@ unlet s:bundle
 "http://rhysd.hatenablog.com/entry/2013/06/01/232858
 " 絶対縦分割で開きたい
 nnoremap <silent>_ :<C-u>call tmpwin#toggle('TweetVimHomeTimeline')<CR>
+nnoremap <silent>_ :<C-u>call tmpwin#toggle({'open_post':'setl nohidden'},'copen')<CR>
 " }}}
 
 " ccelerated-smooth-scroll.vim{{{
@@ -1450,13 +1459,16 @@ vmap <c-a> <plug>SequenceAdd
 vmap <c-x> <plug>SequenceSubtract
 " }}}
 
-" lightline.vim 
-" vim-gitgutter
-let g:gitgutter_sign_added = '✚'
-let g:gitgutter_sign_modified = '➜'
-let g:gitgutter_sign_removed = '✘'
+" vim-gitgutter{{{
+" let g:gitgutter_sign_added = '✚'
+" let g:gitgutter_sign_modified = '➜'
+" let g:gitgutter_sign_removed = '✘'
+let g:gitgutter_sign_added = '+'
+let g:gitgutter_sign_modified = '*'
+let g:gitgutter_sign_removed = '-'
+" }}}
 
-" lightline.vim
+" lightline.vim{{{
 let g:lightline = {
         \ 'colorscheme': 'landscape',
         \ 'mode_map': {'c': 'NORMAL'},
@@ -1588,5 +1600,6 @@ function! MyCharCode()
 
   return "'". char ."' ". nr
 endfunction
+" }}}
 "" ================================================================================ 
 " vim: set tw=0 tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
