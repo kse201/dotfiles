@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 31-Jul-2013.                 |
+"                 Last Change: 28-Aug-2013.                 |
 "============================================================
 
 " 基礎的な設定 {{{
@@ -121,6 +121,7 @@ augroup END
 " Terminal用{{{
 if !has('gui')
     set t_Co=256
+    " export TERM=xterm-256color
     colorscheme desert
     inoremap 0D <Left>
     inoremap 0B <Down>
@@ -629,6 +630,8 @@ nnoremap <silent>  cy  ce<C-r>0<ESC>:let@/=@1<CR>:noh<CR>
 vnoremap <silent>  cy   c<C-r>0<ESC>:let@/=@1<CR>:noh<CR>
 nnoremap <silent> ciy ciw<C-r>0<ESC>:let@/=@1<CR>:noh<CR>
 " }}}
+
+"vnoremap <silent> <C-p> "0p<CR>
 
 " 範囲選択によるインデントを連続して行う{{{
 vnoremap > >gv
@@ -1221,6 +1224,8 @@ function! FuncComment ()
 endfunction
 nnoremap <Leader>cmt :call FuncComment()<CR>
 " }}}
+
+command! Sudowrite :w !sudo tee %
 " }}}
 
 " Plugin{{{
