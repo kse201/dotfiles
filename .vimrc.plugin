@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 01-Sep-2013.                 |
+"                 Last Change: 04-Sep-2013.                 |
 "============================================================
 
 augroup MyAutoCmd
@@ -100,6 +100,9 @@ NeoBundleLazy 'tsukkee/unite-help'
 NeoBundleLazy 'h1mesuke/unite-outline'
 NeoBundleLazy 'tacroe/unite-mark'
 NeoBundle 'thinca/vim-unite-history'
+NeoBundleLazy 'osyo-manga/unite-quickfix', {
+            \ 'autoload' : {'filetypes':['c','cpp']
+            \ }}
 NeoBundleLazy 'unite-colorscheme'
 " NeoBundle 'choplin/unite-vim_hacks'
 NeoBundleLazy 'ujihisa/unite-font'
