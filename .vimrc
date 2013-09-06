@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 28-Aug-2013.                 |
+"                 Last Change: 01-Sep-2013.                 |
 "============================================================
 
 " 基礎的な設定 {{{
@@ -725,6 +725,7 @@ function! MycSettings()
     inoremap <buffer>' ''<Left>
     "最寄りの中括弧内を選択
     nnoremap <buffer>v} ?{<CR>%v%0
+    nnoremap <Leader>c :make<CR>
 endfunction
 " }}}
 " C++{{{
