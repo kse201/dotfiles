@@ -88,7 +88,13 @@ alias vi="vim"
 # スパルタンVim
 alias spvim='vim -u NONE'
 
-alias gst="git status "
+##############################
+# Git
+##############################
+alias gst="git status"
+alias gmt="git commit"
+alias gdf="git diff"
+alias glg="git log --graph --date-order -C -M --pretty=format:\"<%h> %ad [%an] %Cgreen%d%Creset %s\" --all --date=short"
 
 # lsのカラー化
 export ls_colors='no=01;37:fi=00:di=01;36:pi=40;33:so=01;35:bd=40;33:cd=40;33;01:or=40;32;01:ex=01;33:*core=01;31:'
