@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 01-Sep-2013.                 |
+"                 Last Change: 08-Sep-2013.                 |
 "============================================================
 
 " 基礎的な設定 {{{
@@ -691,7 +691,7 @@ let g:FileTypeSettings = [
             \ "html", 
             \ "php",
             \ "markdown",
-            \ "tex",
+            \ "tex"
             \]
 for MyFileType in g:FileTypeSettings
     execute "autocmd MyAutoCmd FileType " . MyFileType . " call My" . MyFileType . "Settings()"
@@ -713,9 +713,7 @@ function! MycSettings()
     set dictionary=$HOME/.vim/dict/c.dict
     inoremap /* /**/<Left><Left>
     inoremap , ,<Space>
-    if has("folding")
-        set fdm=indent
-    endif
+    set fdm=indent
     inoremap <buffer>{ {}<Left><CR><Up><ESC>o
     inoremap <buffer>( ()<Left>
     inoremap <buffer>[ []<Left>

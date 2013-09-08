@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 06-Sep-2013.                 |
+"                 Last Change: 08-Sep-2013.                 |
 "============================================================
 
 augroup MyAutoCmd
@@ -197,6 +197,7 @@ NeoBundle 'vim-scripts/ViewOutput'
 NeoBundle 'rhysd/clever-f.vim'
 NeoBundle 'thinca/vim-submode'
 NeoBundle 'thinca/vim-painter'
+NeoBundle 'osyo-manga/vim-anzu'
 " }}}
 " C / C++ {{{
 NeoBundleLazy 'vim-scripts/SrcExpl' ,
@@ -1316,7 +1317,7 @@ let QFixHowm_FileType = 'qfix_memo'
 let QFix_PreviewEnable = 0
 
 " QuickFixウィンドウの高さ
-let QFix_Height = 0
+let QFix_Height = 3
 " QuickFixウィンドウの幅
 let QFix_Width = 0
 " QuickFixウィンドウの開き方
@@ -1501,7 +1502,7 @@ let g:lightline = {
         \ 'active': {
         \   'left': [
         \     ['mode', 'paste'],
-        \     ['fugitive', 'gitgutter', 'filename'],
+        \     ['fugitive', 'gitgutter', 'filename','modified','anzu'],
         \   ],
         \   'right': [
         \     ['lineinfo', 'syntastic'],
@@ -1521,10 +1522,11 @@ let g:lightline = {
         \   'syntastic': 'SyntasticStatuslineFlag',
         \   'charcode': 'MyCharCode',
         \   'gitgutter': 'MyGitGutter',
-        \ },
-        \ 'separator': {'left': '⮀', 'right': '⮂'},
-        \ 'subseparator': {'left': '⮁', 'right': '⮃'}
+        \   'anzu': 'anzu#search_status',
         \ }
+        \ }
+        " \ 'separator': {'left': '⮀', 'right': '⮂'},
+        " \ 'subseparator': {'left': '⮁', 'right': '⮃'}
 
 function! MyModified()
   return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
@@ -1627,5 +1629,18 @@ function! MyCharCode()
   return "'". char ."' ". nr
 endfunction
 " }}}
+
+"" vim-anzu関連 {{{
+nmap n <Plug>(anzu-n)
+nmap N <Plug>(anzu-N)
+nmap * <Plug>(anzu-star)
+nmap # <Plug>(anzu-sharp)
+augroup vim-anzu
+" 一定時間キー入力がないとき、ウインドウを移動したとき、タブを移動したときに
+" 検索ヒット数の表示を消去する
+    autocmd!
+    autocmd CursorHold,CursorHoldI,WinLeave,TabLeave * call anzu#clear_search_status()
+augroup END
+"}}}
 "" ================================================================================ 
 " vim: set tw=0 tabstop=4 shiftwidth=4  fdm=marker fdl=0 :

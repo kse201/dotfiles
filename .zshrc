@@ -358,7 +358,7 @@ setopt auto_param_keys
 # 補完される前にオリジナルのコマンドまで展開してチェックされる
 setopt complete_aliases
 
-alias ctags='/Applications/MacVim.app/Contents/MacOS/ctags "$@"'
+# alias ctags='/Applications/MacVim.app/Contents/MacOS/ctags "$@"'
 # alias cancel = !git commit -a -m'Temporary commit for cancel' && git reset--hard HEAD~
 
 ## エイリアス
@@ -400,3 +400,15 @@ elif which putclip >/dev/null 2>&1 ; then
     # Cygwin 
     alias -g C='| putclip'
 fi
+
+man() {
+        env \
+                LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+                LESS_TERMCAP_md=$(printf "\e[1;31m") \
+                LESS_TERMCAP_me=$(printf "\e[0m") \
+                LESS_TERMCAP_se=$(printf "\e[0m") \
+                LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+                LESS_TERMCAP_ue=$(printf "\e[0m") \
+                LESS_TERMCAP_us=$(printf "\e[1;32m") \
+                man "$@"
+}
