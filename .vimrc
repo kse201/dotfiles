@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 08-Sep-2013.                 |
+"                 Last Change: 10-Sep-2013.                 |
 "============================================================
 
 " 基礎的な設定 {{{
@@ -425,10 +425,10 @@ augroup END
 
 " キーマップ{{{
 " swap ; :{{{
-nnoremap ; :
-vnoremap ; :
-nnoremap : ;
-vnoremap : ;
+"nnoremap ; :
+"vnoremap ; :
+"nnoremap : ;
+"vnoremap : ;
 " }}}
 
 nnoremap j gj
