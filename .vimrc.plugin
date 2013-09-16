@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 08-Sep-2013.                 |
+"                 Last Change: 15-Sep-2013.                 |
 "============================================================
 
 augroup MyAutoCmd
@@ -60,8 +60,6 @@ NeoBundleLazy 'vim-jp/vimdoc-ja.git'
 NeoBundleLazy 'Shougo/neocomplcache'
 NeoBundleLazy 'Shougo/neosnippet'
 NeoBundleLazy 'Shougo/neocomplcache-clang'
-NeoBundleLazy 'Shougo/neocomplcache-clang_complete'
-NeoBundleLazy 'clang-complete'
 NeoBundleLazy 'neco-look'
 NeoBundleLazy 'yomi322/neco-tweetvim'
 " NeoBundleLazy 'Shougo/neocomplcache-rsense', {
@@ -216,8 +214,6 @@ NeoBundleLazy 'vim-scripts/gtags.vim' ,
             \{'autoload' : { 'filetypes' : ['c', 'cpp','cs','java']}}
 NeoBundleLazy 'vim-scripts/csharp.vim' ,
             \{'autoload' : { 'filetypes' : ['c', 'cpp','cs','java']}}
-NeoBundleLazy 'vim-scripts/teol.vim.git' ,
-            \{'autoload' : { 'filetypes' : ['c', 'cpp','java']}}
 " }}}
 " Java {{{
 NeoBundle 'yuratomo/java-api-complete' , 
@@ -261,7 +257,6 @@ NeoBundleLazy 'jcf/vim-latex'
 " 見た目 {{{
 NeoBundle 'wombat256.vim'
 NeoBundle 'altercation/vim-colors-solarized'
-NeoBundle 'HybridText'
 NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'kien/rainbow_parentheses.vim'
 NeoBundle 'w0ng/vim-hybrid'
@@ -278,6 +273,7 @@ NeoBundle 'daisuzu/rainbowcyclone.vim'
 "NeoBundleLazy 'git://git.wincent.com/command-t.git'
 
 " Game {{{
+NeoBundleLazy 'mattn/habatobi-vim'
 NeoBundleLazy 'mattn/invader-vim'
 NeoBundleLazy 'mattn/mahjong-vim'
 NeoBundleLazy 'sudoku_game'
@@ -292,19 +288,6 @@ NeoBundle 'kana/vim-smartinput'
 NeoBundle 'taichouchou2/vim-endwise'
 NeoBundle 'tsaleh/vim-matchit'
 " }}}
-" Game{{{
-NeoBundleLazy 'mattn/habatobi-vim'
-" }}}
-NeoBundleLazy "osyo-manga/vim-sugarpot", {
-            \   'autoload' : {
-            \       'commands' : [
-            \           {
-            \               "name" : "SugarpotPreview",
-            \               "complete" : "file",
-            \           }
-            \       ]
-            \   }
-            \}
 NeoBundle 'rhysd/tmpwin.vim'
 NeoBundleLazy 'terryma/vim-multiple-cursors'
 NeoBundle 'tyru/foldballoon.vim'
@@ -1391,10 +1374,6 @@ autocmd MyAutoCmd BufEnter * if &filetype =="text" | setlocal ft=hybrid | endif
 " add neocomplcache option
 let g:neocomplcache_force_overwrite_completefunc=1
 
-" add clang_complete option
-let g:clang_complete_auto=1
-" }}}
-
 " gmail.vim{{{
 let g:gmail_user_name="kse.201@gmail.com"
 " }}}
@@ -1642,5 +1621,9 @@ augroup vim-anzu
     autocmd CursorHold,CursorHoldI,WinLeave,TabLeave * call anzu#clear_search_status()
 augroup END
 "}}}
+"
+" previm{{{
+let g:previm_open_cmd = 'open'
+" }}}
 "" ================================================================================ 
 " vim: set tw=0 tabstop=4 shiftwidth=4  fdm=marker fdl=0 :

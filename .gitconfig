@@ -17,5 +17,5 @@
     ; url = git@github.com:kse201/dotfiles.git
     
 [alias]
-; ブランチをグラフ化 http://d.hatena.ne.jp/akihito_s/20110903
+; show git log with graph http://d.hatena.ne.jp/akihito_s/20110903
 graph = log --graph --date-order -C -M --pretty=format:\"<%h> %ad [%an] %Cgreen%d%Creset %s\" --all --date=short

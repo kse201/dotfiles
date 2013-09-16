@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 10-Sep-2013.                 |
+"                 Last Change: 15-Sep-2013.                 |
 "============================================================
 
 " 基礎的な設定 {{{
@@ -130,8 +130,14 @@ if !has('gui')
 endif
 " }}}
 
-" Auto Change dir{{{
+" auto ctags {{{
 set tags+=~/.tags,**/tags
+if filereadable(expand('./tags'))
+    au MyAutoCmd FileWritePre :!ctasg -R
+endif
+" }}}
+
+" Auto Change dir{{{
 if has('win32') || has('win64')
     au MyAutoCmd BufEnter * execute ":lcd " . escape(expand("%:p:h")," #")
 else
