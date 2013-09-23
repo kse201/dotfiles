@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 15-Sep-2013.                 |
+"                 Last Change: 23-Sep-2013.                 |
 "============================================================
 
 " 基礎的な設定 {{{
@@ -149,6 +149,16 @@ if has('win32') || has('win64') " {{{
     set clipboard+=unnamed
 endif
 " }}}
+
+" ime settings
+if has('multi_byte_ime') || has('xim') || has('gui_macvim')
+    "insert mode :lmap off, IME ON
+    set iminsert=2
+    "Search mode : lmap off, IME ON
+    set imsearch=2
+    "Normal mode : IME off
+    inoremap <silent> <ESC> <ESC>:set iminsert=0
+endif
 " }}}
 
 " ファイル形式関連{{{
@@ -1231,6 +1241,13 @@ nnoremap <Leader>cmt :call FuncComment()<CR>
 " }}}
 
 command! Sudowrite :w !sudo tee %
+
+" 現在開いているファイルと同じディレクトリのファイルを簡単に開く {{{
+" http://qiita.com/ukitazume/items/c1d2814497bc036f1a82
+cnoremap %% <C-R>=expand('%:h').'/'<cr>                                                                                                              
+cmap <leader>e :edit %% 
+" }}}
+
 " }}}
 
 " Plugin{{{

@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 15-Sep-2013.                 |
+"                 Last Change: 23-Sep-2013.                 |
 "============================================================
 
 augroup MyAutoCmd
@@ -49,6 +49,7 @@ NeoBundleLazy 'basyura/bitly.vim'
 " }}}
 " Plugin管理 {{{
 NeoBundle 'Shougo/neobundle.vim'
+NeoBundleLazy 'LeafCage/nebula.vim', {'autoload': {'filetypes': 'vim' , 'commands': ['NebulaPutLazy', 'NebulaPutFromClipboard', 'NebulaYankOptions', 'NebulaPutConfig']}}
 " }}}
 " ドキュメント管理 {{{
 " NeoBundleLazy 'thinca/vim-ref'
@@ -110,6 +111,10 @@ NeoBundleLazy 'zhaocai/unite-scriptnames'
 NeoBundleLazy 'yomi322/unite-tweetvim'
 NeoBundleLazy 'taka84u9/unite-git'
 NeoBundleLazy 'kmnk/vim-unite-giti'
+NeoBundleLazy 'moznion/unite-git-conflict.vim', {
+            \ 'autoload' : { 'filetypes' : ['c','cpp','java'] }
+            \}
+
 NeoBundleLazy 'Shougo/unite-ssh', {
             \ 'depends' : 'Shougo/unite.vim' }
 NeoBundleLazy 'basyura/unite-rails', {
@@ -163,6 +168,7 @@ NeoBundleLazy 'thinca/vim-quickrun',
             \ 'commands' : ['QuickRun']}}
 " NeoBundle 'surround.vim' " moved .vim/
 NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'gitv'
 NeoBundleLazy 'airblade/vim-gitgutter'
 NeoBundleLazy 'open-browser.vim',
             \{'autoload' : {'mappings' :['<Plug>(open-browser-wwwsearch)','<Plug>(openbrowser-smart-search)']}}
@@ -198,40 +204,26 @@ NeoBundle 'thinca/vim-painter'
 NeoBundle 'osyo-manga/vim-anzu'
 " }}}
 " C / C++ {{{
-NeoBundleLazy 'vim-scripts/SrcExpl' ,
-            \{'autoload' : { 'filetypes' : ['c', 'cpp','java']}}
-NeoBundleLazy 'vim-scripts/Trinity' ,
-            \{'autoload' : { 'filetypes' : ['c', 'cpp','java']}}
-NeoBundleLazy 'vim-scripts/a.vim' ,
-            \{'autoload' : { 'filetypes' : ['c', 'cpp','java']}}
-NeoBundleLazy 'vim-scripts/c.vim.git' ,
-            \{'autoload' : { 'filetypes' : ['c', 'cpp','java']}}
-NeoBundleLazy 'vim-scripts/CCTree' ,
-            \{'autoload' : { 'filetypes' : ['c', 'cpp','java']}}
-NeoBundleLazy 'vim-scripts/cscope-menu' ,
-            \{'autoload' : { 'filetypes' : ['c', 'cpp','cs','java']}}
-NeoBundleLazy 'vim-scripts/gtags.vim' ,
-            \{'autoload' : { 'filetypes' : ['c', 'cpp','cs','java']}}
-NeoBundleLazy 'vim-scripts/csharp.vim' ,
-            \{'autoload' : { 'filetypes' : ['c', 'cpp','cs','java']}}
+NeoBundleLazy 'vim-scripts/SrcExpl' , {'autoload' : { 'filetypes' : ['c', 'cpp','java']}}
+NeoBundleLazy 'vim-scripts/Trinity' , {'autoload' : { 'filetypes' : ['c', 'cpp','java']}}
+NeoBundleLazy 'vim-scripts/a.vim' , {'autoload' : { 'filetypes' : ['c', 'cpp','java']}}
+NeoBundleLazy 'vim-scripts/c.vim.git' , {'autoload' : { 'filetypes' : ['c', 'cpp','java']}}
+NeoBundleLazy 'vim-scripts/CCTree' , {'autoload' : { 'filetypes' : ['c', 'cpp','java']}}
+NeoBundleLazy 'vim-scripts/cscope-menu' , {'autoload' : { 'filetypes' : ['c', 'cpp','cs','java']}}
+NeoBundleLazy 'vim-scripts/gtags.vim' , {'autoload' : { 'filetypes' : ['c', 'cpp','cs','java']}}
+NeoBundleLazy 'vim-scripts/csharp.vim' , {'autoload' : { 'filetypes' : ['c', 'cpp','cs','java']}}
+NeoBundleLazy 'jceb/vim-hier' , { "autoload" : {"filetypes" : ["cpp" , "c","cs"]}}
 " }}}
 " Java {{{
-NeoBundle 'yuratomo/java-api-complete' , 
-            \ { 'autoload' :  { 'filetypes' : ['java'] }}
-NeoBundle 'yuratomo/java-api-javax.git' , 
-            \ { 'autoload' :  { 'filetypes' : ['java'] }}
-NeoBundle 'yuratomo/java-api-org.git' , 
-            \ { 'autoload' :  { 'filetypes' : ['java'] }}
-NeoBundle 'yuratomo/java-api-sun.git' , 
-            \ { 'autoload' :  { 'filetypes' : ['java'] }}
-NeoBundle 'yuratomo/java-api-servlet2.3.git' , 
-            \ { 'autoload' :  { 'filetypes' : ['java'] }}
-NeoBundle 'yuratomo/java-api-android.git' , 
-            \ { 'autoload' :  { 'filetypes' : ['java'] }}
+NeoBundle 'yuratomo/java-api-complete' , { 'autoload' :  { 'filetypes' : ['java'] }}
+NeoBundle 'yuratomo/java-api-javax.git' , { 'autoload' :  { 'filetypes' : ['java'] }}
+NeoBundle 'yuratomo/java-api-org.git' , { 'autoload' :  { 'filetypes' : ['java'] }}
+NeoBundle 'yuratomo/java-api-sun.git' , { 'autoload' :  { 'filetypes' : ['java'] }}
+NeoBundle 'yuratomo/java-api-servlet2.3.git' , { 'autoload' :  { 'filetypes' : ['java'] }}
+NeoBundle 'yuratomo/java-api-android.git' , { 'autoload' :  { 'filetypes' : ['java'] }}
 " }}}
 " Ruby {{{
-NeoBundleLazy 'tpope/vim-rails' , {
-            \'autoload' : {'filetypes' : ['ruby']} }
+NeoBundleLazy 'tpope/vim-rails' , { 'autoload' : {'filetypes' : ['ruby']} }
 NeoBundleLazy 'alpaca-tc/alpaca_complete', {
             \ 'depends' : 'tpope/vim-rails',
             \ 'build' : {
@@ -241,15 +233,12 @@ NeoBundleLazy 'alpaca-tc/alpaca_complete', {
             \ }
 
 " reference環境
-NeoBundleLazy 'vim-ruby/vim-ruby', {
-            \ 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] } }
+NeoBundleLazy 'vim-ruby/vim-ruby', { 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] } }
 NeoBundleLazy 'taka84u9/vim-ref-ri', {
             \ 'depends': ['Shougo/unite.vim', 'thinca/vim-ref'],
             \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml'] } }
-NeoBundleLazy 'skwp/vim-rspec', {
-            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml'] } }
-NeoBundleLazy 'ruby-matchit', {
-            \ 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] } }
+NeoBundleLazy 'skwp/vim-rspec', { 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml'] } }
+NeoBundleLazy 'ruby-matchit', { 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] } }
 " }}}
 " tex {{{
 NeoBundleLazy 'jcf/vim-latex'
@@ -264,8 +253,6 @@ NeoBundle 'w0ng/vim-hybrid'
 " その他  {{{
 NeoBundle 'dannyob/quickfixstatus'
 NeoBundleLazy 'Takazudo/outline.vim.git'
-NeoBundleLazy 'jceb/vim-hier' ,   
-            \{ "autoload" : {"filetypes" : ["cpp" , "c","cs"]}}
 " NeoBundle 'mattn/mkdpreview-vim'
 NeoBundleLazy 'L9'
 NeoBundle 'daisuzu/rainbowcyclone.vim'
@@ -287,6 +274,10 @@ NeoBundleLazy 'mfumi/lightsout.vim' "http://ja.wikipedia.org/wiki/%E3%83%A9%E3%8
 NeoBundle 'kana/vim-smartinput'
 NeoBundle 'taichouchou2/vim-endwise'
 NeoBundle 'tsaleh/vim-matchit'
+NeoBundleLazy 'perl.vim', {
+            \ 'autoload' : {
+            \   'filetypes' : ['perl']
+            \ }}
 " }}}
 NeoBundle 'rhysd/tmpwin.vim'
 NeoBundleLazy 'terryma/vim-multiple-cursors'
@@ -324,6 +315,13 @@ function! s:checkplugin(name)
     endfor
     return 0
 endfunction
+" }}}
+
+" nebula.vim{{{
+ nnoremap <silent>,bl    :<C-u>NebulaPutLazy<CR>
+  nnoremap <silent>,bc    :<C-u>NebulaPutConfig<CR>
+  nnoremap <silent>,by    :<C-u>NebulaYankOptions<CR>
+  nnoremap <silent>,bp    :<C-u>NebulaPutFromClipboard<CR>
 " }}}
 
 " neocomplcache & neosnippet {{{
@@ -495,6 +493,9 @@ let g:unite_source_file_mru_filename_format = ''
 let g:unite_enable_start_insert=1
 " file_mruの最大保存数
 let g:unite_source_file_mru_limit=1000
+" 大文字小文字を区別しない
+let g:unite_enable_ignore_case = 1
+let g:unite_enable_smart_case = 1
 
 " Prefix-Key
 nmap <Leader>a <SID>[unite]
@@ -538,6 +539,13 @@ nnoremap <silent> <SID>[unite]j :<C-u>Unite jump<CR>
 nnoremap <silent> <SID>[unite]/ :<C-u>Unite line<CR>
 nnoremap <silent> <SID>[unite]l :<C-u>Unite line<CR>
 nnoremap <silent> <SID>[unite]; :<C-u>Unite command<CR>
+" grep 
+nnoremap <silent> <SID>[unite]g  :<C-u>Unite grep -buffer-name=search-buffer<CR>
+
+" grep検索結果の再呼出
+nnoremap <silent> <SID>[unite]r  :<C-u>UniteResume search-buffer<CR>
+" unite-git-conflict
+noremap <silent><Leader>ug : <C-u>Unite git-conflict<CR>
 
 " 曖昧検索
 call unite#custom#substitute('file,file_mru,history/command,directory_mru', '[[:alnum:]]', '*\0', 100)
@@ -1373,6 +1381,7 @@ autocmd MyAutoCmd BufEnter * if &filetype =="text" | setlocal ft=hybrid | endif
 " neocomplcache-clang / neocomplcache-clang_complete{{{
 " add neocomplcache option
 let g:neocomplcache_force_overwrite_completefunc=1
+" }}}
 
 " gmail.vim{{{
 let g:gmail_user_name="kse.201@gmail.com"
@@ -1422,19 +1431,6 @@ call submode#enter_with('movetab', 'n', '', 'gT', printf(s:movetab, -1))
 call submode#map('movetab', 'n', '', 't', printf(s:movetab, 1))
 call submode#map('movetab', 'n', '', 'T', printf(s:movetab, -1))
 unlet s:movetab
-" }}}
-
-" sugarpot{{{
-" 設定例
-let s:bundle = neobundle#get("vim-sugarpot")
-function! s:bundle.hooks.on_source(bundle)
-    " 使用するフォントとサイズが設定出来ます。
-    let g:sugarpot_font = "Osaka:h1"
-
-    " デフォルトだと立て伸びしてしまうのでこれで適当に調整してください
-    let g:sugarpot_convert_resize = "50%x34%"
-endfunction
-unlet s:bundle
 " }}}
 
 " tmpwin.vim {{{
@@ -1624,6 +1620,14 @@ augroup END
 "
 " previm{{{
 let g:previm_open_cmd = 'open'
+" }}}
+
+" fugitive {{{
+" http://qiita.com/hyshhryk/items/4936c4412daa866daf7d
+
+nnoremap <silent> <Space>gb :Gblame<CR>
+nnoremap <silent> <Space>gd :Gdiff<CR>
+nnoremap <silent> <Space>gs :Gstatus<CR>
 " }}}
 "" ================================================================================ 
 " vim: set tw=0 tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
