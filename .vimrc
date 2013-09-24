@@ -1,10 +1,57 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 23-Sep-2013.                 |
+"                 Last Change: 24-Sep-2013.                 |
 "============================================================
 
-" 基礎的な設定 {{{
-" OS毎の設定ファイル,各種ディレクトリの設定{{{
+" basic setting{{{
+augroup MyAutoCmd
+    autocmd!
+augroup END
+
+let mapleader=','
+set shortmess+=I
+set nocompatible
+set modeline
+set noswapfile
+set complete+=k
+set noequalalways
+set history=1000
+set vb t_vb=
+set autowrite
+set backspace=indent,eol,start
+set diffopt=filler,vertical
+set showcmd
+set showtabline=2
+set guioptions+=c
+set guioptions-=e
+set formatoptions-=ro 
+set report=0
+set formatexpr=
+set autoread
+set clipboard=unnamed
+set hidden
+set timeout timeoutlen=500 ttimeoutlen=75
+" \ -> ¥{{{
+if has('mac')
+    inoremap ¥ \
+    cnoremap ¥ \
+endif
+" }}}
+
+" Meta in MacVim {{{
+if exists('+macmeta')
+    set macmeta
+endif
+" }}}
+
+" reuse undo history{{{
+if has('persistent_undo')
+    set undodir=~/.vimundo
+    set undofile
+endif 
+" }}}
+
+" configs and dirctorys {{{
 if has('win32') || has('win64') 
     let $VIMFILE_DIR   = $HOME . '/dotfiles/.vim'
     let $DROPBOX_DIR   = $HOME . '\Documents\My Dropbox'
@@ -34,59 +81,13 @@ else
 endif
 " }}}
 
-augroup MyAutoCmd
-    autocmd!
-augroup END
-
-let mapleader=','
-set shortmess+=I
-set nocompatible "Vi非互換
-set modeline
-set noswapfile
-set complete+=k
-set noequalalways
-set history=1000
-set vb t_vb=
-set autowrite
-set backspace=indent,eol,start
-set diffopt=filler,vertical
-set showcmd
-set showtabline=2
-set guioptions+=c
-set guioptions-=e
-set formatoptions-=ro " 改行後の自動コメントアウト禁止
-set report=0
-set formatexpr=
-set autoread
-set clipboard=unnamed
-set hidden
-
-" \ -> ¥{{{
-if has('mac')
-    inoremap ¥ \
-    cnoremap ¥ \
-endif
-" }}}
-
-" MacVimでMetaキー {{{
-if exists('+macmeta')
-    set macmeta
-endif
-" }}}
-
-" undo履歴保存して再開させる{{{
-if has('persistent_undo')
-    set undodir=~/.vimundo
-    set undofile
-endif 
-" }}}
-
-" 設定ファイル{{{
+" edit configs {{{
 nnoremap <Leader>ev :edit $MYVIMRC<CR>
 nnoremap <Leader>eg :edit $MYGVIMRC<CR>
 nnoremap <Leader>ep :edit $MYVIMRCPLUGIN<CR>
 nnoremap <Leader>em :edit $DROPBOX_DIR/documents/memo<CR>
 " }}}
+
 
 " Auto Loading .vimrc,.gvimrc {{{
 if has("autocmd")
@@ -102,7 +103,7 @@ command! ReloadVimrc source $MYVIMRC
 command! ReloadGVimrc source $MYGVIMRC
 command! ReloadPlugin source $MYVIMRCPLUGIN
 
-" .vimrcの再読込時にも色が変化するようにする
+" auto changeing color when reload .vimrc 
 autocmd MyAutoCmd BufWritePost $MYVIMRC  source $MYVIMRC  |
             \ if has('gui_running') |
             \ source $MYGVIMRC
@@ -118,7 +119,7 @@ augroup END
 
 " }}}
 
-" Terminal用{{{
+" Terminal cursor{{{
 if !has('gui')
     set t_Co=256
     " export TERM=xterm-256color
@@ -145,12 +146,13 @@ else
 endif
 " }}}
 
-if has('win32') || has('win64') " {{{
+" clipboard {{{
+if has('win32') || has('win64')
     set clipboard+=unnamed
 endif
 " }}}
 
-" ime settings
+" IME settings
 if has('multi_byte_ime') || has('xim') || has('gui_macvim')
     "insert mode :lmap off, IME ON
     set iminsert=2
@@ -161,8 +163,7 @@ if has('multi_byte_ime') || has('xim') || has('gui_macvim')
 endif
 " }}}
 
-" ファイル形式関連{{{
-
+" file encoding {{{
 " Auto encoding{{{
 if has('gui_running') && (has('win32') || has('win64'))
     set enc=utf-8
@@ -178,16 +179,16 @@ else
     if has('iconv')
         let s:enc_euc = 'euc-jp'
         let s:enc_jis = 'iso-2022-jp'
-        " iconvがeucJP-msに対応しているかをチェック
+        " eucJP-ms support check
         if iconv("\x87\x64\x87\x6a", 'cp932', 'eucjp-ms') ==# "\xad\xc5\xad\xcb"
             let s:enc_euc = 'eucjp-ms'
             let s:enc_jis = 'iso-2022-jp-3'
-            " iconvがJISX0213に対応しているかをチェック
+            " JISX0213 support check
         elseif iconv("\x87\x64\x87\x6a", 'cp932', 'euc-jisx0213') ==# "\xad\xc5\xad\xcb"
             let s:enc_euc = 'euc-jisx0213'
             let s:enc_jis = 'iso-2022-jp-3'
         endif
-        " fileencodingsを構築
+        " fileencodings
         if &encoding ==# 'utf-8'
             let s:fileencodings_default = &fileencodings
             let &fileencodings = s:enc_jis .','. s:enc_euc .',cp932'
@@ -207,14 +208,13 @@ else
                 let &fileencodings = &fileencodings .','. s:enc_euc
             endif
         endif
-        " 定数を処分
         unlet s:enc_euc
         unlet s:enc_jis
     endif
 endif
 " }}}
 
-" 日本語を含まない場合は fileencoding に encoding を使うようにする{{{
+" use encoding as fileencoding when file NOT contan japanese {{{
 if has('autocmd')
     function! AU_ReCheck_FENC()
         if &fileencoding =~# 'iso-2022-jp' && search("[^\x01-\x7e]", 'n') == 0
@@ -225,17 +225,16 @@ if has('autocmd')
 endif
 " }}}
 
-" 改行コードの自動認識{{{
+" auto recogitation fileformats {{{
 set fileformats=unix,dos,mac
-" □とか○の文字があってもカーソル位置がずれないようにする
+" support  code such as □ , ○ and etc.
 if exists('&ambiwidth')
     set ambiwidth=double
 endif
 " }}}
 " }}}
 
-" 外観{{{
-" いろいろ{{{
+" surface {{{
 set notitle
 set display=uhex
 set scrolloff=1
@@ -247,7 +246,6 @@ set wrap
 set wildmenu
 set wildmode=list:full
 set wildchar=<TAB>
-" set wildignore=*.*~
 
 " Indent {{{
 filetype indent on
@@ -259,16 +257,14 @@ set shiftwidth=4
 set tabstop=4
 " }}}
 
-" ステータスライン設定 (vim-powerlineで用なしに)
+" status line 
 autocmd MyAutoCmd BufEnter *   if winwidth(0) >= 60 |
             \ set statusline=[%n]\ %t\ %m%R%H%W%y\ %([%{&fenc}][%{&ff}]%)\ %([%l(%p%%),%v]%)(%B)\ |
-" \ set statusline=[%n]\ %t\ %m%R%H%W%y\ %([%{&fenc}][%{&ff}]%)%=\ %([%l(%p%%),%v]%)(%B)\ |
             \ else |
             \ set statusline=[%n]%t |
             \ endif
-" }}}
 
-" カレントウィンドウのみ罫線を引く{{{
+" draw cursorline onry current window{{{
 augroup cch
     autocmd! cch
     autocmd! WinLeave * set nocursorline
@@ -276,9 +272,7 @@ augroup cch
 augroup END
 hi clear Cursorline
 hi CursorLine gui=underline
-" }}}
 
-" 作業中断中,window移動時のみcursorlineを有効にする{{{
 augroup auto-cursorline
     autocmd!
     autocmd CursorMoved,CursorMovedI * call s:auto_cursorline('CursorMoved')
@@ -310,7 +304,7 @@ augroup auto-cursorline
 augroup END
 " }}}
 
-" 全角や行末スペースを可視化{{{
+" change Zenkaku blank and line-end space to visible {{{
 if has('syntax')
     augroup SpaceHilights
         autocmd!
@@ -327,8 +321,8 @@ if has('syntax')
 endif
 " }}}
 
-" tabline周り{{{
-" 参考:http://d.hatena.ne.jp/thinca/20111204/1322932585
+" tabline{{{
+" ref:http://d.hatena.ne.jp/thinca/20111204/1322932585
 function! MakeTabLine()
     let titles = map(range(1, tabpagenr('$')),'s:tabpage_label(v:val)' )
     let sep = '|'
@@ -376,9 +370,8 @@ endfunction
 
 " }}}
 "
-" 見た目を気軽に変更する{{{
-" 参考:http://vim-users.jp/2011/09/hack228/
-" if has('mac')
+" change colorscheme airily{{{
+" ref:http://vim-users.jp/2011/09/hack228/
 let ColorRoller = {}
 let ColorRoller.colors = [
             \ 'eclipse',
@@ -425,7 +418,7 @@ elseif
 endif
 " }}}
 
-" 検索 {{{
+" search {{{
 set ignorecase
 set smartcase
 set incsearch
@@ -439,257 +432,14 @@ augroup Help
 augroup END
 " }}}
 
-" キーマップ{{{
-" swap ; :{{{
-"nnoremap ; :
-"vnoremap ; :
-"nnoremap : ;
-"vnoremap : ;
-" }}}
-
-nnoremap j gj
-nnoremap k gk
-
-nnoremap zl zL
-nnoremap zh zH
-
-" http://d.hatena.ne.jp/vimtaku/touch/20121117/1353138802
-nnoremap <S-J> gJ
-vnoremap <S-J> gJ
-nnoremap gJ <S-J>
-nnoremap gJ <S-J>
-
-
-" nnoremap : q:a
-" nnoremap / q/a
-" +/-キーで画面サイズ変更{{{
-nnoremap + <C-w>+
-nnoremap - <C-w>-
-nnoremap <silent> <S-Left>  :5wincmd <<CR>
-nnoremap <silent> <S-Right> :5wincmd ><CR>
-nnoremap <silent> <S-Up>    :5wincmd -<CR>
-nnoremap <silent> <S-Down>  :5wincmd +<CR>
-" }}}
-
-" kana's useful tab function {{{
-function! s:move_window_into_tab_page(target_tabpagenr)
-    " Move the current window into a:target_tabpagenr.
-    " If a:target_tabpagenr is 0, move into new tab page.
-    if a:target_tabpagenr < 0  " ignore invalid number.
-        return
-    endif
-    let original_tabnr = tabpagenr()
-    let target_bufnr = bufnr('')
-    let window_view = winsaveview()
-    if a:target_tabpagenr == 0
-        tabnew
-        tabmove  " Move new tabpage at the last.
-        execute target_bufnr 'buffer'
-        let target_tabpagenr = tabpagenr()
-    else
-        execute a:target_tabpagenr 'tabnext'
-        let target_tabpagenr = a:target_tabpagenr
-        topleft new  " FIXME: be customizable?
-        execute target_bufnr 'buffer'
-    endif
-    call winrestview(window_view)
-    execute original_tabnr 'tabnext'
-    if 1 < winnr('$')
-        close
-    else
-        enew
-    endif
-    execute target_tabpagenr 'tabnext'
-endfunction
-" }}}
-
-" <Leader>to move current buffer into a new tab.
-nnoremap <silent> <Leader>to :<C-u>call <SID>move_window_into_tab_page(0)<CR>
-" Yank/Past to the OS clipboard{{{
-nmap <Leader>y "+y
-nmap <Leader>Y "+yy
-nmap <Leader>pp "+p
-nmap <Leader>PP "+p
-" }}}
-
-" タブまわり{{{
-nnoremap <Leader>tl gt
-nnoremap <Leader>th gT
-nnoremap gl gt
-nnoremap gh gT
-nnoremap <Leader>tn :tabnew<CR>
-for i in range(1,9)
-    execute "nnoremap " . i . "<Leader>t " . i ."gt"
-endfor
-" command! TL :tabnext 
-" command! TH :tabprevious
-" command! TN :tabnew
-" }}}
-
-inoremap jj <ESC>
-inoremap kk <ESC>
-
-" 日付入りファイルを使う {{{
-" vimテクバイブル 4-1参考
-cnoremap <expr> <Leader>date strftime('%Y%m%d')
-cnoremap <expr> <Leader>time strftime('%Y%m%d%H%M')
-" }}}
-
-nnoremap <silent> <C-h> 10h
-nnoremap <silent> <C-l> 10l
-
-" ウィンドウ移動簡略化 & サイズ調整{{{
-augroup GoodWindowSize
-    autocmd!
-    autocmd WinEnter * call<SID>good_height()
-    autocmd WinEnter * call<SID>good_width()
-augroup END
-function! s:good_width()
-    if winwidth(0) < 44
-        vertical resize 44
-    endif
-endfunction
-
-function! s:good_height()
-    if winheight(0) < 10
-        resize 10
-    endif
-endfunction
-" }}}
-
-nnoremap R gR
-
-" ライン{{{
-inoreabbrev <expr> dl* repeat('*','80')
-inoreabbrev <expr> dl- repeat('-','80')
-" }}}
-
-" gb:最後の編集位置へ移動{{{
-" 参考::https://sites.google.com/site/fudist/Home/vim-nihongo-ban/tips
-nnoremap gb `.zz
-
-" nnoremap gi gbz<Enter>
-" <C-g><M-g>:編集位置を順に巡る
-nnoremap <C-b> g;
-nnoremap <M-b> g,
-
-" vb:最後の編集箇所を選択
-nnoremap vb `[v`]
-
-" }}}
-
-" window分割していないとき、<C-w><C-w>で裏バッファへ切り替え{{{
-" https://sites.google.com/site/fudist/Home/vim-nihongo-ban/tips
-nnoremap <silent> <C-w><C-w> :<C-u>call MyWincmdW()<CR>
-nnoremap <silent> <C-w>w :<C-u>call MyWincmdW()<CR>
-function! MyWincmdW()
-    let pn = winnr()
-    silent! wincmd w
-    if pn == winnr()
-        silent! b#
-    endif
-endfunction
-" }}}
-
-" Emacsに倣った挙動{{{
-cnoremap <C-f> <Right>
-inoremap <C-f> <Right>
-cnoremap <C-b> <Left>
-inoremap <C-b> <Left>
-cnoremap <C-a> <Home>
-inoremap <C-a> <Home>
-cnoremap <C-e> <End>
-inoremap <C-h> <Backspace>
-" }}}
-
-" Emacsに倣ったウィンドウ操作{{{
-nnoremap <silent> <C-x>1 :<C-u>only<CR>
-nnoremap <silent> <C-x>2 :<C-u>sp<CR>
-nnoremap <silent> <C-x>3 :<C-u>vsp<CR>
-" 上のパクリ
-nnoremap <silent> <C-w>1 :<C-u>only<CR>
-" nnoremap <silent> <C-w>2 :<C-u>sp<CR>
-" nnoremap <silent> <C-w>3 :<C-u>vsp<CR>
-" }}}
-
-" Buff{{{
-nnoremap <Leader>bn :<C-u>bn<CR>
-nnoremap <Leader>bp :<C-u>bp<CR>
-nnoremap <Leader>bd :<C-u>bdelete<CR>
-" }}}
-
-" Tab Page{{{
-" nnoremap <S-t> :<C-u>tabnew<CR>
-" nnoremap <S-h> :<C-u>tabp<CR>
-" nnoremap <S-l> :<C-u>tabn<CR>
-
-" nnoremap <Leader>k H
-" nnoremap <Leader>j L
-" }}}
-
-" クリップボード風コピペ{{{
-vnoremap <C-c> "*y
-imap <C-v> <ESC>"*pa
-vmap <C-v> d"*P
-cmap <C-v> <C-r>*
-" }}}
-
-" 選択文字列を検索 <- visualstarでお役御免?{{{
-vnoremap <silent> // y/<C-R>=escape(@", '\\/.*$^~[]')<CR><CR>
-" 選択した文字列を置換
-vnoremap /r "xy;%s/<C-R>=escape(@x, '\\/.*$^~[]')<CR>//gc<Left><Left><Left>"
-" }}}
-
-" ヤンクした文字列とカーソル位置の単語を置換する{{{
-" vimバイブル4-6
-nnoremap <silent>  cy  ce<C-r>0<ESC>:let@/=@1<CR>:noh<CR>
-vnoremap <silent>  cy   c<C-r>0<ESC>:let@/=@1<CR>:noh<CR>
-nnoremap <silent> ciy ciw<C-r>0<ESC>:let@/=@1<CR>:noh<CR>
-" }}}
-
-"vnoremap <silent> <C-p> "0p<CR>
-
-" 範囲選択によるインデントを連続して行う{{{
-vnoremap > >gv
-vnoremap < <gv
-" }}}
-
-" 選択範囲をvimscriptとして実行{{{
-nnoremap <Leader>do   Vy:@"<Enter>
-vnoremap <Leader>eval y:@"<Enter>
-nnoremap <C-x><C-e> Vy:@"<Enter>
-" }}}
-" }}}
-
-" 検索周辺{{{
-" 検索移動を見やすく{{{
-nnoremap n nzz
-nnoremap N Nzz
-nnoremap * *zz
-nnoremap # #zz
-nnoremap g* g*zz
-nnoremap g# g#zz
-nnoremap G Gzz
-" }}}
-
-" <ESC> 関連 {{{
+" <ESC>  {{{
 " IME
 inoremap <silent> <ESC> <ESC>:set iminsert=0<CR>
 " <ESC> or <C-c> key reset Highlight
 nnoremap <silent> <ESC> <ESC>:<C-u>nohlsearch<CR>:<C-u>set iminsert=0<CR>
 " }}}
 
-" grep
-set grepprg=grep\ -rnIH\ --exclude-dir=.svn\ --exclude-dir=.git
-autocmd QuickfixCmdPost vimgrep copen
-autocmd QuickfixCmdPost grep copen
-
-" grep の書式を挿入
-nnoremap <expr> <Space>g ':vimgrep /\<' . expand('<cword>') . '\>/j **/*.' . expand('%:e')
-nnoremap <expr> <Space>G ':sil grep! ' . expand('<cword>') . ' *'
-" }}}
-
-" 言語別設定 {{{
+" Language setting {{{
 " Prefix{{{
 let g:FileTypeSettings = [
             \ "c", 
@@ -737,7 +487,6 @@ function! MycSettings()
     "inoremap <buffer> <  <><Left>
     inoremap <buffer>" ""<Left>
     inoremap <buffer>' ''<Left>
-    "最寄りの中括弧内を選択
     nnoremap <buffer>v} ?{<CR>%v%0
     nnoremap <Leader>c :make<CR>
 endfunction
@@ -912,8 +661,8 @@ endfunction
 " }}}
 " }}}
 
-" その他{{{
-" 指定ファイルに対応する雛形を読む{{{
+" other{{{
+" auto read templates{{{
 augroup SkeletonAu
     autocmd!
     " autocmd BufNewFile *.html 0r $HOME/.vim/skeleton/skel.html
@@ -925,7 +674,7 @@ augroup SkeletonAu
 augroup END
 " }}}
 
-" 任意の文字数ずつUndo{{{
+" undo each unite words{{{
 function! s:is_changed() "{{{
     try
         " When no `b:vimrc_changedtick` variable
@@ -941,7 +690,7 @@ augroup Change
     autocmd CursorMovedI * if s:is_changed() | doautocmd User changed-text | endif
 augroup END
 let s:current_changed_times = 0
-let s:max_changed_times = 20 "任意の文字数
+let s:max_changed_times = 20 "  arbitrary value
 function! s:changed_text() "{{{
     if s:current_changed_times >= s:max_changed_times - 1
         call feedkeys("\<C-g>u", 'n')
@@ -1001,18 +750,18 @@ function! ReplaceMotion(type, ...)
 endfunction
 " }}}
 
-" Rename コマンド:編集中のバッファのファイル名を変更する{{{
+" Rename new_filename {{{
 " jigokuno.com
 command! -nargs=+ -bang -complete=file Rename let pbnr=fnamemodify(bufname('%'), ':p')|exec 'f '.escape(<q-args>, ' ')|w<bang>|call delete(pbnr)
 " }}}
 
-" DiffOrig コマンド:現バッファの差分表示。{{{
-" Diff コマンド:ファイルまたはバッファ番号を指定して差分表示。#なら裏バッファと比較
+" DiffOrig diff with current buffer {{{
+" Diff [filanem|buff num]
 command! -nargs=? -complete=file Diff if '<args>'=='' | browse vertical diffsplit|else| vertical diffsplit <args>|endif
 " }}}
 
-" 指定した文字コードで開き直すコマンド群{{{
-" http://zudolab.net/blog/?p=132
+" commands which reopen with encodings{{{
+" ref: http://zudolab.net/blog/?p=132
 command! ChgEncCp932         edit ++enc=cp932
 command! ChgEncEucjp         edit ++enc=euc-jp
 command! ChgEncIso2022jp     edit ++enc=iso-2022-jp
@@ -1021,8 +770,8 @@ command! ChgEncUtf8          edit ++enc=utf-8
 command! ChgEncSjis          edit ++enc=cp932
 " }}}
 
-" 開いているファッファの文字コードを変えるコマンド群{{{
-" http://zudolab.net/blog/?p=132
+" commands which change encodings{{{
+" ref: http://zudolab.net/blog/?p=132
 " change encoding commands
 command! ChgFencCp932               set fenc=cp932
 command! ChgFencEucjp               set fenc=euc-jp
@@ -1032,11 +781,11 @@ command! ChgFencUtf8                set fenc=utf-8
 command! ChgFencSjis                set fenc=cp932
 " }}}
 
-" スペルチェックトリガー{{{
+" spell check{{{
 command! CheckSpell :set spell!
 " }}}
 
-" フォルダ展開を楽に{{{
+" easy fold expanding {{{
 " https://gist.github.com/1240267
 nnoremap <expr> h
             \   col('.') == 1 && foldlevel(line('.')) > 0 ? 'zc' : 'h'
@@ -1052,7 +801,7 @@ command!
             \   map <args> | map! <args> | lmap <args>
 " }}}
 
-" 日付入力簡易マクロ{{{
+" date iput Macro {{{
 if exists("*strftime")
     inoremap <Leader>date <C-R>=strftime('%Y/%m/%d (%a)')<CR>
     inoremap <Leader>time <C-R>=strftime('%H:%M')<CR>
@@ -1063,7 +812,7 @@ if exists("*strftime")
 endif
 " }}}
 
-" 新規memoファイルにファイル名自動挿入{{{ 
+" auto insert filename at *.memo{{{ 
 augroup AutoMemo
     au! 
     au BufNewFile *.memo call MyMemoSetting()
@@ -1076,15 +825,15 @@ endfunction
 
 " }}}
 
-" 文字数カウント{{{
+" count characters{{{
 command! -range=% Count :<line1>,<line2>s/.//gn
 " }}}
-" 単語数カウント{{{
+" count words {{{
 command! -range=% Word :<line1>,<line2>s/\i\+//gn
 " }}}
 
-" 良い感じにウィンドウ分割{{{
-" [a](http://qiita.com/items/392be95a195067d84fd8)
+" smart split window{{{
+" ref http://qiita.com/items/392be95a195067d84fd8
 command! -nargs=? -complete=command SmartSplit call <SID>smart_split(<q-args>)
 nnoremap <silent><C-w><Space> :<C-u>SmartSplit<CR>
 function! s:smart_split(cmd)
@@ -1100,8 +849,8 @@ function! s:smart_split(cmd)
 endfunction
 " }}}
 
-" 行頭->非空行行頭->行末でローテート{{{
-" [a] (http://qiita.com/items/ee4bf64b1fe2c0a32cbd)
+" rotate point line-head(with blank) -> line-head -> line-end {{{
+" ref: http://qiita.com/items/ee4bf64b1fe2c0a32cbd
 nnoremap <silent>^ :<C-u>call <SID>rotate_in_line()<CR>
 function! s:rotate_in_line()
     let c = col('.')
@@ -1119,80 +868,7 @@ function! s:rotate_in_line()
 endfunction
 " }}}
 "
-" ユーザ側が設定するオプション{{{
-" 実際にデータが保存されるディレクトリパス
-let s:save_point = $HOME . "/.savepoint"
-
-" session が保存を行うデータオプション
-" if has("mksession")
-" set sessionoptions=blank,curdir,buffers,folds,help,globals,slash,tahpages,winsize,localoptions
-" endif
-
-
-" 保存
-function! s:save_window(file)
-    let options = [
-                \ 'set columns=' . &columns,
-                \ 'set lines=' . &lines,
-                \ 'winpos ' . getwinposx() . ' ' . getwinposy(),
-                \ ]
-    call writefile(options, a:file)
-endfunction
-
-function! s:save_point(dir)
-    if !isdirectory(a:dir)
-        call mkdir(a:dir)
-    endif
-
-    " ファイルが存在していないか、書き込み可能の場合のみ
-    if !filereadable(a:dir.'/vimwinpos.vim') || filewritable(a:dir.'/vimwinpos.vim')
-        if has("gui")
-            call s:save_window(a:dir.'/vimwinpos.vim')
-        endif
-    endif
-
-    if !filereadable(a:dir.'/session.vim') || filewritable(a:dir.'/session.vim')
-        execute "mksession! ".a:dir."/session.vim"
-    endif
-
-    if !filereadable(a:dir.'/viminfo.vim') || filewritable(a:dir.'/viminfo.vim')
-        execute "wviminfo!  ".a:dir."/viminfo.vim"
-    endif
-endfunction
-
-" 復元
-function! s:load_point(dir)
-    if filereadable(a:dir."/vimwinpos.vim") && has("gui")
-        execute "source ".a:dir."/vimwinpos.vim"
-    endif
-
-    if filereadable(a:dir."/session.vim")
-        execute "source ".a:dir."/session.vim"
-    endif
-
-    if filereadable(a:dir."/viminfo.vim")
-        execute "rviminfo ".a:dir."/viminfo.vim"
-    endif
-endfunction
-
-
-" 呼び出しを行うコマンド
-command! SavePoint :call s:save_point(s:save_point)
-command! LoadPoint :call s:load_point(s:save_point)
-
-
-" 自動的に保存、復元するタイミングを設定
-augroup SavePoint
-    autocmd!
-    autocmd VimLeavePre * SavePoint
-
-    " 自動で保存、復元を行う場合
-    "   autocmd CursorHold * SavePoint
-    "   autocmd VimEnter * LoadPoint
-augroup END
-"}}}
-
-" スマート矩形選択{{{
+" smart block region{{{
 "http://labs.timedia.co.jp/2012/10/vim-more-useful-blockwise-insertion.html
 vnoremap <expr> I <SID>force_blockwise_visual('I')
 vnoremap <expr> A <SID>force_blockwise_visual('A')
@@ -1221,14 +897,14 @@ function! MyFollowMode()
 endfunction
 " }}}
 
-" Vimで番号を順番につける方法 {{{
-" http://mba-hack.blogspot.jp/2013/01/vim.html?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed:+Mba-hack+(MBA-HACK)
+" insert sequence number{{{
+" ref: http://mba-hack.blogspot.jp/2013/01/vim.html?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed:+Mba-hack+(MBA-HACK)
 nnoremap <silent> co :ContinuousNumber <C-a><CR>
 vnoremap <silent> co :ContinuousNumber <C-a><CR>
 command! -count -nargs=1 ContinuousNumber let c = col('.')|for n in range(1, <count>?<count>-line('.'):1)|exec 'normal! j' . n . <q-args>|call cursor('.', c)|endfor
 " }}}
 
-" 関数コメント{{{
+" function comment {{{
 function! FuncComment ()
     normal 40a/
     normal o// Function Name:
@@ -1242,12 +918,239 @@ nnoremap <Leader>cmt :call FuncComment()<CR>
 
 command! Sudowrite :w !sudo tee %
 
-" 現在開いているファイルと同じディレクトリのファイルを簡単に開く {{{
-" http://qiita.com/ukitazume/items/c1d2814497bc036f1a82
+" easy open file in current dirctory{{{
+" ref: http://qiita.com/ukitazume/items/c1d2814497bc036f1a82
 cnoremap %% <C-R>=expand('%:h').'/'<cr>                                                                                                              
 cmap <leader>e :edit %% 
 " }}}
 
+" }}}
+
+" keymap{{{
+
+nnoremap j gj
+nnoremap k gk
+
+nnoremap zl zL
+nnoremap zh zH
+
+" http://d.hatena.ne.jp/vimtaku/touch/20121117/1353138802
+nnoremap <S-J> gJ
+vnoremap <S-J> gJ
+nnoremap gJ <S-J>
+nnoremap gJ <S-J>
+
+
+" nnoremap : q:a
+" nnoremap / q/a
+" window resize +/-{{{
+nnoremap + <C-w>+
+nnoremap - <C-w>-
+nnoremap <silent> <S-Left>  :5wincmd <<CR>
+nnoremap <silent> <S-Right> :5wincmd ><CR>
+nnoremap <silent> <S-Up>    :5wincmd -<CR>
+nnoremap <silent> <S-Down>  :5wincmd +<CR>
+" }}}
+
+" kana's useful tab function {{{
+function! s:move_window_into_tab_page(target_tabpagenr)
+    " Move the current window into a:target_tabpagenr.
+    " If a:target_tabpagenr is 0, move into new tab page.
+    if a:target_tabpagenr < 0  " ignore invalid number.
+        return
+    endif
+    let original_tabnr = tabpagenr()
+    let target_bufnr = bufnr('')
+    let window_view = winsaveview()
+    if a:target_tabpagenr == 0
+        tabnew
+        tabmove  " Move new tabpage at the last.
+        execute target_bufnr 'buffer'
+        let target_tabpagenr = tabpagenr()
+    else
+        execute a:target_tabpagenr 'tabnext'
+        let target_tabpagenr = a:target_tabpagenr
+        topleft new  " FIXME: be customizable?
+        execute target_bufnr 'buffer'
+    endif
+    call winrestview(window_view)
+    execute original_tabnr 'tabnext'
+    if 1 < winnr('$')
+        close
+    else
+        enew
+    endif
+    execute target_tabpagenr 'tabnext'
+endfunction
+" }}}
+
+" <Leader>to move current buffer into a new tab.
+nnoremap <silent> <Leader>to :<C-u>call <SID>move_window_into_tab_page(0)<CR>
+" Yank/Past to the OS clipboard{{{
+nmap <Leader>y "+y
+nmap <Leader>Y "+yy
+nmap <Leader>pp "+p
+nmap <Leader>PP "+p
+" }}}
+
+" tab{{{
+nnoremap <Leader>tl gt
+nnoremap <Leader>th gT
+nnoremap gl gt
+nnoremap gh gT
+nnoremap <Leader>tn :tabnew<CR>
+for i in range(1,9)
+    execute "nnoremap " . i . "<Leader>t " . i ."gt"
+endfor
+" command! TL :tabnext 
+" command! TH :tabprevious
+" command! TN :tabnew
+" }}}
+
+inoremap jj <ESC>
+inoremap kk <ESC>
+
+" easy date input in filename {{{
+" ref:vim tech bible 4-1
+cnoremap <expr> <Leader>date strftime('%Y%m%d')
+cnoremap <expr> <Leader>time strftime('%Y%m%d%H%M')
+" }}}
+
+nnoremap <silent> <C-h> 10h
+nnoremap <silent> <C-l> 10l
+
+" easy movin window & fix size{{{
+augroup GoodWindowSize
+    autocmd!
+    autocmd WinEnter * call<SID>good_height()
+    autocmd WinEnter * call<SID>good_width()
+augroup END
+function! s:good_width()
+    if winwidth(0) < 44
+        vertical resize 44
+    endif
+endfunction
+
+function! s:good_height()
+    if winheight(0) < 10
+        resize 10
+    endif
+endfunction
+" }}}
+
+nnoremap R gR
+
+" draw line{{{
+inoreabbrev <expr> dl* repeat('*','80')
+inoreabbrev <expr> dl- repeat('-','80')
+" }}}
+
+" gb:Jump last edit point{{{
+" ref::https://sites.google.com/site/fudist/Home/vim-nihongo-ban/tips
+nnoremap gb `.zz
+
+" nnoremap gi gbz<Enter>
+" <C-g><M-g>:jump edit poit forward direction 
+nnoremap <C-b> g;
+nnoremap <M-b> g,
+
+" vb: select last select region
+nnoremap vb `[v`]
+
+" }}}
+
+" change background buffer when no split window{{{
+" ref: https://sites.google.com/site/fudist/Home/vim-nihongo-ban/tips
+nnoremap <silent> <C-w><C-w> :<C-u>call MyWincmdW()<CR>
+nnoremap <silent> <C-w>w :<C-u>call MyWincmdW()<CR>
+function! MyWincmdW()
+    let pn = winnr()
+    silent! wincmd w
+    if pn == winnr()
+        silent! b#
+    endif
+endfunction
+" }}}
+
+" Emacs's cursor moving {{{
+cnoremap <C-f> <Right>
+inoremap <C-f> <Right>
+cnoremap <C-b> <Left>
+inoremap <C-b> <Left>
+cnoremap <C-a> <Home>
+inoremap <C-a> <Home>
+cnoremap <C-e> <End>
+inoremap <C-h> <Backspace>
+" }}}
+
+" Emacs's window handling {{{
+nnoremap <silent> <C-x>1 :<C-u>only<CR>
+nnoremap <silent> <C-x>2 :<C-u>sp<CR>
+nnoremap <silent> <C-x>3 :<C-u>vsp<CR>
+nnoremap <silent> <C-w>1 :<C-u>only<CR>
+" }}}
+
+" Buff {{{
+nnoremap <Leader>bn :<C-u>bn<CR>
+nnoremap <Leader>bp :<C-u>bp<CR>
+nnoremap <Leader>bd :<C-u>bdelete<CR>
+" }}}
+
+" Tab Page{{{
+" nnoremap <S-t> :<C-u>tabnew<CR>
+" nnoremap <S-h> :<C-u>tabp<CR>
+" nnoremap <S-l> :<C-u>tabn<CR>
+
+" nnoremap <Leader>k H
+" nnoremap <Leader>j L
+" }}}
+
+" search selecting string {{{
+vnoremap <silent> // y/<C-R>=escape(@", '\\/.*$^~[]')<CR><CR>
+" replace selecting string 
+vnoremap /r "xy;%s/<C-R>=escape(@x, '\\/.*$^~[]')<CR>//gc<Left><Left><Left>"
+" }}}
+
+" replace a word at cursor and yank string{{{
+" ref: vim tech bible 4-6
+nnoremap <silent>  cy  ce<C-r>0<ESC>:let@/=@1<CR>:noh<CR>
+vnoremap <silent>  cy   c<C-r>0<ESC>:let@/=@1<CR>:noh<CR>
+nnoremap <silent> ciy ciw<C-r>0<ESC>:let@/=@1<CR>:noh<CR>
+" }}}
+
+" search{{{
+" advanceable search {{{
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap * *zz
+nnoremap # #zz
+nnoremap g* g*zz
+nnoremap g# g#zz
+nnoremap G Gzz
+" }}}
+
+" Grep {{{
+set grepprg=grep\ -rnIH\ --exclude-dir=.svn\ --exclude-dir=.git
+autocmd QuickfixCmdPost vimgrep copen
+autocmd QuickfixCmdPost grep copen
+
+" insert grep format
+nnoremap <expr> <Space>g ':vimgrep /\<' . expand('<cword>') . '\>/j **/*.' . expand('%:e')
+nnoremap <expr> <Space>G ':sil grep! ' . expand('<cword>') . ' *'
+" }}}
+" }}}
+
+
+" repeatable indent handling{{{
+vnoremap > >gv
+vnoremap < <gv
+" }}}
+
+" eval region as Vimscript{{{
+nnoremap <Leader>do   Vy:@"<Enter>
+vnoremap <Leader>eval y:@"<Enter>
+nnoremap <C-x><C-e> Vy:@"<Enter>
+" }}}
 " }}}
 
 " Plugin{{{
@@ -1256,8 +1159,6 @@ if filereadable(expand($MYVIMRCPLUGIN))
     source $MYVIMRCPLUGIN
 endif
 " }}}
-
-set timeout timeoutlen=500 ttimeoutlen=75
 
 "============================================================
 " vim:set tw=0 tabstop=4 shiftwidth=4 fdm=marker fdl=0: 
