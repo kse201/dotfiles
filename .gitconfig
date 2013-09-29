@@ -18,4 +18,7 @@
     
 [alias]
 ; show git log with graph http://d.hatena.ne.jp/akihito_s/20110903
-graph = log --graph --date-order -C -M --pretty=format:\"<%h> %ad [%an] %Cgreen%d%Creset %s\" --all --date=short
+    graph = log --graph --date-order -C -M --pretty=format:\"<%h> %ad [%an] %Cgreen%d%Creset %s\" --all --date=short
+    ignore = update-index --assume-unchanged 
+    unignore = update-index --no-assume-unchanged 
+    ignored = !git ls-files -v | grep "^[a-z]" ; view ignored files
