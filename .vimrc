@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 24-Sep-2013.                 |
+"                 Last Change: 29-Sep-2013.                 |
 "============================================================
 
 " basic setting{{{
@@ -922,6 +922,17 @@ command! Sudowrite :w !sudo tee %
 " ref: http://qiita.com/ukitazume/items/c1d2814497bc036f1a82
 cnoremap %% <C-R>=expand('%:h').'/'<cr>                                                                                                              
 cmap <leader>e :edit %% 
+" }}}
+
+" Writing NIPPO{{{
+function! WriteDairyReport()
+    if filereadable("$VIMFILE_DIR/skeleton/dairyreport.txt")
+      :0r $VIMFILE_DIR/skeleton/dairyreport.pl
+  else 
+      echo "Don't exiest NIPPO Template!"
+  endif
+endfunction
+command!  Nippo :call WriteDairyReport()
 " }}}
 
 " }}}
