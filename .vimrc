@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 29-Sep-2013.                 |
+"                 Last Change: 02-Oct-2013.                 |
 "============================================================
 
 " basic setting{{{
@@ -927,12 +927,21 @@ cmap <leader>e :edit %%
 " Writing NIPPO{{{
 function! WriteDairyReport()
     if filereadable("$VIMFILE_DIR/skeleton/dairyreport.txt")
-      :0r $VIMFILE_DIR/skeleton/dairyreport.pl
+      :0r $VIMFILE_DIR/skeleton/dairyreport.txt
   else 
       echo "Don't exiest NIPPO Template!"
   endif
 endfunction
+
+function! WriteMonthlyReport()
+    if filereadable("$VIMFILE_DIR/skeleton/monthlyreport.txt")
+      :0r $VIMFILE_DIR/skeleton/monthlyreport.txt
+  else 
+      echo "Don't exiest GEPPO Template!"
+  endif
+endfunction
 command!  Nippo :call WriteDairyReport()
+command!  Geppo :call WriteMonthlyReport()
 " }}}
 
 " }}}
