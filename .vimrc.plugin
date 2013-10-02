@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 29-Sep-2013.                 |
+"                 Last Change: 02-Oct-2013.                 |
 "============================================================
 
 augroup MyAutoCmd
@@ -202,7 +202,6 @@ NeoBundle 'rhysd/clever-f.vim'
 NeoBundle 'thinca/vim-submode'
 NeoBundle 'thinca/vim-painter'
 NeoBundle 'osyo-manga/vim-anzu'
-NeoBundle 'vim-scripts/vim-auto-save'
 " }}}
 " C / C++ {{{
 NeoBundleLazy 'vim-scripts/SrcExpl' , {'autoload' : { 'filetypes' : ['c', 'cpp','java']}}
@@ -1629,11 +1628,6 @@ let g:previm_open_cmd = 'open'
 nnoremap <silent> <Space>gb :Gblame<CR>
 nnoremap <silent> <Space>gd :Gdiff<CR>
 nnoremap <silent> <Space>gs :Gstatus<CR>
-" }}}
-
-" auto-save{{{
-let g:auto_save = 1
-let g:auto_save_no_updatetime = 500 " ms
 " }}}
 
 "" ================================================================================ 
