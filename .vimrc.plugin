@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 02-Oct-2013.                 |
+"                 Last Change: 14-Oct-2013.                 |
 "============================================================
 
 augroup MyAutoCmd
@@ -283,6 +283,7 @@ NeoBundle 'rhysd/tmpwin.vim'
 NeoBundleLazy 'terryma/vim-multiple-cursors'
 NeoBundle 'tyru/foldballoon.vim'
 NeoBundle 'kannokanno/previm'
+NeoBundle 'kana/vim-metarw'
 
 filetype plugin indent on
 syntax on
