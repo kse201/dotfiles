@@ -380,9 +380,6 @@ alias -g W='| wc'
 ## 完全に削除
 alias rr="command rm -rf"
 
-## package
-source ~/.zsh.d/config/packages.zsh
-
 alias remem='du -sx / &> /dev/null & sleep 25 && kill $!'
 
 # もしかして時のプロンプト指定
