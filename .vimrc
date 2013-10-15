@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 02-Oct-2013.                 |
+"                 Last Change: 15-Oct-2013.                 |
 "============================================================
 
 " basic setting{{{
@@ -436,7 +436,9 @@ augroup END
 " IME
 inoremap <silent> <ESC> <ESC>:set iminsert=0<CR>
 " <ESC> or <C-c> key reset Highlight
-nnoremap <silent> <ESC> <ESC>:<C-u>nohlsearch<CR>:<C-u>set iminsert=0<CR>
+if has("gui")
+    nnoremap <silent> <ESC> <ESC>:<C-u>nohlsearch<CR>:<C-u>set iminsert=0<CR>
+endif
 " }}}
 
 " Language setting {{{
