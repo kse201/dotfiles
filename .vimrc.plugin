@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 14-Oct-2013.                 |
+"                 Last Change: 15-Oct-2013.                 |
 "============================================================
 
 augroup MyAutoCmd
@@ -268,6 +268,7 @@ NeoBundleLazy 'mfumi/viminesweeper'
 NeoBundleLazy 'mfumi/snake.vim'
 NeoBundleLazy 'TeTrIs.vim'
 NeoBundleLazy 'mfumi/lightsout.vim' "http://ja.wikipedia.org/wiki/%E3%83%A9%E3%82%A4%E3%83%84%E3%82%A2%E3%82%A6%E3%83%88
+NeoBundleLazy 'rbtnn/puyo.vim'
 " NeoBundleLazy 'vim game of life'
 " NeoBundleLazy 'mastermind.vim'
 " }}}
@@ -283,7 +284,6 @@ NeoBundle 'rhysd/tmpwin.vim'
 NeoBundleLazy 'terryma/vim-multiple-cursors'
 NeoBundle 'tyru/foldballoon.vim'
 NeoBundle 'kannokanno/previm'
-NeoBundle 'kana/vim-metarw'
 
 filetype plugin indent on
 syntax on
@@ -578,6 +578,7 @@ let s:unite_source_myCommand ={
 function! s:unite_source_myCommand.gather_candidates(args,conext)
     let cmds = {
                 \"Unite Beatiful Attack" : "Unite -auto-preview colorscheme",
+                \"Unite LazyLoading" : "Unite neobundle/lazy",
                 \"Search vim tweet in Japanese" : "TweetVimSearch vim lang:ja",
                 \"Search vim tweet" : "TweetVimSearch vim",
                 \"Open tweetvim" : "TweetVimHomeTimeline",
