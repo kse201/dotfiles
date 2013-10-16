@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 15-Oct-2013.                 |
+"                 Last Change: 16-Oct-2013.                 |
 "============================================================
 
 augroup MyAutoCmd
@@ -53,8 +53,7 @@ NeoBundleLazy 'LeafCage/nebula.vim', {'autoload': {'filetypes': 'vim' , 'command
 " }}}
 " ドキュメント管理 {{{
 " NeoBundleLazy 'thinca/vim-ref'
-NeoBundleLazy 'thinca/vim-ref',
-            \{'autoload' : { 'mappings' : ['<Plug>(ref-keyword)']}}
+NeoBundleLazy 'thinca/vim-ref', {'autoload' : { 'mappings' : ['<Plug>(ref-keyword)']}}
 NeoBundleLazy 'vim-jp/vimdoc-ja.git'
 " }}}
 " 補完 neocom{{{
@@ -72,8 +71,7 @@ NeoBundleLazy 'yomi322/neco-tweetvim'
             " \    'unix': 'ruby etc/config.rb > ~/.rsense',
             " \ },
             " \ 'autoload' : {'filetypes' : 'ruby'}}
-NeoBundleLazy 'davidhalter/jedi',
-            \ { 'autoload' :{ 'filetypes' :['python',   'jedi' ]}}
+NeoBundleLazy 'davidhalter/jedi', { 'autoload' :{ 'filetypes' :['python',   'jedi' ]}}
 " }}}
 " ファイラ {{{
 NeoBundleLazy 'scrooloose/nerdtree',
@@ -85,12 +83,9 @@ NeoBundleLazy 'kien/ctrlp.vim'
 " }}}
 " 入力補助 {{{
 NeoBundle 'kana/vim-smartchr'
-NeoBundleLazy 'mattn/emmet-vim',
-            \{ 'autoload' : { 'filetypes' : ['html','css','js','php']}}
-NeoBundleLazy 'msanders/cocoa.vim' , 
-            \ {'autoload' : {'filetypes' : 'objc'}}
-NeoBundleLazy 'jelera/vim-javascript-syntax',
-            \ { 'autoload' : { 'filetypes' : 'vim-javascript-syntax'}}
+NeoBundleLazy 'mattn/emmet-vim', { 'autoload' : { 'filetypes' : ['html','css','js','php']}}
+NeoBundleLazy 'msanders/cocoa.vim' , {'autoload' : {'filetypes' : 'objc'}}
+NeoBundleLazy 'jelera/vim-javascript-syntax', { 'autoload' : { 'filetypes' : 'vim-javascript-syntax'}}
 " }}}
 " unite関連 {{{
 NeoBundle 'Shougo/unite.vim'
@@ -170,37 +165,24 @@ NeoBundleLazy 'thinca/vim-quickrun',
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'gitv'
 NeoBundleLazy 'airblade/vim-gitgutter'
-NeoBundleLazy 'open-browser.vim',
-            \{'autoload' : {'mappings' :['<Plug>(open-browser-wwwsearch)','<Plug>(openbrowser-smart-search)']}}
+NeoBundleLazy 'open-browser.vim', {'autoload' : {'mappings' :['<Plug>(open-browser-wwwsearch)','<Plug>(openbrowser-smart-search)']}}
 " NeoBundle 'YankRing.vim'
-NeoBundleLazy 'SingleCompile' ,
-            \{'autoload' : { 'filetypes' : ['c', 'cpp','java']}}
-NeoBundleLazy 'taglist.vim',
-            \{'autoload' : { 'filetypes' : ['c', 'cpp','java'],
-            \ 'commands' : ['TList']}}
-NeoBundleLazy 'TagHighlight',
-            \{'autoload' : { 'filetypes' : ['c', 'cpp','cs','java']}}
-NeoBundleLazy 'thinca/vim-showtime',
-            \ {'autoload' : {'commands' : ['ShowtimeStart']}}
+NeoBundleLazy 'SingleCompile' , {'autoload' : { 'filetypes' : ['c', 'cpp','java']}}
+NeoBundleLazy 'taglist.vim', {'autoload' : { 'filetypes' : ['c', 'cpp','java'], 'commands' : ['TList']}}
+NeoBundleLazy 'TagHighlight', {'autoload' : { 'filetypes' : ['c', 'cpp','cs','java']}}
+NeoBundleLazy 'thinca/vim-showtime', {'autoload' : {'commands' : ['ShowtimeStart']}}
 NeoBundle 'thinca/vim-fontzoom'
 NeoBundle 'MultipleSearch'
-NeoBundleLazy 'csv.vim' ,
-            \{ 'autoload' : {'filetypes' : 'csv'}}
-NeoBundleLazy 'yuratomo/w3m.vim'  ,
-            \{ 'autoload' : {'commands' : ['W3m']}}
-NeoBundleLazy 'sjl/gundo.vim' ,
-            \{'autoload' : {'commands' : ['GundoToggle']}}
-NeoBundleLazy 'vim-scripts/RltvNmbr.vim' , 
-            \ {'autoload' : { 'commands' : 'RN'}}
-NeoBundleLazy 'scrooloose/syntastic',  
-            \ {'autoload' : { 'filetypes' : ['c', 'cpp', 'cs', 'java' , 'ruby']}}
-NeoBundle 'yuratomo/gmail.vim'
+NeoBundleLazy 'csv.vim' , { 'autoload' : {'filetypes' : 'csv'}}
+NeoBundleLazy 'yuratomo/w3m.vim'  , { 'autoload' : {'commands' : ['W3m']}}
+NeoBundleLazy 'sjl/gundo.vim' , {'autoload' : {'commands' : ['GundoToggle']}}
+NeoBundleLazy 'vim-scripts/RltvNmbr.vim' , {'autoload' : { 'commands' : 'RN'}}
+NeoBundleLazy 'scrooloose/syntastic',  {'autoload' : { 'filetypes' : ['c', 'cpp', 'cs', 'java' , 'ruby']}}
 NeoBundle 'kana/vim-operator-replace.git'
 NeoBundle 'kana/vim-operator-user'
 NeoBundle 'vim-scripts/ViewOutput'
-NeoBundle 'rhysd/clever-f.vim'
+NeoBundleLazy 'rhysd/clever-f.vim'
 NeoBundle 'thinca/vim-submode'
-NeoBundle 'thinca/vim-painter'
 NeoBundle 'osyo-manga/vim-anzu'
 " }}}
 " C / C++ {{{
@@ -213,35 +195,31 @@ NeoBundleLazy 'vim-scripts/cscope-menu' , {'autoload' : { 'filetypes' : ['c', 'c
 NeoBundleLazy 'vim-scripts/gtags.vim' , {'autoload' : { 'filetypes' : ['c', 'cpp','cs','java']}}
 NeoBundleLazy 'vim-scripts/csharp.vim' , {'autoload' : { 'filetypes' : ['c', 'cpp','cs','java']}}
 NeoBundleLazy 'jceb/vim-hier' , { "autoload" : {"filetypes" : ["cpp" , "c","cs"]}}
+NeoBundleLazy 'dannyob/quickfixstatus', { "autoload" : {"filetypes" : ["cpp" , "c","cs"]}}
 " }}}
 " Java {{{
-NeoBundle 'yuratomo/java-api-complete' , { 'autoload' :  { 'filetypes' : ['java'] }}
-NeoBundle 'yuratomo/java-api-javax.git' , { 'autoload' :  { 'filetypes' : ['java'] }}
-NeoBundle 'yuratomo/java-api-org.git' , { 'autoload' :  { 'filetypes' : ['java'] }}
-NeoBundle 'yuratomo/java-api-sun.git' , { 'autoload' :  { 'filetypes' : ['java'] }}
-NeoBundle 'yuratomo/java-api-servlet2.3.git' , { 'autoload' :  { 'filetypes' : ['java'] }}
-NeoBundle 'yuratomo/java-api-android.git' , { 'autoload' :  { 'filetypes' : ['java'] }}
+NeoBundleLazy 'yuratomo/java-api-complete' , { 'autoload' :  { 'filetypes' : ['java'] }}
+NeoBundleLazy 'yuratomo/java-api-javax.git' , { 'autoload' :  { 'filetypes' : ['java'] }}
+NeoBundleLazy 'yuratomo/java-api-org.git' , { 'autoload' :  { 'filetypes' : ['java'] }}
+NeoBundleLazy 'yuratomo/java-api-sun.git' , { 'autoload' :  { 'filetypes' : ['java'] }}
+NeoBundleLazy 'yuratomo/java-api-servlet2.3.git' , { 'autoload' :  { 'filetypes' : ['java'] }}
+NeoBundleLazy 'yuratomo/java-api-android.git' , { 'autoload' :  { 'filetypes' : ['java'] }}
 " }}}
 " Ruby {{{
 NeoBundleLazy 'tpope/vim-rails' , { 'autoload' : {'filetypes' : ['ruby']} }
-NeoBundleLazy 'alpaca-tc/alpaca_complete', {
-            \ 'depends' : 'tpope/vim-rails',
-            \ 'build' : {
-            \    'mac':  'gem install alpaca_complete',
-            \    'unix': 'gem install alpaca_complete',
-            \   }
-            \ }
+NeoBundleLazy 'alpaca-tc/alpaca_complete', { 'depends' : 'tpope/vim-rails', 'build' : { 'mac':  'gem install alpaca_complete', 'unix': 'gem install alpaca_complete', } }
 
 " reference環境
 NeoBundleLazy 'vim-ruby/vim-ruby', { 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] } }
-NeoBundleLazy 'taka84u9/vim-ref-ri', {
-            \ 'depends': ['Shougo/unite.vim', 'thinca/vim-ref'],
-            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml'] } }
+NeoBundleLazy 'taka84u9/vim-ref-ri', { 'depends': ['Shougo/unite.vim', 'thinca/vim-ref'], 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml'] } }
 NeoBundleLazy 'skwp/vim-rspec', { 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml'] } }
 NeoBundleLazy 'ruby-matchit', { 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] } }
 " }}}
 " tex {{{
 NeoBundleLazy 'jcf/vim-latex'
+" }}}
+" Perl {{{
+NeoBundleLazy 'perl.vim', { 'autoload' : { 'filetypes' : ['perl'] }}
 " }}}
 " 見た目 {{{
 NeoBundle 'wombat256.vim'
@@ -251,14 +229,8 @@ NeoBundle 'kien/rainbow_parentheses.vim'
 NeoBundle 'w0ng/vim-hybrid'
 " }}}
 " その他  {{{
-NeoBundle 'dannyob/quickfixstatus'
 NeoBundleLazy 'Takazudo/outline.vim.git'
-" NeoBundle 'mattn/mkdpreview-vim'
 NeoBundleLazy 'L9'
-NeoBundle 'daisuzu/rainbowcyclone.vim'
-
-"NeoBundleLazy 'git://git.wincent.com/command-t.git'
-
 " Game {{{
 NeoBundleLazy 'mattn/habatobi-vim'
 NeoBundleLazy 'mattn/invader-vim'
@@ -275,14 +247,7 @@ NeoBundleLazy 'rbtnn/puyo.vim'
 NeoBundle 'kana/vim-smartinput'
 NeoBundle 'taichouchou2/vim-endwise'
 NeoBundle 'tsaleh/vim-matchit'
-NeoBundleLazy 'perl.vim', {
-            \ 'autoload' : {
-            \   'filetypes' : ['perl']
-            \ }}
 " }}}
-NeoBundle 'rhysd/tmpwin.vim'
-NeoBundleLazy 'terryma/vim-multiple-cursors'
-NeoBundle 'tyru/foldballoon.vim'
 NeoBundle 'kannokanno/previm'
 
 filetype plugin indent on
@@ -1433,13 +1398,6 @@ call submode#enter_with('movetab', 'n', '', 'gT', printf(s:movetab, -1))
 call submode#map('movetab', 'n', '', 't', printf(s:movetab, 1))
 call submode#map('movetab', 'n', '', 'T', printf(s:movetab, -1))
 unlet s:movetab
-" }}}
-
-" tmpwin.vim {{{
-"http://rhysd.hatenablog.com/entry/2013/06/01/232858
-" 絶対縦分割で開きたい
-nnoremap <silent>_ :<C-u>call tmpwin#toggle('TweetVimHomeTimeline')<CR>
-nnoremap <silent>_ :<C-u>call tmpwin#toggle({'open_post':'setl nohidden'},'copen')<CR>
 " }}}
 
 " ccelerated-smooth-scroll.vim{{{
