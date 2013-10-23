@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 16-Oct-2013.                 |
+"                 Last Change: 23-Oct-2013.                 |
 "============================================================
 
 augroup MyAutoCmd
@@ -249,6 +249,8 @@ NeoBundle 'taichouchou2/vim-endwise'
 NeoBundle 'tsaleh/vim-matchit'
 " }}}
 NeoBundle 'kannokanno/previm'
+NeoBundle 'vim-scripts/DrawIt'
+NeoBundle 'kien/ctrlp.vim'
 
 filetype plugin indent on
 syntax on
@@ -543,6 +545,7 @@ let s:unite_source_myCommand ={
 function! s:unite_source_myCommand.gather_candidates(args,conext)
     let cmds = {
                 \"Unite Beatiful Attack" : "Unite -auto-preview colorscheme",
+                \"Bookmark" : "Unite bookmark",
                 \"Unite LazyLoading" : "Unite neobundle/lazy",
                 \"Search vim tweet in Japanese" : "TweetVimSearch vim lang:ja",
                 \"Search vim tweet" : "TweetVimSearch vim",
