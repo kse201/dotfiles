@@ -84,9 +84,12 @@ alias L="less"
 export GREP_COLOR='1;3741'
 alias grep='grep -E --color=auto'
 
-alias vi="vim"
-# スパルタンVim
-alias spvim='vim -u NONE'
+which vim > /dev/null 2>/dev/null
+if [ $? = 0 ] ; then
+    alias vi="vim"
+    # スパルタンVim
+    alias spvim='vim -u NONE'
+fi
 
 ##############################
 # Git
@@ -117,8 +120,8 @@ set output-meta on
 export HISTCONTROL=ignoreboth:erasedups:
 export HISTIGNORE=history:hst:ls:'which *':cd:'. ~/.bashrc'
 
-HISTFILESIZE=100000000000000
-HISTSIZE=100000000000000
+export HISTFILESIZE=100000000000000
+export HISTSIZE=100000000000000
 
 ########################################
 # cd
@@ -140,3 +143,12 @@ man() {
                 LESS_TERMCAP_us=$(printf "\e[1;32m") \
                 man "$@"
 }
+
+##############################
+# Git
+##############################
+alias gst="git status"
+alias gmt="git commit"
+alias gdf="git diff"
+alias glg="git log --graph --date-order -C -M --pretty=format:\"<%h> %ad [%an] %Cgreen%d%Creset %s\" --all --date=short"
+

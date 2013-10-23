@@ -312,9 +312,11 @@ alias la='ls -la'
 export GREP_COLOR='1;3741'
 alias grep='grep -E --color=auto'
 
-# スパルタンVim
-alias vi='vim'
-alias spvim='vim -u NONE'
+if [ $? = 0 ] ; then
+    alias vi="vim"
+    # スパルタンVim
+    alias spvim='vim -u NONE'
+fi
 
 [[ $EMACS = t ]] && unsetopt zle
 
@@ -336,9 +338,6 @@ alias glg="git log --graph --date-order -C -M --pretty=format:\"<%h> %ad [%an] %
 WORDCHARS='*?_-.[]~=&;!#S%^(){}<>'
 WORDCHARS=${WORDCHARS:s,/,,}
 
-# less オプションを環境変数で指定する
-# export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-if-one-screen --RAW-CONTROL-CHARS'
-
 # カレントディレクトリ内にサブディレクトリがない場合にcdが検索するディレクトリのリスト
 cdpath=($HOME)
 
@@ -349,8 +348,6 @@ SPROMPT="correct> %R -> %r [n,y,a,e]?"
 
 # サスペンド中のプロセスと同じコマンド名を実行した場合はリジュームする
 setopt auto_resume
-# C-d でログアウトしない
-setopt ignore_eof
 # コマンドのスペルチェックをする
 setopt correct
 # 補完候補が複数ある場合、一覧表示せず、すぐ最初の候補を補完する
@@ -364,9 +361,6 @@ setopt transient_rprompt
 setopt auto_param_keys
 # 補完される前にオリジナルのコマンドまで展開してチェックされる
 setopt complete_aliases
-
-# alias ctags='/Applications/MacVim.app/Contents/MacOS/ctags "$@"'
-# alias cancel = !git commit -a -m'Temporary commit for cancel' && git reset--hard HEAD~
 
 ## エイリアス
 alias -g L="| less"
@@ -389,9 +383,9 @@ SPROMPT="%{$fg[red]%}%{$suggest%}(*'_'%)? < もしかして %B%r%b %{$fg[red]%}�
 zstyle ':completion:*' ignore-parents parent pwd ..
 
 ## create emacs env file
-perl -wle \
-    'do { print qq/(setenv "$_" "$ENV{$_}")/ if exists $ENV{$_} } for @ARGV' \
-    PATH > ~/.emacs.d/shellenv.el
+# perl -wle \
+#     'do { print qq/(setenv "$_" "$ENV{$_}")/ if exists $ENV{$_} } for @ARGV' \
+#     PATH > ~/.emacs.d/shellenv.el
 
 # クリップボードにコピー
 if which pbcopy >/dev/null 2>&1 ; then 
