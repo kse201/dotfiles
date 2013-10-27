@@ -1,5 +1,5 @@
 ".gvimrc
-" last change: 12-Aug-2013.
+" last change: 26-Oct-2013.
 
 colorscheme desertEx
 
@@ -30,7 +30,7 @@ augroup END
 if has('win32') || has('win64')
     set guifont=Ricty\ Diminished:h14
 else
-    set guifont=Ricty\ Regular\ for\ Powerline:h14
+    set guifont=Ricty\ Diminished:h16
     " set guifont=Ricty\ Reguler:h16
     set linespace=1
 endif
