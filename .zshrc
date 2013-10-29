@@ -1,8 +1,7 @@
 ## 大いに参考させて頂きました(というかパクリ)
 # http://www.clear-code.com/blog/2011/9/5.html
 
-# export PATH=$PATH:~/myshellscript:/opt/local:~/local/bin:~/git-tasukete ## macport削除前
-export PATH=~/local/bin:/usr/texbin:/usr/local/bin:/usr/local/sbin:$PATH:~/myshellscript:~/local/bin:~/git-tasukete: #LANG
+export PATH=/usr/local/bin:/usr/local/sbin:$PATH:~/local/bin 
 export LANG=ja_JP.UTF-8
 export LESSCHARSET=utf-8
 
