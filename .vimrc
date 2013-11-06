@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 15-Oct-2013.                 |
+"                 Last Change: 06-Nov-2013.                 |
 "============================================================
 
 " basic setting{{{
@@ -54,7 +54,6 @@ endif
 " configs and dirctorys {{{
 if has('win32') || has('win64') 
     let $VIMFILE_DIR   = $HOME . '/dotfiles/.vim'
-    let $DROPBOX_DIR   = $HOME . '\Documents\My Dropbox'
     let $MYVIMRC       = "~/dotfiles/.vimrc"
     let $MYGVIMRC      = "~/dotfiles/.gvimrc"
     let $MYVIMRCPLUGIN = "~/dotfiles/.vimrc.plugin"
@@ -62,7 +61,6 @@ if has('win32') || has('win64')
     set dir=$HOME/AppData/Local/Temp
 elseif has('win32unix')
     let $VIMFILE_DIR   = $HOME . '/vimfiles'
-    let $DROPBOX_DIR   = $HOME . '/Documents/My Dropbox'
     let $MYVIMRC       = "~/vimfiles/_vimrc"
     let $MYGVIMRC      = "~/vimfiles/_gvimrc"
     let $MYVIMRCPLUGIN = "~/vimfiles/_vimrc.plugin"
@@ -70,14 +68,29 @@ elseif has('win32unix')
     set dir=$HOME/AppData/Local/Temp
 elseif has('mac')
     let $VIMFILE_DIR   = $HOME . '/.vim'
-    let $DROPBOX_DIR   = $HOME . '/Dropbox'
     let $MYVIMRCPLUGIN = $HOME . "/.vimrc.plugin"
+    let $MYVIMRC       = "~/.vimrc"
+    let $MYGVIMRC      = "~/.gvimrc"
+    let $MYVIMRCPLUGIN = "~/.vimrc.plugin"
     set backupdir=$HOME/.vimbackup
 else
     let $VIMFILE_DIR   = $HOME . '/.vim'
-    let $DROPBOX_DIR   = $HOME . '/Documents\My Dropbox'
+    let $MYVIMRC       = "~/.vimrc"
+    let $MYGVIMRC      = "~/.gvimrc"
     let $MYVIMRCPLUGIN = $HOME . "/.vimrc.plugin"
     set backupdir=$HOME/.vimbackup
+endif
+" }}}
+
+" dropbox dir {{{
+if has('win32') || has('win64') 
+    let $DROPBOX_DIR   = $HOME . '\Documents\My Dropbox'
+elseif has('win32unix')
+    let $DROPBOX_DIR   = $HOME . '/Documents/My Dropbox'
+elseif has('mac')
+    let $DROPBOX_DIR   = $HOME . '/Dropbox'
+else
+    let $DROPBOX_DIR   = $HOME . '/Documents\My Dropbox'
 endif
 " }}}
 
@@ -87,7 +100,6 @@ nnoremap <Leader>eg :edit $MYGVIMRC<CR>
 nnoremap <Leader>ep :edit $MYVIMRCPLUGIN<CR>
 nnoremap <Leader>em :edit $DROPBOX_DIR/documents/memo<CR>
 " }}}
-
 
 " Auto Loading .vimrc,.gvimrc {{{
 if has("autocmd")
