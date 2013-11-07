@@ -51,8 +51,6 @@ HABA="\[\e[$[COLUMNS]D\]\[\e[$[COLUMNS-$(length "hogehoge")]C\]"
 # PS1=" ${BRACK}BRACK\n ${LIGHTGRAY}LIGHTGRAY\n ${DARKGRAY}DARKGRAY\n ${GREEN}GREEN\n ${LIGHTGREEN}LIGHTGREEN\n ${BLUE}BLUE\n ${LIGHTBLUE}LIGHTBLUE\n ${CYAN}CYAN\n ${LIGHTCYAN}LIGHTCYAN\n ${RED}RED\n ${LIGHTRED}LIGHTRED\n ${PURPLE}PURPLE\n ${LIGHTPURPLE}LIGHTPURPLE\n ${YELLOW}YELLOW\n ${WHITE}WHITE\n "
 PS1="-${LIGHTGREEN}\u${END}@${GREEN}\h\[${END} ${YELLOW}\w\[${END} ${DARKGRAY}[\T]${END}${PS1_GIT_BRANCH}\n-${LIGHTPURPLE}(\!)${END}\$ "
 
-export IGNOREEOF
-
 ########################################
 # alias
 ########################################
