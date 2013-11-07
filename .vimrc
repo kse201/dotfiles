@@ -424,9 +424,9 @@ nnoremap <silent><S-F9> :<C-u>call ColorRoller.unroll()<CR>
 " Backup{{{
 set backup
 if exists("*strftime")
-    au MyAutoCmd BufWritePre * let &bex = '-' . strftime("%y%m%d") . '~'
+    au MyAutoCmd BufWritePre * let &bex = '-' . strftime("%y%m%d%H%M") . '~'
 elseif
-    au MyAutoCmd BufWritePre * let &bex = '-' . localtime("%y%m%d") . '~'
+    au MyAutoCmd BufWritePre * let &bex = '-' . localtime("%y%m%d%H%M") . '~'
 endif
 " }}}
 
