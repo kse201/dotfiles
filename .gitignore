@@ -21,3 +21,5 @@
 !/.zshenv
 !/.zsh.d
 !/.screenrc
+.vim/skeleton/dairyreport.txt
+.vim/skeleton/monthlyreport.txt
