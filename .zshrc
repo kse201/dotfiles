@@ -1,7 +1,7 @@
 ## 大いに参考させて頂きました(というかパクリ)
 # http://www.clear-code.com/blog/2011/9/5.html
 
-export PATH=/usr/local/bin:/usr/local/sbin:$PATH:~/local/bin 
+export PATH=/usr/local/bin:/usr/local/sbin:$PATH:~/bin 
 export LANG=ja_JP.UTF-8
 export LESSCHARSET=utf-8
 

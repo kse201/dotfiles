@@ -10,7 +10,7 @@ export LC_MESSAGES='ja_JP.UTF-8'
 ########################################
 # prompt
 ########################################
-# export PATH=$PATH:~/myshellscript:/opt/local/:~/local/bin/
+export PATH=$PATH:/opt/local/:~/bin
 # PS1="\u@\h \w\n\$ "
 # PS1="\033[031m\]\u\[\033[0m\]"
 BRACK="\e[0;30m\]"
