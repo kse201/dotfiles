@@ -250,7 +250,7 @@ endif
 set notitle
 set display=uhex
 set scrolloff=1
-set showbreak=>\ >\ >
+set showbreak=+
 set display=lastline
 set laststatus=2
 set wrap
