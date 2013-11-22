@@ -170,6 +170,7 @@ NeoBundle 'vim-scripts/ViewOutput'
 NeoBundleLazy 'rhysd/clever-f.vim'
 NeoBundle 'thinca/vim-submode'
 NeoBundle 'osyo-manga/vim-anzu'
+NeoBundle 'osyo-manga/vim-over'
 " }}}
 " C / C++ {{{
 NeoBundleLazy 'vim-scripts/SrcExpl' , {'autoload' : { 'filetypes' : ['c', 'cpp','java']}}
@@ -420,22 +421,17 @@ let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 " }}}
 " }}}
 
-" yankring{{{
-if has('gui_running')
-    set viminfo+=!
-    let g:yankring_max_history = 50
-    if has('win32') || has('win64') || has('win32unix')
-        let g:yankring_history_dir = '$HOME\_vimbackup'
-    else
-        let g:yankring_history_dir = '$HOME/.vimbackup'
-    endif
-    let g:yankring_clipboard_monitor = 1
-    let g:yankring_max_history=10
-    let g:yankring_window_height=13
-    "マッピング
-    noremap <Leader>yr :<C-u>YRShow<CR>
-endif
-" }}}
+" yankround.vim {{{
+"" キーマップ
+nmap p <Plug>(yankround-p)
+nmap P <Plug>(yankround-P)
+nmap <C-p> <Plug>(yankround-prev)
+nmap <C-n> <Plug>(yankround-next)
+"" 履歴取得数
+let g:yankround_max_history = 50
+""履歴一覧(kien/ctrlp.vim)
+nnoremap <silent>g<C-p> :<C-u>CtrlPYankRound<CR>
+}}}
 
 " unite.vim{{{
 " 参考:
@@ -1572,5 +1568,14 @@ nnoremap <silent> <Space>gd :Gdiff<CR>
 nnoremap <silent> <Space>gs :Gstatus<CR>
 " }}}
 
+"" over.vim {{{
+" over.vimの起動
+nnoremap <silent> <Leader>m :OverCommandLine<CR>
+" カーソル下の単語をハイライト付きで置換
+nnoremap sub :OverCommandLine<CR>%s/<C-r><C-w>//g<Left><Left>
+" コピーした文字列をハイライト付きで置換
+nnoremap subp y:OverCommandLine<CR>%s!<C-r>=substitute(@0, '!', '\\!', 'g')<CR>!!gI<Left><Left><Left>
+
+" }}}
 "" ================================================================================ 
 " vim: set tw=0 tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
