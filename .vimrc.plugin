@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 06-Nov-2013.                 |
+"                 Last Change: 22-Nov-2013.                 |
 "============================================================
 
 augroup MyAutoCmd
@@ -152,7 +152,7 @@ NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'gitv'
 NeoBundleLazy 'airblade/vim-gitgutter'
 NeoBundleLazy 'open-browser.vim', {'autoload' : {'mappings' :['<Plug>(open-browser-wwwsearch)','<Plug>(openbrowser-smart-search)']}}
-" NeoBundle 'YankRing.vim'
+NeoBundle 'LeafCage/yankround.vim' ,{'depends' : ['kien/ctrlp.vim' ] }
 NeoBundleLazy 'SingleCompile' , {'autoload' : { 'filetypes' : ['c', 'cpp','java']}}
 NeoBundleLazy 'taglist.vim', {'autoload' : { 'filetypes' : ['c', 'cpp','java'], 'commands' : ['TList']}}
 NeoBundleLazy 'TagHighlight', {'autoload' : { 'filetypes' : ['c', 'cpp','cs','java']}}
