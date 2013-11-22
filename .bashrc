@@ -116,7 +116,6 @@ set output-meta on
 export HISTCONTROL=ignoreboth:erasedups:
 export HISTIGNORE=history:hst:ls:'which *':cd:'. ~/.bashrc'
 
-export HISTFILESIZE=100000000000000
 export HISTSIZE=100000000000000
 
 ########################################
