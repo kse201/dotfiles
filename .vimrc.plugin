@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 22-Nov-2013.                 |
+"                 Last Change: 24-Nov-2013.                 |
 "============================================================
 
 augroup MyAutoCmd
@@ -168,7 +168,6 @@ NeoBundle 'kana/vim-operator-replace.git'
 NeoBundle 'kana/vim-operator-user'
 NeoBundle 'vim-scripts/ViewOutput'
 NeoBundleLazy 'rhysd/clever-f.vim'
-NeoBundle 'thinca/vim-submode'
 NeoBundle 'osyo-manga/vim-anzu'
 NeoBundle 'osyo-manga/vim-over'
 " }}}
@@ -235,9 +234,11 @@ NeoBundle 'kana/vim-smartinput'
 NeoBundle 'taichouchou2/vim-endwise'
 NeoBundle 'tsaleh/vim-matchit'
 " }}}
-NeoBundle 'kannokanno/previm'
 NeoBundle 'vim-scripts/DrawIt'
 NeoBundle 'kien/ctrlp.vim'
+NeoBundleLazy 'kannokanno/previm' , { 'autoload' : { 'filetypes' : ['markdown'] }}
+NeoBundleLazy 'syui/cscroll.vim' , { 'autoload' : { 'filetypes' : ['markdown'] }}
+NeoBundleLazy 'kana/vim-submode' , { 'autoload' : { 'filetypes' : ['markdown'] }}
 
 filetype plugin indent on
 syntax on
@@ -431,7 +432,7 @@ nmap <C-n> <Plug>(yankround-next)
 let g:yankround_max_history = 50
 ""履歴一覧(kien/ctrlp.vim)
 nnoremap <silent>g<C-p> :<C-u>CtrlPYankRound<CR>
-}}}
+" }}}
 
 " unite.vim{{{
 " 参考:
@@ -1558,6 +1559,27 @@ augroup END
 "
 " previm{{{
 let g:previm_open_cmd = 'open'
+nnoremap <silent> <F7> :PrevimOpen<CR>
+"nnoremap <silent> <F7> :PrevimOpen \|:Silent open -a it2_f &<CR>
+nmap <silent> <Leader>j <Plug>(ChromeScrollDown)
+nmap <silent> <Leader>k <Plug>(ChromeScrollUp)
+nmap <silent> <Leader>q <Plug>(ChromeTabClose)
+nmap <buffer> <Leader>f <Plug>(ChromeKey)
+" }}}
+
+" submode.vim{{{
+call submode#enter_with('cscroll', 'n', '', '<Leader>j', ':ChromeScrollDown<CR>')
+call submode#enter_with('cscroll', 'n', '', '<Leader>k', ':ChromeScrollUp<CR>')
+call submode#leave_with('cscroll', 'n', '', 'n')
+call submode#map('cscroll', 'n', '', 'j', ':ChromeScrollDown<CR>')
+call submode#map('cscroll', 'n', '', 'k', ':ChromeScrollUp<CR>')
+" }}}
+
+"" Auto Scroll{{{
+"nmap <silent> <Leader>j <Plug>(ChromeAutoScrollDown)
+"nmap <Leader>js <Plug>(ChromeAutoScrollDownStop)
+"nmap <silent> <Leader>k <Plug>(ChromeAutoScrollUp)
+"nmap <Leader>ks <Plug>(ChromeAutoScrollUpStop)
 " }}}
 
 " fugitive {{{
@@ -1568,7 +1590,7 @@ nnoremap <silent> <Space>gd :Gdiff<CR>
 nnoremap <silent> <Space>gs :Gstatus<CR>
 " }}}
 
-"" over.vim {{{
+" over.vim {{{
 " over.vimの起動
 nnoremap <silent> <Leader>m :OverCommandLine<CR>
 " カーソル下の単語をハイライト付きで置換
