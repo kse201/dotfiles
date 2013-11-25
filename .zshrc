@@ -409,3 +409,6 @@ man() {
                 LESS_TERMCAP_us=$(printf "\e[1;32m") \
                 man "$@"
 }
+# man in Vim
+function man() { /usr/bin/man $* -P "col -b | vim -Rc 'setl ft=man ts=8 nomod nolist nonu' -c 'nmap q :q<cr>' -" }   
+
