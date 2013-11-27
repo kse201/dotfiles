@@ -11,20 +11,8 @@
 	paper = lv -c
     autocrlf = false
     editor = vim
-[pager]
-        log = diff-highlight | less
-        show = diff-highlight | less
-        diff = diff-highlight | less
-	; pager = nkf -w | LESSCHARSET=utf-8 less
-; http://qiita.com/taise/items/73b2b295350f4fe35b65
-; git config --global url."https://".insteadOf git://
-; [remote "origin"]
-    ; fetch = +refs/heads/*:refs/remotes/origin/*
-    ; url = git@github.com:kse201/dotfiles.git
-    
+
 [alias]
-; show git log with graph http://d.hatena.ne.jp/akihito_s/20110903
-    graph    = log --graph --date-order -C -M --pretty= format:\"<%h> %ad [%an] %Cgreen%d%Creset %s\" --all --date      = short
     ignore   = update-index --assume-unchanged
     unignore = update-index --no-assume-unchanged
     ignored  = !git ls-files -v | grep "^[a-z]" ; view ignored files
@@ -46,7 +34,8 @@
     ds       = diff -C --stat
     dsp      = diff -C --stat -p
     dw       = diff -C --color-words
-    lg       = log --graph --all --color --pretty= '%x09%h %cn%x09%s %Cred%d'
+    graph    = log --graph --date-order -C -M --pretty= format:'<%h> %ad [%an] %Cgreen%d%Creset %s' --all --date=short
+    lg       = log --graph --date-order -C -M --pretty= format:'<%h> %ad [%an] %Cgreen%d%Creset %s' --all --date=short
     l        = log
     m        = checkout master
     ituja    = log --patch -S
