@@ -13,6 +13,7 @@ ln -s $HOME/.dotfiles/.gvimrc $HOME/.gvimrc
 ln -s $HOME/.dotfiles/.vim    $HOME/.vim
 ln -s $HOME/.dotfiles/.zsh.d  $HOME/.zsh.d
 ln -s $HOME/.dotfiles/.zshenv $HOME/.zshenv
+ln -s $HOME/.dotfiles/.gitconfig $HOME/.gitconfig
 
 if ! [ -e $HOME/.vimbackup ] ; then
     mkdir $HOME/.vimbackup
