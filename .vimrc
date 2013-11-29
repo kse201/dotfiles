@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 07-Nov-2013.                 |
+"                 Last Change: 28-Nov-2013.                 |
 "============================================================
 
 " basic setting{{{
@@ -818,6 +818,7 @@ command!
 " date iput Macro {{{
 if exists("*strftime")
     inoremap <Leader>date <C-R>=strftime('%Y/%m/%d (%a)')<CR>
+    inoremap <Leader>jdate <C-R>=strftime('%Y年%m月%d日 %a曜日')<CR>
     inoremap <Leader>time <C-R>=strftime('%H:%M')<CR>
     inoremap  <Leader>rr <C-R>=strftime('%H%M%S_%d%b')<CR>
     inoremap <expr> <Leader>df strftime('%Y/%m/%d %H:%M:%S')
