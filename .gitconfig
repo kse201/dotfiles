@@ -12,6 +12,9 @@
     autocrlf = false
     editor = vim
 
+[push]
+    default = upstream
+
 [alias]
     ignore   = update-index --assume-unchanged
     unignore = update-index --no-assume-unchanged
