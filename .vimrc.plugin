@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 24-Nov-2013.                 |
+"                 Last Change: 29-Nov-2013.                 |
 "============================================================
 
 augroup MyAutoCmd
@@ -52,7 +52,6 @@ NeoBundle 'Shougo/neobundle.vim'
 NeoBundleLazy 'LeafCage/nebula.vim', {'autoload': {'filetypes': 'vim' , 'commands': ['NebulaPutLazy', 'NebulaPutFromClipboard', 'NebulaYankOptions', 'NebulaPutConfig']}}
 " }}}
 " ドキュメント管理 {{{
-" NeoBundleLazy 'thinca/vim-ref'
 NeoBundleLazy 'thinca/vim-ref', {'autoload' : { 'mappings' : ['<Plug>(ref-keyword)']}}
 NeoBundleLazy 'vim-jp/vimdoc-ja.git'
 " }}}
@@ -978,16 +977,6 @@ if exists(":IndentGuidesEnable")
 endif
 " }}}
 
-" ttoc{{{
-" メモツールとして使うhttp://nanasi.jp/articles/vim/ttoc_vim.html#id15
-" configuration for filetype memo
-augroup Memo
-    autocmd!
-    autocmd BufEnter *.memo :set filetype=markdown
-augroup END
-:let g:ttoc_rx_memo = '^\k\+\>'
-" }}}
-
 " calender.vim{{{
 let g:calendar_diary = $DROPBOX_DIR. "/documents/diary"
 " }}}
@@ -1062,27 +1051,17 @@ unlet s:bundle
 
 " }}}
 
-" memolist.vim{{{
-let g:memolist_path=$DROPBOX_DIR."/documents/memo"
-let g:memolist_memo_suffix = "txt"
-let g:memolist_memo_date = "%Y-%m-%d %H:%M"
-let g:memolist_memo_date = "epoch"
-let g:memolist_memo_date = "%D %T"
-" let g:memolist_prompt_tags = "true"
-" let g:memolist_prompt_categories = "true"
-" }}}
-
 " vim-ref{{{
 " lazy loading for vim-ref
+" webdict
+let g:ref_source_webdict_sites ={
+            \ 'wikipedia:ja' : 'http://ja.wikipedia.org/wiki/%s',
+            \}
 nmap <silent> K :<C-u>silent! <Plug>(ref-keyword)
 vmap <silent> K :<C-u>silent! <Plug>(ref-keyword)
 command! -nargs=+ Ref
             \ execute 'silent! NeoBundleSource vim-ref'
             \ | call ref#ref(<q-args>)
-" }}}
-
-" sequence {{{
-let g:loaded_sequence=1
 " }}}
 
 " CCTree.vim:"{{{
@@ -1194,39 +1173,6 @@ let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ."
 " let g:SrcExpl_updateTagsKey = "<F12>"
 "}}}
 
-" gtags.vim:"{{{
-nmap <Leader>gs :<C-u>Gtags -s <C-R>=expand("<cword>")<CR><CR>
-nmap <Leader>gg :<C-u>Gtags -g <C-R>=expand("<cword>")<CR><CR>
-nmap <Leader>gf :<C-u>Gtags -f <C-R>=expand("<cfile>")<CR><CR>
-nmap <Leader>gr :<C-u>Gtags -r <C-R>=expand("<cword>")<CR><CR>
-nmap <Leader>gd :<C-u>Gtags -d <C-R>=expand("<cword>")<CR><CR>
-"}}}
-
-" ref.vim {{{
-" webdict
-let g:ref_source_webdict_sites ={
-            \ 'wikipedia:ja' : 'http://ja.wikipedia.org/wiki/%s',
-            \}
-" let g:ref_source_webdict_sites = {
-" \ 'wiktionary' : {
-" \ 'url' : 'http://ja.wiktionary.org/wiki/%s',
-" \ 'keyword_encoding' : 'utf-8',
-" \ 'cache' : 1,
-" \}
-" \}
-
-" 出力に対するフィルタ、最初の数行を削除
-" function! g:ref_source_webdict_sites.wiktionary.filter(output)
-" return join(split(a:output,"\n")[18 :], "\n")
-" endfunction
-
-
-" }}}
-
-" vimwiki {{{
-autocmd MyAutoCmd FileType vimwiki nnoremap <buffer> <leader>tt <Plug>VimwikiToggleListItem
-" }}}
-
 " exVim {{{
 let $EX_DEV = '~/exdev'
 " }}}
@@ -1260,9 +1206,7 @@ let g:qfixmemo_ext = 'howm'
 let QFixHowm_FileType = 'qfix_memo'
 let QFix_PreviewEnable = 0
 
-" QuickFixウィンドウの高さ
 let QFix_Height = 3
-" QuickFixウィンドウの幅
 let QFix_Width = 0
 " QuickFixウィンドウの開き方
 let QFix_CopenCmd = ''
@@ -1336,10 +1280,6 @@ autocmd MyAutoCmd BufEnter * if &filetype =="text" | setlocal ft=hybrid | endif
 let g:neocomplcache_force_overwrite_completefunc=1
 " }}}
 
-" gmail.vim{{{
-let g:gmail_user_name="kse.201@gmail.com"
-" }}}
-
 " java-api-complete {{{
 " https://github.com/yuratomo/java-api-complete
 au MyAutoCmd BufNewFile,BufRead *.java    setl omnifunc=javaapi#complete
@@ -1362,6 +1302,11 @@ let g:javaapi#delay_dirs = [
 " submode{{{
 " http://d.hatena.ne.jp/thinca/20130131/1359567419
 let g:submode_leave_with_key = 1
+call submode#enter_with('cscroll', 'n', '', '<Leader>j', ':ChromeScrollDown<CR>')
+call submode#enter_with('cscroll', 'n', '', '<Leader>k', ':ChromeScrollUp<CR>')
+call submode#leave_with('cscroll', 'n', '', 'n')
+call submode#map('cscroll', 'n', '', 'j', ':ChromeScrollDown<CR>')
+call submode#map('cscroll', 'n', '', 'k', ':ChromeScrollUp<CR>')
 " window size
 call submode#enter_with('winsize', 'n', '', '<C-w>>', '<C-w>>')
 call submode#enter_with('winsize', 'n', '', '<C-w><', '<C-w><')
@@ -1386,11 +1331,9 @@ call submode#map('movetab', 'n', '', 'T', printf(s:movetab, -1))
 unlet s:movetab
 " }}}
 
-" ccelerated-smooth-scroll.vim{{{
-" http://yonchu.hatenablog.com/entry/2013/05/16/204727
-" }}}
-
 " sequence{{{
+let g:loaded_sequence=1
+
 vmap <m-a> <plug>SequenceV_Increment
 vmap <m-x> <plug>SequenceV_Decrement
 nmap <m-a> <plug>SequenceN_Increment
@@ -1567,24 +1510,8 @@ nmap <silent> <Leader>q <Plug>(ChromeTabClose)
 nmap <buffer> <Leader>f <Plug>(ChromeKey)
 " }}}
 
-" submode.vim{{{
-call submode#enter_with('cscroll', 'n', '', '<Leader>j', ':ChromeScrollDown<CR>')
-call submode#enter_with('cscroll', 'n', '', '<Leader>k', ':ChromeScrollUp<CR>')
-call submode#leave_with('cscroll', 'n', '', 'n')
-call submode#map('cscroll', 'n', '', 'j', ':ChromeScrollDown<CR>')
-call submode#map('cscroll', 'n', '', 'k', ':ChromeScrollUp<CR>')
-" }}}
-
-"" Auto Scroll{{{
-"nmap <silent> <Leader>j <Plug>(ChromeAutoScrollDown)
-"nmap <Leader>js <Plug>(ChromeAutoScrollDownStop)
-"nmap <silent> <Leader>k <Plug>(ChromeAutoScrollUp)
-"nmap <Leader>ks <Plug>(ChromeAutoScrollUpStop)
-" }}}
-
 " fugitive {{{
 " http://qiita.com/hyshhryk/items/4936c4412daa866daf7d
-
 nnoremap <silent> <Space>gb :Gblame<CR>
 nnoremap <silent> <Space>gd :Gdiff<CR>
 nnoremap <silent> <Space>gs :Gstatus<CR>
