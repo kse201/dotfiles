@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 28-Nov-2013.                 |
+"                 Last Change: 02-Dec-2013.                 |
 "============================================================
 
 " basic setting{{{
@@ -959,6 +959,11 @@ command!  Nippo :call WriteDairyReport()
 command!  Geppo :call WriteMonthlyReport()
 " }}}
 
+" new window in Windows{{{
+if has("win32")
+    nnoremap <C-S-N> :!start gvim<CR>
+endif
+" }}}
 " }}}
 
 " keymap{{{
