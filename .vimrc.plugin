@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 29-Nov-2013.                 |
+"                 Last Change: 08-Dec-2013.                 |
 "============================================================
 
 augroup MyAutoCmd
@@ -169,6 +169,8 @@ NeoBundle 'vim-scripts/ViewOutput'
 NeoBundleLazy 'rhysd/clever-f.vim'
 NeoBundle 'osyo-manga/vim-anzu'
 NeoBundle 'osyo-manga/vim-over'
+NeoBundle 'mattn/startmenu-vim'
+NeoBundle 'mattn/excelview-vim'
 " }}}
 " C / C++ {{{
 NeoBundleLazy 'vim-scripts/SrcExpl' , {'autoload' : { 'filetypes' : ['c', 'cpp','java']}}
