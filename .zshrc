@@ -269,11 +269,11 @@ LISTMAX=0
 export LISTMAX
 
 # ディレクトリ名だけでcd
-setopt auto_cd auto_remove_slash auto_name_dirs
+setopt auto_cd auto_remove_slash auto_name_dirs 
 
 setopt extended_history hist_ignore_dups hist_ignore_space prompt_subst
 setopt extended_glob list_types no_beep always_last_prompt
-setopt cdable_vars sh_word_split pushd_ignore_dups
+setopt cdable_vars sh_word_split autopushd pushd_ignore_dups
 
 # cdの履歴関連
 setopt auto_pushd
@@ -412,3 +412,4 @@ man() {
 # man in Vim
 function man() { /usr/bin/man $* -P "col -b | vim -Rc 'setl ft=man ts=8 nomod nolist nonu' -c 'nmap q :q<cr>' -" }   
 
+# source ~/.zsh.d/config/packages.zsh

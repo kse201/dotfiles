@@ -1,16 +1,5 @@
 source ~/.zsh.d/package.zsh
 
-# z 
-package-install github rupa/z
-_Z_CMD=j
-_Z_DATA=$(package-directory rupa/z)/.z
-source $(package-directory rupa/z)/z.sh
-_Z_NO_PROMPT_COMMAND=1
-function precmd_z() {
-    _z --add "$(pwd -P)"
-}
-precmd_functions+=precmd_z
-
 # auto-fu.zsh
 # package-install github hchbaw/auto-fu.zsh
 # source $(package-directory hchbaw/auto-fu.zsh)/auto-fu.zsh
@@ -63,3 +52,11 @@ zle -N show_buffer_stack
 package-install github robbyrussell/oh-my-zsh
 
 package-install github keiji0/canything
+
+package-install github joelthelion/autojump
+export PATH=$PATH:~/.autojump/bin
+function precmd () {
+pwd=`pwd`
+autojump -a $pwd
+echo $pwd > ~/.curdir
+}
