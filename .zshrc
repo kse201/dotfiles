@@ -370,6 +370,14 @@ alias -g S='| sed'
 alias -g A='| awk'
 alias -g W='| wc'
 
+function git_commit() {
+        BUFFER="git commit -m '"
+        CURSOR=$#BUFFER
+        BUFFER=$BUFFER\'
+}
+zle -N git_commit
+bindkey '^o' git_commit
+
 ## 完全に削除
 alias rr="command rm -rf"
 
