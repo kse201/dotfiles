@@ -1,6 +1,9 @@
 ## 大いに参考させて頂きました(というかパクリ)
 # http://www.clear-code.com/blog/2011/9/5.html
 
+if [ ! -f ~/.zshrc.zwc -o ~/.zshrc -nt ~/.zshrc.zwc ]; then
+    zcompile ~/.zshrc
+fi
 export PATH=/usr/local/bin:/usr/local/sbin:$PATH:~/bin 
 export LANG=ja_JP.UTF-8
 export LESSCHARSET=utf-8
@@ -269,11 +272,11 @@ LISTMAX=0
 export LISTMAX
 
 # ディレクトリ名だけでcd
-setopt auto_cd auto_remove_slash auto_name_dirs
+setopt auto_cd auto_remove_slash auto_name_dirs 
 
 setopt extended_history hist_ignore_dups hist_ignore_space prompt_subst
 setopt extended_glob list_types no_beep always_last_prompt
-setopt cdable_vars sh_word_split pushd_ignore_dups
+setopt cdable_vars sh_word_split autopushd pushd_ignore_dups
 
 # cdの履歴関連
 setopt auto_pushd
@@ -370,6 +373,14 @@ alias -g S='| sed'
 alias -g A='| awk'
 alias -g W='| wc'
 
+function git_commit() {
+        BUFFER="git commit -m '"
+        CURSOR=$#BUFFER
+        BUFFER=$BUFFER\'
+}
+zle -N git_commit
+bindkey '^o' git_commit
+
 ## 完全に削除
 alias rr="command rm -rf"
 
@@ -409,3 +420,7 @@ man() {
                 LESS_TERMCAP_us=$(printf "\e[1;32m") \
                 man "$@"
 }
+# man in Vim
+function man() { /usr/bin/man $* -P "col -b | vim -Rc 'setl ft=man ts=8 nomod nolist nonu' -c 'nmap q :q<cr>' -" }   
+
+# source ~/.zsh.d/config/packages.zsh

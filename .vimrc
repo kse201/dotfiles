@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 07-Nov-2013.                 |
+"                 Last Change: 10-Dec-2013.                 |
 "============================================================
 
 " basic setting{{{
@@ -82,23 +82,10 @@ else
 endif
 " }}}
 
-" dropbox dir {{{
-if has('win32') || has('win64') 
-    let $DROPBOX_DIR   = $HOME . '\Documents\My Dropbox'
-elseif has('win32unix')
-    let $DROPBOX_DIR   = $HOME . '/Documents/My Dropbox'
-elseif has('mac')
-    let $DROPBOX_DIR   = $HOME . '/Dropbox'
-else
-    let $DROPBOX_DIR   = $HOME . '/Documents\My Dropbox'
-endif
-" }}}
-
 " edit configs {{{
 nnoremap <Leader>ev :edit $MYVIMRC<CR>
 nnoremap <Leader>eg :edit $MYGVIMRC<CR>
 nnoremap <Leader>ep :edit $MYVIMRCPLUGIN<CR>
-nnoremap <Leader>em :edit $DROPBOX_DIR/documents/memo<CR>
 " }}}
 
 " Auto Loading .vimrc,.gvimrc {{{
@@ -818,6 +805,7 @@ command!
 " date iput Macro {{{
 if exists("*strftime")
     inoremap <Leader>date <C-R>=strftime('%Y/%m/%d (%a)')<CR>
+    inoremap <Leader>jdate <C-R>=strftime('%Y年%m月%d日 %a曜日')<CR>
     inoremap <Leader>time <C-R>=strftime('%H:%M')<CR>
     inoremap  <Leader>rr <C-R>=strftime('%H%M%S_%d%b')<CR>
     inoremap <expr> <Leader>df strftime('%Y/%m/%d %H:%M:%S')
@@ -958,6 +946,11 @@ command!  Nippo :call WriteDairyReport()
 command!  Geppo :call WriteMonthlyReport()
 " }}}
 
+" new window in Windows{{{
+if has("win32")
+    nnoremap <C-S-N> :!start gvim<CR>
+endif
+" }}}
 " }}}
 
 " keymap{{{

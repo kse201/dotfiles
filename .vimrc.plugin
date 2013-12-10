@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 06-Nov-2013.                 |
+"                 Last Change: 10-Dec-2013.                 |
 "============================================================
 
 augroup MyAutoCmd
@@ -52,7 +52,6 @@ NeoBundle 'Shougo/neobundle.vim'
 NeoBundleLazy 'LeafCage/nebula.vim', {'autoload': {'filetypes': 'vim' , 'commands': ['NebulaPutLazy', 'NebulaPutFromClipboard', 'NebulaYankOptions', 'NebulaPutConfig']}}
 " }}}
 " ドキュメント管理 {{{
-" NeoBundleLazy 'thinca/vim-ref'
 NeoBundleLazy 'thinca/vim-ref', {'autoload' : { 'mappings' : ['<Plug>(ref-keyword)']}}
 NeoBundleLazy 'vim-jp/vimdoc-ja.git'
 " }}}
@@ -125,7 +124,7 @@ NeoBundle "fuenor/JpFormat.vim"
 " 機能追加 {{{
 NeoBundleLazy 'Shougo/vimshell'  , 
             \{"autoload" : {'commands' : ['VimShell', 'VimShellCurrentDir' ]} }
-NeoBundle 'basyura/TweetVim' ,
+NeoBundleLazy 'basyura/TweetVim' ,
             \{'depends' : 
             \ ['open-browser.vim',
             \ 'mattn/webapi-vim',
@@ -152,10 +151,8 @@ NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'gitv'
 NeoBundleLazy 'airblade/vim-gitgutter'
 NeoBundleLazy 'open-browser.vim', {'autoload' : {'mappings' :['<Plug>(open-browser-wwwsearch)','<Plug>(openbrowser-smart-search)']}}
-" NeoBundle 'YankRing.vim'
-NeoBundleLazy 'SingleCompile' , {'autoload' : { 'filetypes' : ['c', 'cpp','java']}}
+NeoBundle 'LeafCage/yankround.vim' ,{'depends' : ['kien/ctrlp.vim' ] }
 NeoBundleLazy 'taglist.vim', {'autoload' : { 'filetypes' : ['c', 'cpp','java'], 'commands' : ['TList']}}
-NeoBundleLazy 'TagHighlight', {'autoload' : { 'filetypes' : ['c', 'cpp','cs','java']}}
 NeoBundleLazy 'thinca/vim-showtime', {'autoload' : {'commands' : ['ShowtimeStart']}}
 NeoBundle 'thinca/vim-fontzoom'
 NeoBundle 'MultipleSearch'
@@ -163,25 +160,17 @@ NeoBundleLazy 'csv.vim' , { 'autoload' : {'filetypes' : 'csv'}}
 NeoBundleLazy 'yuratomo/w3m.vim'  , { 'autoload' : {'commands' : ['W3m']}}
 NeoBundleLazy 'sjl/gundo.vim' , {'autoload' : {'commands' : ['GundoToggle']}}
 NeoBundleLazy 'vim-scripts/RltvNmbr.vim' , {'autoload' : { 'commands' : 'RN'}}
-NeoBundleLazy 'scrooloose/syntastic',  {'autoload' : { 'filetypes' : ['c', 'cpp', 'cs', 'java' , 'ruby']}}
 NeoBundle 'kana/vim-operator-replace.git'
 NeoBundle 'kana/vim-operator-user'
 NeoBundle 'vim-scripts/ViewOutput'
-NeoBundleLazy 'rhysd/clever-f.vim'
-NeoBundle 'thinca/vim-submode'
 NeoBundle 'osyo-manga/vim-anzu'
+NeoBundle 'osyo-manga/vim-over'
+NeoBundle 'mattn/startmenu-vim'
+NeoBundle 'mattn/excelview-vim'
 " }}}
 " C / C++ {{{
 NeoBundleLazy 'vim-scripts/SrcExpl' , {'autoload' : { 'filetypes' : ['c', 'cpp','java']}}
 NeoBundleLazy 'vim-scripts/Trinity' , {'autoload' : { 'filetypes' : ['c', 'cpp','java']}}
-NeoBundleLazy 'vim-scripts/a.vim' , {'autoload' : { 'filetypes' : ['c', 'cpp','java']}}
-NeoBundleLazy 'vim-scripts/c.vim.git' , {'autoload' : { 'filetypes' : ['c', 'cpp','java']}}
-NeoBundleLazy 'vim-scripts/CCTree' , {'autoload' : { 'filetypes' : ['c', 'cpp','java']}}
-NeoBundleLazy 'vim-scripts/cscope-menu' , {'autoload' : { 'filetypes' : ['c', 'cpp','cs','java']}}
-NeoBundleLazy 'vim-scripts/gtags.vim' , {'autoload' : { 'filetypes' : ['c', 'cpp','cs','java']}}
-NeoBundleLazy 'vim-scripts/csharp.vim' , {'autoload' : { 'filetypes' : ['c', 'cpp','cs','java']}}
-NeoBundleLazy 'jceb/vim-hier' , { "autoload" : {"filetypes" : ["cpp" , "c","cs"]}}
-NeoBundleLazy 'dannyob/quickfixstatus', { "autoload" : {"filetypes" : ["cpp" , "c","cs"]}}
 " }}}
 " Java {{{
 NeoBundleLazy 'yuratomo/java-api-complete' , { 'autoload' :  { 'filetypes' : ['java'] }}
@@ -234,9 +223,11 @@ NeoBundle 'kana/vim-smartinput'
 NeoBundle 'taichouchou2/vim-endwise'
 NeoBundle 'tsaleh/vim-matchit'
 " }}}
-NeoBundle 'kannokanno/previm'
 NeoBundle 'vim-scripts/DrawIt'
 NeoBundle 'kien/ctrlp.vim'
+NeoBundleLazy 'kannokanno/previm' , { 'autoload' : { 'filetypes' : ['markdown'] }}
+NeoBundleLazy 'syui/cscroll.vim' , { 'autoload' : { 'filetypes' : ['markdown'] }}
+NeoBundleLazy 'kana/vim-submode' , { 'autoload' : { 'filetypes' : ['markdown'] }}
 
 filetype plugin indent on
 syntax on
@@ -419,21 +410,16 @@ let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 " }}}
 " }}}
 
-" yankring{{{
-if has('gui_running')
-    set viminfo+=!
-    let g:yankring_max_history = 50
-    if has('win32') || has('win64') || has('win32unix')
-        let g:yankring_history_dir = '$HOME\_vimbackup'
-    else
-        let g:yankring_history_dir = '$HOME/.vimbackup'
-    endif
-    let g:yankring_clipboard_monitor = 1
-    let g:yankring_max_history=10
-    let g:yankring_window_height=13
-    "マッピング
-    noremap <Leader>yr :<C-u>YRShow<CR>
-endif
+" yankround.vim {{{
+"" キーマップ
+nmap p <Plug>(yankround-p)
+nmap P <Plug>(yankround-P)
+nmap <C-p> <Plug>(yankround-prev)
+nmap <C-n> <Plug>(yankround-next)
+"" 履歴取得数
+let g:yankround_max_history = 50
+""履歴一覧(kien/ctrlp.vim)
+nnoremap <silent>g<C-p> :<C-u>CtrlPYankRound<CR>
 " }}}
 
 " unite.vim{{{
@@ -445,7 +431,7 @@ let g:unite_source_file_mru_filename_format = ''
 " 入力モードで開始する
 let g:unite_enable_start_insert=1
 " file_mruの最大保存数
-let g:unite_source_file_mru_limit=1000
+let g:unite_source_file_mru_limit=100
 " 大文字小文字を区別しない
 let g:unite_enable_ignore_case = 1
 let g:unite_enable_smart_case = 1
@@ -501,11 +487,11 @@ nnoremap <silent> <SID>[unite]r  :<C-u>UniteResume search-buffer<CR>
 noremap <silent><Leader>ug : <C-u>Unite git-conflict<CR>
 
 " 曖昧検索
-call unite#custom#substitute('file,file_mru,history/command,directory_mru', '[[:alnum:]]', '*\0', 100)
+call unite#custom#substitute('file,file_mru,history/command,directory_mru', '[[:alnum:]]', '*\0', 10)
 
 " 様々なショートカット
 " http://d.hatena.ne.jp/thinca/20101027/1288190498
-call unite#custom#substitute('file,file_mru', '\$\w\+', '\=eval(submatch(0))', 200)
+call unite#custom#substitute('file,file_mru', '\$\w\+', '\=eval(submatch(0))', 20)
 call unite#custom#substitute('file,file_mru', '[^~.]\zs/', '*/*', 20)
 call unite#custom#substitute('file,file_mru', '/\ze[^*]', '/*', 10)
 call unite#custom#substitute('file,file_mru', '^@@', '\=fnamemodify(expand("#"), ":p:h")."/*"', 2)
@@ -980,20 +966,6 @@ if exists(":IndentGuidesEnable")
 endif
 " }}}
 
-" ttoc{{{
-" メモツールとして使うhttp://nanasi.jp/articles/vim/ttoc_vim.html#id15
-" configuration for filetype memo
-augroup Memo
-    autocmd!
-    autocmd BufEnter *.memo :set filetype=markdown
-augroup END
-:let g:ttoc_rx_memo = '^\k\+\>'
-" }}}
-
-" calender.vim{{{
-let g:calendar_diary = $DROPBOX_DIR. "/documents/diary"
-" }}}
-
 " vim-latex{{{
 filetype plugin on
 set shellslash
@@ -1064,95 +1036,18 @@ unlet s:bundle
 
 " }}}
 
-" memolist.vim{{{
-let g:memolist_path=$DROPBOX_DIR."/documents/memo"
-let g:memolist_memo_suffix = "txt"
-let g:memolist_memo_date = "%Y-%m-%d %H:%M"
-let g:memolist_memo_date = "epoch"
-let g:memolist_memo_date = "%D %T"
-" let g:memolist_prompt_tags = "true"
-" let g:memolist_prompt_categories = "true"
-" }}}
-
 " vim-ref{{{
 " lazy loading for vim-ref
+" webdict
+let g:ref_source_webdict_sites ={
+            \ 'wikipedia:ja' : 'http://ja.wikipedia.org/wiki/%s',
+            \}
 nmap <silent> K :<C-u>silent! <Plug>(ref-keyword)
 vmap <silent> K :<C-u>silent! <Plug>(ref-keyword)
 command! -nargs=+ Ref
             \ execute 'silent! NeoBundleSource vim-ref'
             \ | call ref#ref(<q-args>)
 " }}}
-
-" sequence {{{
-let g:loaded_sequence=1
-" }}}
-
-" CCTree.vim:"{{{
-if 1 && filereadable($DOTVIM . '/Bundle/CCTree/ftplugin/cctree.vim')
-    source $DOTVIM/bundle/CCTree/ftplugin/cctree.vim
-endif
-"}}}
-
-" cscope_maps{{{
-" This tests to see if vim was configured with the '--enable-cscope' option
-" when it was compiled.  If it wasn't, time to recompile vim... 
-if has("cscope")
-    " use both cscope and ctag for 'ctrl-]', ':ta', and 'vim -t'
-    set cscopetag
-
-    " check cscope for definition of a symbol before checking ctags: set to 1
-    " if you want the reverse search order.
-    set csto=0
-
-    " add any cscope database in current directory
-    if filereadable("cscope.out")
-        cs add cscope.out
-        " else add the database pointed to by environment variable 
-    elseif $CSCOPE_DB != ""
-        cs add $CSCOPE_DB
-    endif
-
-    " show msg when any other cscope db added
-    set cscopeverbose
-
-    " cscope key mappings
-    "   's'   symbol: find all references to the token under cursor
-    "   'g'   global: find global definition(s) of the token under cursor
-    "   'c'   calls:  find all calls to the function name under cursor
-    "   't'   text:   find all instances of the text under cursor
-    "   'e'   egrep:  egrep search for the word under cursor
-    "   'f'   file:   open the filename under cursor
-    "   'i'   includes: find files that include the filename under cursor
-    "   'd'   called: find functions that function under cursor calls
-
-    nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
-    nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-    nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
-
-    nmap <C-@>s :scs find s <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-@>g :scs find g <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-@>c :scs find c <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-@>t :scs find t <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-@>e :scs find e <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-@>f :scs find f <C-R>=expand("<cfile>")<CR><CR>
-    nmap <C-@>i :scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-    nmap <C-@>d :scs find d <C-R>=expand("<cword>")<CR><CR>
-
-    nmap <C-@><C-@>s :vert scs find s <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-@><C-@>g :vert scs find g <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-@><C-@>c :vert scs find c <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-@><C-@>t :vert scs find t <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-@><C-@>e :vert scs find e <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-@><C-@>f :vert scs find f <C-R>=expand("<cfile>")<CR><CR>
-    nmap <C-@><C-@>i :vert scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-    nmap <C-@><C-@>d :vert scs find d <C-R>=expand("<cword>")<CR><CR>
-endif
-"}}}
 
 " Source-Explorer-srcexpl.vim:"{{{
 "
@@ -1196,43 +1091,6 @@ let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ."
 " let g:SrcExpl_updateTagsKey = "<F12>"
 "}}}
 
-" gtags.vim:"{{{
-nmap <Leader>gs :<C-u>Gtags -s <C-R>=expand("<cword>")<CR><CR>
-nmap <Leader>gg :<C-u>Gtags -g <C-R>=expand("<cword>")<CR><CR>
-nmap <Leader>gf :<C-u>Gtags -f <C-R>=expand("<cfile>")<CR><CR>
-nmap <Leader>gr :<C-u>Gtags -r <C-R>=expand("<cword>")<CR><CR>
-nmap <Leader>gd :<C-u>Gtags -d <C-R>=expand("<cword>")<CR><CR>
-"}}}
-
-" ref.vim {{{
-" webdict
-let g:ref_source_webdict_sites ={
-            \ 'wikipedia:ja' : 'http://ja.wikipedia.org/wiki/%s',
-            \}
-" let g:ref_source_webdict_sites = {
-" \ 'wiktionary' : {
-" \ 'url' : 'http://ja.wiktionary.org/wiki/%s',
-" \ 'keyword_encoding' : 'utf-8',
-" \ 'cache' : 1,
-" \}
-" \}
-
-" 出力に対するフィルタ、最初の数行を削除
-" function! g:ref_source_webdict_sites.wiktionary.filter(output)
-" return join(split(a:output,"\n")[18 :], "\n")
-" endfunction
-
-
-" }}}
-
-" vimwiki {{{
-autocmd MyAutoCmd FileType vimwiki nnoremap <buffer> <leader>tt <Plug>VimwikiToggleListItem
-" }}}
-
-" exVim {{{
-let $EX_DEV = '~/exdev'
-" }}}
-
 " fontzoom.vim {{{
 function! MyPresenSetting()
     map <buffer> + <Plug>(fontzoom-larger)
@@ -1262,9 +1120,7 @@ let g:qfixmemo_ext = 'howm'
 let QFixHowm_FileType = 'qfix_memo'
 let QFix_PreviewEnable = 0
 
-" QuickFixウィンドウの高さ
 let QFix_Height = 3
-" QuickFixウィンドウの幅
 let QFix_Width = 0
 " QuickFixウィンドウの開き方
 let QFix_CopenCmd = ''
@@ -1306,11 +1162,6 @@ xmap <silent><expr> as mode() !=# 'v' ? ':Alignta \S\+'."\<CR>" : 'as'
 xnoremap al :Alignta<Space>
 " }}}
 
-" syntastic{{{
-let g:syntastic_enable_signs=1
-let g:syntastic_auto_loc_list=2
-" }}}
-
 " Ruby {{{
 let s:bundle_rails = 'unite-rails unite-rails_best_practices unite-rake alpaca_complete'
 
@@ -1338,10 +1189,6 @@ autocmd MyAutoCmd BufEnter * if &filetype =="text" | setlocal ft=hybrid | endif
 let g:neocomplcache_force_overwrite_completefunc=1
 " }}}
 
-" gmail.vim{{{
-let g:gmail_user_name="kse.201@gmail.com"
-" }}}
-
 " java-api-complete {{{
 " https://github.com/yuratomo/java-api-complete
 au MyAutoCmd BufNewFile,BufRead *.java    setl omnifunc=javaapi#complete
@@ -1364,6 +1211,11 @@ let g:javaapi#delay_dirs = [
 " submode{{{
 " http://d.hatena.ne.jp/thinca/20130131/1359567419
 let g:submode_leave_with_key = 1
+call submode#enter_with('cscroll', 'n', '', '<Leader>j', ':ChromeScrollDown<CR>')
+call submode#enter_with('cscroll', 'n', '', '<Leader>k', ':ChromeScrollUp<CR>')
+call submode#leave_with('cscroll', 'n', '', 'n')
+call submode#map('cscroll', 'n', '', 'j', ':ChromeScrollDown<CR>')
+call submode#map('cscroll', 'n', '', 'k', ':ChromeScrollUp<CR>')
 " window size
 call submode#enter_with('winsize', 'n', '', '<C-w>>', '<C-w>>')
 call submode#enter_with('winsize', 'n', '', '<C-w><', '<C-w><')
@@ -1388,11 +1240,9 @@ call submode#map('movetab', 'n', '', 'T', printf(s:movetab, -1))
 unlet s:movetab
 " }}}
 
-" ccelerated-smooth-scroll.vim{{{
-" http://yonchu.hatenablog.com/entry/2013/05/16/204727
-" }}}
-
 " sequence{{{
+let g:loaded_sequence=1
+
 vmap <m-a> <plug>SequenceV_Increment
 vmap <m-x> <plug>SequenceV_Decrement
 nmap <m-a> <plug>SequenceN_Increment
@@ -1561,15 +1411,29 @@ augroup END
 "
 " previm{{{
 let g:previm_open_cmd = 'open'
+nnoremap <silent> <F7> :PrevimOpen<CR>
+"nnoremap <silent> <F7> :PrevimOpen \|:Silent open -a it2_f &<CR>
+nmap <silent> <Leader>j <Plug>(ChromeScrollDown)
+nmap <silent> <Leader>k <Plug>(ChromeScrollUp)
+nmap <silent> <Leader>q <Plug>(ChromeTabClose)
+nmap <buffer> <Leader>f <Plug>(ChromeKey)
 " }}}
 
 " fugitive {{{
 " http://qiita.com/hyshhryk/items/4936c4412daa866daf7d
-
 nnoremap <silent> <Space>gb :Gblame<CR>
 nnoremap <silent> <Space>gd :Gdiff<CR>
 nnoremap <silent> <Space>gs :Gstatus<CR>
 " }}}
 
+" over.vim {{{
+" over.vimの起動
+nnoremap <silent> <Leader>m :OverCommandLine<CR>
+" カーソル下の単語をハイライト付きで置換
+nnoremap sub :OverCommandLine<CR>%s/<C-r><C-w>//g<Left><Left>
+" コピーした文字列をハイライト付きで置換
+nnoremap subp y:OverCommandLine<CR>%s!<C-r>=substitute(@0, '!', '\\!', 'g')<CR>!!gI<Left><Left><Left>
+
+" }}}
 "" ================================================================================ 
 " vim: set tw=0 tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
