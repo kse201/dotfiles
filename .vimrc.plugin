@@ -1,6 +1,6 @@
 "============================================================
 "                  *** .vimrc.plugin ***                    |
-"                 Last Change: 08-Dec-2013.                 |
+"                 Last Change: 10-Dec-2013.                 |
 "============================================================
 
 augroup MyAutoCmd
@@ -124,7 +124,7 @@ NeoBundle "fuenor/JpFormat.vim"
 " 機能追加 {{{
 NeoBundleLazy 'Shougo/vimshell'  , 
             \{"autoload" : {'commands' : ['VimShell', 'VimShellCurrentDir' ]} }
-NeoBundle 'basyura/TweetVim' ,
+NeoBundleLazy 'basyura/TweetVim' ,
             \{'depends' : 
             \ ['open-browser.vim',
             \ 'mattn/webapi-vim',
@@ -152,9 +152,7 @@ NeoBundle 'gitv'
 NeoBundleLazy 'airblade/vim-gitgutter'
 NeoBundleLazy 'open-browser.vim', {'autoload' : {'mappings' :['<Plug>(open-browser-wwwsearch)','<Plug>(openbrowser-smart-search)']}}
 NeoBundle 'LeafCage/yankround.vim' ,{'depends' : ['kien/ctrlp.vim' ] }
-NeoBundleLazy 'SingleCompile' , {'autoload' : { 'filetypes' : ['c', 'cpp','java']}}
 NeoBundleLazy 'taglist.vim', {'autoload' : { 'filetypes' : ['c', 'cpp','java'], 'commands' : ['TList']}}
-NeoBundleLazy 'TagHighlight', {'autoload' : { 'filetypes' : ['c', 'cpp','cs','java']}}
 NeoBundleLazy 'thinca/vim-showtime', {'autoload' : {'commands' : ['ShowtimeStart']}}
 NeoBundle 'thinca/vim-fontzoom'
 NeoBundle 'MultipleSearch'
@@ -162,11 +160,9 @@ NeoBundleLazy 'csv.vim' , { 'autoload' : {'filetypes' : 'csv'}}
 NeoBundleLazy 'yuratomo/w3m.vim'  , { 'autoload' : {'commands' : ['W3m']}}
 NeoBundleLazy 'sjl/gundo.vim' , {'autoload' : {'commands' : ['GundoToggle']}}
 NeoBundleLazy 'vim-scripts/RltvNmbr.vim' , {'autoload' : { 'commands' : 'RN'}}
-NeoBundleLazy 'scrooloose/syntastic',  {'autoload' : { 'filetypes' : ['c', 'cpp', 'cs', 'java' , 'ruby']}}
 NeoBundle 'kana/vim-operator-replace.git'
 NeoBundle 'kana/vim-operator-user'
 NeoBundle 'vim-scripts/ViewOutput'
-NeoBundleLazy 'rhysd/clever-f.vim'
 NeoBundle 'osyo-manga/vim-anzu'
 NeoBundle 'osyo-manga/vim-over'
 NeoBundle 'mattn/startmenu-vim'
@@ -175,14 +171,6 @@ NeoBundle 'mattn/excelview-vim'
 " C / C++ {{{
 NeoBundleLazy 'vim-scripts/SrcExpl' , {'autoload' : { 'filetypes' : ['c', 'cpp','java']}}
 NeoBundleLazy 'vim-scripts/Trinity' , {'autoload' : { 'filetypes' : ['c', 'cpp','java']}}
-NeoBundleLazy 'vim-scripts/a.vim' , {'autoload' : { 'filetypes' : ['c', 'cpp','java']}}
-NeoBundleLazy 'vim-scripts/c.vim.git' , {'autoload' : { 'filetypes' : ['c', 'cpp','java']}}
-NeoBundleLazy 'vim-scripts/CCTree' , {'autoload' : { 'filetypes' : ['c', 'cpp','java']}}
-NeoBundleLazy 'vim-scripts/cscope-menu' , {'autoload' : { 'filetypes' : ['c', 'cpp','cs','java']}}
-NeoBundleLazy 'vim-scripts/gtags.vim' , {'autoload' : { 'filetypes' : ['c', 'cpp','cs','java']}}
-NeoBundleLazy 'vim-scripts/csharp.vim' , {'autoload' : { 'filetypes' : ['c', 'cpp','cs','java']}}
-NeoBundleLazy 'jceb/vim-hier' , { "autoload" : {"filetypes" : ["cpp" , "c","cs"]}}
-NeoBundleLazy 'dannyob/quickfixstatus', { "autoload" : {"filetypes" : ["cpp" , "c","cs"]}}
 " }}}
 " Java {{{
 NeoBundleLazy 'yuratomo/java-api-complete' , { 'autoload' :  { 'filetypes' : ['java'] }}
@@ -444,7 +432,7 @@ let g:unite_source_file_mru_filename_format = ''
 " 入力モードで開始する
 let g:unite_enable_start_insert=1
 " file_mruの最大保存数
-let g:unite_source_file_mru_limit=1000
+let g:unite_source_file_mru_limit=100
 " 大文字小文字を区別しない
 let g:unite_enable_ignore_case = 1
 let g:unite_enable_smart_case = 1
@@ -500,11 +488,11 @@ nnoremap <silent> <SID>[unite]r  :<C-u>UniteResume search-buffer<CR>
 noremap <silent><Leader>ug : <C-u>Unite git-conflict<CR>
 
 " 曖昧検索
-call unite#custom#substitute('file,file_mru,history/command,directory_mru', '[[:alnum:]]', '*\0', 100)
+call unite#custom#substitute('file,file_mru,history/command,directory_mru', '[[:alnum:]]', '*\0', 10)
 
 " 様々なショートカット
 " http://d.hatena.ne.jp/thinca/20101027/1288190498
-call unite#custom#substitute('file,file_mru', '\$\w\+', '\=eval(submatch(0))', 200)
+call unite#custom#substitute('file,file_mru', '\$\w\+', '\=eval(submatch(0))', 20)
 call unite#custom#substitute('file,file_mru', '[^~.]\zs/', '*/*', 20)
 call unite#custom#substitute('file,file_mru', '/\ze[^*]', '/*', 10)
 call unite#custom#substitute('file,file_mru', '^@@', '\=fnamemodify(expand("#"), ":p:h")."/*"', 2)
@@ -979,10 +967,6 @@ if exists(":IndentGuidesEnable")
 endif
 " }}}
 
-" calender.vim{{{
-let g:calendar_diary = $DROPBOX_DIR. "/documents/diary"
-" }}}
-
 " vim-latex{{{
 filetype plugin on
 set shellslash
@@ -1066,73 +1050,6 @@ command! -nargs=+ Ref
             \ | call ref#ref(<q-args>)
 " }}}
 
-" CCTree.vim:"{{{
-if 1 && filereadable($DOTVIM . '/Bundle/CCTree/ftplugin/cctree.vim')
-    source $DOTVIM/bundle/CCTree/ftplugin/cctree.vim
-endif
-"}}}
-
-" cscope_maps{{{
-" This tests to see if vim was configured with the '--enable-cscope' option
-" when it was compiled.  If it wasn't, time to recompile vim... 
-if has("cscope")
-    " use both cscope and ctag for 'ctrl-]', ':ta', and 'vim -t'
-    set cscopetag
-
-    " check cscope for definition of a symbol before checking ctags: set to 1
-    " if you want the reverse search order.
-    set csto=0
-
-    " add any cscope database in current directory
-    if filereadable("cscope.out")
-        cs add cscope.out
-        " else add the database pointed to by environment variable 
-    elseif $CSCOPE_DB != ""
-        cs add $CSCOPE_DB
-    endif
-
-    " show msg when any other cscope db added
-    set cscopeverbose
-
-    " cscope key mappings
-    "   's'   symbol: find all references to the token under cursor
-    "   'g'   global: find global definition(s) of the token under cursor
-    "   'c'   calls:  find all calls to the function name under cursor
-    "   't'   text:   find all instances of the text under cursor
-    "   'e'   egrep:  egrep search for the word under cursor
-    "   'f'   file:   open the filename under cursor
-    "   'i'   includes: find files that include the filename under cursor
-    "   'd'   called: find functions that function under cursor calls
-
-    nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
-    nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-    nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
-
-    nmap <C-@>s :scs find s <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-@>g :scs find g <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-@>c :scs find c <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-@>t :scs find t <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-@>e :scs find e <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-@>f :scs find f <C-R>=expand("<cfile>")<CR><CR>
-    nmap <C-@>i :scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-    nmap <C-@>d :scs find d <C-R>=expand("<cword>")<CR><CR>
-
-    nmap <C-@><C-@>s :vert scs find s <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-@><C-@>g :vert scs find g <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-@><C-@>c :vert scs find c <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-@><C-@>t :vert scs find t <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-@><C-@>e :vert scs find e <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-@><C-@>f :vert scs find f <C-R>=expand("<cfile>")<CR><CR>
-    nmap <C-@><C-@>i :vert scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-    nmap <C-@><C-@>d :vert scs find d <C-R>=expand("<cword>")<CR><CR>
-endif
-"}}}
-
 " Source-Explorer-srcexpl.vim:"{{{
 "
 " // The switch of the Source Explorer                                         "
@@ -1174,10 +1091,6 @@ let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ."
 " // Set "<F12>" key for updating the tags file artificially                   "
 " let g:SrcExpl_updateTagsKey = "<F12>"
 "}}}
-
-" exVim {{{
-let $EX_DEV = '~/exdev'
-" }}}
 
 " fontzoom.vim {{{
 function! MyPresenSetting()
@@ -1248,11 +1161,6 @@ xnoremap <silent> A  :Alignta =>\=<CR>
 xnoremap <silent> a: :Alignta  01 :<CR>
 xmap <silent><expr> as mode() !=# 'v' ? ':Alignta \S\+'."\<CR>" : 'as'
 xnoremap al :Alignta<Space>
-" }}}
-
-" syntastic{{{
-let g:syntastic_enable_signs=1
-let g:syntastic_auto_loc_list=2
 " }}}
 
 " Ruby {{{
