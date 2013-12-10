@@ -1,6 +1,6 @@
 "============================================================
 "                      *** .vimrc ***                       |
-"                 Last Change: 02-Dec-2013.                 |
+"                 Last Change: 10-Dec-2013.                 |
 "============================================================
 
 " basic setting{{{
@@ -82,23 +82,10 @@ else
 endif
 " }}}
 
-" dropbox dir {{{
-if has('win32') || has('win64') 
-    let $DROPBOX_DIR   = $HOME . '\Documents\My Dropbox'
-elseif has('win32unix')
-    let $DROPBOX_DIR   = $HOME . '/Documents/My Dropbox'
-elseif has('mac')
-    let $DROPBOX_DIR   = $HOME . '/Dropbox'
-else
-    let $DROPBOX_DIR   = $HOME . '/Documents\My Dropbox'
-endif
-" }}}
-
 " edit configs {{{
 nnoremap <Leader>ev :edit $MYVIMRC<CR>
 nnoremap <Leader>eg :edit $MYGVIMRC<CR>
 nnoremap <Leader>ep :edit $MYVIMRCPLUGIN<CR>
-nnoremap <Leader>em :edit $DROPBOX_DIR/documents/memo<CR>
 " }}}
 
 " Auto Loading .vimrc,.gvimrc {{{
