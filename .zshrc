@@ -5,6 +5,7 @@ if [ ! -f ~/.zshrc.zwc -o ~/.zshrc -nt ~/.zshrc.zwc ]; then
     zcompile ~/.zshrc
 fi
 export PATH=/usr/local/bin:/usr/local/sbin:$PATH:~/bin 
+typeset -U path PATH
 export LANG=ja_JP.UTF-8
 export LESSCHARSET=utf-8
 
