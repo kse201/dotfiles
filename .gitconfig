@@ -31,7 +31,7 @@
     co       = checkout
     cl       = clone
     dc       = diff --cached
-    df       = diff
+    df       = diff -w
     d        = diff -C
     ds       = diff -C --stat
     dsp      = diff -C --stat -p
