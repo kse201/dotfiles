@@ -155,7 +155,7 @@ NeoBundle 'LeafCage/yankround.vim' ,{'depends' : ['kien/ctrlp.vim' ] }
 NeoBundleLazy 'taglist.vim', {'autoload' : { 'filetypes' : ['c', 'cpp','java'], 'commands' : ['TList']}}
 NeoBundleLazy 'thinca/vim-showtime', {'autoload' : {'commands' : ['ShowtimeStart']}}
 NeoBundle 'thinca/vim-fontzoom'
-NeoBundle 'MultipleSearch'
+NeoBundleLazy 'MultipleSearch'
 NeoBundleLazy 'csv.vim' , { 'autoload' : {'filetypes' : 'csv'}}
 NeoBundleLazy 'yuratomo/w3m.vim'  , { 'autoload' : {'commands' : ['W3m']}}
 NeoBundleLazy 'sjl/gundo.vim' , {'autoload' : {'commands' : ['GundoToggle']}}
@@ -223,6 +223,7 @@ NeoBundleLazy 'rbtnn/puyo.vim'
 NeoBundle 'kana/vim-smartinput'
 NeoBundle 'taichouchou2/vim-endwise'
 NeoBundle 'tsaleh/vim-matchit'
+NeoBundle 'vim-scripts/scratch-utility'
 " }}}
 NeoBundle 'vim-scripts/DrawIt'
 NeoBundle 'kien/ctrlp.vim'
