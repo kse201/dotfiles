@@ -5,6 +5,7 @@ if [ ! -f ~/.zshrc.zwc -o ~/.zshrc -nt ~/.zshrc.zwc ]; then
     zcompile ~/.zshrc
 fi
 export PATH=/usr/local/bin:/usr/local/sbin:$PATH:~/bin 
+typeset -U path PATH
 export LANG=ja_JP.UTF-8
 export LESSCHARSET=utf-8
 
@@ -333,7 +334,7 @@ zstyle ':completion:*:default' menu select=1
 ##############################
 alias gst="git status"
 alias gmt="git commit"
-alias gdf="git diff"
+alias gdf="git diff -w"
 alias glg="git log --graph --date-order -C -M --pretty=format:\"<%h> %ad [%an] %Cgreen%d%Creset %s\" --all --date=short"
 
 # 単語区切り記号
