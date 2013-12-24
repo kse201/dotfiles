@@ -55,7 +55,17 @@ NeoBundleLazy 'thinca/vim-ref', {'autoload' : { 'mappings' : ['<Plug>(ref-keywor
 NeoBundleLazy 'vim-jp/vimdoc-ja.git'
 " }}}
 " 補完 neocom{{{
-NeoBundleLazy 'Shougo/neocomplcache'
+
+function! s:meet_neocomplete_requirements()
+    return has('lua') && (v:version > 703 || (v:version == 703 && has('patch885')))
+endfunction
+if s:meet_neocomplete_requirements()
+    NeoBundleLazy 'Shougo/neocomplete.vim'
+    NeoBundleFetch 'Shougo/neocomplcache.vim'
+else
+    NeoBundleFetch 'Shougo/neocomplete.vim'
+    NeoBundleLazy 'Shougo/neocomplcache.vim'
+endif
 NeoBundleLazy 'Shougo/neosnippet'
 NeoBundleLazy 'Shougo/neocomplcache-clang'
 NeoBundleLazy 'neco-look'
@@ -270,8 +280,150 @@ endfunction
   nnoremap <silent>,bp    :<C-u>NebulaPutFromClipboard<CR>
 " }}}
 
-" neocomplcache & neosnippet {{{
+" neocomplete(neocomplcache) & neosnippet
+if s:meet_neocomplete_requirements()
+" neocomplete & neosnippet {{{
+if has('vim_starting') 
+    augroup MyInitNeocomplete
+        autocmd!
+        autocmd InsertEnter * call s:LazyLoadingForNeocom() | call Init_neocomplete() | autocmd! MyInitNeocomplete
+    augroup END
+    function! s:LazyLoadingForNeocom()
+        NeoBundleSource neocomplete
+        NeoBundleSource neosnippet
+        NeoBundleSource neocomplete-clang
+        NeoBundleSource neocomplete-clang_complete
+        NeoBundleSource clang-complete
+        NeoBundleSource neco-look
+        NeoBundleSource neco-tweetvim
+        NeoBundleSource jedi
+    endfunction
+endif
 
+call neobundle#config('neocomplete',{
+            \'lazy' : 1,
+            \ 'autoload' : {
+            \ 'insert' : 1,
+            \}})
+
+" Use neocomplete.
+let g:neocomplete_enable_at_startup             = 0 " 起動時に有効化
+" Use smartcase.
+let g:NeoComplete_SmartCase                     = 1
+let g:neocomplete_enable_auto_select            = 1
+" Use camel case completion.
+let g:NeoComplete_enable_camel_case_completion  = 0
+" Use underbar completion.
+let g:NeoComplete_EnableUnderbarCompletion      = 1
+" Set minimum syntax keyword length.
+let g:NeoComplete_MinSyntaxLength               = 3
+" Set manual completion length.
+" let g:NeoComplete_ManualCompletionStartLength = 2
+" Print caching percent in statusline.
+" let g:NeoComplete_CachingPercentInStatusline  = 1
+let g:neocomplete_lock_buffer_name_pattern      = '\*ku\*'
+
+" Define dictionary.
+let g:neocomplete_dictionary_filetype_lists = {
+            \ 'default'  : '',
+            \ 'vimshell' : $HOME.'/.vimshell_hist',
+            \ 'scheme'   : $HOME.'/.gosh_completions',
+            \ 'ruby'     : $VIMFILE_DIR.'/dict/ruby.dict',
+            \ 'objc'     : $VIMFILE_DIR.'/dict/cocoa.dict',
+            \ 'tex'      : $VIMFILE_DIR.'/dict/tex.dict',
+            \ 'java'     : $VIMFILE_DIR.'/dict/java.dict'
+            \ }
+
+" Define keyword.
+if !exists('g:neoComplete_keyword_patterns')
+    let g:neoComplete_keyword_patterns = {}
+endif
+let g:neoComplete_keyword_patterns['default'] = '\h\w*'
+" ファイル名補間、オムニ補間をneocom組み込みのものに置き換え
+" inoremap <expr><C-x><C-f>  neocomplete#manual_filename_complete()
+" inoremap <expr> <C-j>  &filetype == 'vim' ? "\<C-x>\<C-v>\<C-p>" : neocomplete#manual_omni_complete()
+"
+" http://d.hatena.ne.jp/osyo-manga/20121021/1350749023
+if !exists("g:neosnippet#snippets_directory")
+    let g:neosnippet#snippets_directory=""
+endif
+" let g:NeoComplete_SnippetsDir = $VIMFILE_DIR.'/snippets'
+let g:neosnippet#snippets_directory= $VIMFILE_DIR . '/snippets'
+
+
+" init neocomplete {{{
+function! Init_neocomplete()
+    NeoCompleteEnable
+    " 候補の共通箇所まで補完する
+    inoremap <expr><C-l> neocomplete#complete_common_string()
+    " 決定
+    inoremap <expr><C-y> neocomplete#close_popup()
+    " inoremap <expr><CR> pumvisible() ? neocomplete#close_popup() : "\<CR>" 
+
+    "snippet
+    imap <expr><CR> neosnippet#expandable_or_jumpable() ?   "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? neocomplete#close_popup() : "\<CR>" 
+    imap <expr><C-y> neosnippet#expandable_or_jumpable() ?   "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? neocomplete#close_popup() : "\<C-y>" 
+    imap <expr><C-j> neosnippet#expandable_or_jumpable() ?   "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? neocomplete#close_popup() : "\<C-j>" pneobu
+    imap <expr><TAB> neosnippet#expandable_or_jumpable() ?   "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+    smap <expr><TAB> neosnippet#expandable_or_jumpable() ?  "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+    imap <C-q>  <Plug>(neocomplete_start_unite_complete)
+
+    " キャンセルしてポップアップを閉じる
+    inoremap <expr><C-e>  neocomplete#cancel_popup()
+    " ネオコンによって挿入した補完を元に戻す
+    inoremap <expr><C-g>     neocomplete#undo_completion()
+    " ポップアップが出ているときの挙動を快適にする
+    " バックスペースしたときポップアップを閉じる
+    inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+    inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+
+    " ネオコン設定変更操作
+    " スニペットを編集する
+    noremap <Leader>es :<C-u>vertical belowright NeoCompleteEditSnippets<CR>
+endfunction
+" }}}
+" Term neocomplete{{{
+function! Term_neocomplete()
+    NeoCompleteDisable
+    iunmap <C-g>
+    iunmap <C-l>
+    iunmap <C-q>
+    iunmap <CR>
+    iunmap <C-h>
+    iunmap <BS>
+    iunmap <C-y>
+    iunmap <C-e>
+    iunmap <TAB>
+endfunction
+" }}}
+command! InitNeoComplete call Init_neocomplete()
+command! TermNeoComplete call Term_neocomplete()
+
+" Enable omni completion. {{{
+augroup EnableOmniCompleteion
+    autocmd!
+    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+augroup END
+" }}}
+" Enable heavy omni completion.{{{ 
+if !exists('g:neocomplete_omni_patterns')
+    let g:neocomplete_omni_patterns = {}
+endif
+let g:neocomplete_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+" }}}
+" autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete{{{
+let g:neocomplete_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+let g:neocomplete_omni_patterns.c = '\%(\.\|->\)\h\w*'
+let g:neocomplete_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
+" }}}
+" }}}
+else
+" neocomplcache & neosnippet {{{
 if has('vim_starting') 
     augroup MyInitNeocomplcache
         autocmd!
@@ -411,7 +563,7 @@ let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
 let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 " }}}
 " }}}
-
+endif
 " yankround.vim {{{
 "" キーマップ
 nmap p <Plug>(yankround-p)
