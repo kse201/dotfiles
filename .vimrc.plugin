@@ -60,11 +60,11 @@ function! s:meet_neocomplete_requirements()
     return has('lua') && (v:version > 703 || (v:version == 703 && has('patch885')))
 endfunction
 if s:meet_neocomplete_requirements()
-    NeoBundleLazy 'Shougo/neocomplete.vim'
-    NeoBundleFetch 'Shougo/neocomplcache.vim'
+    NeoBundleLazy 'Shougo/neocomplete'
+    NeoBundleFetch 'Shougo/neocomplcache'
 else
-    NeoBundleFetch 'Shougo/neocomplete.vim'
-    NeoBundleLazy 'Shougo/neocomplcache.vim'
+    NeoBundleFetch 'Shougo/neocomplete'
+    NeoBundleLazy 'Shougo/neocomplcache'
 endif
 NeoBundleLazy 'Shougo/neosnippet'
 NeoBundleLazy 'Shougo/neocomplcache-clang'
