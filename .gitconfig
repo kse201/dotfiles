@@ -16,6 +16,7 @@
     default = upstream
 
 [alias]
+    alias = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort
     ignore   = update-index --assume-unchanged
     unignore = update-index --no-assume-unchanged
     ignored  = !git ls-files -v | grep "^[a-z]" ; view ignored files
@@ -41,3 +42,6 @@
     l        = log
     m        = checkout master
     ituja    = log --patch -S
+
+[help]
+    autocorrect = 1
