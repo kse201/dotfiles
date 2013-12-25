@@ -623,12 +623,12 @@ augroup END
 nnoremap <silent> <SID>[unite]b :<C-u>Unite -buffer-name=buffer buffer<CR>
 " ファイル 最近使用したファイル一覧
 nnoremap <silent> <SID>[unite]f :<C-u>UniteWithBufferDir -winheight=100 -hide-source-names -input= -buffer-name=files -no-split 
-            \ buffer 
-            \ tab 
-            \ file 
-            \ bookmark 
-            \ file_mru  
-            \ file/new <CR>
+            \ output:echo\ "\ ===\ BUFFER\ ===\ " buffer 
+            \ output:echo\ "\ ===\ TAB\ ===\ " tab 
+            \ output:echo\ "\ ===\ FILE\ ===\ " file 
+            \ output:echo\ "\ ===\ BOOKMARK\ ===\ "  bookmark 
+            \ output:echo\ "\ ===\ FILE_MRU\ ===\ "  file_mru  
+            \ output:echo\ "\ ===\ FILE/NEW\ ===\ "  file/new <CR>
 " command history
 nnoremap <silent> <SID>[unite]h :<C-u>Unite -default-action=edit history/command command<CR>
 " jump
