@@ -239,6 +239,7 @@ NeoBundle 'kien/ctrlp.vim'
 NeoBundleLazy 'kannokanno/previm' , { 'autoload' : { 'filetypes' : ['markdown'] }}
 NeoBundleLazy 'syui/cscroll.vim' , { 'autoload' : { 'filetypes' : ['markdown'] }}
 NeoBundleLazy 'kana/vim-submode' , { 'autoload' : { 'filetypes' : ['markdown'] }}
+NeoBundleLazy "sudar/vim-arduino-syntax" ,{'autoload' : {'filetype' : ['arduino']}}
 NeoBundle 'thinca/vim-splash'
 
 filetype plugin indent on
@@ -281,7 +282,7 @@ endfunction
   nnoremap <silent>,bp    :<C-u>NebulaPutFromClipboard<CR>
 " }}}
 
-" neocomplete(neocomplcache) & neosnippet
+" neocomplete(neocomplcache) & neosnippet{{{
 if s:meet_neocomplete_requirements()
 " neocomplete & neosnippet {{{
 if has('vim_starting') 
@@ -564,6 +565,8 @@ let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 " }}}
 " }}}
 endif
+" }}}
+
 " yankround.vim {{{
 "" キーマップ
 nmap p <Plug>(yankround-p)
@@ -618,20 +621,22 @@ augroup END
 
 nnoremap <silent> <SID>[unite]b :<C-u>Unite -buffer-name=buffer buffer<CR>
 " ファイル 最近使用したファイル一覧
-nnoremap <silent> <SID>[unite]f :<C-u>Unite  -buffer-name=files file file/new<CR>
-nnoremap <silent> <SID>[unite]m :<C-u>Unite -buffer-name=file_mru file_mru<CR>
-" 全部乗せ
-nnoremap <silent> <SID>[unite]a :<C-u>UniteWithBufferDir -winheight=100 -input= -buffer-name=files buffer file_mru bookmark file tab history/command directory directory_mru register variable window<CR>
-" command
+nnoremap <silent> <SID>[unite]f :<C-u>UniteWithBufferDir -winheight=100 -hide-source-names -input= -buffer-name=files -no-split 
+            \ output:echo\ "\ ===\ BUFFER\ ===\ " buffer 
+            \ output:echo\ "\ ===\ TAB\ ===\ " tab 
+            \ output:echo\ "\ ===\ FILE\ ===\ " file 
+            \ output:echo\ "\ ===\ BOOKMARK\ ===\ "  bookmark 
+            \ output:echo\ "\ ===\ FILE_MRU\ ===\ "  file_mru  
+            \ output:echo\ "\ ===\ FILE/NEW\ ===\ "  file/new <CR>
+" command history
 nnoremap <silent> <SID>[unite]h :<C-u>Unite -default-action=edit history/command command<CR>
-" command
-nnoremap <silent> <SID>[unite]t :<C-u>Unite tab<CR>
 " jump
 nnoremap <silent> <SID>[unite]j :<C-u>Unite jump<CR>
-" 検索
-nnoremap <silent> <SID>[unite]/ :<C-u>Unite line<CR>
+" search
+nnoremap <silent> <SID>[unite]/ :<C-u>Unite -buffer-name=search line<CR>
 nnoremap <silent> <SID>[unite]l :<C-u>Unite line<CR>
-nnoremap <silent> <SID>[unite]; :<C-u>Unite command<CR>
+nnoremap <silent> <SID>[unite]l  :<C-u>UniteResume search<CR>
+nnoremap <silent> <SID>[unite]: :<C-u>Unite command<CR>
 " grep 
 nnoremap <silent> <SID>[unite]g  :<C-u>Unite grep -buffer-name=search-buffer<CR>
 
@@ -752,7 +757,22 @@ if has('win32') || has('win64')
     NeoBundleSource 'unite-everything'
 endif
 " }}}
-
+"" unite-git-files-conflict {{{
+let s:unite_git_files_conflict = {
+      \   'name' : 'git/files/conflict',
+      \ }
+function! s:unite_git_files_conflict.gather_candidates(args, context)
+  let output = unite#util#system('git diff-files --name-only --diff-filter=U')
+  let candidates = map(split(output, "\n"), '{
+        \ "word" : fnamemodify(v:val, ":p"),
+        \ "source" : "git/files/conflict",
+        \ "kind" : "file",
+        \ "action__path" : fnamemodify(v:val, ":p"),
+        \ }')
+  return candidates
+endfunction
+call unite#define_source(s:unite_git_files_conflict)
+" }}}
 " }}}
 
 " smartchr.vim{{{
