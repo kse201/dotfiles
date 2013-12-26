@@ -241,6 +241,7 @@ NeoBundleLazy 'syui/cscroll.vim' , { 'autoload' : { 'filetypes' : ['markdown'] }
 NeoBundleLazy 'kana/vim-submode' , { 'autoload' : { 'filetypes' : ['markdown'] }}
 NeoBundleLazy "sudar/vim-arduino-syntax" ,{'autoload' : {'filetype' : ['arduino']}}
 NeoBundle 'thinca/vim-splash'
+NeoBundle 't9md/vim-quickhl'
 
 filetype plugin indent on
 syntax on
@@ -324,6 +325,9 @@ let g:NeoComplete_MinSyntaxLength               = 3
 " Print caching percent in statusline.
 " let g:NeoComplete_CachingPercentInStatusline  = 1
 let g:neocomplete_lock_buffer_name_pattern      = '\*ku\*'
+let g:neocomplete#skip_auto_completion_time = '0.2'
+
+let g:neocomplete#sources = { '_' : ['file', 'tag', 'neosnippet', 'vim', 'omni', 'member', 'syntax', 'include', 'buffer', 'file/include']}
 
 " Define dictionary.
 let g:neocomplete_dictionary_filetype_lists = {
@@ -465,6 +469,14 @@ let g:NeoComplCache_MinSyntaxLength               = 3
 " Print caching percent in statusline.
 " let g:NeoComplCache_CachingPercentInStatusline  = 1
 let g:neocomplcache_lock_buffer_name_pattern      = '\*ku\*'
+let g:neocomplcache_skip_auto_completion_time = '0.2'
+
+" Examples:
+if !exists('g:neocomplcache_sources_list')
+    let g:neocomplcache_sources_list = {}
+endif
+let g:neocomplcache_sources_list._ = ['filename_include', 'member_complete', 'buffer_complete', 'include_complete', 'neosnippet', 'vim_complete', 'omni_complete', 'tags_complete']
+
 
 " Define dictionary.
 let g:neocomplcache_dictionary_filetype_lists = {
@@ -1611,9 +1623,14 @@ nnoremap subp y:OverCommandLine<CR>%s!<C-r>=substitute(@0, '!', '\\!', 'g')<CR>!
 
 " }}}
 
-" vim-splash
-" {{{
+" vim-splash {{{
 let g:splash#path = $HOME."/vim_intro.txt"
 " }}}
+
+
+nmap <Space>m <Plug>(quickhl-manual-this)
+xmap <Space>m <Plug>(quickhl-manual-this)
+nmap <Space>M <Plug>(quickhl-manual-reset)
+xmap <Space>M <Plug>(quickhl-manual-reset)
 "" ================================================================================ 
 " vim: set tw=0 tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
