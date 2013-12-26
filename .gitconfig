@@ -13,7 +13,7 @@
 [pull] ; (1.7.9 later)
     rebase = true
 
-[branch 'master']
+[branch "master"]
     mergeoptions = --no-ff
     rebase  = true
 
