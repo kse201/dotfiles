@@ -99,7 +99,7 @@ NeoBundleLazy 'jelera/vim-javascript-syntax', { 'autoload' : { 'filetypes' : 'vi
 NeoBundle 'Shougo/unite.vim'
 NeoBundleLazy 'tsukkee/unite-tag'
 NeoBundleLazy 'tsukkee/unite-help'
-NeoBundleLazy 'h1mesuke/unite-outline'
+NeoBundleLazy 'Shougo/unite-outline'
 NeoBundleLazy 'tacroe/unite-mark'
 NeoBundle 'thinca/vim-unite-history'
 NeoBundleLazy 'osyo-manga/unite-quickfix', {
@@ -141,7 +141,7 @@ NeoBundleLazy 'basyura/TweetVim' ,
             \ 'basyura/bitly.vim',
             \ 'Shougo/unite.vim',
             \ 'yomi322/unite-tweetvim',
-            \ 'h1mesuke/unite-outline'
+            \ 'Shougo/unite-outline'
             \ ],
             \ 'autoload' : 
             \{ 'commands' : ['TweetVim', 'TweetVimSay'],
