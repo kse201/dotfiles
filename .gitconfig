@@ -8,8 +8,14 @@
     autocrlf = false
     editor = vim
 
-[merge]
+[merge] ; (1.7.6 later)
     ff = false
+[pull] ; (1.7.9 later)
+    rebase = true
+
+[branch 'master']
+    mergeoptions = --no-ff
+    rebase  = true
 
 [alias]
     alias = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort
