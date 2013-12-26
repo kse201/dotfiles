@@ -12,9 +12,6 @@
     autocrlf = false
     editor = vim
 
-[push]
-    default = upstream
-
 [alias]
     alias = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort
     ignore   = update-index --assume-unchanged
