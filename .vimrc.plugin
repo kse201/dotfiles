@@ -122,6 +122,8 @@ NeoBundleLazy 'Shougo/unite-ssh', {
             \ 'depends' : 'Shougo/unite.vim' }
 NeoBundleLazy 'basyura/unite-rails', {
             \ 'depends' : 'Shougo/unite.vim' }
+NeoBundleLazy 'osyo-manga/unite-qfixhowm', {
+            \ 'depends' :  ['Shougo/unite.vim' , 'fuenor/qfixhowm'] }
 " NeoBundle 'Kocha/vim-unite-tig'
 " }}}
 " テキスト整形 {{{
@@ -242,6 +244,28 @@ NeoBundleLazy 'kana/vim-submode' , { 'autoload' : { 'filetypes' : ['markdown'] }
 NeoBundleLazy "sudar/vim-arduino-syntax" ,{'autoload' : {'filetype' : ['arduino']}}
 NeoBundle 'thinca/vim-splash'
 NeoBundle 't9md/vim-quickhl'
+NeoBundle 'mopp/mopkai.vim'
+NeoBundle 'mopp/autodirmake.vim'
+NeoBundleLazy 'alpaca-tc/beautify.vim', {
+      \ 'autoload' : {
+      \ 'filetypes' : ['js','html','css'],
+      \   'commands' : [
+      \     {
+      \       'name' : 'Beautify',
+      \       'complete' : 'customlist,beautify#complete_options'
+      \     }
+      \ ]
+      \ }
+      \}
+NeoBundleLazy 'alpaca-tc/alpaca_tags', {
+      \ 'depends': ['Shougo/vimproc', 'Shougo/unite.vim'],
+      \ 'autoload' : {
+      \   'commands' : ['Tags', 'TagsUpdate', 'TagsSet', 'TagsBundle', 'TagsCleanCache'],
+      \   'unite_sources' : ['tags']
+      \ }}
+NeoBundle 'tyru/capture.vim'
+NeoBundle 'tyru/restart.vim'
+NeoBundle 'fuenor/qfixhowm'
 
 filetype plugin indent on
 syntax on
@@ -1631,10 +1655,31 @@ nnoremap subp y:OverCommandLine<CR>%s!<C-r>=substitute(@0, '!', '\\!', 'g')<CR>!
 let g:splash#path = $HOME."/vim_intro.txt"
 " }}}
 
-" quickhl
+" quickhl {{{
 nmap <Space>m <Plug>(quickhl-manual-this)
 xmap <Space>m <Plug>(quickhl-manual-this)
 nmap <Space>M <Plug>(quickhl-manual-reset)
 xmap <Space>M <Plug>(quickhl-manual-reset)
+" }}}
+
+" alpaca_tags {{{
+" .ctagsにctagsの設定ファイルを設置します。現在無い人は、このディレクトリ内の.ctagsをコピーしてください。
+" 適切なlanguageは`ctags --list-maps=all`で見つけてください。人によりますので。
+let g:alpaca_update_tags_config = {
+      \ '_' : '-R --sort=yes --languages=-js,html,css',
+      \ 'ruby': '--languages=+Ruby',
+      \ }
+
+augroup AlpacaTags
+  autocmd!
+  if exists(':Tags')
+    autocmd BufWritePost * TagsUpdate ruby
+    autocmd BufWritePost Gemfile TagsBundle
+    autocmd BufEnter * TagsSet
+  endif
+augroup END
+
+nnoremap <expr>tt  ':Unite tags -horizontal -buffer-name=tags -input='.expand("<cword>").'<CR>'
+" }}}
 "" ================================================================================ 
 " vim: set tw=0 tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
