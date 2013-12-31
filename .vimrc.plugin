@@ -266,6 +266,7 @@ NeoBundleLazy 'alpaca-tc/alpaca_tags', {
 NeoBundle 'tyru/capture.vim'
 NeoBundle 'tyru/restart.vim'
 NeoBundle 'fuenor/qfixhowm'
+NeoBundle 'deris/vim-rengbang'
 
 filetype plugin indent on
 syntax on
