@@ -257,12 +257,12 @@ NeoBundleLazy 'alpaca-tc/beautify.vim', {
       \ ]
       \ }
       \}
-NeoBundleLazy 'alpaca-tc/alpaca_tags', {
-      \ 'depends': ['Shougo/vimproc', 'Shougo/unite.vim'],
-      \ 'autoload' : {
-      \   'commands' : ['Tags', 'TagsUpdate', 'TagsSet', 'TagsBundle', 'TagsCleanCache'],
-      \   'unite_sources' : ['tags']
-      \ }}
+" NeoBundleLazy 'alpaca-tc/alpaca_tags', {
+      " \ 'depends': ['Shougo/vimproc', 'Shougo/unite.vim'],
+      " \ 'autoload' : {
+      " \   'commands' : ['Tags', 'TagsUpdate', 'TagsSet', 'TagsBundle', 'TagsCleanCache'],
+      " \   'unite_sources' : ['tags']
+      " \ }}
 NeoBundle 'tyru/capture.vim'
 NeoBundle 'tyru/restart.vim'
 NeoBundle 'fuenor/qfixhowm'
@@ -1666,21 +1666,21 @@ xmap <Space>M <Plug>(quickhl-manual-reset)
 " alpaca_tags {{{
 " .ctagsにctagsの設定ファイルを設置します。現在無い人は、このディレクトリ内の.ctagsをコピーしてください。
 " 適切なlanguageは`ctags --list-maps=all`で見つけてください。人によりますので。
-let g:alpaca_update_tags_config = {
-      \ '_' : '-R --sort=yes --languages=-js,html,css',
-      \ 'ruby': '--languages=+Ruby',
-      \ }
+" let g:alpaca_update_tags_config = {
+      " \ '_' : '-R --sort=yes --languages=-js,html,css',
+      " \ 'ruby': '--languages=+Ruby',
+      " \ }
 
-augroup AlpacaTags
-  autocmd!
-  if exists(':Tags')
-    autocmd BufWritePost * TagsUpdate ruby
-    autocmd BufWritePost Gemfile TagsBundle
-    autocmd BufEnter * TagsSet
-  endif
-augroup END
+" augroup AlpacaTags
+  " autocmd!
+  " if exists(':Tags')
+    " autocmd BufWritePost * TagsUpdate ruby
+    " autocmd BufWritePost Gemfile TagsBundle
+    " autocmd BufEnter * TagsSet
+  " endif
+" augroup END
 
-nnoremap <expr>tt  ':Unite tags -horizontal -buffer-name=tags -input='.expand("<cword>").'<CR>'
+" nnoremap <expr>tt  ':Unite tags -horizontal -buffer-name=tags -input='.expand("<cword>").'<CR>'
 " }}}
 "" ================================================================================ 
 " vim: set tw=0 tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
