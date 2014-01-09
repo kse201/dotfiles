@@ -150,9 +150,10 @@ NeoBundleLazy 'basyura/TweetVim' ,
             \ 'mappings' : ['<Plug>(tweetvim_action_enter)' , '<Plug>(tweetvim_action_retweet)','<Plug>(tweetvim_action_page_next)','<Plug>(tweetvim_action_page_previous)']
             \}}
 NeoBundle 'itchyny/lightline.vim'
-NeoBundleLazy 'mattn/calendar-vim' ,
-            \{'autoload' : 
-            \{'commands' : ['Calendar']}}
+NeoBundle 'itchyny/calendar.vim'
+" NeoBundleLazy 'mattn/calendar-vim' ,
+            " \{'autoload' : 
+            " \{'commands' : ['Calendar']}}
 NeoBundleLazy 'thinca/vim-quickrun',
             \{ 'autoload' : {
             \'mappings' : ['<Plug>(quickrun)'],
