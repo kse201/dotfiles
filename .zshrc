@@ -304,16 +304,18 @@ bindkey '^N' history-beginning-search-forward-end
 # eval `dircolors $HOME/.dir_colors`
 # lsのカラー化
 export ls_colors='no=01;37:fi=00:di=01;36:pi=40;33:so=01;35:bd=40;33:cd=40;33;01:or=40;32;01:ex=01;33:*core=01;31:'
-alias ls="ls -G"
-# -i 確認 -v 詳細な情報の表示
-alias cp='cp -iv'
-# alias rm='rm -iv'
-alias mv='mv -iv'
+if [ `uname` != "SunOS" ] ; then
+    alias ls="ls -G"
+    # -i 確認 -v 詳細な情報の表示
+    alias cp='cp -iv'
+    # alias rm='rm -iv'
+    alias mv='mv -iv'
+    alias grep='grep -E --color=auto'
+fi
 alias ll='ls -l'
 alias la='ls -la'
 # 検索ワード色付け
 export GREP_COLOR='1;3741'
-alias grep='grep -E --color=auto'
 
 if [ $? = 0 ] ; then
     alias vi="vim"
