@@ -6,6 +6,7 @@
 export LANG='ja_JP.UTF-8'
 export LC_ALL='ja_JP.UTF-8'
 export LC_MESSAGES='ja_JP.UTF-8'
+export EDITOR='vim'
 
 ########################################
 # prompt
@@ -13,22 +14,22 @@ export LC_MESSAGES='ja_JP.UTF-8'
 export PATH=$PATH:/opt/local/:~/bin
 # PS1="\u@\h \w\n\$ "
 # PS1="\033[031m\]\u\[\033[0m\]"
-BRACK="\e[0;30m\]"
-BLUE="\e[0;34m\]"
-GREEN="\e[0;32m\]"
-CYAN="\e[0;36m\]"
-RED="\e[0;31m\]"
-PURPLE="\e[0;35m\]"
-LIGHTGRAY="\e[0;37m\]"
-DARKGRAY="\e[1;30m\]"
-LIGHTBLUE="\e[1;34m\]"
-LIGHTGREEN="\e[1;32m\]"
-LIGHTCYAN="\e[1;36m\]"
-LIGHTRED="\e[1;31m\]"
-LIGHTPURPLE="\e[1;;35m\]"
-YELLOW="\e[0;33m\]"
-WHITE="\e[1;37m\]"
-END="\e[0m\]"
+BRACK="\[\e[0;30m\]"
+BLUE="\[\e[0;34m\]"
+GREEN="\[\e[0;32m\]"
+CYAN="\[\e[0;36m\]"
+RED="\[\e[0;31m\]"
+PURPLE="\[\e[0;35m\]"
+LIGHTGRAY="\[\e[0;37m\]"
+DARKGRAY="\[\e[1;30m\]"
+LIGHTBLUE="\[\e[1;34m\]"
+LIGHTGREEN="\[\e[1;32m\]"
+LIGHTCYAN="\[\e[1;36m\]"
+LIGHTRED="\[\e[1;31m\]"
+LIGHTPURPLE="\[\e[1;35m\]"
+YELLOW="\[\e[0;33m\]"
+WHITE="\[\e[1;37m\]"
+END="\[\e[0m\]"
 
 function length()
 {
@@ -49,7 +50,7 @@ else
 fi
 HABA="\[\e[$[COLUMNS]D\]\[\e[$[COLUMNS-$(length "hogehoge")]C\]"
 # PS1=" ${BRACK}BRACK\n ${LIGHTGRAY}LIGHTGRAY\n ${DARKGRAY}DARKGRAY\n ${GREEN}GREEN\n ${LIGHTGREEN}LIGHTGREEN\n ${BLUE}BLUE\n ${LIGHTBLUE}LIGHTBLUE\n ${CYAN}CYAN\n ${LIGHTCYAN}LIGHTCYAN\n ${RED}RED\n ${LIGHTRED}LIGHTRED\n ${PURPLE}PURPLE\n ${LIGHTPURPLE}LIGHTPURPLE\n ${YELLOW}YELLOW\n ${WHITE}WHITE\n "
-PS1="-${LIGHTGREEN}\u${END}@${GREEN}\h\[${END} ${YELLOW}\w\[${END} ${DARKGRAY}[\T]${END}${PS1_GIT_BRANCH}\n-${LIGHTPURPLE}(\!)${END}\$ "
+PS1="-${LIGHTGREEN}\u${END}@${GREEN}\h${END} ${YELLOW}\w${END} ${DARKGRAY}[\T]${END}${PS1_GIT_BRANCH}\n-${LIGHTPURPLE}(\!)${END}\$ "
 
 ########################################
 # alias
@@ -147,3 +148,27 @@ alias gmt="git commit"
 alias gdf="git diff"
 alias glg="git log --graph --date-order -C -M --pretty=format:\"<%h> %ad [%an] %Cgreen%d%Creset %s\" --all --date=short"
 
+
+##############################
+# log
+##############################
+now=`date +%Y_%m%d_%H%M%S`
+logdir=~/.log
+logfile=$logdir/$now
+
+if [ ! -e $logdir ]
+then
+    mkdir -p $logdir
+fi
+
+p_proc=`ps aux | grep $PPID | grep -v grep  | awk '{ print $11}'`
+if [ "$p_proc" != "script" ]
+then
+    if [ -e $logfile ]
+    then
+        mv -f $logfile $logfile.bak
+    fi
+
+    script -q $logfile
+    exit
+fi

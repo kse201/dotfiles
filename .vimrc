@@ -1148,10 +1148,10 @@ nnoremap <silent> ciy ciw<C-r>0<ESC>:let@/=@1<CR>:noh<CR>
 " advanceable search {{{
 nnoremap n nzz
 nnoremap N Nzz
-nnoremap * *zz
-nnoremap # #zz
-nnoremap g* g*zz
-nnoremap g# g#zz
+nnoremap * *N
+nnoremap # #N
+nnoremap g* g*N
+nnoremap g# g#N
 nnoremap G Gzz
 " }}}
 

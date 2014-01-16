@@ -1,7 +1,3 @@
-[user]
-    name = kse201
-    email = kse.201@gmail.com
-
 [color]
     status = auto
     branch = auto
@@ -12,8 +8,14 @@
     autocrlf = false
     editor = vim
 
-[push]
-    default = upstream
+[merge] ; (1.7.6 later)
+    ff = false
+[pull] ; (1.7.9 later)
+    rebase = true
+
+[branch "master"]
+    mergeoptions = --no-ff
+    rebase  = true
 
 [alias]
     alias = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort

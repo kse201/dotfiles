@@ -1,10 +1,4 @@
-# tar cf dotfiles.tar $HOME/.bashrc $HOME/.zshrc $HOME/.vimrc $HOME/.gvimrc $HOME/.vimrc.plugin $HOME/.vim
-# rm -r  $HOME/.bashrc $HOME/.zshrc $HOME/.vimrc $HOME/.gvimrc $HOME/.vimrc.plugin $HOME/.vim
-
-BACKUP=$HOME/backup-`date %Y%m%d-%H%M%S`
-
-mkdir ${BACKUP}
-mv -r  $HOME/.bashrc $HOME/.zshrc $HOME/.vimrc $HOME/.gvimrc $HOME/.vimrc.plugin $HOME/.vim $HOME/.zsh.d $HOME/.zshenv ${BACKUP} 2>/dev/null
+#!/bin/sh
 
 ln -s $HOME/.dotfiles/.bashrc $HOME/.bashrc
 ln -s $HOME/.dotfiles/.zshrc  $HOME/.zshrc
@@ -25,8 +19,13 @@ if [ $? != 0 ] ; then
     exit -1
 fi
 
+git clone https://github.com/Shougo/unite.vim $HOME/.vim/bundle/unite.vim
+if [ $? != 0 ] ; then
+    exit -1
+fi
+
 ln -s $HOME/.dotfiles/.vimrc.plugin $HOME/.vimrc.plugin
 if [ $? != 0 ] ;then
     exit -1
 fi
-vim -c NeoBundleInstall
+vim -c "Unite neobundle/install"

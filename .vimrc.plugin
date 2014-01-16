@@ -99,7 +99,7 @@ NeoBundleLazy 'jelera/vim-javascript-syntax', { 'autoload' : { 'filetypes' : 'vi
 NeoBundle 'Shougo/unite.vim'
 NeoBundleLazy 'tsukkee/unite-tag'
 NeoBundleLazy 'tsukkee/unite-help'
-NeoBundleLazy 'h1mesuke/unite-outline'
+NeoBundleLazy 'Shougo/unite-outline'
 NeoBundleLazy 'tacroe/unite-mark'
 NeoBundle 'thinca/vim-unite-history'
 NeoBundleLazy 'osyo-manga/unite-quickfix', {
@@ -122,6 +122,8 @@ NeoBundleLazy 'Shougo/unite-ssh', {
             \ 'depends' : 'Shougo/unite.vim' }
 NeoBundleLazy 'basyura/unite-rails', {
             \ 'depends' : 'Shougo/unite.vim' }
+NeoBundleLazy 'osyo-manga/unite-qfixhowm', {
+            \ 'depends' :  ['Shougo/unite.vim' , 'fuenor/qfixhowm'] }
 " NeoBundle 'Kocha/vim-unite-tig'
 " }}}
 " テキスト整形 {{{
@@ -141,16 +143,17 @@ NeoBundleLazy 'basyura/TweetVim' ,
             \ 'basyura/bitly.vim',
             \ 'Shougo/unite.vim',
             \ 'yomi322/unite-tweetvim',
-            \ 'h1mesuke/unite-outline'
+            \ 'Shougo/unite-outline'
             \ ],
             \ 'autoload' : 
             \{ 'commands' : ['TweetVim', 'TweetVimSay'],
             \ 'mappings' : ['<Plug>(tweetvim_action_enter)' , '<Plug>(tweetvim_action_retweet)','<Plug>(tweetvim_action_page_next)','<Plug>(tweetvim_action_page_previous)']
             \}}
 NeoBundle 'itchyny/lightline.vim'
-NeoBundleLazy 'mattn/calendar-vim' ,
-            \{'autoload' : 
-            \{'commands' : ['Calendar']}}
+NeoBundle 'itchyny/calendar.vim'
+" NeoBundleLazy 'mattn/calendar-vim' ,
+            " \{'autoload' : 
+            " \{'commands' : ['Calendar']}}
 NeoBundleLazy 'thinca/vim-quickrun',
             \{ 'autoload' : {
             \'mappings' : ['<Plug>(quickrun)'],
@@ -241,6 +244,30 @@ NeoBundleLazy 'syui/cscroll.vim' , { 'autoload' : { 'filetypes' : ['markdown'] }
 NeoBundleLazy 'kana/vim-submode' , { 'autoload' : { 'filetypes' : ['markdown'] }}
 NeoBundleLazy "sudar/vim-arduino-syntax" ,{'autoload' : {'filetype' : ['arduino']}}
 NeoBundle 'thinca/vim-splash'
+NeoBundle 't9md/vim-quickhl'
+NeoBundle 'mopp/mopkai.vim'
+NeoBundle 'mopp/autodirmake.vim'
+NeoBundleLazy 'alpaca-tc/beautify.vim', {
+      \ 'autoload' : {
+      \ 'filetypes' : ['js','html','css'],
+      \   'commands' : [
+      \     {
+      \       'name' : 'Beautify',
+      \       'complete' : 'customlist,beautify#complete_options'
+      \     }
+      \ ]
+      \ }
+      \}
+" NeoBundleLazy 'alpaca-tc/alpaca_tags', {
+      " \ 'depends': ['Shougo/vimproc', 'Shougo/unite.vim'],
+      " \ 'autoload' : {
+      " \   'commands' : ['Tags', 'TagsUpdate', 'TagsSet', 'TagsBundle', 'TagsCleanCache'],
+      " \   'unite_sources' : ['tags']
+      " \ }}
+NeoBundle 'tyru/capture.vim'
+NeoBundle 'tyru/restart.vim'
+NeoBundle 'fuenor/qfixhowm'
+NeoBundle 'deris/vim-rengbang'
 
 filetype plugin indent on
 syntax on
@@ -324,6 +351,9 @@ let g:NeoComplete_MinSyntaxLength               = 3
 " Print caching percent in statusline.
 " let g:NeoComplete_CachingPercentInStatusline  = 1
 let g:neocomplete_lock_buffer_name_pattern      = '\*ku\*'
+let g:neocomplete#skip_auto_completion_time = '0.2'
+
+let g:neocomplete#sources = { '_' : ['file', 'tag', 'neosnippet', 'vim', 'omni', 'member', 'syntax', 'include', 'buffer', 'file/include']}
 
 " Define dictionary.
 let g:neocomplete_dictionary_filetype_lists = {
@@ -465,6 +495,14 @@ let g:NeoComplCache_MinSyntaxLength               = 3
 " Print caching percent in statusline.
 " let g:NeoComplCache_CachingPercentInStatusline  = 1
 let g:neocomplcache_lock_buffer_name_pattern      = '\*ku\*'
+let g:neocomplcache_skip_auto_completion_time = '0.2'
+
+" Examples:
+if !exists('g:neocomplcache_sources_list')
+    let g:neocomplcache_sources_list = {}
+endif
+let g:neocomplcache_sources_list._ = ['filename_include', 'member_complete', 'buffer_complete', 'include_complete', 'neosnippet', 'vim_complete', 'omni_complete', 'tags_complete']
+
 
 " Define dictionary.
 let g:neocomplcache_dictionary_filetype_lists = {
@@ -1288,7 +1326,11 @@ nmap <Leader>" csw"
 " qfixhowm {{{
 let QFixHowm_Key='g' 
 
-let howm_dir = $HOME."/howm"
+if has('win64') || has('win32')
+    let howm_dir = $HOME."/Documents/howm"
+else
+    let howm_dir = $HOME."/howm"
+endif
 let howm_filename = '%Y/%m/%Y-%m-%d-%H%M%S.txt'
 let g:qfixmemo_ext = 'howm'
 let QFixHowm_FileType = 'qfix_memo'
@@ -1610,9 +1652,35 @@ nnoremap subp y:OverCommandLine<CR>%s!<C-r>=substitute(@0, '!', '\\!', 'g')<CR>!
 
 " }}}
 
-" vim-splash
-" {{{
+" vim-splash {{{
 let g:splash#path = $HOME."/vim_intro.txt"
+" }}}
+
+" quickhl {{{
+nmap <Space>m <Plug>(quickhl-manual-this)
+xmap <Space>m <Plug>(quickhl-manual-this)
+nmap <Space>M <Plug>(quickhl-manual-reset)
+xmap <Space>M <Plug>(quickhl-manual-reset)
+" }}}
+
+" alpaca_tags {{{
+" .ctagsにctagsの設定ファイルを設置します。現在無い人は、このディレクトリ内の.ctagsをコピーしてください。
+" 適切なlanguageは`ctags --list-maps=all`で見つけてください。人によりますので。
+" let g:alpaca_update_tags_config = {
+      " \ '_' : '-R --sort=yes --languages=-js,html,css',
+      " \ 'ruby': '--languages=+Ruby',
+      " \ }
+
+" augroup AlpacaTags
+  " autocmd!
+  " if exists(':Tags')
+    " autocmd BufWritePost * TagsUpdate ruby
+    " autocmd BufWritePost Gemfile TagsBundle
+    " autocmd BufEnter * TagsSet
+  " endif
+" augroup END
+
+" nnoremap <expr>tt  ':Unite tags -horizontal -buffer-name=tags -input='.expand("<cword>").'<CR>'
 " }}}
 "" ================================================================================ 
 " vim: set tw=0 tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
