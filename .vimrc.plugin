@@ -66,7 +66,8 @@ else
     NeoBundleFetch 'Shougo/neocomplete'
     NeoBundleLazy 'Shougo/neocomplcache'
 endif
-NeoBundleLazy 'Shougo/neosnippet'
+NeoBundleLazy "Shougo/neosnippet" ,{ 'depends' : 'Shougo/neosnippet-snippets' }
+NeoBundle "Shougo/neosnippet-snippets"
 NeoBundleLazy 'Shougo/neocomplcache-clang'
 NeoBundleLazy 'neco-look'
 NeoBundleLazy 'yomi322/neco-tweetvim'
@@ -268,6 +269,8 @@ NeoBundle 'tyru/capture.vim'
 NeoBundle 'tyru/restart.vim'
 NeoBundle 'fuenor/qfixhowm'
 NeoBundle 'deris/vim-rengbang'
+NeoBundle 't9md/vim-choosewin'
+NeoBundle 'daisuzu/translategoogle.vim'
 
 filetype plugin indent on
 syntax on
@@ -1335,6 +1338,7 @@ let howm_filename = '%Y/%m/%Y-%m-%d-%H%M%S.txt'
 let g:qfixmemo_ext = 'howm'
 let QFixHowm_FileType = 'qfix_memo'
 let QFix_PreviewEnable = 0
+let QFixHowm_MenuPreview = 0
 
 let QFix_Height = 3
 let QFix_Width = 0
@@ -1682,5 +1686,25 @@ xmap <Space>M <Plug>(quickhl-manual-reset)
 
 " nnoremap <expr>tt  ':Unite tags -horizontal -buffer-name=tags -input='.expand("<cword>").'<CR>'
 " }}}
+
+"vim-choosewim{{{
+nmap - <Plug>(choosewin)
+let g:choosewin_overlay_enable=1
+let g:choosewin_overlay_clear_multibyte=1
+" like tmux
+let g:choosewin_color_overlay = {
+      \ 'gui': ['DodgerBlue3', 'DodgerBlue3' ],
+      \ 'cterm': [ 25, 25 ]
+      \ }
+let g:choosewin_color_overlay_current = {
+      \ 'gui': ['firebrick1', 'firebrick1' ],
+      \ 'cterm': [ 124, 124 ]
+      \ }
+
+let g:choosewin_blink_on_land      = 0 " 頼むから着地時にカーソル点滅をさせないでくれ！
+let g:choosewin_statusline_replace = 0 " どうかステータスラインリプレイスしないで下さい!
+let g:choosewin_tabline_replace    = 0 " どうかタブラインもリプレイスしないでいただきたい！
+"}}}
+
 "" ================================================================================ 
 " vim: set tw=0 tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
