@@ -423,11 +423,8 @@ set incsearch
 set showmatch
 set nowrapscan
 
-augroup Help
-    autocmd!
-    autocmd Filetype vim nnoremap <buffer><silent> K :<C-u>help<Space><C-r><C-w><CR> " カーソル下の単語をhelp検索
-    autocmd filetype vim vnoremap <buffer><silent> K "vy:<C-u>help<Space><C-r>=substitute(escape(@v,'\/'),"\n",'\\n','g')<CR><CR> "選択中単語をhelp検索
-augroup END
+" grep
+nnoremap <buffer><silent> K :vim <C-r><C-w> **/*[ch]<CR>
 " }}}
 
 " <ESC>  {{{
