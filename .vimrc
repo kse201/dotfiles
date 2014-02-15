@@ -14,7 +14,7 @@ set modeline
 set noswapfile
 set complete+=k
 set noequalalways
-set history=1000
+set history=100
 set vb t_vb=
 set autowrite
 set backspace=indent,eol,start
