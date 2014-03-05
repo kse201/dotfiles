@@ -669,6 +669,10 @@ nnoremap <silent> <SID>[unite]f :<C-u>UniteWithBufferDir -winheight=100 -hide-so
             \ output:echo\ "\ ===\ BOOKMARK\ ===\ "  bookmark 
             \ output:echo\ "\ ===\ FILE_MRU\ ===\ "  file_mru  
             \ output:echo\ "\ ===\ FILE/NEW\ ===\ "  file/new <CR>
+" mru directory 
+nnoremap <silent> <SID>[unite]d :<C-u>Unite directory_mru<CR>
+" register
+nnoremap <silent> <SID>[unite]r :<C-u>Unite register<CR>
 " command history
 nnoremap <silent> <SID>[unite]h :<C-u>Unite -default-action=edit history/command command<CR>
 " jump

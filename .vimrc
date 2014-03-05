@@ -423,10 +423,7 @@ set incsearch
 set showmatch
 set nowrapscan
 
-<<<<<<< HEAD
 " grep
-=======
->>>>>>> 42d719f30adc51c63ba5c714b4258fb276f55c6b
 nnoremap <buffer><silent> K :vim <C-r><C-w> **/*[ch]<CR>
 " }}}
 
