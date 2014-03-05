@@ -148,27 +148,3 @@ alias gmt="git commit"
 alias gdf="git diff"
 alias glg="git log --graph --date-order -C -M --pretty=format:\"<%h> %ad [%an] %Cgreen%d%Creset %s\" --all --date=short"
 
-
-##############################
-# log
-##############################
-now=`date +%Y_%m%d_%H%M%S`
-logdir=~/.log
-logfile=$logdir/$now
-
-if [ ! -e $logdir ]
-then
-    mkdir -p $logdir
-fi
-
-p_proc=`ps aux | grep $PPID | grep -v grep  | awk '{ print $11}'`
-if [ "$p_proc" != "script" ]
-then
-    if [ -e $logfile ]
-    then
-        mv -f $logfile $logfile.bak
-    fi
-
-    script -q $logfile
-    exit
-fi

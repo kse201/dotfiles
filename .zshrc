@@ -376,6 +376,10 @@ alias -g S='| sed'
 alias -g A='| awk'
 alias -g W='| wc'
 
+alias ..='cd ../'
+alias ...='cd ../../'
+alias ....='cd ../../../'
+
 function git_commit() {
         BUFFER="git commit -m '"
         CURSOR=$#BUFFER
