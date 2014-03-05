@@ -13,3 +13,6 @@ bind n screen
 bind h prev
 bind j next
 bind l windowlist
+
+deflog on
+logfile "~/.logs/screen-%Y%m%da-%n.log"
