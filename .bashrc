@@ -147,3 +147,7 @@ alias gst="git status"
 alias gmt="git commit"
 alias gdf="git diff"
 alias glg="git log --graph --date-order -C -M --pretty=format:\"<%h> %ad [%an] %Cgreen%d%Creset %s\" --all --date=short"
+<<<<<<< HEAD
+=======
+
+>>>>>>> 42d719f30adc51c63ba5c714b4258fb276f55c6b
