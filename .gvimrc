@@ -1,7 +1,7 @@
 ".gvimrc
-" last change: 01-Nov-2013.
+" last change: 07-Mar-2014.
 
-colorscheme desertEx
+colorscheme desert
 
 set guioptions-=b
 set guioptions-=T
