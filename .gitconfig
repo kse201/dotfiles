@@ -10,6 +10,10 @@
 
 [merge] ; (1.7.6 later)
     ff = false
+
+[push]
+    default = simple
+
 [pull] ; (1.7.9 later)
     rebase = true
 
@@ -17,13 +21,16 @@
     mergeoptions = --no-ff
     rebase  = true
 
+[diff]
+        renames = copies
+
 [alias]
     alias = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort
     ignore   = update-index --assume-unchanged
     unignore = update-index --no-assume-unchanged
     ignored  = !git ls-files -v | grep "^[a-z]" ; view ignored files
     st       = status
-    sst       = status --short
+    sst      = status --short
     sh       = show
     sb       = show-branch
     rema     = rebase origin/master master
@@ -36,11 +43,10 @@
     cl       = clone
     dc       = diff --cached
     df       = diff -w
-    d        = diff -C
-    dn       = diff -Cw --name-only
-    ds       = diff -C --stat
-    dsp      = diff -C --stat -p
-    dw       = diff -C --color-words
+    d        = diff -w --color-words
+    dn       = diff -w --name-only
+    ds       = diff --stat
+    dsp      = diff --stat -p
     graph    = log --graph --date-order -C -M --pretty=format:'<%h> %ad [%an] %Cgreen%d%Creset %s' --all --date=short
     lg       = log --graph --date-order -C -M --pretty=format:'<%h> %ad [%an] %Cgreen%d%Creset %s' --all --date=short
     l        = log --graph --date-order -C -M --pretty=format:'<%h> %ad [%an] %Cgreen%d%Creset %s' --date=short
