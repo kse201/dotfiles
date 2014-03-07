@@ -660,9 +660,12 @@ augroup uniteKeymap
     au FileType unite setlocal tw=0
 augroup END
 
+" buffer
 nnoremap <silent> <SID>[unite]b :<C-u>Unite -buffer-name=buffer buffer<CR>
-" ファイル 最近使用したファイル一覧
-nnoremap <silent> <SID>[unite]f :<C-u>UniteWithBufferDir -winheight=100 -hide-source-names -input= -buffer-name=files -no-split 
+" file
+nnoremap <silent> <SID>[unite]f :<C-u>Unite -buffer-name=files file<CR>
+" my favorite contents
+nnoremap <silent> <SID>[unite]a :<C-u>UniteWithBufferDir -winheight=100 -hide-source-names -input= -buffer-name=files -no-split 
             \ output:echo\ "\ ===\ BUFFER\ ===\ " buffer 
             \ output:echo\ "\ ===\ TAB\ ===\ " tab 
             \ output:echo\ "\ ===\ FILE\ ===\ " file 
