@@ -23,6 +23,7 @@
     unignore = update-index --no-assume-unchanged
     ignored  = !git ls-files -v | grep "^[a-z]" ; view ignored files
     st       = status
+    sst       = status --short
     sh       = show
     sb       = show-branch
     rema     = rebase origin/master master
@@ -36,12 +37,13 @@
     dc       = diff --cached
     df       = diff -w
     d        = diff -C
+    dn       = diff -Cw --name-only
     ds       = diff -C --stat
     dsp      = diff -C --stat -p
     dw       = diff -C --color-words
     graph    = log --graph --date-order -C -M --pretty=format:'<%h> %ad [%an] %Cgreen%d%Creset %s' --all --date=short
     lg       = log --graph --date-order -C -M --pretty=format:'<%h> %ad [%an] %Cgreen%d%Creset %s' --all --date=short
-    l        = log
+    l        = log --graph --date-order -C -M --pretty=format:'<%h> %ad [%an] %Cgreen%d%Creset %s' --date=short
     m        = checkout master
     ituja    = log --patch -S
 
