@@ -376,15 +376,9 @@ alias -g S='| sed'
 alias -g A='| awk'
 alias -g W='| wc'
 
-<<<<<<< HEAD
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
-=======
-alias ..='cd ../'
-alias ...='cd ../../'
-alias ....='cd ../../../'
->>>>>>> 42d719f30adc51c63ba5c714b4258fb276f55c6b
 
 function git_commit() {
         BUFFER="git commit -m '"
