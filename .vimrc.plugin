@@ -303,6 +303,49 @@ function! s:checkplugin(name)
     endfor
     return 0
 endfunction
+
+" lazy loading when Vim loss focus.{{{
+" [ref: http://d.hatena.ne.jp/osyo-manga/20140212/1392216949]
+" Lazy しているプラグイン名をリストアップ
+function! s:get_lazy_plugins()
+    " 先に source したいプラグインをリストの先頭に追加する
+    return [
+\       "unite.vim",
+\       "vimfiler.vim",
+\       "vim-quickrun",
+\   ] + map(filter(neobundle#config#get_neobundles(), "v:val.lazy"), "v:val.name")
+endfunction
+
+
+function! s:is_not_sourced(source)
+    return neobundle#config#is_installed(a:source) && !neobundle#config#is_sourced(a:source)
+endfunction
+
+
+function! s:source()
+    let sources =  map(filter(s:get_lazy_plugins(), "s:is_not_sourced(v:val)"), "v:val")
+    if empty(sources)
+        augroup auto-source
+            autocmd!
+        augroup END
+        return
+    endif
+    echom "source:" . sources[0]
+    call neobundle#source(sources[0])
+    echom "sourced:" . sources[0]
+endfunction
+
+
+let s:active_auto_source = 0
+
+augroup auto-source
+    autocmd!
+    autocmd CursorHold * if s:active_auto_source | call s:source() | endif
+    autocmd FocusLost * let s:active_auto_source = 1
+    autocmd FocusGained * let s:active_auto_source = 0
+augroup END
+" }}}
+
 " }}}
 
 " nebula.vim{{{
