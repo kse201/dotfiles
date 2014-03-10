@@ -951,6 +951,10 @@ if has("win32")
     nnoremap <C-S-N> :!start gvim<CR>
 endif
 " }}}
+
+"command! CopyRelativePath {{{
+\ let @*=join(remove( split( expand( '%:p' ), "/" ), len( split( getcwd(), "/" ) ), -1 ), "/") | echo "copied"
+"}}}
 " }}}
 
 " keymap{{{
@@ -1178,6 +1182,10 @@ nnoremap <Leader>do   Vy:@"<Enter>
 vnoremap <Leader>eval y:@"<Enter>
 nnoremap <C-x><C-e> Vy:@"<Enter>
 " }}}
+
+" s*でカーソル下のキーワードを置換
+nnoremap <expr> s* ':%s/\<' . expand('<cword>') . '\>/'
+vnoremap <expr> s* ':s/\<' . expand('<cword>') . '\>/'
 " }}}
 
 " Plugin{{{

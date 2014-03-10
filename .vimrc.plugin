@@ -28,6 +28,10 @@ set nocompatible
 filetype plugin indent off
 let g:bundle_dir = $VIMFILE_DIR."/bundle/"
 if has('vim_starting')
+    if !isdirectory(expand("~/.vim/bundle/neobundle.vim/"))
+        echo "install neobundle..."
+        :call system("git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim")
+    endif
     exe "set rtp+=".g:bundle_dir."neobundle.vim"
 endif
 call neobundle#rc(expand(g:bundle_dir))
@@ -780,6 +784,7 @@ function! s:unite_source_myCommand.gather_candidates(args,conext)
                 \"Show relative number" : "RN",
                 \ "TODO list" : "Unite line -input=TODO", 
                 \ 'MultipleSearch' : "Search <C-r><C-w>",
+                \ 'vertical diff' : "vertical diffsplit ",
                 \}
     return values(map(cmds,"{
                 \ 'word' : v:key,
