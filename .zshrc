@@ -172,7 +172,7 @@ prompt_bar_right="-[%{%B%K{magenta}%F{white}%}%d%{%f%k%b%}]-"
 ###     %j: 実行中のジョブ数。
 ###   %{%B%}...%{%b%}: 「...」を太字にする。
 ###   %#: 一般ユーザなら「%」、rootユーザなら「#」になる。
-prompt_left="-[%h]%(1j,(%j),)%{%B%}%#%{%b%} "
+prompt_left="-$([ -n "$TMUX" ] && tmux display -p "#I-#P ")[%h]%(1j,(%j),)%{%B%}%#%{%b%} "
 
 ## プロンプトフォーマットを展開した後の文字数を返す。
 ## 日本語未対応。
@@ -431,3 +431,12 @@ man() {
 function man() { /usr/bin/man $* -P "col -b | vim -Rc 'setl ft=man ts=8 nomod nolist nonu' -c 'nmap q :q<cr>' -" }   
 
 # source ~/.zsh.d/config/packages.zsh
+
+
+
+### tmux
+function ssh() {
+    local window_name=$(tmux display -p '#W')
+    command ssh $@
+    tmux rename-window ${window_name}
+}
