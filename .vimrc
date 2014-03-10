@@ -56,6 +56,7 @@ if has('win32') || has('win64')
     let $MYVIMRC       = "~/dotfiles/.vimrc"
     let $MYGVIMRC      = "~/dotfiles/.gvimrc"
     let $MYVIMRCPLUGIN = "~/dotfiles/.vimrc.plugin"
+    let $MYVIMRCLOCAL = "~/dotfiles/.vimrc.local"
     set backupdir=$HOME/_vimbackup
     set dir=$HOME/AppData/Local/Temp
 elseif has('win32unix')
@@ -63,6 +64,7 @@ elseif has('win32unix')
     let $MYVIMRC       = "~/vimfiles/_vimrc"
     let $MYGVIMRC      = "~/vimfiles/_gvimrc"
     let $MYVIMRCPLUGIN = "~/vimfiles/_vimrc.plugin"
+    let $MYVIMRCLOCAL = "~/vimfiles/.vimrc.local"
     set backupdir=$HOME/_vimbackup
     set dir=$HOME/AppData/Local/Temp
 elseif has('mac')
@@ -71,12 +73,14 @@ elseif has('mac')
     let $MYVIMRC       = "~/.vimrc"
     let $MYGVIMRC      = "~/.gvimrc"
     let $MYVIMRCPLUGIN = "~/.vimrc.plugin"
+    let $MYVIMRCLOCAL = "~/.vimrc.local"
     set backupdir=$HOME/.vimbackup
 else
     let $VIMFILE_DIR   = $HOME . '/.vim'
     let $MYVIMRC       = "~/.vimrc"
     let $MYGVIMRC      = "~/.gvimrc"
     let $MYVIMRCPLUGIN = $HOME . "/.vimrc.plugin"
+    let $MYVIMRCLOCAL = $HOME . "/.vimrc.local"
     set backupdir=$HOME/.vimbackup
 endif
 " }}}
@@ -1180,6 +1184,12 @@ nnoremap <C-x><C-e> Vy:@"<Enter>
 " if filereadable(expand('~/.vimrc.plugin'))
 if filereadable(expand($MYVIMRCPLUGIN))
     source $MYVIMRCPLUGIN
+endif
+" }}}
+"
+" local setting{{{
+if filereadable(expand($MYVIMRCLOCAL))
+    source $MYVIMRCLOCAL
 endif
 " }}}
 
