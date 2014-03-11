@@ -1,7 +1,5 @@
 #!/bin/sh 
 
-2>/dev/null
-
 INSTALLER=$0
 DIR=`pwd`
 TARGET_FILES=`ls -1A | grep -v ${INSTALLER}`
