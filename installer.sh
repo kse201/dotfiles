@@ -1,16 +1,25 @@
 #!/bin/sh
 
+INSTALLER=$0
+TARGET_FILES=`ls -1A | grep -v ${INSTALLER}`
 RETVAL=0
 
+
+dotfiles_backup() {
+    BACKUP=$HOME/backup_`date_+%Y%m%d-%H%M%S`.tar
+    for file in ${TARGET_FILES} 
+    do
+        tar --remove-files -rf ${BACKUP} $HOME/${file}
+    done
+}
+
 dotfiles_install() {
-    ln -s $HOME/.dotfiles/.bashrc $HOME/.bashrc
-    ln -s $HOME/.dotfiles/.zshrc  $HOME/.zshrc
-    ln -s $HOME/.dotfiles/.vimrc  $HOME/.vimrc
-    ln -s $HOME/.dotfiles/.gvimrc $HOME/.gvimrc
-    ln -s $HOME/.dotfiles/.vim    $HOME/.vim
-    ln -s $HOME/.dotfiles/.zsh.d  $HOME/.zsh.d
-    ln -s $HOME/.dotfiles/.zshenv $HOME/.zshenv
-    ln -s $HOME/.dotfiles/.gitconfig $HOME/.gitconfig
+    dotfiles_backup
+
+    for file in ${TARGET_FILES} 
+    do
+        ln -s $HOME/.dotfiles/${file} $HOME/${file}
+    done
 
     mkdir -p $HOME/.vim/bundle
     git clone https://github.com/Shougo/neobundle.vim.git $HOME/.vim/bundle/neobundle.vim
@@ -30,21 +39,22 @@ dotfiles_install() {
     vim -c "Unite neobundle/install"
 }
 
-dotfiles_uninstall() {
-    BACKUP=$HOME/backup-`date +%Y%m%d-%H%M%S`
-    mkdir ${BACKUP}
-    mv -fr  $HOME/.bashrc $HOME/.zshrc $HOME/.vimrc $HOME/.gvimrc $HOME/.vimrc.plugin $HOME/.vim $HOME/.zsh.d $HOME/.zshenv ${BACKUP} 2>/dev/null
+dotfiles_uninstall(){
+    for file in ${TARGET_FILES} 
+    do
+        unlink $HOME/${file}
+    done
 }
 
 case "$1" in
     install)
-        ${RETVAL} = dotfiles_install
+        RETVAL = dotfiles_install
         ;;
     uninstall)
-        ${RETVAL} = dotfiles_uninstall
+        RETVAL = dotfiles_uninstall
         ;;
     *)
-    echo "Usage: $0 {install|uninstall}"
-    ${RETVAL} = 1
-    return ${RETVAL}
+        echo "Usage: $0 {install|uninstall}"
+        RETVAL = 1
 esac
+exit ${RETVAL}
