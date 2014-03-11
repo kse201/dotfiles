@@ -58,6 +58,7 @@ if has('win32') || has('win64')
     let $MYVIMRCPLUGIN = "~/dotfiles/.vimrc.plugin"
     let $MYVIMRCLOCAL = "~/dotfiles/.vimrc.local"
     set backupdir=$HOME/_vimbackup
+    let $BACKUPDIR=$HOME ."/_vimbackup"
     set dir=$HOME/AppData/Local/Temp
 elseif has('win32unix')
     let $VIMFILE_DIR   = $HOME . '/vimfiles'
@@ -66,6 +67,7 @@ elseif has('win32unix')
     let $MYVIMRCPLUGIN = "~/vimfiles/_vimrc.plugin"
     let $MYVIMRCLOCAL = "~/vimfiles/.vimrc.local"
     set backupdir=$HOME/_vimbackup
+    let $BACKUPDIR=$HOME ."/_vimbackup"
     set dir=$HOME/AppData/Local/Temp
 elseif has('mac')
     let $VIMFILE_DIR   = $HOME . '/.vim'
@@ -75,6 +77,7 @@ elseif has('mac')
     let $MYVIMRCPLUGIN = "~/.vimrc.plugin"
     let $MYVIMRCLOCAL = "~/.vimrc.local"
     set backupdir=$HOME/.vimbackup
+    let $BACKUPDIR=$HOME."/.vimbackup"
 else
     let $VIMFILE_DIR   = $HOME . '/.vim'
     let $MYVIMRC       = "~/.vimrc"
@@ -82,6 +85,7 @@ else
     let $MYVIMRCPLUGIN = $HOME . "/.vimrc.plugin"
     let $MYVIMRCLOCAL = $HOME . "/.vimrc.local"
     set backupdir=$HOME/.vimbackup
+    let $BACKUPDIR=$HOME."/.vimbackup""
 endif
 " }}}
 
@@ -412,6 +416,10 @@ nnoremap <silent><S-F9> :<C-u>call ColorRoller.unroll()<CR>
 " }}}
 
 " Backup{{{
+
+if !isdirectory($BACKUPDIR)
+    call mkdir($BACKUPDIR,"p")
+endif
 set backup
 if exists("*strftime")
     au MyAutoCmd BufWritePre * let &bex = '-' . strftime("%y%m%d%H%M") . '~'

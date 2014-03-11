@@ -52,6 +52,7 @@
     l        = log --graph --date-order -C -M --pretty=format:'<%h> %ad [%an] %Cgreen%d%Creset %s' --date=short
     m        = checkout master
     ituja    = log --patch -S
+    undo     = reset --hard HEAD~1
 
 [help]
     autocorrect = 1

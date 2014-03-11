@@ -331,14 +331,6 @@ alias e='/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -n'
 
 zstyle ':completion:*:default' menu select=1
 
-##############################
-# Git
-##############################
-alias gst="git status"
-alias gmt="git commit"
-alias gdf="git diff -w"
-alias glg="git log --graph --date-order -C -M --pretty=format:\"<%h> %ad [%an] %Cgreen%d%Creset %s\" --all --date=short"
-
 # 単語区切り記号
 WORDCHARS='*?_-.[]~=&;!#S%^(){}<>'
 WORDCHARS=${WORDCHARS:s,/,,}
