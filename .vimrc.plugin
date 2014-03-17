@@ -85,6 +85,7 @@ NeoBundleLazy 'yomi322/neco-tweetvim'
             " \ },
             " \ 'autoload' : {'filetypes' : 'ruby'}}
 NeoBundleLazy 'davidhalter/jedi', { 'autoload' :{ 'filetypes' :['python',   'jedi' ]}}
+NeoBundleLazy 'wellle/tmux-complete.vim'
 " }}}
 " ファイラ {{{
 NeoBundleLazy 'scrooloose/nerdtree',
