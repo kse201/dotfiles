@@ -2,7 +2,7 @@
 
 INSTALLER=$0
 DIR=`pwd`
-TARGET_FILES=`ls -1A | grep -v ${INSTALLER}`
+TARGET_FILES=`ls -1A | grep -v ${INSTALLER} | grep -v ".git"`
 RETVAL=0
 
 dotfiles_backup() {
