@@ -235,6 +235,7 @@ NeoBundleLazy 'mfumi/snake.vim'
 NeoBundleLazy 'TeTrIs.vim'
 NeoBundleLazy 'mfumi/lightsout.vim' "http://ja.wikipedia.org/wiki/%E3%83%A9%E3%82%A4%E3%83%84%E3%82%A2%E3%82%A6%E3%83%88
 NeoBundleLazy 'rbtnn/puyo.vim'
+NeoBundleLazy 'thinca/vim-threes'
 " NeoBundleLazy 'vim game of life'
 " NeoBundleLazy 'mastermind.vim'
 " }}}
