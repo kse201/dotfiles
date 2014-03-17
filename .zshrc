@@ -8,35 +8,36 @@ export PATH=/usr/local/bin:/usr/local/sbin:$PATH:~/bin
 typeset -U path PATH
 export LANG=ja_JP.UTF-8
 export LESSCHARSET=utf-8
+export EDITOR='vi'
 
 # ヒストリ
 HISTFILE=$HOME/.zsh_history
-HISTSIZE=1000000
-SAVEHIST=1000000
-setopt hist_reduce_blanks #スペース排除
+HISTSIZE=7500
+SAVEHIST=7500
+setopt hist_reduce_blanks # remove space
 setopt EXTENDED_HISTORY #zshの開始,終了時刻を記録
 unsetopt hist_verify # ヒストリを呼び出してから実行する間いｎ一旦編集可能を止める
-setopt hist_expand # 補完時にヒストリを自動的に展開 
-export HISTIGNORE="ls *:cd:history:fg*:history-all" # よく使うコマンドを保存しない
-setopt hist_ignore_space # スペースで始まるコマンドはヒストリに追加しない
+setopt hist_expand # complete from history
+export HISTIGNORE="ls *:cd:history:fg*:history-all" # ignored commands
+setopt hist_ignore_space # ignore space-start command
 setopt HIST_EXPIRE_DUPS_FIRST
 setopt inc_append_history # すぐにヒストリに追記する
 setopt share_history # zshプロセス間でヒストリを共有する
-function history-all { history -E 1 } # 全履歴の一覧を出力する
+function history-all { history -E 1 } # output all histoy
 HISTTIMEFORMAT='%Y%m%d %T';
 export HISTTIMEFORMAT
 
 # 補完機能の強化
 autoload -U compinit
 compinit -u
-## 補間方法毎にグループ化
+## competion method grouping
 zstyle ':completion:*' format '%B%d%b'
 zstyle ':completion:*' group-name ''
 
 ## 補完候補をメニューから選択
 zstyle ':completion:*:default' menu select=2
-## 補完候補に色を付ける
-## 空文字列はデフォルト値を使いうという意味
+## color completion
+## 空文字列はデフォルト値を使うという意味
 zstyle ':completion:*:default' list-colors ""
 ## 補完候補がなければより曖昧に候補を探す
 ## m:{a-z}={A-Z} : 小文字大文字区別なく補完
@@ -86,10 +87,12 @@ limit coredumpsize 102400
 ##出力の文字列末尾に改行コードがない場合でも表示
 unsetopt promptcr
 
-# emacs キーバインド
+# emacs-like keybind
 bindkey -e
 
-# プロンプト
+########################################
+# prompt
+########################################
 PS1="[@${HOST%%.*} %2~]%(!.#.$) "
 #時間表示 & 入力に応じて消す
 RPROMPT="%T"
@@ -252,6 +255,14 @@ update_prompt()
 ## コマンド実行前に呼び出されるフック。
 precmd_functions=($precmd_functions update_prompt)
 
+# 複数行入力時のプロンプト
+PROMPT2="%_%%"
+# 入力ミス確認時のプロンプト
+SPROMPT="correct> %R -> %r [n,y,a,e]?"
+# suggest prompt
+SPROMPT="%{$fg[red]%}%{$suggest%}(*'_'%)? < もしかして %B%r%b %{$fg[red]%}かな? [そう!(y), 違う!(n),a,e]:${reset_color} "
+
+########################################
 
 # 色を使う
 setopt prompt_subst
@@ -272,37 +283,36 @@ setopt hist_ignore_dups
 LISTMAX=0
 export LISTMAX
 
-# ディレクトリ名だけでcd
+# cd dir_name only
 setopt auto_cd auto_remove_slash auto_name_dirs 
 
 setopt extended_history hist_ignore_dups hist_ignore_space prompt_subst
 setopt extended_glob list_types no_beep always_last_prompt
 setopt cdable_vars sh_word_split autopushd pushd_ignore_dups
 
-# cdの履歴関連
+# cd history
 setopt auto_pushd
 setopt pushd_ignore_dups #同ディレクトリを履歴に追加しない
 setopt pushd_minus
 cdpath=(~) # カレントディレクトリ内に指定ディレクトリが見当たらない場合移動先を検索するリスト
 chpwd_functions=($chpwd_functions dirs)
 
-# スペルチェック
+# spell check 
 setopt auto_param_keys
 
 # リストを詰めて表示
 setopt list_packed
 
-# history周り
+# history
 autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 
-bindkey -e
 bindkey '^P' history-beginning-search-backward-end
 bindkey '^N' history-beginning-search-forward-end
 
 # eval `dircolors $HOME/.dir_colors`
-# lsのカラー化
+# color ls
 export ls_colors='no=01;37:fi=00:di=01;36:pi=40;33:so=01;35:bd=40;33:cd=40;33;01:or=40;32;01:ex=01;33:*core=01;31:'
 if [ `uname` != "SunOS" ] ; then
     alias ls="ls -G"
@@ -314,22 +324,24 @@ if [ `uname` != "SunOS" ] ; then
 fi
 alias ll='ls -l'
 alias la='ls -la'
-# 検索ワード色付け
+# color grep word 
 export GREP_COLOR='1;3741'
 
+# vim
+which vim > /dev/null 2>/dev/null
 if [ $? = 0 ] ; then
     alias vi="vim"
-    # スパルタンVim
+    # spartan Vim
     alias spvim='vim -u NONE'
 fi
 
 [[ $EMACS = t ]] && unsetopt zle
 
 # emacs
-alias emacsclient=/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -n
-alias e='/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -n'
-
-zstyle ':completion:*:default' menu select=1
+if [ `uname` != "Darwin" ] ; then
+    alias emacsclient=/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -n
+    alias e='/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -n'
+fi
 
 # 単語区切り記号
 WORDCHARS='*?_-.[]~=&;!#S%^(){}<>'
@@ -337,11 +349,6 @@ WORDCHARS=${WORDCHARS:s,/,,}
 
 # カレントディレクトリ内にサブディレクトリがない場合にcdが検索するディレクトリのリスト
 cdpath=($HOME)
-
-# 複数行入力時のプロンプト
-PROMPT2="%_%%"
-#入力ミス確認時のプロンプト
-SPROMPT="correct> %R -> %r [n,y,a,e]?"
 
 # サスペンド中のプロセスと同じコマンド名を実行した場合はリジュームする
 setopt auto_resume
@@ -385,16 +392,16 @@ alias rr="command rm -rf"
 
 alias remem='du -sx / &> /dev/null & sleep 25 && kill $!'
 
-# もしかして時のプロンプト指定
-SPROMPT="%{$fg[red]%}%{$suggest%}(*'_'%)? < もしかして %B%r%b %{$fg[red]%}かな? [そう!(y), 違う!(n),a,e]:${reset_color} "
 # 今いるディレクトリを補完候補から外す
 #http://qiita.com/items/7916037b1384d253b457
 zstyle ':completion:*' ignore-parents parent pwd ..
 
 ## create emacs env file
-# perl -wle \
-#     'do { print qq/(setenv "$_" "$ENV{$_}")/ if exists $ENV{$_} } for @ARGV' \
-#     PATH > ~/.emacs.d/shellenv.el
+if [ -f ~/.emacs.d ] ; then
+    perl -wle \
+    'do { print qq/(setenv "$_" "$ENV{$_}")/ if exists $ENV{$_} } for @ARGV' \
+    PATH > ~/.emacs.d/shellenv.el
+fi
 
 # クリップボードにコピー
 if which pbcopy >/dev/null 2>&1 ; then 
@@ -408,6 +415,8 @@ elif which putclip >/dev/null 2>&1 ; then
     alias -g C='| putclip'
 fi
 
+########################################
+# man
 man() {
         env \
                 LESS_TERMCAP_mb=$(printf "\e[1;31m") \
@@ -421,14 +430,18 @@ man() {
 }
 # man in Vim
 function man() { /usr/bin/man $* -P "col -b | vim -Rc 'setl ft=man ts=8 nomod nolist nonu' -c 'nmap q :q<cr>' -" }   
+########################################
 
+########################################
+# packages
 # source ~/.zsh.d/config/packages.zsh
+########################################
 
-
-
-### tmux
+########################################
+# tmux
 function ssh() {
     local window_name=$(tmux display -p '#W')
     command ssh $@
     tmux rename-window ${window_name}
 }
+########################################

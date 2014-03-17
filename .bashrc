@@ -6,7 +6,7 @@
 export LANG='ja_JP.UTF-8'
 export LC_ALL='ja_JP.UTF-8'
 export LC_MESSAGES='ja_JP.UTF-8'
-export EDITOR='vim'
+export EDITOR='vi'
 
 ########################################
 # prompt
@@ -50,7 +50,7 @@ else
 fi
 HABA="\[\e[$[COLUMNS]D\]\[\e[$[COLUMNS-$(length "hogehoge")]C\]"
 # PS1=" ${BRACK}BRACK\n ${LIGHTGRAY}LIGHTGRAY\n ${DARKGRAY}DARKGRAY\n ${GREEN}GREEN\n ${LIGHTGREEN}LIGHTGREEN\n ${BLUE}BLUE\n ${LIGHTBLUE}LIGHTBLUE\n ${CYAN}CYAN\n ${LIGHTCYAN}LIGHTCYAN\n ${RED}RED\n ${LIGHTRED}LIGHTRED\n ${PURPLE}PURPLE\n ${LIGHTPURPLE}LIGHTPURPLE\n ${YELLOW}YELLOW\n ${WHITE}WHITE\n "
-PS1="-${LIGHTGREEN}\u${END}@${GREEN}\h${END} ${YELLOW}\w${END} ${DARKGRAY}[\T]${END}${PS1_GIT_BRANCH}\n-${LIGHTPURPLE}(\!)${END}\$ "
+PS1="-${LIGHTGREEN}\u${END}@${GREEN}\h${END} ${YELLOW}\w${END}${DARKGRAY}[\T]${END} ${PS1_GIT_BRANCH}\n-${LIGHTPURPLE}(\!)${END}\$ "
 
 ########################################
 # alias
@@ -84,7 +84,7 @@ alias grep='grep -E --color=auto'
 which vim > /dev/null 2>/dev/null
 if [ $? = 0 ] ; then
     alias vi="vim"
-    # スパルタンVim
+    # spartan Vim
     alias spvim='vim -u NONE'
 fi
 
