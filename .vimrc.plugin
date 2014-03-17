@@ -239,7 +239,6 @@ NeoBundleLazy 'rbtnn/puyo.vim'
 " }}}
 NeoBundle 'kana/vim-smartinput'
 NeoBundle 'taichouchou2/vim-endwise'
-NeoBundle 'tsaleh/vim-matchit'
 NeoBundle 'vim-scripts/scratch-utility'
 " }}}
 NeoBundle 'vim-scripts/DrawIt'
