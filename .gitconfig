@@ -11,9 +11,6 @@
 [merge] ; (1.7.6 later)
     ff = false
 
-[push]
-    default = simple
-
 [pull] ; (1.7.9 later)
     rebase = true
 
