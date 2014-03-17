@@ -37,6 +37,7 @@
     coma     = commit -a -v
     cma      = commit -a -v
     co       = checkout
+    ct       = checkout -t 
     cl       = clone
     dc       = diff --cached
     df       = diff -w
@@ -44,9 +45,9 @@
     dn       = diff -w --name-only
     ds       = diff --stat
     dsp      = diff --stat -p
-    graph    = log --graph --date-order -C -M --pretty=format:'<%h> %ad [%an] %Cgreen%d%Creset %s' --all --date=short
-    lg       = log --graph --date-order -C -M --pretty=format:'<%h> %ad [%an] %Cgreen%d%Creset %s' --all --date=short
-    l        = log --graph --date-order -C -M --pretty=format:'<%h> %ad [%an] %Cgreen%d%Creset %s' --date=short
+    graph    = log --graph --date-order -C -M --pretty=format:'%C(red)%h%Creset - %C(green)%ad %C(Cyan)[%an]%C(Yellow)%d%Creset %s' --all --date=short
+    lg       = log --graph --date-order -C -M --pretty=format:'%C(red)%h%Creset - %C(green)%ad %C(Cyan)[%an]%C(Yellow)%d%Creset %s' --all --date=short
+    l        = log --graph --date-order -C -M --pretty=format:'%C(red)%h%Creset - %C(green)%ad %C(Cyan)[%an]%C(Yellow)%d%Creset %s' --date=short
     ls       = ls-files
     m        = checkout master
     ituja    = log --patch -S
