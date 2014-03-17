@@ -22,7 +22,7 @@
         renames = copies
 
 [alias]
-    alias = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort
+    alias    = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort
     ignore   = update-index --assume-unchanged
     unignore = update-index --no-assume-unchanged
     ignored  = !git ls-files -v | grep "^[a-z]" ; view ignored files
@@ -47,9 +47,12 @@
     graph    = log --graph --date-order -C -M --pretty=format:'<%h> %ad [%an] %Cgreen%d%Creset %s' --all --date=short
     lg       = log --graph --date-order -C -M --pretty=format:'<%h> %ad [%an] %Cgreen%d%Creset %s' --all --date=short
     l        = log --graph --date-order -C -M --pretty=format:'<%h> %ad [%an] %Cgreen%d%Creset %s' --date=short
+    ls       = ls-files
     m        = checkout master
     ituja    = log --patch -S
     undo     = reset --hard HEAD~1
+    today    = diff @{yesterday}.. --stat
+    week     = diff \"@{last week}\".. --stat
 
 [help]
     autocorrect = 1
