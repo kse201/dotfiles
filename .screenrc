@@ -10,21 +10,21 @@ altscreen on
 # Langage
 defkanji utf-8
 kanji utf-8
-encoding utf-8 ut-f8
+encoding utf-8
 
 startup_message off
 
 bell_msg "^G"
-vbell on
+vbell off
 # action message in hidden window
 activity ""
 # bell message in hidden window 
 bell_msg "Bell in window %."
+msgwait 3
 
-caption always "%{= wb} %?%F%{=bu dr}%? %?%h%:%t (screen #%n)%? %{-}"
+caption always "%{= wb} %?%F%{=bu k}%? %?%h%:%t (screen #%n)%? %{-}"
 #caption always "%{= wb} %-w%{=bu dr}%n %t%{-}%+w %= %{=b wk} [%l] %{=b wb%y/%m/%d(%D) %{=b wm}%c"
-hardstatus alwayslastline "%{= Gk} %-Lw%40L>%{b kg} %n %t %{-}%+Lw%-040=%{b km} %l %{.b} %Y/%m/%d %c:%s %A "
-sorendition "= Rk"
+hardstatus alwayslastline "%{= Gk}%-Lw%40L>%{b kg}%n:%t|%{-}%+Lw%-036=%{b km} %l %{.b} %Y/%m/%d %c:%s"
 
 bind c screen
 bind p prev
