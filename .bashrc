@@ -85,7 +85,14 @@ alias less='less -r'
 
 # ls
 export ls_colors='no=01;37:fi=00:di=01;36:pi=40;33:so=01;35:bd=40;33:cd=40;33;01:or=40;32;01:ex=01;33:*core=01;31:'
-alias ls='/bin/ls -F --color=tty --show-control-chars'
+case `uname` in
+    "Darwin")
+        alias ls='/bin/ls -FG'
+        ;;
+    *)
+        alias ls='/bin/ls -F --color=tty --show-control-chars'
+        ;;
+esac
 alias ll='ls -l'
 alias la='ls -la'
 
