@@ -166,26 +166,30 @@ NeoBundleLazy 'thinca/vim-quickrun',
             \ 'commands' : ['QuickRun']}}
 " NeoBundle 'surround.vim' " moved .vim/
 NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'gitv'
 NeoBundleLazy 'airblade/vim-gitgutter'
 NeoBundleLazy 'open-browser.vim', {'autoload' : {'mappings' :['<Plug>(open-browser-wwwsearch)','<Plug>(openbrowser-smart-search)']}}
 NeoBundle 'LeafCage/yankround.vim' ,{'depends' : ['kien/ctrlp.vim' ] }
 NeoBundleLazy 'taglist.vim', {'autoload' : { 'filetypes' : ['c', 'cpp','java'], 'commands' : ['TList']}}
 NeoBundleLazy 'thinca/vim-showtime', {'autoload' : {'commands' : ['ShowtimeStart']}}
 NeoBundle 'thinca/vim-fontzoom'
-NeoBundleLazy 'MultipleSearch'
 NeoBundleLazy 'csv.vim' , { 'autoload' : {'filetypes' : 'csv'}}
 NeoBundleLazy 'yuratomo/w3m.vim'  , { 'autoload' : {'commands' : ['W3m']}}
-NeoBundleLazy 'sjl/gundo.vim' , {'autoload' : {'commands' : ['GundoToggle']}}
 NeoBundleLazy 'vim-scripts/RltvNmbr.vim' , {'autoload' : { 'commands' : 'RN'}}
 NeoBundle 'kana/vim-operator-replace.git'
 NeoBundle 'kana/vim-operator-user'
-NeoBundle 'vim-scripts/ViewOutput'
+" NeoBundle 'vim-scripts/ViewOutput'
+NeoBundle 'tyru/capture.vim'
 NeoBundle 'osyo-manga/vim-anzu'
 NeoBundle 'osyo-manga/vim-over'
-NeoBundle 'mattn/startmenu-vim'
 NeoBundle 'mattn/excelview-vim'
 NeoBundle 'bruno-/vim-vertical-move'
+NeoBundle 'fuenor/qfixhowm'
+NeoBundle 't9md/vim-quickhl'
+NeoBundle 'thinca/vim-splash'
+NeoBundle 'kana/vim-smartinput'
+NeoBundle 'vim-scripts/scratch-utility'
+NeoBundleLazy 'Takazudo/outline.vim.git'
+NeoBundle 'daisuzu/translategoogle.vim'
 " }}}
 " C / C++ {{{
 NeoBundleLazy 'vim-scripts/SrcExpl' , {'autoload' : { 'filetypes' : ['c', 'cpp','java']}}
@@ -215,16 +219,33 @@ NeoBundleLazy 'jcf/vim-latex'
 " Perl {{{
 NeoBundleLazy 'perl.vim', { 'autoload' : { 'filetypes' : ['perl'] }}
 " }}}
+" markdown {{{
+NeoBundleLazy 'kannokanno/previm' , { 'autoload' : { 'filetypes' : ['markdown'] }}
+NeoBundleLazy 'syui/cscroll.vim' , { 'autoload' : { 'filetypes' : ['markdown'] }}
+NeoBundleLazy 'kana/vim-submode' , { 'autoload' : { 'filetypes' : ['markdown'] }}
+" }}}
+" html/js/css etc{{{
+NeoBundleLazy 'alpaca-tc/beautify.vim', {
+      \ 'autoload' : {
+      \ 'filetypes' : ['js','html','css'],
+      \   'commands' : [
+      \     {
+      \       'name' : 'Beautify',
+      \       'complete' : 'customlist,beautify#complete_options'
+      \     }
+      \ ]
+      \ }
+      \}
+" }}}
 " 見た目 {{{
 NeoBundle 'wombat256.vim'
+NeoBundle 'mopp/mopkai.vim'
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'kien/rainbow_parentheses.vim'
 NeoBundle 'w0ng/vim-hybrid'
 " }}}
 " その他  {{{
-NeoBundleLazy 'Takazudo/outline.vim.git'
-NeoBundleLazy 'L9'
 " Game {{{
 NeoBundleLazy 'mattn/habatobi-vim'
 NeoBundleLazy 'mattn/invader-vim'
@@ -239,42 +260,15 @@ NeoBundleLazy 'thinca/vim-threes'
 " NeoBundleLazy 'vim game of life'
 " NeoBundleLazy 'mastermind.vim'
 " }}}
-NeoBundle 'kana/vim-smartinput'
-NeoBundle 'taichouchou2/vim-endwise'
-NeoBundle 'vim-scripts/scratch-utility'
-" }}}
-NeoBundle 'kien/ctrlp.vim'
-NeoBundleLazy 'kannokanno/previm' , { 'autoload' : { 'filetypes' : ['markdown'] }}
-NeoBundleLazy 'syui/cscroll.vim' , { 'autoload' : { 'filetypes' : ['markdown'] }}
-NeoBundleLazy 'kana/vim-submode' , { 'autoload' : { 'filetypes' : ['markdown'] }}
 NeoBundleLazy "sudar/vim-arduino-syntax" ,{'autoload' : {'filetype' : ['arduino']}}
-NeoBundle 'thinca/vim-splash'
-NeoBundle 't9md/vim-quickhl'
-NeoBundle 'mopp/mopkai.vim'
-NeoBundle 'mopp/autodirmake.vim'
-NeoBundleLazy 'alpaca-tc/beautify.vim', {
-      \ 'autoload' : {
-      \ 'filetypes' : ['js','html','css'],
-      \   'commands' : [
-      \     {
-      \       'name' : 'Beautify',
-      \       'complete' : 'customlist,beautify#complete_options'
-      \     }
-      \ ]
-      \ }
-      \}
+NeoBundleLazy 'mopp/autodirmake.vim'
 " NeoBundleLazy 'alpaca-tc/alpaca_tags', {
       " \ 'depends': ['Shougo/vimproc', 'Shougo/unite.vim'],
       " \ 'autoload' : {
       " \   'commands' : ['Tags', 'TagsUpdate', 'TagsSet', 'TagsBundle', 'TagsCleanCache'],
       " \   'unite_sources' : ['tags']
       " \ }}
-NeoBundle 'tyru/capture.vim'
-NeoBundle 'tyru/restart.vim'
-NeoBundle 'fuenor/qfixhowm'
-NeoBundle 'deris/vim-rengbang'
-NeoBundle 't9md/vim-choosewin'
-NeoBundle 'daisuzu/translategoogle.vim'
+" }}}
 
 filetype plugin indent on
 syntax on
@@ -353,10 +347,10 @@ augroup END
 " }}}
 
 " nebula.vim{{{
- nnoremap <silent>,bl    :<C-u>NebulaPutLazy<CR>
-  nnoremap <silent>,bc    :<C-u>NebulaPutConfig<CR>
-  nnoremap <silent>,by    :<C-u>NebulaYankOptions<CR>
-  nnoremap <silent>,bp    :<C-u>NebulaPutFromClipboard<CR>
+nnoremap <silent>,bl    :<C-u>NebulaPutLazy<CR>
+nnoremap <silent>,bc    :<C-u>NebulaPutConfig<CR>
+nnoremap <silent>,by    :<C-u>NebulaYankOptions<CR>
+nnoremap <silent>,bp    :<C-u>NebulaPutFromClipboard<CR>
 " }}}
 
 " neocomplete(neocomplcache) & neosnippet{{{
@@ -780,10 +774,8 @@ function! s:unite_source_myCommand.gather_candidates(args,conext)
                 \ "NeoBundleSource"  : "Unite neobundle/lazy",
                 \ "Display relative line numbers " : "RN",
                 \"Neobundle Log" : "NeoBundleLog",
-                \"Undo Tree " : "GundoToggle",
                 \"Show relative number" : "RN",
                 \ "TODO list" : "Unite line -input=TODO", 
-                \ 'MultipleSearch' : "Search <C-r><C-w>",
                 \ 'vertical diff' : "vertical diffsplit ",
                 \}
     return values(map(cmds,"{
@@ -1712,7 +1704,7 @@ nnoremap subp y:OverCommandLine<CR>%s!<C-r>=substitute(@0, '!', '\\!', 'g')<CR>!
 " }}}
 
 " vim-splash {{{
-let g:splash#path = $HOME."/vim_intro.txt"
+let g:splash#path = $VIMFILE_DIR."/vim_intro.txt"
 " }}}
 
 " quickhl {{{
@@ -1741,25 +1733,6 @@ xmap <Space>M <Plug>(quickhl-manual-reset)
 
 " nnoremap <expr>tt  ':Unite tags -horizontal -buffer-name=tags -input='.expand("<cword>").'<CR>'
 " }}}
-
-"vim-choosewim{{{
-nmap - <Plug>(choosewin)
-let g:choosewin_overlay_enable=1
-let g:choosewin_overlay_clear_multibyte=1
-" like tmux
-let g:choosewin_color_overlay = {
-      \ 'gui': ['DodgerBlue3', 'DodgerBlue3' ],
-      \ 'cterm': [ 25, 25 ]
-      \ }
-let g:choosewin_color_overlay_current = {
-      \ 'gui': ['firebrick1', 'firebrick1' ],
-      \ 'cterm': [ 124, 124 ]
-      \ }
-
-let g:choosewin_blink_on_land      = 0 " 頼むから着地時にカーソル点滅をさせないでくれ！
-let g:choosewin_statusline_replace = 0 " どうかステータスラインリプレイスしないで下さい!
-let g:choosewin_tabline_replace    = 0 " どうかタブラインもリプレイスしないでいただきたい！
-"}}}
 
 "" ================================================================================ 
 " vim: set tw=0 tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
