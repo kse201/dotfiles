@@ -53,4 +53,3 @@ term xterm
 # window for suspend 
 screen -t another 0
 screen -t main
-bind ^a screen -t another 0
