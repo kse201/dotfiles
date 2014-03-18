@@ -3,6 +3,7 @@
 .vim/doc/tags
 .vim/doc/tags-ja
 .vim/bundle/
+.vim/.netrwhist
 .twitvim
 .twitvim.token
 .vimprojects
