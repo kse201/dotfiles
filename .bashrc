@@ -125,9 +125,6 @@ export HISTSIZE=100000000000000
 # ディレクトリ名に変数を指定できる
 cdable_vars=on
 
-# ctrl+sで出力がロックされてしまうのを防ぐ
-stty stop undef
-
 man() {
         env \
                 LESS_TERMCAP_mb=$(printf "\e[1;31m") \
