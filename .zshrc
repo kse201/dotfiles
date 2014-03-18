@@ -8,7 +8,7 @@ export PATH=/usr/local/bin:/usr/local/sbin:$PATH:~/bin
 typeset -U path PATH
 export LANG=ja_JP.UTF-8
 export LESSCHARSET=utf-8
-export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case --quit-if-one-screen --RAW-CONTROL-CHARS'
+export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case --quit-if-one-screen --RAW-CONTROL-CHARS -X'
 export EDITOR='vi'
 
 # ヒストリ
@@ -95,8 +95,6 @@ bindkey -e
 # prompt
 ########################################
 PS1="[@${HOST%%.*} %2~]%(!.#.$) "
-#時間表示 & 入力に応じて消す
-RPROMPT="%T"
 setopt transient_rprompt
 ## PROMPT内で変数展開・コマンド置換・算術演算を実行する。
 setopt prompt_subst
@@ -160,15 +158,15 @@ zstyle ':vcs_info:*' actionformats \
 ###   %{%f%}: 文字の色を元に戻す。
 ###   %{%b%}: 太字を元に戻す。
 ###   %D{%Y/%m/%d %H:%M}: 日付。「年/月/日 時:分」というフォーマット。
-prompt_bar_left_self="(%{%B%}%n%{%b%}%{%F{cyan}%}@%{%f%}%{%B%}%m%{%b%})"
+prompt_bar_left_self="%{%B%}%F{green}%n%{%b%}@%{%B%}%F{green}%m%{%b%}"
 prompt_bar_left_status="(%{%B%F{white}%(?.%K{green}.%K{red})%}%?%{%k%f%b%})"
-prompt_bar_left_date="<%{%B%}%D{%Y/%m/%d %H:%M}%{%b%}>"
-prompt_bar_left="-${prompt_bar_left_self}-${prompt_bar_left_status}-${prompt_bar_left_date}-"
+prompt_bar_left_date="[%{%B%}%F{white}%D{%y/%m/%d %H:%M}%{%f%b%}]"
+prompt_bar_left="${prompt_bar_left_status} ${prompt_bar_left_self}${prompt_bar_left_date}"
 ### プロンプトバーの右側
 ###   %{%B%K{magenta}%F{white}%}...%{%f%k%b%}:
 ###       「...」を太字のマジェンタ背景の白文字にする。
 ###   %d: カレントディレクトリのフルパス（省略しない）
-prompt_bar_right="-[%{%B%K{magenta}%F{white}%}%d%{%f%k%b%}]-"
+prompt_bar_right="[%{%B%K{magenta}%F{white}%}%~%{%f%k%b%}] "
 
 ### 2行目左にでるプロンプト。
 ###   %h: ヒストリ数。
@@ -176,7 +174,7 @@ prompt_bar_right="-[%{%B%K{magenta}%F{white}%}%d%{%f%k%b%}]-"
 ###     %j: 実行中のジョブ数。
 ###   %{%B%}...%{%b%}: 「...」を太字にする。
 ###   %#: 一般ユーザなら「%」、rootユーザなら「#」になる。
-prompt_left="-$([ -n "$TMUX" ] && tmux display -p "#I-#P ")[%h]%(1j,(%j),)%{%B%}%#%{%b%} "
+prompt_left="$([ -n "$TMUX" ] && tmux display -p "#I-#P ")[%h]%(1j,(%j),)%{%B%}%#%{%b%}"
 
 ## プロンプトフォーマットを展開した後の文字数を返す。
 ## 日本語未対応。
@@ -228,7 +226,7 @@ update_prompt()
     # 「${bar_rest_length}」文字分の「-」を作っている。
     # どうせ後で切り詰めるので十分に長い文字列を作っているだけ。
     # 文字数はざっくり。
-    local separator="${(l:${bar_rest_length}::-:)}"
+    local separator="${(l:${bar_rest_length}:: :)}"
     # プロンプトバー全体を「${bar_rest_length}」カラム分にする。
     #   %${bar_rest_length}<<...%<<:
     #     「...」を最大で「${bar_rest_length}」カラムにする。
@@ -243,13 +241,15 @@ update_prompt()
     #   %{%B%F{white}%K{green}}...%{%k%f%b%}:
     #       「...」を太字で緑背景の白文字にする。
     #   %~: カレントディレクトリのフルパス（可能なら「~」で省略する）
-    RPROMPT="[%{%B%F{white}%K{magenta}%}%~%{%k%f%b%}]"
+    # RPROMPT="[%{%B%F{white}%K{magenta}%}%~%{%k%f%b%}]"
 
     # バージョン管理システムの情報を取得する。
     LANG=C vcs_info >&/dev/null
     # バージョン管理システムの情報があったら右プロンプトに表示する。
     if [ -n "$vcs_info_msg_0_" ]; then
-        RPROMPT="${vcs_info_msg_0_}-${RPROMPT}"
+        RPROMPT="${vcs_info_msg_0_}"
+    else 
+        RPROMPT=""
     fi
 }
 
@@ -316,7 +316,7 @@ bindkey '^N' history-beginning-search-forward-end
 # color ls
 export ls_colors='no=01;37:fi=00:di=01;36:pi=40;33:so=01;35:bd=40;33:cd=40;33;01:or=40;32;01:ex=01;33:*core=01;31:'
 if [ `uname` != "SunOS" ] ; then
-    alias ls="ls -G"
+    alias ls="ls --color=auto"
     # -i 確認 -v 詳細な情報の表示
     alias cp='cp -iv'
     # alias rm='rm -iv'

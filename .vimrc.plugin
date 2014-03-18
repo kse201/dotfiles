@@ -130,6 +130,7 @@ NeoBundleLazy 'basyura/unite-rails', {
             \ 'depends' : 'Shougo/unite.vim' }
 NeoBundleLazy 'osyo-manga/unite-qfixhowm', {
             \ 'depends' :  ['Shougo/unite.vim' , 'fuenor/qfixhowm'] }
+NeoBundle 'Shougo/neomru.vim',{  'depends' : 'Shougo/unite.vim' }
 " NeoBundle 'Kocha/vim-unite-tig'
 " }}}
 " テキスト整形 {{{
@@ -168,7 +169,7 @@ NeoBundleLazy 'thinca/vim-quickrun',
 NeoBundle 'tpope/vim-fugitive'
 NeoBundleLazy 'airblade/vim-gitgutter'
 NeoBundleLazy 'open-browser.vim', {'autoload' : {'mappings' :['<Plug>(open-browser-wwwsearch)','<Plug>(openbrowser-smart-search)']}}
-NeoBundle 'LeafCage/yankround.vim' ,{'depends' : ['kien/ctrlp.vim' ] }
+" NeoBundle 'LeafCage/yankround.vim' ,{'depends' : ['kien/ctrlp.vim' ] }
 NeoBundleLazy 'taglist.vim', {'autoload' : { 'filetypes' : ['c', 'cpp','java'], 'commands' : ['TList']}}
 NeoBundleLazy 'thinca/vim-showtime', {'autoload' : {'commands' : ['ShowtimeStart']}}
 NeoBundle 'thinca/vim-fontzoom'
@@ -650,15 +651,15 @@ endif
 " }}}
 
 " yankround.vim {{{
-"" キーマップ
-nmap p <Plug>(yankround-p)
-nmap P <Plug>(yankround-P)
-nmap <C-p> <Plug>(yankround-prev)
-nmap <C-n> <Plug>(yankround-next)
-"" 履歴取得数
-let g:yankround_max_history = 50
-""履歴一覧(kien/ctrlp.vim)
-nnoremap <silent>g<C-p> :<C-u>CtrlPYankRound<CR>
+" " キーマップ
+" nmap p <Plug>(yankround-p)
+" nmap P <Plug>(yankround-P)
+" nmap <C-p> <Plug>(yankround-prev)
+" nmap <C-n> <Plug>(yankround-next)
+" " 履歴取得数
+" let g:yankround_max_history = 50
+" "履歴一覧(kien/ctrlp.vim)
+" nnoremap <silent>g<C-p> :<C-u>CtrlPYankRound<CR>
 " }}}
 
 " unite.vim{{{
