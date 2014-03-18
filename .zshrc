@@ -158,7 +158,7 @@ zstyle ':vcs_info:*' actionformats \
 ###   %{%f%}: 文字の色を元に戻す。
 ###   %{%b%}: 太字を元に戻す。
 ###   %D{%Y/%m/%d %H:%M}: 日付。「年/月/日 時:分」というフォーマット。
-prompt_bar_left_self="%{%B%}%F{green}%n%{%b%}@%{%B%}%F{green}%m%{%b%}"
+prompt_bar_left_self="%{%B%}%F{cyan}%n%{%b%}@%{%B%}%F{cyan}%m%{%b%}"
 prompt_bar_left_status="(%{%B%F{white}%(?.%K{green}.%K{red})%}%?%{%k%f%b%})"
 prompt_bar_left_date="[%{%B%}%F{white}%D{%y/%m/%d %H:%M}%{%f%b%}]"
 prompt_bar_left="${prompt_bar_left_status} ${prompt_bar_left_self}${prompt_bar_left_date}"
@@ -315,14 +315,21 @@ bindkey '^N' history-beginning-search-forward-end
 # eval `dircolors $HOME/.dir_colors`
 # color ls
 export ls_colors='no=01;37:fi=00:di=01;36:pi=40;33:so=01;35:bd=40;33:cd=40;33;01:or=40;32;01:ex=01;33:*core=01;31:'
-if [ `uname` != "SunOS" ] ; then
-    alias ls="ls --color=auto"
-    # -i 確認 -v 詳細な情報の表示
-    alias cp='cp -iv'
-    # alias rm='rm -iv'
-    alias mv='mv -iv'
-    alias grep='grep -E --color=auto'
-fi
+case `uname` in
+    "SunOS")
+        ;;
+    "Darwin")
+        alias ls="ls -G"
+        ;;
+    *)
+        alias ls="ls --color=auto"
+        ;;
+esac
+# -i 確認 -v 詳細な情報の表示
+alias cp='cp -iv'
+# alias rm='rm -iv'
+alias mv='mv -iv'
+alias grep='grep -E --color=auto'
 alias ll='ls -l'
 alias la='ls -la'
 # color grep word 
