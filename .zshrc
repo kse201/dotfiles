@@ -4,12 +4,16 @@
 if [ ! -f ~/.zshrc.zwc -o ~/.zshrc -nt ~/.zshrc.zwc ]; then
     zcompile ~/.zshrc
 fi
+# env
 export PATH=/usr/local/bin:/usr/local/sbin:$PATH:~/bin 
 typeset -U path PATH
 export LANG=ja_JP.UTF-8
 export LESSCHARSET=utf-8
 export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case --quit-if-one-screen --RAW-CONTROL-CHARS -X'
 export EDITOR='vi'
+export RSYNC_RSH=ssh
+export CVS_RSH=ssh
+
 
 # ヒストリ
 HISTFILE=$HOME/.zsh_history
