@@ -9,7 +9,6 @@
 .vimprojects
 .vimshell
 .viminfo
-.zsh.d/packages
 
 !/.gitconfig
 !/.gitignore
@@ -18,10 +17,12 @@
 !/.gvimrc
 !/.vimrc.plugin
 !/.bashrc
-!/.zshrc
-!/.zshenv
-!/.zsh.d
-.zsh.d/packages/*
+
+!.zshrc
+!.zshenv
+!.zsh.d
+.zsh.d/packages/antigen_repos
+
 !/.screenrc
 .vim/skeleton/dairyreport.txt
 .vim/skeleton/monthlyreport.txt

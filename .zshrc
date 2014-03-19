@@ -442,7 +442,10 @@ function man() { /usr/bin/man $* -P "col -b | vim -Rc 'setl ft=man ts=8 nomod no
 
 ########################################
 # packages
-# source ~/.zsh.d/config/packages.zsh
+PLUGIN_CONFIG=~/.zsh.d/config/antigen.conf
+if [ -e ${PLUGIN_CONFIG} ] ; then
+    source ${PLUGIN_CONFIG}
+fi
 ########################################
 
 ########################################
