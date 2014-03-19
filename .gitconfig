@@ -7,6 +7,7 @@
 	paper = lv -c
     autocrlf = false
     editor = vim
+    pager = less -r
 
 [merge] ; (1.7.6 later)
     ff = false
@@ -24,6 +25,7 @@
     rema     = rebase origin/master master
     cl       = clone
     undo     = reset --hard HEAD~1
+    info     = remote show origin
 
 # ignore 
     ignore   = update-index --assume-unchanged
@@ -46,7 +48,7 @@
 # checkout 
     co       = checkout
     ct       = checkout -t 
-    m        = checkout master
+    master   = checkout master
 
 # diff
     d        = diff -w --color-words
