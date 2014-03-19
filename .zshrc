@@ -178,7 +178,7 @@ prompt_bar_right="[%{%B%K{magenta}%F{white}%}%~%{%f%k%b%}] "
 ###     %j: 実行中のジョブ数。
 ###   %{%B%}...%{%b%}: 「...」を太字にする。
 ###   %#: 一般ユーザなら「%」、rootユーザなら「#」になる。
-prompt_left="$([ -n "$TMUX" ] && tmux display -p "#I-#P ")[%h]%(1j,(%j),)%{%B%}%#%{%b%}"
+prompt_left="$([ -n "$TMUX" ] && tmux display -p "#I-#P ")[%h]%(1j,(%j),)%{%B%}%# %{%b%}"
 
 ## プロンプトフォーマットを展開した後の文字数を返す。
 ## 日本語未対応。
