@@ -4,12 +4,16 @@
 if [ ! -f ~/.zshrc.zwc -o ~/.zshrc -nt ~/.zshrc.zwc ]; then
     zcompile ~/.zshrc
 fi
+# env
 export PATH=/usr/local/bin:/usr/local/sbin:$PATH:~/bin 
 typeset -U path PATH
 export LANG=ja_JP.UTF-8
 export LESSCHARSET=utf-8
 export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case --quit-if-one-screen --RAW-CONTROL-CHARS -X'
 export EDITOR='vi'
+export RSYNC_RSH=ssh
+export CVS_RSH=ssh
+
 
 # ヒストリ
 HISTFILE=$HOME/.zsh_history
@@ -174,7 +178,7 @@ prompt_bar_right="[%{%B%K{magenta}%F{white}%}%~%{%f%k%b%}] "
 ###     %j: 実行中のジョブ数。
 ###   %{%B%}...%{%b%}: 「...」を太字にする。
 ###   %#: 一般ユーザなら「%」、rootユーザなら「#」になる。
-prompt_left="$([ -n "$TMUX" ] && tmux display -p "#I-#P ")[%h]%(1j,(%j),)%{%B%}%#%{%b%}"
+prompt_left="$([ -n "$TMUX" ] && tmux display -p "#I-#P ")[%h]%(1j,(%j),)%{%B%}%# %{%b%}"
 
 ## プロンプトフォーマットを展開した後の文字数を返す。
 ## 日本語未対応。
@@ -442,7 +446,10 @@ function man() { /usr/bin/man $* -P "col -b | vim -Rc 'setl ft=man ts=8 nomod no
 
 ########################################
 # packages
-# source ~/.zsh.d/config/packages.zsh
+PLUGIN_CONFIG=~/.zsh.d/config/antigen.conf
+if [ -e ${PLUGIN_CONFIG} ] ; then
+    source ${PLUGIN_CONFIG}
+fi
 ########################################
 
 ########################################

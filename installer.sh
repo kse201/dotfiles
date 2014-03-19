@@ -20,7 +20,11 @@ dotfiles_install() {
     do
         ln -s ${DIR}/${file} $HOME/${file} >/dev/null 2>&1
     done
-    echo "(1/3): dotfiles installed."
+    echo "(1/4): dotfiles installed."
+
+    git submodule init 
+    git submodule update
+    echo "(2/4): submodule installed"
 
     mkdir -p $HOME/.vim/bundle
     git clone https://github.com/Shougo/neobundle.vim.git $HOME/.vim/bundle/neobundle.vim >/dev/null 2>&1
@@ -30,7 +34,7 @@ dotfiles_install() {
         unlink $HOME/.vimrc.plugin
 	return
     fi
-    echo "(2/3): neobundle.vim installed."
+    echo "(3/4): neobundle.vim installed."
 
     git clone https://github.com/Shougo/unite.vim $HOME/.vim/bundle/unite.vim >/dev/null 2>&1
     if [ $? != 0 ] ; then
@@ -39,7 +43,7 @@ dotfiles_install() {
         unlink $HOME/.vimrc.plugin
 	return
     fi
-    echo "(3/3): unite.vim installed."
+    echo "(4/4): unite.vim installed."
 
     vim -c "Unite neobundle/install"
 }
