@@ -23,9 +23,12 @@
 
     ls       = ls-files
     rema     = rebase origin/master master
-    cl       = clone
     undo     = reset --hard HEAD~1
     info     = remote show origin
+
+# clone
+    cl       = clone
+    cr       = clone --recursive
 
 # ignore 
     ignore   = update-index --assume-unchanged
@@ -44,6 +47,7 @@
     cm       = commit
     cmt      = commit -v
     cma      = commit -a -v
+    amend    = commit --amend
 
 # checkout 
     co       = checkout
