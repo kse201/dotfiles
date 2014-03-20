@@ -426,7 +426,7 @@ if !exists("g:neosnippet#snippets_directory")
 endif
 " let g:NeoComplete_SnippetsDir = $VIMFILE_DIR.'/snippets'
 let g:neosnippet#snippets_directory= $VIMFILE_DIR . '/snippets'
-
+let g:neosnippet#enable_snipmate_compatibility = 1
 
 " init neocomplete {{{
 function! Init_neocomplete()
@@ -575,7 +575,7 @@ if !exists("g:neosnippet#snippets_directory")
 endif
 " let g:NeoComplCache_SnippetsDir = $VIMFILE_DIR.'/snippets'
 let g:neosnippet#snippets_directory= $VIMFILE_DIR . '/snippets'
-
+let g:neosnippet#enable_snipmate_compatibility = 1
 
 " init neocomplcache {{{
 function! Init_neocomplcache()
