@@ -1,13 +1,15 @@
 [color]
-    status = auto
-    branch = auto
-    ui = auto
+    status      = auto
+    branch      = auto
+    ui          = auto
+    interactive = auto
+
 [core]
 	excludesfile = .gitignore
-	paper = lv -c
-    autocrlf = false
-    editor = vim
-    pager = less -r
+	paper        = lv -c
+	autocrlf     = false
+	editor       = vim
+	pager        = less -r
 
 [merge] ; (1.7.6 later)
     ff = false
@@ -25,6 +27,7 @@
     rema     = rebase origin/master master
     undo     = reset --hard HEAD~1
     info     = remote show origin
+    who      = shortlog --numbered --summary --email --no-merges --since='3 months'
 
 # clone
     cl       = clone

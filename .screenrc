@@ -20,7 +20,7 @@ vbell off
 activity ""
 # bell message in hidden window 
 bell_msg "Bell in window %."
-msgwait 3
+msgwait 1
 
 caption always '%?%F%{=ub G}%:%{=u K}%?(%f)%2n: %t%='
 hardstatus alwayslastline '%L=%-w%40L>%{= g.}%f%2n:%t%{-}%+w %-037<%=%{= .y}%{b km}%l %{.b}%Y/%m/%d %c:%s'
