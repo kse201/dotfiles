@@ -1,17 +1,38 @@
 #!/bin/sh
 
 # usage : git hubclone <user> <repo>
-USAGE="usage : git hubclone <user> <repo>"
+USAGE="usage : git hubclone [-p protocol] [ -o 'git-clone option'] <user> <repo>"
 
-if [ ! $# = 2 ] ; then
+# if [ ! $# = 2 ] ; then
+# echo $USAGE
+# exit 1;
+# fi
+
+protocol="https"
+
+while getopts "p:o:" OPT
+do
+    case $OPT in
+        p)
+        protocol=$OPTARG
+        ;;
+        o)
+        option=$OPTARG
+        ;;
+    esac
+done
+
+if [ $# = `expr $OPTIND - 1` ] ; then
     echo $USAGE
     exit 1;
 fi
 
-user=$1
-repo=${2/.git/}
+userind=`expr $OPTIND`
+repoind=`expr $userind + 1`
+user=`eval echo '$'${userind}`
+repo=`eval echo '$'{${repoind}/.git/}`
 
-cmd="git clone https://github.com/$user/$repo.git"
+cmd="git clone $option $protocol://github.com/$user/$repo.git"
 
-# echo $cmd
+# echo $cmd # debug
 $cmd
