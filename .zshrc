@@ -463,10 +463,15 @@ function ssh() {
 conf() {
     case $1 in
         bash)       vim ~/.bashrc ;;
+        git)       vim ~/.gitconfig ;;
         tmux)       vim ~/.tmux.conf ;;
         screen)     vim ~/.screenrc ;;
         vim)        vim ~/.vimrc ;;
         zsh)        vim ~/.zshrc && source ~/.zshrc ;;
         *)          echo "Unknown application: $1" ;;
     esac
+}
+
+reload (){
+    exec $SHELL
 }
