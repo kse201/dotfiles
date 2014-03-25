@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# usage : git hubclone <user> <repo>
+USAGE="usage : git hubclone <user> <repo>"
+
+if [ ! $# = 2 ] ; then
+    echo $USAGE
+    exit 1;
+fi
+
+user=$1
+repo=${2/.git/}
+
+cmd="git clone https://github.com/$user/$repo.git"
+
+# echo $cmd
+$cmd
