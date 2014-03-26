@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# usage : git hubclone <user> <repo>
+# usage : git hubclone [-p protocol] [ -o 'git-clone option'] <user> <repo>
 USAGE="usage : git hubclone [-p protocol] [ -o 'git-clone option'] <user> <repo>"
 
 # if [ ! $# = 2 ] ; then
