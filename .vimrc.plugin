@@ -426,7 +426,7 @@ if !exists("g:neosnippet#snippets_directory")
 endif
 " let g:NeoComplete_SnippetsDir = $VIMFILE_DIR.'/snippets'
 let g:neosnippet#snippets_directory= $VIMFILE_DIR . '/snippets'
-let g:neosnippet#enable_snipmate_compatibility = 1
+let g:neosnippet#enable_snipmate_compatibility = 0
 
 " init neocomplete {{{
 function! Init_neocomplete()
@@ -507,8 +507,8 @@ if has('vim_starting')
         autocmd InsertEnter * call s:LazyLoadingForNeocom() | call Init_neocomplcache() | autocmd! MyInitNeocomplcache
     augroup END
     function! s:LazyLoadingForNeocom()
-        NeoBundleSource neocomplcache
         NeoBundleSource neosnippet
+        NeoBundleSource neocomplcache
         NeoBundleSource neocomplcache-clang
         NeoBundleSource neocomplcache-clang_complete
         NeoBundleSource clang-complete
@@ -527,20 +527,20 @@ call neobundle#config('neocomplcache',{
 " Use neocomplcache.
 let g:neocomplcache_enable_at_startup             = 0 " 起動時に有効化
 " Use smartcase.
-let g:NeoComplCache_SmartCase                     = 1
+let g:neocomplcache_enable_smart_case             = 1
 let g:neocomplcache_enable_auto_select            = 1
 " Use camel case completion.
-let g:NeoComplCache_enable_camel_case_completion  = 0
+let g:neocomplcache_enable_camel_case_completion  = 0
 " Use underbar completion.
-let g:NeoComplCache_EnableUnderbarCompletion      = 1
+let g:neocomplcache_enable_underbar_completion    = 1
 " Set minimum syntax keyword length.
-let g:NeoComplCache_MinSyntaxLength               = 3
+let g:neocomplcache_min_syntax_length             = 3
 " Set manual completion length.
 " let g:NeoComplCache_ManualCompletionStartLength = 2
 " Print caching percent in statusline.
 " let g:NeoComplCache_CachingPercentInStatusline  = 1
 let g:neocomplcache_lock_buffer_name_pattern      = '\*ku\*'
-let g:neocomplcache_skip_auto_completion_time = '0.2'
+let g:neocomplcache_skip_auto_completion_time     = '0.2'
 
 " Examples:
 if !exists('g:neocomplcache_sources_list')
@@ -561,10 +561,10 @@ let g:neocomplcache_dictionary_filetype_lists = {
             \ }
 
 " Define keyword.
-if !exists('g:neoComplCache_keyword_patterns')
-    let g:neoComplCache_keyword_patterns = {}
+if !exists('g:neocomplcache_keyword_patterns')
+    let g:neocomplcache_keyword_patterns = {}
 endif
-let g:neoComplCache_keyword_patterns['default'] = '\h\w*'
+let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 " ファイル名補間、オムニ補間をneocom組み込みのものに置き換え
 " inoremap <expr><C-x><C-f>  neocomplcache#manual_filename_complete()
 " inoremap <expr> <C-j>  &filetype == 'vim' ? "\<C-x>\<C-v>\<C-p>" : neocomplcache#manual_omni_complete()
@@ -575,7 +575,7 @@ if !exists("g:neosnippet#snippets_directory")
 endif
 " let g:NeoComplCache_SnippetsDir = $VIMFILE_DIR.'/snippets'
 let g:neosnippet#snippets_directory= $VIMFILE_DIR . '/snippets'
-let g:neosnippet#enable_snipmate_compatibility = 1
+let g:neosnippet#enable_snipmate_compatibility = 0
 
 " init neocomplcache {{{
 function! Init_neocomplcache()
@@ -604,9 +604,6 @@ function! Init_neocomplcache()
     inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
     inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
 
-    " ネオコン設定変更操作
-    " スニペットを編集する
-    noremap <Leader>es :<C-u>vertical belowright NeoComplCacheEditSnippets<CR>
 endfunction
 " }}}
 " Term neocomplcache{{{
