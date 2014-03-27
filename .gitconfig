@@ -12,12 +12,6 @@
 	pager        = less -r
 	quotepath    = false
 
-[merge] ; (1.7.6 later)
-    ff = false
-
-[branch "master"]
-    mergeoptions = --no-ff
-
 [diff]
         renames = copies
 
