@@ -979,6 +979,9 @@ vnoremap <S-J> gJ
 nnoremap gJ <S-J>
 nnoremap gJ <S-J>
 
+"switch buffer
+nnoremap <M-Left> :bp<CR>
+nnoremap <M-Right> :bn<CR>
 
 " nnoremap : q:a
 " nnoremap / q/a
