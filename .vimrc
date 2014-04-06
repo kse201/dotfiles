@@ -1041,6 +1041,7 @@ nnoremap <Leader>th gT
 nnoremap gl gt
 nnoremap gh gT
 nnoremap <Leader>tn :tabnew<CR>
+nnoremap <Leader>tc :tabclose<CR>
 for i in range(1,9)
     execute "nnoremap " . i . "<Leader>t " . i ."gt"
 endfor
