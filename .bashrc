@@ -134,3 +134,6 @@ man() {
                 man "$@"
 }
 
+
+# screen
+export SCREENDIR=~/.screens

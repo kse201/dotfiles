@@ -475,3 +475,6 @@ conf() {
 reload (){
     exec $SHELL
 }
+
+# screen
+export SCREENDIR=~/.screens
