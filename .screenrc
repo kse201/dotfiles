@@ -61,8 +61,8 @@ bind ^] paste .
 
 # log
 deflog on
-logfile "~/.logs/screen-%Y%m%da-%n.log"
-logtstamp string "\n-- SCREEN [%Y/%m/%d %02c:%s] %n:%t --\n"
+logfile "$HOME/.log/screen-%Y%m%d-%n.log"
+logtstamp string "\n-- SCREEN [%Y/%m/%d %01c:%s] %n:%t --\n"
 
 # screen上のvimで256色サポートを有効に
 defbce on 
