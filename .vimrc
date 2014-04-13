@@ -937,18 +937,18 @@ cmap <leader>e :edit %%
 " Writing NIPPO{{{
 function! WriteDairyReport()
     if filereadable($VIMFILE_DIR."/skeleton/dairyreport.txt")
-      :0r $VIMFILE_DIR/skeleton/dairyreport.txt
-  else 
-      echo "Don't exiest NIPPO Template!"
-  endif
+        :0r $VIMFILE_DIR/skeleton/dairyreport.txt
+    else 
+        echo "Don't exiest NIPPO Template!"
+    endif
 endfunction
 
 function! WriteMonthlyReport()
     if filereadable($VIMFILE_DIR."/skeleton/monthlyreport.txt")
-      :0r $VIMFILE_DIR/skeleton/monthlyreport.txt
-  else 
-      echo "Don't exiest GEPPO Template!"
-  endif
+        :0r $VIMFILE_DIR/skeleton/monthlyreport.txt
+    else 
+        echo "Don't exiest GEPPO Template!"
+    endif
 endfunction
 command!  Nippo :call WriteDairyReport()
 command!  Geppo :call WriteMonthlyReport()
@@ -961,8 +961,16 @@ endif
 " }}}
 
 "command! CopyRelativePath {{{
-\ let @*=join(remove( split( expand( '%:p' ), "/" ), len( split( getcwd(), "/" ) ), -1 ), "/") | echo "copied"
+            \ let @*=join(remove( split( expand( '%:p' ), "/" ), len( split( getcwd(), "/" ) ), -1 ), "/") | echo "copied"
 "}}}
+
+" indent all line (non cursolr move )
+function! s:format_file()
+    let view= winsaveview()
+    normal gg=G
+    silent call winrestview(view)
+endfunction
+nnoremap <SPACE>f :call <SID>format_file()<CR>
 " }}}
 
 " keymap{{{
@@ -979,6 +987,9 @@ vnoremap <S-J> gJ
 nnoremap gJ <S-J>
 nnoremap gJ <S-J>
 
+"switch buffer
+nnoremap <M-Left> :bp<CR>
+nnoremap <M-Right> :bn<CR>
 
 " nnoremap : q:a
 " nnoremap / q/a
@@ -1038,6 +1049,7 @@ nnoremap <Leader>th gT
 nnoremap gl gt
 nnoremap gh gT
 nnoremap <Leader>tn :tabnew<CR>
+nnoremap <Leader>tc :tabclose<CR>
 for i in range(1,9)
     execute "nnoremap " . i . "<Leader>t " . i ."gt"
 endfor

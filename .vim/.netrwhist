@@ -1,5 +1,5 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_cnt =8
 let g:netrw_dirhist_1='/Users/sekeikai'
 let g:netrw_dirhist_2='/Users/sekeikai/.tweetvim'
 let g:netrw_dirhist_3='/Users/sekeikai'
@@ -7,3 +7,4 @@ let g:netrw_dirhist_4='/Users/sekeikai/.vim'
 let g:netrw_dirhist_5='/Users/sekeikai/.vim/bundle'
 let g:netrw_dirhist_6='/Users/sekeikai/.vim/bundle/neocomplcache'
 let g:netrw_dirhist_7='/Users/sekeikai/.vim/bundle/neocomplcache/doc'
+let g:netrw_dirhist_8='/Users/kse/Downloads/.fanzine/2ftp'

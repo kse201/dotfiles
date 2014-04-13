@@ -1,19 +1,16 @@
 [color]
-    status = auto
-    branch = auto
-    ui = auto
+    status      = auto
+    branch      = auto
+    ui          = auto
+    interactive = auto
+
 [core]
 	excludesfile = .gitignore
-	paper = lv -c
-    autocrlf = false
-    editor = vim
-    pager = less -r
-
-[merge] ; (1.7.6 later)
-    ff = false
-
-[branch "master"]
-    mergeoptions = --no-ff
+	paper        = lv -c
+	autocrlf     = false
+	editor       = vim
+	pager        = less -r
+	quotepath    = false
 
 [diff]
         renames = copies
@@ -23,8 +20,8 @@
 
     ls       = ls-files
     rema     = rebase origin/master master
-    undo     = reset --hard HEAD~1
     info     = remote show origin
+    who      = shortlog --numbered --summary --email --no-merges --since='3 months'
 
 # clone
     cl       = clone
@@ -72,5 +69,12 @@
     sa       = stash apply                  # apply stash (restore changes)
     sd       = stash drop                   # drop stashes (destory changes)
 
+# reset
+    undo     = reset --hard HEAD
+    undo-1   = reset --hard HEAD~1
+
 [help]
     autocorrect = 1
+[gui]
+	recentrepo = /home/se/.dotfiles
+	recentrepo = /home/se/.emacs.d
