@@ -340,12 +340,12 @@ endfunction
 
 let s:active_auto_source = 0
 
-augroup auto-source
-    autocmd!
-    autocmd CursorHold * if s:active_auto_source | call s:source() | endif
-    autocmd FocusLost * let s:active_auto_source = 1
-    autocmd FocusGained * let s:active_auto_source = 0
-augroup END
+" augroup auto-source
+    " autocmd!
+    " autocmd CursorHold * if s:active_auto_source | call s:source() | endif
+    " autocmd FocusLost * let s:active_auto_source = 1
+    " autocmd FocusGained * let s:active_auto_source = 0
+" augroup END
 " }}}
 
 " }}}
