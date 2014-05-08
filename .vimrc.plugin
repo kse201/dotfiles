@@ -28,7 +28,7 @@ set nocompatible
 filetype plugin indent off
 let g:bundle_dir = $VIMFILE_DIR."/bundle/"
 if has('vim_starting')
-    if !isdirectory(expand("~/.vim/bundle/neobundle.vim/"))
+    if !isdirectory(expand(g:bundle_dir."neobundle.vim/"))
         echo "install neobundle..."
         :call system("git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim")
     endif
