@@ -356,6 +356,9 @@ if [ `uname` != "Darwin" ] ; then
 fi
 
 alias dl='docker ps -l -q'
+function container_ip () {
+docker inspect $1 | grep IPAddres | awk -F'"' '{print $4}'
+}
 
 # 単語区切り記号
 WORDCHARS='*?_-.[]~=&;!#S%^(){}<>'
