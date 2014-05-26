@@ -384,6 +384,12 @@ setopt auto_param_keys
 setopt complete_aliases
 
 ## エイリアス
+### suffix
+alias -s py="python"
+alias -s rb="ruby"
+alias -s txt="cat"
+
+### iab
 alias -g L="| less"
 alias -g G='| grep'
 alias -g H='| head'
