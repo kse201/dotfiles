@@ -322,10 +322,10 @@ export ls_colors='no=01;37:fi=00:di=01;36:pi=40;33:so=01;35:bd=40;33:cd=40;33;01
 case `uname` in
     "SunOS")
         ;;
-    "Darwin")
+    "Darwin") # BSD ls
         alias ls="ls -G"
         ;;
-    *)
+    *) # GNU ls
         alias ls="ls --color=auto"
         ;;
 esac
