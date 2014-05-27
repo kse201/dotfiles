@@ -355,6 +355,8 @@ if [ `uname` != "Darwin" ] ; then
     alias e='/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -n'
 fi
 
+alias dl='docker ps -l -q'
+
 # 単語区切り記号
 WORDCHARS='*?_-.[]~=&;!#S%^(){}<>'
 WORDCHARS=${WORDCHARS:s,/,,}
