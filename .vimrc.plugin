@@ -884,7 +884,7 @@ if s:checkplugin("vim-smartchr" )
     " 参考:http://d.hatena.ne.jp/ampmmn/20080925/1222338972
     " 演算子記号の前後に空白を入れるなど
     " (多分)C/C++コーディング用
-    function! SmartCharForC()
+    function! SmartCharSetting()
         "四則演算
         inoremap <buffer><expr> + smartchr#loop(' + ', '++')
         inoremap <buffer><expr> - smartchr#loop(' - ', '--')
@@ -946,7 +946,7 @@ if s:checkplugin("vim-smartchr" )
         inoremap <buffer><expr> 9 smartchr#one_of('9', ')','99')
     endfunction
 
-    autocmd MyAutoCmd FileType c,cpp call SmartCharForC()
+    autocmd MyAutoCmd FileType c,cpp,python call SmartCharSettign()
     " endif
     " }}}
 endif
