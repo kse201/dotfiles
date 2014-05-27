@@ -51,7 +51,7 @@ NeoBundleLazy 'basyura/twibill.vim'
 NeoBundleLazy 'basyura/bitly.vim'
 " }}}
 " Plugin管理 {{{
-NeoBundle 'Shougo/neobundle.vim'
+NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundleLazy 'LeafCage/nebula.vim', {'autoload': {'filetypes': 'vim' , 'commands': ['NebulaPutLazy', 'NebulaPutFromClipboard', 'NebulaYankOptions', 'NebulaPutConfig']}}
 " }}}
 " ドキュメント管理 {{{
@@ -706,6 +706,8 @@ augroup END
 nnoremap <silent> <SID>[unite]b :<C-u>Unite -buffer-name=buffer buffer<CR>
 " file
 nnoremap <silent> <SID>[unite]f :<C-u>Unite -buffer-name=files file<CR>
+" file
+nnoremap <silent> <SID>[unite]m :<C-u>Unite -buffer-name=file_mru file_mru<CR>
 " my favorite contents
 nnoremap <silent> <SID>[unite]a :<C-u>UniteWithBufferDir -winheight=100 -hide-source-names -input= -buffer-name=files -no-split 
             \ output:echo\ "\ ===\ BUFFER\ ===\ " buffer 
