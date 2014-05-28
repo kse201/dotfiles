@@ -4,15 +4,15 @@
 DOMAIN_NAME=$1
 
 # status check 
-LANG=C virsh dominfo test_chef_server | grep running
-if [ ! $? ] ; then
-    virsh destory ${DOMAIN_NAME}
+LANG=C virsh dominfo ${DOMAIN_NAME} | grep running
+if [ $? == 0 ] ; then
+    virsh destroy ${DOMAIN_NAME}
 fi
 
 # destroy
 virsh undefine \
---managed-save \
---remove-all-storage \
---wipe-storage \
---snapshots-metadata \
-${DOMAIN_NAME}
+    --managed-save \
+    --remove-all-storage \
+    --wipe-storage \
+    --snapshots-metadata \
+    ${DOMAIN_NAME}

@@ -3,8 +3,7 @@
 # bibitem{ADN LAB'S BLOG}t_oooka,ADN LAB'S BLOG, http://lab.adn-mobasia.net/?p=471
 
 # usege: virsh-launch <domain_name> <IP address> 
-
-yum install -y libguestfs libguestfs-tools libguestfs-tools
+# dependency: libguestfs libguestfs-tools libguestfs-tools
 
 work_dir=/tmp/clone-guest
 
