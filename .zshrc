@@ -489,3 +489,8 @@ reload (){
 
 # screen
 export SCREENDIR=~/.screens
+
+# local setting
+if [ -f ~/.zshrc.local ] ; then
+    source ~/.zshrc.local
+fi

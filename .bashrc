@@ -137,3 +137,8 @@ man() {
 
 # screen
 export SCREENDIR=~/.screens
+
+# local setting
+if [ -f ~/.bashrc.local ] ; then
+    source ~/.bashrc.local
+fi
