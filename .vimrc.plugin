@@ -948,7 +948,7 @@ if s:checkplugin("vim-smartchr" )
         inoremap <buffer><expr> 9 smartchr#one_of('9', ')','99')
     endfunction
 
-    autocmd MyAutoCmd FileType c,cpp,python call SmartCharSettign()
+    autocmd MyAutoCmd FileType c,cpp,python,ruby call SmartCharSetting()
     " endif
     " }}}
 endif
