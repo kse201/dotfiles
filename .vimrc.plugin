@@ -1374,6 +1374,17 @@ nmap <Leader>[ csw[
 nmap <Leader>] csw]
 nmap <Leader>' csw'
 nmap <Leader>" csw"
+nmap <Leader>" csw"
+
+vmap <Leader>) S)
+vmap <Leader>( S(
+vmap <Leader>} S}
+vmap <Leader>{ S{
+vmap <Leader>[ S[
+vmap <Leader>] S]
+vmap <Leader>' S'
+vmap <Leader>" S"
+vmap <Leader>" S"
 " }}}
 
 " qfixhowm {{{
