@@ -142,3 +142,7 @@ export SCREENDIR=~/.screens
 if [ -f ~/.bashrc.local ] ; then
     source ~/.bashrc.local
 fi
+
+function timestamp () {
+    date +%Y%m%d%H%M%S
+}
