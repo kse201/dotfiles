@@ -981,6 +981,9 @@ nnoremap k gk
 nnoremap zl zL
 nnoremap zh zH
 
+nnoremap <Leader>h ^
+nnoremap <Leader>l $
+
 " http://d.hatena.ne.jp/vimtaku/touch/20121117/1353138802
 nnoremap <S-J> gJ
 vnoremap <S-J> gJ
