@@ -466,7 +466,8 @@ let g:FileTypeSettings = [
             \ "html", 
             \ "php",
             \ "markdown",
-            \ "tex"
+            \ "tex",
+            \ "make"
             \]
 for MyFileType in g:FileTypeSettings
     execute "autocmd MyAutoCmd FileType " . MyFileType . " call My" . MyFileType . "Settings()"
@@ -666,6 +667,11 @@ function! MymarkdownSettings()
         let level = matchend(getline(a:lnum), '^#\+')
         return level > 0 ? '>' . level : '='
     endfunction
+endfunction
+" }}}
+" markdown {{{
+function! MymakeSettings()
+    set noexpandtab
 endfunction
 " }}}
 " }}}
