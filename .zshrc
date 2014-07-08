@@ -494,3 +494,7 @@ export SCREENDIR=~/.screens
 if [ -f ~/.zshrc.local ] ; then
     source ~/.zshrc.local
 fi
+
+function timestamp() {
+date +%Y%m%d%H%M%S
+}

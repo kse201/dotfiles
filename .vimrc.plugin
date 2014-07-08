@@ -19,7 +19,7 @@ elseif has('win32unix')
 elseif has('mac')
     let g:vimproc_dll_path = $VIMFILE_DIR . '/bundle/vimproc/autoload/vimproc_mac.so'
 else
-    let g:vimproc_dll_path = $VIMFILE_DIR . '/bundle/vimproc/autoload/vimproc_unix.so'
+    let g:vimproc_dll_path = $VIMFILE_DIR . '/bundle/vimproc/autoload/vimproc_linux64.so'
 endif
 " }}}
 
@@ -1675,5 +1675,8 @@ nmap <Space>M <Plug>(quickhl-manual-reset)
 xmap <Space>M <Plug>(quickhl-manual-reset)
 " }}}
 
+" itchyny/calendar.vim{{{
+nnoremap <Leader>c: :Calendar -split=horizontal<CR>
+" }}}
 "" ================================================================================ 
 " vim: set tw=0 tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
