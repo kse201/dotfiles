@@ -458,6 +458,7 @@ let g:FileTypeSettings = [
             \ "vim", 
             \ "objc", 
             \ "ruby", 
+            \ "eruby", 
             \ "perl", 
             \ "lisp", 
             \ "sh", 
@@ -575,6 +576,29 @@ endfunction
 " }}}
 " Ruby{{{
 function! MyrubySettings()
+    set dictionary=$HOME/.vim/dict/ruby.dict
+    inoremap  <buffer> ( ()<Left>
+    inoremap  <buffer> [ []<Left>
+    inoremap  <buffer> <> <><Left>
+    "inoremap <buffer> <  <><Left>
+    inoremap  <buffer> " ""<Left>
+    inoremap  <buffer> ' ''<Left>
+    set shiftwidth=2
+    set tabstop=2
+    let g:ref_use_vimproc=1
+    let g:ref_refe_version=2
+    nmap ,rr :<C-u>Ref refe<Space>
+    let g:rsenseUseOmniFunc=1
+    let g:rsenseHome = "/usr/local/Cellar/rsense/0.3/libexec"
+    if filereadable(expand('~/rtags'))
+        au FileType ruby,eruby setl tags+=~/rtags,~/gtags
+    endif
+    compiler ruby
+    let ruby_space_errors=1 
+endfunction
+" }}}
+" eruby{{{
+function! MyerubySettings()
     set dictionary=$HOME/.vim/dict/ruby.dict
     inoremap  <buffer> ( ()<Left>
     inoremap  <buffer> [ []<Left>

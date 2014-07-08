@@ -886,7 +886,7 @@ if s:checkplugin("vim-smartchr" )
     " 参考:http://d.hatena.ne.jp/ampmmn/20080925/1222338972
     " 演算子記号の前後に空白を入れるなど
     " (多分)C/C++コーディング用
-    function! SmartCharSetting()
+    function! SmartCharSetting() " {{{
         "四則演算
         inoremap <buffer><expr> + smartchr#loop(' + ', '++')
         inoremap <buffer><expr> - smartchr#loop(' - ', '--')
@@ -925,15 +925,56 @@ if s:checkplugin("vim-smartchr" )
         inoremap <buffer><expr> ( search('\<\if\%#', 'bcn')? ' ()<Left>': '()<Left>'
         inoremap <buffer><expr> ( search('\<\for\%#', 'bcn')? ' ()<Left>': '()<Left>'
         inoremap <buffer><expr> ( search('\<\while\%#', 'bcn')? ' ()<Left>': '()<Left>'
-    endfunction
+    endfunction " }}}
 
     " Objective-C用(未完)
-    function! SmartCharForObjc()
+    function! SmartCharForObjc() "{{{
         inoremap <buffer><expr> @ search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of( '@interface','@implementation', '@synthesize', '@property', '@class' , '@'): '@'
         inoremap <buffer><expr> # search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('#define', '#include', '#ifdef', '#endif', '#import' , '#'): '#'
         inoremap <buffer><expr> - search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('- ()<Left>' ,  '-') :smartchr#loop(' - ', '--')
         inoremap <buffer><expr> + search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('+ ()<Left>' ,  '+') :smartchr#loop(' + ', '++')
-    endfunction
+    endfunction " }}}
+
+    function! SmartCharForruby() " {{{
+        "四則演算
+        inoremap <buffer><expr> + smartchr#loop(' + ', '++')
+        inoremap <buffer><expr> - smartchr#loop(' - ', '--')
+        " inoremap <buffer><expr> * smartchr#loop(' * ', '**')
+
+        " =の場合、単純な代入や比較演算子として入力する場合は前後にスペースをいれる。
+        " 複合演算代入としての入力の場合は、直前のスペースを削除して=を入力
+        inoremap <buffer><expr> = search('\(&\<bar><bar>\<bar>+\<bar>-\<bar>/\<bar>>\<bar><\<bar>*\<bar>\) \%#', 'bcn')? '<bs>= '
+                    \ : smartchr#loop(' = ', ' == ', ' => ', '=')
+        inoremap <buffer><expr> < search('^#include\%#', 'bcn')? ' <><Left>': smartchr#loop('<', ' < ', ' << ' , '')
+        inoremap <buffer><expr> > search('^#include <.*\%#', 'bcn')? '>': smartchr#loop('>', ' > ', ' >> ')
+
+        inoremap <buffer><expr> " search('^#include\%#', 'bcn')? ' ""<Left>': smartchr#loop('"', ' " ')
+        inoremap <buffer><expr> " search('^#include ".*\%#', 'bcn')? '"': smartchr#loop('"', ' " ',)
+
+        inoremap <buffer><expr> , smartchr#loop(', ', ',')
+        "inoremap <buffer><expr> / smartchr#loop('/', ' / ', '//')
+        inoremap <buffer><expr> & smartchr#loop('&', ' & ', ' && ')
+        inoremap <buffer><expr> % smartchr#loop('%', ' % ')
+        inoremap <buffer><expr> <Bar> smartchr#loop(' <Bar> ', ' <Bar><Bar> ', '<Bar>')
+        " 3項演算子の場合は、後ろのみ空白を入れる
+        inoremap <buffer><expr> ? smartchr#loop('?', '? ')
+        inoremap <buffer><expr> : smartchr#loop(':', '::', ': ')
+
+        " 下記の文字は連続して現れることがまれなので、二回続けて入力したら改行する
+        "inoremap <buffer><expr> } smartchr#one_of('}', '}<CR>')
+        "inoremap <buffer><expr> ; smartchr#one_of(';', ';<CR>')
+        " 「->」は入力しづらいので、..で置換え
+        inoremap <buffer><expr> . smartchr#loop('.', '->', '...')
+        " 行先頭での@入力で、プリプロセス命令文を入力
+        inoremap <buffer><expr> @ search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('#define', '#include', '#ifdef', '#endif', '@'): '@'
+        inoremap <buffer><expr> # search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('#define', '#include', '#ifdef', '#endif', '#'): '#'
+
+        inoremap <buffer><expr> " search('^#include\%#', 'bcn')? ' ""<Left>"': '""<Left>'
+        " 制御構文直後の(は自動で間に空白を入れる
+        inoremap <buffer><expr> ( search('\<\if\%#', 'bcn')? ' ()<Left>': '()<Left>'
+        inoremap <buffer><expr> ( search('\<\for\%#', 'bcn')? ' ()<Left>': '()<Left>'
+        inoremap <buffer><expr> ( search('\<\while\%#', 'bcn')? ' ()<Left>': '()<Left>'
+    endfunction " }}}
 
     " 記号入力メンドクセ イマイチ{{{
     function! MySmarcchr()
