@@ -206,7 +206,6 @@ NeoBundleLazy 'yuratomo/java-api-android.git' , { 'autoload' :  { 'filetypes' : 
 " }}}
 " Ruby {{{
 NeoBundleLazy 'tpope/vim-rails' , { 'autoload' : {'filetypes' : ['ruby']} }
-NeoBundleLazy 'alpaca-tc/alpaca_complete', { 'depends' : 'tpope/vim-rails', 'build' : { 'mac':  'gem install alpaca_complete', 'unix': 'gem install alpaca_complete', } }
 
 " reference環境
 NeoBundleLazy 'vim-ruby/vim-ruby', { 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] } }
@@ -222,21 +221,7 @@ NeoBundleLazy 'perl.vim', { 'autoload' : { 'filetypes' : ['perl'] }}
 " }}}
 " markdown {{{
 NeoBundleLazy 'kannokanno/previm' , { 'autoload' : { 'filetypes' : ['markdown'] }}
-NeoBundleLazy 'syui/cscroll.vim' , { 'autoload' : { 'filetypes' : ['markdown'] }}
 NeoBundleLazy 'kana/vim-submode' , { 'autoload' : { 'filetypes' : ['markdown'] }}
-" }}}
-" html/js/css etc{{{
-NeoBundleLazy 'alpaca-tc/beautify.vim', {
-      \ 'autoload' : {
-      \ 'filetypes' : ['js','html','css'],
-      \   'commands' : [
-      \     {
-      \       'name' : 'Beautify',
-      \       'complete' : 'customlist,beautify#complete_options'
-      \     }
-      \ ]
-      \ }
-      \}
 " }}}
 " 見た目 {{{
 NeoBundle 'wombat256.vim'
@@ -266,12 +251,6 @@ NeoBundleLazy 'thinca/vim-threes'
 " }}}
 NeoBundleLazy "sudar/vim-arduino-syntax" ,{'autoload' : {'filetype' : ['arduino']}}
 NeoBundleLazy 'mopp/autodirmake.vim'
-" NeoBundleLazy 'alpaca-tc/alpaca_tags', {
-      " \ 'depends': ['Shougo/vimproc', 'Shougo/unite.vim'],
-      " \ 'autoload' : {
-      " \   'commands' : ['Tags', 'TagsUpdate', 'TagsSet', 'TagsBundle', 'TagsCleanCache'],
-      " \   'unite_sources' : ['tags']
-      " \ }}
 " }}}
 
 filetype plugin indent on
@@ -1164,7 +1143,7 @@ let g:vimshell_secondary_prompt = "> "
 
 autocmd FileType vimshell call vimshell#hook#add('postexec', 'change_prompt', 'g:my_vimshell_change_prompt')
 
-function! g:my_vimshell_change_prompt(args, context)
+function! s:my_vimshell_change_prompt(args, context)
   let g:vimshell_prompt = getcwd() . "% "
   call vimshell#set_highlight()
 endfunction
@@ -1485,7 +1464,7 @@ xnoremap al :Alignta<Space>
 " }}}
 
 " Ruby {{{
-let s:bundle_rails = 'unite-rails unite-rails_best_practices unite-rake alpaca_complete'
+let s:bundle_rails = 'unite-rails unite-rails_best_practices unite-rake'
 
 function! s:bundleLoadDepends(bundle_names) 
     " bundleの読み込み
@@ -1528,38 +1507,6 @@ let g:javaapi#delay_dirs = [
             \ 'java-api-servlet2.3',
             \ 'java-api-android',
             \ ]
-" }}}
-
-" submode{{{
-" http://d.hatena.ne.jp/thinca/20130131/1359567419
-let g:submode_leave_with_key = 1
-call submode#enter_with('cscroll', 'n', '', '<Leader>j', ':ChromeScrollDown<CR>')
-call submode#enter_with('cscroll', 'n', '', '<Leader>k', ':ChromeScrollUp<CR>')
-call submode#leave_with('cscroll', 'n', '', 'n')
-call submode#map('cscroll', 'n', '', 'j', ':ChromeScrollDown<CR>')
-call submode#map('cscroll', 'n', '', 'k', ':ChromeScrollUp<CR>')
-" window size
-call submode#enter_with('winsize', 'n', '', '<C-w>>', '<C-w>>')
-call submode#enter_with('winsize', 'n', '', '<C-w><', '<C-w><')
-call submode#enter_with('winsize', 'n', '', '<C-w>+', '<C-w>-')
-call submode#enter_with('winsize', 'n', '', '<C-w>-', '<C-w>+')
-call submode#map('winsize', 'n', '', '>', '<C-w>>')
-call submode#map('winsize', 'n', '', '<', '<C-w><')
-call submode#map('winsize', 'n', '', '+', '<C-w>-')
-call submode#map('winsize', 'n', '', '-', '<C-w>+')
-" タブ移動 (端でループ移動)
-function! s:SIDP()
-    return '<SNR>' . matchstr(expand('<sfile>'), '<SNR>\zs\d\+\ze_SIDP$') . '_'
-endfunction
-function! s:movetab(nr)
-    execute 'tabmove' g:V.modulo(tabpagenr() + a:nr - 1, tabpagenr('$'))
-endfunction
-let s:movetab = ':<C-u>call ' . s:SIDP() . 'movetab(%d)<CR>'
-call submode#enter_with('movetab', 'n', '', 'gt', printf(s:movetab, 1))
-call submode#enter_with('movetab', 'n', '', 'gT', printf(s:movetab, -1))
-call submode#map('movetab', 'n', '', 't', printf(s:movetab, 1))
-call submode#map('movetab', 'n', '', 'T', printf(s:movetab, -1))
-unlet s:movetab
 " }}}
 
 " sequence{{{
@@ -1769,25 +1716,8 @@ nmap <Space>M <Plug>(quickhl-manual-reset)
 xmap <Space>M <Plug>(quickhl-manual-reset)
 " }}}
 
-" alpaca_tags {{{
-" .ctagsにctagsの設定ファイルを設置します。現在無い人は、このディレクトリ内の.ctagsをコピーしてください。
-" 適切なlanguageは`ctags --list-maps=all`で見つけてください。人によりますので。
-" let g:alpaca_update_tags_config = {
-      " \ '_' : '-R --sort=yes --languages=-js,html,css',
-      " \ 'ruby': '--languages=+Ruby',
-      " \ }
-
-" augroup AlpacaTags
-  " autocmd!
-  " if exists(':Tags')
-    " autocmd BufWritePost * TagsUpdate ruby
-    " autocmd BufWritePost Gemfile TagsBundle
-    " autocmd BufEnter * TagsSet
-  " endif
-" augroup END
-
-" nnoremap <expr>tt  ':Unite tags -horizontal -buffer-name=tags -input='.expand("<cword>").'<CR>'
+" itchyny/calendar.vim{{{
+nnoremap <Leader>c: :Calendar -split=horizontal<CR>
 " }}}
-
 "" ================================================================================ 
 " vim: set tw=0 tabstop=4 shiftwidth=4  fdm=marker fdl=0 :

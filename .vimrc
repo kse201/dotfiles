@@ -467,7 +467,8 @@ let g:FileTypeSettings = [
             \ "html", 
             \ "php",
             \ "markdown",
-            \ "tex"
+            \ "tex",
+            \ "make"
             \]
 for MyFileType in g:FileTypeSettings
     execute "autocmd MyAutoCmd FileType " . MyFileType . " call My" . MyFileType . "Settings()"
@@ -690,6 +691,11 @@ function! MymarkdownSettings()
         let level = matchend(getline(a:lnum), '^#\+')
         return level > 0 ? '>' . level : '='
     endfunction
+endfunction
+" }}}
+" markdown {{{
+function! MymakeSettings()
+    set noexpandtab
 endfunction
 " }}}
 " }}}
@@ -1004,6 +1010,9 @@ nnoremap k gk
 
 nnoremap zl zL
 nnoremap zh zH
+
+nnoremap <Leader>h ^
+nnoremap <Leader>l $
 
 " http://d.hatena.ne.jp/vimtaku/touch/20121117/1353138802
 nnoremap <S-J> gJ
