@@ -22,6 +22,7 @@
     rema     = rebase origin/master master
     info     = remote show origin
     who      = shortlog --numbered --summary --email --no-merges --since='3 months'
+	pr-setup = config --add remote.origin.fetch+refs/pull/*/head:refs/remotes/origin/pr/*
 
 # clone
     cl       = clone
