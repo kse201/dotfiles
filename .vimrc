@@ -994,13 +994,22 @@ endif
             \ let @*=join(remove( split( expand( '%:p' ), "/" ), len( split( getcwd(), "/" ) ), -1 ), "/") | echo "copied"
 "}}}
 
-" indent all line (non cursolr move )
+" indent all line (non cursolr move ) {{{
 function! s:format_file()
     let view= winsaveview()
     normal gg=G
     silent call winrestview(view)
 endfunction
 nnoremap <SPACE>f :call <SID>format_file()<CR>
+" }}}
+
+" Turn off diff mode automatically {{{
+augroup DiffAutocommands
+  autocmd!
+  autocmd WinEnter * if (winnr('$') == 1) && (getbufvar(winbufnr(0), '&diff')) == 1 | diffoff | endif
+augroup END
+" }}}
+
 " }}}
 
 " keymap{{{
