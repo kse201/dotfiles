@@ -35,7 +35,7 @@ hardcopy_append on
 # changes the filename used for reading and writing with the paste buffer.
 bufferfile 'screen/screen-exchange'
 
-bind c screen
+bind c colon 'screen -t '
 bind p prev
 bind n next
 bind l windowlist
