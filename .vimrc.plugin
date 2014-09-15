@@ -101,6 +101,7 @@ NeoBundle 'Shougo/neomru.vim',{  'depends' : 'Shougo/unite.vim' }
 " }}}
 " テキスト整形 {{{
 NeoBundle 'h1mesuke/vim-alignta'
+NeoBundle 'junegunn/vim-easy-align'
 NeoBundle 'The-NERD-Commenter'
 NeoBundle "fuenor/JpFormat.vim"
 " }}}
