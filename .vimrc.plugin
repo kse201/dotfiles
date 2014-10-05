@@ -149,6 +149,27 @@ NeoBundleLazy 'perl.vim', { 'autoload' : { 'filetypes' : ['perl'] }}
 NeoBundleLazy 'kannokanno/previm' , { 'autoload' : { 'filetypes' : ['markdown'] }}
 NeoBundleLazy 'kana/vim-submode' , { 'autoload' : { 'filetypes' : ['markdown'] }}
 " }}}
+" Fun {{{
+NeoBundleLazy 'supermomonga/jazzradio.vim', { 'depends' : [ 'Shougo/unite.vim' ] }
+if neobundle#tap('jazzradio.vim')
+  call neobundle#config({
+        \   'autoload' : {
+        \     'unite_sources' : [
+        \       'jazzradio'
+        \     ],
+        \     'commands' : [
+        \       'JazzradioUpdateChannels',
+        \       'JazzradioStop',
+        \       {
+        \         'name' : 'JazzradioPlay',
+        \         'complete' : 'customlist,jazzradio#channel_id_complete'
+        \       }
+        \     ],
+        \     'function_prefix' : 'jazzradio'
+        \   }
+        \ })
+endif
+" }}}
 " 見た目 {{{
 NeoBundle 'wombat256.vim'
 NeoBundle 'mopp/mopkai.vim'
@@ -648,6 +669,7 @@ function! s:unite_source_myCommand.gather_candidates(args,conext)
                 \"Show relative number" : "RN",
                 \ "TODO list" : "Unite line -input=TODO", 
                 \ 'vertical diff' : "vertical diffsplit ",
+                \ "Jazz" : "Unite jazzradio", 
                 \}
     return values(map(cmds,"{
                 \ 'word' : v:key,
