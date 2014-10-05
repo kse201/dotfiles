@@ -375,44 +375,7 @@ function! s:tabpage_label(n)
 endfunction
 
 " }}}
-"
-" change colorscheme airily{{{
-" ref:http://vim-users.jp/2011/09/hack228/
-let ColorRoller = {}
-let ColorRoller.colors = [
-            \ 'eclipse',
-            \ 'vc',
-            \ 'print_bw',
-            \ 'desert' ,
-            \ 'wombat256mod',
-            \ 'hickop',
-            \ 'molokai'
-            \]
 
-function! ColorRoller.change()
-    let color = get(self.colors, 0)
-    " " tabpagecolorscheme を使用している場合は↓の "colorscheme" を "Tcolorscheme" に変える。
-    silent exe "colorscheme " . color
-    redraw
-    echo self.colors
-endfunction
-
-function! ColorRoller.roll()
-    let item = remove(self.colors, 0)
-    call insert(self.colors, item, len(self.colors))
-    call self.change()
-endfunction
-
-function! ColorRoller.unroll()
-    let item = remove(self.colors, -1)
-    call insert(self.colors, item, 0)
-    call self.change()
-endfunction
-
-nnoremap <silent><F9>   :<C-u>call ColorRoller.roll()<CR>
-nnoremap <silent><S-F9> :<C-u>call ColorRoller.unroll()<CR>
-" endif
-" }}}
 " }}}
 
 " Backup{{{
@@ -1009,6 +972,18 @@ augroup DiffAutocommands
   autocmd WinEnter * if (winnr('$') == 1) && (getbufvar(winbufnr(0), '&diff')) == 1 | diffoff | endif
 augroup END
 " }}}
+
+" Spell Check , Toriger F9 {{{
+nnoremap <F9> :call SpellToggle()<CR>
+function! SpellToggle()
+    setlocal spell!
+    if exists("g:syntax_on")
+        syntax off
+    else
+        syntax on
+    endif
+endfunction
+"}}}
 
 " }}}
 
