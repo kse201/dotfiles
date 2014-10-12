@@ -116,6 +116,10 @@ if [ "$TERM" == xtrem ] ; then
     export TERN=xterm-color
 fi
 
+if [[ -x `which colordiff` ]]; then
+      alias diff='colordiff'
+fi
+
 ########################################
 # cd
 ########################################

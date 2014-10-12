@@ -438,6 +438,10 @@ elif which putclip >/dev/null 2>&1 ; then
     alias -g C='| putclip'
 fi
 
+if [[ -x `which colordiff` ]]; then
+      alias diff='colordiff'
+fi
+
 ########################################
 # man
 man() {
