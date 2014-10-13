@@ -985,6 +985,11 @@ function! SpellToggle()
 endfunction
 "}}}
 
+" report {{{
+inoremap <Leader>rep [日時]<CR>[現象]<CR>[環境]<CR>[条件]<CR>
+inoremap <Leader>rep [When]<CR>[Where]<CR>[Who]<CR>[What]<CR>[Why]<CR>[How]<CR>[How many]<CR>[How much]<CR>[How long]
+" }}}
+
 " }}}
 
 " keymap{{{
