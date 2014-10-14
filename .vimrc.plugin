@@ -1052,12 +1052,6 @@ let s:bundle.hooks = get(s:bundle,"hooks", {})
 let g:vimshell_prompt = "% "
 let g:vimshell_secondary_prompt = "> "
 
-autocmd FileType vimshell call vimshell#hook#add('postexec', 'change_prompt', 'g:my_vimshell_change_prompt')
-
-function! s:my_vimshell_change_prompt(args, context)
-  let g:vimshell_prompt = getcwd() . "% "
-  call vimshell#set_highlight()
-endfunction
 function! s:bundle.hooks.on_source(bundle)
     " nnoremap <SID>[vimshell]c :VimShellCreate<CR>
     " let g:vimshell_prompt = 'vimshell#vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
