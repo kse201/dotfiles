@@ -88,3 +88,5 @@
 [gui]
     recentrepo = /home/se/.dotfiles
     recentrepo = /home/se/.emacs.d
+[push]
+	default = matching
