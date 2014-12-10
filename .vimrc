@@ -128,8 +128,6 @@ augroup END
 " Terminal cursor{{{
 if !has('gui')
     set t_Co=256
-    " export TERM=xterm-256color
-    colorscheme desert
     inoremap 0D <Left>
     inoremap 0B <Down>
     inoremap 0C <Right>
@@ -159,7 +157,7 @@ endif
 " }}}
 
 " IME settings
-if has('multi_byte_ime') || has('xim') || has('gui_macvim')
+if has('multi_byte_ime') && has('xim') && has('gui_macvim') " TODO: vefify this equation
     "insert mode :lmap off, IME ON
     set iminsert=2
     "Search mode : lmap off, IME ON
