@@ -1079,7 +1079,7 @@ vmap go <Plug>(openbrowser-smart-search)
 " }}}
 
 " vimfiler{{{
-nnoremap <leader>vf :<c-u>VimFilerCurrentDir -auto-cd -split  -winwidth=35 -no-quit -direction=topleft<cr>
+nnoremap <leader>vf :<c-u>VimFilerCurrentDir -auto-cd -split  -no-quit -direction=topleft<cr>
 nnoremap <leader>vd :<c-u>VimFilerDouble -auto-cd -double -explorer -no-quit -direction=topleft<cr>
 
 let s:bundle = neobundle#get("vimfiler")

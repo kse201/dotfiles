@@ -9,6 +9,7 @@
 .vimprojects
 .vimshell
 .viminfo
+*.swp
 
 !/.gitconfig
 !/.gitignore
@@ -26,3 +27,4 @@
 !/.screenrc
 .vim/skeleton/dairyreport.txt
 .vim/skeleton/monthlyreport.txt
+.vim/.netrw_hist

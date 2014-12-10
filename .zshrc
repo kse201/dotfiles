@@ -340,7 +340,7 @@ alias la='ls -la'
 export GREP_COLOR='1;3741'
 
 # vim
-which vim > /dev/null 2>/dev/null
+which vim >/dev/null 2>&1
 if [ $? = 0 ] ; then
     alias vi="vim"
     # spartan Vim
@@ -438,7 +438,7 @@ elif which putclip >/dev/null 2>&1 ; then
     alias -g C='| putclip'
 fi
 
-if [[ -x `which colordiff` ]]; then
+if [[ -x `which colordiff 2>/dev/null` ]]; then
       alias diff='colordiff'
 fi
 

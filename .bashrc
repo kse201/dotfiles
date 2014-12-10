@@ -56,7 +56,7 @@ function init-prompt-git-branch()
         echo "($(git symbolic-ref HEAD 2>/dev/null | sed 's/^refs\/heads\///'))"
 }
 
-if which git 2>/dev/null >/dev/null
+if which git >/dev/null 2>&1
 then
     export PS1_GIT_BRANCH="\[\e[$[COLUMNS]D\]${LIGHTRED}\[\e[$[COLUMNS-$(length $(init-prompt-git-branch))]C\]$(init-prompt-git-branch)\[\e[$[COLUMNS]D\]${END}"
 else
@@ -104,7 +104,7 @@ alias L="less"
 export GREP_COLOR='1;3741'
 alias grep='grep -E --color=auto'
 
-which vim > /dev/null 2>/dev/null
+which vim >/dev/null 2>&1
 if [ $? = 0 ] ; then
     alias vi="vim"
     # spartan Vim
@@ -115,7 +115,6 @@ fi
 if [ "$TERM" == xtrem ] ; then
     export TERN=xterm-color
 fi
-
 
 if [[ -x `which colordiff >/dev/null 2>&1` ]]; then
       alias diff='colordiff'
