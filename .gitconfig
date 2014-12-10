@@ -14,6 +14,11 @@
 
 [diff]
     renames = copies
+    algorithm = patience
+    #algorithm = histogram
+
+[rebase]
+    autosquash = true
 
 [fetch]
     prune = true
@@ -83,3 +88,5 @@
 [gui]
     recentrepo = /home/se/.dotfiles
     recentrepo = /home/se/.emacs.d
+[push]
+	default = matching
