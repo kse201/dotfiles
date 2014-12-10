@@ -442,7 +442,7 @@ if [[ -x `which colordiff 2>/dev/null` ]]; then
       alias diff='colordiff'
 fi
 
-which tree >/dev/null 1>&2
+which tree >/dev/null 2>&1
 if [ $? != 0 ] ; then
     alias tree="pwd;find . | sort | sed '1d;s/^\.//;s/\/\([^/]*\)$/|--\1/;s/\/[^/|]*/|  /g'"
 fi
