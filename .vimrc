@@ -982,6 +982,22 @@ inoremap <Leader>rep [日時]<CR>[現象]<CR>[環境]<CR>[条件]<CR>
 inoremap <Leader>rep [When]<CR>[Where]<CR>[Who]<CR>[What]<CR>[Why]<CR>[How]<CR>[How many]<CR>[How much]<CR>[How long]
 " }}}
 
+" rm 0 byte file {{{
+autocmd MyAutoCmd BufWritePost * call s:Hykw_removeFileIf0Byte()
+function! s:Hykw_removeFileIf0Byte()
+  let filename = expand('%:p')
+  if getfsize(filename) > 0
+    " do nothing
+    return
+  endif
+
+  let msg = printf("\n%s is empty, remove?(y/N)", filename)
+  if input(msg) == 'y'
+    call delete(filename)
+    bdelete
+  endif
+endfunction
+" }}}
 " }}}
 
 " keymap{{{

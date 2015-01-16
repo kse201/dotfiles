@@ -85,8 +85,6 @@
 
 [help]
     autocorrect = 1
-[gui]
-    recentrepo = /home/se/.dotfiles
-    recentrepo = /home/se/.emacs.d
-[push]
-	default = matching
+
+[url "https://"]
+	insteadOf = git://

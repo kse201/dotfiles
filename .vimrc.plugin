@@ -34,7 +34,7 @@ if has('vim_starting')
     endif
     exe "set rtp+=".g:bundle_dir."neobundle.vim"
 endif
-call neobundle#rc(expand(g:bundle_dir))
+call neobundle#begin(expand(g:bundle_dir))
 let g:neobundle#types#git#default_protocol = 'https'
 unlet g:bundle_dir
 
@@ -182,6 +182,7 @@ NeoBundle 'tomasr/molokai'
 NeoBundle 'w0ng/vim-hybrid'
 " }}}
 
+call neobundle#end()
 filetype plugin indent on
 syntax on
 
