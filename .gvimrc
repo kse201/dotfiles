@@ -1,5 +1,4 @@
 ".gvimrc
-" last change: 07-Mar-2014.
 
 colorscheme desert
 
