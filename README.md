@@ -1,6 +1,5 @@
 # Usage this repo 
 ## Install 
-    $ git clone --recursive https://github.com/kse201/.dotfiles.git ~/.dotfiles
-    $ sh ~/.dotfiles/installer.sh install
+    $ curl https://raw.githubusercontent.com/kse201/.dotfiles/master/etc/installer.sh
 ## Uninstall
     $ sh ~/.dotfiles/installer.sh uninstall
