@@ -11,6 +11,8 @@
     editor       = vim
     pager        = less -r
     quotepath    = false
+	preloadindex = true
+	fscache = true
 
 [diff]
     renames = copies
