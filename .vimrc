@@ -142,14 +142,6 @@ if filereadable(expand('./tags'))
 endif
 " }}}
 
-" Auto Change dir{{{
-if has('win32') || has('win64')
-    au MyAutoCmd BufEnter * execute ":lcd " . escape(expand("%:p:h")," #")
-else
-    au MyAutoCmd BufEnter * execute ":lcd " . escape(expand("%:p:h")," #¥") 
-endif
-" }}}
-
 " clipboard {{{
 if has('win32') || has('win64')
     set clipboard+=unnamed
@@ -401,10 +393,8 @@ nnoremap <buffer><silent> K :vim <C-r><C-w> **/*[ch]<CR>
 " }}}
 
 " <ESC>  {{{
-" IME
-inoremap <silent> <ESC> <ESC>:set iminsert=0<CR>
 " <ESC> or <C-c> key reset Highlight
-if has("gui")
+if has("gui_running")
     nnoremap <silent> <ESC> <ESC>:<C-u>nohlsearch<CR>:<C-u>set iminsert=0<CR>
 endif
 " }}}
@@ -1251,5 +1241,6 @@ if filereadable(expand($MYVIMRCLOCAL))
 endif
 " }}}
 
+syntax on
 "============================================================
 " vim:set tw=0 tabstop=4 shiftwidth=4 fdm=marker fdl=0: 
