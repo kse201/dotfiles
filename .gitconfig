@@ -88,3 +88,6 @@
 
 [url "https://"]
 	insteadOf = git://
+[user]
+	name = kse201
+	email = kse.201@gmail.com
