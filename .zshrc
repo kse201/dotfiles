@@ -6,6 +6,7 @@ if [ ! -f ~/.zshrc.zwc -o ~/.zshrc -nt ~/.zshrc.zwc ]; then
 fi
 # env
 export PATH=/usr/local/bin:/usr/local/sbin:$PATH:~/bin 
+export PATH=$PATH:/usr/local/go/bin
 typeset -U path PATH
 export LANG=ja_JP.UTF-8
 export LESSCHARSET=utf-8
@@ -472,13 +473,6 @@ if [ -e ${PLUGIN_CONFIG} ] ; then
 fi
 ########################################
 
-########################################
-# tmux
-function ssh() {
-    local window_name=$(tmux display -p '#W')
-    command ssh $@
-    tmux rename-window ${window_name}
-}
 ########################################
 conf() {
     case $1 in
