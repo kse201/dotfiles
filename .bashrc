@@ -155,3 +155,10 @@ fi
 function timestamp () {
     date +%Y%m%d%H%M%S
 }
+
+# golang
+which go >/dev/null 2>&1
+if [ ${?} = 0 ] ; then
+    export GOPATH="${HOME}/.go"
+fi
+

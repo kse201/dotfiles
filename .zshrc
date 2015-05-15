@@ -15,7 +15,6 @@ export EDITOR='vi'
 export RSYNC_RSH=ssh
 export CVS_RSH=ssh
 
-
 # ヒストリ
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=7500
@@ -507,3 +506,10 @@ export GHC_DOT_APP="/Applications/GHC.app"
 if [ -d "$GHC_DOT_APP" ]; then
     export PATH="${HOME}/.cabal/bin:${GHC_DOT_APP}/Contents/bin:${PATH}"
 fi
+
+# golang
+which go >/dev/null 2>&1
+if [ ${?} = 0 ] ; then
+        export GOPATH="${HOME}/.go"
+fi
+
