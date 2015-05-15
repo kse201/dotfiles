@@ -182,6 +182,7 @@ NeoBundle 'tomasr/molokai'
 NeoBundle 'w0ng/vim-hybrid'
 " }}}
 
+NeoBundle 'fatih/vim-go'
 call neobundle#end()
 filetype plugin indent on
 syntax on
