@@ -1,3 +1,5 @@
+is_exist()  { which "$1" >/dev/null 2>&1 ; return $?; }
+
 export LANG='ja_JP.UTF-8'
 export LC_ALL='ja_JP.UTF-8'
 export LC_MESSAGES='ja_JP.UTF-8'
@@ -25,7 +27,7 @@ export HISTSIZE=7500
 ########################################
 # prompt
 ########################################
-export PATH=$PATH:/opt/local/:~/bin
+export PATH=$PATH:/opt/local/:$HOME/bin
 # PS1="\u@\h \w\n\$ "
 # PS1="\033[031m\]\u\[\033[0m\]"
 BRACK="\[\e[0;30m\]"
@@ -56,8 +58,7 @@ function init-prompt-git-branch()
         echo "($(git symbolic-ref HEAD 2>/dev/null | sed 's/^refs\/heads\///'))"
 }
 
-if which git >/dev/null 2>&1
-then
+if is_exist 'git' ; then
     export PS1_GIT_BRANCH="\[\e[$[COLUMNS]D\]${LIGHTRED}\[\e[$[COLUMNS-$(length $(init-prompt-git-branch))]C\]$(init-prompt-git-branch)\[\e[$[COLUMNS]D\]${END}"
 else
     export PS1_GIT_BRANCH=
@@ -104,8 +105,7 @@ alias L="less"
 export GREP_COLOR='1;3741'
 alias grep='grep -E --color=auto'
 
-which vim >/dev/null 2>&1
-if [ $? = 0 ] ; then
+if is_exist 'vim' ; then
     alias vi="vim"
     # spartan Vim
     alias spvim='vim -u NONE'
@@ -116,12 +116,11 @@ if [ "$TERM" == xtrem ] ; then
     export TERN=xterm-color
 fi
 
-if [[ -x `which colordiff >/dev/null 2>&1` ]]; then
+if is_exist 'colordiff' ; then
       alias diff='colordiff'
 fi
 
-which tree >/dev/null 2>&1
-if [ $? != 0 ] ; then
+if is_exist 'tree' ; then
     alias tree="pwd;find . | sort | sed '1d;s/^\.//;s/\/\([^/]*\)$/|--\1/;s/\/[^/|]*/|  /g'"
 fi
 
@@ -145,11 +144,11 @@ man() {
 
 
 # screen
-export SCREENDIR=~/.screens
+export SCREENDIR="$HOME/.screens"
 
 # local setting
-if [ -f ~/.bashrc.local ] ; then
-    source ~/.bashrc.local
+if is_exist "$HOME/.bashrc.local" ; then
+    source "$HOME/.bashrc.local"
 fi
 
 function timestamp () {
@@ -157,8 +156,7 @@ function timestamp () {
 }
 
 # golang
-which go >/dev/null 2>&1
-if [ ${?} = 0 ] ; then
+if is_exist 'go'; then
     export GOPATH="${HOME}/.go"
 fi
 

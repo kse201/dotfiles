@@ -1,12 +1,14 @@
 ## 大いに参考させて頂きました(というかパクリ)
 # http://www.clear-code.com/blog/2011/9/5.html
 
-if [ ! -f ~/.zshrc.zwc -o ~/.zshrc -nt ~/.zshrc.zwc ]; then
-    zcompile ~/.zshrc
+# is_exist() { [ -x "$(which "$1" 1>/dev/null 2>&1 || file "$1" 1>/dev/null 2>&1)" ]; }
+is_exist()  { which "$1" >/dev/null 2>&1; return $?; }
+
+if [ ! -f $HOME/.zshrc.zwc -o $HOME/.zshrc -nt $HOME/.zshrc.zwc ]; then
+    zcompile $HOME/.zshrc
 fi
 # env
-export PATH=/usr/local/bin:/usr/local/sbin:$PATH:~/bin 
-export PATH=$PATH:/usr/local/go/bin
+export PATH=/usr/local/bin:/usr/local/sbin:$PATH:$HOME/bin
 typeset -U path PATH
 export LANG=ja_JP.UTF-8
 export LESSCHARSET=utf-8
@@ -48,7 +50,7 @@ zstyle ':completion:*:default' list-colors ""
 ## m:{a-z}={A-Z} : 小文字大文字区別なく補完
 ## r:|[._-]=* [.][_][-]の前にワイルドカードがあるものとして補完
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z} r:|[._-]=*'
-## 多めに保管方法をとる 
+## 多めに保管方法をとる
 # completer
 # _oldlist 前回の補完結果を再利用
 # _complete 補完する
@@ -58,7 +60,7 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z} r:|[._-]=*'
 # _approximate 似ている補完候補も補完候補とする
 # _prefix カーソル移行を無視してカーソル位置までで補完する
 
-zstyle ':completion:*' completer _oldlist _complete _match _history _ignored _approximate _prefix _list 
+zstyle ':completion:*' completer _oldlist _complete _match _history _ignored _approximate _prefix _list
 ## 補完候補をキャッシュ
 zstyle ':completion:*' use-cache yes
 ## 詳細な情報を使う
@@ -252,7 +254,7 @@ update_prompt()
     # バージョン管理システムの情報があったら右プロンプトに表示する。
     if [ -n "$vcs_info_msg_0_" ]; then
         RPROMPT="${vcs_info_msg_0_}"
-    else 
+    else
         RPROMPT=""
     fi
 }
@@ -289,7 +291,7 @@ LISTMAX=0
 export LISTMAX
 
 # cd dir_name only
-setopt auto_cd auto_remove_slash auto_name_dirs 
+setopt auto_cd auto_remove_slash auto_name_dirs
 
 setopt extended_history hist_ignore_dups hist_ignore_space prompt_subst
 setopt extended_glob list_types no_beep always_last_prompt
@@ -302,7 +304,7 @@ setopt pushd_minus
 cdpath=(~) # カレントディレクトリ内に指定ディレクトリが見当たらない場合移動先を検索するリスト
 chpwd_functions=($chpwd_functions dirs)
 
-# spell check 
+# spell check
 setopt auto_param_keys
 
 # リストを詰めて表示
@@ -336,12 +338,11 @@ alias mv='mv -iv'
 alias grep='grep -E --color=auto'
 alias ll='ls -l'
 alias la='ls -la'
-# color grep word 
+# color grep word
 export GREP_COLOR='1;3741'
 
 # vim
-which vim >/dev/null 2>&1
-if [ $? = 0 ] ; then
+if is_exist 'vim' ; then
     alias vi="vim"
     # spartan Vim
     alias spvim='vim -u NONE'
@@ -419,31 +420,23 @@ alias remem='du -sx / &> /dev/null & sleep 25 && kill $!'
 #http://qiita.com/items/7916037b1384d253b457
 zstyle ':completion:*' ignore-parents parent pwd ..
 
-## create emacs env file
-if [ -f ~/.emacs.d ] ; then
-    perl -wle \
-    'do { print qq/(setenv "$_" "$ENV{$_}")/ if exists $ENV{$_} } for @ARGV' \
-    PATH > ~/.emacs.d/shellenv.el
-fi
-
 # クリップボードにコピー
-if which pbcopy >/dev/null 2>&1 ; then 
-    # Mac  
+if is_exist 'pbcopy' ; then
+    # Mac
     alias -g C='| pbcopy'
-elif which xsel >/dev/null 2>&1 ; then 
+elif is_exist 'xsel' ; then
     # Linux
     alias -g C='| xsel --input --clipboard'
-elif which putclip >/dev/null 2>&1 ; then 
-    # Cygwin 
+elif is_exist 'putclip' ; then
+    # Cygwin
     alias -g C='| putclip'
 fi
 
-if [[ -x `which colordiff 2>/dev/null` ]]; then
+if is_exist 'colordiff' ; then
       alias diff='colordiff'
 fi
 
-which tree >/dev/null 2>&1
-if [ $? != 0 ] ; then
+if is_exist 'tree' ; then
     alias tree="pwd;find . | sort | sed '1d;s/^\.//;s/\/\([^/]*\)$/|--\1/;s/\/[^/|]*/|  /g'"
 fi
 
@@ -461,12 +454,12 @@ man() {
                 man "$@"
 }
 # man in Vim
-function man() { /usr/bin/man $* -P "col -b | vim -Rc 'setl ft=man ts=8 nomod nolist nonu' -c 'nmap q :q<cr>' -" }   
+function man() { /usr/bin/man $* -P "col -b | vim -Rc 'setl ft=man ts=8 nomod nolist nonu' -c 'nmap q :q<cr>' -" }
 ########################################
 
 ########################################
 # packages
-PLUGIN_CONFIG=~/.zsh.d/config/antigen.conf
+PLUGIN_CONFIG="$HOME/.zsh.d/config/antigen.conf"
 if [ -e ${PLUGIN_CONFIG} ] ; then
     source ${PLUGIN_CONFIG}
 fi
@@ -475,12 +468,12 @@ fi
 ########################################
 conf() {
     case $1 in
-        bash)       vim ~/.bashrc ;;
-        git)       vim ~/.gitconfig ;;
-        tmux)       vim ~/.tmux.conf ;;
-        screen)     vim ~/.screenrc ;;
-        vim)        vim ~/.vimrc ;;
-        zsh)        vim ~/.zshrc && source ~/.zshrc ;;
+        bash)       vim $HOME/.bashrc ;;
+        git)        vim $HOME/.gitconfig ;;
+        tmux)       vim $HOME/.tmux.conf ;;
+        screen)     vim $HOME/.screenrc ;;
+        vim)        vim $HOME/.vimrc ;;
+        zsh)        vim $HOME/.zshrc && source $HOME/.zshrc ;;
         *)          echo "Unknown application: $1" ;;
     esac
 }
@@ -490,11 +483,11 @@ reload (){
 }
 
 # screen
-export SCREENDIR=~/.screens
+export SCREENDIR=$HOME/.screens
 
 # local setting
-if [ -f ~/.zshrc.local ] ; then
-    source ~/.zshrc.local
+if is_exist "$HOME/.zshrc.local" ; then
+    source "$HOME/.zshrc.local"
 fi
 
 function timestamp() {
@@ -508,8 +501,11 @@ if [ -d "$GHC_DOT_APP" ]; then
 fi
 
 # golang
-which go >/dev/null 2>&1
-if [ ${?} = 0 ] ; then
+
+if is_exist '/usr/local/go' ; then
+    export PATH=$PATH:/usr/local/go/bin
+fi
+if is_exist 'go' ; then
         export GOPATH="${HOME}/.go"
 fi
 
