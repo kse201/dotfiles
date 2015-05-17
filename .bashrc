@@ -147,7 +147,7 @@ man() {
 export SCREENDIR="$HOME/.screens"
 
 # local setting
-if is_exist "$HOME/.bashrc.local" ; then
+if [ -f "$HOME/.bashrc.local" ] ; then
     source "$HOME/.bashrc.local"
 fi
 
@@ -156,7 +156,11 @@ function timestamp () {
 }
 
 # golang
-if is_exist 'go'; then
+
+if [ -e '/usr/local/go' ] ; then
+    export PATH=$PATH:/usr/local/go/bin
+fi
+if is_exist 'go' ; then
     export GOPATH="${HOME}/.go"
 fi
 

@@ -486,7 +486,7 @@ reload (){
 export SCREENDIR=$HOME/.screens
 
 # local setting
-if is_exist "$HOME/.zshrc.local" ; then
+if [ -f "$HOME/.zshrc.local" ] ; then
     source "$HOME/.zshrc.local"
 fi
 
@@ -502,10 +502,10 @@ fi
 
 # golang
 
-if is_exist '/usr/local/go' ; then
+if [ -e '/usr/local/go' ] ; then
     export PATH=$PATH:/usr/local/go/bin
 fi
 if is_exist 'go' ; then
-        export GOPATH="${HOME}/.go"
+    export GOPATH="${HOME}/.go"
 fi
 
