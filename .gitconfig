@@ -61,6 +61,8 @@
     co       = checkout
     ct       = checkout -t 
     master   = checkout master
+    delete-merged-branches = !git branch --merged | grep -v \\* | xargs -I % git branch -d %
+    fetch-pulls = fetch origin +refs/pull/*:refs/remotes/pull/*
 
 # diff
     d        = diff -w --color-words
