@@ -507,5 +507,6 @@ if [ -e '/usr/local/go' ] ; then
 fi
 if is_exist 'go' ; then
     export GOPATH="${HOME}/.go"
+    alias gopkg="find $GOPATH -name '*.go' | grep -E \"\/[^\.].+\.go\" | sed -e 's/^.*src\/\(.*\)\/.*go$/\"\1\"/' | sort | uniq | grep -v $USER"
 fi
 
