@@ -419,7 +419,8 @@ let g:FileTypeSettings = [
             \ "php",
             \ "markdown",
             \ "tex",
-            \ "make"
+            \ "make",
+            \ "go"
             \]
 for MyFileType in g:FileTypeSettings
     execute "autocmd MyAutoCmd FileType " . MyFileType . " call My" . MyFileType . "Settings()"
@@ -644,8 +645,13 @@ function! MymarkdownSettings()
     endfunction
 endfunction
 " }}}
-" markdown {{{
+" make {{{
 function! MymakeSettings()
+    set noexpandtab
+endfunction
+" }}}
+" golang {{{
+function! MygoSettings()
     set noexpandtab
 endfunction
 " }}}
