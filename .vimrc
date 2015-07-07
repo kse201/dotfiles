@@ -402,26 +402,13 @@ endif
 " Language setting {{{
 " Prefix{{{
 let g:FileTypeSettings = [
-            \ "c", 
-            \ "cpp", 
-            \ "cs", 
-            \ "java", 
             \ "vim", 
-            \ "objc", 
             \ "ruby", 
             \ "python",
-            \ "eruby", 
-            \ "perl", 
-            \ "lisp", 
             \ "sh", 
-            \ "snippet", 
-            \ "xml", 
-            \ "html", 
-            \ "php",
             \ "markdown",
-            \ "tex",
-            \ "make",
-            \ "go"
+            \ "go",
+            \ "make"
             \]
 for MyFileType in g:FileTypeSettings
     execute "autocmd MyAutoCmd FileType " . MyFileType . " call My" . MyFileType . "Settings()"
@@ -432,100 +419,6 @@ function! MyvimSettings()
     inoremap ' ''<Left>
     inoremap " ""<left>
     inoremap ( ()<Left>
-endfunction
-" }}}
-" C{{{
-function! MycSettings()
-    set shiftwidth=4
-    set tabstop=4
-    set cindent
-    set cinkeys+=;
-    set dictionary=$HOME/.vim/dict/c.dict
-    inoremap /* /**/<Left><Left>
-    inoremap , ,<Space>
-    set fdm=indent
-    inoremap <buffer>{ {}<Left><CR><Up><ESC>o
-    inoremap <buffer>( ()<Left>
-    inoremap <buffer>[ []<Left>
-    inoremap <buffer><> <><Left>
-    "inoremap <buffer> <  <><Left>
-    inoremap <buffer>" ""<Left>
-    inoremap <buffer>' ''<Left>
-    nnoremap <buffer>v} ?{<CR>%v%0
-    nnoremap <Leader>c :make<CR>
-endfunction
-" }}}
-" C++{{{
-function! MycppSettings()
-    call MycSettings()
-    set dictionary+=$HOME/.vim/dict/cpp.dict
-endfunction
-" }}}
-" cs {{{
-function! MycsSettings()
-    call MycSettings()
-    if has("folding")
-        set fdl = 3
-    endif
-endfunction
-"}}}
-" tex{{{
-function! MytexSettings()
-    set dictionary=$HOME/.vim/dict/tex.dict
-    set sw=2
-    set tw=0
-    inoremap <buffer> { {}<Left>
-    inoremap <buffer> [ []<Left>
-    inoremap <buffer> ( ()<Left>
-    inoremap <buffer> $ $$<Left>
-    inoremap <buffer> \<= \leq
-    inoremap <buffer> \>= \geq
-    inoremap <buffer> \<< \ll
-    inoremap <buffer> \>> \gg
-    inoremap <buffer> \+- \pm
-    inoremap <buffer> \-+ \mp
-    nnoremap <buffer> <F5> :<C-u>!platex-euc %<CR>
-    nnoremap <buffer> <F6> :<C-u>!dvipdfmx %<<CR>
-    nnoremap <buffer> <F7> :<C-u>!open %<.pdf<CR>
-    nmap <buffer> <F10> <F5><F6><F7>
-    nmap <buffer> <Leader>make <F5><F6><F7>
-    function! ChangePunctuation()
-        %s/、/，/ge
-        %s/。/./ge
-    endfunction
-    augroup TeX
-        autocmd!
-        autocmd BufWritePre *.tex call ChangePunctuation()
-    augroup  END
-
-endfunction
-" }}}
-" opjc{{{
-function! MyobjcSettings()
-    ""set dictionary=$HOME/.vim/dict/cocoa.dict
-    set iskeyword+=:
-    inoremap <buffer>{ {}<Left><CR><Up><ESC>o
-    inoremap <buffer>( ()<Left>
-    inoremap <buffer>[ []<Left>
-    inoremap <buffer><> <><Left>
-    inoremap <buffer>" ""<Left>
-    inoremap <buffer>' ''<Left>
-    nnoremap <buffer><silent> ga :call <SID>AlternateFile()<CR>
-    " call SmartCharForC()
-    " call SmartCharForObjc()
-    "inoremap <  <><Left>
-endfunction
-" }}}
-" Java{{{
-function! MyjavaSettings()
-    set dictionary=$HOME/.vim/dict/java.dict
-    inoremap <buffer>{ {}<Left><CR><Up><ESC>o
-    inoremap <buffer>( ()<Left>
-    inoremap <buffer>[ []<Left>
-    inoremap <buffer><> <><Left>
-    "inoremap <buffer><  <><Left>
-    inoremap <buffer>" ""<Left>
-    inoremap <buffer>' ''<Left>
 endfunction
 " }}}
 " Ruby{{{
@@ -563,86 +456,6 @@ function! MypythonSettings()
     set shiftwidth=4
     set tabstop=4
     compiler python
-endfunction
-" }}}
-" eruby{{{
-function! MyerubySettings()
-    set dictionary=$HOME/.vim/dict/ruby.dict
-    inoremap  <buffer> ( ()<Left>
-    inoremap  <buffer> [ []<Left>
-    inoremap  <buffer> <> <><Left>
-    "inoremap <buffer> <  <><Left>
-    inoremap  <buffer> " ""<Left>
-    inoremap  <buffer> ' ''<Left>
-    set shiftwidth=2
-    set tabstop=2
-    let g:ref_use_vimproc=1
-    let g:ref_refe_version=2
-    nmap ,rr :<C-u>Ref refe<Space>
-    let g:rsenseUseOmniFunc=1
-    let g:rsenseHome = "/usr/local/Cellar/rsense/0.3/libexec"
-    if filereadable(expand('~/rtags'))
-        au FileType ruby,eruby setl tags+=~/rtags,~/gtags
-    endif
-    compiler ruby
-    let ruby_space_errors=1 
-endfunction
-" }}}
-" Lisp{{{
-function! MylispSettings()
-    inoremap <buffer>( ()<Left>
-    inoremap <buffer>[ []<Left>
-    inoremap <buffer><> <><Left>
-    "inoremap <buffer><  <><Left>
-    inoremap <buffer>" ""<Left>
-    inoremap <buffer>' ''<Left>
-    set shiftwidth=3
-    set tabstop=3
-endfunction
-" }}}
-" snipptfile{{{
-function! MysnippetSettings()
-    inoremap $ ${}<Left>
-    inoremap { {}<Left>
-endfunction
-" Shell Script
-
-function! MyshSettings()
-    inoremap $ ${}<Left>
-    inoremap { {}<Left>
-    inoremap ` ``<Left>
-endfunction
-" }}}
-" XML {{{
-function! MyxmlSettings()
-    inoremap <buffer> </ </<C-X><C-o>
-endfunction
-" }}}
-" HTML{{{
-function! MyhtmlSettings()
-    inoremap , ,<Space>
-    inoremap <buffer>{ {}<Left>
-    inoremap <buffer>( ()<Left>
-    inoremap <buffer>[ []<Left>
-    inoremap <buffer><  <><Left>
-    inoremap <buffer>" ""<Left>
-    inoremap <buffer>' ''<Left>
-endfunction
-" }}}
-" PHP{{{
-function! MyphpSettings()
-    set dictionary=$HOME/.vim/dict/PHP.dict
-    inoremap , ,<Space>
-    if has("folding")
-        set fdm=indent
-    endif
-    inoremap <buffer>{ {}<Left><CR><Up><ESC>o
-    inoremap <buffer>( ()<Left>
-    inoremap <buffer>[ []<Left>
-    inoremap <buffer><> <><Left>
-    "inoremap <buffer> <  <><Left>
-    inoremap <buffer>" ""<Left>
-    inoremap <buffer>' ''<Left>
 endfunction
 " }}}
 " markdown {{{
@@ -826,19 +639,6 @@ if exists("*strftime")
 endif
 " }}}
 
-" auto insert filename at *.memo{{{ 
-augroup AutoMemo
-    au! 
-    au BufNewFile *.memo call MyMemoSetting()
-augroup END
-
-function! MyMemoSetting ()
-    call append(0,expand('%:t:r'))
-    call append(1,repeat('=',len(expand('%:t:r'))))
-endfunction
-
-" }}}
-
 " count characters{{{
 command! -range=% Count :<line1>,<line2>s/.//gn
 " }}}
@@ -898,64 +698,12 @@ function! s:force_blockwise_visual(next_key)
 endfunction
 " }}}
 
-" follow mode{{{
-function! MyFollowMode()
-    :vsplit
-    normal! <C-b>
-    :set scrollbind
-    normal! <C-w>w
-    :set noscrollbind
-    normal! L
-    normal! z<CR>
-    :set scrollbind
-endfunction
-" }}}
-
-" insert sequence number{{{
-" ref: http://mba-hack.blogspot.jp/2013/01/vim.html?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed:+Mba-hack+(MBA-HACK)
-nnoremap <silent> co :ContinuousNumber <C-a><CR>
-vnoremap <silent> co :ContinuousNumber <C-a><CR>
-command! -count -nargs=1 ContinuousNumber let c = col('.')|for n in range(1, <count>?<count>-line('.'):1)|exec 'normal! j' . n . <q-args>|call cursor('.', c)|endfor
-" }}}
-
-" function comment {{{
-function! FuncComment ()
-    normal 40a/
-    normal o// Function Name:
-    normal o// argument     :
-    normal o// return value :
-    normal o
-    normal 40a/
-endfunction
-nnoremap <Leader>cmt :call FuncComment()<CR>
-" }}}
-
 command! Sudowrite :w !sudo tee %
 
 " easy open file in current dirctory{{{
 " ref: http://qiita.com/ukitazume/items/c1d2814497bc036f1a82
 cnoremap %% <C-R>=expand('%:h').'/'<cr>                                                                                                              
 cmap <leader>e :edit %% 
-" }}}
-
-" Writing NIPPO{{{
-function! WriteDairyReport()
-    if filereadable($VIMFILE_DIR."/skeleton/dairyreport.txt")
-        :0r $VIMFILE_DIR/skeleton/dairyreport.txt
-    else 
-        echo "Don't exiest NIPPO Template!"
-    endif
-endfunction
-
-function! WriteMonthlyReport()
-    if filereadable($VIMFILE_DIR."/skeleton/monthlyreport.txt")
-        :0r $VIMFILE_DIR/skeleton/monthlyreport.txt
-    else 
-        echo "Don't exiest GEPPO Template!"
-    endif
-endfunction
-command!  Nippo :call WriteDairyReport()
-command!  Geppo :call WriteMonthlyReport()
 " }}}
 
 "command! CopyRelativePath {{{
@@ -991,7 +739,6 @@ endfunction
 "}}}
 
 " report {{{
-inoremap <Leader>rep [日時]<CR>[現象]<CR>[環境]<CR>[条件]<CR>
 inoremap <Leader>rep [When]<CR>[Where]<CR>[Who]<CR>[What]<CR>[Why]<CR>[How]<CR>[How many]<CR>[How much]<CR>[How long]
 " }}}
 

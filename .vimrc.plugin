@@ -38,7 +38,7 @@ call neobundle#begin(expand(g:bundle_dir))
 let g:neobundle#types#git#default_protocol = 'https'
 unlet g:bundle_dir
 
-" 必須ライブラリ {{{
+" dependents {{{
 NeoBundle 'Shougo/vimproc', {'build' : {
             \ 'windows' : 'echo "Sorry, cannot update vimproc binary file in Windows."',
             \ 'cygwin' : 'make -f make_cygwin.mak',
@@ -46,19 +46,10 @@ NeoBundle 'Shougo/vimproc', {'build' : {
             \ 'unix'   : 'make -f make_unix.mak',
             \ },
             \}
-NeoBundleLazy 'mattn/webapi-vim'
-NeoBundleLazy 'basyura/twibill.vim'
-NeoBundleLazy 'basyura/bitly.vim'
 " }}}
-" Plugin管理 {{{
 NeoBundleFetch 'Shougo/neobundle.vim'
-" }}}
-" ドキュメント管理 {{{
-NeoBundleLazy 'thinca/vim-ref', {'autoload' : { 'mappings' : ['<Plug>(ref-keyword)']}}
 NeoBundleLazy 'vim-jp/vimdoc-ja.git'
-" }}}
-" 補完 neocom{{{
-
+" completation {{{
 function! s:meet_neocomplete_requirements()
     return has('lua') && (v:version > 703 || (v:version == 703 && has('patch885')))
 endfunction
@@ -70,119 +61,62 @@ else
     NeoBundleLazy 'Shougo/neocomplcache'
 endif
 NeoBundleLazy "Shougo/neosnippet" ,{ 'depends' : 'Shougo/neosnippet-snippets' }
-NeoBundle "Shougo/neosnippet-snippets"
-NeoBundleLazy 'neco-look'
-NeoBundleLazy 'davidhalter/jedi', { 'autoload' :{ 'filetypes' :['python',   'jedi' ]}}
+NeoBundleLazy "Shougo/neosnippet-snippets"
+NeoBundle 'kana/vim-smartchr'
+NeoBundleLazy 'mattn/emmet-vim', { 'autoload' : { 'filetypes' : ['html','css','js','php']}}
 " }}}
-" ファイラ {{{
+" filer {{{
 NeoBundleLazy 'scrooloose/nerdtree',
             \{ 'autoload' : {'commands' : ['NERDTreeToggle','NERDTree']}}
 NeoBundleLazy 'Shougo/vimfiler',
             \ { 'depends' : 'Shougo/unite.vim' ,
             \ 'autoload' : {'commands' : ['VimFilerCurrentDir', 'VimFilerDouble']}}
 " }}}
-" 入力補助 {{{
-NeoBundle 'kana/vim-smartchr'
-NeoBundleLazy 'mattn/emmet-vim', { 'autoload' : { 'filetypes' : ['html','css','js','php']}}
-" }}}
-" unite関連 {{{
+" unite {{{
 NeoBundle 'Shougo/unite.vim'
 NeoBundleLazy 'tsukkee/unite-tag'
 NeoBundleLazy 'Shougo/unite-outline'
 NeoBundleLazy 'tacroe/unite-mark'
-NeoBundle 'thinca/vim-unite-history'
+NeoBundleLazy 'thinca/vim-unite-history'
 NeoBundleLazy 'osyo-manga/unite-quickfix', {
             \ 'autoload' : {'filetypes':['c','cpp']
             \ }}
 NeoBundleLazy 'unite-colorscheme'
 NeoBundleLazy 'zhaocai/unite-scriptnames'
-NeoBundle 'Shougo/neomru.vim',{  'depends' : 'Shougo/unite.vim' }
-" NeoBundle 'Kocha/vim-unite-tig'
+NeoBundleLazy 'Shougo/neomru.vim',{  'depends' : 'Shougo/unite.vim' }
 " }}}
-" テキスト整形 {{{
+" align {{{
 NeoBundle 'h1mesuke/vim-alignta'
-NeoBundle 'junegunn/vim-easy-align'
 NeoBundle 'The-NERD-Commenter'
-NeoBundle "fuenor/JpFormat.vim"
+NeoBundleLazy "fuenor/JpFormat.vim"
 " }}}
 " 機能追加 {{{
-NeoBundleLazy 'Shougo/vimshell'  , 
-            \{"autoload" : {'commands' : ['VimShell', 'VimShellCurrentDir' ]} }
 NeoBundle 'itchyny/lightline.vim'
-NeoBundle 'itchyny/calendar.vim'
 NeoBundleLazy 'thinca/vim-quickrun',
             \{ 'autoload' : {
             \'mappings' : ['<Plug>(quickrun)'],
             \ 'commands' : ['QuickRun']}}
-NeoBundle 'tpope/vim-fugitive'
 NeoBundleLazy 'airblade/vim-gitgutter'
 NeoBundleLazy 'open-browser.vim', {'autoload' : {'mappings' :['<Plug>(open-browser-wwwsearch)','<Plug>(openbrowser-smart-search)']}}
-NeoBundleLazy 'taglist.vim', {'autoload' : { 'filetypes' : ['c', 'cpp','java'], 'commands' : ['TList']}}
-NeoBundle 'kana/vim-operator-replace.git'
 NeoBundle 'kana/vim-operator-user'
 NeoBundle 'osyo-manga/vim-anzu'
-NeoBundle 'osyo-manga/vim-over'
 NeoBundle 'fuenor/qfixhowm'
 NeoBundle 't9md/vim-quickhl'
-NeoBundle 'thinca/vim-splash'
 NeoBundle 'kana/vim-smartinput'
 NeoBundle 'vim-scripts/scratch-utility'
 NeoBundleLazy 'Takazudo/outline.vim.git'
-" }}}
-" C / C++ {{{
-NeoBundleLazy 'vim-scripts/SrcExpl' , {'autoload' : { 'filetypes' : ['c', 'cpp','java']}}
-NeoBundleLazy 'vim-scripts/Trinity' , {'autoload' : { 'filetypes' : ['c', 'cpp','java']}}
-" }}}
-" Ruby {{{
-NeoBundleLazy 'tpope/vim-rails' , { 'autoload' : {'filetypes' : ['ruby']} }
-
-" reference環境
-NeoBundleLazy 'vim-ruby/vim-ruby', { 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] } }
-NeoBundleLazy 'taka84u9/vim-ref-ri', { 'depends': ['Shougo/unite.vim', 'thinca/vim-ref'], 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml'] } }
-NeoBundleLazy 'skwp/vim-rspec', { 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml'] } }
-NeoBundleLazy 'ruby-matchit', { 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] } }
-" }}}
-" Perl {{{
-NeoBundleLazy 'perl.vim', { 'autoload' : { 'filetypes' : ['perl'] }}
 " }}}
 " markdown {{{
 NeoBundleLazy 'kannokanno/previm' , { 'autoload' : { 'filetypes' : ['markdown'] }}
 NeoBundleLazy 'kana/vim-submode' , { 'autoload' : { 'filetypes' : ['markdown'] }}
 " }}}
-" Fun {{{
-NeoBundleLazy 'supermomonga/jazzradio.vim', { 'depends' : [ 'Shougo/unite.vim' ] }
-if neobundle#tap('jazzradio.vim')
-  call neobundle#config({
-        \   'autoload' : {
-        \     'unite_sources' : [
-        \       'jazzradio'
-        \     ],
-        \     'commands' : [
-        \       'JazzradioUpdateChannels',
-        \       'JazzradioStop',
-        \       {
-        \         'name' : 'JazzradioPlay',
-        \         'complete' : 'customlist,jazzradio#channel_id_complete'
-        \       }
-        \     ],
-        \     'function_prefix' : 'jazzradio'
-        \   }
-        \ })
-endif
-" }}}
-" 見た目 {{{
-NeoBundle 'wombat256.vim'
-NeoBundle 'mopp/mopkai.vim'
-NeoBundle 'altercation/vim-colors-solarized'
+" looks {{{
 NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'kien/rainbow_parentheses.vim'
-NeoBundle 'croaker/mustang-vim'
-NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'tomasr/molokai'
 NeoBundle 'w0ng/vim-hybrid'
 " }}}
-
-NeoBundle 'fatih/vim-go'
+NeoBundleLazy 'fatih/vim-go' , { 'autoload' : {'filetypes' : ['go']} }
 call neobundle#end()
 filetype plugin indent on
 syntax on
@@ -271,12 +205,6 @@ if has('vim_starting')
     function! s:LazyLoadingForNeocom()
         NeoBundleSource neocomplete
         NeoBundleSource neosnippet
-        NeoBundleSource neocomplete-clang
-        NeoBundleSource neocomplete-clang_complete
-        NeoBundleSource clang-complete
-        NeoBundleSource neco-look
-        NeoBundleSource neco-tweetvim
-        NeoBundleSource jedi
     endfunction
 endif
 
@@ -309,7 +237,6 @@ let g:neocomplete#sources = { '_' : ['file', 'tag', 'neosnippet', 'vim', 'omni',
 " Define dictionary.
 let g:neocomplete_dictionary_filetype_lists = {
             \ 'default'  : '',
-            \ 'vimshell' : $HOME.'/.vimshell_hist',
             \ 'scheme'   : $HOME.'/.gosh_completions',
             \ 'ruby'     : $VIMFILE_DIR.'/dict/ruby.dict',
             \ 'objc'     : $VIMFILE_DIR.'/dict/cocoa.dict',
@@ -415,12 +342,6 @@ if has('vim_starting')
     function! s:LazyLoadingForNeocom()
         NeoBundleSource neosnippet
         NeoBundleSource neocomplcache
-        NeoBundleSource neocomplcache-clang
-        NeoBundleSource neocomplcache-clang_complete
-        NeoBundleSource clang-complete
-        NeoBundleSource neco-look
-        NeoBundleSource neco-tweetvim
-        NeoBundleSource jedi
     endfunction
 endif
 
@@ -458,7 +379,6 @@ let g:neocomplcache_sources_list._ = ['filename_include', 'member_complete', 'bu
 " Define dictionary.
 let g:neocomplcache_dictionary_filetype_lists = {
             \ 'default'  : '',
-            \ 'vimshell' : $HOME.'/.vimshell_hist',
             \ 'scheme'   : $HOME.'/.gosh_completions',
             \ 'ruby'     : $VIMFILE_DIR.'/dict/ruby.dict',
             \ 'objc'     : $VIMFILE_DIR.'/dict/cocoa.dict',
@@ -657,21 +577,13 @@ let s:unite_source_myCommand ={
 
 function! s:unite_source_myCommand.gather_candidates(args,conext)
     let cmds = {
-                \"Unite Beatiful Attack" : "Unite -auto-preview colorscheme",
-                \"Bookmark" : "Unite bookmark",
                 \"Unite LazyLoading" : "Unite neobundle/lazy",
-                \"Search vim tweet in Japanese" : "TweetVimSearch vim lang:ja",
-                \"Search vim tweet" : "TweetVimSearch vim",
-                \"Open tweetvim" : "TweetVimHomeTimeline",
-                \"Search emacs tweet in Japanese" : "TweetVimSearch emacs lang:ja",
                 \"Neobundle  Update" : "Unite neobundle/update",
                 \ "NeoBundleSource"  : "Unite neobundle/lazy",
-                \ "Display relative line numbers " : "RN",
                 \"Neobundle Log" : "NeoBundleLog",
                 \"Show relative number" : "RN",
                 \ "TODO list" : "Unite line -input=TODO", 
                 \ 'vertical diff' : "vertical diffsplit ",
-                \ "Jazz" : "Unite jazzradio", 
                 \}
     return values(map(cmds,"{
                 \ 'word' : v:key,
@@ -708,53 +620,6 @@ function! s:unite_source_myCommand.gather_candidates(args,conext)
 endfunction
 call unite#define_source(s:unite_source_myCommand)
 nnoremap <SID>[unite]c :Unite myCommand<CR>
-" }}}
-" unite-neco {{{
-" https://github.com/ujihisaより
-let s:unite_source = {'name': 'neco'}
-
-function! s:unite_source.gather_candidates(args, context)
-    let necos = [
-                \ "~(-'_'-) goes right",
-                \ "~(-'_'-) goes right and left",
-                \ "~(-'_'-) goes right quickly",
-                \ "~(-'_'-) goes right then smile",
-                \ "~(-'_'-)  -8(*'_'*) go right and left",
-                \ "(=' .' ) ~w",
-                \ ]
-    return map(necos, '{
-                \ "word": v:val,
-                \ "source": "neco",
-                \ "kind": "command",
-                \ "action__command": "Neco " . v:key,
-                \ }')
-endfunction
-
-"function! unite#sources#locate#define()
-"  return executable('locate') ? s:unite_source : []
-"endfunction
-call unite#define_source(s:unite_source)
-unlet s:unite_source
-
-if has('win32') || has('win64')
-    NeoBundleSource 'unite-everything'
-endif
-" }}}
-"" unite-git-files-conflict {{{
-let s:unite_git_files_conflict = {
-      \   'name' : 'git/files/conflict',
-      \ }
-function! s:unite_git_files_conflict.gather_candidates(args, context)
-  let output = unite#util#system('git diff-files --name-only --diff-filter=U')
-  let candidates = map(split(output, "\n"), '{
-        \ "word" : fnamemodify(v:val, ":p"),
-        \ "source" : "git/files/conflict",
-        \ "kind" : "file",
-        \ "action__path" : fnamemodify(v:val, ":p"),
-        \ }')
-  return candidates
-endfunction
-call unite#define_source(s:unite_git_files_conflict)
 " }}}
 " }}}
 
@@ -867,23 +732,6 @@ if s:checkplugin("vim-smartchr" )
         inoremap <buffer><expr> ( search('\<\for\%#', 'bcn')? ' ()<Left>': '()<Left>'
         inoremap <buffer><expr> ( search('\<\while\%#', 'bcn')? ' ()<Left>': '()<Left>'
     endfunction " }}}
-
-    " 記号入力メンドクセ イマイチ{{{
-    function! MySmarcchr()
-        inoremap <buffer><expr> 1 smartchr#one_of('1', '!' ,'11')
-        inoremap <buffer><expr> 2 smartchr#one_of('2', '"','22')
-        inoremap <buffer><expr> 3 smartchr#one_of('3', '#','33')
-        inoremap <buffer><expr> 4 smartchr#one_of('4', '$','44')
-        inoremap <buffer><expr> 5 smartchr#one_of('5', '%','55')
-        inoremap <buffer><expr> 6 smartchr#one_of('6', '&','66')
-        inoremap <buffer><expr> 7 smartchr#one_of('7', '\'','77')
-        inoremap <buffer><expr> 8 smartchr#one_of('8', '(','88')
-        inoremap <buffer><expr> 9 smartchr#one_of('9', ')','99')
-    endfunction
-
-    autocmd MyAutoCmd FileType c,cpp,python,ruby call SmartCharSetting()
-    " endif
-    " }}}
 endif
 " }}}
 
@@ -911,26 +759,6 @@ try
     nnoremap <silent> <F5> :QuickRun<CR>
     nnoremap          <F6> :QuickRun -outputter error:buffer:quickfix -args ''<Left>
     nnoremap <silent> <F7> :QuickRun -outputter quickfix<CR>
-    " 静的C++のシンタックスチェック {{{
-    " 参考:http://d.hatena.ne.jp/osyo-manga/20110921/1316605254
-    " quickfixのエラー箇所を破線でハイライト
-    execute "highlight qf_error_ucurl gui=undercurl guisp=Red"
-    let g:hier_highlight_group_qf = "qf_error_ucurl"
-    " quickfixに出力して、ポップアップはしない outputter/quickfix
-    " すでにquickfixウィンドウが開いている場合は閉じるので注意
-    let s:silent_quickfix = quickrun#outputter#quickfix#new()
-
-    function! s:silent_quickfix.finish(session)
-        call call(quickrun#outputter#quickfix#new().finish, [a:session], self)
-        :cclose
-        " vim-hierの更新
-        :HierUpdate
-        " quickfixへの出力後にquickfixsatusを有効に
-        :QuickfixStatusEnable
-    endfunction
-    " quickrunに登録
-    call quickrun#register_outputter("silent_quickfix", s:silent_quickfix)
-    " }}}
     " Programごとの設定{{{
     " Markdown{{{
     let g:quickrun_config['markdown']={
@@ -945,132 +773,15 @@ try
     " " \'command': 'bluecloth',
     " " \'exec': '%c -f %s', 
     "}}}
-    " gcc版{{{
-    let g:quickrun_config['CppSyntaxCheck_gcc'] = {
-                \ "type" : "cpp",
-                \ "exec" : "%c %o $s:p",
-                \ "command" : "g++",
-                \ "cmdopt" : "-fsytax-only -std=gnu++0x",
-                \ "outputter" : "silent_quickfix",
-                \ "hook/output_encode/enable" : 1,
-                \ "hook/output_encode/encoding" : "utf-8",
-                \ "runner" : "vimproc"
-                \}
-    " }}}
-    " msvc版{{{
-    " .h ファイルの場合はうまく動かない
-    let g:quickrun_config["Cppsyntaxcheck_msvc"] = {
-                \ "type" : "cpp",
-                \ "exec" : "%c %o $s:p",
-                \ "command" : "cl.exe",
-                \ "cmdopt" : "/Zs",
-                \ "outputter" : "silent_quickfix",
-                \ "runner" : "vimproc",
-                \ "output_encode" : "sjis"
-                \ }
-    " }}}
-    " TeX{{{
-    let g:quickrun_config['tex']={
-                \ 'type' : 'tex',
-                \ 'command' : '/usr/bin/platex2pdf-euc',
-                \ "outputter" : "error:buffer:quickfix",
-                \ 'runmode': 'async:remote:vimproc',
-                \ 'exec' : ['%c %s' , 'open %s:r.pdf']
-                \}
-    " \ 'outputer' : '',
-    " \ 'exec' : ['%c -output-directory %s:h %s' , 'open %s:r.pdf']
-    " }}}
-    " bib{{{
-    let g:quickrun_config['bib']={
-                \ 'type' : 'tex',
-                \ 'command' : 'jbibtex',
-                \ 'runmode': 'async:remote:vimproc',
-                \ 'exec' : ['%c -kanji=euc %s:t:r']
-                \}
-    " }}}
-    " HTML{{{
-    let g:quickrun_config['html'] = {
-                \ "type" : "html",
-                \ "exec" : "open %s",
-                \ "outputter" : "browser",
-                \}
-
-    " }}}
-    " Ruby
+    " Ruby{{{
     let g:quickrun_config['Ruby'] = {
                 \ "type" : "ruby",
                 \ "outputter" : "error:buffer:quickfix",
                 \}
-
-
+    " }}}
 catch /E117/
 endtry
 " }}}
-" unite.vimでquickrun_configの列挙 {{{
-" http://d.hatena.ne.jp/osyo-manga/20111012/1318377040 
-" filetypeごとにquickrunのconfig名を設定する
-let g:quickrun_compile_command={}
-" unite.vimの設定
-let s:action={
-            \ 'description' : 'quickrun compile command', 
-            \ 'is_selectable' : 1 , 
-            \}
-
-function! s:action.func(candidates)
-    for val in a:candidates
-        let g:quickrun_compile_command[&filetype] = val.word
-    endfor
-endfunction
-call unite#custom_action('common',  'quickrun_compile_command',  s:action)
-unlet s:action
-let s:unite_source_quickrun = {
-            \ "name" : "quickrun-select", 
-            \ "default_action" : "quickrun_compile_command"
-            \}
-
-function! s:unite_source_quickrun.gather_candidates(args, context)
-    let cmds = filter(deepcopy(g:quickrun_config), "exists('v:val.type') ? v:val.type == &filetype : 0")
-    return sort(values(map(cmds,"{
-                \ 'word' : v:key, 
-                \ 'source' : 'quickrun-select', 
-                \ 'kind' : 'common' , 
-                \ }")))
-endfunction
-call unite#define_source(s:unite_source_quickrun)
-" unite.vimを呼び出すキーマップ
-nno <silent> <Leader>qr :Unite quickrun-select<CR>
-
-" 実行(コンパイル)を行うキーマップ
-nno <silent> <C-F7> :execute "QuickRun ".g:quickrun_compile_command[&filetype"]<CR>
-" }}}
-" }}}
-
-" vimshell.vim{{{
-nmap <Leader>vs <SID>[vimshell]
-nnoremap <SID>[vimshell] :<C-u>VimShell<CR>
-let s:bundle = neobundle#get("vimshell")
-" hooksの初期化
-let s:bundle.hooks = get(s:bundle,"hooks", {})
-let g:vimshell_prompt = "% "
-let g:vimshell_secondary_prompt = "> "
-
-function! s:bundle.hooks.on_source(bundle)
-    " nnoremap <SID>[vimshell]c :VimShellCreate<CR>
-    " let g:vimshell_prompt = 'vimshell#vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
-    let g:vimshell_split_height = 10
-    let g:vimshell_disable_escape_highlight = 1
-endfunction
-unlet s:bundle
-" }}}
-
-" taglist.vim{{{
-set tags=./tags
-" set tags+=../../**/tags
-augroup TList
-    autocmd!
-    au BufEnter * nnoremap <F12> :Tlist<CR>z<CR>
-    autocmd  BufEnter *.memo nnoremap <buffer> <F12> :<C-u>ToC<CR>
-augroup END
 " }}}
 
 " open-browser{{{
@@ -1133,12 +844,9 @@ if exists(":IndentGuidesEnable")
     let g:indent_guides_color_change_percent=30
     let g:indent_guides_guide_size=1
     let g:fileIndentGuide=[
-                \ "c", 
-                \"cpp", 
-                \"cs", 
-                \"java", 
-                \"perl", 
+                \"c", 
                 \"ruby", 
+                \"python", 
                 \"vim"
                 \]
     for ft in g:fileIndentGuide
@@ -1157,61 +865,6 @@ if exists(":IndentGuidesEnable")
     au MyAutoCmd FileType help IndentGuidesDisable
 endif
 " }}}
-
-" vim-ref{{{
-" lazy loading for vim-ref
-" webdict
-let g:ref_source_webdict_sites ={
-            \ 'wikipedia:ja' : 'http://ja.wikipedia.org/wiki/%s',
-            \}
-nmap <silent> K :<C-u>silent! <Plug>(ref-keyword)
-vmap <silent> K :<C-u>silent! <Plug>(ref-keyword)
-command! -nargs=+ Ref
-            \ execute 'silent! NeoBundleSource vim-ref'
-            \ | call ref#ref(<q-args>)
-" }}}
-
-" Source-Explorer-srcexpl.vim:"{{{
-"
-" // The switch of the Source Explorer                                         "
-" nmap <F8> :SrcExplToggle<CR>
-"                                                                              "
-" // Set the height of Source Explorer window                                  "
-let g:SrcExpl_winHeight = 8
-"                                                                              "
-" // Set 100 ms for refreshing the Source Explorer                             "
-let g:SrcExpl_refreshTime = 100
-"                                                                              "
-" // Set "Enter" key to jump into the exact definition context                 "
-let g:SrcExpl_jumpKey = "<ENTER>"
-"                                                                              "
-" // Set "Space" key for back from the definition context                      "
-let g:SrcExpl_gobackKey = "<SPACE>"
-"                                                                              "
-" // In order to Avoid conflicts, the Source Explorer should know what plugins "
-" // are using buffers. And you need add their bufname into the list below     "
-" // according to the command ":buffers!"                                      "
-let g:SrcExpl_pluginList = [
-            \ "__Tag_List__",
-            \ "_NERD_tree_",
-            \ "Source_Explorer"
-            \ ]
-"                                                                              "
-" // Enable/Disable the local definition searching, and note that this is not  "
-" // guaranteed to work, the Source Explorer doesn't check the syntax for now. "
-" // It only searches for a match with the keyword according to command 'gd'   "
-let g:SrcExpl_searchLocalDef = 1
-"                                                                              "
-" // Do not let the Source Explorer update the tags file when opening          "
-let g:SrcExpl_isUpdateTags = 0
-"                                                                              "
-" // Use 'Exuberant Ctags' with '--sort=foldcase -R .' or '-L cscope.files' to "
-" //  create/update a tags file                                                "
-let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ."
-"                                                                              "
-" // Set "<F12>" key for updating the tags file artificially                   "
-" let g:SrcExpl_updateTagsKey = "<F12>"
-"}}}
 
 " surround.vim{{{
 nmap <Leader>) csw)
@@ -1287,23 +940,6 @@ xmap <silent><expr> as mode() !=# 'v' ? ':Alignta \S\+'."\<CR>" : 'as'
 xnoremap al :Alignta<Space>
 " }}}
 
-" Ruby {{{
-let s:bundle_rails = 'unite-rails unite-rails_best_practices unite-rake'
-
-function! s:bundleLoadDepends(bundle_names) 
-    " bundleの読み込み
-    execute 'NeoBundleSource '.a:bundle_names
-    au! RailsLazyPlugins
-endfunction
-aug RailsLazyPlugins
-    au User Rails call <SID>bundleLoadDepends(s:bundle_rails)
-aug END
-" }}}
-
-" operator-replace {{{
-map R  <Plug>(operator-replace)
-" }}}
-
 " HybridText {{{
 autocmd MyAutoCmd BufEnter * if &filetype =="" | setlocal ft=hybrid | endif
 autocmd MyAutoCmd BufEnter * if &filetype =="text" | setlocal ft=hybrid | endif
@@ -1325,7 +961,7 @@ let g:lightline = {
         \ 'active': {
         \   'left': [
         \     ['mode', 'paste'],
-        \     ['fugitive', 'gitgutter', 'filename','modified','anzu'],
+        \     ['gitgutter', 'filename','modified','anzu'],
         \   ],
         \   'right': [
         \     ['lineinfo', 'syntastic'],
@@ -1336,7 +972,6 @@ let g:lightline = {
         \ 'component_function': {
         \   'modified': 'MyModified',
         \   'readonly': 'MyReadonly',
-        \   'fugitive': 'MyFugitive',
         \   'filename': 'MyFilename',
         \   'fileformat': 'MyFileformat',
         \   'filetype': 'MyFiletype',
@@ -1363,20 +998,8 @@ function! MyFilename()
   return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
         \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
         \  &ft == 'unite' ? unite#get_status_string() :
-        \  &ft == 'vimshell' ? substitute(b:vimshell.current_dir,expand('~'),'~','') :
         \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
         \ ('' != MyModified() ? ' ' . MyModified() : '')
-endfunction
-
-function! MyFugitive()
-  try
-    if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head')
-      let _ = fugitive#head()
-      return strlen(_) ? '⭠ '._ : ''
-    endif
-  catch
-  endtry
-  return ''
 endfunction
 
 function! MyFileformat()
@@ -1476,27 +1099,6 @@ nmap <silent> <Leader>q <Plug>(ChromeTabClose)
 nmap <buffer> <Leader>f <Plug>(ChromeKey)
 " }}}
 
-" fugitive {{{
-" http://qiita.com/hyshhryk/items/4936c4412daa866daf7d
-nnoremap <silent> <Space>gb :Gblame<CR>
-nnoremap <silent> <Space>gd :Gdiff<CR>
-nnoremap <silent> <Space>gs :Gstatus<CR>
-" }}}
-
-" over.vim {{{
-" over.vimの起動
-nnoremap <silent> <Leader>m :OverCommandLine<CR>
-" カーソル下の単語をハイライト付きで置換
-nnoremap sub :OverCommandLine<CR>%s/<C-r><C-w>//g<Left><Left>
-" コピーした文字列をハイライト付きで置換
-nnoremap subp y:OverCommandLine<CR>%s!<C-r>=substitute(@0, '!', '\\!', 'g')<CR>!!gI<Left><Left><Left>
-
-" }}}
-
-" vim-splash {{{
-let g:splash#path = $VIMFILE_DIR."/vim_intro.txt"
-" }}}
-
 " quickhl {{{
 nmap <Space>m <Plug>(quickhl-manual-this)
 xmap <Space>m <Plug>(quickhl-manual-this)
@@ -1504,8 +1106,5 @@ nmap <Space>M <Plug>(quickhl-manual-reset)
 xmap <Space>M <Plug>(quickhl-manual-reset)
 " }}}
 
-" itchyny/calendar.vim{{{
-nnoremap <Leader>c: :Calendar -split=horizontal<CR>
-" }}}
 "" ================================================================================ 
 " vim: set tw=0 tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
