@@ -409,6 +409,7 @@ let g:FileTypeSettings = [
             \ "vim", 
             \ "objc", 
             \ "ruby", 
+            \ "python",
             \ "eruby", 
             \ "perl", 
             \ "lisp", 
@@ -550,6 +551,20 @@ function! MyrubySettings()
     let ruby_space_errors=1 
 endfunction
 " }}}
+" Python{{{
+function! MypythonSettings()
+    inoremap  <buffer> ( ()<Left>
+    inoremap  <buffer> [ []<Left>
+    inoremap  <buffer> <> <><Left>
+    "inoremap <buffer> <  <><Left>
+    inoremap  <buffer> " ""<Left>
+    inoremap  <buffer> ' ''<Left>
+    set noexpandtab
+    set shiftwidth=4
+    set tabstop=4
+    compiler python
+endfunction
+" }}}
 " eruby{{{
 function! MyerubySettings()
     set dictionary=$HOME/.vim/dict/ruby.dict
@@ -653,6 +668,8 @@ endfunction
 " golang {{{
 function! MygoSettings()
     set noexpandtab
+    set fdm=indent
+    set fdl=1
 endfunction
 " }}}
 " }}}
