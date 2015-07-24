@@ -1,5 +1,3 @@
 # Usage this repo 
 ## Install 
-    $ curl https://raw.githubusercontent.com/kse201/.dotfiles/master/etc/installer.sh
-## Uninstall
-    $ sh ~/.dotfiles/installer.sh uninstall
+    $ curl https://raw.githubusercontent.com/kse201/.dotfiles/master/etc/installer.sh | sh
