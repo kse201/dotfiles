@@ -22,8 +22,8 @@ activity ""
 bell_msg "Bell in window %."
 msgwait 0
 
-caption always '%?%F%{=ub G}%:%{=u K}%?(%f)%2n: %t%='
-hardstatus alwayslastline '%L=%-w%40L>%{= g.}%f%2n:%t%{-}%+w %-037<%=%{= .y}%{b km}%l %{.b}%Y/%m/%d %c:%s'
+# caption always '%?%F%{=ub G}%:%{=u K}%?(%f)%2n: %t%='
+hardstatus alwayslastline '%{=u G} %-w%40L>%{=ub K.}%f%2n:%t%{-}%+w %-037<%=%{= .y}%{b km}%l %{.b}%Y/%m/%d %c:%s'
 
 # don't remove windows from the window list as soon as window process exits.
 zombie kr #  k: destory window, r: resurrect window'
@@ -61,7 +61,7 @@ bind ^] paste .
 
 # log
 deflog on
-logfile "$HOME/.log/screen-%Y%m%d-%n-%t.log"
+logfile "$HOME/.log/screen-%Y%m%d-%n-%s-%t.log"
 logtstamp string "\n-- SCREEN [%Y/%m/%d %01c:%s] %n:%t --\n"
 
 # screen上のvimで256色サポートを有効に
