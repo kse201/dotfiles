@@ -22,17 +22,15 @@ HISTFILE=$HOME/.zsh_history
 HISTSIZE=7500
 SAVEHIST=7500
 setopt hist_reduce_blanks # remove space
-setopt EXTENDED_HISTORY #zshの開始,終了時刻を記録
+setopt extended_history #zshの開始,終了時刻を記録
 unsetopt hist_verify # ヒストリを呼び出してから実行する間いｎ一旦編集可能を止める
 setopt hist_expand # complete from history
 export HISTIGNORE="ls *:cd:history:fg*:history-all" # ignored commands
 setopt hist_ignore_space # ignore space-start command
-setopt HIST_EXPIRE_DUPS_FIRST
+setopt hist_expire_dups_first
 setopt inc_append_history # すぐにヒストリに追記する
 setopt share_history # zshプロセス間でヒストリを共有する
 function history-all { history -E 1 } # output all histoy
-HISTTIMEFORMAT='%Y%m%d %T';
-export HISTTIMEFORMAT
 
 # 補完機能の強化
 autoload -U compinit
