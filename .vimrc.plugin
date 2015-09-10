@@ -83,7 +83,7 @@ NeoBundleLazy 'osyo-manga/unite-quickfix', {
             \ }}
 NeoBundleLazy 'unite-colorscheme'
 NeoBundleLazy 'zhaocai/unite-scriptnames'
-NeoBundleLazy 'Shougo/neomru.vim',{  'depends' : 'Shougo/unite.vim' }
+NeoBundle 'Shougo/neomru.vim',{  'depends' : 'Shougo/unite.vim' }
 " }}}
 " align {{{
 NeoBundle 'h1mesuke/vim-alignta'
@@ -104,6 +104,7 @@ NeoBundle 'fuenor/qfixhowm'
 NeoBundle 't9md/vim-quickhl'
 NeoBundle 'kana/vim-smartinput'
 NeoBundle 'vim-scripts/scratch-utility'
+NeoBundle 'scrooloose/syntastic'
 NeoBundleLazy 'Takazudo/outline.vim.git'
 " }}}
 " markdown {{{
@@ -1106,5 +1107,8 @@ nmap <Space>M <Plug>(quickhl-manual-reset)
 xmap <Space>M <Plug>(quickhl-manual-reset)
 " }}}
 
+" syntastic {{{
+let g:syntastic_python_checkers = ['pyflakes', 'pep8']
+" }}}
 "" ================================================================================ 
 " vim: set tw=0 tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
