@@ -6,7 +6,7 @@ set -u
 is_exist()  { [ -x "$(which "$1")" ]; }
 
 INSTALLER=$0
-DIR="~/.dotfiles"
+DIR="${HOME}/.dotfiles"
 TARGET_FILES=`ls -1A | grep -v ${INSTALLER} | grep -v ".git"`
 RETVAL=0
 ZIP_URL="https://github.com/kse201/.dotfiles/archive/master.zip"
