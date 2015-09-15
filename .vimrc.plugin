@@ -1106,5 +1106,7 @@ xmap <Space>M <Plug>(quickhl-manual-reset)
 " syntastic {{{
 let g:syntastic_python_checkers = ['pyflakes', 'pep8']
 " }}}
+
+let g:gocomplete#system_function = 'vimproc#system'
 "" ================================================================================ 
 " vim: set tw=0 tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
