@@ -10,6 +10,11 @@
 .vimshell
 .viminfo
 *.swp
+.apm/
+.node-gyp/
+packages/
+compile-cache/
+storage/
 
 !/.gitconfig
 !/.gitignore
