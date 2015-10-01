@@ -508,3 +508,6 @@ if is_exist 'go' ; then
     alias gopkg="find $GOPATH -name '*.go' | grep -E \"\/[^\.].+\.go\" | sed -e 's/^.*src\/\(.*\)\/.*go$/\"\1\"/' | sort | uniq | grep -v $USER"
 fi
 
+if [ -e "$HOME/proxyrc" ] ; then
+    source "$HOME/proxyrc"
+fi

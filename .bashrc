@@ -164,3 +164,6 @@ if is_exist 'go' ; then
     export GOPATH="${HOME}/.go"
 fi
 
+if [ -e "$HOME/proxyrc" ] ; then
+    source "$HOME/proxyrc"
+fi
