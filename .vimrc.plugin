@@ -9,10 +9,10 @@ augroup END
 " vimproc.vim{{{
 if has('win64')
     set shellslash
-    let g:vimproc_dll_path = $VIMFILE_DIR . '/autoload/vimproc_win64.dll'
+    let g:vimproc_dll_path = $VIMFILE_DIR . '/bundle/vimproc/autoload/vimproc_win64.dll'
 elseif has('win32')
     set shellslash
-    let g:vimproc_dll_path = $VIMFILE_DIR . '/autoload/vimproc_win32.dll'
+    let g:vimproc_dll_path = $VIMFILE_DIR . '/bundle/vimproc/autoload/vimproc_win32.dll'
 elseif has('win32unix')
     set shellslash
     let g:vimproc_dll_path = $VIMFILE_DIR . '/bundle/vimproc/autoload/vimproc_cygwin.dll'
