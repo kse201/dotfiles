@@ -6,7 +6,7 @@ set -u
 is_exist()  { [ -x "$(which "$1")" ]; }
 
 DIR="${HOME}/.dotfiles"
-TARGET_FILES=".gitconfig .vimrc .vimrc.plugin .bashrc .zshrc .screenrc .tmuxrc"
+TARGET_FILES=".gitconfig .vimrc .vimrc.plugin .bashrc .zshrc .zsh.d .screenrc .tmuxrc"
 RETVAL=0
 REPOSITORY_URL="https://github.com/kse201/dotfiles"
 
@@ -42,20 +42,19 @@ vim_dependencies() {
 dotfiles_install() {
     dotfiles_download
 
-    for file in "${TARGET_FILES}"
-    do
-        ln -s "${DIR}/${file}" "${HOME}/${file}" >/dev/null 2>&1
+    for file in ${TARGET_FILES} ; do
+        ln -f -s "${DIR}/${file}" "${HOME}/${file}" >/dev/null 2>&1
     done
     echo "dotfiles installed."
 
-    git --git-dir="${DIR}/.git" submodule init
-    git --git-dir="${DIR}/.git" submodule update
+    cd "${DIR}"
+    git submodule update --init
     echo "submodule installed"
 
     vim_dependencies
 }
 
-if !is_exist 'git' ; then
+if ! is_exist 'git' ; then
     echo "Error: 'git' not found in ${PATH}"
     return 1
 fi

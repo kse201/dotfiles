@@ -10,7 +10,8 @@ fi
 # env
 export PATH=/usr/local/bin:/usr/local/sbin:$PATH:$HOME/bin
 typeset -U path PATH
-export LANG=ja_JP.UTF-8
+# export LANG=ja_JP.UTF-8
+export LANG=C
 export LESSCHARSET=utf-8
 export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case --quit-if-one-screen --RAW-CONTROL-CHARS -X'
 export EDITOR='vi'
@@ -510,4 +511,8 @@ fi
 
 if [ -e "$HOME/proxyrc" ] ; then
     source "$HOME/proxyrc"
+fi
+
+if is_exist "cabal" ; then
+    export PATH=$HOME/.cabal/bin:$PATH
 fi
