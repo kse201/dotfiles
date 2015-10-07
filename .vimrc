@@ -136,7 +136,7 @@ endif
 " }}}
 
 " auto ctags {{{
-set tags+=~/.tags,**/tags
+set tags+=tags;
 if filereadable(expand('./tags'))
     au MyAutoCmd FileWritePre :!ctasg -R
 endif
