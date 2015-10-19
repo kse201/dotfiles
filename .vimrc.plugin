@@ -592,6 +592,7 @@ function! s:unite_source_myCommand.gather_candidates(args,conext)
                 \"Show relative number" : "RN",
                 \ "TODO list" : "Unite line -input=TODO", 
                 \ 'vertical diff' : "vertical diffsplit ",
+                \ 'Bookmark' : "Unite bookmark",
                 \}
     return values(map(cmds,"{
                 \ 'word' : v:key,
