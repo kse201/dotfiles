@@ -474,6 +474,9 @@ reload (){
 
 # screen
 export SCREENDIR=$HOME/.screens
+if [ -d "$HOME/.logs" ] ; then
+    mkdir "$HOME/.logs"
+fi
 
 # local setting
 if [ -f "$HOME/.zshrc.local" ] ; then
