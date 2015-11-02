@@ -1,0 +1,59 @@
+2015-11-02 22:32:34	--	kornbluth.freenode.net: *** Looking up your hostname...
+2015-11-02 22:32:35	--	kornbluth.freenode.net: *** Checking Ident
+2015-11-02 22:32:35	--	kornbluth.freenode.net: *** No Ident response
+2015-11-02 22:32:37	--	kornbluth.freenode.net: *** Found your hostname
+2015-11-02 22:32:37	--	Welcome to the freenode Internet Relay Chat Network kse201
+2015-11-02 22:32:37	--	Your host is kornbluth.freenode.net[82.96.64.4/6667], running version ircd-seven-1.1.3
+2015-11-02 22:32:37	--	This server was created Sun Mar 15 2015 at 19:32:05 CET
+2015-11-02 22:32:37	--	kornbluth.freenode.net ircd-seven-1.1.3 DOQRSZaghilopswz CFILMPQSbcefgijklmnopqrstvz bkloveqjfI
+2015-11-02 22:32:37	--	CHANTYPES=# EXCEPTS INVEX CHANMODES=eIbq,k,flj,CFLMPQScgimnprstz CHANLIMIT=#:120 PREFIX=(ov)@+ MAXLIST=bqeI:100 MODES=4 NETWORK=freenode KNOCK STATUSMSG=@+ CALLERID=g :are supported by this server
+2015-11-02 22:32:37	--	CASEMAPPING=rfc1459 CHARSET=ascii NICKLEN=16 CHANNELLEN=50 TOPICLEN=390 ETRACE CPRIVMSG CNOTICE DEAF=D MONITOR=100 FNC TARGMAX=NAMES:1,LIST:1,KICK:1,WHOIS:1,PRIVMSG:4,NOTICE:4,ACCEPT:,MONITOR: :are supported by this server
+2015-11-02 22:32:37	--	EXTBAN=$,ajrxz WHOX CLIENTVER=3.0 SAFELIST ELIST=CTU :are supported by this server
+2015-11-02 22:32:37	--	There are 159 users and 89875 invisible on 27 servers
+2015-11-02 22:32:37	--	26 :IRC Operators online
+2015-11-02 22:32:37	--	10 :unknown connection(s)
+2015-11-02 22:32:37	--	54208 :channels formed
+2015-11-02 22:32:37	--	I have 5142 clients and 14 servers
+2015-11-02 22:32:37	--	5142 5333 :Current local users 5142, max 5333
+2015-11-02 22:32:37	--	90034 97293 :Current global users 90034, max 97293
+2015-11-02 22:32:37	--	Highest connection count: 5347 (5333 clients) (216785 connections received)
+2015-11-02 22:32:37	--	- kornbluth.freenode.net Message of the Day -
+2015-11-02 22:32:37	--	- Welcome to kornbluth.freenode.net in Frankfurt, DE, EU.
+2015-11-02 22:32:37	--	- Thanks to Probe Networks (www.probe-networks.de) for
+2015-11-02 22:32:37	--	- sponsoring this server!
+2015-11-02 22:32:37	--	-
+2015-11-02 22:32:37	--	- KORNBLUTH, CYRIL M. [1923-1958].  Born in New York City and
+2015-11-02 22:32:37	--	- an active member of the Futurians, Cyril Kornbluth sold his
+2015-11-02 22:32:37	--	- first story professionally at age 15.  By the 1940's his
+2015-11-02 22:32:37	--	- stories appeared widely under several pennames, including
+2015-11-02 22:32:37	--	- S.D. Gottesman and Cecil Corman.  He left his university
+2015-11-02 22:32:37	--	- studies in Chicago to serve in the Army in Europe during
+2015-11-02 22:32:37	--	- WWII, then returned to school and work in Chicago until he
+2015-11-02 22:32:37	--	- began writing full-time in 1951.  The author of The Marching
+2015-11-02 22:32:37	--	- Morons and the novels The Space Merchants (with Frederik
+2015-11-02 22:32:37	--	- Pohl) and The Syndic, he's best known for his biting social
+2015-11-02 22:32:37	--	- satire and his collaborations with Pohl and with Judith
+2015-11-02 22:32:37	--	- Merril.
+2015-11-02 22:32:37	--	- Welcome to freenode - supporting the free and open source
+2015-11-02 22:32:37	--	- software communities since 1998.
+2015-11-02 22:32:37	--	-
+2015-11-02 22:32:37	--	- By connecting to freenode you indicate that you have read and
+2015-11-02 22:32:37	--	- accept our policies as set out on http://www.freenode.net
+2015-11-02 22:32:37	--	- freenode runs an open proxy scanner. Please join #freenode for
+2015-11-02 22:32:37	--	- any network-related questions or queries, where a number of
+2015-11-02 22:32:37	--	- volunteer staff and helpful users will be happy to assist you.
+2015-11-02 22:32:37	--	-
+2015-11-02 22:32:37	--	- You can meet us at FOSSCON (http://www.fosscon.org) where we get
+2015-11-02 22:32:37	--	- together with like-minded FOSS enthusiasts for talks and
+2015-11-02 22:32:37	--	- real-life collaboration.
+2015-11-02 22:32:37	--	-
+2015-11-02 22:32:37	--	- We would like to thank Private Internet Access
+2015-11-02 22:32:37	--	- (https://www.privateinternetaccess.com/) and the other
+2015-11-02 22:32:37	--	- organisations that help keep freenode and our other projects
+2015-11-02 22:32:37	--	- running for their sustained support.
+2015-11-02 22:32:37	--	-
+2015-11-02 22:32:37	--	- In particular we would like to thank the sponsor
+2015-11-02 22:32:37	--	- of this server, details of which can be found above.
+2015-11-02 22:32:37	--	-
+2015-11-02 22:32:37	--	End of /MOTD command.
+2015-11-02 22:32:37	--	kse201 がユーザモードを変更 [+i]

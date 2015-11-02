@@ -1,0 +1,19 @@
+2015-11-03 10:15:12		script: スクリプトリストのダウンロード中...
+2015-11-03 10:15:16		script: WeeChat 1.3 には 299 個のスクリプトがあります
+2015-11-03 10:15:25		You need the have pkg_resources installed for version checking
+2015-11-03 10:15:25		Can't load twitter python lib >= 1.14.1
+2015-11-03 10:15:25		Install it via your package manager or go to http://mike.verdone.ca/twitter/
+2015-11-03 10:19:14	=!=	エラー: 未定義のコマンド "/tweet" (ヘルプを見るには /help)
+2015-11-03 10:21:58		python: スクリプト "weetweet" のアンロード中
+2015-11-03 10:21:58		python: スクリプト "weetweet" がアンロードされました
+2015-11-03 10:21:58		python: スクリプト "/Users/keise/.dotfiles/.weechat/python/weetweet.py" のロード中
+2015-11-03 10:21:59		You need the have pkg_resources installed for version checking
+2015-11-03 10:21:59		python: スクリプト "weetweet"、バージョン 1.2.2 (Weechat twitter client) が登録されました
+2015-11-03 10:21:59		Can't load twitter python lib >= 1.14.1
+2015-11-03 10:21:59		Install it via your package manager or go to http://mike.verdone.ca/twitter/
+2015-11-03 10:23:29		python: 標準出力/標準エラー: Traceback (most recent call last):
+2015-11-03 10:23:29		python: 標準出力/標準エラー:   File "/Users/keise/.dotfiles/.weechat/python/wtwitter.py", line 25, in <module>
+2015-11-03 10:23:29		python: 標準出力/標準エラー:     import feedparser
+2015-11-03 10:23:29		python: 標準出力/標準エラー: ImportError: No module named feedparser
+2015-11-03 10:23:29	=!=	python: ファイル "/Users/keise/.dotfiles/.weechat/python/wtwitter.py" を解析できません
+2015-11-03 10:24:06	=!=	エラー: 未定義のコマンド "/wl" (ヘルプを見るには /help)
