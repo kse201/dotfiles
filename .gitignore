@@ -33,3 +33,6 @@ storage/
 .vim/skeleton/dairyreport.txt
 .vim/skeleton/monthlyreport.txt
 .vim/.netrw_hist
+
+logs
+weechat.log
