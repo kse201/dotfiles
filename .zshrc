@@ -401,14 +401,6 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 
-function git_commit() {
-        BUFFER="git commit -m '"
-        CURSOR=$#BUFFER
-        BUFFER=$BUFFER\'
-}
-zle -N git_commit
-bindkey '^o' git_commit
-
 ## 完全に削除
 alias rr="command rm -rf"
 
@@ -482,6 +474,9 @@ reload (){
 
 # screen
 export SCREENDIR=$HOME/.screens
+if [ -d "$HOME/.logs" ] ; then
+    mkdir "$HOME/.logs"
+fi
 
 # local setting
 if [ -f "$HOME/.zshrc.local" ] ; then

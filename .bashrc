@@ -145,6 +145,9 @@ man() {
 
 # screen
 export SCREENDIR="$HOME/.screens"
+if [ -d "$HOME/.logs"] ; then
+    mkdir "$HOME/.logs"
+fi
 
 # local setting
 if [ -f "$HOME/.bashrc.local" ] ; then
