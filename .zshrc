@@ -474,7 +474,7 @@ reload (){
 
 # screen
 export SCREENDIR=$HOME/.screens
-if [ -d "$HOME/.logs" ] ; then
+if [ ! -e "$HOME/.logs" ] ; then
     mkdir "$HOME/.logs"
 fi
 
