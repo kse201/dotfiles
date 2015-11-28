@@ -60,6 +60,13 @@ else
     NeoBundleFetch 'Shougo/neocomplete'
     NeoBundleLazy 'Shougo/neocomplcache'
 endif
+
+call neobundle#config('neocomplcache',{
+            \'lazy' : 1,
+            \ 'autoload' : {
+            \ 'insert' : 1,
+            \}})
+
 NeoBundleLazy "Shougo/neosnippet" ,{ 'depends' : 'Shougo/neosnippet-snippets' }
 NeoBundleLazy "Shougo/neosnippet-snippets"
 NeoBundle 'kana/vim-smartchr'
@@ -125,7 +132,6 @@ NeoBundle 'Shougo/context_filetype.vim'
 NeoBundle 'ujihisa/neco-look'
 NeoBundle 'Shougo/neco-syntax'
 
-call neobundle#end()
 filetype plugin indent on
 syntax on
 
@@ -175,7 +181,6 @@ function! s:is_not_sourced(source)
     return neobundle#config#is_installed(a:source) && !neobundle#config#is_sourced(a:source)
 endfunction
 
-
 function! s:source()
     let sources =  map(filter(s:get_lazy_plugins(), "s:is_not_sourced(v:val)"), "v:val")
     if empty(sources)
@@ -200,6 +205,7 @@ let s:active_auto_source = 0
 " augroup END
 " }}}
 
+call neobundle#end()
 " }}}
 
 " neocomplete(neocomplcache) & neosnippet{{{
@@ -215,12 +221,6 @@ if has('vim_starting')
         NeoBundleSource neosnippet
     endfunction
 endif
-
-call neobundle#config('neocomplete',{
-            \'lazy' : 1,
-            \ 'autoload' : {
-            \ 'insert' : 1,
-            \}})
 
 " Use neocomplete.
 let g:neocomplete_enable_at_startup             = 0 " 起動時に有効化
@@ -352,12 +352,6 @@ if has('vim_starting')
         NeoBundleSource neocomplcache
     endfunction
 endif
-
-call neobundle#config('neocomplcache',{
-            \'lazy' : 1,
-            \ 'autoload' : {
-            \ 'insert' : 1,
-            \}})
 
 " Use neocomplcache.
 let g:neocomplcache_enable_at_startup             = 0 " 起動時に有効化
