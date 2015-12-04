@@ -131,6 +131,8 @@ NeoBundle 'tpope/vim-abolish'
 NeoBundle 'Shougo/context_filetype.vim'
 NeoBundle 'ujihisa/neco-look'
 NeoBundle 'Shougo/neco-syntax'
+NeoBundle 'fuenor/JpFormat.vim'
+NeoBundle 'vim-scripts/DrawIt'
 
 filetype plugin indent on
 syntax on
