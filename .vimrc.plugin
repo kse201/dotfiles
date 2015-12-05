@@ -133,6 +133,12 @@ NeoBundle 'ujihisa/neco-look'
 NeoBundle 'Shougo/neco-syntax'
 NeoBundle 'fuenor/JpFormat.vim'
 NeoBundle 'vim-scripts/DrawIt'
+NeoBundle 'kana/vim-filetype-haskell'
+NeoBundle 'eagletmt/ghcmod-vim'
+NeoBundle 'ujihisa/neco-ghc'
+NeoBundle 'osyo-manga/vim-watchdogs'
+NeoBundle 'thinca/vim-ref'
+NeoBundle 'ujihisa/ref-hoogle'
 
 filetype plugin indent on
 syntax on
