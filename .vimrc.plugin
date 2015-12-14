@@ -139,6 +139,7 @@ NeoBundle 'ujihisa/neco-ghc'
 NeoBundle 'osyo-manga/vim-watchdogs'
 NeoBundle 'thinca/vim-ref'
 NeoBundle 'ujihisa/ref-hoogle'
+NeoBundle 'majutsushi/tagbar.git'
 
 filetype plugin indent on
 syntax on
