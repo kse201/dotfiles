@@ -449,7 +449,7 @@ function man() { /usr/bin/man $* -P "col -b | vim -Rc 'setl ft=man ts=8 nomod no
 
 ########################################
 # packages
-PLUGIN_CONFIG="$HOME/.zsh.d/config/antigen.conf"
+PLUGIN_CONFIG="$HOME/.zsh.d/config/zplug.conf"
 if [ -e ${PLUGIN_CONFIG} ] ; then
     source ${PLUGIN_CONFIG}
 fi
