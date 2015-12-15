@@ -19,7 +19,7 @@ elseif has('win32unix')
 elseif has('mac')
     let g:vimproc_dll_path = $VIMFILE_DIR . '/bundle/vimproc/lib/vimproc_mac.so'
 else
-    let g:vimproc_dll_path = $VIMFILE_DIR . '/bundle/vimproc/lib/vimproc_linux64.so'
+    let g:vimproc_dll_path = $VIMFILE_DIR . '/bundle/vimproc/lib/vimproc_unix.so'
 endif
 " }}}
 
@@ -136,7 +136,6 @@ NeoBundle 'vim-scripts/DrawIt'
 NeoBundle 'kana/vim-filetype-haskell'
 NeoBundle 'eagletmt/ghcmod-vim'
 NeoBundle 'ujihisa/neco-ghc'
-NeoBundle 'osyo-manga/vim-watchdogs'
 NeoBundle 'thinca/vim-ref'
 NeoBundle 'ujihisa/ref-hoogle'
 NeoBundle 'majutsushi/tagbar.git'

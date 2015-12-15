@@ -1,7 +1,3 @@
-## 大いに参考させて頂きました(というかパクリ)
-# http://www.clear-code.com/blog/2011/9/5.html
-
-# is_exist() { [ -x "$(which "$1" 1>/dev/null 2>&1 || file "$1" 1>/dev/null 2>&1)" ]; }
 is_exist()  { which "$1" >/dev/null 2>&1; return $?; }
 
 if [ ! -f $HOME/.zshrc.zwc -o $HOME/.zshrc -nt $HOME/.zshrc.zwc ]; then
@@ -319,16 +315,12 @@ bindkey '^N' history-beginning-search-forward-end
 # eval `dircolors $HOME/.dir_colors`
 # color ls
 export ls_colors='no=01;37:fi=00:di=01;36:pi=40;33:so=01;35:bd=40;33:cd=40;33;01:or=40;32;01:ex=01;33:*core=01;31:'
-case `uname` in
-    "SunOS")
-        ;;
-    "Darwin") # BSD ls
+os=$(uname)
+if [ ${os} = "Darwin" ] ; then
         alias ls="ls -G"
-        ;;
-    *) # GNU ls
+else
         alias ls="ls --color=auto"
-        ;;
-esac
+fi
 # -i 確認 -v 詳細な情報の表示
 alias cp='cp -iv'
 # alias rm='rm -iv'
@@ -449,10 +441,36 @@ function man() { /usr/bin/man $* -P "col -b | vim -Rc 'setl ft=man ts=8 nomod no
 
 ########################################
 # packages
-PLUGIN_CONFIG="$HOME/.zsh.d/config/zplug.conf"
-if [ -e ${PLUGIN_CONFIG} ] ; then
-    source ${PLUGIN_CONFIG}
+PLUGIN_MNGR="${HOME}/.zplug/zplug"
+if [ ! -e ${PLUGIN_MNGR} ] ; then
+    curl -fLo ${PLUGIN_MNGR} --create-dirs https://git.io/zplug
 fi
+
+source ${PLUGIN_MNGR}
+
+zplug "autojump"
+zplug "mollifier/cd-gitroot"
+zplug "zsh-users/zsh-syntax-highlighting"
+zplug "zsh-users/zsh-completions"
+zplug "zsh-users/zsh-history-substring-search"
+zplug "zsh-users/zaw"
+zplug "mollifier/cd-bookmark"
+zplug "mollifier/anyframe"
+zplug "b4b4r07/enhancd", of:enhancd.sh
+zplug "zsh-users/zsh-history-substring-search", do:"__zsh_version 4.3"
+zplug "zsh-users/zsh-syntax-highlighting", nice:10
+zplug "zsh-users/zsh-completions"
+zplug "junegunn/fzf-bin", as:command, from:gh-r, file:fzf
+zplug "peco/peco", as:command, from:gh-r, of:"*amd64*"
+
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
+
+zplug load --verbose
 ########################################
 
 ########################################
