@@ -6,7 +6,7 @@ set -u
 is_exist()  { [ -x "$(which "$1")" ]; }
 
 DIR="${HOME}/.dotfiles"
-TARGET_FILES=".gitconfig .vimrc .vimrc.plugin .bashrc .zshrc .zsh.d .screenrc .tmuxrc .vim"
+TARGET_FILES=".gitconfig .vimrc .vimrc.plugin .bashrc .zshrc .screenrc .tmuxrc .vim"
 RETVAL=0
 REPOSITORY_URL="https://github.com/kse201/dotfiles"
 
