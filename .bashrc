@@ -150,8 +150,8 @@ man() {
 
 # screen
 export SCREENDIR="$HOME/.screens"
-if [ -d "$HOME/.logs"] ; then
-    mkdir "$HOME/.logs"
+if [ ! -e "$HOME/.log" ] ; then
+    mkdir "$HOME/.log"
 fi
 
 # local setting

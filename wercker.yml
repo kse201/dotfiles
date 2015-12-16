@@ -1,0 +1,12 @@
+box: centos
+build:
+    steps:
+    - script:
+        name: Preparing
+        code: |
+          yum install -y git
+    - script:
+        name: Run installer
+        code: |
+          curl https://raw.githubusercontent.com/kse201/dotfiles/${WERCKER_GIT_BRANCH}/etc/installer.sh | sh
+

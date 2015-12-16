@@ -482,6 +482,8 @@ endfunction
 function! MygoSettings()
     set noexpandtab
     set fdm=indent
+    set tabstop=4
+    set shiftwidth=4
     set fdl=1
 endfunction
 " }}}
