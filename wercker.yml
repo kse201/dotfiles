@@ -4,7 +4,7 @@ build:
     - script:
         name: Preparing
         code: |
-          yum install -y git
+          yum install -y git which
     - script:
         name: Run installer
         code: |
