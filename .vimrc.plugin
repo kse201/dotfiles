@@ -18,8 +18,10 @@ elseif has('win32unix')
     let g:vimproc_dll_path = $VIMFILE_DIR . '/bundle/vimproc/lib/vimproc_cygwin.dll'
 elseif has('mac')
     let g:vimproc_dll_path = $VIMFILE_DIR . '/bundle/vimproc/lib/vimproc_mac.so'
-else
+elseif has('macunix')
     let g:vimproc_dll_path = $VIMFILE_DIR . '/bundle/vimproc/lib/vimproc_unix.so'
+else
+    let g:vimproc_dll_path = $VIMFILE_DIR . '/bundle/vimproc/lib/vimproc_linux64.so'
 endif
 " }}}
 
