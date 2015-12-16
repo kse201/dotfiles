@@ -4,6 +4,11 @@
 # is_exist() { [ -x "$(which "$1" 1>/dev/null 2>&1 || file "$1" 1>/dev/null 2>&1)" ]; }
 is_exist()  { which "$1" >/dev/null 2>&1; return $?; }
 
+# Source global definitions
+if [ -f /etc/zshrc ]; then
+    . /etc/zshrc
+fi
+
 if [ ! -f $HOME/.zshrc.zwc -o $HOME/.zshrc -nt $HOME/.zshrc.zwc ]; then
     zcompile $HOME/.zshrc
 fi

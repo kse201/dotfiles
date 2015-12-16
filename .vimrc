@@ -497,6 +497,7 @@ augroup SkeletonAu
     autocmd BufNewFile *.c   0r $VIMFILE_DIR/skeleton/skel.c
     autocmd BufNewFile *.tex 0r $VIMFILE_DIR/skeleton/skel.tex
     autocmd BufNewFile *.rb  0r $VIMFILE_DIR/skeleton/skel.rb
+    autocmd BufNewFile *.py  0r $VIMFILE_DIR/skeleton/skel.py
 augroup END
 " }}}
 
