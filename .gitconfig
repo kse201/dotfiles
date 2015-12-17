@@ -47,8 +47,7 @@
     ignored  = !git ls-files -v | grep "^[a-z]" ; view ignored files
 
 # status
-    st       = status
-    sst      = status --short
+    st       = status --short --branch
 
 # show
     sh       = show
