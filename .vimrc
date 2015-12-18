@@ -408,6 +408,8 @@ let g:FileTypeSettings = [
             \ "sh", 
             \ "markdown",
             \ "go",
+            \ "javascript",
+            \ "coffee",
             \ "make"
             \]
 for MyFileType in g:FileTypeSettings
@@ -485,6 +487,17 @@ function! MygoSettings()
     set tabstop=4
     set shiftwidth=4
     set fdl=1
+endfunction
+" }}}
+" js,coffeescript {{{
+function! MyjavascriptSettings()
+    set shiftwidth=2
+    set softtabstop=2
+    set tabstop=2
+    set expandtab
+endfunction
+function! MycoffeeSettings()
+    call MyjavascriptSettings()
 endfunction
 " }}}
 " }}}
