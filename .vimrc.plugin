@@ -18,7 +18,7 @@ elseif has('win32unix')
     let g:vimproc_dll_path = $VIMFILE_DIR . '/bundle/vimproc/lib/vimproc_cygwin.dll'
 elseif has('mac')
     let g:vimproc_dll_path = $VIMFILE_DIR . '/bundle/vimproc/lib/vimproc_mac.so'
-elseif has('macunix')
+elseif has('unix')
     let g:vimproc_dll_path = $VIMFILE_DIR . '/bundle/vimproc/lib/vimproc_unix.so'
 else
     let g:vimproc_dll_path = $VIMFILE_DIR . '/bundle/vimproc/lib/vimproc_linux64.so'
@@ -393,10 +393,9 @@ function! Init_neocomplcache()
     imap <C-q>  <Plug>(neocomplcache_start_unite_complete)
 
     inoremap <expr><C-e>  neocomplcache#cancel_popup()
-    inoremap <expr><C-g>     neocomplcache#undo_completion()
+    inoremap <expr><C-g>  neocomplcache#undo_completion()
     inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
     inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-
 endfunction
 " }}}
 " Term neocomplcache{{{
@@ -829,7 +828,7 @@ function! MyModified()
 endfunction
 
 function! MyReadonly()
-  return &ft !~? 'help\|vimfiler\|gundo' && &ro ? '箝､' : ''
+  return &ft !~? 'help\|vimfiler\|gundo' && &ro ? '[RO]' : ''
 endfunction
 
 function! MyFilename()
