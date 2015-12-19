@@ -105,7 +105,7 @@ NeoBundleLazy 'thinca/vim-quickrun',
             \{ 'autoload' : {
             \'mappings' : ['<Plug>(quickrun)'],
             \ 'commands' : ['QuickRun']}}
-NeoBundleLazy 'airblade/vim-gitgutter'
+NeoBundle 'airblade/vim-gitgutter'
 NeoBundleLazy 'open-browser.vim', {'autoload' : {'mappings' :['<Plug>(open-browser-wwwsearch)','<Plug>(openbrowser-smart-search)']}}
 NeoBundle 'kana/vim-operator-user'
 NeoBundle 'osyo-manga/vim-anzu'
@@ -974,9 +974,6 @@ autocmd MyAutoCmd BufEnter * if &filetype =="text" | setlocal ft=hybrid | endif
 " }}}
 
 " vim-gitgutter{{{
-" let g:gitgutter_sign_added = '✚'
-" let g:gitgutter_sign_modified = '➜'
-" let g:gitgutter_sign_removed = '✘'
 let g:gitgutter_sign_added = '+'
 let g:gitgutter_sign_modified = '*'
 let g:gitgutter_sign_removed = '-'
@@ -1052,10 +1049,11 @@ function! MyGitGutter()
         \ || winwidth('.') <= 90
     return ''
   endif
+  let sep =''
   let symbols = [
-        \ g:gitgutter_sign_added . ' ',
-        \ g:gitgutter_sign_modified . ' ',
-        \ g:gitgutter_sign_removed . ' '
+        \ g:gitgutter_sign_added . sep,
+        \ g:gitgutter_sign_modified . sep,
+        \ g:gitgutter_sign_removed . sep
         \ ]
   let hunks = GitGutterGetHunkSummary()
   let ret = []
