@@ -69,8 +69,8 @@ call neobundle#config('neocomplcache',{
             \ 'insert' : 1,
             \}})
 
-NeoBundleLazy "Shougo/neosnippet" ,{ 'depends' : 'Shougo/neosnippet-snippets' }
-NeoBundleLazy "Shougo/neosnippet-snippets"
+NeoBundle "Shougo/neosnippet" ,{ 'depends' : 'Shougo/neosnippet-snippets' }
+NeoBundle "Shougo/neosnippet-snippets"
 NeoBundle 'kana/vim-smartchr'
 NeoBundleLazy 'mattn/emmet-vim', { 'autoload' : { 'filetypes' : ['html','css','js','php']}}
 " }}}
@@ -763,7 +763,7 @@ vmap <Leader><Leader> <Plug>NERDCommenterToggle
 " }}}
 
 " nerdtree{{{
-nnoremap <F11> :NERDTreeToggle<CR>
+nnoremap <F12> :NERDTreeToggle<CR>
 " }}}
 
 " QuickRun.vim{{{
@@ -817,8 +817,8 @@ vmap go <Plug>(openbrowser-smart-search)
 " }}}
 
 " vimfiler{{{
-nnoremap <leader>vf :<c-u>VimFilerCurrentDir -auto-cd -split  -no-quit -direction=topleft<cr>
-nnoremap <leader>vd :<c-u>VimFilerDouble -auto-cd -double -explorer -no-quit -direction=topleft<cr>
+nnoremap <F10> :<c-u>VimFilerCurrentDir -auto-cd -split  -no-quit -direction=topleft<cr>
+nnoremap <F11> :<c-u>VimFilerDouble -auto-cd -double -explorer -no-quit -direction=topleft<cr>
 
 let s:bundle = neobundle#get("vimfiler")
 " hooksの初期化
