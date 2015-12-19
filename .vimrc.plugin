@@ -673,8 +673,8 @@ function! s:bundle.hooks.on_source(bundle)
 
     " Like Textmate icons.
     let g:vimfiler_tree_leaf_icon = ' '
-    let g:vimfiler_tree_opened_icon = '▾'
-    let g:vimfiler_tree_closed_icon = '▸'
+    let g:vimfiler_tree_opened_icon = '笆ｾ'
+    let g:vimfiler_tree_closed_icon = '笆ｸ'
     let g:vimfiler_file_icon = '-'
     let g:vimfiler_marked_file_icon = '*'
 
@@ -829,7 +829,7 @@ function! MyModified()
 endfunction
 
 function! MyReadonly()
-  return &ft !~? 'help\|vimfiler\|gundo' && &ro ? '⭤' : ''
+  return &ft !~? 'help\|vimfiler\|gundo' && &ro ? '箝､' : ''
 endfunction
 
 function! MyFilename()
@@ -915,7 +915,7 @@ function! MyCharCode()
 endfunction
 " }}}
 
-"" vim-anzu {{{
+" vim-anzu {{{
 nmap n <Plug>(anzu-n)zz
 nmap N <Plug>(anzu-N)zz
 nmap * <Plug>(anzu-star)zz
