@@ -221,12 +221,8 @@ if s:meet_neocomplete_requirements()
 if has('vim_starting') 
     augroup MyInitNeocomplete
         autocmd!
-        autocmd InsertEnter * call s:LazyLoadingForNeocom() | call Init_neocomplete() | autocmd! MyInitNeocomplete
+        autocmd InsertEnter * call Init_neocomplete() | autocmd! MyInitNeocomplete
     augroup END
-    function! s:LazyLoadingForNeocom()
-        NeoBundleSource neocomplete
-        NeoBundleSource neosnippet
-    endfunction
 endif
 
 let g:neocomplete_enable_at_startup             = 0
@@ -329,12 +325,8 @@ else
 if has('vim_starting') 
     augroup MyInitNeocomplcache
         autocmd!
-        autocmd InsertEnter * call s:LazyLoadingForNeocom() | call Init_neocomplcache() | autocmd! MyInitNeocomplcache
+        autocmd InsertEnter * call Init_neocomplcache() | autocmd! MyInitNeocomplcache
     augroup END
-    function! s:LazyLoadingForNeocom()
-        NeoBundleSource neosnippet
-        NeoBundleSource neocomplcache
-    endfunction
 endif
 
 " Use neocomplcache.
