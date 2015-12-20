@@ -2,7 +2,6 @@
 set -e
 set -u
 
-#is_exist()  { which "$1" >/dev/null 2>&1; return $?; }
 is_exist()  { [ -x "$(which "$1")" ]; }
 
 DIR="${HOME}/.dotfiles"
@@ -33,10 +32,6 @@ vim_dependencies() {
         return
     fi
     echo "unite.vim installed."
-
-    if is_exist "vim" ; then
-        vim -c "NeoBundleInstall"
-    fi
 }
 
 dotfiles_install() {
@@ -54,10 +49,15 @@ dotfiles_install() {
     vim_dependencies
 }
 
-if ! is_exist 'git' ; then
-    echo "Error: 'git' not found in ${PATH}"
-    return 1
-fi
+
+cmds="git make"
+for cmd in ${cmds} ; do
+    if ! is_exist ${cmd} ; then
+        echo "Error: '${cmd}' not found in ${PATH}"
+        return 1
+    fi
+done
+
 dotfiles_install
 
 exit "${RETVAL}"

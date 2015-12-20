@@ -32,43 +32,27 @@
     alias    = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort
 
     ls       = ls-files
-    rema     = rebase origin/master master
     info     = remote show origin
     who      = shortlog --numbered --summary --email --no-merges --since='3 months'
 	pr-setup = config --add remote.origin.fetch+refs/pull/*/head:refs/remotes/origin/pr/*
-
-# clone
-    cl       = clone
-    cr       = clone --recursive
 
 # ignore 
     ignore   = update-index --assume-unchanged
     unignore = update-index --no-assume-unchanged
     ignored  = !git ls-files -v | grep "^[a-z]" ; view ignored files
-
 # status
     st       = status --short --branch
-
-# show
-    sh       = show
-    sb       = show-branch
-
 # commit
-    cm       = commit
     cmt      = commit -v
-    cma      = commit -a -v
     amend    = commit --amend
 
 # checkout 
     co       = checkout
     ct       = checkout -t 
-    master   = checkout master
     delete-merged-branches = !git branch --merged | grep -v \\* | xargs -I % git branch -d %
     fetch-pulls = fetch origin +refs/pull/*:refs/remotes/pull/*
 
 # diff
-    d        = diff -w --color-words
-    dc       = diff --cached
     df       = diff -w
     ds       = diff --stat
     today    = diff @{yesterday}.. --stat
@@ -78,16 +62,6 @@
     l        = log --graph --date-order -C -M --pretty=format:'%C(red)%h%Creset - %C(green)%ad %C(Cyan)[%an]%C(Yellow)%d%Creset %s' --date=short
     lg       = log --graph --date-order -C -M --pretty=format:'%C(red)%h%Creset - %C(green)%ad %C(Cyan)[%an]%C(Yellow)%d%Creset %s' --all --date=short
     activity = log --format='%ai' --all | sed 's/^\\(....-..\\).*/\\1/' | sort | uniq -c
-
-# stash
-    ss       = stash                        # stash changes
-    sl       = stash list                   # list stashes
-    sa       = stash apply                  # apply stash (restore changes)
-    sd       = stash drop                   # drop stashes (destory changes)
-
-# reset
-    undo     = reset --hard HEAD
-    undo-1   = reset --hard HEAD~1
 
 [help]
     autocorrect = 1
