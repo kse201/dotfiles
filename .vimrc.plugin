@@ -147,6 +147,7 @@ NeoBundleLazy 'kana/vim-filetype-haskell' , {'autoload' : {'filetypes' : ['haske
 NeoBundle 'ujihisa/neco-ghc' , {'autoload' : {'filetypes' : ['haskell']} }
 NeoBundleLazy 'eagletmt/ghcmod-vim', {'autoload' : {'filetypes' : ['haskell']} }
 NeoBundle 'majutsushi/tagbar.git'
+NeoBundle 'simeji/winresizer'
 
 filetype plugin indent on
 syntax on
