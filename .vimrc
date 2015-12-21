@@ -53,35 +53,35 @@ endif
 " configs and dirctorys {{{
 if has('win32') || has('win64') 
     let $VIMFILE_DIR   = $HOME . '/dotfiles/.vim'
-    let $MYVIMRC       = "~/dotfiles/.vimrc"
-    let $MYGVIMRC      = "~/dotfiles/.gvimrc"
-    let $MYVIMRCPLUGIN = "~/dotfiles/.vimrc.plugin"
-    let $MYVIMRCLOCAL = "~/dotfiles/.vimrc.local"
+    let $MYVIMRC       = $HOME . "/dotfiles/.vimrc"
+    let $MYGVIMRC      = $HOME . "/dotfiles/.gvimrc"
+    let $MYVIMRCPLUGIN = $HOME . "/dotfiles/.vimrc.plugin"
+    let $MYVIMRCLOCAL = $HOME . "/dotfiles/.vimrc.local"
     set backupdir=$HOME/_vimbackup
     let $BACKUPDIR=$HOME ."/_vimbackup"
     set dir=$HOME/AppData/Local/Temp
 elseif has('win32unix')
     let $VIMFILE_DIR   = $HOME . '/vimfiles'
-    let $MYVIMRC       = "~/vimfiles/_vimrc"
-    let $MYGVIMRC      = "~/vimfiles/_gvimrc"
-    let $MYVIMRCPLUGIN = "~/vimfiles/_vimrc.plugin"
-    let $MYVIMRCLOCAL = "~/vimfiles/.vimrc.local"
+    let $MYVIMRC       = $HOME . "/vimfiles/_vimrc"
+    let $MYGVIMRC      = $HOME . "/vimfiles/_gvimrc"
+    let $MYVIMRCPLUGIN = $HOME . "/vimfiles/_vimrc.plugin"
+    let $MYVIMRCLOCAL = $HOME . "/vimfiles/.vimrc.local"
     set backupdir=$HOME/_vimbackup
     let $BACKUPDIR=$HOME ."/_vimbackup"
     set dir=$HOME/AppData/Local/Temp
 elseif has('mac')
     let $VIMFILE_DIR   = $HOME . '/.vim'
     let $MYVIMRCPLUGIN = $HOME . "/.vimrc.plugin"
-    let $MYVIMRC       = "~/.vimrc"
-    let $MYGVIMRC      = "~/.gvimrc"
-    let $MYVIMRCPLUGIN = "~/.vimrc.plugin"
-    let $MYVIMRCLOCAL = "~/.vimrc.local"
+    let $MYVIMRC       = $HOME . "/.vimrc"
+    let $MYGVIMRC      = $HOME . "/.gvimrc"
+    let $MYVIMRCPLUGIN = $HOME . "/.vimrc.plugin"
+    let $MYVIMRCLOCAL = $HOME . "/.vimrc.local"
     set backupdir=$HOME/.vimbackup
     let $BACKUPDIR=$HOME."/.vimbackup"
 else
     let $VIMFILE_DIR   = $HOME . '/.vim'
-    let $MYVIMRC       = "~/.vimrc"
-    let $MYGVIMRC      = "~/.gvimrc"
+    let $MYVIMRC       = $HOME . "/.vimrc"
+    let $MYGVIMRC      = $HOME . "/.gvimrc"
     let $MYVIMRCPLUGIN = $HOME . "/.vimrc.plugin"
     let $MYVIMRCLOCAL = $HOME . "/.vimrc.local"
     set backupdir=$HOME/.vimbackup
@@ -331,7 +331,6 @@ endfunction
 set tabline=%!MakeTabLine()
 
 function! s:tabpage_label(n)
-    " t:titleという変数があったらそれを使う
     if v:version >= 703 
         let title = gettabvar(a:n, 'title')
     else
@@ -342,15 +341,10 @@ function! s:tabpage_label(n)
         return title
     endif
 
-    " タブページ内のバッファのリスト
     let bufnrs = tabpagebuflist(a:n)
-    " カレントタブページかどうかでハイライトを切り替える
     let hi = a:n is tabpagenr() ? '%#TabLineSel#' : '%#TabLine#'
 
-    " タブページ内に変更ありのバッファがあったら'+'をつける
     let mod = len(filter(copy(bufnrs), 'getbufvar(v:val, "&modified")')) ? '[+]' : ''
-    " let sp = (no . mod) ==# '' ? '' : ' ' " 隙間を空ける
-    " カレントバッファ
     let curbufnr = bufnrs[tabpagewinnr(a:n) - 1] " tabpagewinnr()は1 origin
     let fname = pathshorten(bufname(curbufnr))
 
@@ -408,6 +402,8 @@ let g:FileTypeSettings = [
             \ "sh", 
             \ "markdown",
             \ "go",
+            \ "javascript",
+            \ "coffee",
             \ "make"
             \]
 for MyFileType in g:FileTypeSettings
@@ -482,7 +478,20 @@ endfunction
 function! MygoSettings()
     set noexpandtab
     set fdm=indent
+    set tabstop=4
+    set shiftwidth=4
     set fdl=1
+endfunction
+" }}}
+" js,coffeescript {{{
+function! MyjavascriptSettings()
+    set shiftwidth=2
+    set softtabstop=2
+    set tabstop=2
+    set expandtab
+endfunction
+function! MycoffeeSettings()
+    call MyjavascriptSettings()
 endfunction
 " }}}
 " }}}
@@ -497,6 +506,7 @@ augroup SkeletonAu
     autocmd BufNewFile *.c   0r $VIMFILE_DIR/skeleton/skel.c
     autocmd BufNewFile *.tex 0r $VIMFILE_DIR/skeleton/skel.tex
     autocmd BufNewFile *.rb  0r $VIMFILE_DIR/skeleton/skel.rb
+    autocmd BufNewFile *.py  0r $VIMFILE_DIR/skeleton/skel.py
 augroup END
 " }}}
 
@@ -531,7 +541,7 @@ augroup Change
 augroup END
 " }}}
 
-" 純粋な(コメント,空行を除いた)vimrc戦闘力を図る {{{
+" vimrc power {{{
 " :Scouter
 function! Scouter(file, ...)
     let pat = '^\s*$\|^\s*"'
@@ -547,7 +557,7 @@ command! -bar -bang -nargs=? -complete=file GScouter
             \        echo Scouter(empty(<q-args>) ? $MYGVIMRC : expand(<q-args>), <bang>0)
 " }}}
 
-" vimでモーション(or選択範囲)をレジスタの内容で置き換えるオペレータ{{{
+" operator {{{
 function! ReplaceMotion(type, ...)
     let sel_save = &selection
     let &selection = "inclusive"
@@ -937,15 +947,6 @@ nnoremap <Leader>bp :<C-u>bp<CR>
 nnoremap <Leader>bd :<C-u>bdelete<CR>
 " }}}
 
-" Tab Page{{{
-" nnoremap <S-t> :<C-u>tabnew<CR>
-" nnoremap <S-h> :<C-u>tabp<CR>
-" nnoremap <S-l> :<C-u>tabn<CR>
-
-" nnoremap <Leader>k H
-" nnoremap <Leader>j L
-" }}}
-
 " search selecting string {{{
 vnoremap <silent> // y/<C-R>=escape(@", '\\/.*$^~[]')<CR><CR>
 " replace selecting string 
@@ -993,7 +994,6 @@ vnoremap <Leader>eval y:@"<Enter>
 nnoremap <C-x><C-e> Vy:@"<Enter>
 " }}}
 
-" s*でカーソル下のキーワードを置換
 nnoremap <expr> s* ':%s/\<' . expand('<cword>') . '\>/'
 vnoremap <expr> s* ':s/\<' . expand('<cword>') . '\>/'
 " }}}

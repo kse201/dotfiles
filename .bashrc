@@ -1,5 +1,10 @@
 is_exist()  { which "$1" >/dev/null 2>&1 ; return $?; }
 
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+    . /etc/bashrc
+fi
+
 export LANG='ja_JP.UTF-8'
 export LC_ALL='ja_JP.UTF-8'
 export LC_MESSAGES='ja_JP.UTF-8'
@@ -145,8 +150,8 @@ man() {
 
 # screen
 export SCREENDIR="$HOME/.screens"
-if [ ! -e "$HOME/.logs" ] ; then
-    mkdir "$HOME/.logs"
+if [ ! -e "$HOME/.log" ] ; then
+    mkdir "$HOME/.log"
 fi
 
 # local setting
