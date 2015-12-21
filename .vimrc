@@ -53,35 +53,35 @@ endif
 " configs and dirctorys {{{
 if has('win32') || has('win64') 
     let $VIMFILE_DIR   = $HOME . '/dotfiles/.vim'
-    let $MYVIMRC       = "~/dotfiles/.vimrc"
-    let $MYGVIMRC      = "~/dotfiles/.gvimrc"
-    let $MYVIMRCPLUGIN = "~/dotfiles/.vimrc.plugin"
-    let $MYVIMRCLOCAL = "~/dotfiles/.vimrc.local"
+    let $MYVIMRC       = $HOME . "/dotfiles/.vimrc"
+    let $MYGVIMRC      = $HOME . "/dotfiles/.gvimrc"
+    let $MYVIMRCPLUGIN = $HOME . "/dotfiles/.vimrc.plugin"
+    let $MYVIMRCLOCAL = $HOME . "/dotfiles/.vimrc.local"
     set backupdir=$HOME/_vimbackup
     let $BACKUPDIR=$HOME ."/_vimbackup"
     set dir=$HOME/AppData/Local/Temp
 elseif has('win32unix')
     let $VIMFILE_DIR   = $HOME . '/vimfiles'
-    let $MYVIMRC       = "~/vimfiles/_vimrc"
-    let $MYGVIMRC      = "~/vimfiles/_gvimrc"
-    let $MYVIMRCPLUGIN = "~/vimfiles/_vimrc.plugin"
-    let $MYVIMRCLOCAL = "~/vimfiles/.vimrc.local"
+    let $MYVIMRC       = $HOME . "/vimfiles/_vimrc"
+    let $MYGVIMRC      = $HOME . "/vimfiles/_gvimrc"
+    let $MYVIMRCPLUGIN = $HOME . "/vimfiles/_vimrc.plugin"
+    let $MYVIMRCLOCAL = $HOME . "/vimfiles/.vimrc.local"
     set backupdir=$HOME/_vimbackup
     let $BACKUPDIR=$HOME ."/_vimbackup"
     set dir=$HOME/AppData/Local/Temp
 elseif has('mac')
     let $VIMFILE_DIR   = $HOME . '/.vim'
     let $MYVIMRCPLUGIN = $HOME . "/.vimrc.plugin"
-    let $MYVIMRC       = "~/.vimrc"
-    let $MYGVIMRC      = "~/.gvimrc"
-    let $MYVIMRCPLUGIN = "~/.vimrc.plugin"
-    let $MYVIMRCLOCAL = "~/.vimrc.local"
+    let $MYVIMRC       = $HOME . "/.vimrc"
+    let $MYGVIMRC      = $HOME . "/.gvimrc"
+    let $MYVIMRCPLUGIN = $HOME . "/.vimrc.plugin"
+    let $MYVIMRCLOCAL = $HOME . "/.vimrc.local"
     set backupdir=$HOME/.vimbackup
     let $BACKUPDIR=$HOME."/.vimbackup"
 else
     let $VIMFILE_DIR   = $HOME . '/.vim'
-    let $MYVIMRC       = "~/.vimrc"
-    let $MYGVIMRC      = "~/.gvimrc"
+    let $MYVIMRC       = $HOME . "/.vimrc"
+    let $MYGVIMRC      = $HOME . "/.gvimrc"
     let $MYVIMRCPLUGIN = $HOME . "/.vimrc.plugin"
     let $MYVIMRCLOCAL = $HOME . "/.vimrc.local"
     set backupdir=$HOME/.vimbackup
