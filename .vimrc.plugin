@@ -150,7 +150,7 @@ syntax on
 if neobundle#exists_not_installed_bundles()
     echomsg 'Not installed bundles :' .
                 \ string(neobundle#get_not_installed_bundle_names())
-    echomsg 'Please execute ":NeoBundleInstall" command.' 
+    echomsg 'Please execute ":NeoBundleInstall" command.'
 endif
 
 command! Nbi :NeoBundleInstall
@@ -213,7 +213,7 @@ call neobundle#end()
 " neocomplete(neocomplcache) & neosnippet{{{
 if s:meet_neocomplete_requirements()
 " neocomplete & neosnippet {{{
-if has('vim_starting') 
+if has('vim_starting')
     augroup MyInitNeocomplete
         autocmd!
         autocmd InsertEnter * call Init_neocomplete() | autocmd! MyInitNeocomplete
@@ -260,8 +260,8 @@ function! Init_neocomplete()
     inoremap <expr><C-y> neocomplete#close_popup()
 
     "snippet
-    imap <expr><CR> neosnippet#expandable_or_jumpable() ?   "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? neocomplete#close_popup() : "\<CR>" 
-    imap <expr><C-y> neosnippet#expandable_or_jumpable() ?   "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? neocomplete#close_popup() : "\<C-y>" 
+    imap <expr><CR> neosnippet#expandable_or_jumpable() ?   "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? neocomplete#close_popup() : "\<CR>"
+    imap <expr><C-y> neosnippet#expandable_or_jumpable() ?   "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? neocomplete#close_popup() : "\<C-y>"
     imap <expr><C-j> neosnippet#expandable_or_jumpable() ?   "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? neocomplete#close_popup() : "\<C-j>" pneobu
     imap <expr><TAB> neosnippet#expandable_or_jumpable() ?   "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
     smap <expr><TAB> neosnippet#expandable_or_jumpable() ?  "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
@@ -303,7 +303,7 @@ augroup EnableOmniCompleteion
     autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 augroup END
 " }}}
-" Enable heavy omni completion.{{{ 
+" Enable heavy omni completion.{{{
 if !exists('g:neocomplete_omni_patterns')
     let g:neocomplete_omni_patterns = {}
 endif
@@ -317,7 +317,7 @@ let g:neocomplete_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 " }}}
 else
 " neocomplcache & neosnippet {{{
-if has('vim_starting') 
+if has('vim_starting')
     augroup MyInitNeocomplcache
         autocmd!
         autocmd InsertEnter * call Init_neocomplcache() | autocmd! MyInitNeocomplcache
@@ -379,8 +379,8 @@ function! Init_neocomplcache()
     inoremap <expr><C-y> neocomplcache#close_popup()
 
     "snippet
-    imap <expr><CR> neosnippet#expandable_or_jumpable() ?   "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? neocomplcache#close_popup() : "\<CR>" 
-    imap <expr><C-y> neosnippet#expandable_or_jumpable() ?   "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? neocomplcache#close_popup() : "\<C-y>" 
+    imap <expr><CR> neosnippet#expandable_or_jumpable() ?   "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? neocomplcache#close_popup() : "\<CR>"
+    imap <expr><C-y> neosnippet#expandable_or_jumpable() ?   "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? neocomplcache#close_popup() : "\<C-y>"
     imap <expr><C-j> neosnippet#expandable_or_jumpable() ?   "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? neocomplcache#close_popup() : "\<C-j>" pneobu
     imap <expr><TAB> neosnippet#expandable_or_jumpable() ?   "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
     smap <expr><TAB> neosnippet#expandable_or_jumpable() ?  "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
@@ -420,7 +420,7 @@ augroup EnableOmniCompleteion
     autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 augroup END
 " }}}
-" Enable heavy omni completion.{{{ 
+" Enable heavy omni completion.{{{
 if !exists('g:neocomplcache_omni_patterns')
     let g:neocomplcache_omni_patterns = {}
 endif
@@ -471,12 +471,12 @@ nnoremap <silent> <SID>[unite]f :<C-u>Unite -buffer-name=files file<CR>
 " file
 nnoremap <silent> <SID>[unite]m :<C-u>Unite -buffer-name=file_mru file_mru<CR>
 " my favorite contents
-nnoremap <silent> <SID>[unite]a :<C-u>UniteWithBufferDir -winheight=100 -hide-source-names -input= -buffer-name=files -no-split 
-            \ output:echo\ "\ ===\ BUFFER\ ===\ " buffer 
-            \ output:echo\ "\ ===\ TAB\ ===\ " tab 
-            \ output:echo\ "\ ===\ FILE\ ===\ " file 
-            \ output:echo\ "\ ===\ BOOKMARK\ ===\ "  bookmark 
-            \ output:echo\ "\ ===\ FILE_MRU\ ===\ "  file_mru  
+nnoremap <silent> <SID>[unite]a :<C-u>UniteWithBufferDir -winheight=100 -hide-source-names -input= -buffer-name=files -no-split
+            \ output:echo\ "\ ===\ BUFFER\ ===\ " buffer
+            \ output:echo\ "\ ===\ TAB\ ===\ " tab
+            \ output:echo\ "\ ===\ FILE\ ===\ " file
+            \ output:echo\ "\ ===\ BOOKMARK\ ===\ "  bookmark
+            \ output:echo\ "\ ===\ FILE_MRU\ ===\ "  file_mru
             \ output:echo\ "\ ===\ FILE/NEW\ ===\ "  file/new <CR>
 nnoremap <silent> <SID>[unite]d :<C-u>Unite directory_mru<CR>
 nnoremap <silent> <SID>[unite]r :<C-u>Unite register<CR>
@@ -521,7 +521,7 @@ function! s:unite_source_myCommand.gather_candidates(args,conext)
                 \ "NeoBundleSource"  : "Unite neobundle/lazy",
                 \"Neobundle Log" : "NeoBundleLog",
                 \"Show relative number" : "RN",
-                \ "TODO list" : "Unite line -input=TODO", 
+                \ "TODO list" : "Unite line -input=TODO",
                 \ 'vertical diff' : "vertical diffsplit ",
                 \ 'Bookmark' : "Unite bookmark",
                 \}
@@ -601,7 +601,7 @@ nnoremap <F12> :NERDTreeToggle<CR>
 " }}}
 
 " QuickRun.vim{{{
-try 
+try
     if !exists("g:quickrun_config")
         let g:quickrun_config={}
         let g:quickrun_config = {
@@ -624,7 +624,7 @@ try
     " \'type': 'markdown/pandoc',
     " \'cmdopt' : '-s',
     " " \'command': 'bluecloth',
-    " " \'exec': '%c -f %s', 
+    " " \'exec': '%c -f %s',
     "}}}
     " Ruby{{{
     let g:quickrun_config['Ruby'] = {
@@ -673,7 +673,7 @@ function! s:bundle.hooks.on_source(bundle)
     let g:vimfiler_marked_file_icon = '*'
 
     " Use trashbox.
-    augroup VimFiler 
+    augroup VimFiler
         autocmd!
         autocmd FileType vimfiler call s:vimfiler_my_settings()
     augroup END
@@ -694,9 +694,9 @@ if exists(":IndentGuidesEnable")
     let g:indent_guides_color_change_percent=30
     let g:indent_guides_guide_size=1
     let g:fileIndentGuide=[
-                \"c", 
-                \"ruby", 
-                \"python", 
+                \"c",
+                \"ruby",
+                \"python",
                 \"vim"
                 \]
     for ft in g:fileIndentGuide
@@ -733,7 +733,7 @@ vmap <Leader>" S"
 " }}}
 
 " qfixhowm {{{
-let QFixHowm_Key='g' 
+let QFixHowm_Key='g'
 
 let howm_dir = $HOME."/howm"
 let howm_filename = '%Y/%m/%Y-%m-%d-%H%M%S.txt'
@@ -770,7 +770,7 @@ augroup END
 
 " alignta.vim{{{
 let g:Align_xstrlen=3
-vnoremap <Leader>a :Alignta 
+vnoremap <Leader>a :Alignta
 xnoremap <silent> A  :Alignta =>\=<CR>
 xnoremap <silent> a: :Alignta  01 :<CR>
 xmap <silent><expr> as mode() !=# 'v' ? ':Alignta \S\+'."\<CR>" : 'as'
@@ -947,5 +947,5 @@ let g:syntastic_python_checkers = ['pyflakes', 'pep8']
 " }}}
 
 let g:gocomplete#system_function = 'vimproc#system'
-"" ================================================================================ 
+"" ================================================================================
 " vim: set tw=0 tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
