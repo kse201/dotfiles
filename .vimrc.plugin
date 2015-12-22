@@ -7,22 +7,16 @@ augroup MyAutoCmd
 augroup END
 
 " vimproc.vim{{{
-if has('win64')
+let s:vimprocs= [ 'win64.dll', 'win32.dll', 'cygwin.dll', 'mac.so', 'linux64.so', 'linux32.so', 'unix.so' ]
+if has('win64') || has('win32') || has('win32unix')
     set shellslash
-    let g:vimproc_dll_path = $VIMFILE_DIR . '/bundle/vimproc/lib/vimproc_win64.dll'
-elseif has('win32')
-    set shellslash
-    let g:vimproc_dll_path = $VIMFILE_DIR . '/bundle/vimproc/lib/vimproc_win32.dll'
-elseif has('win32unix')
-    set shellslash
-    let g:vimproc_dll_path = $VIMFILE_DIR . '/bundle/vimproc/lib/vimproc_cygwin.dll'
-elseif has('mac')
-    let g:vimproc_dll_path = $VIMFILE_DIR . '/bundle/vimproc/lib/vimproc_mac.so'
-elseif filereadable(expand($VIMFILE_DIR . '/bundle/vimproc/lib/vimproc_linux64.so'))
-    let g:vimproc_dll_path = $VIMFILE_DIR . '/bundle/vimproc/lib/vimproc_linux64.so'
-else
-    let g:vimproc_dll_path = $VIMFILE_DIR . '/bundle/vimproc/lib/vimproc_unix.so'
 endif
+for suff in s:vimprocs
+    let s:vimproc = $VIMFILE_DIR . '/bundle/vimproc/lib/vimproc_' . suff
+    if filereadable(expand(s:vimproc))
+        let g:vimproc_dll_path = expand(s:vimproc)
+    endif
+endfor
 " }}}
 
 " neobundle.vim{{{
