@@ -9,27 +9,27 @@ augroup END
 
 let mapleader=','
 set shortmess+=I
-set nocompatible
-set modeline
-set noswapfile
-set complete+=k
-set noequalalways
-set history=100
-set vb t_vb=
-set autowrite
-set backspace=indent,eol,start
-set diffopt=filler,vertical
-set showcmd
-set showtabline=2
-set guioptions+=c
-set guioptions-=e
-set formatoptions-=ro 
-set report=0
-set formatexpr=
-set autoread
-set clipboard=unnamed
-set hidden
-set timeout timeoutlen=500 ttimeoutlen=75
+  \ nocompatible
+  \ modeline
+  \ swapfile
+  \ complete+=k
+  \ noequalalways
+  \ history=100
+  \ vb t_vb=
+  \ autowrite
+  \ backspace=indent,eol,start
+  \ diffopt=filler,vertical
+  \ showcmd
+  \ showtabline=2
+  \ guioptions+=c
+  \ guioptions-=e
+  \ formatoptions-=ro
+  \ report=0
+  \ formatexpr=
+  \ autoread
+  \ clipboard=unnamed
+  \ hidden
+  \ timeout timeoutlen=500 ttimeoutlen=75
 " \ -> ¥{{{
 if has('mac')
     inoremap ¥ \
@@ -45,13 +45,12 @@ endif
 
 " reuse undo history{{{
 if has('persistent_undo')
-    set undodir=~/.vimundo
-    set undofile
-endif 
+    set undodir=~/.vimundo undofile
+endif
 " }}}
 
 " configs and dirctorys {{{
-if has('win32') || has('win64') 
+if has('win32') || has('win64')
     let $VIMFILE_DIR   = $HOME . '/dotfiles/.vim'
     let $MYVIMRC       = $HOME . "/dotfiles/.vimrc"
     let $MYGVIMRC      = $HOME . "/dotfiles/.gvimrc"
@@ -109,7 +108,7 @@ command! ReloadVimrc source $MYVIMRC
 command! ReloadGVimrc source $MYGVIMRC
 command! ReloadPlugin source $MYVIMRCPLUGIN
 
-" auto changeing color when reload .vimrc 
+" auto changeing color when reload .vimrc
 autocmd MyAutoCmd BufWritePost $MYVIMRC  source $MYVIMRC  |
             \ if has('gui_running') |
             \ source $MYGVIMRC
@@ -121,7 +120,7 @@ autocmd MyAutoCmd BufWritePost $MYVIMRCPLUGIN source $MYGVIMRC
 augroup Autoplace
     autocmd!
     autocmd BufWritePre *.[^{mkd}] :%s/\s\+$//ge
-augroup END 
+augroup END
 
 " }}}
 
@@ -150,11 +149,7 @@ endif
 
 " IME settings
 if has('multi_byte_ime') && has('xim') && has('gui_macvim') " TODO: vefify this equation
-    "insert mode :lmap off, IME ON
-    set iminsert=2
-    "Search mode : lmap off, IME ON
-    set imsearch=2
-    "Normal mode : IME off
+    set iminsert=2 imsearch=2
     inoremap <silent> <ESC> <ESC>:set iminsert=0
 endif
 " }}}
@@ -162,15 +157,11 @@ endif
 " file encoding {{{
 " Auto encoding{{{
 if has('gui_running') && (has('win32') || has('win64'))
-    set enc=utf-8
-    " set fenc=utf-8
-    set fencs=iso-2011-jp,enc-jp,sjis,cp932,utf-8
+    set enc=utf-8 fencs=iso-2011-jp,enc-jp,sjis,cp932,utf-8 termencoding=utf-8
     scriptencoding cp932
-    set termencoding=utf-8
 else
     if &encoding !=# 'utf-8'
-        set encoding=japan
-        set fileencoding=japan
+        set encoding=japan fileencoding=japan
     endif
     if has('iconv')
         let s:enc_euc = 'euc-jp'
@@ -232,28 +223,22 @@ endif
 
 " surface {{{
 set notitle
-set display=uhex
-set scrolloff=1
-set showbreak=+
-set display=lastline
-set laststatus=2
-set wrap
-
-set wildmenu
-set wildmode=list:full
-set wildchar=<TAB>
+  \ display=uhex
+  \ scrolloff=1
+  \ showbreak=+
+  \ display=lastline
+  \ laststatus=2
+  \ wrap
+  \ wildmenu
+  \ wildmode=list:full
+  \ wildchar=<TAB>
 
 " Indent {{{
 filetype indent on
-set autoindent
-set smartindent
-set smarttab
-set expandtab
-set shiftwidth=4
-set tabstop=4
+set autoindent smartindent smarttab expandtab shiftwidth=4 tabstop=4
 " }}}
 
-" status line 
+" status line
 autocmd MyAutoCmd BufEnter *   if winwidth(0) >= 60 |
             \ set statusline=[%n]\ %t\ %m%R%H%W%y\ %([%{&fenc}][%{&ff}]%)\ %([%l(%p%%),%v]%)(%B)\ |
             \ else |
@@ -324,14 +309,14 @@ function! MakeTabLine()
     let sep = '|'
     let tabpages = join(titles , sep) . sep . '%#TabLineFill#%T'
     let path = fnamemodify(getcwd(),":~")
-    let time = strftime("%H:%M") 
-    return   tabpages . '%=' .path .' '. time 
+    let time = strftime("%H:%M")
+    return   tabpages . '%=' .path .' '. time
 endfunction
 
 set tabline=%!MakeTabLine()
 
 function! s:tabpage_label(n)
-    if v:version >= 703 
+    if v:version >= 703
         let title = gettabvar(a:n, 'title')
     else
         let title = ''
@@ -352,7 +337,7 @@ function! s:tabpage_label(n)
         let fname = ' '
     endif
 
-    let label = a:n .":" .  fname . mod 
+    let label = a:n .":" .  fname . mod
 
     return '%' . a:n . 'T' . hi . label .  '%T%#TabLineFill#'
 
@@ -376,11 +361,7 @@ endif
 " }}}
 
 " search {{{
-set ignorecase
-set smartcase
-set incsearch
-set showmatch
-set nowrapscan
+set ignorecase smartcase incsearch showmatch nowrapscan
 
 " grep
 nnoremap <buffer><silent> K :vim <C-r><C-w> **/*[ch]<CR>
@@ -396,10 +377,10 @@ endif
 " Language setting {{{
 " Prefix{{{
 let g:FileTypeSettings = [
-            \ "vim", 
-            \ "ruby", 
+            \ "vim",
+            \ "ruby",
             \ "python",
-            \ "sh", 
+            \ "sh",
             \ "markdown",
             \ "go",
             \ "javascript",
@@ -426,8 +407,7 @@ function! MyrubySettings()
     "inoremap <buffer> <  <><Left>
     inoremap  <buffer> " ""<Left>
     inoremap  <buffer> ' ''<Left>
-    set shiftwidth=2
-    set tabstop=2
+    set shiftwidth=2 tabstop=2
     let g:ref_use_vimproc=1
     let g:ref_refe_version=2
     nmap ,rr :<C-u>Ref refe<Space>
@@ -437,7 +417,7 @@ function! MyrubySettings()
         au FileType ruby,eruby setl tags+=~/rtags,~/gtags
     endif
     compiler ruby
-    let ruby_space_errors=1 
+    let ruby_space_errors=1
 endfunction
 " }}}
 " Python{{{
@@ -448,9 +428,7 @@ function! MypythonSettings()
     "inoremap <buffer> <  <><Left>
     inoremap  <buffer> " ""<Left>
     inoremap  <buffer> ' ''<Left>
-    set expandtab
-    set shiftwidth=4
-    set tabstop=4
+    set expandtab shiftwidth=4 tabstop=4
     compiler python
 endfunction
 " }}}
@@ -458,7 +436,7 @@ endfunction
 function! MymarkdownSettings()
     if has("folding")
         setlocal foldmethod=expr
-    endif 
+    endif
     if has ("folding") &&has("eval")
         setlocal foldexpr=Markdown(v:lnum)
     endif
@@ -476,19 +454,12 @@ endfunction
 " }}}
 " golang {{{
 function! MygoSettings()
-    set noexpandtab
-    set fdm=indent
-    set tabstop=4
-    set shiftwidth=4
-    set fdl=1
+    set noexpandtab fdm=indent tabstop=4 shiftwidth=4 fdl=1
 endfunction
 " }}}
 " js,coffeescript {{{
 function! MyjavascriptSettings()
-    set shiftwidth=2
-    set softtabstop=2
-    set tabstop=2
-    set expandtab
+    set shiftwidth=2 softtabstop=2 tabstop=2 expandtab
 endfunction
 function! MycoffeeSettings()
     call MyjavascriptSettings()
@@ -642,7 +613,7 @@ if exists("*strftime")
     inoremap <Leader>date <C-R>=strftime('%Y/%m/%d (%a)')<CR>
     inoremap <Leader>jdate <C-R>=strftime('%Y年%m月%d日 %a曜日')<CR>
     inoremap <Leader>time <C-R>=strftime('%H:%M')<CR>
-    inoremap  <Leader>rr <C-R>=strftime('%H%M%S_%d%b')<CR>
+    inoremap <Leader>rr <C-R>=strftime('%H%M%S_%d%b')<CR>
     inoremap <expr> <Leader>df strftime('%Y/%m/%d %H:%M:%S')
     inoremap <expr> <Leader>dd strftime('%Y/%m/%d')
     inoremap <expr> <Leader>dt strftime('%H:%M:%S')
@@ -662,8 +633,8 @@ command! -nargs=? -complete=command SmartSplit call <SID>smart_split(<q-args>)
 nnoremap <silent><C-w><Space> :<C-u>SmartSplit<CR>
 function! s:smart_split(cmd)
     if winwidth(0)/2  >= winheight(0) * 1.6
-        vsplit 
-    else 
+        vsplit
+    else
         split
     endif
 
@@ -685,7 +656,7 @@ function! s:rotate_in_line()
     if c == col('.')
         if cmd == '^'
             normal! $
-        else 
+        else
             normal! 0
         endif
     endif
@@ -702,7 +673,7 @@ function! s:force_blockwise_visual(next_key)
         return "\<C-v>" . a:next_key
     elseif mode() ==# 'V'
         return "\<C-v>0o$" . a:next_key
-    else 
+    else
         return a:next_key
     endif
 endfunction
@@ -712,8 +683,8 @@ command! Sudowrite :w !sudo tee %
 
 " easy open file in current dirctory{{{
 " ref: http://qiita.com/ukitazume/items/c1d2814497bc036f1a82
-cnoremap %% <C-R>=expand('%:h').'/'<cr>                                                                                                              
-cmap <leader>e :edit %% 
+cnoremap %% <C-R>=expand('%:h').'/'<cr>
+cmap <leader>e :edit %%
 " }}}
 
 "command! CopyRelativePath {{{
@@ -853,7 +824,7 @@ nnoremap <Leader>tc :tabclose<CR>
 for i in range(1,9)
     execute "nnoremap " . i . "<Leader>t " . i ."gt"
 endfor
-" command! TL :tabnext 
+" command! TL :tabnext
 " command! TH :tabprevious
 " command! TN :tabnew
 " }}}
@@ -901,7 +872,7 @@ inoreabbrev <expr> dl- repeat('-','80')
 nnoremap gb `.zz
 
 " nnoremap gi gbz<Enter>
-" <C-g><M-g>:jump edit poit forward direction 
+" <C-g><M-g>:jump edit poit forward direction
 nnoremap <C-b> g;
 nnoremap <M-b> g,
 
@@ -949,7 +920,7 @@ nnoremap <Leader>bd :<C-u>bdelete<CR>
 
 " search selecting string {{{
 vnoremap <silent> // y/<C-R>=escape(@", '\\/.*$^~[]')<CR><CR>
-" replace selecting string 
+" replace selecting string
 vnoremap /r "xy;%s/<C-R>=escape(@x, '\\/.*$^~[]')<CR>//gc<Left><Left><Left>"
 " }}}
 
@@ -1013,4 +984,4 @@ endif
 
 syntax on
 "============================================================
-" vim:set tw=0 tabstop=4 shiftwidth=4 fdm=marker fdl=0: 
+" vim:set tw=0 tabstop=4 shiftwidth=4 fdm=marker fdl=0:

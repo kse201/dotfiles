@@ -41,7 +41,7 @@
     unignore = update-index --no-assume-unchanged
     ignored  = !git ls-files -v | grep "^[a-z]" ; view ignored files
 # status
-    st       = status -sb
+    st       = status --short --branch
 # commit
     cmt      = commit -v
     amend    = commit --amend
