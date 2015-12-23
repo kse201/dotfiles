@@ -50,48 +50,29 @@ endif
 " }}}
 
 " configs and dirctorys {{{
-if has('win32') || has('win64')
-    let $VIMFILE_DIR   = $HOME . '/dotfiles/.vim'
-    let $MYVIMRC       = $HOME . "/dotfiles/.vimrc"
-    let $MYGVIMRC      = $HOME . "/dotfiles/.gvimrc"
-    let $MYVIMRCPLUGIN = $HOME . "/dotfiles/.vimrc.plugin"
-    let $MYVIMRCLOCAL = $HOME . "/dotfiles/.vimrc.local"
-    set backupdir=$HOME/_vimbackup
-    let $BACKUPDIR=$HOME ."/_vimbackup"
-    set dir=$HOME/AppData/Local/Temp
+if has('win32') || has('win64') || has('win32unix')
+    let s:dotfile_home = $HOME . '/dotfiles'
+    let s:hidden_prefix = '.'
+    set backupdir=$HOME/_vimbackup dir=$HOME/AppData/Local/Temp
 elseif has('win32unix')
-    let $VIMFILE_DIR   = $HOME . '/vimfiles'
-    let $MYVIMRC       = $HOME . "/vimfiles/_vimrc"
-    let $MYGVIMRC      = $HOME . "/vimfiles/_gvimrc"
-    let $MYVIMRCPLUGIN = $HOME . "/vimfiles/_vimrc.plugin"
-    let $MYVIMRCLOCAL = $HOME . "/vimfiles/.vimrc.local"
-    set backupdir=$HOME/_vimbackup
-    let $BACKUPDIR=$HOME ."/_vimbackup"
-    set dir=$HOME/AppData/Local/Temp
-elseif has('mac')
-    let $VIMFILE_DIR   = $HOME . '/.vim'
-    let $MYVIMRCPLUGIN = $HOME . "/.vimrc.plugin"
-    let $MYVIMRC       = $HOME . "/.vimrc"
-    let $MYGVIMRC      = $HOME . "/.gvimrc"
-    let $MYVIMRCPLUGIN = $HOME . "/.vimrc.plugin"
-    let $MYVIMRCLOCAL = $HOME . "/.vimrc.local"
-    set backupdir=$HOME/.vimbackup
-    let $BACKUPDIR=$HOME."/.vimbackup"
+    let $dotfile_home = $HOME.'/vimfiles'
+    let $hidden_prefix = '_'
 else
-    let $VIMFILE_DIR   = $HOME . '/.vim'
-    let $MYVIMRC       = $HOME . "/.vimrc"
-    let $MYGVIMRC      = $HOME . "/.gvimrc"
-    let $MYVIMRCPLUGIN = $HOME . "/.vimrc.plugin"
-    let $MYVIMRCLOCAL = $HOME . "/.vimrc.local"
+    let g:dotfile_home = $HOME 
+    let $hidden_prefix = '.'
     set backupdir=$HOME/.vimbackup
-    let $BACKUPDIR=$HOME."/.vimbackup""
 endif
+let $VIMFILE_DIR  = s:dotfile_home.'/'.s:hidden_prefix.'vim'
+let $VIMRC        = s:dotfile_home.'/'.s:hidden_prefix.'vimrc'
+let $GVIMRC       = s:dotfile_home.'/'.s:hidden_prefix.'gvimrc'
+let $VIMRC_PLUGING = s:dotfile_home.'/'.s:hidden_prefix.'vimrc.plugin'
+let $VIMRC_LOCAL  = s:dotfile_home.'/'.s:hidden_prefix.'vimrc.local'
 " }}}
 
 " edit configs {{{
-nnoremap <Leader>ev :edit $MYVIMRC<CR>
-nnoremap <Leader>eg :edit $MYGVIMRC<CR>
-nnoremap <Leader>ep :edit $MYVIMRCPLUGIN<CR>
+nnoremap <Leader>ev :edit $VIMRC<CR>
+nnoremap <Leader>eg :edit $GVIMRC<CR>
+nnoremap <Leader>ep :edit $VIMRC_PLUGING<CR>
 " }}}
 
 " Auto Loading .vimrc,.gvimrc {{{
@@ -104,16 +85,16 @@ if has("autocmd")
     autocmd BufEnter * :cd %:p:h
 endif
 
-command! ReloadVimrc source $MYVIMRC
-command! ReloadGVimrc source $MYGVIMRC
-command! ReloadPlugin source $MYVIMRCPLUGIN
+command! ReloadVimrc source $VIMRC
+command! ReloadGVimrc source $GVIMRC
+command! ReloadPlugin source $VIMRC_PLUGING
 
 " auto changeing color when reload .vimrc
-autocmd MyAutoCmd BufWritePost $MYVIMRC  source $MYVIMRC  |
+autocmd MyAutoCmd BufWritePost $VIMRC  source $VIMRC  |
             \ if has('gui_running') |
-            \ source $MYGVIMRC
-autocmd MyAutoCmd BufWritePost $MYGVIMRC source $MYGVIMRC
-autocmd MyAutoCmd BufWritePost $MYVIMRCPLUGIN source $MYGVIMRC
+            \ source $GVIMRC
+autocmd MyAutoCmd BufWritePost $GVIMRC source $GVIMRC
+autocmd MyAutoCmd BufWritePost $VIMRC_PLUGING source $GVIMRC
 " }}}
 
 " Auto delete line-end Space{{{
@@ -523,9 +504,9 @@ function! Scouter(file, ...)
     return len(filter(lines,'v:val !~ pat'))
 endfunction
 command! -bar -bang -nargs=? -complete=file Scouter
-            \        echo Scouter(empty(<q-args>) ? $MYVIMRC : expand(<q-args>), <bang>0)
+            \        echo Scouter(empty(<q-args>) ? $VIMRC : expand(<q-args>), <bang>0)
 command! -bar -bang -nargs=? -complete=file GScouter
-            \        echo Scouter(empty(<q-args>) ? $MYGVIMRC : expand(<q-args>), <bang>0)
+            \        echo Scouter(empty(<q-args>) ? $GVIMRC : expand(<q-args>), <bang>0)
 " }}}
 
 " operator {{{
@@ -971,14 +952,14 @@ vnoremap <expr> s* ':s/\<' . expand('<cword>') . '\>/'
 
 " Plugin{{{
 " if filereadable(expand('~/.vimrc.plugin'))
-if filereadable(expand($MYVIMRCPLUGIN))
-    source $MYVIMRCPLUGIN
+if filereadable(expand($VIMRC_PLUGING))
+    source $VIMRC_PLUGING
 endif
 " }}}
 "
 " local setting{{{
-if filereadable(expand($MYVIMRCLOCAL))
-    source $MYVIMRCLOCAL
+if filereadable(expand($VIMRC_LOCAL))
+    source $VIMRC_LOCAL
 endif
 " }}}
 
