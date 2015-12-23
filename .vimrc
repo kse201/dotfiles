@@ -56,12 +56,10 @@ if has('win32') || has('win64') || has('win32unix')
     set backupdir=$HOME/_vimbackup dir=$HOME/AppData/Local/Temp
 elseif has('win32unix')
     let $dotfile_home = $HOME.'/vimfiles'
-    let $hidden_prefix = '_'
+    let s:hidden_prefix = '_'
 else
     let s:dotfile_home = $HOME
     let s:hidden_prefix = '.'
-    let g:dotfile_home = $HOME 
-    let $hidden_prefix = '.'
     set backupdir=$HOME/.vimbackup
 endif
 let $VIMFILE_DIR  = s:dotfile_home.'/'.s:hidden_prefix.'vim'
@@ -375,7 +373,7 @@ for g:MyFileType in g:FileTypeSettings
 endfor
 " }}}
 " vim{{{
-function! g:g:MyvimSettings()
+function! g:MyvimSettings()
     inoremap ' ''<Left>
     inoremap " ""<left>
     inoremap ( ()<Left>
