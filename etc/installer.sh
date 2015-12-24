@@ -8,6 +8,7 @@ DIR="${HOME}/.dotfiles"
 TARGET_FILES=".gitconfig .vimrc .vimrc.plugin .bashrc .zshrc .screenrc .tmux.conf .vim"
 RETVAL=0
 REPOSITORY_URL="https://github.com/kse201/dotfiles"
+dependencies="git make gcc"
 
 dotfiles_download() {
     git clone "${REPOSITORY_URL}" "${DIR}"
@@ -49,11 +50,9 @@ dotfiles_install() {
     vim_dependencies
 }
 
-
-cmds="git make gcc"
-for cmd in ${cmds} ; do
-    if ! is_exist ${cmd} ; then
-        echo "Error: '${cmd}' not found in ${PATH}"
+for dep in ${dependencies} ; do
+    if ! is_exist "${dep}" ; then
+        echo "Error: '${dep}' not found in ${PATH}"
         return 1
     fi
 done
