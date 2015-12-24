@@ -4,7 +4,7 @@ build:
     - script:
         name: Preparing
         code: |
-          yum install -y git make which
+          yum install -y git make which gcc
     - script:
         name: Run installer
         code: |

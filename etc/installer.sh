@@ -50,7 +50,7 @@ dotfiles_install() {
 }
 
 
-cmds="git make"
+cmds="git make gcc"
 for cmd in ${cmds} ; do
     if ! is_exist ${cmd} ; then
         echo "Error: '${cmd}' not found in ${PATH}"
