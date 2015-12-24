@@ -330,8 +330,8 @@ endfunction
 
 " Backup{{{
 
-if !isdirectory($BACKUPDIR)
-    call mkdir($BACKUPDIR,'p')
+if !isdirectory(&backupdir)
+    call mkdir(&backupdir,'p')
 endif
 set backup
 if exists('*strftime')
