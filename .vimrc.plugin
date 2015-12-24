@@ -230,7 +230,7 @@ let g:NeoComplete_MinSyntaxLength               = 3
 let g:neocomplete_lock_buffer_name_pattern      = '\*ku\*'
 let g:neocomplete#skip_auto_completion_time = '0.2'
 
-let g:neocomplete#sources = { '_' : ['file', 'tag', 'neosnippet', 'vim', 'omni', 'member', 'syntax', 'include', 'buffer', 'file/include']}
+let g:neocomplete#sources = { '_' : ['file', 'tag', 'vim', 'omni', 'member', 'syntax', 'include', 'buffer', 'file/include']}
 
 " Define dictionary.
 let g:neocomplete_dictionary_filetype_lists = {
@@ -347,7 +347,7 @@ let g:neocomplcache_skip_auto_completion_time     = '0.2'
 if !exists('g:neocomplcache_sources_list')
     let g:neocomplcache_sources_list = {}
 endif
-let g:neocomplcache_sources_list._ = ['filename_include', 'member_complete', 'buffer_complete', 'include_complete', 'neosnippet', 'vim_complete', 'omni_complete', 'tags_complete']
+let g:neocomplcache_sources_list._ = ['filename_include', 'member_complete', 'buffer_complete', 'include_complete', 'vim_complete', 'omni_complete', 'tags_complete']
 
 
 " Define dictionary.
