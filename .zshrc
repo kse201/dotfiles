@@ -533,3 +533,11 @@ fi
 if is_exist "cabal" ; then
     export PATH=$HOME/.cabal/bin:$PATH
 fi
+
+# fzf
+if [ -f "${HOME}"/.fzf.zsh ] ; then
+    source "${HOME}"/.fzf.zsh
+else
+    git clone --depth 1 https://github.com/junegunn/fzf.git "${HOME}"/.fzf
+    "${HOME}"/.fzf/install && source "${HOME}"/.fzf.zsh
+fi
