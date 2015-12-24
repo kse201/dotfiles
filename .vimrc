@@ -7,7 +7,7 @@ augroup MyAutoCmd
     autocmd!
 augroup END
 
-let mapleader=','
+let g:mapleader=','
 set shortmess+=I
   \ nocompatible
   \ modeline
@@ -58,6 +58,8 @@ elseif has('win32unix')
     let $dotfile_home = $HOME.'/vimfiles'
     let $hidden_prefix = '_'
 else
+    let s:dotfile_home = $HOME
+    let s:hidden_prefix = '.'
     let g:dotfile_home = $HOME 
     let $hidden_prefix = '.'
     set backupdir=$HOME/.vimbackup
@@ -76,13 +78,13 @@ nnoremap <Leader>ep :edit $VIMRC_PLUGING<CR>
 " }}}
 
 " Auto Loading .vimrc,.gvimrc {{{
-if has("autocmd")
+if has('autocmd')
     filetype plugin indent on
     autocmd MyAutoCmd BufReadPost *
                 \ if line("'\"") > 0 && line("'\"") <= line("$") |
                 \ exe "normal! g'\"" |
                 \ endif
-    autocmd BufEnter * :cd %:p:h
+    autocmd MyAutoCmd BufEnter * :cd %:p:h
 endif
 
 command! ReloadVimrc source $VIMRC
@@ -184,12 +186,12 @@ endif
 
 " use encoding as fileencoding when file NOT contan japanese {{{
 if has('autocmd')
-    function! AU_ReCheck_FENC()
+    function! g:AU_ReCheck_FENC()
         if &fileencoding =~# 'iso-2022-jp' && search("[^\x01-\x7e]", 'n') == 0
             let &fileencoding=&encoding
         endif
     endfunction
-    autocmd MyAutoCmd BufReadPost * call AU_ReCheck_FENC()
+    autocmd MyAutoCmd BufReadPost * call g:AU_ReCheck_FENC()
 endif
 " }}}
 
@@ -285,42 +287,42 @@ endif
 
 " tabline{{{
 " ref:http://d.hatena.ne.jp/thinca/20111204/1322932585
-function! MakeTabLine()
-    let titles = map(range(1, tabpagenr('$')),'s:tabpage_label(v:val)' )
-    let sep = '|'
-    let tabpages = join(titles , sep) . sep . '%#TabLineFill#%T'
-    let path = fnamemodify(getcwd(),":~")
-    let time = strftime("%H:%M")
-    return   tabpages . '%=' .path .' '. time
+function! g:MakeTabLine()
+    let l:titles = map(range(1, tabpagenr('$')),'s:tabpage_label(v:val)' )
+    let l:sep = '|'
+    let l:tabpages = join(l:titles , l:sep) . l:sep . '%#TabLineFill#%T'
+    let l:path = fnamemodify(getcwd(),':~')
+    let l:time = g:strfl:time('%H:%M')
+    return   l:tabpages . '%=' .l:path .' '. l:time
 endfunction
 
-set tabline=%!MakeTabLine()
+set tabline=%!g:MakeTabLine()
 
 function! s:tabpage_label(n)
     if v:version >= 703
-        let title = gettabvar(a:n, 'title')
+        let l:title = gettabvar(a:n, 'l:title')
     else
-        let title = ''
+        let l:title = ''
     endif
 
-    if title !=# ''
-        return title
+    if l:title !=# ''
+        return l:title
     endif
 
-    let bufnrs = tabpagebuflist(a:n)
-    let hi = a:n is tabpagenr() ? '%#TabLineSel#' : '%#TabLine#'
+    let l:bufnrs = tabpagebuflist(a:n)
+    let l:hi = a:n is tabpagenr() ? '%#TabLineSel#' : '%#TabLine#'
 
-    let mod = len(filter(copy(bufnrs), 'getbufvar(v:val, "&modified")')) ? '[+]' : ''
-    let curbufnr = bufnrs[tabpagewinnr(a:n) - 1] " tabpagewinnr()は1 origin
-    let fname = pathshorten(bufname(curbufnr))
+    let l:mod = len(filter(copy(l:bufnrs), 'getbufvar(v:val, "&l:modified")')) ? '[+]' : ''
+    let l:curbufnr = l:bufnrs[tabpagewinnr(a:n) - 1] " tabpagewinnr()は1 origin
+    let l:fname = pathshorten(g:bul:fname(l:curbufnr))
 
-    if fname == ''
-        let fname = ' '
+    if l:fname ==# ''
+        let l:fname = ' '
     endif
 
-    let label = a:n .":" .  fname . mod
+    let l:label = a:n .':' .  l:fname . l:mod
 
-    return '%' . a:n . 'T' . hi . label .  '%T%#TabLineFill#'
+    return '%' . a:n . 'T' . l:hi . l:label .  '%T%#TabLineFill#'
 
 endfunction
 
@@ -331,13 +333,13 @@ endfunction
 " Backup{{{
 
 if !isdirectory($BACKUPDIR)
-    call mkdir($BACKUPDIR,"p")
+    call mkdir($BACKUPDIR,'p')
 endif
 set backup
-if exists("*strftime")
-    au MyAutoCmd BufWritePre * let &bex = '-' . strftime("%y%m%d%H%M") . '~'
-elseif
-    au MyAutoCmd BufWritePre * let &bex = '-' . localtime("%y%m%d%H%M") . '~'
+if exists('*strftime')
+    au MyAutoCmd BufWritePre * let &bex = '-' . strftime('%y%m%d%H%M') . '~'
+else
+    au MyAutoCmd BufWritePre * let &bex = '-' . localtime('%y%m%d%H%M') . '~'
 endif
 " }}}
 
@@ -350,7 +352,7 @@ nnoremap <buffer><silent> K :vim <C-r><C-w> **/*[ch]<CR>
 
 " <ESC>  {{{
 " <ESC> or <C-c> key reset Highlight
-if has("gui_running")
+if has('gui_running')
     nnoremap <silent> <ESC> <ESC>:<C-u>nohlsearch<CR>:<C-u>set iminsert=0<CR>
 endif
 " }}}
@@ -358,29 +360,29 @@ endif
 " Language setting {{{
 " Prefix{{{
 let g:FileTypeSettings = [
-            \ "vim",
-            \ "ruby",
-            \ "python",
-            \ "sh",
-            \ "markdown",
-            \ "go",
-            \ "javascript",
-            \ "coffee",
-            \ "make"
+            \ 'vim',
+            \ 'ruby',
+            \ 'python',
+            \ 'sh',
+            \ 'markdown',
+            \ 'go',
+            \ 'javascript',
+            \ 'coffee',
+            \ 'make'
             \]
-for MyFileType in g:FileTypeSettings
-    execute "autocmd MyAutoCmd FileType " . MyFileType . " call My" . MyFileType . "Settings()"
+for g:MyFileType in g:FileTypeSettings
+    execute 'autocmd MyAutoCmd FileType ' . g:MyFileType . ' call g:My' . g:MyFileType . 'Settings()'
 endfor
 " }}}
 " vim{{{
-function! MyvimSettings()
+function! g:g:MyvimSettings()
     inoremap ' ''<Left>
     inoremap " ""<left>
     inoremap ( ()<Left>
 endfunction
 " }}}
 " Ruby{{{
-function! MyrubySettings()
+function! g:MyrubySettings()
     set dictionary=$HOME/.vim/dict/ruby.dict
     inoremap  <buffer> ( ()<Left>
     inoremap  <buffer> [ []<Left>
@@ -393,16 +395,16 @@ function! MyrubySettings()
     let g:ref_refe_version=2
     nmap ,rr :<C-u>Ref refe<Space>
     let g:rsenseUseOmniFunc=1
-    let g:rsenseHome = "/usr/local/Cellar/rsense/0.3/libexec"
+    let g:rsenseHome = '/usr/local/Cellar/rsense/0.3/libexec'
     if filereadable(expand('~/rtags'))
-        au FileType ruby,eruby setl tags+=~/rtags,~/gtags
+        au MyAutoCmd FileType ruby,eruby setl tags+=~/rtags,~/gtags
     endif
     compiler ruby
-    let ruby_space_errors=1
+    let l:ruby_space_errors=1
 endfunction
 " }}}
 " Python{{{
-function! MypythonSettings()
+function! g:MypythonSettings()
     inoremap  <buffer> ( ()<Left>
     inoremap  <buffer> [ []<Left>
     inoremap  <buffer> <> <><Left>
@@ -414,36 +416,36 @@ function! MypythonSettings()
 endfunction
 " }}}
 " markdown {{{
-function! MymarkdownSettings()
-    if has("folding")
+function! g:MymarkdownSettings()
+    if has('folding')
         setlocal foldmethod=expr
     endif
-    if has ("folding") &&has("eval")
-        setlocal foldexpr=Markdown(v:lnum)
+    if has ('folding') &&has('eval')
+        setlocal foldexpr=g:Markdown(v:lnum)
     endif
 
-    function! Markdown(lnum)
-        let level = matchend(getline(a:lnum), '^#\+')
-        return level > 0 ? '>' . level : '='
+    function! g:Markdown(lnum)
+        let l:level = matchend(getline(a:lnum), '^#\+')
+        return l:level > 0 ? '>' . l:level : '='
     endfunction
 endfunction
 " }}}
 " make {{{
-function! MymakeSettings()
+function! g:MymakeSettings()
     set noexpandtab
 endfunction
 " }}}
 " golang {{{
-function! MygoSettings()
+function! g:MygoSettings()
     set noexpandtab fdm=indent tabstop=4 shiftwidth=4 fdl=1
 endfunction
 " }}}
 " js,coffeescript {{{
-function! MyjavascriptSettings()
+function! g:MyjavascriptSettings()
     set shiftwidth=2 softtabstop=2 tabstop=2 expandtab
 endfunction
-function! MycoffeeSettings()
-    call MyjavascriptSettings()
+function! g:MycoffeeSettings()
+    call g:MyjavascriptSettings()
 endfunction
 " }}}
 " }}}
@@ -495,26 +497,26 @@ augroup END
 
 " vimrc power {{{
 " :Scouter
-function! Scouter(file, ...)
-    let pat = '^\s*$\|^\s*"'
-    let lines = readfile(a:file)
+function! g:Scouter(file, ...)
+    let l:pat = '^\s*$\|^\s*"'
+    let l:lines = readfile(a:file)
     if !a:0 || !a:1
-        let lines = split(substitute(join(lines, "\n"), '\n\s*\\', '', 'g'), "\n")
+        let l:lines = split(substitute(join(l:lines, "\n"), '\n\s*\\', '', 'g'), "\n")
     endif
-    return len(filter(lines,'v:val !~ pat'))
+    return len(filter(l:lines,'v:val !~ l:pat'))
 endfunction
 command! -bar -bang -nargs=? -complete=file Scouter
-            \        echo Scouter(empty(<q-args>) ? $VIMRC : expand(<q-args>), <bang>0)
+            \        echo g:Scouter(empty(<q-args>) ? $VIMRC : expand(<q-args>), <bang>0)
 command! -bar -bang -nargs=? -complete=file GScouter
-            \        echo Scouter(empty(<q-args>) ? $GVIMRC : expand(<q-args>), <bang>0)
+            \        echo g:Scouter(empty(<q-args>) ? $GVIMRC : expand(<q-args>), <bang>0)
 " }}}
 
 " operator {{{
-function! ReplaceMotion(type, ...)
-    let sel_save = &selection
-    let &selection = "inclusive"
-    let reg_save = @@
-    let mark_save = getpos("'a")
+function! g:ReplaceMotion(type, ...)
+    let l:sel_save = &selection
+    let &selection = 'inclusive'
+    let l:reg_save = @@
+    let l:mark_save = getpos("'a")
 
     if a:0 " visual mode
         silent exe "normal! '>$"
@@ -523,7 +525,7 @@ function! ReplaceMotion(type, ...)
         else
             silent exe 'normal! `>lma`<"_d`a"0P`<'
         endif
-    elseif a:type == 'char' " char motion
+    elseif a:type ==# 'char' " char motion
         silent exe "normal! ']$"
         if getpos("']") == getpos('.')
             silent exe 'normal! `["_d`]"_d$"0p`['
@@ -532,9 +534,9 @@ function! ReplaceMotion(type, ...)
         endif
     endif
 
-    let &selection = sel_save
-    let @@ = reg_save
-    call setpos("'a", mark_save)
+    let &selection = l:sel_save
+    let @@ = l:reg_save
+    call setpos("'a", l:mark_save)
 endfunction
 " }}}
 
@@ -590,7 +592,7 @@ command!
 " }}}
 
 " date iput Macro {{{
-if exists("*strftime")
+if exists('*strftime')
     inoremap <Leader>date <C-R>=strftime('%Y/%m/%d (%a)')<CR>
     inoremap <Leader>jdate <C-R>=strftime('%Y年%m月%d日 %a曜日')<CR>
     inoremap <Leader>time <C-R>=strftime('%H:%M')<CR>
@@ -629,13 +631,13 @@ endfunction
 " ref: http://qiita.com/items/ee4bf64b1fe2c0a32cbd
 nnoremap <silent>^ :<C-u>call <SID>rotate_in_line()<CR>
 function! s:rotate_in_line()
-    let c = col('.')
+    let l:c = col('.')
 
-    let cmd = c ==1 ? '^' : '$'
-    execute "normal! ".cmd
+    let l:cmd = l:c ==1 ? '^' : '$'
+    execute 'normal! '.l:cmd
 
-    if c == col('.')
-        if cmd == '^'
+    if l:c == col('.')
+        if l:cmd ==# '^'
             normal! $
         else
             normal! 0
@@ -674,9 +676,9 @@ cmap <leader>e :edit %%
 
 " indent all line (non cursolr move ) {{{
 function! s:format_file()
-    let view= winsaveview()
+    let l:view= winsaveview()
     normal gg=G
-    silent call winrestview(view)
+    silent call winrestview(l:view)
 endfunction
 nnoremap <SPACE>f :call <SID>format_file()<CR>
 " }}}
@@ -689,10 +691,10 @@ augroup END
 " }}}
 
 " Spell Check , Toriger F9 {{{
-nnoremap <F9> :call SpellToggle()<CR>
-function! SpellToggle()
+nnoremap <F9> :call g:SpellToggle()<CR>
+function! g:SpellToggle()
     setlocal spell!
-    if exists("g:syntax_on")
+    if exists('g:syntax_on')
         syntax off
     else
         syntax on
@@ -707,15 +709,15 @@ inoremap <Leader>rep [When]<CR>[Where]<CR>[Who]<CR>[What]<CR>[Why]<CR>[How]<CR>[
 " rm 0 byte file {{{
 autocmd MyAutoCmd BufWritePost * call s:Hykw_removeFileIf0Byte()
 function! s:Hykw_removeFileIf0Byte()
-  let filename = expand('%:p')
-  if getfsize(filename) > 0
+  let l:filename = expand('%:p')
+  if getfsize(l:filename) > 0
     " do nothing
     return
   endif
 
-  let msg = printf("\n%s is empty, remove?(y/N)", filename)
-  if input(msg) == 'y'
-    call delete(filename)
+  let l:msg = printf("\n%s is empty, remove?(y/N)", l:filename)
+  if input(l:msg) ==# 'y'
+    call delete(l:filename)
     bdelete
   endif
 endfunction
@@ -761,28 +763,28 @@ function! s:move_window_into_tab_page(target_tabpagenr)
     if a:target_tabpagenr < 0  " ignore invalid number.
         return
     endif
-    let original_tabnr = tabpagenr()
-    let target_bufnr = bufnr('')
-    let window_view = winsaveview()
+    let l:original_tabnr = tabpagenr()
+    let l:target_bufnr = bufnr('')
+    let l:window_view = winsaveview()
     if a:target_tabpagenr == 0
         tabnew
         tabmove  " Move new tabpage at the last.
-        execute target_bufnr 'buffer'
-        let target_tabpagenr = tabpagenr()
+        execute l:target_bufnr 'buffer'
+        let l:target_tabpagenr = tabpagenr()
     else
         execute a:target_tabpagenr 'tabnext'
-        let target_tabpagenr = a:target_tabpagenr
+        let l:target_tabpagenr = a:target_tabpagenr
         topleft new  " FIXME: be customizable?
-        execute target_bufnr 'buffer'
+        execute l:target_bufnr 'buffer'
     endif
-    call winrestview(window_view)
-    execute original_tabnr 'tabnext'
+    call winrestview(l:window_view)
+    execute l:original_tabnr 'tabnext'
     if 1 < winnr('$')
         close
     else
         enew
     endif
-    execute target_tabpagenr 'tabnext'
+    execute l:target_tabpagenr 'tabnext'
 endfunction
 " }}}
 
@@ -802,8 +804,8 @@ nnoremap gl gt
 nnoremap gh gT
 nnoremap <Leader>tn :tabnew<CR>
 nnoremap <Leader>tc :tabclose<CR>
-for i in range(1,9)
-    execute "nnoremap " . i . "<Leader>t " . i ."gt"
+for g:i in range(1,9)
+    execute 'nnoremap ' . g:i . '<Leader>t ' . g:i .'gt'
 endfor
 " command! TL :tabnext
 " command! TH :tabprevious
@@ -864,12 +866,12 @@ nnoremap vb `[v`]
 
 " change background buffer when no split window{{{
 " ref: https://sites.google.com/site/fudist/Home/vim-nihongo-ban/tips
-nnoremap <silent> <C-w><C-w> :<C-u>call MyWincmdW()<CR>
-nnoremap <silent> <C-w>w :<C-u>call MyWincmdW()<CR>
-function! MyWincmdW()
-    let pn = winnr()
+nnoremap <silent> <C-w><C-w> :<C-u>call g:MyWincmdW()<CR>
+nnoremap <silent> <C-w>w :<C-u>call g:MyWincmdW()<CR>
+function! g:MyWincmdW()
+    let l:pn = winnr()
     silent! wincmd w
-    if pn == winnr()
+    if l:pn == winnr()
         silent! b#
     endif
 endfunction
