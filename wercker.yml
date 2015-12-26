@@ -6,7 +6,19 @@ build:
         code: |
           yum install -y git make which gcc
     - script:
+        name: Preparing vim-vint
+        code: |
+          yum install -y python-setuptools
+          easy_install pip
+          # pip install chardetect
+          pip install vim-vint
+    - script:
         name: Run installer
         code: |
           curl https://raw.githubusercontent.com/kse201/dotfiles/${WERCKER_GIT_BRANCH}/etc/installer.sh | sh
-
+    - script:
+        name: check
+        code: |
+          vint ${HOME}/.vimrc
+          vint ${HOME}/.gvimrc
+          vint ${HOME}/.vimrc.plugin
