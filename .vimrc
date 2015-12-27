@@ -133,6 +133,22 @@ if has('multi_byte_ime') && has('xim') && has('gui_macvim') " TODO: vefify this 
     set iminsert=2 imsearch=2
     inoremap <silent> <ESC> <ESC>:set iminsert=0
 endif
+
+let g:loaded_gzip              = 1
+let g:loaded_tar               = 1
+let g:loaded_tarPlugin         = 1
+let g:loaded_zip               = 1
+let g:loaded_zipPlugin         = 1
+let g:loaded_rrhelper          = 1
+let g:loaded_2html_plugin      = 1
+let g:loaded_vimball           = 1
+let g:loaded_vimballPlugin     = 1
+let g:loaded_getscript         = 1
+let g:loaded_getscriptPlugin   = 1
+let g:loaded_netrw             = 1
+let g:loaded_netrwPlugin       = 1
+let g:loaded_netrwSettings     = 1
+let g:loaded_netrwFileHandlers = 1
 " }}}
 
 " file encoding {{{
@@ -720,6 +736,8 @@ function! s:Hykw_removeFileIf0Byte()
   endif
 endfunction
 " }}}
+
+cabbr w!! w !sudo tee > /dev/null %
 " }}}
 
 " keymap{{{
