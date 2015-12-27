@@ -516,7 +516,7 @@ let s:unite_source_myCommand ={
             \}
 
 function! s:unite_source_myCommand.gather_candidates(args,conext)
-    let cmds = {
+    let l:cmds = {
                 \'Unite LazyLoading' : 'Unite neobundle/lazy',
                 \'Neobundle  Update' : 'Unite neobundle/update',
                 \ 'NeoBundleSource'  : 'Unite neobundle/lazy',
@@ -526,12 +526,12 @@ function! s:unite_source_myCommand.gather_candidates(args,conext)
                 \ 'vertical diff' : 'vertical diffsplit ',
                 \ 'Bookmark' : 'Unite bookmark',
                 \}
-    return values(map(cmds,'{
+    return values(map(l:cmds,"{
                 \ 'word' : v:key,
                 \ 'source' : 'myCommand',
                 \ 'kind' : 'command',
                 \ 'action__command' : v:val
-                \}'))
+                \}"))
 endfunction
 call unite#define_source(s:unite_source_myCommand)
 nnoremap <SID>[unite]c :Unite myCommand<CR>
@@ -539,7 +539,7 @@ nnoremap <SID>[unite]c :Unite myCommand<CR>
 " }}}
 
 " smartchr.vim{{{
-if s:checkplugin("vim-smartchr" )
+if s:checkplugin('vim-smartchr' )
     cnoremap <expr> /
                 \ getcmdtype()=='/' ? '\/' : '/'
     cnoremap <Leader>/ /
@@ -603,7 +603,7 @@ nnoremap <F12> :NERDTreeToggle<CR>
 
 " QuickRun.vim{{{
 try
-    if !exists("g:quickrun_config")
+    if !exists('g:quickrun_config')
         let g:quickrun_config={}
         let g:quickrun_config = {
                     \   '*': {'runmode': 'async:remote:vimproc'},
@@ -629,8 +629,8 @@ try
     "}}}
     " Ruby{{{
     let g:quickrun_config['Ruby'] = {
-                \ "type" : "ruby",
-                \ "outputter" : "error:buffer:quickfix",
+                \ 'type' : 'ruby',
+                \ 'outputter' : 'error:buffer:quickfix',
                 \}
     " }}}
     " coffee-script{{{
@@ -863,14 +863,14 @@ function! MyGitGutter()
         \ g:gitgutter_sign_modified . sep,
         \ g:gitgutter_sign_removed . sep
         \ ]
-  let hunks = GitGutterGetHunkSummary()
-  let ret = []
+  let l:hunks = GitGutterGetHunkSummary()
+  let l:ret = []
   for i in [0, 1, 2]
-    if hunks[i] > 0
-      call add(ret, symbols[i] . hunks[i])
+    if l:hunks[i] > 0
+      call add(l:ret, symbols[i] . l:hunks[i])
     endif
   endfor
-  return join(ret, ' ')
+  return join(l:ret, ' ')
 endfunction
 
 " https://github.com/Lokaltog/vim-powerline/blob/develop/autoload/Powerline/Functions.vim
