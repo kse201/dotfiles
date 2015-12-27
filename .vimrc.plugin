@@ -22,16 +22,16 @@ endfor
 " neobundle.vim{{{
 set nocompatible
 filetype plugin indent off
-let g:bundle_dir = $VIMFILE_DIR."/bundle/"
+let g:bundle_dir = $VIMFILE_DIR.'/bundle/'
 if has('vim_starting')
-    if !isdirectory(expand(g:bundle_dir."neobundle.vim/"))
-        echo "install neobundle..."
-        :call system("git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim")
+    if !isdirectory(expand(g:bundle_dir.'neobundle.vim/'))
+        echo 'install neobundle...'
+        :call system('git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim')
     endif
-    exe "set rtp+=".g:bundle_dir."neobundle.vim"
+    exe 'set rtp+='.g:bundle_dir.'neobundle.vim'
 endif
 call neobundle#begin(expand(g:bundle_dir))
-let g:neobundle#types#git#default_protocol = 'https'
+let neobundle#types#git#default_protocol = 'https'
 unlet g:bundle_dir
 
 " dependents {{{
@@ -181,10 +181,10 @@ endfunction
 " list up lazy loagin plugins
 function! s:get_lazy_plugins()
     return [
-\       "unite.vim",
-\       "vimfiler.vim",
-\       "vim-quickrun",
-\   ] + map(filter(neobundle#config#get_neobundles(), "v:val.lazy"), "v:val.name")
+\       'unite.vim',
+\       'vimfiler.vim',
+\       'vim-quickrun',
+\   ] + map(filter(neobundle#config#get_neobundles(), 'v:val.lazy'), 'v:val.name')
 endfunction
 
 
@@ -193,16 +193,16 @@ function! s:is_not_sourced(source)
 endfunction
 
 function! s:source()
-    let sources =  map(filter(s:get_lazy_plugins(), "s:is_not_sourced(v:val)"), "v:val")
-    if empty(sources)
+    let l:sources =  map(filter(s:get_lazy_plugins(), 's:is_not_sourced(v:val)'), 'v:val')
+    if empty(l:sources)
         augroup auto-source
             autocmd!
         augroup END
         return
     endif
-    echom "source:" . sources[0]
-    call neobundle#source(sources[0])
-    echom "sourced:" . sources[0]
+    echom 'source:' . l:sources[0]
+    call neobundle#source(l:sources[0])
+    echom 'sourced:' . l:sources[0]
 endfunction
 
 let s:active_auto_source = 0
@@ -217,7 +217,7 @@ if s:meet_neocomplete_requirements()
 if has('vim_starting')
     augroup MyInitNeocomplete
         autocmd!
-        autocmd InsertEnter * call Init_neocomplete() | autocmd! MyInitNeocomplete
+        autocmd InsertEnter * call g:Init_neocomplete() | autocmd! MyInitNeocomplete
     augroup END
 endif
 
@@ -248,14 +248,14 @@ if !exists('g:neoComplete_keyword_patterns')
 endif
 let g:neoComplete_keyword_patterns['default'] = '\h\w*'
 
-if !exists("g:neosnippet#snippets_directory")
-    let g:neosnippet#snippets_directory=""
+if !exists('g:neosnippet#snippets_directory')
+    let g:neosnippet#snippets_directory=''
 endif
 let g:neosnippet#snippets_directory= $VIMFILE_DIR . '/snippets'
 let g:neosnippet#enable_snipmate_compatibility = 0
 
 " init neocomplete {{{
-function! Init_neocomplete()
+function! g:Init_neocomplete()
     NeoCompleteEnable
     inoremap <expr><C-l> neocomplete#complete_common_string()
     inoremap <expr><C-y> neocomplete#close_popup()
@@ -278,7 +278,7 @@ function! Init_neocomplete()
 endfunction
 " }}}
 " Term neocomplete{{{
-function! Term_neocomplete()
+function! g:Term_neocomplete()
     NeoCompleteDisable
     iunmap <C-g>
     iunmap <C-l>
@@ -291,8 +291,8 @@ function! Term_neocomplete()
     iunmap <TAB>
 endfunction
 " }}}
-command! InitNeoComplete call Init_neocomplete()
-command! TermNeoComplete call Term_neocomplete()
+command! InitNeoComplete call g:Init_neocomplete()
+command! TermNeoComplete call g:Term_neocomplete()
 
 " Enable omni completion. {{{
 augroup EnableOmniCompleteion
@@ -321,7 +321,7 @@ else
 if has('vim_starting')
     augroup MyInitNeocomplcache
         autocmd!
-        autocmd InsertEnter * call Init_neocomplcache() | autocmd! MyInitNeocomplcache
+        autocmd InsertEnter * call g:Init_neocomplcache() | autocmd! MyInitNeocomplcache
     augroup END
 endif
 
@@ -366,15 +366,15 @@ if !exists('g:neocomplcache_keyword_patterns')
 endif
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
-if !exists("g:neosnippet#snippets_directory")
-    let g:neosnippet#snippets_directory=""
+if !exists('g:neosnippet#snippets_directory')
+    let g:neosnippet#snippets_directory=''
 endif
 " let g:NeoComplCache_SnippetsDir = $VIMFILE_DIR.'/snippets'
 let g:neosnippet#snippets_directory= $VIMFILE_DIR . '/snippets'
 let g:neosnippet#enable_snipmate_compatibility = 0
 
 " init neocomplcache {{{
-function! Init_neocomplcache()
+function! g:Init_neocomplcache()
     NeoComplCacheEnable
     inoremap <expr><C-l> neocomplcache#complete_common_string()
     inoremap <expr><C-y> neocomplcache#close_popup()
@@ -395,7 +395,7 @@ function! Init_neocomplcache()
 endfunction
 " }}}
 " Term neocomplcache{{{
-function! Term_neocomplcache()
+function! g:Term_neocomplcache()
     NeoComplCacheDisable
     iunmap <C-g>
     iunmap <C-l>
@@ -408,8 +408,8 @@ function! Term_neocomplcache()
     iunmap <TAB>
 endfunction
 " }}}
-command! InitNeoComplCache call Init_neocomplcache()
-command! TermNeoComplCache call Term_neocomplcache()
+command! InitNeoComplCache call g:Init_neocomplcache()
+command! TermNeoComplCache call g:Term_neocomplcache()
 
 " Enable omni completion. {{{
 augroup EnableOmniCompleteion
@@ -436,12 +436,12 @@ endif
 " }}}
 
 " unite.vim{{{
-let g:unite_split_rule="botright"
-let g:unite_source_file_mru_filename_format = ''
-let g:unite_enable_start_insert=1
-let g:unite_source_file_mru_limit=100
-let g:unite_enable_ignore_case = 1
-let g:unite_enable_smart_case = 1
+let unite_split_rule='botright'
+let unite_source_file_mru_filename_format = ''
+let unite_enable_start_insert=1
+let unite_source_file_mru_limit=100
+let unite_enable_ignore_case = 1
+let unite_enable_smart_case = 1
 
 " Prefix-Key
 nmap <Leader>a <SID>[unite]
@@ -491,47 +491,47 @@ nnoremap <silent> <SID>[unite]g  :<C-u>Unite grep -buffer-name=search-buffer<CR>
 nnoremap <silent> <SID>[unite]r  :<C-u>UniteResume search-buffer<CR>
 noremap <silent><Leader>ug : <C-u>Unite git-conflict<CR>
 
-call unite#custom#substitute('file,file_mru,history/command,directory_mru', '[[:alnum:]]', '*\0', 10)
+call  unite#custom#substitute('file,file_mru,history/command,directory_mru', '[[:alnum:]]', '*\0', 10)
 
-call unite#custom#substitute('file,file_mru', '\$\w\+', '\=eval(submatch(0))', 20)
-call unite#custom#substitute('file,file_mru', '[^~.]\zs/', '*/*', 20)
-call unite#custom#substitute('file,file_mru', '/\ze[^*]', '/*', 10)
-call unite#custom#substitute('file,file_mru', '^@@', '\=fnamemodify(expand("#"), ":p:h")."/*"', 2)
-call unite#custom#substitute('file,file_mru', '^@', '\=getcwd()."/*"', 1)
-call unite#custom#substitute('file,file_mru', '^;r', '\=$VIMRUNTIME."/"')
-call unite#custom#substitute('file,file_mru', '^\~', escape($HOME, '\'), -2)
-call unite#custom#substitute('file,file_mru', '^\\', escape($HOME, '\'), -2)
-call unite#custom#substitute('file,file_mru', '\\\@<! ', '\\ ', -20)
-call unite#custom#substitute('file,file_mru', '\\ \@!', '/', -30)
+call  unite#custom#substitute('file,file_mru', '\$\w\+', '\=eval(submatch(0))', 20)
+call  unite#custom#substitute('file,file_mru', '[^~.]\zs/', '*/*', 20)
+call  unite#custom#substitute('file,file_mru', '/\ze[^*]', '/*', 10)
+call  unite#custom#substitute('file,file_mru', '^@@', '\=fnamemodify(expand("#"), ":p:h")."/*"', 2)
+call  unite#custom#substitute('file,file_mru', '^@', '\=getcwd()."/*"', 1)
+call  unite#custom#substitute('file,file_mru', '^;r', '\=$VIMRUNTIME."/"')
+call  unite#custom#substitute('file,file_mru', '^\~', escape($HOME, '\'), -2)
+call  unite#custom#substitute('file,file_mru', '^\\', escape($HOME, '\'), -2)
+call  unite#custom#substitute('file,file_mru', '\\\@<! ', '\\ ', -20)
+call  unite#custom#substitute('file,file_mru', '\\ \@!', '/', -30)
 if has('win32') || has('win64') || has('win32unix')
-    call unite#custom#substitute('file,file_mru', '^;p', 'C:\Program File,file_mrus\')
-    call unite#custom#substitute('file,file_mru', '^;v', '~/vimfile,file_mru/')
+    call  unite#custom#substitute('file,file_mru', '^;p', 'C:\Program File,file_mrus\')
+    call  unite#custom#substitute('file,file_mru', '^;v', '~/vimfile,file_mru/')
 else
-    call unite#custom#substitute('file,file_mru', '^;v', '~/.vim/')
+    call  unite#custom#substitute('file,file_mru', '^;v', '~/.vim/')
 endif
 
 " command launcher {{{
 let s:unite_source_myCommand ={
-            \ "name" : "myCommand"
+            \ 'name' : 'myCommand'
             \}
 
 function! s:unite_source_myCommand.gather_candidates(args,conext)
     let cmds = {
-                \"Unite LazyLoading" : "Unite neobundle/lazy",
-                \"Neobundle  Update" : "Unite neobundle/update",
-                \ "NeoBundleSource"  : "Unite neobundle/lazy",
-                \"Neobundle Log" : "NeoBundleLog",
-                \"Show relative number" : "RN",
-                \ "TODO list" : "Unite line -input=TODO",
-                \ 'vertical diff' : "vertical diffsplit ",
-                \ 'Bookmark' : "Unite bookmark",
+                \'Unite LazyLoading' : 'Unite neobundle/lazy',
+                \'Neobundle  Update' : 'Unite neobundle/update',
+                \ 'NeoBundleSource'  : 'Unite neobundle/lazy',
+                \'Neobundle Log' : 'NeoBundleLog',
+                \'Show relative number' : 'RN',
+                \ 'TODO list' : 'Unite line -input=TODO',
+                \ 'vertical diff' : 'vertical diffsplit ',
+                \ 'Bookmark' : 'Unite bookmark',
                 \}
-    return values(map(cmds,"{
+    return values(map(cmds,'{
                 \ 'word' : v:key,
                 \ 'source' : 'myCommand',
                 \ 'kind' : 'command',
                 \ 'action__command' : v:val
-                \}"))
+                \}'))
 endfunction
 call unite#define_source(s:unite_source_myCommand)
 nnoremap <SID>[unite]c :Unite myCommand<CR>

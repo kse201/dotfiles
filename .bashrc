@@ -175,3 +175,11 @@ fi
 if [ -e "$HOME/proxyrc" ] ; then
     source "$HOME/proxyrc"
 fi
+
+# fzf
+if [ -f "${HOME}"/.fzf.bash ] ; then
+    source "${HOME}"/.fzf.bash
+else
+    git clone --depth 1 https://github.com/junegunn/fzf.git "${HOME}"/.fzf
+    "${HOME}"/.fzf/install && source "${HOME}"/.fzf.bash
+fi
