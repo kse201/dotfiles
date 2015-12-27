@@ -8,9 +8,9 @@ build:
     - script:
         name: Preparing vim-vint
         code: |
-          yum install -y python-setuptools
+          yum install -y python python-devel python-setuptools
           easy_install pip
-          # pip install chardetect
+          pip install chardet==2.3.0
           pip install vim-vint
     - script:
         name: Run installer
