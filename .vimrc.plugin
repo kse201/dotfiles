@@ -11,8 +11,8 @@ let s:vimprocs= [ 'win64.dll', 'win32.dll', 'cygwin.dll', 'mac.so', 'linux64.so'
 if has('win64') || has('win32') || has('win32unix')
     set shellslash
 endif
-for suff in s:vimprocs
-    let s:vimproc = $VIMFILE_DIR . '/bundle/vimproc/lib/vimproc_' . suff
+for g:suff in s:vimprocs
+    let s:vimproc = $VIMFILE_DIR . '/bundle/vimproc/lib/vimproc_' . g:suff
     if filereadable(expand(s:vimproc))
         let g:vimproc_dll_path = expand(s:vimproc)
     endif
