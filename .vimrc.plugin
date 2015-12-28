@@ -553,7 +553,7 @@ if s:checkplugin('vim-smartchr' )
     cnoremap <expr> %  smartchr#one_of('%' , '\%', '%%')
     " cnoremap <expr> |  smartchr#one_of('|', '\|', '||')
 
-    function! SmartCharSetting() " {{{
+    function! g:SmartCharSetting() " {{{
         inoremap <buffer><expr> + smartchr#loop(' + ', '++')
         inoremap <buffer><expr> - smartchr#loop(' - ', '--')
         inoremap <buffer><expr> = search('\(&\<bar><bar>\<bar>+\<bar>-\<bar>/\<bar>>\<bar><\<bar>*\<bar>\) \%#', 'bcn')? '<bs>= '
@@ -581,7 +581,7 @@ if s:checkplugin('vim-smartchr' )
         inoremap <buffer><expr> ( search('\<\while\%#', 'bcn')? ' ()<Left>': '()<Left>'
     endfunction " }}}
 
-    function! SmartCharForObjc() "{{{
+    function! g:SmartCharForObjc() "{{{
         inoremap <buffer><expr> @ search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of( '@interface','@implementation', '@synthesize', '@property', '@class' , '@'): '@'
         inoremap <buffer><expr> # search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('#define', '#include', '#ifdef', '#endif', '#import' , '#'): '#'
         inoremap <buffer><expr> - search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('- ()<Left>' ,  '-') :smartchr#loop(' - ', '--')
@@ -592,7 +592,7 @@ endif
 
 " NERD Commenter{{{
 let g:NERDCreateDefaultMappings = 0
-let NERDSpaceDelims = 1
+let g:NERDSpaceDelims = 1
 nmap <Leader><Leader> <Plug>NERDCommenterToggle
 vmap <Leader><Leader> <Plug>NERDCommenterToggle
 " }}}
@@ -655,9 +655,9 @@ vmap go <Plug>(openbrowser-smart-search)
 nnoremap <F10> :<c-u>VimFilerCurrentDir -auto-cd -split  -no-quit -direction=topleft<cr>
 nnoremap <F11> :<c-u>VimFilerDouble -auto-cd -double -explorer -no-quit -direction=topleft<cr>
 
-let s:bundle = neobundle#get("vimfiler")
+let s:bundle = neobundle#get('vimfiler')
 " hooks initialize
-let s:bundle.hooks = get(s:bundle,"hooks", {})
+let s:bundle.hooks = get(s:bundle,'hooks', {})
 
 function! s:bundle.hooks.on_source(bundle)
     let g:vimfiler_as_default_explorer=1
@@ -690,22 +690,22 @@ unlet s:bundle
 " }}}
 
 " indent-Guides{{{
-if exists(":IndentGuidesEnable")
+if exists(':IndentGuidesEnable')
     let g:indent_guides_enable_on_vim_startup=0
     let g:indent_guides_color_change_percent=30
     let g:indent_guides_guide_size=1
     let g:fileIndentGuide=[
-                \"c",
-                \"ruby",
-                \"python",
-                \"vim"
+                \'c',
+                \'ruby',
+                \'python',
+                \'vim'
                 \]
-    for ft in g:fileIndentGuide
-        execute "augroup " . "MyIndentGuideEnable_" . ft
-        execute "autocmd!"
-        execute "autocmd FileType " . ft . " :IndentGuidesEnable"
-        execute "autocmd BufLeave *." . ft . " :IndentGuidesDisable"
-        execute "augroup END"
+    for g:ft in g:fileIndentGuide
+        execute 'augroup MyIndentGuideEnable_' . g:ft
+        execute 'autocmd!'
+        execute 'autocmd FileType ' . g:ft . ' :IndentGuidesEnable'
+        execute 'autocmd BufLeave *.' . g:ft . ' :IndentGuidesDisable'
+        execute 'augroup END'
     endfor
     au MyAutoCmd FileType help IndentGuidesDisable
 endif
@@ -734,29 +734,29 @@ vmap <Leader>" S"
 " }}}
 
 " qfixhowm {{{
-let QFixHowm_Key='g'
+let g:QFixHowm_Key='g'
 
-let howm_dir = $HOME."/howm"
-let howm_filename = '%Y/%m/%Y-%m-%d-%H%M%S.txt'
+let g:howm_dir = $HOME.'/howm'
+let g:howm_filename = '%Y/%m/%Y-%m-%d-%H%M%S.txt'
 let g:qfixmemo_ext = 'howm'
-let QFixHowm_FileType = 'markdown'
-let QFixHowm_Title = '#'
-let QFix_PreviewEnable = 0
-let QFixHowm_MenuPreview = 0
-let QFixMRU_Title = {}
-let QFixMRU_Title['txt']       = '^###[^#]'
-let QFixMRU_Title['txt_regxp'] = '^###[^#]'
+let g:QFixHowm_FileType = 'markdown'
+let g:QFixHowm_Title = '#'
+let g:QFix_PreviewEnable = 0
+let g:QFixHowm_MenuPreview = 0
+let g:QFixMRU_Title = {}
+let g:QFixMRU_Title['txt']       = '^###[^#]'
+let g:QFixMRU_Title['txt_regxp'] = '^###[^#]'
 
-let QFix_Height = 3
-let QFix_Width = 0
-let QFix_CopenCmd = ''
-let QFix_CursorLine = 1
+let g:QFix_Height = 3
+let g:QFix_Width = 0
+let g:QFix_CopenCmd = ''
+let g:QFix_CursorLine = 1
 set winwidth=20
-let QFix_PreviewFtypeHighlight = 1
+let g:QFix_PreviewFtypeHighlight = 1
 
-let QFix_CloseOnJump = 0
-let QFix_Edit = ''
-let QFix_UseLocationList = 0
+let g:QFix_CloseOnJump = 0
+let g:QFix_Edit = ''
+let g:QFix_UseLocationList = 0
 " }}}
 
 " rainbow_parentheses.vim{{{
@@ -805,81 +805,81 @@ let g:lightline = {
         \   ]
         \ },
         \ 'component_function': {
-        \   'modified': 'MyModified',
-        \   'readonly': 'MyReadonly',
-        \   'filename': 'MyFilename',
-        \   'fileformat': 'MyFileformat',
-        \   'filetype': 'MyFiletype',
-        \   'fileencoding': 'MyFileencoding',
-        \   'mode': 'MyMode',
+        \   'modified': 'g:MyModified',
+        \   'readonly': 'g:MyReadonly',
+        \   'filename': 'g:MyFilename',
+        \   'fileformat': 'g:MyFileformat',
+        \   'filetype': 'g:MyFiletype',
+        \   'fileencoding': 'g:MyFileencoding',
+        \   'mode': 'g:MyMode',
         \   'syntastic': 'SyntasticStatuslineFlag',
-        \   'charcode': 'MyCharCode',
-        \   'gitgutter': 'MyGitGutter',
+        \   'charcode': 'g:MyCharCode',
+        \   'gitgutter': 'g:MyGitGutter',
         \   'anzu': 'anzu#search_status',
         \ }
         \ }
 
-function! MyModified()
-  return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+function! g:MyModified()
+  return &ft =~# 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
 endfunction
 
-function! MyReadonly()
-  return &ft !~? 'help\|vimfiler\|gundo' && &ro ? '[RO]' : ''
+function! g:MyReadonly()
+  return &ft !=# 'help\|vimfiler\|gundo' && &ro ? '[RO]' : ''
 endfunction
 
-function! MyFilename()
-  return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
-        \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
-        \  &ft == 'unite' ? unite#get_status_string() :
-        \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
-        \ ('' != MyModified() ? ' ' . MyModified() : '')
+function! g:MyFilename()
+  return ('' !=# g:MyReadonly() ? g:MyReadonly() . ' ' : '') .
+        \ (&ft ==# 'vimfiler' ? vimfiler#get_status_string() :
+        \  &ft ==# 'unite' ? unite#get_status_string() :
+        \ '' !=# expand('%:t') ? expand('%:t') : '[No Name]') .
+        \ ('' !=# g:MyModified() ? ' ' . g:MyModified() : '')
 endfunction
 
-function! MyFileformat()
+function! g:MyFileformat()
   return winwidth('.') > 70 ? &fileformat : ''
 endfunction
 
-function! MyFiletype()
+function! g:MyFiletype()
   return winwidth('.') > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
 endfunction
 
-function! MyFileencoding()
+function! g:MyFileencoding()
   return winwidth('.') > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
 endfunction
 
-function! MyMode()
+function! g:MyMode()
   return winwidth('.') > 60 ? lightline#mode() : ''
 endfunction
 
-function! MyGitGutter()
+function! g:MyGitGutter()
   if ! exists('*GitGutterGetHunkSummary')
         \ || ! get(g:, 'gitgutter_enabled', 0)
         \ || winwidth('.') <= 90
     return ''
   endif
-  let sep =''
-  let symbols = [
-        \ g:gitgutter_sign_added . sep,
-        \ g:gitgutter_sign_modified . sep,
-        \ g:gitgutter_sign_removed . sep
+  let l:sep =''
+  let l:symbols = [
+        \ g:gitgutter_sign_added . l:sep,
+        \ g:gitgutter_sign_modified . l:sep,
+        \ g:gitgutter_sign_removed . l:sep
         \ ]
   let l:hunks = GitGutterGetHunkSummary()
   let l:ret = []
-  for i in [0, 1, 2]
-    if l:hunks[i] > 0
-      call add(l:ret, symbols[i] . l:hunks[i])
+  for l:i in [0, 1, 2]
+    if l:hunks[l:i] > 0
+      call add(l:ret, l:symbols[l:i] . l:hunks[l:i])
     endif
   endfor
   return join(l:ret, ' ')
 endfunction
 
 " https://github.com/Lokaltog/vim-powerline/blob/develop/autoload/Powerline/Functions.vim
-function! MyCharCode()
+function! g:MyCharCode()
   if winwidth('.') <= 70
     return ''
   endif
 
-  " Get the output of :ascii
+  " Get the output of ascii
   redir => ascii
   silent! ascii
   redir END
@@ -891,16 +891,16 @@ function! MyCharCode()
   " Zero pad hex values
   let nrformat = '0x%02x'
 
-  let encoding = (&fenc == '' ? &enc : &fenc)
+  let encoding = (&fenc ==# '' ? &enc : &fenc)
 
-  if encoding == 'utf-8'
+  if encoding ==# 'utf-8'
     " Zero pad with 4 zeroes in unicode files
     let nrformat = '0x%04x'
   endif
 
-  " Get the character and the numeric value from the return value of :ascii
+  " Get the character and the numeric value from the return value of ascii
   " This matches the two first pieces of the return value, e.g.
-  " "<F>  70" => char: 'F', nr: '70'
+  " '<F>  70' => char: 'F', nr: '70'
   let [str, char, nr; rest] = matchlist(ascii, '\v\<(.{-1,})\>\s*([0-9]+)')
 
   " Format the numeric value

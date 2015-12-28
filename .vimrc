@@ -17,6 +17,7 @@ set shortmess+=I
   \ history=100
   \ vb t_vb=
   \ autowrite
+  \ autchdir
   \ backspace=indent,eol,start
   \ diffopt=filler,vertical
   \ showcmd
