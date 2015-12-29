@@ -541,3 +541,5 @@ else
     git clone --depth 1 https://github.com/junegunn/fzf.git "${HOME}"/.fzf
     "${HOME}"/.fzf/install && source "${HOME}"/.fzf.zsh
 fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

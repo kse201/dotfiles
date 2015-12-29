@@ -17,7 +17,7 @@ set shortmess+=I
   \ history=100
   \ vb t_vb=
   \ autowrite
-  \ autchdir
+  \ autochdir
   \ backspace=indent,eol,start
   \ diffopt=filler,vertical
   \ showcmd
@@ -83,7 +83,6 @@ if has('autocmd')
                 \ if line("'\"") > 0 && line("'\"") <= line("$") |
                 \ exe "normal! g'\"" |
                 \ endif
-    autocmd MyAutoCmd BufEnter * :cd %:p:h
 endif
 
 command! ReloadVimrc source $VIMRC
@@ -116,12 +115,7 @@ if !has('gui')
 endif
 " }}}
 
-" auto ctags {{{
 set tags+=tags;
-if filereadable(expand('./tags'))
-    au MyAutoCmd FileWritePre :!ctasg -R
-endif
-" }}}
 
 " clipboard {{{
 if has('win32') || has('win64')
@@ -199,7 +193,7 @@ else
 endif
 " }}}
 
-" use encoding as fileencoding when file NOT contan japanese {{{
+" use encoding as fileencoding when file NOT contain japanese {{{
 if has('autocmd')
     function! g:AU_ReCheck_FENC()
         if &fileencoding =~# 'iso-2022-jp' && search("[^\x01-\x7e]", 'n') == 0
