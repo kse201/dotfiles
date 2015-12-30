@@ -63,11 +63,11 @@ else
     let s:hidden_prefix = '.'
     set backupdir=$HOME/.vimbackup
 endif
-let $VIMFILE_DIR  = s:dotfile_home.'/'.s:hidden_prefix.'vim'
-let $VIMRC        = s:dotfile_home.'/'.s:hidden_prefix.'vimrc'
-let $GVIMRC       = s:dotfile_home.'/'.s:hidden_prefix.'gvimrc'
+let $VIMFILE_DIR   = s:dotfile_home.'/'.s:hidden_prefix.'vim'
+let $VIMRC         = s:dotfile_home.'/'.s:hidden_prefix.'vimrc'
+let $GVIMRC        = s:dotfile_home.'/'.s:hidden_prefix.'gvimrc'
 let $VIMRC_PLUGING = s:dotfile_home.'/'.s:hidden_prefix.'vimrc.plugin'
-let $VIMRC_LOCAL  = s:dotfile_home.'/'.s:hidden_prefix.'vimrc.local'
+let $VIMRC_LOCAL   = s:dotfile_home.'/'.s:hidden_prefix.'vimrc.local'
 " }}}
 
 " edit configs {{{
@@ -385,41 +385,28 @@ endfor
 " }}}
 " vim{{{
 function! g:MyvimSettings()
-    inoremap ' ''<Left>
-    inoremap " ""<left>
-    inoremap ( ()<Left>
+    call g:AutoParem()
 endfunction
 " }}}
 " Ruby{{{
 function! g:MyrubySettings()
-    set dictionary=$HOME/.vim/dict/ruby.dict
-    inoremap  <buffer> ( ()<Left>
-    inoremap  <buffer> [ []<Left>
-    inoremap  <buffer> <> <><Left>
-    "inoremap <buffer> <  <><Left>
-    inoremap  <buffer> " ""<Left>
-    inoremap  <buffer> ' ''<Left>
-    set shiftwidth=2 tabstop=2
+    call g:AutoParem()
+    set shiftwidth=2 tabstop=2 dictionary=$HOME/.vim/dict/ruby.dict
     let g:ref_use_vimproc=1
     let g:ref_refe_version=2
-    nmap ,rr :<C-u>Ref refe<Space>
     let g:rsenseUseOmniFunc=1
     let g:rsenseHome = '/usr/local/Cellar/rsense/0.3/libexec'
+    let l:ruby_space_errors=1
+    nmap ,rr :<C-u>Ref refe<Space>
     if filereadable(expand('~/rtags'))
         au MyAutoCmd FileType ruby,eruby setl tags+=~/rtags,~/gtags
     endif
     compiler ruby
-    let l:ruby_space_errors=1
 endfunction
 " }}}
 " Python{{{
 function! g:MypythonSettings()
-    inoremap  <buffer> ( ()<Left>
-    inoremap  <buffer> [ []<Left>
-    inoremap  <buffer> <> <><Left>
-    "inoremap <buffer> <  <><Left>
-    inoremap  <buffer> " ""<Left>
-    inoremap  <buffer> ' ''<Left>
+    call g:AutoParem()
     set expandtab shiftwidth=4 tabstop=4
     compiler python
 endfunction
@@ -446,11 +433,13 @@ endfunction
 " }}}
 " golang {{{
 function! g:MygoSettings()
+    call g:AutoParem()
     set noexpandtab fdm=indent tabstop=4 shiftwidth=4 fdl=1
 endfunction
 " }}}
 " js,coffeescript {{{
 function! g:MyjavascriptSettings()
+    call g:AutoParem()
     set shiftwidth=2 softtabstop=2 tabstop=2 expandtab
 endfunction
 function! g:MycoffeeSettings()
@@ -961,6 +950,15 @@ nnoremap <C-x><C-e> Vy:@"<Enter>
 
 nnoremap <expr> s* ':%s/\<' . expand('<cword>') . '\>/'
 vnoremap <expr> s* ':s/\<' . expand('<cword>') . '\>/'
+
+function! g:AutoParem()
+    inoremap <buffer> ( ()<Left>
+    inoremap <buffer> [ []<Left>
+    inoremap <buffer> <> <><Left>
+    " inoremap <buffer> <  <><Left>
+    inoremap <buffer> " ""<Left>
+    inoremap <buffer> ' ''<Left>
+endfunction
 " }}}
 
 " Plugin{{{
