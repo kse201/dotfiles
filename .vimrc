@@ -2,7 +2,7 @@
 "                      *** .vimrc ***                       |
 "============================================================
 
-" basic setting{{{
+" basic setting {{{
 augroup MyAutoCmd
     autocmd!
 augroup END
@@ -31,7 +31,7 @@ set shortmess+=I
   \ clipboard=unnamed
   \ hidden
   \ timeout timeoutlen=500 ttimeoutlen=75
-" \ -> ¥{{{
+" \ -> ¥ {{{
 if has('mac')
     inoremap ¥ \
     cnoremap ¥ \
@@ -44,7 +44,7 @@ if exists('+macmeta')
 endif
 " }}}
 
-" reuse undo history{{{
+" reuse undo history {{{
 if has('persistent_undo')
     set undodir=~/.vimundo undofile
 endif
@@ -97,15 +97,14 @@ autocmd MyAutoCmd BufWritePost $GVIMRC source $GVIMRC
 autocmd MyAutoCmd BufWritePost $VIMRC_PLUGING source $GVIMRC
 " }}}
 
-" Auto delete line-end Space{{{
+" Auto delete line-end Space {{{
 augroup Autoplace
     autocmd!
     autocmd BufWritePre *.[^{mkd}] :%s/\s\+$//ge
 augroup END
-
 " }}}
 
-" Terminal cursor{{{
+" Terminal cursor {{{
 if !has('gui')
     set t_Co=256
     inoremap 0D <Left>
@@ -147,7 +146,7 @@ let g:loaded_netrwFileHandlers = 1
 " }}}
 
 " file encoding {{{
-" Auto encoding{{{
+" Auto encoding {{{
 if has('gui_running') && (has('win32') || has('win64'))
     set enc=utf-8 fencs=iso-2011-jp,enc-jp,sjis,cp932,utf-8 termencoding=utf-8
     scriptencoding cp932
@@ -237,7 +236,7 @@ autocmd MyAutoCmd BufEnter *   if winwidth(0) >= 60 |
             \ set statusline=[%n]%t |
             \ endif
 
-" draw cursorline onry current window{{{
+" draw cursorline onry current window {{{
 augroup cch
     autocmd! cch
     autocmd! WinLeave * set nocursorline
@@ -294,7 +293,7 @@ if has('syntax')
 endif
 " }}}
 
-" tabline{{{
+" tabline {{{
 " ref:http://d.hatena.ne.jp/thinca/20111204/1322932585
 function! g:MakeTabLine()
     let l:titles = map(range(1, tabpagenr('$')),'s:tabpage_label(v:val)' )
@@ -334,13 +333,10 @@ function! s:tabpage_label(n)
     return '%' . a:n . 'T' . l:hi . l:label .  '%T%#TabLineFill#'
 
 endfunction
-
+" }}}
 " }}}
 
-" }}}
-
-" Backup{{{
-
+" Backup {{{
 if !isdirectory(&backupdir)
     call mkdir(&backupdir,'p')
 endif
@@ -367,7 +363,7 @@ endif
 " }}}
 
 " Language setting {{{
-" Prefix{{{
+" Prefix {{{
 let g:FileTypeSettings = [
             \ 'vim',
             \ 'ruby',
@@ -383,12 +379,12 @@ for g:MyFileType in g:FileTypeSettings
     execute 'autocmd MyAutoCmd FileType ' . g:MyFileType . ' call g:My' . g:MyFileType . 'Settings()'
 endfor
 " }}}
-" vim{{{
+" vim {{{
 function! g:MyvimSettings()
     call g:AutoParem()
 endfunction
 " }}}
-" Ruby{{{
+" Ruby {{{
 function! g:MyrubySettings()
     call g:AutoParem()
     set shiftwidth=2 tabstop=2 dictionary=$HOME/.vim/dict/ruby.dict
@@ -404,7 +400,7 @@ function! g:MyrubySettings()
     compiler ruby
 endfunction
 " }}}
-" Python{{{
+" Python {{{
 function! g:MypythonSettings()
     call g:AutoParem()
     set expandtab shiftwidth=4 tabstop=4
@@ -448,8 +444,8 @@ endfunction
 " }}}
 " }}}
 
-" other{{{
-" auto read templates{{{
+" other {{{
+" auto read templates {{{
 augroup SkeletonAu
     autocmd!
     " autocmd BufNewFile *.html 0r $HOME/.vim/skeleton/skel.html
@@ -462,8 +458,8 @@ augroup SkeletonAu
 augroup END
 " }}}
 
-" undo each unite words{{{
-function! s:is_changed() "{{{
+" undo each unite words {{{
+function! s:is_changed() " {{{
     try
         " When no `b:vimrc_changedtick` variable
         " (first time), not changed.
@@ -479,7 +475,7 @@ augroup Change
 augroup END
 let s:current_changed_times = 0
 let s:max_changed_times = 20 "  arbitrary value
-function! s:changed_text() "{{{
+function! s:changed_text() " {{{
     if s:current_changed_times >= s:max_changed_times - 1
         call feedkeys("\<C-g>u", 'n')
         let s:current_changed_times = 0
@@ -548,7 +544,7 @@ command! -nargs=+ -bang -complete=file Rename let pbnr=fnamemodify(bufname('%'),
 command! -nargs=? -complete=file Diff if '<args>'=='' | browse vertical diffsplit|else| vertical diffsplit <args>|endif
 " }}}
 
-" commands which reopen with encodings{{{
+" commands which reopen with encodings {{{
 " ref: http://zudolab.net/blog/?p=132
 command! ChgEncCp932         edit ++enc=cp932
 command! ChgEncEucjp         edit ++enc=euc-jp
@@ -558,7 +554,7 @@ command! ChgEncUtf8          edit ++enc=utf-8
 command! ChgEncSjis          edit ++enc=cp932
 " }}}
 
-" commands which change encodings{{{
+" commands which change encodings {{{
 " ref: http://zudolab.net/blog/?p=132
 " change encoding commands
 command! ChgFencCp932               set fenc=cp932
@@ -569,7 +565,7 @@ command! ChgFencUtf8                set fenc=utf-8
 command! ChgFencSjis                set fenc=cp932
 " }}}
 
-" spell check{{{
+" spell check {{{
 command! CheckSpell :set spell!
 " }}}
 
@@ -582,7 +578,7 @@ nnoremap <expr> l
             \   foldclosed(line('.')) != -1 ? 'zo' : 'l'
 " }}}
 
-" :AllMaps{{{
+" :AllMaps {{{
 command!
             \   -nargs=* -complete=mapping
             \   AllMaps
@@ -601,14 +597,14 @@ if exists('*strftime')
 endif
 " }}}
 
-" count characters{{{
+" count characters {{{
 command! -range=% Count :<line1>,<line2>s/.//gn
 " }}}
 " count words {{{
 command! -range=% Word :<line1>,<line2>s/\i\+//gn
 " }}}
 
-" smart split window{{{
+" smart split window {{{
 " ref http://qiita.com/items/392be95a195067d84fd8
 command! -nargs=? -complete=command SmartSplit call <SID>smart_split(<q-args>)
 nnoremap <silent><C-w><Space> :<C-u>SmartSplit<CR>
@@ -644,7 +640,7 @@ function! s:rotate_in_line()
 endfunction
 " }}}
 "
-" smart block region{{{
+" smart block region {{{
 "http://labs.timedia.co.jp/2012/10/vim-more-useful-blockwise-insertion.html
 vnoremap <expr> I <SID>force_blockwise_visual('I')
 vnoremap <expr> A <SID>force_blockwise_visual('A')
@@ -662,7 +658,7 @@ endfunction
 
 command! Sudowrite :w !sudo tee %
 
-" easy open file in current dirctory{{{
+" easy open file in current dirctory {{{
 " ref: http://qiita.com/ukitazume/items/c1d2814497bc036f1a82
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
 cmap <leader>e :edit %%
@@ -724,8 +720,7 @@ endfunction
 cabbr w!! w !sudo tee > /dev/null %
 " }}}
 
-" keymap{{{
-
+" keymap {{{
 nnoremap j gj
 nnoremap k gk
 
@@ -747,7 +742,7 @@ nnoremap <M-Right> :bn<CR>
 
 " nnoremap : q:a
 " nnoremap / q/a
-" window resize +/-{{{
+" window resize +/- {{{
 nnoremap + <C-w>+
 nnoremap - <C-w>-
 nnoremap <silent> <S-Left>  :5wincmd <<CR>
@@ -790,14 +785,14 @@ endfunction
 
 " <Leader>to move current buffer into a new tab.
 nnoremap <silent> <Leader>to :<C-u>call <SID>move_window_into_tab_page(0)<CR>
-" Yank/Past to the OS clipboard{{{
+" Yank/Past to the OS clipboard {{{
 nmap <Leader>y "+y
 nmap <Leader>Y "+yy
 nmap <Leader>pp "+p
 nmap <Leader>PP "+p
 " }}}
 
-" tab{{{
+" tab {{{
 nnoremap <Leader>tl gt
 nnoremap <Leader>th gT
 nnoremap gl gt
@@ -824,7 +819,7 @@ cnoremap <expr> <Leader>time strftime('%Y%m%d%H%M')
 nnoremap <silent> <C-h> 10h
 nnoremap <silent> <C-l> 10l
 
-" easy movin window & fix size{{{
+" easy movin window & fix size {{{
 augroup GoodWindowSize
     autocmd!
     autocmd WinEnter * call<SID>good_height()
@@ -845,12 +840,12 @@ endfunction
 
 nnoremap R gR
 
-" draw line{{{
+" draw line {{{
 inoreabbrev <expr> dl* repeat('*','80')
 inoreabbrev <expr> dl- repeat('-','80')
 " }}}
 
-" gb:Jump last edit point{{{
+" gb:Jump last edit point {{{
 " ref::https://sites.google.com/site/fudist/Home/vim-nihongo-ban/tips
 nnoremap gb `.zz
 
@@ -861,10 +856,9 @@ nnoremap <M-b> g,
 
 " vb: select last select region
 nnoremap vb `[v`]
-
 " }}}
 
-" change background buffer when no split window{{{
+" change background buffer when no split window {{{
 " ref: https://sites.google.com/site/fudist/Home/vim-nihongo-ban/tips
 nnoremap <silent> <C-w><C-w> :<C-u>call g:MyWincmdW()<CR>
 nnoremap <silent> <C-w>w :<C-u>call g:MyWincmdW()<CR>
@@ -907,14 +901,14 @@ vnoremap <silent> // y/<C-R>=escape(@", '\\/.*$^~[]')<CR><CR>
 vnoremap /r "xy;%s/<C-R>=escape(@x, '\\/.*$^~[]')<CR>//gc<Left><Left><Left>"
 " }}}
 
-" replace a word at cursor and yank string{{{
+" replace a word at cursor and yank string {{{
 " ref: vim tech bible 4-6
 nnoremap <silent>  cy  ce<C-r>0<ESC>:let@/=@1<CR>:noh<CR>
 vnoremap <silent>  cy   c<C-r>0<ESC>:let@/=@1<CR>:noh<CR>
 nnoremap <silent> ciy ciw<C-r>0<ESC>:let@/=@1<CR>:noh<CR>
 " }}}
 
-" search{{{
+" search {{{
 " advanceable search {{{
 nnoremap n nzz
 nnoremap N Nzz
@@ -937,12 +931,12 @@ nnoremap <expr> <Space>G ':sil grep! ' . expand('<cword>') . ' *'
 " }}}
 
 
-" repeatable indent handling{{{
+" repeatable indent handling {{{
 vnoremap > >gv
 vnoremap < <gv
 " }}}
 
-" eval region as Vimscript{{{
+" eval region as Vimscript {{{
 nnoremap <Leader>do   Vy:@"<Enter>
 vnoremap <Leader>eval y:@"<Enter>
 nnoremap <C-x><C-e> Vy:@"<Enter>
@@ -961,14 +955,14 @@ function! g:AutoParem()
 endfunction
 " }}}
 
-" Plugin{{{
+" Plugin {{{
 " if filereadable(expand('~/.vimrc.plugin'))
 if filereadable(expand($VIMRC_PLUGING))
     source $VIMRC_PLUGING
 endif
 " }}}
 "
-" local setting{{{
+" local setting {{{
 if filereadable(expand($VIMRC_LOCAL))
     source $VIMRC_LOCAL
 endif
