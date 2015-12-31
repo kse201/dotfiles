@@ -52,14 +52,14 @@ endif
 
 " configs and dirctorys {{{
 if has('win32') || has('win64') || has('win32unix')
-    let s:dotfile_home = $HOME . '/dotfiles'
+    let s:dotfile_home  = $HOME . '/dotfiles'
     let s:hidden_prefix = '.'
     set backupdir=$HOME/_vimbackup dir=$HOME/AppData/Local/Temp
 elseif has('win32unix')
-    let $dotfile_home = $HOME.'/vimfiles'
+    let $dotfile_home   = $HOME.'/vimfiles'
     let s:hidden_prefix = '_'
 else
-    let s:dotfile_home = $HOME
+    let s:dotfile_home  = $HOME
     let s:hidden_prefix = '.'
     set backupdir=$HOME/.vimbackup
 endif
@@ -85,7 +85,7 @@ if has('autocmd')
                 \ endif
 endif
 
-command! ReloadVimrc source $VIMRC
+command! ReloadVimrc  source $VIMRC
 command! ReloadGVimrc source $GVIMRC
 command! ReloadPlugin source $VIMRC_PLUGING
 
@@ -180,7 +180,7 @@ else
                 set fileencodings-=euc-jp
                 set fileencodings-=euc-jisx0213
                 set fileencodings-=eucjp-ms
-                let &encoding = s:enc_euc
+                let &encoding     = s:enc_euc
                 let &fileencoding = s:enc_euc
             else
                 let &fileencodings = &fileencodings .','. s:enc_euc
@@ -248,9 +248,9 @@ hi CursorLine gui=underline
 augroup auto-cursorline
     autocmd!
     autocmd CursorMoved,CursorMovedI * call s:auto_cursorline('CursorMoved')
-    autocmd CursorHold,CursorHoldI * call s:auto_cursorline('CursorHold')
-    autocmd WinEnter * call s:auto_cursorline('WinEnter')
-    autocmd WinLeave * call s:auto_cursorline('WinLeave')
+    autocmd CursorHold,CursorHoldI   * call s:auto_cursorline('CursorHold')
+    autocmd WinEnter                 * call s:auto_cursorline('WinEnter')
+    autocmd WinLeave                 * call s:auto_cursorline('WinLeave')
 
     let s:cursorline_lock = 0
     function! s:auto_cursorline(event)
@@ -296,11 +296,11 @@ endif
 " tabline {{{
 " ref:http://d.hatena.ne.jp/thinca/20111204/1322932585
 function! g:MakeTabLine()
-    let l:titles = map(range(1, tabpagenr('$')),'s:tabpage_label(v:val)' )
-    let l:sep = '|'
+    let l:titles   = map(range(1, tabpagenr('$')),'s:tabpage_label(v:val)' )
+    let l:sep      = '|'
     let l:tabpages = join(l:titles , l:sep) . l:sep . '%#TabLineFill#%T'
-    let l:path = fnamemodify(getcwd(),':~')
-    let l:time = g:strfl:time('%H:%M')
+    let l:path     = fnamemodify(getcwd(),':~')
+    let l:time     = g:strfl:time('%H:%M')
     return   l:tabpages . '%=' .l:path .' '. l:time
 endfunction
 
@@ -317,12 +317,12 @@ function! s:tabpage_label(n)
         return l:title
     endif
 
-    let l:bufnrs = tabpagebuflist(a:n)
-    let l:hi = a:n is tabpagenr() ? '%#TabLineSel#' : '%#TabLine#'
+    let l:bufnrs   = tabpagebuflist(a:n)
+    let l:hi       = a:n is tabpagenr() ? '%#TabLineSel#' : '%#TabLine#'
 
-    let l:mod = len(filter(copy(l:bufnrs), 'getbufvar(v:val, "&l:modified")')) ? '[+]' : ''
+    let l:mod      = len(filter(copy(l:bufnrs), 'getbufvar(v:val, "&l:modified")')) ? '[+]' : ''
     let l:curbufnr = l:bufnrs[tabpagewinnr(a:n) - 1] " tabpagewinnr()は1 origin
-    let l:fname = pathshorten(g:bul:fname(l:curbufnr))
+    let l:fname    = pathshorten(g:bul:fname(l:curbufnr))
 
     if l:fname ==# ''
         let l:fname = ' '
@@ -388,11 +388,11 @@ endfunction
 function! g:MyrubySettings()
     call g:AutoParem()
     set shiftwidth=2 tabstop=2 dictionary=$HOME/.vim/dict/ruby.dict
-    let g:ref_use_vimproc=1
-    let g:ref_refe_version=2
-    let g:rsenseUseOmniFunc=1
-    let g:rsenseHome = '/usr/local/Cellar/rsense/0.3/libexec'
-    let l:ruby_space_errors=1
+    let g:ref_use_vimproc   = 1
+    let g:ref_refe_version  = 2
+    let g:rsenseUseOmniFunc = 1
+    let g:rsenseHome        = '/usr/local/Cellar/rsense/0.3/libexec'
+    let l:ruby_space_errors = 1
     nmap ,rr :<C-u>Ref refe<Space>
     if filereadable(expand('~/rtags'))
         au MyAutoCmd FileType ruby,eruby setl tags+=~/rtags,~/gtags
@@ -546,23 +546,23 @@ command! -nargs=? -complete=file Diff if '<args>'=='' | browse vertical diffspli
 
 " commands which reopen with encodings {{{
 " ref: http://zudolab.net/blog/?p=132
-command! ChgEncCp932         edit ++enc=cp932
-command! ChgEncEucjp         edit ++enc=euc-jp
-command! ChgEncIso2022jp     edit ++enc=iso-2022-jp
-command! ChgEncJis Iso2022jp
-command! ChgEncUtf8          edit ++enc=utf-8
-command! ChgEncSjis          edit ++enc=cp932
+command! ChgEncCp932     edit ++enc=cp932
+command! ChgEncEucjp     edit ++enc=euc-jp
+command! ChgEncIso2022jp edit ++enc=iso-2022-jp
+command! ChgEncUtf8      edit ++enc=utf-8
+command! ChgEncSjis      edit ++enc=cp932
+command! ChgEncJis       Iso2022jp
 " }}}
 
 " commands which change encodings {{{
 " ref: http://zudolab.net/blog/?p=132
 " change encoding commands
-command! ChgFencCp932               set fenc=cp932
-command! ChgFencEucjp               set fenc=euc-jp
-command! ChgFencIso2022jp           set fenc=iso-2202-jp
-command! ChgFencJis ChgencIso2022jp
-command! ChgFencUtf8                set fenc=utf-8
-command! ChgFencSjis                set fenc=cp932
+command! ChgFencCp932     set fenc=cp932
+command! ChgFencEucjp     set fenc=euc-jp
+command! ChgFencIso2022jp set fenc=iso-2202-jp
+command! ChgFencUtf8      set fenc=utf-8
+command! ChgFencSjis      set fenc=cp932
+command! ChgFencJis       ChgencIso2022jp
 " }}}
 
 " spell check {{{
@@ -587,13 +587,13 @@ command!
 
 " date iput Macro {{{
 if exists('*strftime')
-    inoremap <Leader>date <C-R>=strftime('%Y/%m/%d (%a)')<CR>
-    inoremap <Leader>jdate <C-R>=strftime('%Y年%m月%d日 %a曜日')<CR>
-    inoremap <Leader>time <C-R>=strftime('%H:%M')<CR>
-    inoremap <Leader>rr <C-R>=strftime('%H%M%S_%d%b')<CR>
-    inoremap <expr> <Leader>df strftime('%Y/%m/%d %H:%M:%S')
-    inoremap <expr> <Leader>dd strftime('%Y/%m/%d')
-    inoremap <expr> <Leader>dt strftime('%H:%M:%S')
+    inoremap        <Leader>date  <C-R>=strftime('%Y/%m/%d (%a)')<CR>
+    inoremap        <Leader>jdate <C-R>=strftime('%Y年%m月%d日 %a曜日')<CR>
+    inoremap        <Leader>time  <C-R>=strftime('%H:%M')<CR>
+    inoremap        <Leader>rr    <C-R>=strftime('%H%M%S_%d%b')<CR>
+    inoremap <expr> <Leader>df    strftime('%Y/%m/%d %H:%M:%S')
+    inoremap <expr> <Leader>dd    strftime('%Y/%m/%d')
+    inoremap <expr> <Leader>dt    strftime('%H:%M:%S')
 endif
 " }}}
 
@@ -759,8 +759,8 @@ function! s:move_window_into_tab_page(target_tabpagenr)
         return
     endif
     let l:original_tabnr = tabpagenr()
-    let l:target_bufnr = bufnr('')
-    let l:window_view = winsaveview()
+    let l:target_bufnr   = bufnr('')
+    let l:window_view    = winsaveview()
     if a:target_tabpagenr == 0
         tabnew
         tabmove  " Move new tabpage at the last.
@@ -786,17 +786,17 @@ endfunction
 " <Leader>to move current buffer into a new tab.
 nnoremap <silent> <Leader>to :<C-u>call <SID>move_window_into_tab_page(0)<CR>
 " Yank/Past to the OS clipboard {{{
-nmap <Leader>y "+y
-nmap <Leader>Y "+yy
+nmap <Leader>y  "+y
+nmap <Leader>Y  "+yy
 nmap <Leader>pp "+p
 nmap <Leader>PP "+p
 " }}}
 
 " tab {{{
-nnoremap <Leader>tl gt
-nnoremap <Leader>th gT
 nnoremap gl gt
 nnoremap gh gT
+nnoremap <Leader>tl gt
+nnoremap <Leader>th gT
 nnoremap <Leader>tn :tabnew<CR>
 nnoremap <Leader>tc :tabclose<CR>
 for g:i in range(1,9)
@@ -861,7 +861,7 @@ nnoremap vb `[v`]
 " change background buffer when no split window {{{
 " ref: https://sites.google.com/site/fudist/Home/vim-nihongo-ban/tips
 nnoremap <silent> <C-w><C-w> :<C-u>call g:MyWincmdW()<CR>
-nnoremap <silent> <C-w>w :<C-u>call g:MyWincmdW()<CR>
+nnoremap <silent> <C-w>w     :<C-u>call g:MyWincmdW()<CR>
 function! g:MyWincmdW()
     let l:pn = winnr()
     silent! wincmd w

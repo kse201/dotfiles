@@ -221,14 +221,14 @@ if has('vim_starting')
     augroup END
 endif
 
-let g:neocomplete_enable_at_startup             = 0
-let g:NeoComplete_SmartCase                     = 1
-let g:neocomplete_enable_auto_select            = 1
-let g:NeoComplete_enable_camel_case_completion  = 0
-let g:NeoComplete_EnableUnderbarCompletion      = 1
-let g:NeoComplete_MinSyntaxLength               = 3
-let g:neocomplete_lock_buffer_name_pattern      = '\*ku\*'
-let g:neocomplete#skip_auto_completion_time = '0.2'
+let g:neocomplete_enable_at_startup            = 0
+let g:NeoComplete_SmartCase                    = 1
+let g:neocomplete_enable_auto_select           = 1
+let g:NeoComplete_enable_camel_case_completion = 0
+let g:NeoComplete_EnableUnderbarCompletion     = 1
+let g:NeoComplete_MinSyntaxLength              = 3
+let g:neocomplete_lock_buffer_name_pattern     = '\*ku\*'
+let g:neocomplete#skip_auto_completion_time    = '0.2'
 
 let g:neocomplete#sources = { '_' : ['file', 'tag', 'vim', 'omni', 'member', 'syntax', 'include', 'buffer', 'file/include']}
 
@@ -261,11 +261,11 @@ function! g:Init_neocomplete()
     inoremap <expr><C-y> neocomplete#close_popup()
 
     "snippet
-    imap <expr><CR> neosnippet#expandable_or_jumpable() ?   "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? neocomplete#close_popup() : "\<CR>"
-    imap <expr><C-y> neosnippet#expandable_or_jumpable() ?   "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? neocomplete#close_popup() : "\<C-y>"
-    imap <expr><C-j> neosnippet#expandable_or_jumpable() ?   "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? neocomplete#close_popup() : "\<C-j>" pneobu
-    imap <expr><TAB> neosnippet#expandable_or_jumpable() ?   "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-    smap <expr><TAB> neosnippet#expandable_or_jumpable() ?  "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+    imap <expr><CR> neosnippet#expandable_or_jumpable()  ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? neocomplete#close_popup() : "\<CR>"
+    imap <expr><C-y> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? neocomplete#close_popup() : "\<C-y>"
+    imap <expr><C-j> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? neocomplete#close_popup() : "\<C-j>" pneobu
+    imap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+    smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
     imap <C-q>  <Plug>(neocomplete_start_unite_complete)
 
@@ -380,11 +380,11 @@ function! g:Init_neocomplcache()
     inoremap <expr><C-y> neocomplcache#close_popup()
 
     "snippet
-    imap <expr><CR> neosnippet#expandable_or_jumpable() ?   "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? neocomplcache#close_popup() : "\<CR>"
-    imap <expr><C-y> neosnippet#expandable_or_jumpable() ?   "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? neocomplcache#close_popup() : "\<C-y>"
-    imap <expr><C-j> neosnippet#expandable_or_jumpable() ?   "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? neocomplcache#close_popup() : "\<C-j>" pneobu
-    imap <expr><TAB> neosnippet#expandable_or_jumpable() ?   "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-    smap <expr><TAB> neosnippet#expandable_or_jumpable() ?  "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+    imap <expr><CR> neosnippet#expandable_or_jumpable()  ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? neocomplcache#close_popup() : "\<CR>"
+    imap <expr><C-y> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? neocomplcache#close_popup() : "\<C-y>"
+    imap <expr><C-j> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? neocomplcache#close_popup() : "\<C-j>" pneobu
+    imap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+    smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
     imap <C-q>  <Plug>(neocomplcache_start_unite_complete)
 
@@ -592,7 +592,7 @@ endif
 
 " NERD Commenter{{{
 let g:NERDCreateDefaultMappings = 0
-let g:NERDSpaceDelims = 1
+let g:NERDSpaceDelims           = 1
 nmap <Leader><Leader> <Plug>NERDCommenterToggle
 vmap <Leader><Leader> <Plug>NERDCommenterToggle
 " }}}
@@ -660,17 +660,17 @@ let s:bundle = neobundle#get('vimfiler')
 let s:bundle.hooks = get(s:bundle,'hooks', {})
 
 function! s:bundle.hooks.on_source(bundle)
-    let g:vimfiler_as_default_explorer=1
-    let g:vimfiler_safe_mode_by_default=0
+    let g:vimfiler_as_default_explorer  = 1
+    let g:vimfiler_safe_mode_by_default = 0
     call vimfiler#set_execute_file('vim', 'vim')
     call vimfiler#set_execute_file('txt', 'notepad')
     call vimfiler#set_execute_file('c', ['vim', 'notepad'])
 
     " Like Textmate icons.
-    let g:vimfiler_tree_leaf_icon = ' '
+    let g:vimfiler_tree_leaf_icon   = ' '
     let g:vimfiler_tree_opened_icon = '笆ｾ'
     let g:vimfiler_tree_closed_icon = '笆ｸ'
-    let g:vimfiler_file_icon = '-'
+    let g:vimfiler_file_icon        = '-'
     let g:vimfiler_marked_file_icon = '*'
 
     " Use trashbox.
@@ -736,26 +736,26 @@ vmap <Leader>" S"
 " qfixhowm {{{
 let g:QFixHowm_Key='g'
 
-let g:howm_dir = $HOME.'/howm'
-let g:howm_filename = '%Y/%m/%Y-%m-%d-%H%M%S.txt'
-let g:qfixmemo_ext = 'howm'
-let g:QFixHowm_FileType = 'markdown'
-let g:QFixHowm_Title = '#'
-let g:QFix_PreviewEnable = 0
-let g:QFixHowm_MenuPreview = 0
-let g:QFixMRU_Title = {}
+let g:howm_dir                   = $HOME.'/howm'
+let g:howm_filename              = '%Y/%m/%Y-%m-%d-%H%M%S.txt'
+let g:qfixmemo_ext               = 'howm'
+let g:QFixHowm_FileType          = 'markdown'
+let g:QFixHowm_Title             = '#'
+let g:QFix_PreviewEnable         = 0
+let g:QFixHowm_MenuPreview       = 0
+let g:QFixMRU_Title              = {}
 let g:QFixMRU_Title['txt']       = '^###[^#]'
 let g:QFixMRU_Title['txt_regxp'] = '^###[^#]'
 
-let g:QFix_Height = 3
-let g:QFix_Width = 0
-let g:QFix_CopenCmd = ''
+let g:QFix_Height     = 3
+let g:QFix_Width      = 0
+let g:QFix_CopenCmd   = ''
 let g:QFix_CursorLine = 1
 set winwidth=20
 let g:QFix_PreviewFtypeHighlight = 1
 
-let g:QFix_CloseOnJump = 0
-let g:QFix_Edit = ''
+let g:QFix_CloseOnJump     = 0
+let g:QFix_Edit            = ''
 let g:QFix_UseLocationList = 0
 " }}}
 
@@ -784,9 +784,9 @@ autocmd MyAutoCmd BufEnter * if &filetype =="text" | setlocal ft=hybrid | endif
 " }}}
 
 " vim-gitgutter{{{
-let g:gitgutter_sign_added = '+'
+let g:gitgutter_sign_added    = '+'
 let g:gitgutter_sign_modified = '*'
-let g:gitgutter_sign_removed = '-'
+let g:gitgutter_sign_removed  = '-'
 " }}}
 
 " lightline.vim{{{
