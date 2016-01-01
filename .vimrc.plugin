@@ -7,7 +7,7 @@ augroup MyAutoCmd
 augroup END
 
 " vimproc.vim{{{
-let s:vimprocs= [ 'win64.dll', 'win32.dll', 'cygwin.dll', 'mac.so', 'linux64.so', 'linux32.so', 'unix.so' ]
+let s:vimprocs=['win64.dll', 'win32.dll', 'cygwin.dll', 'mac.so', 'linux64.so', 'linux32.so', 'unix.so']
 if has('win64') || has('win32') || has('win32unix')
     set shellslash
 endif
@@ -37,9 +37,9 @@ unlet g:bundle_dir
 " dependents {{{
 NeoBundle 'Shougo/vimproc', {'build' : {
             \ 'windows' : 'echo "Sorry, cannot update vimproc binary file in Windows."',
-            \ 'cygwin' : 'make -f make_cygwin.mak',
-            \ 'mac'    : 'make -f make_mac.mak',
-            \ 'unix'   : 'make -f make_unix.mak',
+            \ 'cygwin'  : 'make -f make_cygwin.mak',
+            \ 'mac'     : 'make -f make_mac.mak',
+            \ 'unix'    : 'make -f make_unix.mak',
             \ },
             \}
 " }}}
@@ -57,23 +57,18 @@ else
     NeoBundleLazy 'Shougo/neocomplcache'
 endif
 
-call neobundle#config('neocomplcache',{
-            \'lazy' : 1,
-            \ 'autoload' : {
-            \ 'insert' : 1,
-            \}})
+call neobundle#config('neocomplcache', {'lazy': 1, 'autoload': {'insert': 1}})
 
-NeoBundle "Shougo/neosnippet" ,{ 'depends' : 'Shougo/neosnippet-snippets' }
+NeoBundle "Shougo/neosnippet", {'depends' : 'Shougo/neosnippet-snippets'}
 NeoBundle "Shougo/neosnippet-snippets"
 NeoBundle 'kana/vim-smartchr'
-NeoBundleLazy 'mattn/emmet-vim', { 'autoload' : { 'filetypes' : ['html','css','js','php']}}
+NeoBundleLazy 'mattn/emmet-vim', {'autoload': {'filetypes': ['html', 'css', 'js', 'php']}}
 " }}}
 " filer {{{
-NeoBundleLazy 'scrooloose/nerdtree',
-            \{ 'autoload' : {'commands' : ['NERDTreeToggle','NERDTree']}}
+NeoBundleLazy 'scrooloose/nerdtree', {'autoload': {'commands': ['NERDTreeToggle', 'NERDTree']}}
 NeoBundleLazy 'Shougo/vimfiler',
-            \ { 'depends' : 'Shougo/unite.vim' ,
-            \ 'autoload' : {'commands' : ['VimFilerCurrentDir', 'VimFilerDouble']}}
+            \{'depends': 'Shougo/unite.vim',
+            \ 'autoload': {'commands': ['VimFilerCurrentDir', 'VimFilerDouble']}}
 " }}}
 " unite {{{
 NeoBundle 'Shougo/unite.vim'
@@ -81,12 +76,10 @@ NeoBundleLazy 'tsukkee/unite-tag'
 NeoBundleLazy 'Shougo/unite-outline'
 NeoBundleLazy 'tacroe/unite-mark'
 NeoBundleLazy 'thinca/vim-unite-history'
-NeoBundleLazy 'osyo-manga/unite-quickfix', {
-            \ 'autoload' : {'filetypes':['c','cpp']
-            \ }}
+NeoBundleLazy 'osyo-manga/unite-quickfix', {'autoload': {'filetypes': ['c', 'cpp']}}
 NeoBundleLazy 'unite-colorscheme'
 NeoBundleLazy 'zhaocai/unite-scriptnames'
-NeoBundle 'Shougo/neomru.vim',{  'depends' : 'Shougo/unite.vim' }
+NeoBundle 'Shougo/neomru.vim', {'depends': 'Shougo/unite.vim'}
 " }}}
 " align {{{
 NeoBundle 'h1mesuke/vim-alignta'
@@ -96,11 +89,11 @@ NeoBundleLazy "fuenor/JpFormat.vim"
 " feature {{{
 NeoBundle 'itchyny/lightline.vim'
 NeoBundleLazy 'thinca/vim-quickrun',
-            \{ 'autoload' : {
-            \'mappings' : ['<Plug>(quickrun)'],
-            \ 'commands' : ['QuickRun']}}
+            \{'autoload': {
+            \ 'mappings': ['<Plug>(quickrun)'],
+            \ 'commands': ['QuickRun']}}
 NeoBundle 'airblade/vim-gitgutter'
-NeoBundleLazy 'open-browser.vim', {'autoload' : {'mappings' :['<Plug>(open-browser-wwwsearch)','<Plug>(openbrowser-smart-search)']}}
+NeoBundleLazy 'open-browser.vim', {'autoload': {'mappings': ['<Plug>(open-browser-wwwsearch)', '<Plug>(openbrowser-smart-search)']}}
 NeoBundle 'kana/vim-operator-user'
 NeoBundle 'osyo-manga/vim-anzu'
 NeoBundle 'fuenor/qfixhowm'
@@ -111,9 +104,9 @@ NeoBundle 'scrooloose/syntastic'
 NeoBundleLazy 'Takazudo/outline.vim.git'
 " }}}
 " markdown {{{
-NeoBundleLazy 'kannokanno/previm' , { 'autoload' : { 'filetypes' : ['markdown'] }}
-NeoBundleLazy 'plasticboy/vim-markdown', { 'autoload' : { 'filetypes' : ['markdown'] }}
-NeoBundleLazy 'kana/vim-submode' , { 'autoload' : { 'filetypes' : ['markdown'] }}
+NeoBundleLazy 'kannokanno/previm', {'autoload': {'filetypes': ['markdown']}}
+NeoBundleLazy 'plasticboy/vim-markdown', {'autoload': {'filetypes': ['markdown']}}
+NeoBundleLazy 'kana/vim-submode', {'autoload': {'filetypes': ['markdown']}}
 " }}}
 " looks {{{
 NeoBundle 'nathanaelkane/vim-indent-guides'
@@ -122,13 +115,13 @@ NeoBundle 'tomasr/molokai'
 NeoBundle 'w0ng/vim-hybrid'
 NeoBundle 'mrk21/yaml-vim'
 " }}}
-NeoBundleLazy 'fatih/vim-go' , { 'autoload' : {'filetypes' : ['go']} }
-NeoBundleLazy 'davidhalter/jedi-vim' , {'autoload' : {'filetypes' : ['python']} }
+NeoBundleLazy 'fatih/vim-go', {'autoload': {'filetypes': ['go']}}
+NeoBundleLazy 'davidhalter/jedi-vim', {'autoload': {'filetypes': ['python']}}
 
-NeoBundleLazy 'pangloss/vim-javascript' , { 'autoload' : {'filetypes' : ['javascript', 'coffee']} }
-NeoBundleLazy 'jelera/vim-javascript-syntax' , { 'autoload' : {'filetypes' : ['javascript', 'coffee']} }
-NeoBundleLazy 'kchmck/vim-coffee-script' , { 'autoload' : {'filetypes' : ['coffee']} }
-NeoBundleLazy 'moll/vim-node' , { 'autoload' : {'filetypes' : ['coffee']} }
+NeoBundleLazy 'pangloss/vim-javascript', {'autoload': {'filetypes': ['javascript', 'coffee']}}
+NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload': {'filetypes': ['javascript', 'coffee']}}
+NeoBundleLazy 'kchmck/vim-coffee-script', {'autoload': {'filetypes': ['coffee']}}
+NeoBundleLazy 'moll/vim-node', {'autoload': {'filetypes': ['coffee']}}
 
 NeoBundle 'tpope/vim-abolish'
 NeoBundle 'Shougo/context_filetype.vim'
@@ -137,10 +130,10 @@ NeoBundle 'Shougo/neco-syntax'
 NeoBundle 'fuenor/JpFormat.vim'
 NeoBundle 'vim-scripts/DrawIt'
 NeoBundle 'thinca/vim-ref'
-NeoBundleLazy 'ujihisa/ref-hoogle' , {'autoload' : {'filetypes' : ['haskell']} }
-NeoBundleLazy 'kana/vim-filetype-haskell' , {'autoload' : {'filetypes' : ['haskell']} }
-NeoBundleLazy 'ujihisa/neco-ghc' , {'autoload' : {'filetypes' : ['haskell']} }
-NeoBundleLazy 'eagletmt/ghcmod-vim', {'autoload' : {'filetypes' : ['haskell']} }
+NeoBundleLazy 'ujihisa/ref-hoogle', {'autoload': {'filetypes': ['haskell']}}
+NeoBundleLazy 'kana/vim-filetype-haskell', {'autoload': {'filetypes': ['haskell']}}
+NeoBundleLazy 'ujihisa/neco-ghc', {'autoload': {'filetypes': ['haskell']}}
+NeoBundleLazy 'eagletmt/ghcmod-vim', {'autoload': {'filetypes': ['haskell']}}
 NeoBundle 'majutsushi/tagbar.git'
 NeoBundle 'simeji/winresizer'
 
