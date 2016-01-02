@@ -61,7 +61,6 @@
 # log
     l        = log --graph --date-order -C -M --pretty=format:'%C(red)%h%Creset - %C(green)%ad %C(Cyan)[%an]%C(Yellow)%d%Creset %s' --date=short
     lg       = log --graph --date-order -C -M --pretty=format:'%C(red)%h%Creset - %C(green)%ad %C(Cyan)[%an]%C(Yellow)%d%Creset %s' --all --date=short
-    activity = log --format='%ai' --all | sed 's/^\\(....-..\\).*/\\1/' | sort | uniq -c
 
 [help]
     autocorrect = 1

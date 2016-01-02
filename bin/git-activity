@@ -1,0 +1,4 @@
+#!/bin/sh
+#
+
+git log --format='%ai' --all | sed 's/^\\(....-..\\).*/\\1/' | sort | uniq -c
