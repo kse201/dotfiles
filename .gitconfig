@@ -1,23 +1,20 @@
 [color]
     status      = auto
-    branch      = auto
+	branch      = auto
     ui          = auto
     interactive = auto
 
 [core]
-    excludesfile = .gitignore
-    paper        = lv -c
     autocrlf     = false
     editor       = vim
     pager        = less -r
     quotepath    = false
 	preloadindex = true
-	fscache = true
+	fscache      = true
 
 [diff]
-    renames = copies
+    renames   = copies
     algorithm = patience
-    #algorithm = histogram
 
 [rebase]
     autosquash = true
@@ -27,6 +24,15 @@
 
 [push]
 	default = matching
+
+[help]
+    autocorrect = 1
+
+[url "https://"]
+	insteadOf = git://
+[user]
+	name  = kse201
+	email = kse.201@gmail.com
 
 [alias]
     alias    = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort
@@ -59,14 +65,6 @@
     week     = diff \"@{last week}\".. --stat
 
 # log
-    l        = log --graph --date-order -C -M --pretty=format:'%C(red)%h%Creset - %C(green)%ad %C(Cyan)[%an]%C(Yellow)%d%Creset %s' --date=short
-    lg       = log --graph --date-order -C -M --pretty=format:'%C(red)%h%Creset - %C(green)%ad %C(Cyan)[%an]%C(Yellow)%d%Creset %s' --all --date=short
+    l        = log --graph --date-order -C -M --date=short
+    lg       = log --graph --date-order -C -M --all --date=short
 
-[help]
-    autocorrect = 1
-
-[url "https://"]
-	insteadOf = git://
-[user]
-	name = kse201
-	email = kse.201@gmail.com
