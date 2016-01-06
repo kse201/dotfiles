@@ -429,19 +429,9 @@ fi
 
 ########################################
 # man
-man() {
-        env \
-                LESS_TERMCAP_mb=$(printf "\e[1;31m") \
-                LESS_TERMCAP_md=$(printf "\e[1;31m") \
-                LESS_TERMCAP_me=$(printf "\e[0m") \
-                LESS_TERMCAP_se=$(printf "\e[0m") \
-                LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
-                LESS_TERMCAP_ue=$(printf "\e[0m") \
-                LESS_TERMCAP_us=$(printf "\e[1;32m") \
-                man "$@"
-}
-# man in Vim
-function man() { /usr/bin/man $* -P "col -b | vim -Rc 'setl ft=man ts=8 nomod nolist nonu' -c 'nmap q :q<cr>' -" }
+if is_exist 'tldr' ; then
+    alias man='tldr'
+fi
 ########################################
 
 ########################################
@@ -453,18 +443,14 @@ fi
 
 source ${PLUGIN_MNGR}
 
-zplug "autojump"
 zplug "mollifier/cd-gitroot"
-zplug "zsh-users/zsh-syntax-highlighting"
 zplug "zsh-users/zsh-completions"
-zplug "zsh-users/zsh-history-substring-search"
 zplug "zsh-users/zaw"
 zplug "mollifier/cd-bookmark"
 zplug "mollifier/anyframe"
 zplug "b4b4r07/enhancd", of:enhancd.sh
 zplug "zsh-users/zsh-history-substring-search", do:"__zsh_version 4.3"
 zplug "zsh-users/zsh-syntax-highlighting", nice:10
-zplug "zsh-users/zsh-completions"
 zplug "junegunn/fzf-bin", as:command, from:gh-r, file:fzf
 zplug "peco/peco", as:command, from:gh-r, of:"*amd64*"
 
