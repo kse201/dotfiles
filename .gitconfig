@@ -68,3 +68,6 @@
     l        = log --graph --date-order -C -M --date=short
     lg       = log --graph --date-order -C -M --all --date=short
 
+
+[format]
+	pretty = %C(red)%h%Creset - %C(green)%ad %C(Cyan)[%an]%C(Yellow)%d%Creset %s
