@@ -65,9 +65,5 @@
     week     = diff \"@{last week}\".. --stat
 
 # log
-    l        = log --graph --date-order -C -M --date=short
-    lg       = log --graph --date-order -C -M --all --date=short
-
-
-[format]
-	pretty = %C(red)%h%Creset - %C(green)%ad %C(Cyan)[%an]%C(Yellow)%d%Creset %s
+    l        = log --graph --date-order -C -M --pretty=format:'%C(red)%h%Creset - %C(green)%ad %C(Cyan)[%an]%C(Yellow)%d%Creset %s' --date=short
+    lg       = log --graph --date-order -C -M --pretty=format:'%C(red)%h%Creset - %C(green)%ad %C(Cyan)[%an]%C(Yellow)%d%Creset %s' --all --date=short
