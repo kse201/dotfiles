@@ -155,9 +155,9 @@ if [ ${os} = "Darwin" ] ; then
 else
         alias ls="ls --color=auto"
 fi
-alias cp='cp -iv'
+alias cp='cp -i'
 # alias rm='rm -iv'
-alias mv='mv -iv'
+alias mv='mv -i'
 alias grep='grep -E --color=auto'
 alias ll='ls -l'
 alias la='ls -la'
