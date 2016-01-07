@@ -100,6 +100,7 @@ NeoBundle 'fuenor/qfixhowm'
 NeoBundle 't9md/vim-quickhl'
 NeoBundle 'kana/vim-smartinput'
 NeoBundle 'vim-scripts/scratch-utility'
+NeoBundle "osyo-manga/unite-qfixhowm"
 NeoBundle 'scrooloose/syntastic'
 NeoBundleLazy 'Takazudo/outline.vim.git'
 " }}}
@@ -478,10 +479,10 @@ nnoremap <silent> <SID>[unite]h :<C-u>Unite -default-action=edit history/command
 nnoremap <silent> <SID>[unite]j :<C-u>Unite jump<CR>
 nnoremap <silent> <SID>[unite]/ :<C-u>Unite -buffer-name=search line<CR>
 nnoremap <silent> <SID>[unite]l :<C-u>Unite line<CR>
-nnoremap <silent> <SID>[unite]l  :<C-u>UniteResume search<CR>
 nnoremap <silent> <SID>[unite]: :<C-u>Unite command<CR>
 nnoremap <silent> <SID>[unite]g  :<C-u>Unite grep -buffer-name=search-buffer<CR>
 nnoremap <silent> <SID>[unite]r  :<C-u>UniteResume search-buffer<CR>
+nnoremap <silent> <SID>[unite],  :<C-u>Unite qfixhowm<CR>
 noremap <silent><Leader>ug : <C-u>Unite git-conflict<CR>
 
 call  unite#custom#substitute('file,file_mru,history/command,directory_mru', '[[:alnum:]]', '*\0', 10)
@@ -727,29 +728,28 @@ vmap <Leader>" S"
 " }}}
 
 " qfixhowm {{{
-let g:QFixHowm_Key='g'
-
-let g:howm_dir                   = $HOME.'/howm'
-let g:howm_filename              = '%Y/%m/%Y-%m-%d-%H%M%S.txt'
-let g:qfixmemo_ext               = 'howm'
-let g:QFixHowm_FileType          = 'markdown'
-let g:QFixHowm_Title             = '#'
-let g:QFix_PreviewEnable         = 0
-let g:QFixHowm_MenuPreview       = 0
-let g:QFixMRU_Title              = {}
-let g:QFixMRU_Title['txt']       = '^###[^#]'
-let g:QFixMRU_Title['txt_regxp'] = '^###[^#]'
-
-let g:QFix_Height     = 3
-let g:QFix_Width      = 0
-let g:QFix_CopenCmd   = ''
-let g:QFix_CursorLine = 1
-set winwidth=20
-let g:QFix_PreviewFtypeHighlight = 1
-
-let g:QFix_CloseOnJump     = 0
-let g:QFix_Edit            = ''
-let g:QFix_UseLocationList = 0
+let g:QFixHowm_Key                  = 'g'
+let g:howm_dir                      = $HOME.'/howm'
+let g:howm_filename                 = '%Y/%m/%Y-%m-%d-%H%M%S.txt'
+let g:qfixmemo_ext                  = 'howm'
+let g:QFixHowm_FileType             = 'markdown'
+let g:QFixHowm_Title                = '#'
+let g:QFix_PreviewEnable            = 0
+let g:QFixHowm_MenuPreview          = 0
+let g:QFixMRU_Title                 = {}
+let g:QFixMRU_Title['txt']          = '^# '
+let g:QFixMRU_Title['txt_regxp']    = '^# '
+let g:QFixHowm_SaveTime             = -1
+let g:QFixHowm_Autoformat           = 0
+let g:QFixHowm_Autoformat_TitleMode = 0
+let g:QFix_Height                   = 3
+let g:QFix_Width                    = 0
+let g:QFix_CopenCmd                 = ''
+let g:QFix_CursorLine               = 1
+let g:QFix_PreviewFtypeHighlight    = 1
+let g:QFix_CloseOnJump              = 0
+let g:QFix_Edit                     = ''
+let g:QFix_UseLocationList          = 0
 " }}}
 
 " rainbow_parentheses.vim{{{
