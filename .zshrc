@@ -18,88 +18,57 @@ export EDITOR='vi'
 export RSYNC_RSH=ssh
 export CVS_RSH=ssh
 
-# ヒストリ
+# history
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=7500
 SAVEHIST=7500
-setopt hist_reduce_blanks # remove space
-setopt extended_history #zshの開始,終了時刻を記録
-unsetopt hist_verify # ヒストリを呼び出してから実行する間いｎ一旦編集可能を止める
-setopt hist_expand # complete from history
-export HISTIGNORE="ls *:cd:history:fg*:history-all" # ignored commands
-setopt hist_ignore_space # ignore space-start command
+setopt hist_reduce_blanks
+setopt extended_history
+unsetopt hist_verify
+setopt hist_expand
+export HISTIGNORE="ls *:cd:history:fg*:history-all"
+setopt hist_ignore_space
 setopt hist_expire_dups_first
-setopt inc_append_history # すぐにヒストリに追記する
-setopt share_history # zshプロセス間でヒストリを共有する
-function history-all { history -E 1 } # output all histoy
+setopt inc_append_history
+setopt share_history
+function history-all { history -E 1 }
 
-# 補完機能の強化
 autoload -U compinit
 compinit -u
-## competion method grouping
 zstyle ':completion:*' format '%B%d%b'
 zstyle ':completion:*' group-name ''
 
-## 補完候補をメニューから選択
 zstyle ':completion:*:default' menu select=2
 ## color completion
-## 空文字列はデフォルト値を使うという意味
 zstyle ':completion:*:default' list-colors ""
-## 補完候補がなければより曖昧に候補を探す
-## m:{a-z}={A-Z} : 小文字大文字区別なく補完
-## r:|[._-]=* [.][_][-]の前にワイルドカードがあるものとして補完
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z} r:|[._-]=*'
-## 多めに保管方法をとる
-# completer
-# _oldlist 前回の補完結果を再利用
-# _complete 補完する
-# _match globを展開しないで候補の一覧から補完
-# _history ヒストリのコマンドも補完候補とする
-# _ignored 補完候補にださないと指定したものも補完候補とする
-# _approximate 似ている補完候補も補完候補とする
-# _prefix カーソル移行を無視してカーソル位置までで補完する
 
 zstyle ':completion:*' completer _oldlist _complete _match _history _ignored _approximate _prefix _list
-## 補完候補をキャッシュ
 zstyle ':completion:*' use-cache yes
-## 詳細な情報を使う
 zstyle ':completion:*' verbose yes
-## カーソル位置で補完
+zstyle ':completion:*' ignore-parents parent pwd ..
+
 setopt complete_in_word
-## globを展開しないで候補の一覧から補完する
 setopt glob_complete
-## 数字順に並べる
 setopt numeric_glob_sort
 
-# 展開
-## =の後でも ~ [=コマンド]などのファイル名展開を行う
 setopt magic_equal_subst
-## パスがディレクトリだったら最後に/をつけるo
 setopt mark_dirs
-
-## jobsでプロセスIDも出力
 setopt long_list_jobs
 
-## プロセス消費時間が3秒かかったら 自動的に消費時間の統計情報を表示
 REPORTTIME=3
 
-## 全てのユーザのログイン・ログアウトを監視
 watch="all"
-## ログイン語すぐに表示
 log
 
-#コアダンプサイズを制限
 limit coredumpsize 102400
-##出力の文字列末尾に改行コードがない場合でも表示
 unsetopt promptcr
 
-# emacs-like keybind
 bindkey -e
 
 ########################################
 # prompt
 ########################################
-# PS1="[@${HOST%%.*} %2~]%(!.#.$) "
 setopt transient_rprompt
 setopt prompt_subst
 setopt prompt_percent
@@ -147,51 +116,31 @@ update_prompt()
 precmd_functions=($precmd_functions update_prompt)
 
 PROMPT2="%_%%"
-# SPROMPT="correct> %R -> %r [n,y,a,e]?"
 SPROMPT="%{$fg[red]%}%{$suggest%}(*'_'%)? < You mean %B%r%b %{$fg[red]%}? [y,n,a,e]:${reset_color} "
 
 ########################################
 
-# 色を使う
 setopt prompt_subst
-
-# no beep
 setopt nobeep
-
-# 補完候補一覧でファイル種別を表示
 setopt list_types
-
-# ファイル名で#,~,^を正規表現として扱う
 setopt extended_glob
-
-# 直前と同じコマンドをヒストリに追加しない
 setopt hist_ignore_dups
-
-# 補完リストが多い時に尋ねる数
 LISTMAX=0
 export LISTMAX
-
-# cd dir_name only
 setopt auto_cd auto_remove_slash auto_name_dirs
 
 setopt extended_history hist_ignore_dups hist_ignore_space prompt_subst
 setopt extended_glob list_types no_beep always_last_prompt
 setopt cdable_vars sh_word_split autopushd pushd_ignore_dups
 
-# cd history
 setopt auto_pushd
-setopt pushd_ignore_dups #同ディレクトリを履歴に追加しない
+setopt pushd_ignore_dups
 setopt pushd_minus
-cdpath=(~) # カレントディレクトリ内に指定ディレクトリが見当たらない場合移動先を検索するリスト
+cdpath=(~)
 chpwd_functions=($chpwd_functions dirs)
 
-# spell check
 setopt auto_param_keys
-
-# リストを詰めて表示
 setopt list_packed
-
-# history
 autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
@@ -199,8 +148,6 @@ zle -N history-beginning-search-forward-end history-search-end
 bindkey '^P' history-beginning-search-backward-end
 bindkey '^N' history-beginning-search-forward-end
 
-# eval `dircolors $HOME/.dir_colors`
-# color ls
 export ls_colors='no=01;37:fi=00:di=01;36:pi=40;33:so=01;35:bd=40;33:cd=40;33;01:or=40;32;01:ex=01;33:*core=01;31:'
 os=$(uname)
 if [ ${os} = "Darwin" ] ; then
@@ -208,14 +155,13 @@ if [ ${os} = "Darwin" ] ; then
 else
         alias ls="ls --color=auto"
 fi
-# -i 確認 -v 詳細な情報の表示
 alias cp='cp -iv'
 # alias rm='rm -iv'
 alias mv='mv -iv'
 alias grep='grep -E --color=auto'
 alias ll='ls -l'
 alias la='ls -la'
-# color grep word
+
 export GREP_COLOR='1;3741'
 
 # vim
@@ -238,31 +184,20 @@ function container_ip () {
 docker inspect $1 | grep IPAddres | awk -F'"' '{print $4}'
 }
 
-# 単語区切り記号
 WORDCHARS='*?_-.[]~=&;!#S%^(){}<>'
 WORDCHARS=${WORDCHARS:s,/,,}
 
-# カレントディレクトリ内にサブディレクトリがない場合にcdが検索するディレクトリのリスト
 cdpath=($HOME)
 
-# サスペンド中のプロセスと同じコマンド名を実行した場合はリジュームする
 setopt auto_resume
-# コマンドのスペルチェックをする
 setopt correct
-# 補完候補が複数ある場合、一覧表示せず、すぐ最初の候補を補完する
-# vimshell 上で邪魔なので無効化
 setopt no_menu_complete
-# 補完候補の表示を水平方向に
 setopt list_rows_first
-#  コピペ時rpromptを非表示にする
 setopt transient_rprompt
-# 括弧の対応を自動補完
 setopt auto_param_keys
-# 補完される前にオリジナルのコマンドまで展開してチェックされる
 setopt complete_aliases
 
-## エイリアス
-### suffix
+## alias
 alias -s py="python"
 alias -s rb="ruby"
 alias -s txt="cat"
@@ -280,16 +215,8 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 
-## 完全に削除
-alias rr="command rm -rf"
-
 alias remem='du -sx / &> /dev/null & sleep 25 && kill $!'
 
-# 今いるディレクトリを補完候補から外す
-#http://qiita.com/items/7916037b1384d253b457
-zstyle ':completion:*' ignore-parents parent pwd ..
-
-# クリップボードにコピー
 if is_exist 'pbcopy' ; then
     # Mac
     alias -g C='| pbcopy'
