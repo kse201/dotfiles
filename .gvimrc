@@ -1,6 +1,5 @@
 ".gvimrc
-colorscheme desert
-
+colorscheme molokai
 set guioptions-=b
 set guioptions-=T
 " changing cursor colow by insert-mode adn IME ON/OFF{{{

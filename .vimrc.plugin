@@ -72,19 +72,19 @@ NeoBundleLazy 'Shougo/vimfiler',
 " }}}
 " unite {{{
 NeoBundle 'Shougo/unite.vim'
-NeoBundleLazy 'tsukkee/unite-tag'
-NeoBundleLazy 'Shougo/unite-outline'
-NeoBundleLazy 'tacroe/unite-mark'
-NeoBundleLazy 'thinca/vim-unite-history'
-NeoBundleLazy 'osyo-manga/unite-quickfix', {'autoload': {'filetypes': ['c', 'cpp']}}
-NeoBundleLazy 'unite-colorscheme'
-NeoBundleLazy 'zhaocai/unite-scriptnames'
+NeoBundleLazy 'tsukkee/unite-tag', {'depends': 'Shougo/unite.vim'}
+NeoBundleLazy 'Shougo/unite-outline', {'depends': 'Shougo/unite.vim'}
+NeoBundleLazy 'tacroe/unite-mark', {'depends': 'Shougo/unite.vim'}
+NeoBundleLazy 'thinca/vim-unite-history', {'depends': 'Shougo/unite.vim'}
+NeoBundleLazy 'osyo-manga/unite-quickfix', {'autoload': {'filetypes': ['c', 'cpp']}, 'depends': 'Shougo/unite.vim'}
+NeoBundleLazy 'unite-colorscheme', {'depends': 'Shougo/unite.vim'}
+NeoBundleLazy 'zhaocai/unite-scriptnames', {'depends': 'Shougo/unite.vim'}
 NeoBundle 'Shougo/neomru.vim', {'depends': 'Shougo/unite.vim'}
 " }}}
 " align {{{
 NeoBundle 'h1mesuke/vim-alignta'
 NeoBundle 'The-NERD-Commenter'
-NeoBundleLazy "fuenor/JpFormat.vim"
+NeoBundle 'fuenor/JpFormat.vim'
 " }}}
 " feature {{{
 NeoBundle 'itchyny/lightline.vim'
@@ -100,14 +100,12 @@ NeoBundle 'fuenor/qfixhowm'
 NeoBundle 't9md/vim-quickhl'
 NeoBundle 'kana/vim-smartinput'
 NeoBundle 'vim-scripts/scratch-utility'
-NeoBundle "osyo-manga/unite-qfixhowm"
+NeoBundle "osyo-manga/unite-qfixhowm", {'depends': ['fuenor/qfixhowm', 'Shougo/unite.vim']}
 NeoBundle 'scrooloose/syntastic'
 NeoBundleLazy 'Takazudo/outline.vim.git'
 " }}}
 " markdown {{{
 NeoBundleLazy 'kannokanno/previm', {'autoload': {'filetypes': ['markdown']}}
-NeoBundleLazy 'plasticboy/vim-markdown', {'autoload': {'filetypes': ['markdown']}}
-NeoBundleLazy 'kana/vim-submode', {'autoload': {'filetypes': ['markdown']}}
 " }}}
 " looks {{{
 NeoBundle 'nathanaelkane/vim-indent-guides'
@@ -125,18 +123,12 @@ NeoBundleLazy 'kchmck/vim-coffee-script', {'autoload': {'filetypes': ['coffee']}
 NeoBundleLazy 'moll/vim-node', {'autoload': {'filetypes': ['coffee']}}
 
 NeoBundle 'tpope/vim-abolish'
-NeoBundle 'Shougo/context_filetype.vim'
-NeoBundle 'ujihisa/neco-look'
-NeoBundle 'Shougo/neco-syntax'
-NeoBundle 'fuenor/JpFormat.vim'
-NeoBundle 'vim-scripts/DrawIt'
+NeoBundleLazy 'vim-scripts/DrawIt', {'autoload': {'commands': ['DrawIt']}}
 NeoBundle 'thinca/vim-ref'
 NeoBundleLazy 'ujihisa/ref-hoogle', {'autoload': {'filetypes': ['haskell']}}
 NeoBundleLazy 'kana/vim-filetype-haskell', {'autoload': {'filetypes': ['haskell']}}
-NeoBundleLazy 'ujihisa/neco-ghc', {'autoload': {'filetypes': ['haskell']}}
 NeoBundleLazy 'eagletmt/ghcmod-vim', {'autoload': {'filetypes': ['haskell']}}
 NeoBundle 'majutsushi/tagbar.git'
-NeoBundle 'simeji/winresizer'
 
 filetype plugin indent on
 syntax on
@@ -531,6 +523,9 @@ call unite#define_source(s:unite_source_myCommand)
 nnoremap <SID>[unite]c :Unite myCommand<CR>
 " }}}
 " }}}
+
+colorscheme molokai
+set background=light
 
 " smartchr.vim{{{
 if s:checkplugin('vim-smartchr' )
