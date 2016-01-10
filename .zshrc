@@ -19,18 +19,21 @@ export RSYNC_RSH=ssh
 export CVS_RSH=ssh
 
 # history
+setopt \
+    extended_history \
+    hist_ignore_dups \
+    hist_ignore_space \
+    hist_expire_dups_first \
+    hist_expand \
+    hist_reduce_blanks \
+    inc_append_history \
+    share_history
+unsetopt hist_verify
+
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=7500
 SAVEHIST=7500
-setopt hist_reduce_blanks
-setopt extended_history
-unsetopt hist_verify
-setopt hist_expand
 export HISTIGNORE="ls *:cd:history:fg*:history-all"
-setopt hist_ignore_space
-setopt hist_expire_dups_first
-setopt inc_append_history
-setopt share_history
 function history-all { history -E 1 }
 
 autoload -U compinit
@@ -48,31 +51,25 @@ zstyle ':completion:*' use-cache yes
 zstyle ':completion:*' verbose yes
 zstyle ':completion:*' ignore-parents parent pwd ..
 
-setopt complete_in_word
-setopt glob_complete
-setopt numeric_glob_sort
-
-setopt magic_equal_subst
-setopt mark_dirs
-setopt long_list_jobs
-
 REPORTTIME=3
 
 watch="all"
 log
 
 limit coredumpsize 102400
-unsetopt promptcr
 
 bindkey -e
 
 ########################################
 # prompt
 ########################################
-setopt transient_rprompt
-setopt prompt_subst
-setopt prompt_percent
-setopt transient_rprompt
+setopt \
+    transient_rprompt \
+    prompt_subst \
+    prompt_percent \
+    no_beep \
+    always_last_prompt
+unsetopt promptcr
 
 color256()
 {
@@ -119,23 +116,29 @@ PROMPT2="%_%%"
 SPROMPT="%{$fg[red]%}%{$suggest%}(*'_'%)? < You mean %B%r%b %{$fg[red]%}? [y,n,a,e]:${reset_color} "
 
 ########################################
-
-setopt prompt_subst
-setopt nobeep
-setopt list_types
-setopt extended_glob
-setopt hist_ignore_dups
 LISTMAX=0
 export LISTMAX
 setopt auto_cd auto_remove_slash auto_name_dirs
 
-setopt extended_history hist_ignore_dups hist_ignore_space prompt_subst
-setopt extended_glob list_types no_beep always_last_prompt
-setopt cdable_vars sh_word_split autopushd pushd_ignore_dups
+setopt extended_glob list_types 
+setopt cdable_vars sh_word_split
+setopt auto_resume
+setopt correct
+setopt \
+    no_menu_complete \
+    complete_aliases \
+    complete_in_word \
+    glob_complete
+setopt list_rows_first
+setopt auto_pushd \
+    pushd_minus \
+    pushd_ignore_dups
+setopt numeric_glob_sort
 
-setopt auto_pushd
-setopt pushd_ignore_dups
-setopt pushd_minus
+setopt magic_equal_subst
+setopt mark_dirs
+setopt long_list_jobs
+
 cdpath=(~)
 chpwd_functions=($chpwd_functions dirs)
 
@@ -149,53 +152,12 @@ bindkey '^P' history-beginning-search-backward-end
 bindkey '^N' history-beginning-search-forward-end
 
 export ls_colors='no=01;37:fi=00:di=01;36:pi=40;33:so=01;35:bd=40;33:cd=40;33;01:or=40;32;01:ex=01;33:*core=01;31:'
-os=$(uname)
-if [ ${os} = "Darwin" ] ; then
-        alias ls="ls -G"
-else
-        alias ls="ls --color=auto"
-fi
-alias cp='cp -i'
-# alias rm='rm -iv'
-alias mv='mv -i'
-alias grep='grep -E --color=auto'
-alias ll='ls -l'
-alias la='ls -la'
-
 export GREP_COLOR='1;3741'
-
-# vim
-if is_exist 'vim' ; then
-    alias vi="vim"
-    # spartan Vim
-    alias spvim='vim -u NONE'
-fi
-
-[[ $EMACS = t ]] && unsetopt zle
-
-# emacs
-if [ `uname` != "Darwin" ] ; then
-    alias emacsclient=/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -n
-    alias e='/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -n'
-fi
-
-alias dl='docker ps -l -q'
-function container_ip () {
-docker inspect $1 | grep IPAddres | awk -F'"' '{print $4}'
-}
 
 WORDCHARS='*?_-.[]~=&;!#S%^(){}<>'
 WORDCHARS=${WORDCHARS:s,/,,}
 
 cdpath=($HOME)
-
-setopt auto_resume
-setopt correct
-setopt no_menu_complete
-setopt list_rows_first
-setopt transient_rprompt
-setopt auto_param_keys
-setopt complete_aliases
 
 ## alias
 alias -s py="python"
@@ -229,12 +191,45 @@ elif is_exist 'putclip' ; then
 fi
 
 if is_exist 'colordiff' ; then
-      alias diff='colordiff'
+    alias diff='colordiff'
 fi
 
 if is_exist 'tree' ; then
     alias tree="pwd;find . | sort | sed '1d;s/^\.//;s/\/\([^/]*\)$/|--\1/;s/\/[^/|]*/|  /g'"
 fi
+
+os=$(uname)
+if [ ${os} = "Darwin" ] ; then
+    alias ls="ls -G"
+else
+    alias ls="ls --color=auto"
+fi
+alias cp='cp -i'
+# alias rm='rm -iv'
+alias mv='mv -i'
+alias grep='grep -E --color=auto'
+alias ll='ls -l'
+alias la='ls -la'
+
+# vim
+if is_exist 'vim' ; then
+    alias vi="vim"
+    # spartan Vim
+    alias spvim='vim -u NONE'
+fi
+
+[[ $EMACS = t ]] && unsetopt zle
+
+# emacs
+if [ `uname` != "Darwin" ] ; then
+    alias emacsclient=/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -n
+    alias e='/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -n'
+fi
+
+alias dl='docker ps -l -q'
+function container_ip () {
+docker inspect $1 | grep IPAddres | awk -F'"' '{print $4}'
+}
 
 ########################################
 # man
@@ -276,13 +271,13 @@ zplug load --verbose
 ########################################
 conf() {
     case $1 in
-        bash)       vim $HOME/.bashrc ;;
-        git)        vim $HOME/.gitconfig ;;
-        tmux)       vim $HOME/.tmux.conf ;;
-        screen)     vim $HOME/.screenrc ;;
-        vim)        vim $HOME/.vimrc ;;
-        zsh)        vim $HOME/.zshrc && source $HOME/.zshrc ;;
-        *)          echo "Unknown application: $1" ;;
+        bash)   vim $HOME/.bashrc ;;
+        git)    vim $HOME/.gitconfig ;;
+        tmux)   vim $HOME/.tmux.conf ;;
+        screen) vim $HOME/.screenrc ;;
+        vim)    vim $HOME/.vimrc ;;
+        zsh)    vim $HOME/.zshrc && source $HOME/.zshrc ;;
+        *)      echo "Unknown application: $1" ;;
     esac
 }
 
