@@ -70,26 +70,6 @@ setopt \
     no_beep \
     always_last_prompt
 unsetopt promptcr
-
-color256()
-{
-    local red=$1; shift
-    local green=$2; shift
-    local blue=$3; shift
-
-    echo -n $[$red * 36 + $green * 6 + $blue + 16]
-}
-
-fg256()
-{
-    echo -n $'\e[38;5;'$(color256 "$@")"m"
-}
-
-bg256()
-{
-    echo -n $'\e[48;5;'$(color256 "$@")"m"
-}
-
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' formats \
     '(%{%F{blue}%}%b%{%f%})'
@@ -173,10 +153,6 @@ alias -g S='| sed'
 alias -g A='| awk'
 alias -g W='| wc'
 
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
-
 alias remem='du -sx / &> /dev/null & sleep 25 && kill $!'
 
 if is_exist 'pbcopy' ; then
@@ -194,7 +170,7 @@ if is_exist 'colordiff' ; then
     alias diff='colordiff'
 fi
 
-if is_exist 'tree' ; then
+if ! is_exist 'tree' ; then
     alias tree="pwd;find . | sort | sed '1d;s/^\.//;s/\/\([^/]*\)$/|--\1/;s/\/[^/|]*/|  /g'"
 fi
 
@@ -205,7 +181,6 @@ else
     alias ls="ls --color=auto"
 fi
 alias cp='cp -i'
-# alias rm='rm -iv'
 alias mv='mv -i'
 alias grep='grep -E --color=auto'
 alias ll='ls -l'
