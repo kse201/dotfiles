@@ -1,3 +1,7 @@
+########################################
+# General
+########################################
+
 is_exist()  { which "$1" >/dev/null 2>&1; return $?; }
 
 # Source global definitions
@@ -60,42 +64,6 @@ limit coredumpsize 102400
 
 bindkey -e
 
-########################################
-# prompt
-########################################
-setopt \
-    transient_rprompt \
-    prompt_subst \
-    prompt_percent \
-    no_beep \
-    always_last_prompt
-unsetopt promptcr
-autoload -Uz vcs_info
-zstyle ':vcs_info:*' formats \
-    '(%{%F{blue}%}%b%{%f%})'
-prompt_bar_left="%F{cyan}%n%{%b%}@%F{cyan}%m%{%b%}:%~"
-prompt_bar_right=""
-prompt_left="%(1j,(%j),)%# "
-
-count_prompt_characters()
-{
-    print -n -P -- "$1" | sed -e $'s/\e\[[0-9;]*m//g' | wc -m | sed -e 's/ //g'
-}
-
-update_prompt()
-{
-    local bar_left="$prompt_bar_left"
-    LANG=C vcs_info >&/dev/null
-    local vcs_info="${vcs_info_msg_0_}"
-    PROMPT="${bar_left}${vcs_info}${prompt_left}"
-}
-
-precmd_functions=($precmd_functions update_prompt)
-
-PROMPT2="%_%%"
-SPROMPT="%{$fg[red]%}%{$suggest%}(*'_'%)? < You mean %B%r%b %{$fg[red]%}? [y,n,a,e]:${reset_color} "
-
-########################################
 LISTMAX=0
 export LISTMAX
 setopt auto_cd auto_remove_slash auto_name_dirs
@@ -139,7 +107,46 @@ WORDCHARS=${WORDCHARS:s,/,,}
 
 cdpath=($HOME)
 
-## alias
+########################################
+# Prompt
+########################################
+
+setopt \
+    transient_rprompt \
+    prompt_subst \
+    prompt_percent \
+    no_beep \
+    always_last_prompt
+unsetopt promptcr
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' formats \
+    '(%{%F{blue}%}%b%{%f%})'
+prompt_bar_left="%F{cyan}%n%{%b%}@%F{cyan}%m%{%b%}:%~"
+prompt_bar_right=""
+prompt_left="%(1j,(%j),)%# "
+
+count_prompt_characters()
+{
+    print -n -P -- "$1" | sed -e $'s/\e\[[0-9;]*m//g' | wc -m | sed -e 's/ //g'
+}
+
+update_prompt()
+{
+    local bar_left="$prompt_bar_left"
+    LANG=C vcs_info >&/dev/null
+    local vcs_info="${vcs_info_msg_0_}"
+    PROMPT="${bar_left}${vcs_info}${prompt_left}"
+}
+
+precmd_functions=($precmd_functions update_prompt)
+
+PROMPT2="%_%%"
+SPROMPT="%{$fg[red]%}%{$suggest%}(*'_'%)? < You mean %B%r%b %{$fg[red]%}? [y,n,a,e]:${reset_color} "
+
+########################################
+# Alias
+########################################
+
 alias -s py="python"
 alias -s rb="ruby"
 alias -s txt="cat"
@@ -206,15 +213,15 @@ function container_ip () {
 docker inspect $1 | grep IPAddres | awk -F'"' '{print $4}'
 }
 
-########################################
 # man
 if is_exist 'tldr' ; then
     alias man='tldr'
 fi
-########################################
 
 ########################################
-# packages
+# Packages
+########################################
+
 PLUGIN_MNGR="${HOME}/.zplug/zplug"
 if [ ! -e ${PLUGIN_MNGR} ] ; then
     curl -fLo ${PLUGIN_MNGR} --create-dirs https://git.io/zplug
@@ -241,9 +248,11 @@ if ! zplug check --verbose; then
 fi
 
 zplug load --verbose
-########################################
 
 ########################################
+# Function
+########################################
+
 conf() {
     case $1 in
         bash)   vim $HOME/.bashrc ;;
@@ -260,7 +269,14 @@ reload (){
     exec $SHELL
 }
 
-# screen
+timestamp() {
+    date +%Y%m%d%H%M%S
+}
+
+########################################
+# Screen
+########################################
+
 export SCREENDIR=$HOME/.screens
 if [ ! -e "$HOME/.log" ] ; then
     mkdir "$HOME/.log"
@@ -271,10 +287,11 @@ if [ -f "$HOME/.zshrc.local" ] ; then
     source "$HOME/.zshrc.local"
 fi
 
-function timestamp() {
-date +%Y%m%d%H%M%S
-}
+########################################
+# Misc
+########################################
 
+# Haskell
 # Add GHC 7.8.4 to the PATH, via http://ghcformacosx.github.io/
 export GHC_DOT_APP="/Applications/GHC.app"
 if [ -d "$GHC_DOT_APP" ]; then
@@ -282,17 +299,12 @@ if [ -d "$GHC_DOT_APP" ]; then
 fi
 
 # golang
-
 if [ -e '/usr/local/go' ] ; then
     export PATH=$PATH:/usr/local/go/bin:$HOME/.go/bin
 fi
 if is_exist 'go' ; then
     export GOPATH="${HOME}/.go"
     alias gopkg="find $GOPATH -name '*.go' | grep -E \"\/[^\.].+\.go\" | sed -e 's/^.*src\/\(.*\)\/.*go$/\"\1\"/' | sort | uniq | grep -v $USER"
-fi
-
-if [ -e "$HOME/proxyrc" ] ; then
-    source "$HOME/proxyrc"
 fi
 
 if is_exist "cabal" ; then
