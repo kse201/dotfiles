@@ -387,7 +387,7 @@ endfunction
 " Ruby {{{
 function! g:MyrubySettings()
     call g:AutoParem()
-    set shiftwidth=2 tabstop=2 dictionary=$HOME/.vim/dict/ruby.dict
+    setlocal shiftwidth=2 tabstop=2 dictionary=$HOME/.vim/dict/ruby.dict
     let g:ref_use_vimproc   = 1
     let g:ref_refe_version  = 2
     let g:rsenseUseOmniFunc = 1
@@ -403,7 +403,7 @@ endfunction
 " Python {{{
 function! g:MypythonSettings()
     call g:AutoParem()
-    set expandtab shiftwidth=4 tabstop=4
+    setlocal expandtab shiftwidth=4 tabstop=4
     compiler python
 endfunction
 " }}}
@@ -424,19 +424,19 @@ endfunction
 " }}}
 " make {{{
 function! g:MymakeSettings()
-    set noexpandtab
+    setlocal noexpandtab
 endfunction
 " }}}
 " golang {{{
 function! g:MygoSettings()
     call g:AutoParem()
-    set noexpandtab fdm=indent tabstop=4 shiftwidth=4 fdl=1
+    setlocal noexpandtab fdm=indent tabstop=4 shiftwidth=4 fdl=1
 endfunction
 " }}}
 " js,coffeescript {{{
 function! g:MyjavascriptSettings()
     call g:AutoParem()
-    set shiftwidth=2 softtabstop=2 tabstop=2 expandtab
+    setlocal shiftwidth=2 softtabstop=2 tabstop=2 expandtab
 endfunction
 function! g:MycoffeeSettings()
     call g:MyjavascriptSettings()
