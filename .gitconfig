@@ -61,7 +61,7 @@
 # diff
     df       = diff
     ds       = diff --stat
-    today    = diff @{yesterday}.. --stat
+    today    = !git log --reverse --no-merges --branches=* --date=local --since=midnight --oneline --author="`git config --get user.name`"
     week     = diff \"@{last week}\".. --stat
 
 # log
