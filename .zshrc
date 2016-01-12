@@ -120,7 +120,7 @@ setopt \
 unsetopt promptcr
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' formats \
-    '(%{%F{blue}%}%b%{%f%})'
+    '(%{%F{green}%}%b%{%f%})'
 prompt_bar_left="%F{cyan}%n%{%b%}@%F{cyan}%m%{%b%}:%~"
 prompt_bar_right=""
 prompt_left="%(1j,(%j),)%# "
