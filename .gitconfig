@@ -71,3 +71,5 @@
 
 [stash]
 	showPatch = true
+[commit]
+	template = ~/.gitmessage.txt
