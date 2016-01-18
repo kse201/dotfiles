@@ -123,8 +123,12 @@ setopt \
     always_last_prompt
 unsetopt promptcr
 autoload -Uz vcs_info
-zstyle ':vcs_info:*' formats \
-    '(%{%F{green}%}%b%{%f%})'
+zstyle ':vcs_info:*' formats '%F{green}%u%c(%b)%f'
+zstyle ':vcs_info:*' actionformats '[%b|%a]'
+zstyle ':vcs_info:git:*' check-for-changes true
+zstyle ':vcs_info:git:*' stagedstr "%F{yellow}+"
+zstyle ':vcs_info:git:*' unstagedstr "%F{red}!"
+precmd () { vcs_info }
 prompt_bar_left="%F{cyan}%n%{%b%}@%F{cyan}%m%{%b%}:%~"
 prompt_bar_right=""
 prompt_left="%(1j,(%j),)%# "
