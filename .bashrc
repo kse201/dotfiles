@@ -176,6 +176,8 @@ if is_exist 'go' ; then
     export GOPATH="${HOME}/.go"
 fi
 
+[[ -s "/home/vagrant/.gvm/scripts/gvm" ]] && source "/home/vagrant/.gvm/scripts/gvm"
+
 if [ -e "$HOME/proxyrc" ] ; then
     source "$HOME/proxyrc"
 fi

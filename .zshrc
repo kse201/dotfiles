@@ -310,6 +310,9 @@ fi
 if [ -e '/usr/local/go' ] ; then
     export PATH=$PATH:/usr/local/go/bin:$HOME/.go/bin
 fi
+
+[[ -s "/home/vagrant/.gvm/scripts/gvm" ]] && source "${HOME}/.gvm/scripts/gvm"
+
 if is_exist 'go' ; then
     export GOPATH="${HOME}/.go"
     alias gopkg="find $GOPATH -name '*.go' | grep -E \"\/[^\.].+\.go\" | sed -e 's/^.*src\/\(.*\)\/.*go$/\"\1\"/' | sort | uniq | grep -v $USER"
@@ -331,3 +334,4 @@ if [ -f ~/.fzf.zsh ] ; then
     source ~/.fzf.zsh
     bindkey '^Y' fzf-file-widget
 fi
+
