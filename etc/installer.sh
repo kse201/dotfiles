@@ -1,11 +1,10 @@
 #!/bin/sh
-set -e
-set -u
+set -eu
 
 is_exist()  { [ -x "$(which "$1")" ]; }
 
 DIR="${HOME}/.dotfiles"
-TARGET_FILES=".gitconfig .gitmessage.txt .vimrc .vimrc.plugin .bashrc .zshrc .screenrc .tmux.conf .vim"
+IGNORES=(".gitignore" ".gitmodules")
 RETVAL=0
 REPOSITORY_URL="https://github.com/kse201/dotfiles"
 dependencies="git make gcc"
@@ -38,7 +37,20 @@ vim_dependencies() {
 dotfiles_install() {
     dotfiles_download
 
-    for file in ${TARGET_FILES} ; do
+    dotfiles=($(find ${DIR} -maxdepth 1 -name "\.*" -type f | sed "s;${DIR}/;;g"))
+
+    set +u
+    for i in $(seq ${#dotfiles[@]}) ; do 
+        file=${dotfiles[${i}]}
+        for ignore in ${IGNORES[@]} ; do
+            if [ "${file}" = "${ignore}" ] ; then 
+                unset dotfiles[${i}]
+            fi
+        done
+    done
+    set -u
+
+    for file in ${dotfiles[@]} ; do
         ln -f -s "${DIR}/${file}" "${HOME}/${file}" >/dev/null 2>&1
     done
     echo "dotfiles installed."
