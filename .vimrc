@@ -362,88 +362,6 @@ if has('gui_running')
 endif
 " }}}
 
-" Language setting {{{
-" Prefix {{{
-let g:FileTypeSettings = [
-            \ 'vim',
-            \ 'ruby',
-            \ 'python',
-            \ 'sh',
-            \ 'markdown',
-            \ 'go',
-            \ 'javascript',
-            \ 'coffee',
-            \ 'make'
-            \]
-for g:MyFileType in g:FileTypeSettings
-    execute 'autocmd MyAutoCmd FileType ' . g:MyFileType . ' call g:My' . g:MyFileType . 'Settings()'
-endfor
-" }}}
-" vim {{{
-function! g:MyvimSettings()
-    call g:AutoParem()
-endfunction
-" }}}
-" Ruby {{{
-function! g:MyrubySettings()
-    call g:AutoParem()
-    setlocal shiftwidth=2 tabstop=2 dictionary=$HOME/.vim/dict/ruby.dict
-    let g:ref_use_vimproc   = 1
-    let g:ref_refe_version  = 2
-    let g:rsenseUseOmniFunc = 1
-    let g:rsenseHome        = '/usr/local/Cellar/rsense/0.3/libexec'
-    let l:ruby_space_errors = 1
-    nmap ,rr :<C-u>Ref refe<Space>
-    if filereadable(expand('~/rtags'))
-        au MyAutoCmd FileType ruby,eruby setl tags+=~/rtags,~/gtags
-    endif
-    compiler ruby
-endfunction
-" }}}
-" Python {{{
-function! g:MypythonSettings()
-    call g:AutoParem()
-    setlocal expandtab shiftwidth=4 tabstop=4
-    compiler python
-endfunction
-" }}}
-" markdown {{{
-function! g:MymarkdownSettings()
-    if has('folding')
-        setlocal foldmethod=expr
-    endif
-    if has ('folding') &&has('eval')
-        setlocal foldexpr=g:Markdown(v:lnum)
-    endif
-
-    function! g:Markdown(lnum)
-        let l:level = matchend(getline(a:lnum), '^#\+')
-        return l:level > 0 ? '>' . l:level : '='
-    endfunction
-endfunction
-" }}}
-" make {{{
-function! g:MymakeSettings()
-    setlocal noexpandtab
-endfunction
-" }}}
-" golang {{{
-function! g:MygoSettings()
-    call g:AutoParem()
-    setlocal noexpandtab fdm=indent tabstop=4 shiftwidth=4 fdl=1
-endfunction
-" }}}
-" js,coffeescript {{{
-function! g:MyjavascriptSettings()
-    call g:AutoParem()
-    setlocal shiftwidth=2 softtabstop=2 tabstop=2 expandtab
-endfunction
-function! g:MycoffeeSettings()
-    call g:MyjavascriptSettings()
-endfunction
-" }}}
-" }}}
-
 " other {{{
 " auto read templates {{{
 augroup SkeletonAu
@@ -961,7 +879,89 @@ if filereadable(expand($VIMRC_PLUGING))
     source $VIMRC_PLUGING
 endif
 " }}}
-"
+
+" Language setting {{{
+" Prefix {{{
+let g:FileTypeSettings = [
+            \ 'vim',
+            \ 'ruby',
+            \ 'python',
+            \ 'sh',
+            \ 'markdown',
+            \ 'go',
+            \ 'javascript',
+            \ 'coffee',
+            \ 'make'
+            \]
+for g:MyFileType in g:FileTypeSettings
+    execute 'autocmd MyAutoCmd FileType ' . g:MyFileType . ' call g:My' . g:MyFileType . 'Settings()'
+endfor
+" }}}
+" vim {{{
+function! g:MyvimSettings()
+    call g:AutoParem()
+endfunction
+" }}}
+" Ruby {{{
+function! g:MyrubySettings()
+    call g:AutoParem()
+    setlocal shiftwidth=2 tabstop=2 dictionary=$HOME/.vim/dict/ruby.dict
+    let g:ref_use_vimproc   = 1
+    let g:ref_refe_version  = 2
+    let g:rsenseUseOmniFunc = 1
+    let g:rsenseHome        = '/usr/local/Cellar/rsense/0.3/libexec'
+    let l:ruby_space_errors = 1
+    nmap ,rr :<C-u>Ref refe<Space>
+    if filereadable(expand('~/rtags'))
+        au MyAutoCmd FileType ruby,eruby setl tags+=~/rtags,~/gtags
+    endif
+    compiler ruby
+endfunction
+" }}}
+" Python {{{
+function! g:MypythonSettings()
+    call g:AutoParem()
+    setlocal expandtab shiftwidth=4 tabstop=4
+    compiler python
+endfunction
+" }}}
+" markdown {{{
+function! g:MymarkdownSettings()
+    if has('folding')
+        setlocal foldmethod=expr
+    endif
+    if has ('folding') &&has('eval')
+        setlocal foldexpr=g:Markdown(v:lnum)
+    endif
+
+    function! g:Markdown(lnum)
+        let l:level = matchend(getline(a:lnum), '^#\+')
+        return l:level > 0 ? '>' . l:level : '='
+    endfunction
+endfunction
+" }}}
+" make {{{
+function! g:MymakeSettings()
+    setlocal noexpandtab
+endfunction
+" }}}
+" golang {{{
+function! g:MygoSettings()
+    call g:AutoParem()
+    setlocal noexpandtab fdm=indent tabstop=4 shiftwidth=4 fdl=1
+endfunction
+" }}}
+" js,coffeescript {{{
+function! g:MyjavascriptSettings()
+    call g:AutoParem()
+    set shiftwidth=2 softtabstop=2 tabstop=2 expandtab
+endfunction
+function! g:MycoffeeSettings()
+    call g:MyjavascriptSettings()
+endfunction
+" }}}
+" }}}
+
 " local setting {{{
 if filereadable(expand($VIMRC_LOCAL))
     source $VIMRC_LOCAL
