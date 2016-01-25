@@ -886,7 +886,6 @@ let g:FileTypeSettings = [
             \ 'vim',
             \ 'ruby',
             \ 'python',
-            \ 'sh',
             \ 'markdown',
             \ 'go',
             \ 'javascript',
