@@ -342,9 +342,15 @@ if !isdirectory(&backupdir)
 endif
 set backup
 if exists('*strftime')
-    au MyAutoCmd BufWritePre * let &bex = '-' . strftime('%y%m%d%H%M') . '~'
+    augroup Bex
+        autocmd!
+        au BufWritePre * let &bex = '-' . strftime('%y%m%d%H%M') . '~'
+    augroup END
 else
-    au MyAutoCmd BufWritePre * let &bex = '-' . localtime('%y%m%d%H%M') . '~'
+    augroup Bex
+        autocmd!
+        au BufWritePre * let &bex = '-' . localtime('%y%m%d%H%M') . '~'
+    augroup END
 endif
 " }}}
 
