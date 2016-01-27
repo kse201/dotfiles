@@ -920,14 +920,12 @@ function! g:MyrubySettings()
     if filereadable(expand('~/rtags'))
         au MyAutoCmd FileType ruby,eruby setl tags+=~/rtags,~/gtags
     endif
-    compiler ruby
 endfunction
 " }}}
 " Python {{{
 function! g:MypythonSettings()
     call g:AutoParem()
     setlocal expandtab shiftwidth=4 tabstop=4
-    compiler python
 endfunction
 " }}}
 " markdown {{{
