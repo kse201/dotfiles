@@ -789,18 +789,19 @@ let g:lightline.component_function.fileformat = 'g:MyFileformat'
 let g:lightline.component_function.filrtype = 'g:MyFilrtype'
 let g:lightline.component_function.fileencoding = 'g:MyFileencoding'
 let g:lightline.component_function.syntastic = 'SyntasticStatuslineFlag'
-let g:lightline.component_function.charcode = 'g:MyCharCode'
 let g:lightline.component_function.gitgutter = 'g:MyGitgutter'
 let g:lightline.component_function.anzu = 'anzu#search_status'
+let g:lightline.component_type = {
+            \ 'syntastic': 'error'}
 
 let g:lightline.active ={}
 let g:lightline.active.left =[
-            \ ['mode', 'paste'],
-            \ ['gitgutter', 'filename', 'modified', 'anzu']]
+            \ ['syntastic', 'paste'],
+            \ ['gitgutter', 'filename', 'anzu']]
 let g:lightline.active.right =[
-            \ ['lineinfo', 'syntastic'],
+            \ ['lineinfo'],
             \ ['percent'],
-            \ ['charcode', 'fileformat', 'fileencoding', 'filetype']]
+            \ ['fileformat', 'fileencoding', 'filetype']]
 
 function! g:MyModified()
   return &ft =~# 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
@@ -819,7 +820,10 @@ function! g:MyFilename()
 endfunction
 
 function! g:MyFileformat()
-  return winwidth('.') > 70 ? &fileformat : ''
+    if winwidth('.') <= 70 || &fileformat ==# "unix"
+        return ''
+    else
+        return  &fileformat
 endfunction
 
 function! g:MyFiletype()
@@ -827,7 +831,11 @@ function! g:MyFiletype()
 endfunction
 
 function! g:MyFileencoding()
-  return winwidth('.') > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
+    let l:fe = (strlen(&fenc) ? &fenc : &enc)
+    if winwidth('.') <= 70 || l:fe == "utf-8"
+        return ''
+    else
+        return  l:fe
 endfunction
 
 function! g:MyMode()
@@ -854,42 +862,6 @@ function! g:MyGitGutter()
     endif
   endfor
   return join(l:ret, ' ')
-endfunction
-
-" https://github.com/Lokaltog/vim-powerline/blob/develop/autoload/Powerline/Functions.vim
-function! g:MyCharCode()
-  if winwidth('.') <= 70
-    return ''
-  endif
-
-  " Get the output of ascii
-  redir => ascii
-  silent! ascii
-  redir END
-
-  if match(ascii, 'NUL') != -1
-    return 'NUL'
-  endif
-
-  " Zero pad hex values
-  let nrformat = '0x%02x'
-
-  let encoding = (&fenc ==# '' ? &enc : &fenc)
-
-  if encoding ==# 'utf-8'
-    " Zero pad with 4 zeroes in unicode files
-    let nrformat = '0x%04x'
-  endif
-
-  " Get the character and the numeric value from the return value of ascii
-  " This matches the two first pieces of the return value, e.g.
-  " '<F>  70' => char: 'F', nr: '70'
-  let [str, char, nr; rest] = matchlist(ascii, '\v\<(.{-1,})\>\s*([0-9]+)')
-
-  " Format the numeric value
-  let nr = printf(nrformat, nr)
-
-  return "'". char ."' ". nr
 endfunction
 " }}}
 
