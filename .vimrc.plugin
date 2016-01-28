@@ -779,34 +779,28 @@ let g:gitgutter_sign_removed  = '-'
 " }}}
 
 " lightline.vim{{{
-let g:lightline = {
-        \ 'colorscheme': 'landscape',
-        \ 'mode_map': {'c': 'NORMAL'},
-        \ 'active': {
-        \   'left': [
-        \     ['mode', 'paste'],
-        \     ['gitgutter', 'filename','modified','anzu'],
-        \   ],
-        \   'right': [
-        \     ['lineinfo', 'syntastic'],
-        \     ['percent'],
-        \     ['charcode', 'fileformat', 'fileencoding', 'filetype'],
-        \   ]
-        \ },
-        \ 'component_function': {
-        \   'modified': 'g:MyModified',
-        \   'readonly': 'g:MyReadonly',
-        \   'filename': 'g:MyFilename',
-        \   'fileformat': 'g:MyFileformat',
-        \   'filetype': 'g:MyFiletype',
-        \   'fileencoding': 'g:MyFileencoding',
-        \   'mode': 'g:MyMode',
-        \   'syntastic': 'SyntasticStatuslineFlag',
-        \   'charcode': 'g:MyCharCode',
-        \   'gitgutter': 'g:MyGitGutter',
-        \   'anzu': 'anzu#search_status',
-        \ }
-        \ }
+let g:lightline = {}
+let g:lightline.colorscheme = 'landscape'
+let g:lightline.component_function = {}
+let g:lightline.component_function.modified = 'g:MyModified'
+let g:lightline.component_function.readonly = 'g:MyReadonly'
+let g:lightline.component_function.filename = 'g:MyFilename'
+let g:lightline.component_function.fileformat = 'g:MyFileformat'
+let g:lightline.component_function.filrtype = 'g:MyFilrtype'
+let g:lightline.component_function.fileencoding = 'g:MyFileencoding'
+let g:lightline.component_function.syntastic = 'SyntasticStatuslineFlag'
+let g:lightline.component_function.charcode = 'g:MyCharCode'
+let g:lightline.component_function.gitgutter = 'g:MyGitgutter'
+let g:lightline.component_function.anzu = 'anzu#search_status'
+
+let g:lightline.active ={}
+let g:lightline.active.left =[
+            \ ['mode', 'paste'],
+            \ ['gitgutter', 'filename', 'modified', 'anzu']]
+let g:lightline.active.right =[
+            \ ['lineinfo', 'syntastic'],
+            \ ['percent'],
+            \ ['charcode', 'fileformat', 'fileencoding', 'filetype']]
 
 function! g:MyModified()
   return &ft =~# 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
