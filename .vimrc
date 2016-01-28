@@ -300,8 +300,7 @@ function! g:MakeTabLine()
     let l:sep      = '|'
     let l:tabpages = join(l:titles , l:sep) . l:sep . '%#TabLineFill#%T'
     let l:path     = fnamemodify(getcwd(),':~')
-    let l:time     = g:strfl:time('%H:%M')
-    return   l:tabpages . '%=' .l:path .' '. l:time
+    return l:tabpages . '%=' .l:path
 endfunction
 
 set tabline=%!g:MakeTabLine()
@@ -322,7 +321,7 @@ function! s:tabpage_label(n)
 
     let l:mod      = len(filter(copy(l:bufnrs), 'getbufvar(v:val, "&l:modified")')) ? '[+]' : ''
     let l:curbufnr = l:bufnrs[tabpagewinnr(a:n) - 1] " tabpagewinnr()は1 origin
-    let l:fname    = pathshorten(g:bul:fname(l:curbufnr))
+    let l:fname    = pathshorten(bufname(l:curbufnr))
 
     if l:fname ==# ''
         let l:fname = ' '
