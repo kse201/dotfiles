@@ -1,43 +1,93 @@
-#!/bin/sh
-set -eu
+#!/bin/sh -eu
+USAGE="$(basename $0)
+install my dotfiles
+"
 
+is_successful(){ [ "$1" == ${SUCCESS} ]; }
+is_failed()    { [ "$1" != ${SUCCESS} ]; }
 is_exist()  { [ -x "$(which "$1")" ]; }
 
-DIR="${HOME}/.dotfiles"
+SUCCESS=0
+E_FAILED=1
+
+DOTFILE_DIR="${HOME}/.dotfiles"
 IGNORES=(".gitignore" ".gitmodules")
-RETVAL=0
 REPOSITORY_URL="https://github.com/kse201/dotfiles"
-dependencies="git make gcc"
 
-dotfiles_download() {
-    git clone "${REPOSITORY_URL}" "${DIR}"
+DEP_CMDS=("git" "make" "gcc")
+DEP_VIMPLUGINS=("https://github.com/Shougo/neobundle.vim" "https://github.com/Shougo/unite.vim")
+
+LOG_ERROR=0
+LOG_INFO=1
+LOG_DEBUG=2
+
+if [ ! -v "LOG_LEVEL" ] ; then
+    LOG_LEVEL=${LOG_ERROR}
+fi
+
+############################################################
+# Logger function
+#   args: message
+############################################################
+_log() {
+    log_level=$1; shift
+
+    if [ ${log_level} -le ${LOG_LEVEL} ] ; then
+        cat >&2 <<EOL
+$@
+EOL
+    fi
 }
 
-vim_dependencies() {
-    mkdir -p "$HOME/.vim/bundle"
-    git clone https://github.com/Shougo/neobundle.vim.git "${HOME}/.vim/bundle/neobundle.vim" >/dev/null 2>&1
-    if [ $? != 0 ] ; then
-        echo "Error: failed git-clone neobundle.vim"
-        RETVAL=1
-        unlink "${HOME}/.vimrc.plugin"
-        return
-    fi
-    echo "neobundle.vim installed."
-
-    git clone https://github.com/Shougo/unite.vim "${HOME}/.vim/bundle/unite.vim" >/dev/null 2>&1
-    if [ $? != 0 ] ; then
-        echo "Error: failed git-clone unite.vim"
-        RETVAL=1
-        unlink "${HOME}/.vimrc.plugin"
-        return
-    fi
-    echo "unite.vim installed."
+log_error() {
+    _log ${LOG_ERROR} "ERROR: $@"
 }
 
-dotfiles_install() {
-    dotfiles_download
+log_info() {
+    _log ${LOG_INFO} "INFO : $@"
+}
 
-    dotfiles=($(find ${DIR} -maxdepth 1 -name "\.*" -type f | sed "s;${DIR}/;;g"))
+log_debug() {
+    _log ${LOG_DEBUG} "DEBUG: $@"
+}
+
+check_depends() {
+    for dep in ${DEPS_CMDS[@]} ; do
+        if ! is_exist "${dep}" ; then
+            log_error "'${dep}' not found in ${PATH}"
+            return ${E_FAILED}
+        fi
+    done
+
+    return ${SUCCESS}
+}
+
+download_dotfiles() {
+    git clone "${REPOSITORY_URL}" "${DOTFILE_DIR}"
+    return ${SUCCESS}
+}
+
+download_vim_depends() {
+    mkdir -p "${HOME}/.vim/bundle"
+
+    for depends in ${DEP_VIMPLUGINS[@]} ; do
+        depends_name=$(basename ${depends})
+        git clone ${depends} "${HOME}/.vim/bundle/${depends_name}" >/dev/null 2>&1
+        if is_failed $? ; then
+            log_error "failed git-clone ${base}"
+            unlink "${HOME}/.vimrc.plugin"
+            log_info "download_vim_depends failed"
+            return ${E_FAILED}
+        fi
+        log_debug "${depends_name} installed."
+    done
+
+    log_info "download_vim_depends success"
+    return ${SUCCESS}
+}
+
+install_dotfiles() {
+    dotfiles=($(find ${DOTFILE_DIR} -maxdepth 1 -name "\.*" -type f | sed "s;${DOTFILE_DIR}/;;g"))
 
     set +u
     for i in $(seq ${#dotfiles[@]}) ; do 
@@ -51,24 +101,36 @@ dotfiles_install() {
     set -u
 
     for file in ${dotfiles[@]} ; do
-        ln -f -s "${DIR}/${file}" "${HOME}/${file}" >/dev/null 2>&1
+        ln -f -s "${DOTFILE_DIR}/${file}" "${HOME}/${file}" >/dev/null 2>&1
+        if is_failed $? ; then 
+            log_debug "failed ln -s ${file}"
+        fi
     done
-    echo "dotfiles installed."
+    log_debug "dotfiles installed."
 
-    cd "${DIR}"
+    cd "${DOTFILE_DIR}"
     git submodule update --init
-    echo "submodule installed"
+    log_debug "submodule installed"
 
-    vim_dependencies
+    log_info "install_dotfiles success"
+    return ${SUCCESS}
 }
 
-for dep in ${dependencies} ; do
-    if ! is_exist "${dep}" ; then
-        echo "Error: '${dep}' not found in ${PATH}"
-        return 1
+main(){
+    if [ $# -gt 0 ] ; then
+        cat >&2 <<EOU
+Usage: ${USAGE}
+EOU
+        return ${E_INTERNAL}
     fi
-done
 
-dotfiles_install
+    check_depends || return ${E_FAILED}
+    download_dotfiles || return ${E_FAILED}
+    install_dotfiles || return ${E_FAILED}
+    download_vim_depends || return ${E_FAILED}
 
-exit "${RETVAL}"
+    exit "${SUCCESS}"
+}
+
+main $@
+

@@ -8,5 +8,5 @@ build:
     - script:
         name: Run installer
         code: |
+          export LOG_LEVEL=2
           curl https://raw.githubusercontent.com/kse201/dotfiles/${WERCKER_GIT_BRANCH}/etc/installer.sh | sh -x 
-
