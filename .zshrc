@@ -35,7 +35,7 @@ if [ ! -f $HOME/.zshrc.zwc -o $HOME/.zshrc -nt $HOME/.zshrc.zwc ]; then
     zcompile $HOME/.zshrc
 fi
 # env
-export PATH=/usr/local/bin:/usr/local/sbin:$PATH:$HOME/bin
+export PATH=$HOME/.dotfiles/bin:/usr/local/bin:/usr/local/sbin:$PATH
 typeset -U path PATH
 export LANG=ja_JP.UTF-8
 export LESSCHARSET=utf-8
@@ -89,7 +89,7 @@ LISTMAX=0
 export LISTMAX
 setopt auto_cd auto_remove_slash auto_name_dirs
 
-setopt extended_glob list_types 
+setopt extended_glob list_types
 setopt cdable_vars sh_word_split
 setopt auto_resume
 setopt correct
@@ -247,6 +247,14 @@ function ssh() {
     tmux rename-window $window_name
 }
 
+tmux() {
+    if [ $# -eq 0 ] ; then
+        $(which tmuxx)
+    else
+        $(which tmux) $@
+    fi
+}
+
 ########################################
 # Packages
 ########################################
@@ -268,6 +276,7 @@ zplug "zsh-users/zsh-history-substring-search", do:"__zsh_version 4.3"
 zplug "zsh-users/zsh-syntax-highlighting", nice:10
 zplug "junegunn/fzf-bin", as:command, from:gh-r, file:fzf
 zplug "peco/peco", as:command, from:gh-r, of:"*amd64*"
+zplug "b4b4r07/tmuxlogger"
 
 if ! zplug check --verbose; then
     printf "Install? [y/N]: "
