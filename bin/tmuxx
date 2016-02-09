@@ -1,22 +1,22 @@
 #!/bin/bash
 
 is_exists() {
-    which "$1" >/dev/null 2>&1 ; return $? 
+    which "$1" >/dev/null 2>&1 ; return $?
 }
 has() {
-    is_exists "$@" 
+    is_exists "$@"
 }
 is_ssh_running() {
     [ ! -z "$SSH_CLIENT" ]
 }
 is_screen_running() {
-    [ ! -z "$STY" ] 
+    [ ! -z "$STY" ]
 }
 is_tmux_runnning() {
-    [ ! -z "$TMUX" ] 
+    [ ! -z "$TMUX" ]
 }
 is_screen_or_tmux_running() {
-    is_screen_running || is_tmux_runnning 
+    is_screen_running || is_tmux_runnning
 }
 
 if is_screen_or_tmux_running; then
@@ -58,7 +58,7 @@ else
             fi
         elif [[ "$REPLY" =~ ^[nN]$ ]] ; then
             echo "tmux-attach canceled"
-        elif tmux list-sessions | grep -q "^$REPLY:"; then
+        elif tmux list-sessions | grep -q "^$REPLY"; then
             tmux attach -t "$REPLY"
             if [ $? -eq 0 ]; then
                 echo "$(tmux -V) attached session"
