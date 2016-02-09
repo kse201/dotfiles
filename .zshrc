@@ -6,6 +6,24 @@
 # General
 ########################################
 
+# autoload
+autoload -U  run-help
+autoload -Uz add-zsh-hook
+autoload -Uz cdr
+autoload -Uz colors; colors
+autoload -Uz compinit; compinit -u
+autoload -Uz is-at-least
+autoload -Uz history-search-end
+autoload -Uz modify-current-argument
+autoload -Uz smart-insert-last-word
+autoload -Uz terminfo
+autoload -Uz vcs_info
+autoload -Uz zcalc
+autoload -Uz zmv
+autoload     run-help-git
+autoload     run-help-svk
+autoload     run-help-svn
+
 is_exist()  { which "$1" >/dev/null 2>&1; return $?; }
 
 # Source global definitions
@@ -44,7 +62,6 @@ SAVEHIST=7500
 export HISTIGNORE="ls *:cd:history:fg*:history-all"
 function history-all { history -E 1 }
 
-autoload -U compinit
 compinit -u
 zstyle ':completion:*' format '%B%d%b'
 zstyle ':completion:*' group-name ''
@@ -96,7 +113,6 @@ chpwd_functions=($chpwd_functions dirs)
 
 setopt auto_param_keys
 setopt list_packed
-autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 
@@ -122,7 +138,6 @@ setopt \
     no_beep \
     always_last_prompt
 unsetopt promptcr
-autoload -Uz vcs_info
 zstyle ':vcs_info:*' formats '%F{green}%u%c(%b)%f'
 zstyle ':vcs_info:*' actionformats '[%b|%a]'
 zstyle ':vcs_info:git:*' check-for-changes true
@@ -225,6 +240,12 @@ docker inspect $1 | grep IPAddres | awk -F'"' '{print $4}'
 if is_exist 'tldr' ; then
     alias man='tldr'
 fi
+
+function ssh() {
+    local window_name=$(tmux display -p '#{window_name}')
+    command ssh $@
+    tmux rename-window $window_name
+}
 
 ########################################
 # Packages
@@ -334,4 +355,3 @@ if [ -f ~/.fzf.zsh ] ; then
     source ~/.fzf.zsh
     bindkey '^Y' fzf-file-widget
 fi
-
