@@ -100,7 +100,7 @@ autocmd MyAutoCmd BufWritePost $VIMRC_PLUGING source $GVIMRC
 " Auto delete line-end Space {{{
 augroup Autoplace
     autocmd!
-    autocmd BufWritePre *.[^{mkd}] :%s/\s\+$//ge
+    autocmd BufWritePre * if &filetype != "markdown" | :%s/\s\+$//ge
 augroup END
 " }}}
 
