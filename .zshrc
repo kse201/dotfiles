@@ -231,17 +231,24 @@ if [ `uname` != "Darwin" ] ; then
     alias e='/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -n'
 fi
 
-alias dl='docker ps -l -q'
-function container_ip () {
-docker inspect $1 | grep IPAddres | awk -F'"' '{print $4}'
+alias dl='docker ps -ql'
+dock_ip () {
+    inspect=$(docker inspect $1 )
+    if is_exist "jq" ; then
+        echo ${inspect} | jq -r ".[0].NetworkSettings.IPAddress"
+    else
+        echo ${inspect} | grep IPAddres | awk -F'"' '{print $4}'
+    fi
 }
+alias dockviz="docker run --rm -v /var/run/docker.sock:/var/run/docker.sock nate/dockviz"
 
 # man
-if is_exist 'tldr' ; then
-    alias man='tldr'
-fi
 
-function ssh() {
+man () {
+    tldr $@ || $(which man) $@
+}
+
+ssh() {
     local window_name=$(tmux display -p '#{window_name}')
     command ssh $@
     tmux rename-window $window_name
