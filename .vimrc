@@ -718,8 +718,6 @@ nmap <Leader>PP "+p
 " tab {{{
 nnoremap gl gt
 nnoremap gh gT
-nnoremap <Leader>tl gt
-nnoremap <Leader>th gT
 nnoremap <Leader>tn :tabnew<CR>
 nnoremap <Leader>tc :tabclose<CR>
 for g:i in range(1,9)
