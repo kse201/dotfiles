@@ -874,6 +874,9 @@ function! g:AutoParem()
     inoremap <buffer> " ""<Left>
     inoremap <buffer> ' ''<Left>
 endfunction
+
+nnoremap ggyG :echo "Use :%y"<CR>
+vnoremap Gy :<C-u>echo "Use :,$y"<CR>
 " }}}
 
 " Plugin {{{
