@@ -66,9 +66,6 @@ NeoBundleLazy 'mattn/emmet-vim', {'autoload': {'filetypes': ['html', 'css', 'js'
 " }}}
 " filer {{{
 NeoBundleLazy 'scrooloose/nerdtree', {'autoload': {'commands': ['NERDTreeToggle', 'NERDTree']}}
-NeoBundleLazy 'Shougo/vimfiler',
-            \{'depends': 'Shougo/unite.vim',
-            \ 'autoload': {'commands': ['VimFilerCurrentDir', 'VimFilerDouble']}}
 " }}}
 " unite {{{
 NeoBundle 'Shougo/unite.vim'
@@ -169,7 +166,6 @@ endfunction
 function! s:get_lazy_plugins()
     return [
 \       'unite.vim',
-\       'vimfiler.vim',
 \       'vim-quickrun',
 \   ] + map(filter(neobundle#config#get_neobundles(), 'v:val.lazy'), 'v:val.name')
 endfunction
@@ -591,6 +587,10 @@ vmap <Leader><Leader> <Plug>NERDCommenterToggle
 nnoremap <F12> :NERDTreeToggle<CR>
 " }}}
 
+" tagbar {{{
+nnoremap <F11> :Tagbar<CR>
+" }}}
+"
 " QuickRun.vim{{{
 try
     if !exists('g:quickrun_config')
@@ -641,64 +641,24 @@ nmap go <Plug>(openbrowser-smart-search)
 vmap go <Plug>(openbrowser-smart-search)
 " }}}
 
-" vimfiler{{{
-nnoremap <F10> :<c-u>VimFilerCurrentDir -auto-cd -split  -no-quit -direction=topleft<cr>
-nnoremap <F11> :<c-u>VimFilerDouble -auto-cd -double -explorer -no-quit -direction=topleft<cr>
-
-let s:bundle = neobundle#get('vimfiler')
-" hooks initialize
-let s:bundle.hooks = get(s:bundle,'hooks', {})
-
-function! s:bundle.hooks.on_source(bundle)
-    let g:vimfiler_as_default_explorer  = 1
-    let g:vimfiler_safe_mode_by_default = 0
-    call vimfiler#set_execute_file('vim', 'vim')
-    call vimfiler#set_execute_file('txt', 'notepad')
-    call vimfiler#set_execute_file('c', ['vim', 'notepad'])
-
-    " Like Textmate icons.
-    let g:vimfiler_tree_leaf_icon   = ' '
-    let g:vimfiler_tree_opened_icon = '笆ｾ'
-    let g:vimfiler_tree_closed_icon = '笆ｸ'
-    let g:vimfiler_file_icon        = '-'
-    let g:vimfiler_marked_file_icon = '*'
-
-    " Use trashbox.
-    augroup VimFiler
-        autocmd!
-        autocmd FileType vimfiler call s:vimfiler_my_settings()
-    augroup END
-    function! s:vimfiler_my_settings()
-        nmap <buffer> q <Plug>(vimfiler_exit)
-        nmap <buffer> Q <Plug>(vimfiler_hide)
-        nmap <buffer> <TAB> <Plug>(vimfiler_switch_to_another_vimfiler)
-        nmap <buffer> <C-a> <Plug>(vimfiler_toggle_mark_all_lines)
-        " nnoremap <buffer><silent> / :<C-u>UniteWithBufferDir file -default-action=vimfiler -buffer-name=files<CR>
-    endfunction
-endfunction
-unlet s:bundle
-" }}}
-
 " indent-Guides{{{
-if exists(':IndentGuidesEnable')
-    let g:indent_guides_enable_on_vim_startup=0
-    let g:indent_guides_color_change_percent=30
-    let g:indent_guides_guide_size=1
-    let g:fileIndentGuide=[
-                \'c',
-                \'ruby',
-                \'python',
-                \'vim'
-                \]
-    for g:ft in g:fileIndentGuide
-        execute 'augroup MyIndentGuideEnable_' . g:ft
-        execute 'autocmd!'
-        execute 'autocmd FileType ' . g:ft . ' :IndentGuidesEnable'
-        execute 'autocmd BufLeave *.' . g:ft . ' :IndentGuidesDisable'
-        execute 'augroup END'
-    endfor
-    au MyAutoCmd FileType help IndentGuidesDisable
-endif
+let g:indent_guides_enable_on_vim_startup=0
+let g:indent_guides_color_change_percent=30
+let g:indent_guides_guide_size=1
+let g:fileIndentGuide=[
+            \'c',
+            \'ruby',
+            \'python',
+            \'vim'
+            \]
+for g:ft in g:fileIndentGuide
+    execute 'augroup MyIndentGuideEnable_' . g:ft
+    execute 'autocmd!'
+    execute 'autocmd FileType ' . g:ft . ' :IndentGuidesEnable'
+    execute 'autocmd BufLeave *.' . g:ft . ' :IndentGuidesDisable'
+    execute 'augroup END'
+endfor
+au MyAutoCmd FileType help IndentGuidesDisable
 " }}}
 
 " surround.vim{{{
@@ -804,18 +764,17 @@ let g:lightline.active.right =[
             \ ['fileformat', 'fileencoding', 'filetype']]
 
 function! g:MyModified()
-  return &ft =~# 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+  return &ft =~# 'help\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
 endfunction
 
 function! g:MyReadonly()
-  return &ft !=# 'help\|vimfiler\|gundo' && &ro ? '[RO]' : ''
+  return &ft !=# 'help\|gundo' && &ro ? '[RO]' : ''
 endfunction
 
 function! g:MyFilename()
   return ('' !=# g:MyReadonly() ? g:MyReadonly() . ' ' : '') .
-        \ (&ft ==# 'vimfiler' ? vimfiler#get_status_string() :
         \  &ft ==# 'unite' ? unite#get_status_string() :
-        \ '' !=# expand('%:t') ? expand('%:t') : '[No Name]') .
+        \ '' !=# expand('%:t') ? expand('%:t') : '[No Name]' .
         \ ('' !=# g:MyModified() ? ' ' . g:MyModified() : '')
 endfunction
 
