@@ -79,7 +79,13 @@ zstyle ':completion:*' ignore-parents parent pwd ..
 REPORTTIME=3
 
 watch="all"
-log
+
+exec_login(){
+    log
+    w
+}
+exec_login
+
 
 limit coredumpsize 102400
 
@@ -241,6 +247,7 @@ dock_ip () {
     fi
 }
 alias dockviz="docker run --rm -v /var/run/docker.sock:/var/run/docker.sock nate/dockviz"
+alias docker-bash=". $(which docker-bash.sh)"
 
 # man
 
@@ -283,7 +290,6 @@ zplug "zsh-users/zsh-history-substring-search", do:"__zsh_version 4.3"
 zplug "zsh-users/zsh-syntax-highlighting", nice:10
 zplug "junegunn/fzf-bin", as:command, from:gh-r, file:fzf
 zplug "peco/peco", as:command, from:gh-r, of:"*amd64*"
-zplug "b4b4r07/tmuxlogger"
 
 if ! zplug check --verbose; then
     printf "Install? [y/N]: "
