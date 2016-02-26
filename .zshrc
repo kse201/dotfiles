@@ -377,3 +377,8 @@ if [ -f ~/.fzf.zsh ] ; then
     source ~/.fzf.zsh
     bindkey '^Y' fzf-file-widget
 fi
+
+#hub
+if is_exist "hub" ; then
+    eval "$(hub alias -s)"
+fi
