@@ -112,7 +112,7 @@ NeoBundle 'w0ng/vim-hybrid'
 NeoBundle 'mrk21/yaml-vim'
 " }}}
 NeoBundleLazy 'fatih/vim-go', {'autoload': {'filetypes': ['go']}}
-NeoBundleLazy 'davidhalter/jedi-vim', {'autoload': {'filetypes': ['python']}}
+" NeoBundleLazy 'davidhalter/jedi-vim', {'autoload': {'filetypes': ['python']}}
 
 NeoBundleLazy 'pangloss/vim-javascript', {'autoload': {'filetypes': ['javascript']}}
 NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload': {'filetypes': ['javascript']}}
@@ -127,6 +127,7 @@ NeoBundleLazy 'ujihisa/ref-hoogle', {'autoload': {'filetypes': ['haskell']}}
 NeoBundleLazy 'kana/vim-filetype-haskell', {'autoload': {'filetypes': ['haskell']}}
 NeoBundleLazy 'eagletmt/ghcmod-vim', {'autoload': {'filetypes': ['haskell']}}
 NeoBundle 'majutsushi/tagbar.git'
+NeoBundle 'tpope/vim-surround'
 
 filetype plugin indent on
 syntax on
