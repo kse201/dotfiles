@@ -851,7 +851,6 @@ nnoremap <expr> <Space>G ':sil grep! ' . expand('<cword>') . ' *'
 " }}}
 " }}}
 
-
 " repeatable indent handling {{{
 vnoremap > >gv
 vnoremap < <gv

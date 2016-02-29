@@ -1,5 +1,5 @@
 ".gvimrc
-colorscheme molokai
+colorscheme iceberg
 set guioptions-=b
 set guioptions-=T
 " changing cursor colow by insert-mode adn IME ON/OFF{{{
@@ -18,7 +18,7 @@ augroup END
 " }}}
 "Font{{{
 if has('win32') || has('win64')
-    set guifont=Ricty\ Diminished:h14
+    set guifont=Ricty\ Diminished:h13
 else
     set guifont=Ricty\ Diminished:h16
     " set guifont=Ricty\ Reguler:h16

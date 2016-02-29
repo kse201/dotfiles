@@ -110,6 +110,7 @@ NeoBundle 'kien/rainbow_parentheses.vim'
 NeoBundle 'tomasr/molokai'
 NeoBundle 'w0ng/vim-hybrid'
 NeoBundle 'mrk21/yaml-vim'
+NeoBundle 'cocopon/iceberg.vim'
 " }}}
 NeoBundleLazy 'fatih/vim-go', {'autoload': {'filetypes': ['go']}}
 " NeoBundleLazy 'davidhalter/jedi-vim', {'autoload': {'filetypes': ['python']}}
@@ -521,9 +522,6 @@ call unite#define_source(s:unite_source_myCommand)
 nnoremap <SID>[unite]c :Unite myCommand<CR>
 " }}}
 " }}}
-
-colorscheme molokai
-set background=light
 
 " smartchr.vim{{{
 if s:checkplugin('vim-smartchr' )
