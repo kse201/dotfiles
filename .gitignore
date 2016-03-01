@@ -1,35 +1,16 @@
-*~
 **/.DS_Store
 .vim/doc/tags
 .vim/doc/tags-ja
-.vim/bundle/
-.vim/.netrwhist
-.twitvim
-.twitvim.token
-.vimprojects
-.vimshell
+bundle
+dein
 .viminfo
 *.swp
-.apm/
-.node-gyp/
 packages/
 compile-cache/
 storage/
 
-!/.gitconfig
-!/.gitignore
-!/.vim
-!/.vimrc
-!/.gvimrc
-!/.vimrc.plugin
-!/.bashrc
-
-!.zshrc
-!.zshenv
-!.zsh.d
 .zsh.d/packages/antigen_repos
 
-!/.screenrc
 .vim/skeleton/dairyreport.txt
 .vim/skeleton/monthlyreport.txt
 .vim/.netrw_hist

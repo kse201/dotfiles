@@ -19,183 +19,131 @@ for g:suff in s:vimprocs
 endfor
 " }}}
 
-" neobundle.vim{{{
+" dein.vim{{{
 set nocompatible
 filetype plugin indent off
-let g:bundle_dir = $VIMFILE_DIR.'/bundle/'
+let g:bundle_dir = $VIMFILE_DIR.'/dein/'
 if has('vim_starting')
-    if !isdirectory(expand(g:bundle_dir.'neobundle.vim/'))
+    if !isdirectory(expand(g:bundle_dir.'repos/github.com/Shougo/dein.vim/'))
         echo 'install neobundle...'
-        :call system('git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim')
+        :call system('git clone git://github.com/Shougo/dein.vim ~/.vim/dein/repos/github.com/Shougo/dein.vim')
     endif
-    exe 'set rtp+='.g:bundle_dir.'neobundle.vim'
+    exe 'set rtp+='.g:bundle_dir.'repos/github.com/Shougo/dein.vim/'
 endif
-call neobundle#begin(expand(g:bundle_dir))
-let neobundle#types#git#default_protocol = 'https'
+call dein#begin(g:bundle_dir)
 unlet g:bundle_dir
 
+call dein#add('Shougo/dein.vim')
 " dependents {{{
-NeoBundle 'Shougo/vimproc', {'build' : {
+call dein#add('Shougo/vimproc', {'build' : {
             \ 'windows' : 'echo "Sorry, cannot update vimproc binary file in Windows."',
             \ 'cygwin'  : 'make -f make_cygwin.mak',
             \ 'mac'     : 'make -f make_mac.mak',
             \ 'unix'    : 'make -f make_unix.mak',
             \ },
-            \}
+            \})
 " }}}
-NeoBundleFetch 'Shougo/neobundle.vim'
-NeoBundleLazy 'vim-jp/vimdoc-ja.git'
+call dein#add('vim-jp/vimdoc-ja.git')
 " completation {{{
 function! s:meet_neocomplete_requirements()
     return has('lua') && (v:version > 703 || (v:version == 703 && has('patch885')))
 endfunction
 if s:meet_neocomplete_requirements()
-    NeoBundleLazy 'Shougo/neocomplete'
-    NeoBundleFetch 'Shougo/neocomplcache'
+    call dein#add('Shougo/neocomplete')
+    call dein#add('Shougo/neocomplcache')
 else
-    NeoBundleFetch 'Shougo/neocomplete'
-    NeoBundleLazy 'Shougo/neocomplcache'
+    call dein#add('Shougo/neocomplete')
+    call dein#add('Shougo/neocomplcache')
 endif
 
-call neobundle#config('neocomplcache', {'lazy': 1, 'autoload': {'insert': 1}})
-
-NeoBundle "Shougo/neosnippet", {'depends' : 'Shougo/neosnippet-snippets'}
-NeoBundle "Shougo/neosnippet-snippets"
-NeoBundle 'kana/vim-smartchr'
-NeoBundleLazy 'mattn/emmet-vim', {'autoload': {'filetypes': ['html', 'css', 'js', 'php']}}
+call dein#add('Shougo/neosnippet')
+call dein#add('Shougo/neosnippet-snippets')
+call dein#add('kana/vim-smartchr')
+call dein#add('mattn/emmet-vim', {'autoload': {'filetypes': ['html', 'css', 'js', 'php']}})
 " }}}
 " filer {{{
-NeoBundleLazy 'scrooloose/nerdtree', {'autoload': {'commands': ['NERDTreeToggle', 'NERDTree']}}
+call dein#add('scrooloose/nerdtree', {'autoload': {'commands': ['NERDTreeToggle', 'NERDTree']}})
 " }}}
 " unite {{{
-NeoBundle 'Shougo/unite.vim'
-NeoBundleLazy 'tsukkee/unite-tag', {'depends': 'Shougo/unite.vim'}
-NeoBundleLazy 'Shougo/unite-outline', {'depends': 'Shougo/unite.vim'}
-NeoBundleLazy 'tacroe/unite-mark', {'depends': 'Shougo/unite.vim'}
-NeoBundleLazy 'thinca/vim-unite-history', {'depends': 'Shougo/unite.vim'}
-NeoBundleLazy 'osyo-manga/unite-quickfix', {'autoload': {'filetypes': ['c', 'cpp']}, 'depends': 'Shougo/unite.vim'}
-NeoBundleLazy 'unite-colorscheme', {'depends': 'Shougo/unite.vim'}
-NeoBundleLazy 'zhaocai/unite-scriptnames', {'depends': 'Shougo/unite.vim'}
-NeoBundle 'Shougo/neomru.vim', {'depends': 'Shougo/unite.vim'}
+call dein#add('Shougo/unite.vim')
+call dein#add('tsukkee/unite-tag')
+call dein#add('Shougo/unite-outline')
+call dein#add('tacroe/unite-mark')
+call dein#add('thinca/vim-unite-history')
+call dein#add('osyo-manga/unite-quickfix', {'autoload': {'filetypes': ['c', 'cpp']}})
+call dein#add('unite-colorscheme')
+call dein#add('zhaocai/unite-scriptnames')
+call dein#add('Shougo/neomru.vim')
 " }}}
 " align {{{
-NeoBundle 'h1mesuke/vim-alignta'
-NeoBundle 'The-NERD-Commenter'
-NeoBundle 'fuenor/JpFormat.vim'
+call dein#add('h1mesuke/vim-alignta')
+call dein#add('The-NERD-Commenter')
+call dein#add('fuenor/JpFormat.vim')
 " }}}
 " feature {{{
-NeoBundle 'itchyny/lightline.vim'
-NeoBundleLazy 'thinca/vim-quickrun',
+call dein#add('itchyny/lightline.vim')
+call dein#add('thinca/vim-quickrun',
             \{'autoload': {
             \ 'mappings': ['<Plug>(quickrun)'],
-            \ 'commands': ['QuickRun']}}
-NeoBundle 'airblade/vim-gitgutter'
-NeoBundleLazy 'open-browser.vim', {'autoload': {'mappings': ['<Plug>(open-browser-wwwsearch)', '<Plug>(openbrowser-smart-search)']}}
-NeoBundle 'kana/vim-operator-user'
-NeoBundle 'osyo-manga/vim-anzu'
-NeoBundle 'fuenor/qfixhowm'
-NeoBundle 't9md/vim-quickhl'
-NeoBundle 'kana/vim-smartinput'
-NeoBundle 'vim-scripts/scratch-utility'
-NeoBundle "osyo-manga/unite-qfixhowm", {'depends': ['fuenor/qfixhowm', 'Shougo/unite.vim']}
-NeoBundle 'scrooloose/syntastic'
-NeoBundleLazy 'Takazudo/outline.vim.git'
+            \ 'commands': ['QuickRun']}})
+call dein#add('airblade/vim-gitgutter')
+call dein#add('open-browser.vim', {'autoload': {'mappings': ['<Plug>(open-browser-wwwsearch)', '<Plug>(openbrowser-smart-search)']}})
+call dein#add('kana/vim-operator-user')
+call dein#add('osyo-manga/vim-anzu')
+call dein#add('fuenor/qfixhowm')
+call dein#add('t9md/vim-quickhl')
+call dein#add('kana/vim-smartinput')
+call dein#add('vim-scripts/scratch-utility')
+call dein#add('osyo-manga/unite-qfixhowm')
+call dein#add('scrooloose/syntastic')
+call dein#add('Takazudo/outline.vim.git')
 " }}}
 " markdown {{{
-NeoBundleLazy 'kannokanno/previm', {'autoload': {'filetypes': ['markdown']}}
+call dein#add('kannokanno/previm', {'autoload': {'filetypes': ['markdown']}})
 " }}}
 " looks {{{
-NeoBundle 'nathanaelkane/vim-indent-guides'
-NeoBundle 'kien/rainbow_parentheses.vim'
-NeoBundle 'tomasr/molokai'
-NeoBundle 'w0ng/vim-hybrid'
-NeoBundle 'mrk21/yaml-vim'
-NeoBundle 'cocopon/iceberg.vim'
+call dein#add('nathanaelkane/vim-indent-guides')
+call dein#add('kien/rainbow_parentheses.vim')
+call dein#add('tomasr/molokai')
+call dein#add('w0ng/vim-hybrid')
+call dein#add('mrk21/yaml-vim')
+call dein#add('cocopon/iceberg.vim')
 " }}}
-NeoBundleLazy 'fatih/vim-go', {'autoload': {'filetypes': ['go']}}
-" NeoBundleLazy 'davidhalter/jedi-vim', {'autoload': {'filetypes': ['python']}}
+call dein#add('fatih/vim-go', {'autoload': {'filetypes': ['go']}})
+" call dein#add('davidhalter/jedi-vim', {'autoload': {'filetypes': ['python']}})
 
-NeoBundleLazy 'pangloss/vim-javascript', {'autoload': {'filetypes': ['javascript']}}
-NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload': {'filetypes': ['javascript']}}
-NeoBundleLazy 'kchmck/vim-coffee-script', {'autoload': {'filetypes': ['coffee']}}
-NeoBundleLazy 'moll/vim-node', {'autoload': {'filetypes': ['coffee']}}
-NeoBundleLazy 'heavenshell/vim-jsdoc', {'autoload': {'filetypes': ['javascript', 'coffee']}}
+call dein#add('pangloss/vim-javascript', {'autoload': {'filetypes': ['javascript']}})
+call dein#add('jelera/vim-javascript-syntax', {'autoload': {'filetypes': ['javascript']}})
 
-NeoBundle 'tpope/vim-abolish'
-NeoBundleLazy 'vim-scripts/DrawIt', {'autoload': {'commands': ['DrawIt']}}
-NeoBundle 'thinca/vim-ref'
-NeoBundleLazy 'ujihisa/ref-hoogle', {'autoload': {'filetypes': ['haskell']}}
-NeoBundleLazy 'kana/vim-filetype-haskell', {'autoload': {'filetypes': ['haskell']}}
-NeoBundleLazy 'eagletmt/ghcmod-vim', {'autoload': {'filetypes': ['haskell']}}
-NeoBundle 'majutsushi/tagbar.git'
-NeoBundle 'tpope/vim-surround'
+call dein#add('kchmck/vim-coffee-script', {'autoload': {'filetypes': ['coffee']}})
+call dein#add('moll/vim-node', {'autoload': {'filetypes': ['coffee']}})
+call dein#add('heavenshell/vim-jsdoc', {'autoload': {'filetypes': ['javascript', 'coffee']}})
 
+call dein#add('tpope/vim-abolish')
+call dein#add('vim-scripts/DrawIt', {'autoload': {'commands': ['DrawIt']}})
+call dein#add('thinca/vim-ref')
+call dein#add('ujihisa/ref-hoogle', {'autoload': {'filetypes': ['haskell']}})
+call dein#add('kana/vim-filetype-haskell', {'autoload': {'filetypes': ['haskell']}})
+call dein#add('eagletmt/ghcmod-vim', {'autoload': {'filetypes': ['haskell']}})
+call dein#add('majutsushi/tagbar.git')
+call dein#add('tpope/vim-surround')
+
+call dein#end()
 filetype plugin indent on
 syntax on
 
-" notice uninstalled plugins
-if neobundle#exists_not_installed_bundles()
-    echomsg 'Not installed bundles :' .
-                \ string(neobundle#get_not_installed_bundle_names())
-    echomsg 'Please execute ":NeoBundleInstall" command.'
+" install plugins
+if dein#check_install()
+    call dein#install()
 endif
 
 command! Nbi :NeoBundleInstall
 command! Nbu :NeoBundleUpdate
 command! Nbl :NeoBundleLog
 
-
-" check plugin installed
-let s:plugin_name =  map(neobundle#config#get_neobundles(),'(v:val).name')
-let s:plugin_orig_name =  map(neobundle#config#get_neobundles(),'(v:val).orig_name')
-function! s:checkplugin(name)
-    for l:ele in s:plugin_name
-        if l:ele ==# a:name
-            return 1
-        endif
-    endfor
-    for l:ele in s:plugin_orig_name
-        if l:ele ==# a:name
-            return 1
-        endif
-    endfor
-    return 0
-endfunction
-
-" lazy loading when Vim loss focus.{{{
-" [ref: http://d.hatena.ne.jp/osyo-manga/20140212/1392216949]
-" list up lazy loagin plugins
-function! s:get_lazy_plugins()
-    return [
-\       'unite.vim',
-\       'vim-quickrun',
-\   ] + map(filter(neobundle#config#get_neobundles(), 'v:val.lazy'), 'v:val.name')
-endfunction
-
-
-function! s:is_not_sourced(source)
-    return neobundle#config#is_installed(a:source) && !neobundle#config#is_sourced(a:source)
-endfunction
-
-function! s:source()
-    let l:sources =  map(filter(s:get_lazy_plugins(), 's:is_not_sourced(v:val)'), 'v:val')
-    if empty(l:sources)
-        augroup auto-source
-            autocmd!
-        augroup END
-        return
-    endif
-    echom 'source:' . l:sources[0]
-    call neobundle#source(l:sources[0])
-    echom 'sourced:' . l:sources[0]
-endfunction
-
-let s:active_auto_source = 0
 " }}}
 
-call neobundle#end()
-" }}}
-
+colorscheme iceberg
 " neocomplete(neocomplcache) & neosnippet{{{
 if s:meet_neocomplete_requirements()
 " neocomplete & neosnippet {{{
@@ -524,55 +472,53 @@ nnoremap <SID>[unite]c :Unite myCommand<CR>
 " }}}
 
 " smartchr.vim{{{
-if s:checkplugin('vim-smartchr' )
-    cnoremap <expr> /
-                \ getcmdtype()=='/' ? '\/' : '/'
-    cnoremap <Leader>/ /
-    " cnoremap <expr> / search('.*/\%#', 'bcn')? '/' : smartchr#one_of('/', '\/')
-    " if filereadable(expand($VIMFILES_DIR . '/bundle/vim-smartchr/autoload/smartchr.vim'))
-    cnoremap <expr> <  smartchr#one_of('<', '\<', '<<')
-    cnoremap <expr> >  smartchr#one_of('>', '\>', '>>')
-    cnoremap <expr> \  smartchr#one_of('\', '\' , '\\')
-    cnoremap <expr> (  smartchr#one_of('(' , '\(', '((')
-    cnoremap <expr> )  smartchr#one_of(')' , '\)', '))')
-    cnoremap <expr> %  smartchr#one_of('%' , '\%', '%%')
-    " cnoremap <expr> |  smartchr#one_of('|', '\|', '||')
+cnoremap <expr> /
+        \ getcmdtype()=='/' ? '\/' : '/'
+cnoremap <Leader>/ /
+" cnoremap <expr> / search('.*/\%#', 'bcn')? '/' : smartchr#one_of('/', '\/')
+" if filereadable(expand($VIMFILES_DIR . '/bundle/vim-smartchr/autoload/smartchr.vim'))
+cnoremap <expr> <  smartchr#one_of('<', '\<', '<<')
+cnoremap <expr> >  smartchr#one_of('>', '\>', '>>')
+cnoremap <expr> \  smartchr#one_of('\', '\' , '\\')
+cnoremap <expr> (  smartchr#one_of('(' , '\(', '((')
+cnoremap <expr> )  smartchr#one_of(')' , '\)', '))')
+cnoremap <expr> %  smartchr#one_of('%' , '\%', '%%')
+" cnoremap <expr> |  smartchr#one_of('|', '\|', '||')
 
-    function! g:SmartCharSetting() " {{{
-        inoremap <buffer><expr> + smartchr#loop(' + ', '++')
-        inoremap <buffer><expr> - smartchr#loop(' - ', '--')
-        inoremap <buffer><expr> = search('\(&\<bar><bar>\<bar>+\<bar>-\<bar>/\<bar>>\<bar><\<bar>*\<bar>\) \%#', 'bcn')? '<bs>= '
-                    \ : smartchr#loop(' = ', ' == ', '=')
-        inoremap <buffer><expr> < search('^#include\%#', 'bcn')? ' <><Left>': smartchr#loop('<', ' < ', ' << ' , '')
-        inoremap <buffer><expr> > search('^#include <.*\%#', 'bcn')? '>': smartchr#loop('>', ' > ', ' >> ')
+function! g:SmartCharSetting() " {{{
+inoremap <buffer><expr> + smartchr#loop(' + ', '++')
+inoremap <buffer><expr> - smartchr#loop(' - ', '--')
+inoremap <buffer><expr> = search('\(&\<bar><bar>\<bar>+\<bar>-\<bar>/\<bar>>\<bar><\<bar>*\<bar>\) \%#', 'bcn')? '<bs>= '
+            \ : smartchr#loop(' = ', ' == ', '=')
+inoremap <buffer><expr> < search('^#include\%#', 'bcn')? ' <><Left>': smartchr#loop('<', ' < ', ' << ' , '')
+inoremap <buffer><expr> > search('^#include <.*\%#', 'bcn')? '>': smartchr#loop('>', ' > ', ' >> ')
 
-        inoremap <buffer><expr> " search('^#include\%#', 'bcn')? ' ""<Left>': smartchr#loop('"', ' " ')
-        inoremap <buffer><expr> " search('^#include ".*\%#', 'bcn')? '"': smartchr#loop('"', ' " ',)
+inoremap <buffer><expr> " search('^#include\%#', 'bcn')? ' ""<Left>': smartchr#loop('"', ' " ')
+inoremap <buffer><expr> " search('^#include ".*\%#', 'bcn')? '"': smartchr#loop('"', ' " ',)
 
-        inoremap <buffer><expr> , smartchr#loop(', ', ',')
-        inoremap <buffer><expr> & smartchr#loop('&', ' & ', ' && ')
-        inoremap <buffer><expr> % smartchr#loop('%', ' % ')
-        inoremap <buffer><expr> <Bar> smartchr#loop(' <Bar> ', ' <Bar><Bar> ', '<Bar>')
-        inoremap <buffer><expr> ? smartchr#loop('?', '? ')
-        inoremap <buffer><expr> : smartchr#loop(':', '::', ': ')
+inoremap <buffer><expr> , smartchr#loop(', ', ',')
+inoremap <buffer><expr> & smartchr#loop('&', ' & ', ' && ')
+inoremap <buffer><expr> % smartchr#loop('%', ' % ')
+inoremap <buffer><expr> <Bar> smartchr#loop(' <Bar> ', ' <Bar><Bar> ', '<Bar>')
+inoremap <buffer><expr> ? smartchr#loop('?', '? ')
+inoremap <buffer><expr> : smartchr#loop(':', '::', ': ')
 
-        inoremap <buffer><expr> . smartchr#loop('.', '->', '...')
-        inoremap <buffer><expr> @ search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('#define', '#include', '#ifdef', '#endif', '@'): '@'
-        inoremap <buffer><expr> # search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('#define', '#include', '#ifdef', '#endif', '#'): '#'
+inoremap <buffer><expr> . smartchr#loop('.', '->', '...')
+inoremap <buffer><expr> @ search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('#define', '#include', '#ifdef', '#endif', '@'): '@'
+inoremap <buffer><expr> # search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('#define', '#include', '#ifdef', '#endif', '#'): '#'
 
-        inoremap <buffer><expr> " search('^#include\%#', 'bcn')? ' ""<Left>"': '""<Left>'
-        inoremap <buffer><expr> ( search('\<\if\%#', 'bcn')? ' ()<Left>': '()<Left>'
-        inoremap <buffer><expr> ( search('\<\for\%#', 'bcn')? ' ()<Left>': '()<Left>'
-        inoremap <buffer><expr> ( search('\<\while\%#', 'bcn')? ' ()<Left>': '()<Left>'
-    endfunction " }}}
+inoremap <buffer><expr> " search('^#include\%#', 'bcn')? ' ""<Left>"': '""<Left>'
+inoremap <buffer><expr> ( search('\<\if\%#', 'bcn')? ' ()<Left>': '()<Left>'
+inoremap <buffer><expr> ( search('\<\for\%#', 'bcn')? ' ()<Left>': '()<Left>'
+inoremap <buffer><expr> ( search('\<\while\%#', 'bcn')? ' ()<Left>': '()<Left>'
+endfunction " }}}
 
-    function! g:SmartCharForObjc() "{{{
-        inoremap <buffer><expr> @ search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of( '@interface','@implementation', '@synthesize', '@property', '@class' , '@'): '@'
-        inoremap <buffer><expr> # search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('#define', '#include', '#ifdef', '#endif', '#import' , '#'): '#'
-        inoremap <buffer><expr> - search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('- ()<Left>' ,  '-') :smartchr#loop(' - ', '--')
-        inoremap <buffer><expr> + search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('+ ()<Left>' ,  '+') :smartchr#loop(' + ', '++')
-    endfunction " }}}
-endif
+function! g:SmartCharForObjc() "{{{
+inoremap <buffer><expr> @ search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of( '@interface','@implementation', '@synthesize', '@property', '@class' , '@'): '@'
+inoremap <buffer><expr> # search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('#define', '#include', '#ifdef', '#endif', '#import' , '#'): '#'
+inoremap <buffer><expr> - search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('- ()<Left>' ,  '-') :smartchr#loop(' - ', '--')
+inoremap <buffer><expr> + search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('+ ()<Left>' ,  '+') :smartchr#loop(' + ', '++')
+endfunction " }}}
 " }}}
 
 " NERD Commenter{{{
@@ -641,6 +587,9 @@ vmap go <Plug>(openbrowser-smart-search)
 " }}}
 
 " indent-Guides{{{
+let g:indent_guides_auto_colors = 0
+hi IndentGuidesOdd  guibg=red   ctermbg=3
+hi IndentGuidesEven guibg=green ctermbg=4
 let g:indent_guides_enable_on_vim_startup=0
 let g:indent_guides_color_change_percent=30
 let g:indent_guides_guide_size=1
