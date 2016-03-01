@@ -59,15 +59,15 @@ elseif has('win32unix')
     let $dotfile_home   = $HOME.'/vimfiles'
     let s:hidden_prefix = '_'
 else
-    let s:dotfile_home  = $HOME
-    let s:hidden_prefix = '.'
+    let s:dotfile_home  = $HOME.'/.config'
+    let s:hidden_prefix = ''
     set backupdir=$HOME/.vimbackup
 endif
-let $VIMFILE_DIR   = s:dotfile_home.'/'.s:hidden_prefix.'vim'
-let $VIMRC         = s:dotfile_home.'/'.s:hidden_prefix.'vimrc'
-let $GVIMRC        = s:dotfile_home.'/'.s:hidden_prefix.'gvimrc'
-let $VIMRC_PLUGING = s:dotfile_home.'/'.s:hidden_prefix.'vimrc.plugin'
-let $VIMRC_LOCAL   = s:dotfile_home.'/'.s:hidden_prefix.'vimrc.local'
+let $VIMFILE_DIR   = s:dotfile_home.'/'.s:hidden_prefix.'nvim'
+let $VIMRC         = $VIMFILE_DIR.'/init.vim'
+let $GVIMRC        = $VIMFILE_DIR.'/gvimrc.vim'
+let $VIMRC_PLUGING = $VIMFILE_DIR.'/plugins.vim'
+let $VIMRC_LOCAL   = $VIMFILE_DIR.'/local.vim'
 " }}}
 
 " edit configs {{{
@@ -149,7 +149,7 @@ let g:loaded_netrwFileHandlers = 1
 " Auto encoding {{{
 if has('gui_running') && (has('win32') || has('win64'))
     set enc=utf-8 fencs=iso-2011-jp,enc-jp,sjis,cp932,utf-8 termencoding=utf-8
-    scriptencoding cp932
+    scriptencoding cp931
 else
     if &encoding !=# 'utf-8'
         set encoding=japan fileencoding=japan
@@ -879,7 +879,7 @@ vnoremap Gy :<C-u>echo "Use :,$y"<CR>
 " }}}
 
 " Plugin {{{
-" if filereadable(expand('~/.vimrc.plugin'))
+" if filereadable(expand($VIMRC_PLUGING))
 if filereadable(expand($VIMRC_PLUGING))
     source $VIMRC_PLUGING
 endif
