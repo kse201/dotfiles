@@ -56,20 +56,15 @@ else
     call dein#add('Shougo/neocomplcache')
 endif
 
-call dein#add('Shougo/neosnippet')
-call dein#add('Shougo/neosnippet-snippets')
 call dein#add('kana/vim-smartchr')
-call dein#add('mattn/emmet-vim', {'autoload': {'filetypes': ['html', 'css', 'js', 'php']}})
+" call dein#add('mattn/emmet-vim', {'autoload': {'filetypes': ['html', 'css', 'js', 'php']}})
 " }}}
 " filer {{{
 call dein#add('scrooloose/nerdtree', {'autoload': {'commands': ['NERDTreeToggle', 'NERDTree']}})
 " }}}
 " unite {{{
 call dein#add('Shougo/unite.vim')
-call dein#add('tsukkee/unite-tag')
-call dein#add('Shougo/unite-outline')
 call dein#add('tacroe/unite-mark')
-call dein#add('thinca/vim-unite-history')
 call dein#add('osyo-manga/unite-quickfix', {'autoload': {'filetypes': ['c', 'cpp']}})
 call dein#add('unite-colorscheme')
 call dein#add('zhaocai/unite-scriptnames')
@@ -127,6 +122,7 @@ call dein#add('kana/vim-filetype-haskell', {'autoload': {'filetypes': ['haskell'
 call dein#add('eagletmt/ghcmod-vim', {'autoload': {'filetypes': ['haskell']}})
 call dein#add('majutsushi/tagbar.git')
 call dein#add('tpope/vim-surround')
+call dein#add('mattn/sonictemplate-vim')
 
 call dein#end()
 filetype plugin indent on
@@ -144,9 +140,9 @@ command! Nbl :NeoBundleLog
 " }}}
 
 colorscheme iceberg
-" neocomplete(neocomplcache) & neosnippet{{{
+" neocomplete(neocomplcache) {{{
 if s:meet_neocomplete_requirements()
-" neocomplete & neosnippet {{{
+" neocomplete {{{
 if has('vim_starting')
     augroup MyInitNeocomplete
         autocmd!
@@ -181,24 +177,11 @@ if !exists('g:neoComplete_keyword_patterns')
 endif
 let g:neoComplete_keyword_patterns['default'] = '\h\w*'
 
-if !exists('g:neosnippet#snippets_directory')
-    let g:neosnippet#snippets_directory=''
-endif
-let g:neosnippet#snippets_directory= $VIMFILE_DIR . '/snippets'
-let g:neosnippet#enable_snipmate_compatibility = 0
-
 " init neocomplete {{{
 function! g:Init_neocomplete()
     NeoCompleteEnable
     inoremap <expr><C-l> neocomplete#complete_common_string()
     inoremap <expr><C-y> neocomplete#close_popup()
-
-    "snippet
-    imap <expr><CR> neosnippet#expandable_or_jumpable()  ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? neocomplete#close_popup() : "\<CR>"
-    imap <expr><C-y> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? neocomplete#close_popup() : "\<C-y>"
-    imap <expr><C-j> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? neocomplete#close_popup() : "\<C-j>" pneobu
-    imap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-    smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
     imap <C-q>  <Plug>(neocomplete_start_unite_complete)
 
@@ -207,7 +190,6 @@ function! g:Init_neocomplete()
     inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
     inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 
-    noremap <Leader>es :<C-u>vertical belowright NeoCompleteEditSnippets<CR>
 endfunction
 " }}}
 " Term neocomplete{{{
@@ -250,7 +232,7 @@ let g:neocomplete_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 " }}}
 " }}}
 else
-" neocomplcache & neosnippet {{{
+" neocomplcache {{{
 if has('vim_starting')
     augroup MyInitNeocomplcache
         autocmd!
@@ -299,25 +281,11 @@ if !exists('g:neocomplcache_keyword_patterns')
 endif
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
-if !exists('g:neosnippet#snippets_directory')
-    let g:neosnippet#snippets_directory=''
-endif
-" let g:NeoComplCache_SnippetsDir = $VIMFILE_DIR.'/snippets'
-let g:neosnippet#snippets_directory= $VIMFILE_DIR . '/snippets'
-let g:neosnippet#enable_snipmate_compatibility = 0
-
 " init neocomplcache {{{
 function! g:Init_neocomplcache()
     NeoComplCacheEnable
     inoremap <expr><C-l> neocomplcache#complete_common_string()
     inoremap <expr><C-y> neocomplcache#close_popup()
-
-    "snippet
-    imap <expr><CR> neosnippet#expandable_or_jumpable()  ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? neocomplcache#close_popup() : "\<CR>"
-    imap <expr><C-y> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? neocomplcache#close_popup() : "\<C-y>"
-    imap <expr><C-j> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? neocomplcache#close_popup() : "\<C-j>" pneobu
-    imap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-    smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
     imap <C-q>  <Plug>(neocomplcache_start_unite_complete)
 
@@ -799,10 +767,10 @@ nmap <buffer> <Leader>f <Plug>(ChromeKey)
 " }}}
 
 " quickhl {{{
-nmap <Space>m <Plug>(quickhl-manual-this)
-xmap <Space>m <Plug>(quickhl-manual-this)
-nmap <Space>M <Plug>(quickhl-manual-reset)
-xmap <Space>M <Plug>(quickhl-manual-reset)
+nmap <Space>* <Plug>(quickhl-manual-this)
+xmap <Space>* <Plug>(quickhl-manual-this)
+nmap <Space># <Plug>(quickhl-manual-reset)
+xmap <Space># <Plug>(quickhl-manual-reset)
 " }}}
 
 " syntastic {{{
@@ -821,6 +789,12 @@ let g:syntastic_mode_map = {
       \ 'active_filetypes': ['javascript', 'coffee'],
       \ 'passive_filetypes': []
       \ }
+" }}}
+
+" sonictemplate {{{
+  let g:sonictemplate_vim_template_dir = [
+  \ '$HOME/.vim/template'
+  \]
 " }}}
 
 let g:gocomplete#system_function = 'vimproc#system'
