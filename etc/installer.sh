@@ -15,14 +15,16 @@ dotfiles_download() {
 
 vim_dependencies() {
     mkdir -p "$HOME/.vim/bundle"
-    git clone https://github.com/Shougo/neobundle.vim.git "${HOME}/.vim/bundle/neobundle.vim" >/dev/null 2>&1
+
+    curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > /tmp/installer.sh
+    sh /tmp/installer.sh "${HOME}/.vim/dein"
     if [ $? != 0 ] ; then
-        echo "Error: failed git-clone neobundle.vim"
+        echo "Error: failed installing dein.vim"
         RETVAL=1
         unlink "${HOME}/.vimrc.plugin"
         return
     fi
-    echo "neobundle.vim installed."
+    echo "dein.vim installed."
 
     git clone https://github.com/Shougo/unite.vim "${HOME}/.vim/bundle/unite.vim" >/dev/null 2>&1
     if [ $? != 0 ] ; then
@@ -40,10 +42,10 @@ dotfiles_install() {
     dotfiles=($(find ${DIR} -maxdepth 1 -name "\.*" -type f | sed "s;${DIR}/;;g"))
 
     set +u
-    for i in $(seq ${#dotfiles[@]}) ; do 
+    for i in $(seq ${#dotfiles[@]}) ; do
         file=${dotfiles[${i}]}
         for ignore in ${IGNORES[@]} ; do
-            if [ "${file}" = "${ignore}" ] ; then 
+            if [ "${file}" = "${ignore}" ] ; then
                 unset dotfiles[${i}]
             fi
         done
