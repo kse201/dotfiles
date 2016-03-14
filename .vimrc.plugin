@@ -124,6 +124,9 @@ call dein#add('majutsushi/tagbar.git')
 call dein#add('tpope/vim-surround')
 call dein#add('mattn/sonictemplate-vim')
 
+call dein#add('marcus/rsense')
+call dein#add('Shougo/neocomplcache-rsense.vim')
+
 call dein#end()
 filetype plugin indent on
 syntax on
@@ -784,9 +787,10 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_ruby_checkers = ['rubocop']
 let g:syntastic_mode_map = {
       \ 'mode': 'active',
-      \ 'active_filetypes': ['javascript', 'coffee'],
+      \ 'active_filetypes': ['javascript', 'coffee', 'ruby'],
       \ 'passive_filetypes': []
       \ }
 " }}}
@@ -795,6 +799,11 @@ let g:syntastic_mode_map = {
   let g:sonictemplate_vim_template_dir = [
   \ '$HOME/.vim/template'
   \]
+" }}}
+
+" rsense {{{
+let g:rsenseHome = '/usr/local/lib/rsense-0.3'
+let g:rsenseUseOmniFunc = 1
 " }}}
 
 let g:gocomplete#system_function = 'vimproc#system'
