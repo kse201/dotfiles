@@ -381,3 +381,8 @@ fi
 if is_exist "hub" ; then
     eval "$(hub alias -s)"
 fi
+
+#
+if is_exist "pry" ; then
+    alias irb="pry"
+fi
