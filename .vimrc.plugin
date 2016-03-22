@@ -25,7 +25,7 @@ filetype plugin indent off
 let g:bundle_dir = $VIMFILE_DIR.'/dein/'
 if has('vim_starting')
     if !isdirectory(expand(g:bundle_dir.'repos/github.com/Shougo/dein.vim/'))
-        echo 'install neobundle...'
+        echo 'install dein.vim...'
         :call system('git clone git://github.com/Shougo/dein.vim ~/.vim/dein/repos/github.com/Shougo/dein.vim')
     endif
     exe 'set rtp+='.g:bundle_dir.'repos/github.com/Shougo/dein.vim/'
