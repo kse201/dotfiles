@@ -191,3 +191,5 @@ else
 fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+[[ -s "/home/se/.gvm/scripts/gvm" ]] && source "/home/se/.gvm/scripts/gvm"
