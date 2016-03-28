@@ -30,6 +30,7 @@ set shortmess+=I
   \ autoread
   \ clipboard=unnamed
   \ hidden
+  \ synmaxcol=200
   \ timeout timeoutlen=500 ttimeoutlen=75
 " \ -> ¥ {{{
 if has('mac')
