@@ -31,7 +31,7 @@ if is_screen_or_tmux_running; then
             echo '|_   _|  \/  | | | \ \/ / '
             echo '  | | | |\/| | | | |\  /  '
             echo '  | | | |  | | |_| |/  \  '
-            echo '  |_| |_|  |_|\___//_/\_\ '
+            echo '  |_| |_|  |_|\___//_/\_\  has been already running'
         fi
         export DISPLAY="$TMUX"
     elif is_screen_running; then
