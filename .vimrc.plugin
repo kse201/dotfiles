@@ -8,6 +8,7 @@ augroup END
 
 " vimproc.vim{{{
 let s:vimprocs=['win64.dll', 'win32.dll', 'cygwin.dll', 'mac.so', 'linux64.so', 'linux32.so', 'unix.so']
+let g:vimproc#download_windows_dll = 1
 if has('win64') || has('win32') || has('win32unix')
     set shellslash
 endif
