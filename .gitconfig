@@ -34,6 +34,7 @@
 [user]
 	name  = kse201
 	email = kse.201@gmail.com
+    useconfigonly = true
 
 [alias]
     alias    = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort
@@ -43,7 +44,7 @@
     who      = shortlog --numbered --summary --email --no-merges --since='3 months'
 	pr-setup = config --add remote.origin.fetch+refs/pull/*/head:refs/remotes/origin/pr/*
 
-# ignore 
+# ignore
     ignore   = update-index --assume-unchanged
     unignore = update-index --no-assume-unchanged
     ignored  = !git ls-files -v | grep "^[a-z]" ; view ignored files
@@ -53,9 +54,9 @@
     cmt      = commit -v
     amend    = commit --amend
 
-# checkout 
+# checkout
     co       = checkout
-    ct       = checkout -t 
+    ct       = checkout -t
     delete-merged-branches = !git branch --merged | grep -v \\* | xargs -I % git branch -d %
     fetch-pulls = fetch origin +refs/pull/*:refs/remotes/pull/*
 
