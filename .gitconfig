@@ -54,6 +54,10 @@
     cmt      = commit -v
     amend    = commit --amend
 
+#  push
+   psh       = push
+   psf       = push --force-with-lease
+
 # checkout
     co       = checkout
     ct       = checkout -t
