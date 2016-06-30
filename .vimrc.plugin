@@ -782,7 +782,7 @@ xmap <Space># <Plug>(quickhl-manual-reset)
 
 " syntastic {{{
 let g:syntastic_python_checkers = ['pyflakes', 'pep8']
-let g:syntastic_check_on_open=0
+let g:syntastic_check_on_open=1
 let g:syntastic_check_on_save=1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_auto_loc_list=1
@@ -792,11 +792,15 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_ruby_checkers = ['rubocop']
+let g:syntastic_markdown_checkers = ['textlint']
+let g:syntastic_text_checkers = ['textlint']
 let g:syntastic_mode_map = {
       \ 'mode': 'active',
-      \ 'active_filetypes': ['javascript', 'coffee', 'ruby'],
-      \ 'passive_filetypes': []
+      \ 'active_filetypes': ['javascript', 'coffee'],
+      \ 'passive_filetypes': ['ruby']
       \ }
+nnoremap <Leader>sc :SyntasticCheck<CR>
+nnoremap <Leader>st :SyntasticToggleMode<CR>
 " }}}
 
 " sonictemplate {{{
