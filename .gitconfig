@@ -74,6 +74,15 @@
     l        = log --graph --date-order -C -M --pretty=format:'%C(red)%h%Creset - %C(green)%ad %C(Cyan)[%an]%C(Yellow)%d%Creset %s' --date=short
     lg       = log --graph --date-order -C -M --pretty=format:'%C(red)%h%Creset - %C(green)%ad %C(Cyan)[%an]%C(Yellow)%d%Creset %s' --all --date=short
 
+    branches = branch -a
+    tags = tag
+    stashes = stash list
+
+    unstage = reset -q HEAD --
+    discard = checkout --
+    uncommit = reset --mixed HEAD~
+
+    precommit = diff --cached --diff-algorithm=minimal -w
 [stash]
 	showPatch = true
 [commit]

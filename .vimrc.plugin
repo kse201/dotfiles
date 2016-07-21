@@ -128,6 +128,9 @@ call dein#add('mattn/sonictemplate-vim')
 call dein#add('marcus/rsense')
 call dein#add('Shougo/neocomplcache-rsense.vim')
 
+let g:loaded_matchparen = 1
+
+call dein#add('itchyny/vim-parenmatch')
 call dein#end()
 filetype plugin indent on
 syntax on
@@ -190,9 +193,9 @@ function! g:Init_neocomplete()
     imap <C-q>  <Plug>(neocomplete_start_unite_complete)
 
     inoremap <expr><C-e>  neocomplete#cancel_popup()
-    inoremap <expr><C-g>     neocomplete#undo_completion()
-    inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-    inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+    inoremap <expr><C-g>  neocomplete#undo_completion()
+    inoremap <expr><C-h>  neocomplete#smart_close_popup()."\<C-h>"
+    inoremap <expr><BS>   neocomplete#smart_close_popup()."\<C-h>"
 
 endfunction
 " }}}
@@ -216,11 +219,11 @@ command! TermNeoComplete call g:Term_neocomplete()
 " Enable omni completion. {{{
 augroup EnableOmniCompleteion
     autocmd!
-    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+    autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
+    autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
 augroup END
 " }}}
 " Enable heavy omni completion.{{{
@@ -295,8 +298,8 @@ function! g:Init_neocomplcache()
 
     inoremap <expr><C-e>  neocomplcache#cancel_popup()
     inoremap <expr><C-g>  neocomplcache#undo_completion()
-    inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-    inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+    inoremap <expr><C-h>  neocomplcache#smart_close_popup()."\<C-h>"
+    inoremap <expr><BS>   neocomplcache#smart_close_popup()."\<C-h>"
 endfunction
 " }}}
 " Term neocomplcache{{{
@@ -341,12 +344,12 @@ endif
 " }}}
 
 " unite.vim{{{
-let unite_split_rule='botright'
+let unite_split_rule                      = 'botright'
 let unite_source_file_mru_filename_format = ''
-let unite_enable_start_insert=1
-let unite_source_file_mru_limit=100
-let unite_enable_ignore_case = 1
-let unite_enable_smart_case = 1
+let unite_enable_start_insert             = 1
+let unite_source_file_mru_limit           = 100
+let unite_enable_ignore_case              = 1
+let unite_enable_smart_case               = 1
 
 " Prefix-Key
 nmap <Leader>a <SID>[unite]
@@ -354,19 +357,19 @@ nnoremap <SID>[unite] <Nop>
 
 augroup uniteKeymap
     autocmd!
-    au FileType unite nmap <silent><buffer> <ESC><ESC> <Plug>(unite_exit)
-    au FileType unite nmap <silent><buffer> <C-c><C-c> <Plug>(unite_exit)
-    au FileType unite imap <silent><buffer> <ESC><ESC> <Plug>(unite_exit)
-    au FileType unite imap <silent><buffer> <C-c><C-c> <Plug>(unite_exit)
-    au FileType unite nmap <silent><buffer> a <Plug>(unite_append_end)
-    au FileType unite nmap <silent><buffer> f <Plug>(unite_quick_match_default_action)
-    au FileType unite nmap <silent><buffer> <C-z> <Plug>(unite_toggle_transpose_window)
-    au FileType unite imap <silent><buffer> <C-z> <Plug>(unite_toggle_transpose_window)
-    au FileType unite imap <buffer> <C-w> <Plug>(unite_delete_backward_path)
-    au FileType unite nmap <buffer> -     <Plug>(unite_delete_backward_path)
+    au FileType unite nmap     <silent><buffer>  <ESC><ESC> <Plug>(unite_exit)
+    au FileType unite nmap     <silent><buffer>  <C-c><C-c> <Plug>(unite_exit)
+    au FileType unite imap     <silent><buffer>  <ESC><ESC> <Plug>(unite_exit)
+    au FileType unite imap     <silent><buffer>  <C-c><C-c> <Plug>(unite_exit)
+    au FileType unite nmap     <silent><buffer>  a <Plug>(unite_append_end)
+    au FileType unite nmap     <silent><buffer>  f <Plug>(unite_quick_match_default_action)
+    au FileType unite nmap     <silent><buffer>  <C-z> <Plug>(unite_toggle_transpose_window)
+    au FileType unite imap     <silent><buffer>  <C-z> <Plug>(unite_toggle_transpose_window)
+    au FileType unite imap     <buffer> <C-w>    <Plug>(unite_delete_backward_path)
+    au FileType unite nmap     <buffer> -        <Plug>(unite_delete_backward_path)
     au FileType unite nnoremap <silent> <buffer> <expr> <C-Enter> unite#do_action('vsplit')
     au FileType unite inoremap <silent> <buffer> <expr> <C-Enter> unite#do_action('vsplit')
-    au FileType unite nnoremap <silent> <buffer>  <C-k> :<C-u>call unite#mappings#do_action('right')<CR>
+    au FileType unite nnoremap <silent> <buffer> <C-k> :<C-u>call unite#mappings#do_action('right')<CR>
     au FileType unite setlocal tw=0
 augroup END
 
@@ -391,9 +394,9 @@ nnoremap <silent> <SID>[unite]j :<C-u>Unite jump<CR>
 nnoremap <silent> <SID>[unite]/ :<C-u>Unite -buffer-name=search line<CR>
 nnoremap <silent> <SID>[unite]l :<C-u>Unite line<CR>
 nnoremap <silent> <SID>[unite]: :<C-u>Unite command<CR>
-nnoremap <silent> <SID>[unite]g  :<C-u>Unite grep -buffer-name=search-buffer<CR>
-nnoremap <silent> <SID>[unite]r  :<C-u>UniteResume search-buffer<CR>
-nnoremap <silent> <SID>[unite],  :<C-u>Unite qfixhowm<CR>
+nnoremap <silent> <SID>[unite]g :<C-u>Unite grep -buffer-name=search-buffer<CR>
+nnoremap <silent> <SID>[unite]r :<C-u>UniteResume search-buffer<CR>
+nnoremap <silent> <SID>[unite], :<C-u>Unite qfixhowm<CR>
 noremap <silent><Leader>ug : <C-u>Unite git-conflict<CR>
 
 call  unite#custom#substitute('file,file_mru,history/command,directory_mru', '[[:alnum:]]', '*\0', 10)
@@ -422,19 +425,19 @@ let s:unite_source_myCommand ={
 
 function! s:unite_source_myCommand.gather_candidates(args,conext)
     let l:cmds = {
-                \'Unite LazyLoading' : 'Unite neobundle/lazy',
-                \'Neobundle  Update' : 'Unite neobundle/update',
-                \ 'NeoBundleSource'  : 'Unite neobundle/lazy',
-                \'Neobundle Log' : 'NeoBundleLog',
+                \'Unite LazyLoading'    : 'Unite neobundle/lazy',
+                \'Neobundle  Update'    : 'Unite neobundle/update',
+                \ 'NeoBundleSource'     : 'Unite neobundle/lazy',
+                \'Neobundle Log'        : 'NeoBundleLog',
                 \'Show relative number' : 'RN',
-                \ 'TODO list' : 'Unite line -input=TODO',
-                \ 'vertical diff' : 'vertical diffsplit ',
-                \ 'Bookmark' : 'Unite bookmark',
+                \ 'TODO list'           : 'Unite line -input=TODO',
+                \ 'vertical diff'       : 'vertical diffsplit ',
+                \ 'Bookmark'            : 'Unite bookmark',
                 \}
     return values(map(l:cmds,"{
-                \ 'word' : v:key,
-                \ 'source' : 'myCommand',
-                \ 'kind' : 'command',
+                \ 'word'            : v:key,
+                \ 'source'          : 'myCommand',
+                \ 'kind'            : 'command',
                 \ 'action__command' : v:val
                 \}"))
 endfunction
@@ -460,8 +463,7 @@ cnoremap <expr> %  smartchr#one_of('%' , '\%', '%%')
 function! g:SmartCharSetting() " {{{
 inoremap <buffer><expr> + smartchr#loop(' + ', '++')
 inoremap <buffer><expr> - smartchr#loop(' - ', '--')
-inoremap <buffer><expr> = search('\(&\<bar><bar>\<bar>+\<bar>-\<bar>/\<bar>>\<bar><\<bar>*\<bar>\) \%#', 'bcn')? '<bs>= '
-            \ : smartchr#loop(' = ', ' == ', '=')
+inoremap <buffer><expr> = search('\(&\<bar><bar>\<bar>+\<bar>-\<bar>/\<bar>>\<bar><\<bar>*\<bar>\) \%#', 'bcn')? '<bs>= ' : smartchr#loop(' = ', ' == ', '=')
 inoremap <buffer><expr> < search('^#include\%#', 'bcn')? ' <><Left>': smartchr#loop('<', ' < ', ' << ' , '')
 inoremap <buffer><expr> > search('^#include <.*\%#', 'bcn')? '>': smartchr#loop('>', ' > ', ' >> ')
 
@@ -516,7 +518,7 @@ try
                     \   '*': {
                     \         'runmode': 'async:remote:vimproc',
                     \          'split': ''
-                    \        },
+                    \        }
                     \ }
     endif
     " nnoremap <silent><unique> <F5> <Plug>(quickrun)
@@ -635,9 +637,9 @@ let g:QFix_UseLocationList          = 0
 augroup Rainbow_parentheses
     autocmd!
     au VimEnter * RainbowParenthesesToggle
-    au Syntax * RainbowParenthesesLoadRound
-    au Syntax * RainbowParenthesesLoadSquare
-    au Syntax * RainbowParenthesesLoadBraces
+    au Syntax   * RainbowParenthesesLoadRound
+    au Syntax   * RainbowParenthesesLoadSquare
+    au Syntax   * RainbowParenthesesLoadBraces
 augroup END
 " }}}
 
@@ -665,15 +667,15 @@ let g:gitgutter_sign_removed  = '-'
 let g:lightline = {}
 let g:lightline.colorscheme = 'landscape'
 let g:lightline.component_function = {}
-let g:lightline.component_function.modified = 'g:MyModified'
-let g:lightline.component_function.readonly = 'g:MyReadonly'
-let g:lightline.component_function.filename = 'g:MyFilename'
-let g:lightline.component_function.fileformat = 'g:MyFileformat'
-let g:lightline.component_function.filrtype = 'g:MyFilrtype'
+let g:lightline.component_function.modified     = 'g:MyModified'
+let g:lightline.component_function.readonly     = 'g:MyReadonly'
+let g:lightline.component_function.filename     = 'g:MyFilename'
+let g:lightline.component_function.fileformat   = 'g:MyFileformat'
+let g:lightline.component_function.filrtype     = 'g:MyFilrtype'
 let g:lightline.component_function.fileencoding = 'g:MyFileencoding'
-let g:lightline.component_function.syntastic = 'SyntasticStatuslineFlag'
-let g:lightline.component_function.gitgutter = 'g:MyGitgutter'
-let g:lightline.component_function.anzu = 'anzu#search_status'
+let g:lightline.component_function.syntastic    = 'SyntasticStatuslineFlag'
+let g:lightline.component_function.gitgutter    = 'g:MyGitgutter'
+let g:lightline.component_function.anzu         = 'anzu#search_status'
 let g:lightline.component_type = {
             \ 'syntastic': 'error'}
 
@@ -782,11 +784,11 @@ xmap <Space># <Plug>(quickhl-manual-reset)
 
 " syntastic {{{
 let g:syntastic_python_checkers = ['pyflakes', 'pep8']
-let g:syntastic_check_on_open=1
-let g:syntastic_check_on_save=1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_auto_loc_list=1
-let g:syntastic_loc_list_height=6
+let g:syntastic_check_on_open   = 0
+let g:syntastic_check_on_save   = 1
+let g:syntastic_check_on_wq     = 0
+let g:syntastic_auto_loc_list   = 1
+let g:syntastic_loc_list_height = 6
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
