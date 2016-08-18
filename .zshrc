@@ -324,6 +324,12 @@ timestamp() {
     date +%Y%m%d%H%M%S
 }
 
+sshconfig() {
+  mv $HOME/.ssh/config{,.bak_$(timestamp)}
+  cat $HOME/.ssh/conf.d/*.conf > $HOME/.ssh/config
+  chmod 600 $HOME/.ssh/config
+}
+
 ########################################
 # Screen
 ########################################
