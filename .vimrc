@@ -161,11 +161,11 @@ else
         " eucJP-ms support check
         if iconv("\x87\x64\x87\x6a", 'cp932', 'eucjp-ms') ==# "\xad\xc5\xad\xcb"
             let s:enc_euc = 'eucjp-ms'
-            let s:enc_jis = 'iso-2022-jp-3'
+            let s:enc_jis = 'utf-8'
             " JISX0213 support check
         elseif iconv("\x87\x64\x87\x6a", 'cp932', 'euc-jisx0213') ==# "\xad\xc5\xad\xcb"
             let s:enc_euc = 'euc-jisx0213'
-            let s:enc_jis = 'iso-2022-jp-3'
+            let s:enc_jis = 'utf-8'
         endif
         " fileencodings
         if &encoding ==# 'utf-8'
