@@ -247,13 +247,6 @@ dock_ip () {
     fi
 }
 alias dockviz="docker run --rm -v /var/run/docker.sock:/var/run/docker.sock nate/dockviz"
-alias docker-bash=". $(which docker-bash.sh)"
-
-# man
-
-man () {
-    tldr $@ || /usr/bin/man $@
-}
 
 ssh() {
     local window_name=$(tmux display -p '#{window_name}')
