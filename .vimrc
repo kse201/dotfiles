@@ -221,6 +221,7 @@ set notitle
   \ display=lastline
   \ laststatus=2
   \ wrap
+  \ breakindent
   \ wildmenu
   \ wildmode=list:full
   \ wildchar=<TAB>
