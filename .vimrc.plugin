@@ -618,6 +618,7 @@ let g:QFixHowm_Title                = '#'
 let g:QFix_PreviewEnable            = 0
 let g:QFixHowm_MenuPreview          = 0
 let g:QFixMRU_Title                 = {}
+let g:QFixMRU_state                 = 1
 let g:QFixMRU_Title['txt']          = '^# '
 let g:QFixMRU_Title['txt_regxp']    = '^# '
 let g:QFixHowm_SaveTime             = -1
