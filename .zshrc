@@ -81,7 +81,6 @@ REPORTTIME=3
 watch="all"
 
 exec_login(){
-    log
     w
 }
 exec_login
@@ -248,12 +247,6 @@ dock_ip () {
 }
 alias dockviz="docker run --rm -v /var/run/docker.sock:/var/run/docker.sock nate/dockviz"
 
-ssh() {
-    local window_name=$(tmux display -p '#{window_name}')
-    command ssh $@
-    tmux rename-window $window_name
-}
-
 tmux() {
     if [ $# -eq 0 ] ; then
         $(which tmuxx)
@@ -349,7 +342,7 @@ if [ -d "$GHC_DOT_APP" ]; then
 fi
 
 # golang
-[[ -s "/home/vagrant/.gvm/scripts/gvm" ]] && source "${HOME}/.gvm/scripts/gvm"
+[[ -s "${HOME}/.gvm/scripts/gvm" ]] && source "${HOME}/.gvm/scripts/gvm"
 
 if is_exist 'go' ; then
     export GOPATH=$HOME/.go
@@ -382,4 +375,19 @@ fi
 #
 if is_exist "pry" ; then
     alias irb="pry"
+fi
+
+# gcloud
+if [ -d "/usr/local/google-cloud-sdk" ] ; then
+    export PATH=$PATH:/usr/local/google-cloud-sdk/bin
+fi
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f /usr/local/google-cloud-sdk/path.zsh.inc ]; then
+  source '/usr/local/google-cloud-sdk/path.zsh.inc'
+fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f /usr/local/google-cloud-sdk/completion.zsh.inc ]; then
+  source '/usr/local/google-cloud-sdk/completion.zsh.inc'
 fi
