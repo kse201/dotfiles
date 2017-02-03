@@ -76,26 +76,6 @@ nnoremap <Leader>ev :edit $VIMRC<CR>
 nnoremap <Leader>eg :edit $GVIMRC<CR>
 nnoremap <Leader>ep :edit $VIMRC_PLUGING<CR>
 " }}}
-
-" Auto Loading .vimrc,.gvimrc {{{
-if has('autocmd')
-    filetype plugin indent on
-    autocmd MyAutoCmd BufReadPost *
-                \ if line("'\"") > 0 && line("'\"") <= line("$") |
-                \ exe "normal! g'\"" |
-                \ endif
-endif
-
-command! ReloadVimrc  source $VIMRC
-command! ReloadGVimrc source $GVIMRC
-command! ReloadPlugin source $VIMRC_PLUGING
-
-" auto changeing color when reload .vimrc
-autocmd MyAutoCmd BufWritePost $VIMRC  source $VIMRC  |
-            \ if has('gui_running') |
-            \ source $GVIMRC
-autocmd MyAutoCmd BufWritePost $GVIMRC source $GVIMRC
-autocmd MyAutoCmd BufWritePost $VIMRC_PLUGING source $GVIMRC
 " }}}
 
 " Auto delete line-end Space {{{
@@ -232,7 +212,7 @@ set autoindent smartindent smarttab expandtab shiftwidth=4 tabstop=4
 " }}}
 
 " status line
-autocmd MyAutoCmd BufEnter *   if winwidth(0) >= 60 |
+autocmd MyAutoCmd BufEnter * if winwidth(0) >= 60 |
             \ set statusline=[%n]\ %t\ %m%R%H%W%y\ %([%{&fenc}][%{&ff}]%)\ %([%l(%p%%),%v]%)(%B)\ |
             \ else |
             \ set statusline=[%n]%t |
@@ -357,30 +337,21 @@ endif
 
 " search {{{
 set ignorecase smartcase incsearch showmatch nowrapscan
-
-" grep
-nnoremap <buffer><silent> K :vim <C-r><C-w> **/*[ch]<CR>
-" }}}
-
-" <ESC>  {{{
-" <ESC> or <C-c> key reset Highlight
-if has('gui_running')
-    nnoremap <silent> <ESC> <ESC>:<C-u>nohlsearch<CR>:<C-u>set iminsert=0<CR>
-endif
 " }}}
 
 " other {{{
 " auto read templates {{{
-augroup SkeletonAu
-    autocmd!
-    " autocmd BufNewFile *.html 0r $HOME/.vim/skeleton/skel.html
-    autocmd BufNewFile *.pl  0r $VIMFILE_DIR/skeleton/skel.pl
-    autocmd BufNewFile *.pm  0r $VIMFILE_DIR/skeleton/skel.pm
-    autocmd BufNewFile *.c   0r $VIMFILE_DIR/skeleton/skel.c
-    autocmd BufNewFile *.tex 0r $VIMFILE_DIR/skeleton/skel.tex
-    autocmd BufNewFile *.rb  0r $VIMFILE_DIR/skeleton/skel.rb
-    autocmd BufNewFile *.py  0r $VIMFILE_DIR/skeleton/skel.py
-augroup END
+let s:FileExts = [
+            \ 'c',
+            \ 'html',
+            \ 'pl',
+            \ 'py',
+            \ 'rb',
+            \ 'tex',
+            \]
+for s:Extension in s:FileExts
+    execute 'autocmd BufNewFile *.' . s:Extension . ' 0r $VIMFILE_DIR/skeleton/skel.' . s:Extension
+endfor
 " }}}
 
 " undo each unite words {{{
@@ -460,7 +431,6 @@ endfunction
 " }}}
 
 " Rename new_filename {{{
-" jigokuno.com
 command! -nargs=+ -bang -complete=file Rename let pbnr=fnamemodify(bufname('%'), ':p')|exec 'f '.escape(<q-args>, ' ')|w<bang>|call delete(pbnr)
 " }}}
 
@@ -503,30 +473,11 @@ nnoremap <expr> l
             \   foldclosed(line('.')) != -1 ? 'zo' : 'l'
 " }}}
 
-" :AllMaps {{{
-command!
-            \   -nargs=* -complete=mapping
-            \   AllMaps
-            \   map <args> | map! <args> | lmap <args>
-" }}}
-
 " date iput Macro {{{
 if exists('*strftime')
-    inoremap        <Leader>date  <C-R>=strftime('%Y/%m/%d (%a)')<CR>
-    inoremap        <Leader>jdate <C-R>=strftime('%Y年%m月%d日 %a曜日')<CR>
-    inoremap        <Leader>time  <C-R>=strftime('%H:%M')<CR>
-    inoremap        <Leader>rr    <C-R>=strftime('%H%M%S_%d%b')<CR>
-    inoremap <expr> <Leader>df    strftime('%Y/%m/%d %H:%M:%S')
-    inoremap <expr> <Leader>dd    strftime('%Y/%m/%d')
-    inoremap <expr> <Leader>dt    strftime('%H:%M:%S')
+    inoremap  <Leader>date <C-R>=strftime('%Y/%m/%d (%a)')<CR>
+    inoremap  <Leader>time <C-R>=strftime('%H:%M:%S')<CR>
 endif
-" }}}
-
-" count characters {{{
-command! -range=% Count :<line1>,<line2>s/.//gn
-" }}}
-" count words {{{
-command! -range=% Word :<line1>,<line2>s/\i\+//gn
 " }}}
 
 " smart split window {{{
@@ -546,69 +497,6 @@ function! s:smart_split(cmd)
 endfunction
 " }}}
 
-" rotate point line-head(with blank) -> line-head -> line-end {{{
-" ref: http://qiita.com/items/ee4bf64b1fe2c0a32cbd
-nnoremap <silent>^ :<C-u>call <SID>rotate_in_line()<CR>
-function! s:rotate_in_line()
-    let l:c = col('.')
-
-    let l:cmd = l:c ==1 ? '^' : '$'
-    execute 'normal! '.l:cmd
-
-    if l:c == col('.')
-        if l:cmd ==# '^'
-            normal! $
-        else
-            normal! 0
-        endif
-    endif
-endfunction
-" }}}
-"
-" smart block region {{{
-"http://labs.timedia.co.jp/2012/10/vim-more-useful-blockwise-insertion.html
-vnoremap <expr> I <SID>force_blockwise_visual('I')
-vnoremap <expr> A <SID>force_blockwise_visual('A')
-
-function! s:force_blockwise_visual(next_key)
-    if mode() ==# 'v'
-        return "\<C-v>" . a:next_key
-    elseif mode() ==# 'V'
-        return "\<C-v>0o$" . a:next_key
-    else
-        return a:next_key
-    endif
-endfunction
-" }}}
-
-command! Sudowrite :w !sudo tee %
-
-" easy open file in current dirctory {{{
-" ref: http://qiita.com/ukitazume/items/c1d2814497bc036f1a82
-cnoremap %% <C-R>=expand('%:h').'/'<cr>
-cmap <leader>e :edit %%
-" }}}
-
-"command! CopyRelativePath {{{
-            \ let @*=join(remove( split( expand( '%:p' ), "/" ), len( split( getcwd(), "/" ) ), -1 ), "/") | echo "copied"
-"}}}
-
-" indent all line (non cursolr move ) {{{
-function! s:format_file()
-    let l:view= winsaveview()
-    normal gg=G
-    silent call winrestview(l:view)
-endfunction
-nnoremap <SPACE>f :call <SID>format_file()<CR>
-" }}}
-
-" Turn off diff mode automatically {{{
-augroup DiffAutocommands
-  autocmd!
-  autocmd WinEnter * if (winnr('$') == 1) && (getbufvar(winbufnr(0), '&diff')) == 1 | diffoff | endif
-augroup END
-" }}}
-
 " Spell Check , Toriger F9 {{{
 nnoremap <F9> :call g:SpellToggle()<CR>
 function! g:SpellToggle()
@@ -621,59 +509,14 @@ function! g:SpellToggle()
 endfunction
 "}}}
 
-" report {{{
-inoremap <Leader>rep [When]<CR>[Where]<CR>[Who]<CR>[What]<CR>[Why]<CR>[How]<CR>[How many]<CR>[How much]<CR>[How long]
-" }}}
-
-" rm 0 byte file {{{
-autocmd MyAutoCmd BufWritePost * call s:Hykw_removeFileIf0Byte()
-function! s:Hykw_removeFileIf0Byte()
-  let l:filename = expand('%:p')
-  if getfsize(l:filename) > 0
-    " do nothing
-    return
-  endif
-
-  let l:msg = printf("\n%s is empty, remove?(y/N)", l:filename)
-  if input(l:msg) ==# 'y'
-    call delete(l:filename)
-    bdelete
-  endif
-endfunction
-" }}}
-
+command! Sudowrite :w !sudo tee %
 cabbr w!! w !sudo tee > /dev/null %
 " }}}
 
 " keymap {{{
-nnoremap j gj
-nnoremap k gk
-
-nnoremap zl zL
-nnoremap zh zH
-
-nnoremap <Leader>h ^
-nnoremap <Leader>l $
-
-" http://d.hatena.ne.jp/vimtaku/touch/20121117/1353138802
-nnoremap <S-J> gJ
-vnoremap <S-J> gJ
-nnoremap gJ <S-J>
-nnoremap gJ <S-J>
-
-"switch buffer
-nnoremap <M-Left> :bp<CR>
-nnoremap <M-Right> :bn<CR>
-
-" nnoremap : q:a
-" nnoremap / q/a
 " window resize +/- {{{
 nnoremap + <C-w>+
 nnoremap - <C-w>-
-nnoremap <silent> <S-Left>  :5wincmd <<CR>
-nnoremap <silent> <S-Right> :5wincmd ><CR>
-nnoremap <silent> <S-Up>    :5wincmd -<CR>
-nnoremap <silent> <S-Down>  :5wincmd +<CR>
 " }}}
 
 " kana's useful tab function {{{
@@ -710,37 +553,19 @@ endfunction
 
 " <Leader>to move current buffer into a new tab.
 nnoremap <silent> <Leader>to :<C-u>call <SID>move_window_into_tab_page(0)<CR>
-" Yank/Past to the OS clipboard {{{
-nmap <Leader>y  "+y
-nmap <Leader>Y  "+yy
-nmap <Leader>pp "+p
-nmap <Leader>PP "+p
-" }}}
 
 " tab {{{
-nnoremap gl gt
-nnoremap gh gT
 nnoremap <Leader>tn :tabnew<CR>
-nnoremap <Leader>tc :tabclose<CR>
 for g:i in range(1,9)
     execute 'nnoremap ' . g:i . '<Leader>t ' . g:i .'gt'
 endfor
-" command! TL :tabnext
-" command! TH :tabprevious
-" command! TN :tabnew
 " }}}
-
-inoremap jj <ESC>
-inoremap kk <ESC>
 
 " easy date input in filename {{{
 " ref:vim tech bible 4-1
-cnoremap <expr> <Leader>date strftime('%Y%m%d')
-cnoremap <expr> <Leader>time strftime('%Y%m%d%H%M')
+cnoremap <expr> <Leader>date strftime('%Y-%m-%d')
+cnoremap <expr> <Leader>time strftime('%Y-%m-%d_%H:%M')
 " }}}
-
-nnoremap <silent> <C-h> 10h
-nnoremap <silent> <C-l> 10l
 
 " easy movin window & fix size {{{
 augroup GoodWindowSize
@@ -761,37 +586,14 @@ function! s:good_height()
 endfunction
 " }}}
 
-nnoremap R gR
-
-" draw line {{{
-inoreabbrev <expr> dl* repeat('*','80')
-inoreabbrev <expr> dl- repeat('-','80')
-" }}}
-
 " gb:Jump last edit point {{{
-" ref::https://sites.google.com/site/fudist/Home/vim-nihongo-ban/tips
 nnoremap gb `.zz
 
-" nnoremap gi gbz<Enter>
 " <C-g><M-g>:jump edit poit forward direction
 nnoremap <C-b> g;
-nnoremap <M-b> g,
 
 " vb: select last select region
 nnoremap vb `[v`]
-" }}}
-
-" change background buffer when no split window {{{
-" ref: https://sites.google.com/site/fudist/Home/vim-nihongo-ban/tips
-nnoremap <silent> <C-w><C-w> :<C-u>call g:MyWincmdW()<CR>
-nnoremap <silent> <C-w>w     :<C-u>call g:MyWincmdW()<CR>
-function! g:MyWincmdW()
-    let l:pn = winnr()
-    silent! wincmd w
-    if l:pn == winnr()
-        silent! b#
-    endif
-endfunction
 " }}}
 
 " Emacs's cursor moving {{{
@@ -813,21 +615,15 @@ nnoremap <silent> <C-w>1 :<C-u>only<CR>
 " }}}
 
 " Buff {{{
-nnoremap <Leader>bn :<C-u>bn<CR>
-nnoremap <Leader>bp :<C-u>bp<CR>
-nnoremap <Leader>bd :<C-u>bdelete<CR>
-" }}}
-
-" search selecting string {{{
-vnoremap <silent> // y/<C-R>=escape(@", '\\/.*$^~[]')<CR><CR>
-" replace selecting string
-vnoremap /r "xy;%s/<C-R>=escape(@x, '\\/.*$^~[]')<CR>//gc<Left><Left><Left>"
+" nnoremap <Leader>bn :<C-u>bn<CR>
+" nnoremap <Leader>bp :<C-u>bp<CR>
+" nnoremap <Leader>bd :<C-u>bdelete<CR>
 " }}}
 
 " replace a word at cursor and yank string {{{
 " ref: vim tech bible 4-6
-nnoremap <silent>  cy  ce<C-r>0<ESC>:let@/=@1<CR>:noh<CR>
-vnoremap <silent>  cy   c<C-r>0<ESC>:let@/=@1<CR>:noh<CR>
+nnoremap <silent> cy  ce<C-r>0<ESC>:let@/=@1<CR>:noh<CR>
+vnoremap <silent> cy   c<C-r>0<ESC>:let@/=@1<CR>:noh<CR>
 nnoremap <silent> ciy ciw<C-r>0<ESC>:let@/=@1<CR>:noh<CR>
 " }}}
 
@@ -858,23 +654,8 @@ vnoremap > >gv
 vnoremap < <gv
 " }}}
 
-" eval region as Vimscript {{{
-nnoremap <Leader>do   Vy:@"<Enter>
-vnoremap <Leader>eval y:@"<Enter>
-nnoremap <C-x><C-e> Vy:@"<Enter>
-" }}}
-
 nnoremap <expr> s* ':%s/\<' . expand('<cword>') . '\>/'
 vnoremap <expr> s* ':s/\<' . expand('<cword>') . '\>/'
-
-function! g:AutoParem()
-    inoremap <buffer> ( ()<Left>
-    inoremap <buffer> [ []<Left>
-    inoremap <buffer> <> <><Left>
-    " inoremap <buffer> <  <><Left>
-    inoremap <buffer> " ""<Left>
-    inoremap <buffer> ' ''<Left>
-endfunction
 
 nnoremap ggyG :echo "Use :%y"<CR>
 vnoremap Gy :<C-u>echo "Use :,$y"<CR>
@@ -890,7 +671,6 @@ endif
 " Language setting {{{
 " Prefix {{{
 let g:FileTypeSettings = [
-            \ 'vim',
             \ 'ruby',
             \ 'python',
             \ 'markdown',
@@ -903,19 +683,10 @@ for g:MyFileType in g:FileTypeSettings
     execute 'autocmd MyAutoCmd FileType ' . g:MyFileType . ' call g:My' . g:MyFileType . 'Settings()'
 endfor
 " }}}
-" vim {{{
-function! g:MyvimSettings()
-endfunction
-" }}}
 " Ruby {{{
 function! g:MyrubySettings()
     setlocal shiftwidth=2 tabstop=2 dictionary=$HOME/.vim/dict/ruby.dict
-    let g:ref_use_vimproc   = 1
-    let g:ref_refe_version  = 2
-    let g:rsenseUseOmniFunc = 1
-    let g:rsenseHome        = '/usr/local/Cellar/rsense/0.3/libexec'
     let l:ruby_space_errors = 1
-    nmap ,rr :<C-u>Ref refe<Space>
     if filereadable(expand('~/rtags'))
         au MyAutoCmd FileType ruby,eruby setl tags+=~/rtags,~/gtags
     endif
@@ -959,12 +730,6 @@ function! g:MycoffeeSettings()
     call g:MyjavascriptSettings()
 endfunction
 " }}}
-" }}}
-
-" local setting {{{
-if filereadable(expand($VIMRC_LOCAL))
-    source $VIMRC_LOCAL
-endif
 " }}}
 
 syntax on
