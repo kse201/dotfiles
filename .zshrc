@@ -391,3 +391,7 @@ fi
 if [ -f /usr/local/google-cloud-sdk/completion.zsh.inc ]; then
   source '/usr/local/google-cloud-sdk/completion.zsh.inc'
 fi
+
+if is_exist 'rbenv' ; then
+    eval "$(rbenv init -)"
+fi
