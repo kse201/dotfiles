@@ -40,7 +40,7 @@ typeset -U path PATH
 export LANG=ja_JP.UTF-8
 export LESSCHARSET=utf-8
 export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case --quit-if-one-screen --RAW-CONTROL-CHARS -X'
-export EDITOR='vi'
+export EDITOR='vim'
 export RSYNC_RSH=ssh
 export CVS_RSH=ssh
 
@@ -77,8 +77,6 @@ zstyle ':completion:*' verbose yes
 zstyle ':completion:*' ignore-parents parent pwd ..
 
 REPORTTIME=3
-
-watch="all"
 
 exec_login(){
     w
@@ -175,21 +173,6 @@ SPROMPT="%{$fg[red]%}%{$suggest%}(*'_'%)? < You mean %B%r%b %{$fg[red]%}? [y,n,a
 # Alias
 ########################################
 
-alias -s py="python"
-alias -s rb="ruby"
-alias -s txt="cat"
-
-### iab
-alias -g L="| less"
-alias -g G='| grep'
-alias -g H='| head'
-alias -g T='| tail'
-alias -g S='| sed'
-alias -g A='| awk'
-alias -g W='| wc'
-
-alias remem='du -sx / &> /dev/null & sleep 25 && kill $!'
-
 if is_exist 'pbcopy' ; then
     # Mac
     alias -g C='| pbcopy'
@@ -217,7 +200,7 @@ else
 fi
 alias cp='cp -i'
 alias mv='mv -i'
-alias grep='grep -E --color=auto'
+alias grep='grep --color=auto'
 alias ll='ls -l'
 alias la='ls -la'
 
@@ -290,26 +273,6 @@ zplug load --verbose
 # Function
 ########################################
 
-conf() {
-    case $1 in
-        bash)   vim $HOME/.bashrc ;;
-        git)    vim $HOME/.gitconfig ;;
-        tmux)   vim $HOME/.tmux.conf ;;
-        screen) vim $HOME/.screenrc ;;
-        vim)    vim $HOME/.vimrc ;;
-        zsh)    vim $HOME/.zshrc && source $HOME/.zshrc ;;
-        *)      echo "Unknown application: $1" ;;
-    esac
-}
-
-reload (){
-    exec $SHELL
-}
-
-timestamp() {
-    date +%Y%m%d%H%M%S
-}
-
 sshconfig() {
   mv $HOME/.ssh/config{,.bak_$(timestamp)}
   cat $HOME/.ssh/conf.d/*.conf > $HOME/.ssh/config
@@ -317,29 +280,8 @@ sshconfig() {
 }
 
 ########################################
-# Screen
-########################################
-
-export SCREENDIR=$HOME/.screens
-if [ ! -e "$HOME/.log" ] ; then
-    mkdir "$HOME/.log"
-fi
-
-# local setting
-if [ -f "$HOME/.zshrc.local" ] ; then
-    source "$HOME/.zshrc.local"
-fi
-
-########################################
 # Misc
 ########################################
-
-# Haskell
-# Add GHC 7.8.4 to the PATH, via http://ghcformacosx.github.io/
-export GHC_DOT_APP="/Applications/GHC.app"
-if [ -d "$GHC_DOT_APP" ]; then
-    export PATH="${HOME}/.cabal/bin:${GHC_DOT_APP}/Contents/bin:${PATH}"
-fi
 
 # golang
 [[ -s "${HOME}/.gvm/scripts/gvm" ]] && source "${HOME}/.gvm/scripts/gvm"
@@ -348,10 +290,6 @@ if is_exist 'go' ; then
     export GOPATH=$HOME/.go
     export PATH=$PATH:/usr/local/go/bin:$HOME/.go/bin
     alias gopkg="find $GOPATH -name '*.go' | grep -E \"\/[^\.].+\.go\" | sed -e 's/^.*src\/\(.*\)\/.*go$/\"\1\"/' | sort | uniq | grep -v $USER"
-fi
-
-if is_exist "cabal" ; then
-    export PATH=$HOME/.cabal/bin:$PATH
 fi
 
 # fzf
@@ -365,11 +303,6 @@ fi
 if [ -f ~/.fzf.zsh ] ; then
     source ~/.fzf.zsh
     bindkey '^Y' fzf-file-widget
-fi
-
-#hub
-if is_exist "hub" ; then
-    eval "$(hub alias -s)"
 fi
 
 #
