@@ -125,6 +125,9 @@ xmap <silent><expr> as mode() !=# 'v' ? ':Alignta \S\+'."\<CR>" : 'as'
 " memolist.vim {{{
 let g:memolist_memo_suffix = 'txt'
 let g:memolist_unite = 1
+nnoremap <Leader>mn :MemoNew<CR>
+nnoremap <Leader>ml :MemoList<CR>
+nnoremap <Leader>mg :MemoList<CR>
 " }}}
 "" ================================================================================
 " vim: set tw=0 tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
