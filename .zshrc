@@ -26,11 +26,6 @@ autoload     run-help-svn
 
 is_exist()  { which "$1" >/dev/null 2>&1; return $?; }
 
-# Source global definitions
-if [ -f /etc/zshrc ]; then
-    . /etc/zshrc
-fi
-
 if [ ! -f $HOME/.zshrc.zwc -o $HOME/.zshrc -nt $HOME/.zshrc.zwc ]; then
     zcompile $HOME/.zshrc
 fi
@@ -39,7 +34,6 @@ export PATH=$HOME/.dotfiles/bin:/usr/local/bin:/usr/local/sbin:$PATH
 typeset -U path PATH
 export LANG=ja_JP.UTF-8
 export LESSCHARSET=utf-8
-export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case --quit-if-one-screen --RAW-CONTROL-CHARS -X'
 export EDITOR='vim'
 export RSYNC_RSH=ssh
 export CVS_RSH=ssh
@@ -203,21 +197,6 @@ alias mv='mv -i'
 alias grep='grep --color=auto'
 alias ll='ls -l'
 alias la='ls -la'
-
-# vim
-if is_exist 'vim' ; then
-    alias vi="vim"
-    # spartan Vim
-    alias spvim='vim -u NONE'
-fi
-
-[[ $EMACS = t ]] && unsetopt zle
-
-# emacs
-if [ `uname` != "Darwin" ] ; then
-    alias emacsclient=/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -n
-    alias e='/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -n'
-fi
 
 alias dl='docker ps -ql'
 dock_ip () {
