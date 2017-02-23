@@ -30,9 +30,9 @@ if [ ! -f $HOME/.zshrc.zwc -o $HOME/.zshrc -nt $HOME/.zshrc.zwc ]; then
     zcompile $HOME/.zshrc
 fi
 # env
-export PATH=$HOME/.dotfiles/bin:/usr/local/bin:/usr/local/sbin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH
 typeset -U path PATH
-export LANG=ja_JP.UTF-8
+export LANG=en_US.UTF-8
 export LESSCHARSET=utf-8
 export EDITOR='vim'
 export RSYNC_RSH=ssh
@@ -50,9 +50,9 @@ setopt \
     share_history
 unsetopt hist_verify
 
-HISTFILE=$HOME/.zsh_history
-HISTSIZE=7500
-SAVEHIST=7500
+export HISTFILE=$HOME/.zsh_history
+export HISTSIZE=7500
+export SAVEHIST=7500
 export HISTIGNORE="ls *:cd:history:fg*:history-all"
 function history-all { history -E 1 }
 
@@ -82,8 +82,7 @@ limit coredumpsize 102400
 
 bindkey -e
 
-LISTMAX=0
-export LISTMAX
+export LISTMAX=0
 setopt auto_cd auto_remove_slash auto_name_dirs
 
 setopt extended_glob list_types
@@ -119,8 +118,8 @@ bindkey '^N' history-beginning-search-forward-end
 export ls_colors='no=01;37:fi=00:di=01;36:pi=40;33:so=01;35:bd=40;33:cd=40;33;01:or=40;32;01:ex=01;33:*core=01;31:'
 export GREP_COLOR='1;3741'
 
-WORDCHARS='*?_-.[]~=&;!#S%^(){}<>'
-WORDCHARS=${WORDCHARS:s,/,,}
+export WORDCHARS='*?_-.[]~=&;!#S%^(){}<>'
+export WORDCHARS=${WORDCHARS:s,/,,}
 
 cdpath=($HOME)
 
@@ -166,17 +165,6 @@ SPROMPT="%{$fg[red]%}%{$suggest%}(*'_'%)? < You mean %B%r%b %{$fg[red]%}? [y,n,a
 ########################################
 # Alias
 ########################################
-
-if is_exist 'pbcopy' ; then
-    # Mac
-    alias -g C='| pbcopy'
-elif is_exist 'xsel' ; then
-    # Linux
-    alias -g C='| xsel --input --clipboard'
-elif is_exist 'putclip' ; then
-    # Cygwin
-    alias -g C='| putclip'
-fi
 
 if is_exist 'colordiff' ; then
     alias diff='colordiff'
