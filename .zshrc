@@ -182,10 +182,6 @@ if is_exist 'colordiff' ; then
     alias diff='colordiff'
 fi
 
-if ! is_exist 'tree' ; then
-    alias tree="pwd;find . | sort | sed '1d;s/^\.//;s/\/\([^/]*\)$/|--\1/;s/\/[^/|]*/|  /g'"
-fi
-
 os=$(uname)
 if [ ${os} = "Darwin" ] ; then
     alias ls="ls -G"
@@ -197,17 +193,6 @@ alias mv='mv -i'
 alias grep='grep --color=auto'
 alias ll='ls -l'
 alias la='ls -la'
-
-alias dl='docker ps -ql'
-dock_ip () {
-    inspect=$(docker inspect $1 )
-    if is_exist "jq" ; then
-        echo ${inspect} | jq -r ".[0].NetworkSettings.IPAddress"
-    else
-        echo ${inspect} | grep IPAddres | awk -F'"' '{print $4}'
-    fi
-}
-alias dockviz="docker run --rm -v /var/run/docker.sock:/var/run/docker.sock nate/dockviz"
 
 tmux() {
     if [ $# -eq 0 ] ; then
@@ -247,16 +232,6 @@ if ! zplug check --verbose; then
 fi
 
 zplug load --verbose
-
-########################################
-# Function
-########################################
-
-sshconfig() {
-  mv $HOME/.ssh/config{,.bak_$(timestamp)}
-  cat $HOME/.ssh/conf.d/*.conf > $HOME/.ssh/config
-  chmod 600 $HOME/.ssh/config
-}
 
 ########################################
 # Misc
