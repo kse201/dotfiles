@@ -32,7 +32,7 @@ fi
 # env
 export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH
 typeset -U path PATH
-export LANG=en_US.UTF-8
+export LANG=ja_JP.UTF-8
 export LESSCHARSET=utf-8
 export EDITOR='vim'
 export RSYNC_RSH=ssh
