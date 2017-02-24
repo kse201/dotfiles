@@ -28,14 +28,13 @@ set shortmess+=I
   \ report=0
   \ formatexpr=
   \ autoread
-  \ clipboard=unnamed
   \ hidden
   \ synmaxcol=200
   \ timeout timeoutlen=500 ttimeoutlen=75
-" \ -> ¥ {{{
+" \ -> \ {{{
 if has('mac')
-    inoremap ¥ \
-    cnoremap ¥ \
+    inoremap \ \
+    cnoremap \ \
 endif
 " }}}
 
@@ -52,23 +51,11 @@ endif
 " }}}
 
 " configs and dirctorys {{{
-if has('win32') || has('win64') || has('win32unix')
-    let s:dotfile_home  = $HOME . '/dotfiles'
-    let s:hidden_prefix = '.'
-    set backupdir=$HOME/_vimbackup dir=$HOME/AppData/Local/Temp
-elseif has('win32unix')
-    let $dotfile_home   = $HOME.'/vimfiles'
-    let s:hidden_prefix = '_'
-else
-    let s:dotfile_home  = $HOME
-    let s:hidden_prefix = '.'
-    set backupdir=$HOME/.vimbackup
-endif
-let $VIMFILE_DIR   = s:dotfile_home.'/'.s:hidden_prefix.'vim'
-let $VIMRC         = s:dotfile_home.'/'.s:hidden_prefix.'vimrc'
-let $GVIMRC        = s:dotfile_home.'/'.s:hidden_prefix.'gvimrc'
-let $VIMRC_PLUGING = s:dotfile_home.'/'.s:hidden_prefix.'vimrc.plugin'
-let $VIMRC_LOCAL   = s:dotfile_home.'/'.s:hidden_prefix.'vimrc.local'
+set backupdir=$HOME/.vimbackup
+let $VIMFILE_DIR   = $HOME.'/.vim'
+let $VIMRC         = $HOME.'/.vimrc'
+let $GVIMRC        = $HOME.'/.gvimrc'
+let $VIMRC_PLUGING = $HOME.'/.vimrc.plugin'
 " }}}
 
 " edit configs {{{
@@ -97,12 +84,6 @@ endif
 
 set tags+=tags;
 
-" clipboard {{{
-if has('win32') || has('win64')
-    set clipboard+=unnamed
-endif
-" }}}
-
 " IME settings
 if has('multi_byte_ime') && has('xim') && has('gui_macvim') " TODO: vefify this equation
     set iminsert=2 imsearch=2
@@ -128,48 +109,43 @@ let g:loaded_netrwFileHandlers = 1
 
 " file encoding {{{
 " Auto encoding {{{
-if has('gui_running') && (has('win32') || has('win64'))
-    set enc=utf-8 fencs=iso-2011-jp,enc-jp,sjis,cp932,utf-8 termencoding=utf-8
-    scriptencoding cp932
-else
-    if &encoding !=# 'utf-8'
-        set encoding=japan fileencoding=japan
+if &encoding !=# 'utf-8'
+    set encoding=japan fileencoding=japan
+endif
+if has('iconv')
+    let s:enc_euc = 'euc-jp'
+    let s:enc_jis = 'iso-2022-jp'
+    " eucJP-ms support check
+    if iconv("\x87\x64\x87\x6a", 'cp932', 'eucjp-ms') ==# "\xad\xc5\xad\xcb"
+        let s:enc_euc = 'eucjp-ms'
+        let s:enc_jis = 'utf-8'
+        " JISX0213 support check
+    elseif iconv("\x87\x64\x87\x6a", 'cp932', 'euc-jisx0213') ==# "\xad\xc5\xad\xcb"
+        let s:enc_euc = 'euc-jisx0213'
+        let s:enc_jis = 'utf-8'
     endif
-    if has('iconv')
-        let s:enc_euc = 'euc-jp'
-        let s:enc_jis = 'iso-2022-jp'
-        " eucJP-ms support check
-        if iconv("\x87\x64\x87\x6a", 'cp932', 'eucjp-ms') ==# "\xad\xc5\xad\xcb"
-            let s:enc_euc = 'eucjp-ms'
-            let s:enc_jis = 'utf-8'
-            " JISX0213 support check
-        elseif iconv("\x87\x64\x87\x6a", 'cp932', 'euc-jisx0213') ==# "\xad\xc5\xad\xcb"
-            let s:enc_euc = 'euc-jisx0213'
-            let s:enc_jis = 'utf-8'
-        endif
-        " fileencodings
-        if &encoding ==# 'utf-8'
-            let s:fileencodings_default = &fileencodings
-            let &fileencodings = s:enc_jis .','. s:enc_euc .',cp932'
-            let &fileencodings = &fileencodings .','. s:fileencodings_default
-            unlet s:fileencodings_default
+    " fileencodings
+    if &encoding ==# 'utf-8'
+        let s:fileencodings_default = &fileencodings
+        let &fileencodings = s:enc_jis .','. s:enc_euc .',cp932'
+        let &fileencodings = &fileencodings .','. s:fileencodings_default
+        unlet s:fileencodings_default
+    else
+        let &fileencodings = &fileencodings .','. s:enc_jis
+        set fileencodings+=utf-8,ucs-2le,ucs-2
+        if &encoding =~# '^\(euc-jp\|euc-jisx0213\|eucjp-ms\)$'
+            set fileencodings+=cp932
+            set fileencodings-=euc-jp
+            set fileencodings-=euc-jisx0213
+            set fileencodings-=eucjp-ms
+            let &encoding     = s:enc_euc
+            let &fileencoding = s:enc_euc
         else
-            let &fileencodings = &fileencodings .','. s:enc_jis
-            set fileencodings+=utf-8,ucs-2le,ucs-2
-            if &encoding =~# '^\(euc-jp\|euc-jisx0213\|eucjp-ms\)$'
-                set fileencodings+=cp932
-                set fileencodings-=euc-jp
-                set fileencodings-=euc-jisx0213
-                set fileencodings-=eucjp-ms
-                let &encoding     = s:enc_euc
-                let &fileencoding = s:enc_euc
-            else
-                let &fileencodings = &fileencodings .','. s:enc_euc
-            endif
+            let &fileencodings = &fileencodings .','. s:enc_euc
         endif
-        unlet s:enc_euc
-        unlet s:enc_jis
     endif
+    unlet s:enc_euc
+    unlet s:enc_jis
 endif
 " }}}
 
