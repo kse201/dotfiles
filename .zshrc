@@ -6,6 +6,8 @@
 # General
 ########################################
 
+setopt auto_menu correct
+
 # autoload
 autoload -U  run-help
 autoload -Uz add-zsh-hook
@@ -85,7 +87,7 @@ bindkey -e
 export LISTMAX=0
 setopt auto_cd auto_remove_slash auto_name_dirs
 
-setopt extended_glob list_types
+setopt extended_glob list_types no_case_glob
 setopt cdable_vars sh_word_split
 setopt auto_resume
 setopt correct
