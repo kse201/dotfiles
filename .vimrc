@@ -139,7 +139,6 @@ set notitle
   \ display=lastline
   \ laststatus=2
   \ wrap
-  \ breakindent
   \ wildmenu
   \ wildmode=list:full
   \ wildchar=<TAB>
@@ -278,67 +277,6 @@ set ignorecase smartcase incsearch showmatch nowrapscan
 " }}}
 
 " other {{{
-" auto read templates {{{
-let s:FileExts = [
-            \ 'c',
-            \ 'html',
-            \ 'pl',
-            \ 'py',
-            \ 'rb',
-            \ 'tex',
-            \]
-for s:Extension in s:FileExts
-    execute 'autocmd BufNewFile *.' . s:Extension . ' 0r $VIMFILE_DIR/skeleton/skel.' . s:Extension
-endfor
-" }}}
-
-" undo each unite words {{{
-function! s:is_changed() " {{{
-    try
-        " When no `b:vimrc_changedtick` variable
-        " (first time), not changed.
-        return exists('b:vimrc_changedtick')
-                    \   && b:vimrc_changedtick < b:changedtick
-    finally
-        let b:vimrc_changedtick = b:changedtick
-    endtry
-endfunction "}}}
-augroup Change
-    autocmd!
-    autocmd CursorMovedI * if s:is_changed() | doautocmd User changed-text | endif
-augroup END
-let s:current_changed_times = 0
-let s:max_changed_times = 20 "  arbitrary value
-function! s:changed_text() " {{{
-    if s:current_changed_times >= s:max_changed_times - 1
-        call feedkeys("\<C-g>u", 'n')
-        let s:current_changed_times = 0
-    else
-        let s:current_changed_times += 1
-    endif
-endfunction "}}}
-augroup Change
-    au!
-    autocmd  User changed-text call s:changed_text()
-augroup END
-" }}}
-
-" vimrc power {{{
-" :Scouter
-function! g:Scouter(file, ...)
-    let l:pat = '^\s*$\|^\s*"'
-    let l:lines = readfile(a:file)
-    if !a:0 || !a:1
-        let l:lines = split(substitute(join(l:lines, "\n"), '\n\s*\\', '', 'g'), "\n")
-    endif
-    return len(filter(l:lines,'v:val !~ l:pat'))
-endfunction
-command! -bar -bang -nargs=? -complete=file Scouter
-            \        echo g:Scouter(empty(<q-args>) ? $VIMRC : expand(<q-args>), <bang>0)
-command! -bar -bang -nargs=? -complete=file GScouter
-            \        echo g:Scouter(empty(<q-args>) ? $GVIMRC : expand(<q-args>), <bang>0)
-" }}}
-
 " operator {{{
 function! g:ReplaceMotion(type, ...)
     let l:sel_save = &selection
@@ -370,11 +308,6 @@ endfunction
 
 " Rename new_filename {{{
 command! -nargs=+ -bang -complete=file Rename let pbnr=fnamemodify(bufname('%'), ':p')|exec 'f '.escape(<q-args>, ' ')|w<bang>|call delete(pbnr)
-" }}}
-
-" DiffOrig diff with current buffer {{{
-" Diff [filanem|buff num]
-command! -nargs=? -complete=file Diff if '<args>'=='' | browse vertical diffsplit|else| vertical diffsplit <args>|endif
 " }}}
 
 " commands which reopen with encodings {{{

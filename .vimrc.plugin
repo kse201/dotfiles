@@ -94,19 +94,6 @@ nnoremap <silent> <SID>[unite]m :<C-u>Unite file_mru<CR>
 nnoremap <silent> <SID>[unite]r :<C-u>Unite register<CR>
 nnoremap <silent> <SID>[unite]/ :<C-u>Unite -buffer-name=search line<CR>
 nnoremap <silent> <SID>[unite]: :<C-u>Unite command<CR>
-
-" call  unite#custom#substitute('file,file_mru,history/command,directory_mru', '[[:alnum:]]', '*\0', 10)
-
-" call  unite#custom#substitute('file,file_mru', '\$\w\+', '\=eval(submatch(0))', 20)
-" call  unite#custom#substitute('file,file_mru', '[^~.]\zs/', '*/*', 20)
-" call  unite#custom#substitute('file,file_mru', '/\ze[^*]', '/*', 10)
-" call  unite#custom#substitute('file,file_mru', '^@@', '\=fnamemodify(expand("#"), ":p:h")."/*"', 2)
-" call  unite#custom#substitute('file,file_mru', '^@', '\=getcwd()."/*"', 1)
-" call  unite#custom#substitute('file,file_mru', '^;r', '\=$VIMRUNTIME."/"')
-" call  unite#custom#substitute('file,file_mru', '^\~', escape($HOME, '\'), -2)
-" call  unite#custom#substitute('file,file_mru', '^\\', escape($HOME, '\'), -2)
-" call  unite#custom#substitute('file,file_mru', '\\\@<! ', '\\ ', -20)
-" call  unite#custom#substitute('file,file_mru', '\\ \@!', '/', -30)
 " }}}
 
 " NERD Commenter{{{
