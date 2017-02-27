@@ -1,0 +1,23 @@
+[global_config]
+  always_on_top = True
+  enabled_plugins = TerminalShot, LaunchpadCodeURLHandler, APTURLHandler, Logger, LaunchpadBugURLHandler
+  handle_size = -3
+  title_transmit_bg_color = "#1ee733"
+[keybindings]
+[layouts]
+  [[default]]
+    [[[child1]]]
+      parent = window0
+      profile = default
+      type = Terminal
+    [[[window0]]]
+      parent = ""
+      type = Window
+[plugins]
+[profiles]
+  [[default]]
+    background_darkness = 0.46
+    background_image = None
+    background_type = image
+    font = Ricty Diminished 14
+    use_system_font = False
