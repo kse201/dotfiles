@@ -14,3 +14,7 @@ storage/
 .vim/skeleton/dairyreport.txt
 .vim/skeleton/monthlyreport.txt
 .vim/.netrw_hist
+
+*.local
+
+fishd.*
