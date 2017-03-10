@@ -1,6 +1,4 @@
-**/.DS_Store
-.vim/doc/tags
-.vim/doc/tags-ja
+.DS_Store
 bundle
 dein
 .viminfo

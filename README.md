@@ -1,3 +1,3 @@
-# Usage this repo 
+# kse201 dotfiles
 ## Install 
-    $ curl https://raw.githubusercontent.com/kse201/dotfiles/master/etc/installer.sh | sh
+see [kse201.dotfiles](https://github.com/kse201/ansible-dotfiles)
