@@ -8,3 +8,11 @@ set -x HISTIGNORE "ls *:cd:history:fg*:history-all"
 
 set -x RBENV_ROOT /usr/local/rbenv
 rbenv init - | source
+
+abbr vi vim
+
+abbr vst vagrant status
+abbr vup vagrant up
+
+abbr gst git status
+abbr glg git lg
