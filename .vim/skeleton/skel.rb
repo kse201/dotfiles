@@ -1,3 +1,0 @@
-#!/usr/bin/enb ruby
-
-
