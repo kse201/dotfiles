@@ -1,7 +1,3 @@
-"============================================================
-"                  *** .vimrc.plugin ***                    |
-"============================================================
-
 augroup MyAutoCmd
     autocmd!
 augroup END
@@ -10,15 +6,17 @@ augroup END
 set nocompatible
 filetype plugin indent off
 let g:bundle_dir = $VIMFILE_DIR.'/dein/'
+let g:dein_dir = g:bundle_dir.'repos/github.com/Shougo/dein.vim/'
 if has('vim_starting')
-    if !isdirectory(expand(g:bundle_dir.'repos/github.com/Shougo/dein.vim/'))
+    if !isdirectory(expand(g:dein_dir))
         echo 'install dein.vim...'
-        :call system('git clone git://github.com/Shougo/dein.vim ~/.vim/dein/repos/github.com/Shougo/dein.vim')
+        :call system('git clone git://github.com/Shougo/dein.vim '.g:dein_dir)
     endif
-    exe 'set rtp+='.g:bundle_dir.'repos/github.com/Shougo/dein.vim/'
+    exe 'set rtp+='.g:dein_dir
 endif
 call dein#begin(g:bundle_dir)
 unlet g:bundle_dir
+unlet g:dein_dir
 
 call dein#add('Shougo/dein.vim')
 " unite {{{

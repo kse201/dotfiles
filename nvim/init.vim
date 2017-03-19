@@ -1,7 +1,3 @@
-"============================================================
-"                      *** .vimrc ***                       |
-"============================================================
-
 " basic setting {{{
 augroup MyAutoCmd
     autocmd!
@@ -51,17 +47,24 @@ endif
 " }}}
 
 " configs and dirctorys {{{
-set backupdir=$HOME/.vimbackup
-let $VIMFILE_DIR   = $HOME.'/.vim'
-let $VIMRC         = $HOME.'/.vimrc'
-let $GVIMRC        = $HOME.'/.gvimrc'
-let $VIMRC_PLUGING = $HOME.'/.vimrc.plugin'
+    set backupdir=$HOME/.vimbackup
+if has('nvim')
+    let $VIMFILE_DIR   = $HOME.'/.config/nvim'
+    let $VIMRC         = $VIMFILE_DIR.'/init.vim'
+    let $GVIMRC        = $VIMFILE_DIR.'/gvim.vim'
+    let $VIMRC_PLUGIN  = $VIMFILE_DIR.'/plugin.vim'
+else
+    let $VIMFILE_DIR   = $HOME.'/.vim'
+    let $VIMRC         = $HOME.'/.vimrc'
+    let $GVIMRC        = $HOME.'/.gvimrc'
+    let $VIMRC_PLUGIN  = $HOME.'/.vimrc.plugin'
+end
 " }}}
 
 " edit configs {{{
 nnoremap <Leader>ev :edit $VIMRC<CR>
 nnoremap <Leader>eg :edit $GVIMRC<CR>
-nnoremap <Leader>ep :edit $VIMRC_PLUGING<CR>
+nnoremap <Leader>ep :edit $VIMRC_PLUGIN<CR>
 " }}}
 " }}}
 
@@ -533,9 +536,8 @@ vnoremap Gy :<C-u>echo "Use :,$y"<CR>
 " }}}
 
 " Plugin {{{
-" if filereadable(expand('~/.vimrc.plugin'))
-if filereadable(expand($VIMRC_PLUGING))
-    source $VIMRC_PLUGING
+if filereadable(expand($VIMRC_PLUGIN))
+    source $VIMRC_PLUGIN
 endif
 " }}}
 
@@ -556,7 +558,7 @@ endfor
 " }}}
 " Ruby {{{
 function! g:MyrubySettings()
-    setlocal shiftwidth=2 tabstop=2 dictionary=$HOME/.vim/dict/ruby.dict
+    setlocal shiftwidth=2 tabstop=2 dictionary=$VIMFILE_DIR/dict/ruby.dict
     let l:ruby_space_errors = 1
     if filereadable(expand('~/rtags'))
         au MyAutoCmd FileType ruby,eruby setl tags+=~/rtags,~/gtags
