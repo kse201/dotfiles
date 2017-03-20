@@ -36,7 +36,7 @@ export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH
 typeset -U path PATH
 export LANG=ja_JP.UTF-8
 export LESSCHARSET=utf-8
-export EDITOR='vim'
+export EDITOR='nvim'
 export RSYNC_RSH=ssh
 export CVS_RSH=ssh
 

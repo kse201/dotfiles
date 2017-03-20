@@ -15,7 +15,7 @@ export LC_MESSAGES='ja_JP.UTF-8'
 
 export LESSCHARSET=utf-8
 export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case --quit-if-one-screen --RAW-CONTROL-CHARS -X'
-export EDITOR='vi'
+export EDITOR='nvim'
 
 # 補完時に大文字小文字の違いを無視する
 set completion-ignore-case on
@@ -114,10 +114,10 @@ alias L="less"
 export GREP_COLOR='1;3741'
 alias grep='grep -E --color=auto'
 
-if is_exist 'vim' ; then
-    alias vi="vim"
+if is_exist 'nvim' ; then
+    alias vi="nvim"
     # spartan Vim
-    alias spvim='vim -u NONE'
+    alias spvim='nvim -u NONE'
 fi
 
 
