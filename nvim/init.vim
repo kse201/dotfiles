@@ -1,4 +1,3 @@
-" basic setting {{{
 augroup MyAutoCmd
     autocmd!
 augroup END
@@ -111,9 +110,10 @@ let g:loaded_netrwFileHandlers = 1
 " }}}
 
 " file encoding {{{
-set enc=utf-8
+set encoding=utf-8
+scriptencoding utf-8
 " set fenc=utf-8
-set fencs=utf-8,iso-2022-jp,euc-jp
+set fileencodings=utf-8,iso-2022-jp,euc-jp
 " use encoding as fileencoding when file NOT contain japanese {{{
 if has('autocmd')
     function! g:AU_ReCheck_FENC()
@@ -607,4 +607,4 @@ endfunction
 
 syntax on
 "============================================================
-" vim:set tw=0 tabstop=4 shiftwidth=4 fdm=marker fdl=0:
+" vim:set tw=0 tabstop=4 shiftwidth=4 fdm=marker fdl=0
