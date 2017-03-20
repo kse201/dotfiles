@@ -3,7 +3,6 @@ augroup MyAutoCmd
 augroup END
 
 " dein.vim{{{
-set nocompatible
 filetype plugin indent off
 let g:bundle_dir = $VIMFILE_DIR.'/dein/'
 let g:dein_dir = g:bundle_dir.'repos/github.com/Shougo/dein.vim/'
@@ -46,6 +45,10 @@ call dein#add('jelera/vim-javascript-syntax', {'autoload': {'filetypes': ['javas
 call dein#add('kchmck/vim-coffee-script', {'autoload': {'filetypes': ['coffee']}})
 call dein#add('moll/vim-node', {'autoload': {'filetypes': ['coffee']}})
 call dein#add('heavenshell/vim-jsdoc', {'autoload': {'filetypes': ['javascript', 'coffee']}})
+call dein#add('w0rp/ale')
+
+call dein#add('Shougo/deoplete.nvim')
+call dein#add('fishbullet/deoplete-ruby')
 
 let g:loaded_matchparen = 1
 
@@ -93,6 +96,8 @@ nnoremap <silent> <SID>[unite]r :<C-u>Unite register<CR>
 nnoremap <silent> <SID>[unite]/ :<C-u>Unite -buffer-name=search line<CR>
 nnoremap <silent> <SID>[unite]: :<C-u>Unite command<CR>
 " }}}
+
+let g:deoplete#enable_at_startup = 1
 
 " NERD Commenter{{{
 let g:NERDCreateDefaultMappings = 0
