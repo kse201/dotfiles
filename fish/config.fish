@@ -24,3 +24,5 @@ rbenv init - | source
 if test -e $HOME/.ruby-version
   set PATH $HOME/.gem/ruby/(cat $HOME/.ruby-version)/bin $PATH
 end
+
+set -x PATH $HOME/.pyenv/bin $HOME/.pyenv/shims $PATH
