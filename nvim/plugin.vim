@@ -4,55 +4,28 @@ augroup END
 
 " dein.vim{{{
 filetype plugin indent off
-let g:bundle_dir = $VIMFILE_DIR.'/dein/'
-let g:dein_dir = g:bundle_dir.'repos/github.com/Shougo/dein.vim/'
+let s:dein_dir = $VIMFILE_DIR.'/dein'
+let s:dein_repo_dir = s:dein_dir.'/repos/github.com/Shougo/dein.vim/'
+let s:dein_toml = $VIMFILE_DIR.'/dein.toml'
 if has('vim_starting')
-    if !isdirectory(expand(g:dein_dir))
+    if !isdirectory(expand(s:dein_repo_dir))
         echo 'install dein.vim...'
-        :call system('git clone git://github.com/Shougo/dein.vim '.g:dein_dir)
+        :call system('git clone git://github.com/Shougo/dein.vim '.s:dein_repo_dir)
     endif
-    exe 'set rtp+='.g:dein_dir
+    exe 'set rtp+='.s:dein_repo_dir
 endif
-call dein#begin(g:bundle_dir)
-unlet g:bundle_dir
-unlet g:dein_dir
 
-call dein#add('Shougo/dein.vim')
-" unite {{{
-call dein#add('Shougo/unite.vim')
-call dein#add('Shougo/neomru.vim')
-" }}}
-" align {{{
-call dein#add('h1mesuke/vim-alignta')
-call dein#add('The-NERD-Commenter')
-" }}}
-" feature {{{
-call dein#add('itchyny/lightline.vim')
-call dein#add('glidenote/memolist.vim')
-call dein#add('kana/vim-smartinput')
-call dein#add('vim-scripts/scratch-utility')
-" }}}
-" colorscheme & syntax {{{
-call dein#add('mrk21/yaml-vim')
-call dein#add('cocopon/iceberg.vim')
-call dein#add('tomasr/molokai')
-" }}}
-call dein#add('fatih/vim-go', {'autoload': {'filetypes': ['go']}})
+if dein#load_state(s:dein_dir)
+    call dein#begin(s:dein_dir)
+    call dein#load_toml(s:dein_toml)
+    call dein#end()
+    call dein#save_state()
+endif
 
-call dein#add('pangloss/vim-javascript', {'autoload': {'filetypes': ['javascript']}})
-call dein#add('jelera/vim-javascript-syntax', {'autoload': {'filetypes': ['javascript']}})
+unlet s:dein_dir
+unlet s:dein_repo_dir
+unlet s:dein_toml
 
-call dein#add('kchmck/vim-coffee-script', {'autoload': {'filetypes': ['coffee']}})
-call dein#add('moll/vim-node', {'autoload': {'filetypes': ['coffee']}})
-call dein#add('heavenshell/vim-jsdoc', {'autoload': {'filetypes': ['javascript', 'coffee']}})
-call dein#add('w0rp/ale')
-
-call dein#add('Shougo/deoplete.nvim')
-call dein#add('fishbullet/deoplete-ruby')
-
-let g:loaded_matchparen = 1
-
-call dein#end()
 filetype plugin indent on
 syntax on
 
