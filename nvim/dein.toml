@@ -2,34 +2,104 @@
 repo = 'Shougo/dein.vim'
 
 [[plugins]]
+repo = 'Shougo/vimproc.vim'
+hook_post_update = '''
+    if dein#util#_is_windows()
+        let cmd = 'tools\\update-dll-mingw'
+    elseif dein#util#_is_cygwin()
+        let cmd = 'make -f make_cygwin.mak'
+    elseif executable('gmake')
+        let cmd = 'gmake'
+    else
+        let cmd = 'make'
+    endif
+    let g:dein#plugin.build = cmd
+'''
+
+[[plugins]]
 repo = 'Shougo/unite.vim'
+hook_add = '''
+    let g:unite_split_rule                      = 'botright'
+    let g:unite_source_file_mru_filename_format = ''
+    let g:unite_enable_start_insert             = 1
+    let g:unite_source_file_mru_limit           = 100
+    let g:unite_enable_ignore_case              = 1
+    let g:unite_enable_smart_case               = 1
+
+    " Prefix-Key
+    nmap <Leader>a <SID>[unite]
+    nnoremap <SID>[unite] <Nop>
+
+    augroup UniteKeymap
+        autocmd!
+        au FileType unite nmap     <silent><buffer>  <ESC><ESC> <Plug>(unite_exit)
+        au FileType unite imap     <silent><buffer>  <ESC><ESC> <Plug>(unite_exit)
+        au FileType unite nmap     <silent><buffer>  a <Plug>(unite_append_end)
+        au FileType unite imap     <buffer> <C-w>    <Plug>(unite_delete_backward_path)
+        au FileType unite nnoremap <silent><buffer> <expr> <C-Enter> unite#do_action('vsplit')
+        au FileType unite inoremap <silent><buffer> <expr> <C-Enter> unite#do_action('vsplit')
+        au FileType unite setlocal tw=0
+    augroup END
+
+    nnoremap <silent> <SID>[unite]b :<C-u>Unite buffer<CR>
+    nnoremap <silent> <SID>[unite]f :<C-u>Unite file<CR>
+    nnoremap <silent> <SID>[unite]m :<C-u>Unite file_mru<CR>
+    nnoremap <silent> <SID>[unite]r :<C-u>Unite register<CR>
+    nnoremap <silent> <SID>[unite]/ :<C-u>Unite -buffer-name=search line<CR>
+    nnoremap <silent> <SID>[unite]: :<C-u>Unite command<CR>
+'''
 
 [[plugins]]
 repo = 'Shougo/neomru.vim'
+depends = ['unite.vim']
 
 [[plugins]]
 repo = 'h1mesuke/vim-alignta'
+hook_add = '''
+    let g:Align_xstrlen=3
+    vnoremap <Leader>a :Alignta<Space>
+    xmap <silent><expr> as mode() !=# 'v' ? ':Alignta \S\+'."\<CR>" : 'as'
+'''
 
 [[plugins]]
 repo = 'The-NERD-Commenter'
+hook_add = '''
+    let g:NERDCreateDefaultMappings = 0
+    let g:NERDSpaceDelims           = 1
+    nmap <Leader>c <Plug>NERDCommenterToggle
+    vmap <Leader>c <Plug>NERDCommenterToggle
+'''
 
 [[plugins]]
 repo = 'itchyny/lightline.vim'
 
 [[plugins]]
 repo = 'glidenote/memolist.vim'
+depends = ['unite.vim']
+hook_add = '''
+    let g:memolist_memo_suffix = 'txt'
+    let g:memolist_unite = 1
+    nnoremap <Leader>mn :MemoNew<CR>
+    nnoremap <Leader>ml :MemoList<CR>
+    nnoremap <Leader>mg :MemoList<CR>
+'''
 
 [[plugins]]
 repo = 'kana/vim-smartinput'
 
 [[plugins]]
 repo = 'vim-scripts/scratch-utility'
+if = ''' ! has('kaoriya') '''
 
 [[plugins]]
 repo = 'mrk21/yaml-vim'
+on_ft = ['yaml']
 
 [[plugins]]
 repo = 'cocopon/iceberg.vim'
+hook_add = '''
+    colorscheme iceberg
+'''
 
 [[plugins]]
 repo = 'tomasr/molokai'
@@ -60,10 +130,27 @@ on_ft = ['javascript', 'coffee']
 
 [[plugins]]
 repo = 'w0rp/ale'
+if = ''' has('nvim') '''
 
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
+hook_add = '''
+    let g:deoplete#enable_at_startup = 1
+'''
+if = ''' has('python3') '''
 
 [[plugins]]
 repo = 'fishbullet/deoplete-ruby'
+on_ft = ['ruby']
+depends = ['deoplete.vim']
 
+[[plugins]]
+repo = 'osyo-manga/vim-precious'
+depends = ['Shougo/context_filetype.vim']
+
+[[plugins]]
+repo = 'Shougo/context_filetype.vim'
+
+[[plugins]]
+repo = 'cespare/vim-toml'
+on_ft = ['toml']
