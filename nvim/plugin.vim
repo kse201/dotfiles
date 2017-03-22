@@ -10,6 +10,7 @@ if has('vim_starting')
     endif
     exe 'set rtp+='.s:dein_repo_dir
 endif
+let g:dein#install_process_timeout=600
 
 if dein#load_state(s:dein_dir)
     call dein#begin(s:dein_dir)
