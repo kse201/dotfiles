@@ -17,41 +17,30 @@ hook_post_update = '''
 '''
 
 [[plugins]]
-repo = 'Shougo/unite.vim'
-hook_add = '''
-    let g:unite_split_rule                      = 'botright'
-    let g:unite_source_file_mru_filename_format = ''
-    let g:unite_enable_start_insert             = 1
-    let g:unite_source_file_mru_limit           = 100
-    let g:unite_enable_ignore_case              = 1
-    let g:unite_enable_smart_case               = 1
+repo = 'Shougo/denite.nvim'
+if = ''' has('python3') '''
+hook_source = '''
+    call denite#custom#option('default', 'reversed', 1)
 
-    " Prefix-Key
-    nmap <Leader>a <SID>[unite]
-    nnoremap <SID>[unite] <Nop>
+    nmap <Leader>a <SID>[denite]
+    nnoremap <SID>[denite] <Nop>
 
-    augroup UniteKeymap
-        autocmd!
-        au FileType unite nmap     <silent><buffer>  <ESC><ESC> <Plug>(unite_exit)
-        au FileType unite imap     <silent><buffer>  <ESC><ESC> <Plug>(unite_exit)
-        au FileType unite nmap     <silent><buffer>  a <Plug>(unite_append_end)
-        au FileType unite imap     <buffer> <C-w>    <Plug>(unite_delete_backward_path)
-        au FileType unite nnoremap <silent><buffer> <expr> <C-Enter> unite#do_action('vsplit')
-        au FileType unite inoremap <silent><buffer> <expr> <C-Enter> unite#do_action('vsplit')
-        au FileType unite setlocal tw=0
-    augroup END
+    nnoremap <silent> <SID>[denite]b :<C-u>Denite buffer<CR>
+    nnoremap <silent> <SID>[denite]f :<C-u>Denite file_rec<CR>
+    nnoremap <silent> <SID>[denite]g :<C-u>Denite grep<CR>
+    nnoremap <silent> <SID>[denite]r :<C-u>Denite register<CR>
+    nnoremap <silent> <SID>[denite]l :<C-u>Denite -buffer-name=search line<CR>
+    nnoremap <silent> <SID>[denite]c :<C-u>Denite command<CR>
 
-    nnoremap <silent> <SID>[unite]b :<C-u>Unite buffer<CR>
-    nnoremap <silent> <SID>[unite]f :<C-u>Unite file<CR>
-    nnoremap <silent> <SID>[unite]m :<C-u>Unite file_mru<CR>
-    nnoremap <silent> <SID>[unite]r :<C-u>Unite register<CR>
-    nnoremap <silent> <SID>[unite]/ :<C-u>Unite -buffer-name=search line<CR>
-    nnoremap <silent> <SID>[unite]: :<C-u>Unite command<CR>
+    nnoremap <silent> <SID>[denite]y :<C-u>Denite neoyank<CR>
+    nnoremap <silent> <SID>[denite]m :<C-u>Denite file_mru<CR>
 '''
 
 [[plugins]]
+repo = 'Shougo/neoyank.vim'
+
+[[plugins]]
 repo = 'Shougo/neomru.vim'
-depends = ['unite.vim']
 
 [[plugins]]
 repo = 'h1mesuke/vim-alignta'
@@ -75,10 +64,10 @@ repo = 'itchyny/lightline.vim'
 
 [[plugins]]
 repo = 'glidenote/memolist.vim'
-depends = ['unite.vim']
+depends = ['denite.vim']
 hook_add = '''
     let g:memolist_memo_suffix = 'txt'
-    let g:memolist_unite = 1
+    let g:memolist_denite = 1
     nnoremap <Leader>mn :MemoNew<CR>
     nnoremap <Leader>ml :MemoList<CR>
     nnoremap <Leader>mg :MemoList<CR>
