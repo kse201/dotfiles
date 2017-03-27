@@ -146,6 +146,10 @@ set notitle
   \ wildmode=list:full
   \ wildchar=<TAB>
 
+if has('nvim')
+    set inccommand=split
+endif
+
 " Indent {{{
 filetype indent on
 set autoindent smartindent smarttab expandtab shiftwidth=4 tabstop=4
