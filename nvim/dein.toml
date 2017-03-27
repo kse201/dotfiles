@@ -19,9 +19,14 @@ hook_post_update = '''
 [[plugins]]
 repo = 'Shougo/denite.nvim'
 if = ''' has('python3') '''
-hook_source = '''
+hook_post_source = '''
     call denite#custom#option('default', 'reversed', 1)
 
+    call denite#custom#map('insert', '<C-p>', '<denite:move_to_previous_line>')
+    call denite#custom#map('insert', '<C-n>', '<denite:move_to_next_line>')
+'''
+
+hook_add = '''
     nmap <Leader>a <SID>[denite]
     nnoremap <SID>[denite] <Nop>
 
