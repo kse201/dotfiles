@@ -61,6 +61,9 @@ hook_add = '''
 
 [[plugins]]
 repo = 'itchyny/lightline.vim'
+hook_post_source = '''
+    call lightline#enable()
+'''
 
 [[plugins]]
 repo = 'glidenote/memolist.vim'
