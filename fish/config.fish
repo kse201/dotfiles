@@ -15,16 +15,4 @@ abbr vup vagrant up
 abbr gst git status
 abbr glg git lg
 
-if test -e $HOME/.rbenv
-  set -x RBENV_ROOT $HOME/.rbenv
-else
-  set -x RBENV_ROOT /usr/local/rbenv/bin
-  set -x PATH /usr/local/rbenv/bin $PATH
-  set -x PATH /usr/local/rbenv/shims $PATH
-end
-
-if test -e $HOME/.ruby-version
-  set -x PATH $HOME/.gem/ruby/(cat $HOME/.ruby-version)/bin $PATH
-end
-
-set -x PATH $HOME/.pyenv/bin $HOME/.pyenv/shims $PATH
+bind \cg peco_select_ghq_repository
