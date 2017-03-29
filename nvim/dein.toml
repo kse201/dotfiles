@@ -139,7 +139,7 @@ if = ''' has('python3') '''
 [[plugins]]
 repo = 'fishbullet/deoplete-ruby'
 on_ft = ['ruby']
-depends = ['deoplete.vim']
+depends = ['deoplete.nvim']
 
 [[plugins]]
 repo = 'osyo-manga/vim-precious'
