@@ -151,3 +151,6 @@ repo = 'Shougo/context_filetype.vim'
 [[plugins]]
 repo = 'cespare/vim-toml'
 on_ft = ['toml']
+
+[[plugins]]
+repo = 'rking/ag.vim'
