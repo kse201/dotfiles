@@ -15,4 +15,7 @@ abbr vup vagrant up
 abbr gst git status
 abbr glg git lg
 
-bind \cg peco_select_ghq_repository
+# abbr ghl peco_select_ghq_repository
+function fish_user_key_bindings
+  bind \cg peco_select_ghq_repository
+end
