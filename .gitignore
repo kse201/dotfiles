@@ -16,3 +16,6 @@ storage/
 *.local
 
 fishd.*
+
+ranger
+!ranger/*.conf
