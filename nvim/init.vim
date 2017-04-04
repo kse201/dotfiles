@@ -74,39 +74,7 @@ augroup Autoplace
 augroup END
 " }}}
 
-" Terminal cursor {{{
-if !has('gui')
-    set t_Co=256
-    inoremap 0D <Left>
-    inoremap 0B <Down>
-    inoremap 0C <Right>
-    inoremap 0A <Up>
-endif
-" }}}
-
 set tags+=tags;
-
-" IME settings
-if has('multi_byte_ime') && has('xim') && has('gui_macvim') " TODO: vefify this equation
-    set iminsert=2 imsearch=2
-    inoremap <silent> <ESC> <ESC>:set iminsert=0
-endif
-
-let g:loaded_gzip              = 1
-let g:loaded_tar               = 1
-let g:loaded_tarPlugin         = 1
-let g:loaded_zip               = 1
-let g:loaded_zipPlugin         = 1
-let g:loaded_rrhelper          = 1
-let g:loaded_2html_plugin      = 1
-let g:loaded_vimball           = 1
-let g:loaded_vimballPlugin     = 1
-let g:loaded_getscript         = 1
-let g:loaded_getscriptPlugin   = 1
-let g:loaded_netrw             = 1
-let g:loaded_netrwPlugin       = 1
-let g:loaded_netrwSettings     = 1
-let g:loaded_netrwFileHandlers = 1
 " }}}
 
 " file encoding {{{
@@ -155,110 +123,8 @@ filetype indent on
 set autoindent smartindent smarttab expandtab shiftwidth=4 tabstop=4
 " }}}
 
-" status line
-autocmd MyAutoCmd BufEnter * if winwidth(0) >= 60 |
-            \ set statusline=[%n]\ %t\ %m%R%H%W%y\ %([%{&fenc}][%{&ff}]%)\ %([%l(%p%%),%v]%)(%B)\ |
-            \ else |
-            \ set statusline=[%n]%t |
-            \ endif
+set cursorline
 
-" draw cursorline onry current window {{{
-augroup cch
-    autocmd! cch
-    autocmd! WinLeave * set nocursorline
-    autocmd WinEnter,BufRead * set cursorline
-augroup END
-hi clear Cursorline
-hi CursorLine gui=underline
-
-augroup auto-cursorline
-    autocmd!
-    autocmd CursorMoved,CursorMovedI * call s:auto_cursorline('CursorMoved')
-    autocmd CursorHold,CursorHoldI   * call s:auto_cursorline('CursorHold')
-    autocmd WinEnter                 * call s:auto_cursorline('WinEnter')
-    autocmd WinLeave                 * call s:auto_cursorline('WinLeave')
-
-    let s:cursorline_lock = 0
-    function! s:auto_cursorline(event)
-        if a:event ==# 'WinEnter'
-            setlocal cursorline
-            let s:cursorline_lock = 2
-        elseif a:event ==# 'WinLeave'
-            setlocal nocursorline
-        elseif a:event ==# 'CursorMoved'
-            if s:cursorline_lock
-                if 1 < s:cursorline_lock
-                    let s:cursorline_lock = 1
-                else
-                    setlocal nocursorline
-                    let s:cursorline_lock = 0
-                endif
-            endif
-        elseif a:event ==# 'CursorHold'
-            setlocal cursorline
-            let s:cursorline_lock = 1
-        endif
-    endfunction
-augroup END
-" }}}
-
-" change Zenkaku blank and line-end space to visible {{{
-if has('syntax')
-    augroup SpaceHilights
-        autocmd!
-        autocmd VimEnter,WinEnter,BufEnter * match ZenkakuSpace /　/
-        if has('gui_running')
-            autocmd ColorScheme * highlight ZenkakuSpace term=underline ctermfg=Red gui=underline guifg=Red guibg=#666666
-        else
-            highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=#666666
-        endif
-        " autocmd BufNewFile,BufRead * match ZenkakuSpace /　/
-        autocmd ColorScheme * highlight link TrailingSpaces Error
-        autocmd Syntax + syntax match TrailingSpaces containedin=ALL /\s\+$/
-    augroup END
-endif
-" }}}
-
-" tabline {{{
-" ref:http://d.hatena.ne.jp/thinca/20111204/1322932585
-function! g:MakeTabLine()
-    let l:titles   = map(range(1, tabpagenr('$')),'s:tabpage_label(v:val)' )
-    let l:sep      = '|'
-    let l:tabpages = join(l:titles , l:sep) . l:sep . '%#TabLineFill#%T'
-    let l:path     = fnamemodify(getcwd(),':~')
-    return l:tabpages . '%=' .l:path
-endfunction
-
-set tabline=%!g:MakeTabLine()
-
-function! s:tabpage_label(n)
-    if v:version >= 703
-        let l:title = gettabvar(a:n, 'l:title')
-    else
-        let l:title = ''
-    endif
-
-    if l:title !=# ''
-        return l:title
-    endif
-
-    let l:bufnrs   = tabpagebuflist(a:n)
-    let l:hi       = a:n is tabpagenr() ? '%#TabLineSel#' : '%#TabLine#'
-
-    let l:mod      = len(filter(copy(l:bufnrs), 'getbufvar(v:val, "&l:modified")')) ? '[+]' : ''
-    let l:curbufnr = l:bufnrs[tabpagewinnr(a:n) - 1] " tabpagewinnr()は1 origin
-    let l:fname    = pathshorten(bufname(l:curbufnr))
-
-    if l:fname ==# ''
-        let l:fname = ' '
-    endif
-
-    let l:label = a:n .':' .  l:fname . l:mod
-
-    return '%' . a:n . 'T' . l:hi . l:label .  '%T%#TabLineFill#'
-
-endfunction
-" }}}
 " }}}
 
 " Backup {{{
@@ -274,7 +140,7 @@ if exists('*strftime')
 else
     augroup Bex
         autocmd!
-        au BufWritePre * let &bex = '-' . localtime('%y%m%d%H%M') . '~'
+        au BufWritePre * let &bex = '-' . localtime() . '~'
     augroup END
 endif
 " }}}
@@ -284,39 +150,6 @@ set ignorecase smartcase incsearch showmatch nowrapscan
 " }}}
 
 " other {{{
-" operator {{{
-function! g:ReplaceMotion(type, ...)
-    let l:sel_save = &selection
-    let &selection = 'inclusive'
-    let l:reg_save = @@
-    let l:mark_save = getpos("'a")
-
-    if a:0 " visual mode
-        silent exe "normal! '>$"
-        if getpos("'>") == getpos('.')
-            silent exe 'normal! `<"_d`>"_d$"0p`<'
-        else
-            silent exe 'normal! `>lma`<"_d`a"0P`<'
-        endif
-    elseif a:type ==# 'char' " char motion
-        silent exe "normal! ']$"
-        if getpos("']") == getpos('.')
-            silent exe 'normal! `["_d`]"_d$"0p`['
-        else
-            silent exe 'normal! `]lma`["_d`a"0P`['
-        endif
-    endif
-
-    let &selection = l:sel_save
-    let @@ = l:reg_save
-    call setpos("'a", l:mark_save)
-endfunction
-" }}}
-
-" Rename new_filename {{{
-command! -nargs=+ -bang -complete=file Rename let pbnr=fnamemodify(bufname('%'), ':p')|exec 'f '.escape(<q-args>, ' ')|w<bang>|call delete(pbnr)
-" }}}
-
 " commands which reopen with encodings {{{
 " ref: http://zudolab.net/blog/?p=132
 command! ChgEncCp932     edit ++enc=cp932
@@ -337,7 +170,6 @@ command! ChgFencUtf8      set fenc=utf-8
 command! ChgFencSjis      set fenc=cp932
 command! ChgFencJis       ChgencIso2022jp
 " }}}
-
 " spell check {{{
 command! CheckSpell :set spell!
 " }}}
@@ -397,41 +229,6 @@ nnoremap + <C-w>+
 nnoremap - <C-w>-
 " }}}
 
-" kana's useful tab function {{{
-function! s:move_window_into_tab_page(target_tabpagenr)
-    " Move the current window into a:target_tabpagenr.
-    " If a:target_tabpagenr is 0, move into new tab page.
-    if a:target_tabpagenr < 0  " ignore invalid number.
-        return
-    endif
-    let l:original_tabnr = tabpagenr()
-    let l:target_bufnr   = bufnr('')
-    let l:window_view    = winsaveview()
-    if a:target_tabpagenr == 0
-        tabnew
-        tabmove  " Move new tabpage at the last.
-        execute l:target_bufnr 'buffer'
-        let l:target_tabpagenr = tabpagenr()
-    else
-        execute a:target_tabpagenr 'tabnext'
-        let l:target_tabpagenr = a:target_tabpagenr
-        topleft new  " FIXME: be customizable?
-        execute l:target_bufnr 'buffer'
-    endif
-    call winrestview(l:window_view)
-    execute l:original_tabnr 'tabnext'
-    if 1 < winnr('$')
-        close
-    else
-        enew
-    endif
-    execute l:target_tabpagenr 'tabnext'
-endfunction
-" }}}
-
-" <Leader>to move current buffer into a new tab.
-nnoremap <silent> <Leader>to :<C-u>call <SID>move_window_into_tab_page(0)<CR>
-
 " tab {{{
 nnoremap <Leader>tn :tabnew<CR>
 for g:i in range(1,9)
@@ -476,13 +273,9 @@ nnoremap vb `[v`]
 
 " Emacs's cursor moving {{{
 cnoremap <C-f> <Right>
-inoremap <C-f> <Right>
 cnoremap <C-b> <Left>
-inoremap <C-b> <Left>
 cnoremap <C-a> <Home>
-inoremap <C-a> <Home>
 cnoremap <C-e> <End>
-inoremap <C-h> <Backspace>
 " }}}
 
 " Emacs's window handling {{{
@@ -490,19 +283,6 @@ nnoremap <silent> <C-x>1 :<C-u>only<CR>
 nnoremap <silent> <C-x>2 :<C-u>sp<CR>
 nnoremap <silent> <C-x>3 :<C-u>vsp<CR>
 nnoremap <silent> <C-w>1 :<C-u>only<CR>
-" }}}
-
-" Buff {{{
-" nnoremap <Leader>bn :<C-u>bn<CR>
-" nnoremap <Leader>bp :<C-u>bp<CR>
-" nnoremap <Leader>bd :<C-u>bdelete<CR>
-" }}}
-
-" replace a word at cursor and yank string {{{
-" ref: vim tech bible 4-6
-nnoremap <silent> cy  ce<C-r>0<ESC>:let@/=@1<CR>:noh<CR>
-vnoremap <silent> cy   c<C-r>0<ESC>:let@/=@1<CR>:noh<CR>
-nnoremap <silent> ciy ciw<C-r>0<ESC>:let@/=@1<CR>:noh<CR>
 " }}}
 
 " search {{{
@@ -517,10 +297,6 @@ nnoremap G Gzz
 " }}}
 
 " Grep {{{
-set grepprg=grep\ -rnIH\ --exclude-dir=.svn\ --exclude-dir=.git
-autocmd QuickfixCmdPost vimgrep copen
-autocmd QuickfixCmdPost grep copen
-
 " insert grep format
 nnoremap <expr> <Space>g ':vimgrep /\<' . expand('<cword>') . '\>/j **/*.' . expand('%:e')
 nnoremap <expr> <Space>G ':sil grep! ' . expand('<cword>') . ' *'
@@ -540,9 +316,38 @@ vnoremap Gy :<C-u>echo "Use :,$y"<CR>
 " }}}
 
 " Plugin {{{
-if filereadable(expand($VIMRC_PLUGIN))
-    source $VIMRC_PLUGIN
+" dein.vim{{{
+filetype plugin indent off
+let s:dein_dir = $VIMFILE_DIR.'/dein'
+let s:dein_repo_dir = s:dein_dir.'/repos/github.com/Shougo/dein.vim/'
+let s:dein_toml = $VIMFILE_DIR.'/dein.toml'
+if has('vim_starting')
+    if !isdirectory(expand(s:dein_repo_dir))
+        echo 'install dein.vim...'
+        call system('git clone git://github.com/Shougo/dein.vim '.s:dein_repo_dir)
+    endif
+    exe 'set rtp+='.s:dein_repo_dir
 endif
+let g:dein#install_process_timeout=600
+
+if dein#load_state(s:dein_dir)
+    call dein#begin(s:dein_dir)
+    call dein#load_toml(s:dein_toml)
+    call dein#end()
+    call dein#save_state()
+endif
+autocmd MyAutoCmd VimEnter * call dein#call_hook('post_source')
+
+filetype plugin indent on
+syntax on
+
+" install plugins
+if dein#check_install()
+    call dein#install()
+endif
+
+call map(dein#check_clean(), "delete(v:val, 'rf')")
+" }}}
 " }}}
 
 " Language setting {{{

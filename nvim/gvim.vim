@@ -26,4 +26,4 @@ else
 endif
 set ambiwidth=double
 "}}}
-" vim: set tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
+" vim: tabstop=4 shiftwidth=4  fdm=marker fdl=0 :
