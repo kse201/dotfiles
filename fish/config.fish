@@ -19,3 +19,4 @@ abbr glg git lg
 function fish_user_key_bindings
   bind \cg peco_select_ghq_repository
 end
+set -x PATH $HOME/.gem/ruby/2.4.0/bin $PATH
