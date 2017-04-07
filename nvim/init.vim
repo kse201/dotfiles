@@ -1,3 +1,5 @@
+" {{{ General
+" {{{
 augroup MyAutoCmd
     autocmd!
 augroup END
@@ -313,6 +315,8 @@ vnoremap <expr> s* ':s/\<' . expand('<cword>') . '\>/'
 
 nnoremap ggyG :echo "Use :%y"<CR>
 vnoremap Gy :<C-u>echo "Use :,$y"<CR>
+
+tnoremap <silent> <ESC> <C-\><C-n>
 " }}}
 
 " Plugin {{{
