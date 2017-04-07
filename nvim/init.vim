@@ -322,7 +322,7 @@ tnoremap <silent> <ESC> <C-\><C-n>
 " Plugin {{{
 " dein.vim{{{
 filetype plugin indent off
-let s:dein_dir = $VIMFILE_DIR.'/dein'
+let s:dein_dir = $HOME.'/.local/share/nvim/dein'
 let s:dein_repo_dir = s:dein_dir.'/repos/github.com/Shougo/dein.vim/'
 let s:dein_toml = $VIMFILE_DIR.'/dein.toml'
 if has('vim_starting')

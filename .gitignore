@@ -1,19 +1,6 @@
 .DS_Store
-bundle
-dein
-.viminfo
 *.swp
-packages/
-compile-cache/
-storage/
-
-.zsh.d/packages/antigen_repos
-
-.vim/skeleton/dairyreport.txt
-.vim/skeleton/monthlyreport.txt
-.vim/.netrw_hist
-
-*.local
+.netrwhist
 
 fishd.*
 
