@@ -6,6 +6,8 @@ set -x HISTSIZE 7500
 set -x SAVEHIST 7500
 set -x HISTIGNORE "ls *:cd:history:fg*:history-all"
 
+abbr pacman yaourt
+
 abbr vi nvim
 abbr vim nvim
 
