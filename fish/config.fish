@@ -1,4 +1,4 @@
-set -x PATH $HOME/bin /usr/local/bin /usr/local/sbin $PATH
+set -x PATH ( find $HOME/bin/ -type d ) /usr/local/bin /usr/local/sbin $PATH
 set -x LANG ja_JP.UTF-8
 set -x LESSCHARSET utf-8
 set -x EDITOR 'nvim'
