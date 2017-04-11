@@ -52,6 +52,7 @@ setopt \
     share_history
 unsetopt hist_verify
 
+export HISTTIMEFORMAT='%Y-%m-%dT%T%z '
 export HISTFILE=$HOME/.zsh_history
 export HISTSIZE=7500
 export SAVEHIST=7500

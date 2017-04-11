@@ -2,8 +2,8 @@
   enabled_plugins = TerminalShot, LaunchpadCodeURLHandler, APTURLHandler, Logger, LaunchpadBugURLHandler
   geometry_hinting = True
   handle_size = -3
-  hide_from_taskbar = True
   tab_position = hidden
+  title_hide_sizetext = True
   title_transmit_bg_color = "#1ee733"
 [keybindings]
 [layouts]

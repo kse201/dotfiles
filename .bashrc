@@ -29,7 +29,7 @@ set output-meta on
 ########################################
 export HISTCONTROL=ignoreboth:erasedups:
 export HISTIGNORE=history:hst:ls:'which *':cd:'. ~/.bashrc'
-
+export HISTTIMEFORMAT='%Y-%m-%dT%T%z '
 export HISTSIZE=7500
 
 
