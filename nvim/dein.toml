@@ -56,7 +56,7 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'The-NERD-Commenter'
+repo = 'vim-scripts/The-NERD-Commenter'
 hook_add = '''
     let g:NERDCreateDefaultMappings = 0
     let g:NERDSpaceDelims           = 1
