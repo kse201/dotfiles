@@ -17,8 +17,13 @@ abbr vup vagrant up
 abbr gst git status
 abbr glg git lg
 
+abbr be bundle exec
+
 # abbr ghl peco_select_ghq_repository
 function fish_user_key_bindings
   bind \cg peco_select_ghq_repository
 end
 set -x PATH $HOME/.gem/ruby/2.4.0/bin $PATH
+
+set -x PATH $HOME/go/bin $PATH
+set -x PATH $HOME/.local/bin/ $PATH
