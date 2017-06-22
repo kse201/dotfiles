@@ -14,8 +14,12 @@ abbr vim nvim
 abbr vst vagrant status
 abbr vup vagrant up
 
-abbr gst git status
+abbr gst git st
 abbr glg git lg
+abbr gmt git cmt
+abbr gco git co
+abbr gct git ct
+abbr gdf git df
 
 abbr be bundle exec
 
@@ -27,3 +31,5 @@ set -x PATH $HOME/.gem/ruby/2.4.0/bin $PATH
 
 set -x PATH $HOME/go/bin $PATH
 set -x PATH $HOME/.local/bin/ $PATH
+
+set -x SSH_AUTH_SOCK "$XDG_RUNTIME_DIR/ssh-agent.socket"
