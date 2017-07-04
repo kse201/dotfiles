@@ -74,7 +74,7 @@ hook_post_source = '''
 repo = 'glidenote/memolist.vim'
 depends = ['denite.vim']
 hook_add = '''
-    let g:memolist_memo_suffix = 'txt'
+    let g:memolist_memo_suffix = 'md'
     let g:memolist_denite = 1
     nnoremap <Leader>mn :MemoNew<CR>
     nnoremap <Leader>ml :MemoList<CR>
@@ -154,3 +154,6 @@ on_ft = ['toml']
 
 [[plugins]]
 repo = 'rking/ag.vim'
+
+[[plugins]]
+repo = 'aklt/plantuml-syntax'
