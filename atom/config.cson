@@ -1,0 +1,28 @@
+"*":
+  core:
+    audioBeep: false
+    closeDeletedFileTabs: true
+    restorePreviousWindowsOnStart: "no"
+    telemetryConsent: "limited"
+    themes: [
+      "atom-dark-ui"
+      "iceberg-syntax"
+    ]
+  editor:
+    atomicSoftTabs: false
+  "exception-reporting":
+    userId: "c92b939c-b49d-4b62-bc4b-d36e3e26290e"
+  "git-plus":
+    commits:
+      verboseCommits: true
+    diffs:
+      wordDiff: true
+    experimental:
+      autoFetchNotify: true
+  "markdown-preview":
+    useGitHubStyle: true
+  "platformio-ide-terminal":
+    core:
+      autoRunCommand: "bash"
+  "vim-mode-plus-ex-mode":
+    notifiedUseExMode: true

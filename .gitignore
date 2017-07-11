@@ -6,3 +6,6 @@ fishd.*
 
 ranger
 !ranger/*.conf
+
+packages
+storage
