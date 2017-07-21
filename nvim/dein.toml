@@ -157,3 +157,21 @@ repo = 'rking/ag.vim'
 
 [[plugins]]
 repo = 'aklt/plantuml-syntax'
+
+[[plugins]]
+repo = 'scrooloose/nerdtree'
+
+[[plugins]]
+repo = 'dhruvasagar/vim-table-mode'
+on_ft = ['markdown', 'rst']
+hook_add = '''
+    " let g:table_mode_corner='|'
+    let g:table_mode_corner_corner='+'
+    let g:table_mode_header_fillchar='='
+'''
+
+[[plugins]]
+repo = 'martinda/Jenkinsfile-vim-syntax'
+
+[[plugins]]
+repo = 'amiorin/vim-textile'
