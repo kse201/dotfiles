@@ -175,3 +175,6 @@ repo = 'martinda/Jenkinsfile-vim-syntax'
 
 [[plugins]]
 repo = 'amiorin/vim-textile'
+
+[[plugins]]
+repo = 'editorconfig/editorconfig-vim'
