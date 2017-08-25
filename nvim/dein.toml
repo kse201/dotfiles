@@ -178,3 +178,18 @@ repo = 'amiorin/vim-textile'
 
 [[plugins]]
 repo = 'editorconfig/editorconfig-vim'
+
+[[plugins]]
+repo = 'thinca/vim-quickrun'
+
+hook_add = '''
+let g:quickrun_config = {
+            \ 'javascript': {
+            \ "command": "node"
+            \ },
+            \ "coffeescript": {
+            \ "command": "coffee"
+            \ }
+            \ }
+nnoremap <silent><F5>  :QuickRun<CR>
+'''

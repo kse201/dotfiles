@@ -33,3 +33,7 @@ set -x PATH $HOME/go/bin $PATH
 set -x PATH $HOME/.local/bin/ $PATH
 
 set -x SSH_AUTH_SOCK "$XDG_RUNTIME_DIR/ssh-agent.socket"
+
+function __direnv_export_eval --on-event fish_prompt;
+    eval (direnv export fish);
+end
