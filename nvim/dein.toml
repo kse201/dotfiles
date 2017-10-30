@@ -128,6 +128,9 @@ on_ft = ['javascript', 'coffee']
 [[plugins]]
 repo = 'w0rp/ale'
 if = ''' has('nvim') '''
+hook_add = '''
+let g:ale_ruby_rubocop_options='--config .rubocop_todo.yml'
+'''
 
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
@@ -160,6 +163,46 @@ repo = 'aklt/plantuml-syntax'
 
 [[plugins]]
 repo = 'scrooloose/nerdtree'
+hook_add = '''
+    nmap <C-n> :NERDTreeToggle<CR>
+    let NERDTreeShowBookmarks=1
+    let g:NERDTreeDirArrows = 1
+    let g:NERDTreeDirArrowExpandable  = '|'
+    let g:NERDTreeDirArrowCollapsible = '>'
+
+    " function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
+        " exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
+        " exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+    " endfunction
+    function! NERDTreeHighlightFile(extension, fg, bg)
+        exec 'autocmd filetype nerdtree syn match NERDTreeTxtFile #^\s\+.*'. a:extension .'$#'
+        exec 'autocmd filetype nerdtree highlight NERDTreeTxtFile ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:bg .' guifg='. a:fg
+    endfunction
+
+    " call NERDTreeHighlightFile('txt', 'blue', 'black')
+    " call NERDTreeHighlightFile('py',     'yellow',  'none', 'yellow',  '#151515')
+    call NERDTreeHighlightFile('md',     'blue',    'black')
+    " call NERDTreeHighlightFile('sh',     'blue',    'none', '#3366FF', '#151515')
+    " call NERDTreeHighlightFile('yml',    'yellow',  'none', 'yellow',  '#151515')
+    " call NERDTreeHighlightFile('config', 'yellow',  'none', 'yellow',  '#151515')
+    " call NERDTreeHighlightFile('conf',   'yellow',  'none', 'yellow',  '#151515')
+    " call NERDTreeHighlightFile('json',   'yellow',  'none', 'yellow',  '#151515')
+    " call NERDTreeHighlightFile('html',   'yellow',  'none', 'yellow',  '#151515')
+    " call NERDTreeHighlightFile('styl',   'cyan',    'none', 'cyan',    '#151515')
+    " call NERDTreeHighlightFile('css',    'cyan',    'none', 'cyan',    '#151515')
+    " call NERDTreeHighlightFile('rb',     'Red',     'none', 'red',     '#151515')
+    " call NERDTreeHighlightFile('js',     'Red',     'none', '#ffa500', '#151515')
+    " call NERDTreeHighlightFile('php',    'Magenta', 'none', '#ff00ff', '#151515')
+'''
+
+# [[plugins]]
+# repo = 'Xuyuanp/nerdtree-git-plugin'
+# depends = ['nerdtree.vim']
+
+[[plugins]]
+repo = 'jistr/vim-nerdtree-tabs'
+depends = ['nerdtree.vim']
+
 
 [[plugins]]
 repo = 'dhruvasagar/vim-table-mode'
