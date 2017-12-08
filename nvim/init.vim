@@ -173,6 +173,7 @@ command! ChgFencSjis      set fenc=cp932
 command! ChgFencJis       ChgencIso2022jp
 " }}}
 " spell check {{{
+set spelllang=en,cjk
 command! CheckSpell :set spell!
 " }}}
 

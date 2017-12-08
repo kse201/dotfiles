@@ -1,4 +1,4 @@
 ---
-gem: --user-install --no-rdoc --no-ri
+gem: --user-install
 
 # vim: ft=yaml

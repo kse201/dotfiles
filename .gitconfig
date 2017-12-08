@@ -31,8 +31,6 @@
 
 [url "https://"]
 	insteadOf = git://
-[user]
-    useconfigonly = true
 
 [alias]
     alias    = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort
@@ -85,3 +83,5 @@
 	showPatch = true
 [commit]
 	template = ~/.gitmessage.txt
+[http "https://gopkg.in"]
+	followRedirects = true
