@@ -160,6 +160,7 @@ repo = 'rking/ag.vim'
 
 [[plugins]]
 repo = 'aklt/plantuml-syntax'
+on_ft = ['puml']
 
 [[plugins]]
 repo = 'scrooloose/nerdtree'
@@ -200,6 +201,9 @@ hook_add = '''
 # depends = ['nerdtree.vim']
 
 [[plugins]]
+repo = 'hotwatermorning/auto-git-diff'
+
+[[plugins]]
 repo = 'jistr/vim-nerdtree-tabs'
 depends = ['nerdtree.vim']
 
@@ -218,6 +222,7 @@ repo = 'martinda/Jenkinsfile-vim-syntax'
 
 [[plugins]]
 repo = 'amiorin/vim-textile'
+on_ft = ['textile']
 
 [[plugins]]
 repo = 'editorconfig/editorconfig-vim'
@@ -236,3 +241,6 @@ let g:quickrun_config = {
             \ }
 nnoremap <silent><F5>  :QuickRun<CR>
 '''
+
+[[plugins]]
+repo = 'vimplugin/project.vim'
