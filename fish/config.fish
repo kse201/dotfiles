@@ -21,7 +21,11 @@ abbr gco git co
 abbr gct git ct
 abbr gdf git df
 
-abbr be bundle exec
+abbr re bundle exec
+
+abbr ls exa
+abbr ll exa -lhg --git --time-style iso
+abbr la exa -lhga --git --time-style iso
 
 # abbr ghl peco_select_ghq_repository
 function fish_user_key_bindings
