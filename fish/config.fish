@@ -2,7 +2,7 @@ set -x PATH ( find $HOME/bin/ -type d ) /usr/local/bin /usr/local/sbin $PATH
 set -x LANG ja_JP.UTF-8
 set -x LESSCHARSET utf-8
 set -x EDITOR 'nvim'
-set -x HISTSIZE 7500
+set -x HISTSIZE 750
 set -x SAVEHIST 7500
 set -x HISTIGNORE "ls *:cd:history:fg*:history-all"
 
@@ -31,7 +31,7 @@ abbr la exa -lhga --git --time-style iso
 function fish_user_key_bindings
   bind \cg peco_select_ghq_repository
 end
-set -x PATH $HOME/.gem/ruby/2.4.0/bin $PATH
+set -x PATH $HOME/.rbenv/shims $PATH
 
 set -x PATH $HOME/go/bin $PATH
 set -x PATH $HOME/.local/bin/ $PATH
