@@ -188,7 +188,7 @@ nnoremap <expr> l
 
 " date iput Macro {{{
 if exists('*strftime')
-    inoremap  <Leader>date <C-R>=strftime('%Y/%m/%d (%a)')<CR>
+    inoremap  <Leader>date <C-R>=strftime('%Y/%m/%d')<CR>
     inoremap  <Leader>time <C-R>=strftime('%H:%M:%S')<CR>
 endif
 " }}}

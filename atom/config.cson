@@ -2,6 +2,22 @@
   core:
     audioBeep: false
     closeDeletedFileTabs: true
+    customFileTypes:
+      "source.ini": [
+        ".buckconfig"
+        ".hgrc"
+        ".flowconfig"
+      ]
+      "source.json": [
+        "BUCK.autodeps"
+      ]
+      "source.python": [
+        "BUCK"
+      ]
+    disabledPackages: [
+      "plantuml-viewer"
+      "tree-view"
+    ]
     restorePreviousWindowsOnStart: "no"
     telemetryConsent: "limited"
     themes: [
@@ -21,8 +37,13 @@
       autoFetchNotify: true
   "markdown-preview":
     useGitHubStyle: true
+  nuclide:
+    use:
+      "atom-ide-diagnostics-ui": false
   "platformio-ide-terminal":
     core:
       autoRunCommand: "bash"
+  "vim-mode-plus":
+    automaticallyEscapeInsertModeOnActivePaneItemChange: true
   "vim-mode-plus-ex-mode":
     notifiedUseExMode: true

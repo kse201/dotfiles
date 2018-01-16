@@ -8,4 +8,5 @@ ranger
 !ranger/*.conf
 
 packages
+!atom/packages.txt
 storage
