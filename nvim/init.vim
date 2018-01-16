@@ -53,12 +53,12 @@ if has('nvim')
     let $VIMFILE_DIR   = $HOME.'/.config/nvim'
     let $VIMRC         = $VIMFILE_DIR.'/init.vim'
     let $GVIMRC        = $VIMFILE_DIR.'/gvim.vim'
-    let $VIMRC_PLUGIN  = $VIMFILE_DIR.'/plugin.vim'
+    let $VIMRC_PLUGIN  = $VIMFILE_DIR.'/dein.toml'
 else
     let $VIMFILE_DIR   = $HOME.'/.vim'
     let $VIMRC         = $HOME.'/.vimrc'
     let $GVIMRC        = $HOME.'/.gvimrc'
-    let $VIMRC_PLUGIN  = $HOME.'/.vimrc.plugin'
+    let $VIMRC_PLUGIN  = $HOME.'/.dein.toml'
 end
 " }}}
 
@@ -210,33 +210,13 @@ function! s:smart_split(cmd)
 endfunction
 " }}}
 
-" Spell Check , Toriger F9 {{{
-nnoremap <F9> :call g:SpellToggle()<CR>
-function! g:SpellToggle()
-    setlocal spell!
-    if exists('g:syntax_on')
-        syntax off
-    else
-        syntax on
-    endif
-endfunction
-"}}}
-
 command! Sudowrite :w !sudo tee %
 cabbr w!! w !sudo tee > /dev/null %
 " }}}
 
 " keymap {{{
-" window resize +/- {{{
-nnoremap + <C-w>+
-nnoremap - <C-w>-
-" }}}
-
 " tab {{{
 nnoremap <Leader>tn :tabnew<CR>
-for g:i in range(1,9)
-    execute 'nnoremap ' . g:i . '<Leader>t ' . g:i .'gt'
-endfor
 " }}}
 
 " easy date input in filename {{{
@@ -281,13 +261,6 @@ cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 " }}}
 
-" Emacs's window handling {{{
-nnoremap <silent> <C-x>1 :<C-u>only<CR>
-nnoremap <silent> <C-x>2 :<C-u>sp<CR>
-nnoremap <silent> <C-x>3 :<C-u>vsp<CR>
-nnoremap <silent> <C-w>1 :<C-u>only<CR>
-" }}}
-
 " search {{{
 " advanceable search {{{
 nnoremap n nzz
@@ -301,8 +274,7 @@ nnoremap G Gzz
 
 " Grep {{{
 " insert grep format
-nnoremap <expr> <Space>g ':vimgrep /\<' . expand('<cword>') . '\>/j **/*.' . expand('%:e')
-nnoremap <expr> <Space>G ':sil grep! ' . expand('<cword>') . ' *'
+nnoremap <expr> <Leader>g ':vimgrep /\<' . expand('<cword>') . '\>/j **/*.' . expand('%:e')
 " }}}
 " }}}
 
@@ -311,11 +283,8 @@ vnoremap > >gv
 vnoremap < <gv
 " }}}
 
-nnoremap <expr> s* ':%s/\<' . expand('<cword>') . '\>/'
-vnoremap <expr> s* ':s/\<' . expand('<cword>') . '\>/'
-
-nnoremap ggyG :echo "Use :%y"<CR>
-vnoremap Gy :<C-u>echo "Use :,$y"<CR>
+nnoremap ggyG :echoerr "Use :%y"<CR>
+vnoremap Gy :<C-u>echoerr "Use :,$y"<CR>
 
 tnoremap <silent> <ESC> <C-\><C-n>
 " }}}
@@ -363,9 +332,6 @@ let g:FileTypeSettings = [
             \ 'ruby',
             \ 'python',
             \ 'markdown',
-            \ 'go',
-            \ 'javascript',
-            \ 'coffee',
             \ 'make'
             \]
 for g:MyFileType in g:FileTypeSettings
@@ -406,22 +372,8 @@ function! g:MymakeSettings()
     setlocal noexpandtab
 endfunction
 " }}}
-" golang {{{
-function! g:MygoSettings()
-    setlocal noexpandtab fdm=indent tabstop=4 shiftwidth=4 fdl=1
-endfunction
-" }}}
-" js,coffeescript {{{
-function! g:MyjavascriptSettings()
-    set shiftwidth=2 softtabstop=2 tabstop=2 expandtab
-endfunction
-function! g:MycoffeeSettings()
-    call g:MyjavascriptSettings()
-endfunction
-" }}}
 " }}}
 
 syntax on
-colorscheme molokai
 "============================================================
 " vim:tw=0 tabstop=4 shiftwidth=4 fdm=marker fdl=0
