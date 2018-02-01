@@ -215,6 +215,9 @@ cabbr w!! w !sudo tee > /dev/null %
 " }}}
 
 " keymap {{{
+" pagedown {{{
+nnoremap <C-f> :echoerr "Use <C-d>"<CR>
+" }}}
 " tab {{{
 nnoremap <Leader>tn :tabnew<CR>
 " }}}

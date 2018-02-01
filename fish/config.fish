@@ -32,6 +32,7 @@ function fish_user_key_bindings
   bind \cg peco_select_ghq_repository
 end
 set -x PATH $HOME/.rbenv/shims $PATH
+set -x PATH $HOME/.gem/ruby/2.4.0/bin $PATH
 
 set -x PATH $HOME/go/bin $PATH
 set -x PATH $HOME/.local/bin/ $PATH

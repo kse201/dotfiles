@@ -39,7 +39,7 @@ hook_add = '''
     command! DeniteCommand Denite command
     command! DeniteYank Denite yank
     command! DeniteMru Denite file_mru
-    command! DeniteLine Denite -buffer-name=search line<CR>
+    command! DeniteLine Denite --buffer-name=search line<CR>
 
     " nnoremap <silent> <SID>[denite]b :<C-u>DeniteBuffer<CR>
     " nnoremap <silent> <SID>[denite]f :<C-u>DeniteFile<CR>
@@ -235,3 +235,4 @@ nnoremap <silent><F5>  :QuickRun<CR>
 
 [[plugins]]
 repo = 'udalov/kotlin-vim'
+on_ft = ['kotlin']
