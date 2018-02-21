@@ -27,11 +27,19 @@ abbr ls exa
 abbr ll exa -lhg --git --time-style iso
 abbr la exa -lhga --git --time-style iso
 
-# abbr ghl peco_select_ghq_repository
-function fish_user_key_bindings
-  bind \cg peco_select_ghq_repository
-  bind \cs peco_ssh
-  bind \cr peco_select_history
+function peco_z
+  set -l query (commandline)
+
+  if test -n $query
+    set peco_flags --query "$query"
+  end
+
+  z -l | peco $peco_flags | awk '{ print $2 }' | read recent
+  if [ $recent ]
+      cd $recent
+      commandline -r ''
+      commandline -f repaint
+  end
 end
 
 function peco_ssh
@@ -48,6 +56,14 @@ function peco_ssh
   if test -n "$hostname"
     ssh $hostname
   end
+end
+
+# abbr ghl peco_select_ghq_repository
+function fish_user_key_bindings
+  bind \cg peco_select_ghq_repository
+  bind \cs peco_ssh
+  bind \cr peco_select_history
+  bind \x1b peco_z # => Ctrl=[
 end
 
 set -x PATH $HOME/.rbenv/shims $PATH
