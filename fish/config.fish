@@ -30,7 +30,26 @@ abbr la exa -lhga --git --time-style iso
 # abbr ghl peco_select_ghq_repository
 function fish_user_key_bindings
   bind \cg peco_select_ghq_repository
+  bind \cs peco_ssh
+  bind \cr peco_select_history
 end
+
+function peco_ssh
+  awk '
+    tolower($1)=="host" {
+      for(i=2;i<=NF; i++) {
+        if ($i !~ "[*?]") {
+          print $i
+        }
+      }
+    }
+  ' ~/.ssh/config | sort | peco | read -l hostname
+
+  if test -n "$hostname"
+    ssh $hostname
+  end
+end
+
 set -x PATH $HOME/.rbenv/shims $PATH
 set -x PATH $HOME/.gem/ruby/2.4.0/bin $PATH
 
@@ -41,4 +60,8 @@ set -x SSH_AUTH_SOCK "$XDG_RUNTIME_DIR/ssh-agent.socket"
 
 function __direnv_export_eval --on-event fish_prompt;
     eval (direnv export fish);
+end
+
+function command_not_found_handler --on-event fish_command_not_found
+    echo "ハァ...? $argv[1] とか何言ってんの ?"
 end

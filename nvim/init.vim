@@ -9,6 +9,7 @@ set shortmess+=I
   \ nocompatible
   \ modeline
   \ swapfile
+  \ nu
   \ complete+=k
   \ noequalalways
   \ history=100
