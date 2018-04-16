@@ -29,6 +29,9 @@ abbr ll exa -lhg --git --time-style iso
 abbr la exa -lhga --git --time-style iso
 
 abbr be bundle exec
+abbr ber bundle exec rake
+
+abbr brname git symbolic-ref --short HEAD
 
 function peco_z
   set -l query (commandline)

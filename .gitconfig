@@ -40,6 +40,7 @@
 [alias]
     alias    = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort
 
+    br       = show-branch --list
     ls       = ls-files
     info     = remote show origin
     who      = shortlog --numbered --summary --email --no-merges --since='3 months'
@@ -84,6 +85,8 @@
     uncommit = reset --mixed HEAD~
 
     precommit = diff --cached --diff-algorithm=minimal -w
+
+    brname = symbolic-ref --short HEAD
 [stash]
 	showPatch = true
 [commit]
