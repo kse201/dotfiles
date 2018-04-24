@@ -41,14 +41,14 @@ hook_add = '''
     command! DeniteMru Denite file_mru
     command! DeniteLine Denite line<CR>
 
-    " nnoremap <silent> <SID>[denite]b :<C-u>DeniteBuffer<CR>
-    " nnoremap <silent> <SID>[denite]f :<C-u>DeniteFile<CR>
+    nnoremap <silent> <SID>[denite]b :<C-u>DeniteBuffer<CR>
+    nnoremap <silent> <SID>[denite]f :<C-u>DeniteFile<CR>
     " nnoremap <silent> <SID>[denite]g :<C-u>DeniteGrep<CR>
     " nnoremap <silent> <SID>[denite]r :<C-u>DeniteRegister<CR>
     " nnoremap <silent> <SID>[denite]l :<C-u>DeniteLine<CR>
     " nnoremap <silent> <SID>[denite]c :<C-u>DeniteCommand<CR>
     " nnoremap <silent> <SID>[denite]y :<C-u>DeniteYank<CR>
-    " nnoremap <silent> <SID>[denite]m :<C-u>DeniteMru<CR>
+    nnoremap <silent> <SID>[denite]m :<C-u>DeniteMru<CR>
 '''
 
 [[plugins]]
@@ -219,7 +219,7 @@ repo = 'editorconfig/editorconfig-vim'
 
 [[plugins]]
 repo = 'thinca/vim-quickrun'
-on_ft = ['javascript', 'coffee']
+on_ft = ['javascript', 'coffee', 'ruby']
 
 hook_add = '''
 let g:quickrun_config = {
