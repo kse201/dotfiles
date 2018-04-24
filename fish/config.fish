@@ -1,6 +1,7 @@
 set -x PATH ( find $HOME/bin/ -type d ) /usr/local/bin /usr/local/sbin $PATH
 set -x PATH /home/vagrant/.gem/ruby/2.5.0/bin $PATH
 set -x LANG ja_JP.UTF-8
+set -x LC_ALL ja_JP.UTF-8
 set -x LESSCHARSET utf-8
 set -x EDITOR 'nvim'
 set -x HISTSIZE 750
@@ -95,4 +96,12 @@ end
 
 function command_not_found_handler --on-event fish_command_not_found
     echo "ハァ...?「$argv[1]」とか何言ってんの ?"
+end
+
+function peco_select_history
+    if set -q $argv
+        history | peco | read line; commandline $line
+    else
+        history | peco --query $argv | read line; commandline $line
+    end
 end
