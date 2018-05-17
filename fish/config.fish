@@ -12,6 +12,7 @@ abbr pacman yaourt
 
 abbr vi nvim
 abbr vim nvim
+abbr spvim nvim -u /dev/null
 
 abbr vst vagrant status
 abbr vup vagrant up
