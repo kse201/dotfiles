@@ -209,6 +209,23 @@ function! s:smart_split(cmd)
         execute a:cmd
     endif
 endfunction
+
+" {{{ toggle windows maximize
+
+let g:toggle_window_size = 0
+function! ToggleWindowSize()
+    if g:toggle_window_size == 1
+        exec "normal \<C-w>="
+        let g:toggle_window_size = 0
+    else
+        :resize
+        :vertical resize
+        let g:toggle_window_size = 1
+    endif
+endfunction
+nnoremap <silent><C-w>m :<C-u>call ToggleWindowSize()<CR>
+" }}}
+
 " }}}
 
 command! Sudowrite :w !sudo tee %
