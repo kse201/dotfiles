@@ -37,6 +37,17 @@
 	name = kse201
 	email = kse.201@gmail.com
 
+[merge]
+    tool = vimdiff
+[mergetool]
+    prompt = true
+[mergetool "vimdiff"]
+    cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+[difftool]
+    prompt = false
+[diff]
+    tool = vimdiff
+
 [alias]
     alias    = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort
 
@@ -68,9 +79,10 @@
 
 # diff
     df       = diff
+    dfw      = diff -w --color-words --word-diff-regex='\\w+|[^[:space:]]'
     ds       = diff --stat
-    today    = !git log --reverse --no-merges --branches=* --date=local --since=midnight --oneline --author="`git config --get user.name`"
     week     = diff \"@{last week}\".. --stat
+    precommit = diff --cached --diff-algorithm=minimal -w
 
 # log
     l        = log --graph --date-order -C -M --pretty=format:'%C(red)%h%Creset - %C(green)%ad %C(Cyan)[%an]%C(Yellow)%d%Creset %s' --date=short
@@ -83,8 +95,6 @@
     unstage = reset -q HEAD --
     discard = checkout --
     uncommit = reset --mixed HEAD~
-
-    precommit = diff --cached --diff-algorithm=minimal -w
 
     brname = symbolic-ref --short HEAD
 [stash]
