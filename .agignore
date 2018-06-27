@@ -1,0 +1,14 @@
+tags
+*~
+*.swp
+*.bak
+*.old
+tmp
+old
+.vim/bundle
+.vim/dict
+.git
+.svn
+node_modules
+*.egg
+*.egg-info
