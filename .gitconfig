@@ -51,6 +51,7 @@
 
 [alias]
     alias    = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort
+    nevermind = !git reset --hard HEAD && git clean -d -f
 
     br       = show-branch --list
     ls       = ls-files
