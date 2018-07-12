@@ -264,6 +264,8 @@ repo = 'majutsushi/tagbar'
 hook_add = '''
 let g:tagbar_autoshowtag = 1
 
+nnoremap <silent><F12>  :Tagbar<CR>
+
 let g:tagbar_type_ruby = {
     \ 'kinds' : [
         \ 'm:modules',
