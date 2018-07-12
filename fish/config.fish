@@ -37,6 +37,30 @@ abbr brname git symbolic-ref --short HEAD
 
 abbr diff colordiff -wu
 
+abbr gitc peco_git_branch
+function peco_git_branch
+    git branch -a | peco --prompt "GIT BRANCH>" | head -1 | sed -e "s/^[\* \f\n\r\t]*//g" | read branch
+
+    if [ $branch ]
+        echo $branch | grep 'remotes' >/dev/null 2>&1
+        set remote $status
+        if [ $remote = 0 ]
+            git checkout -t $branch
+        else
+            git checkout $branch
+        end
+    end
+end
+
+abbr gitt peco_git_tag
+function peco_git_tag
+    git tag | peco --prompt "GIT TAG>" | head -1 | sed -e "s/^[\* \f\n\r\t]*//g" | read tag
+
+    if [ $tag ]
+        git checkout $tag
+    end
+end
+
 function peco_z
   set -l query (commandline)
 
@@ -44,7 +68,7 @@ function peco_z
     set peco_flags --query "$query"
   end
 
-  z -l | peco $peco_flags | awk '{ print $2 }' | read recent
+  z -l | peco --prompt "DIRECTORY>" $peco_flags | awk '{ print $2 }' | read recent
   if [ $recent ]
       cd $recent
       commandline -r ''
@@ -61,7 +85,7 @@ function peco_ssh
         }
       }
     }
-  ' ~/.ssh/config | sort | peco | read -l hostname
+  ' ~/.ssh/config | sort | peco --prompt "SSH>"| read -l hostname
 
   if test -n "$hostname"
     ssh $hostname
@@ -102,9 +126,10 @@ function command_not_found_handler --on-event fish_command_not_found
 end
 
 function peco_select_history
+    set prompt 'HISTORY>'
     if set -q $argv
-        history | peco | read line; commandline $line
+        history | peco --prompt $prompt | read line; commandline $line
     else
-        history | peco --query $argv | read line; commandline $line
+        history | peco --prompt $prompt --query $argv | read line; commandline $line
     end
 end
