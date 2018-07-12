@@ -92,8 +92,8 @@
     contributors = shortlog -s -n --no-merges
 
 # log
-    l = log --graph --date-order -C -M --pretty=format:'%C(red)%h%Creset - %C(green)%ad %C(Cyan)[%an]%C(Yellow)%d%Creset %s' --date=short
-    lg = !git l --all
+    graph = log --graph --date-order -C -M --pretty=format:'%C(red)%h%Creset - %C(green)%ad %C(Cyan)[%an]%C(Yellow)%d%Creset %s' --date=short
+    history = !git graph --all
     file-trail = log --follow -p -w
 
     track = "!f() { B=$(git rev-parse --abbrev-ref HEAD); git branch --set-upstream-to=origin/$B; }; f"
