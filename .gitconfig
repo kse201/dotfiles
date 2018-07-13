@@ -10,6 +10,8 @@
     pager        = less -r
     quotepath    = false
 	preloadindex = true
+    precomposeunicode = true
+    untrackedCache = true
 	fscache      = true
 
 [diff]
@@ -48,12 +50,13 @@
     prompt = false
 [diff]
     tool = vimdiff
+	compactionHeuristic = true
+	indentHeuristic = true
 
 [alias]
     alias    = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort
     nevermind = !git reset --hard HEAD && git clean -d -f
 
-    br       = show-branch --list
     ls       = ls-files
     info     = remote show origin
     who      = shortlog --numbered --summary --email --no-merges --since='3 months'
@@ -66,17 +69,11 @@
 # status
     st       = status --short --branch
 # commit
-    cmt      = commit -v
-    amend    = commit --amend
-
-#  push
-   psh       = push
-   psf       = push --force-with-lease
+    amend    = commit --amend -v
 
 # checkout
     co       = checkout
-    ct       = checkout -t
-    delete-merged-branches = !git branch --merged | grep -v \\* | xargs -I % git branch -d %
+    track    = checkout -t
     fetch-pulls = fetch origin +refs/pull/*:refs/remotes/pull/*
 
 # diff
@@ -97,28 +94,38 @@
     history = !git graph --all
     file-trail = log --follow -p -w
 
-    track = "!f() { B=$(git rev-parse --abbrev-ref HEAD); git branch --set-upstream-to=origin/$B; }; f"
-    branches = branch -a
+    # show root commit for two branches
+    # git diverge-commit <src> <dest>
+    diverge-commit = "!f() { git show-branch \"$1\" \"$2\" | tail -1; }; f"
+
+# list command
+    branches = show-branch -a --list
     tags = tag
     stashes = stash list
-
-    unstage = reset -q HEAD --
-    discard = checkout --
-    uncommit = reset --mixed HEAD~
+    remotes = remote -v
 
     patch = add --patch
+    add-all = add --update
 
-    remotes = remote -v
-    unmerged = diff --name-only --diff-filter=U
+    # changing status
+    discard = checkout --
+    stage = add
+    unstage = reset -q HEAD --
+    save     = commit -v
 
     new-branch = checkout -b
     rename-branch = branch -m
     delete-branch = branch -D
-
-    brname = symbolic-ref --short HEAD
+    name-branch = symbolic-ref --short HEAD
 [stash]
 	showPatch = true
 [commit]
 	template = ~/.gitmessage.txt
 [http "https://gopkg.in"]
 	followRedirects = true
+[advice]
+	statusHints = true
+[blame]
+	date = relative
+[dif]
+	renames = true
