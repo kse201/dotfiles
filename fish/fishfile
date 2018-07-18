@@ -2,6 +2,7 @@ oh-my-fish/plugin-archlinux
 oh-my-fish/plugin-direnv
 oh-my-fish/plugin-gem
 oh-my-fish/theme-gitstatus
+kse201/fish-peco_git
 yoshiori/fish-peco_select_ghq_repository
 fisherman/rbenv
 fisherman/z

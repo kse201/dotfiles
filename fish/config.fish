@@ -37,30 +37,6 @@ abbr brname git symbolic-ref --short HEAD
 
 abbr diff colordiff -wu
 
-abbr gitc peco_git_branch
-function peco_git_branch
-    git branch -a | peco --prompt "GIT BRANCH>" | head -1 | sed -e "s/^[\* \f\n\r\t]*//g" | read branch
-
-    if [ $branch ]
-        echo $branch | grep 'remotes' >/dev/null 2>&1
-        set remote $status
-        if [ $remote = 0 ]
-            git checkout -t $branch
-        else
-            git checkout $branch
-        end
-    end
-end
-
-abbr gitt peco_git_tag
-function peco_git_tag
-    git tag | peco --prompt "GIT TAG>" | head -1 | sed -e "s/^[\* \f\n\r\t]*//g" | read tag
-
-    if [ $tag ]
-        git checkout $tag
-    end
-end
-
 function peco_z
   set -l query (commandline)
 
@@ -76,27 +52,13 @@ function peco_z
   end
 end
 
-function peco_ssh
-  awk '
-    tolower($1)=="host" {
-      for(i=2;i<=NF; i++) {
-        if ($i !~ "[*?]") {
-          print $i
-        }
-      }
-    }
-  ' ~/.ssh/config | sort | peco --prompt "SSH>"| read -l hostname
-
-  if test -n "$hostname"
-    ssh $hostname
-  end
-end
-
 # abbr ghl peco_select_ghq_repository
 function fish_user_key_bindings
   bind \cg peco_select_ghq_repository
   bind \cs peco_ssh
   bind \cr peco_select_history
+  bind \cc peco_git_branch
+  bind \ct peco_git_tag
   bind \x1d peco_z # => Ctrl=]
 end
 
@@ -123,13 +85,4 @@ end
 
 function command_not_found_handler --on-event fish_command_not_found
     echo "ハァ...?「$argv[1]」とか何言ってんの ?"
-end
-
-function peco_select_history
-    set prompt 'HISTORY>'
-    if set -q $argv
-        history | peco --prompt $prompt | read line; commandline $line
-    else
-        history | peco --prompt $prompt --query $argv | read line; commandline $line
-    end
 end
