@@ -3,7 +3,8 @@ oh-my-fish/plugin-direnv
 oh-my-fish/plugin-gem
 oh-my-fish/theme-gitstatus
 kse201/fish-peco_git
-kse201/fish-peco_ssh
+kse201/fish-peco_history
 yoshiori/fish-peco_select_ghq_repository
+kse201/fish-peco_ssh
 fisherman/rbenv
 fisherman/z
