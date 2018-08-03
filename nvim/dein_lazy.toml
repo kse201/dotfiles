@@ -1,0 +1,66 @@
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+on_event = 'InsertEnter'
+hook_add = '''
+    let g:deoplete#enable_at_startup = 1
+    set completeopt+=menuone
+'''
+if = ''' has('python3') '''
+
+[[plugins]]
+repo = 'udalov/kotlin-vim'
+on_ft = ['kotlin']
+
+[[plugins]]
+repo = 'mrk21/yaml-vim'
+on_ft = ['yaml']
+
+[[plugins]]
+repo = 'fatih/vim-go'
+on_ft = ['go']
+
+[[plugins]]
+repo = 'jelera/vim-javascript-syntax'
+on_ft = ['javascript']
+
+[[plugins]]
+repo = 'kchmck/vim-coffee-script'
+on_ft = ['coffee']
+
+[[plugins]]
+repo = 'fishbullet/deoplete-ruby'
+on_ft = ['ruby']
+depends = ['deoplete.nvim']
+
+[[plugins]]
+repo = 'cespare/vim-toml'
+on_ft = ['toml']
+
+[[plugins]]
+repo = 'aklt/plantuml-syntax'
+on_ft = ['puml']
+
+[[plugins]]
+repo = 'dhruvasagar/vim-table-mode'
+on_ft = ['markdown', 'rst']
+hook_add = '''
+    " let g:table_mode_corner='|'
+    let g:table_mode_corner_corner='+'
+    let g:table_mode_header_fillchar='='
+'''
+
+[[plugins]]
+repo = 'martinda/Jenkinsfile-vim-syntax'
+on_ft = ['Jenkinsfile']
+
+[[plugins]]
+repo = 'amiorin/vim-textile'
+on_ft = ['textile']
+
+[[plugins]]
+repo = 'thinca/vim-quickrun'
+on_ft = ['javascript', 'coffee', 'ruby']
+
+[[plugins]]
+repo = 'dag/vim-fish'
+on_ft = ['fish']

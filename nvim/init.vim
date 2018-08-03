@@ -316,6 +316,7 @@ filetype plugin indent off
 let s:dein_dir = $HOME.'/.local/share/nvim/dein'
 let s:dein_repo_dir = s:dein_dir.'/repos/github.com/Shougo/dein.vim/'
 let s:dein_toml = $VIMFILE_DIR.'/dein.toml'
+let s:lazy_toml = $VIMFILE_DIR.'/dein_lazy.toml'
 
 nnoremap <Leader>ed :edit $VIMFILE_DIR/dein.toml<CR>
 if has('vim_starting')
@@ -330,6 +331,7 @@ let g:dein#install_process_timeout=600
 if dein#load_state(s:dein_dir)
     call dein#begin(s:dein_dir)
     call dein#load_toml(s:dein_toml, {'lazy': 0})
+    call dein#load_toml(s:lazy_toml, {'lazy': 1})
     call dein#end()
     call dein#save_state()
 endif
