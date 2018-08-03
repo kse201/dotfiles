@@ -57,8 +57,6 @@ function fish_user_key_bindings
   bind \cg peco_select_ghq_repository
   bind \cs peco_ssh
   bind \cr peco_select_history
-  bind \cc peco_git_branch
-  bind \ct peco_git_tag
   bind \x1d peco_z # => Ctrl=]
 end
 
