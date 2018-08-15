@@ -112,7 +112,7 @@
     unstage = reset -q HEAD --
     save     = commit -v
 
-    new-branch = checkout -b
+    create-branch = checkout -b
     rename-branch = branch -m
     delete-branch = branch -D
     name-branch = symbolic-ref --short HEAD
