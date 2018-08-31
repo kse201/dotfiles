@@ -81,6 +81,10 @@ if test -f /usr/share/doc/pkgfile/command-not-found.fish
     source /usr/share/doc/pkgfile/command-not-found.fish
 end
 
+if test -f $HOME/.cargo/env
+    source $HOME/.cargo/env
+end
+
 function command_not_found_handler --on-event fish_command_not_found
     echo "ハァ...?「$argv[1]」とか何言ってんの ?"
 end

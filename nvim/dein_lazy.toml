@@ -64,3 +64,6 @@ on_ft = ['javascript', 'coffee', 'ruby']
 [[plugins]]
 repo = 'dag/vim-fish'
 on_ft = ['fish']
+
+[[plugins]]
+repo = 'rust-lang/rust.vim'
