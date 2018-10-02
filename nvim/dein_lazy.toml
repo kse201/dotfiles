@@ -59,7 +59,7 @@ on_ft = ['textile']
 
 [[plugins]]
 repo = 'thinca/vim-quickrun'
-on_ft = ['javascript', 'coffee', 'ruby']
+on_ft = ['javascript', 'coffee', 'ruby', 'c']
 
 [[plugins]]
 repo = 'dag/vim-fish'

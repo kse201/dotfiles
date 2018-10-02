@@ -107,6 +107,10 @@ repo = 'w0rp/ale'
 if = ''' has('nvim') '''
 hook_add = '''
 " let g:ale_ruby_rubocop_options='--config .rubocop_todo.yml'
+let g:ale_cpp_clang_options = "-std=c++14 -Wall -I../include"
+let g:ale_cpp_gcc_options = "-std=c++14 -Wall -I../include"
+let g:ale_c_clang_options = "-std=c++14 -Wall -I../include"
+let g:ale_c_gcc_options = "-std=c++14 -Wall -I../include"
 '''
 
 [[plugins]]
