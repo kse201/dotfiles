@@ -29,6 +29,7 @@ set shortmess+=I
   \ hidden
   \ synmaxcol=200
   \ timeout timeoutlen=500 ttimeoutlen=75
+  \ wildignore+=*.class
 " \ -> \ {{{
 if has('mac')
     inoremap \ \

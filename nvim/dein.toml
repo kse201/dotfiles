@@ -163,46 +163,14 @@ depends = ['nerdtree.vim']
 [[plugins]]
 repo = 'editorconfig/editorconfig-vim'
 
-hook_add = '''
-let g:quickrun_config = {
-            \ 'javascript': {
-            \ "command": "node"
-            \ },
-            \ "coffeescript": {
-            \ "command": "coffee"
-            \ }
-            \ }
-
-let g:quickrun_config._ = {
-            \ 'split'   : 'rightbelow 10sp'
-            \}
-nnoremap <silent><F5>  :QuickRun<CR>
-'''
-
 [[plugins]]
 repo = 'tpope/vim-fugitive'
 
 [[plugins]]
-repo = 'majutsushi/tagbar'
-hook_add = '''
-let g:tagbar_autoshowtag = 1
-
-nnoremap <silent><F12>  :Tagbar<CR>
-
-let g:tagbar_type_ruby = {
-    \ 'kinds' : [
-        \ 'm:modules',
-        \ 'c:classes',
-        \ 'd:describes',
-        \ 'C:contexts',
-        \ 'f:methods',
-        \ 'F:singleton methods'
-    \ ]
-\ }
-'''
-
-[[plugins]]
 repo = 'ctrlpvim/ctrlp.vim'
+hook_add = '''
+""let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|build'
+'''
 
 [[plugins]]  # Japanese doc
 repo = 'vim-jp/vimdoc-ja'
@@ -210,3 +178,6 @@ hook_add = 'set helplang=ja,en'
 
 [[plugins]]
 repo = 'mattn/sonictemplate-vim'
+
+[[plugins]]
+repo = 'deris/vim-shot-f'
