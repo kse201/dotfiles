@@ -59,7 +59,7 @@ on_ft = ['textile']
 
 [[plugins]]
 repo = 'thinca/vim-quickrun'
-on_ft = ['javascript', 'coffee', 'ruby']
+on_ft = ['javascript', 'coffee', 'ruby', 'rust']
 
 [[plugins]]
 repo = 'dag/vim-fish'
@@ -67,3 +67,10 @@ on_ft = ['fish']
 
 [[plugins]]
 repo = 'rust-lang/rust.vim'
+
+[[plugins]]
+repo = 'mattn/emmet-vim'
+on_ft=['html', 'erb', 'eruby']
+hook_add = '''
+let g:user_emmet_leader_key='<C-e>'
+'''
