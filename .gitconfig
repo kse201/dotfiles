@@ -68,6 +68,7 @@
 # status
     st       = status --short --branch
 # commit
+    cmt      = commit -v
     amend    = commit --amend -v
 
 # checkout
@@ -109,6 +110,7 @@
     # changing status
     discard = checkout --
     stage = add
+    staged = diff --cached
     unstage = reset -q HEAD --
     save     = commit -v
 
