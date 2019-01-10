@@ -88,3 +88,9 @@ repo = 'rust-lang/rust.vim'
 [[plugins]]
 repo = 'slim-template/vim-slim'
 on_ft = ['slim']
+
+[[plugins]]
+repo = 'davidhalter/jedi-vim'
+on_ft = ['python']
+
+
