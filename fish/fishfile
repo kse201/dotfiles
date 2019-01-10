@@ -1,10 +1,15 @@
 oh-my-fish/plugin-archlinux
 oh-my-fish/plugin-direnv
 oh-my-fish/plugin-gem
+oh-my-fish/plugin-git-flow
 oh-my-fish/theme-gitstatus
+oh-my-fish/plugin-peco
 kse201/fish-peco_git
 kse201/fish-peco_history
 yoshiori/fish-peco_select_ghq_repository
 kse201/fish-peco_ssh
+oh-my-fish/plugin-proxy
+oh-my-fish/plugin-rails
 fisherman/rbenv
+oh-my-fish/plugin-tmux
 fisherman/z
