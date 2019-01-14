@@ -91,3 +91,18 @@ on_ft=['html', 'erb', 'eruby']
 hook_add = '''
 let g:user_emmet_leader_key='<C-e>'
 '''
+
+[[plugins]]
+repo = 'autozimu/LanguageClient-neovim'
+rev = 'next'
+build = 'bash install.sh'
+on_ft = ['python', 'c']
+hook_add = '''
+    set hidden
+    let g:LanguageClient_autoStart = 1
+    let g:LanguageClient_serverCommands = {
+        \ 'c': ['clangd'],
+        \ 'python': ['pyls'],
+        \ 'ruby': ['solargraph', 'stdio'],
+        \ }
+'''
