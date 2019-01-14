@@ -86,6 +86,14 @@ on_ft = ['fish']
 repo = 'rust-lang/rust.vim'
 
 [[plugins]]
+repo = 'slim-template/vim-slim'
+on_ft = ['slim']
+
+[[plugins]]
+repo = 'davidhalter/jedi-vim'
+on_ft = ['python']
+
+[[plugins]]
 repo = 'mattn/emmet-vim'
 on_ft=['html', 'erb', 'eruby']
 hook_add = '''
