@@ -117,6 +117,7 @@ set notitle
   \ wildmenu
   \ wildmode=list:full
   \ wildchar=<TAB>
+  \ fillchars=fold:\ ,
 
 if has('nvim')
     set inccommand=split
@@ -313,6 +314,14 @@ tnoremap <silent> <ESC> <C-\><C-n>
 
 " Plugin {{{
 " dein.vim{{{
+"
+augroup dein_toml
+    autocmd BufEnter dein*.toml setlocal fdm=marker fdl=0 foldtext=MyFoldText()
+    function MyFoldText()
+        return matchstr(getline(v:foldstart+1), "'.*'")
+    endfunction
+augroup END
+
 filetype plugin indent off
 let s:dein_dir = $HOME.'/.local/share/nvim/dein'
 let s:dein_repo_dir = s:dein_dir.'/repos/github.com/Shougo/dein.vim/'

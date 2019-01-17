@@ -1,4 +1,4 @@
-[[plugins]]
+[[plugins]] #{{{
 repo = 'Shougo/deoplete.nvim'
 on_event = 'InsertEnter'
 hook_add = '''
@@ -6,6 +6,7 @@ hook_add = '''
     set completeopt+=menuone
 '''
 if = ''' has('python3') '''
+# }}}
 
 [[plugins]]
 repo = 'udalov/kotlin-vim'
@@ -40,7 +41,7 @@ on_ft = ['toml']
 repo = 'aklt/plantuml-syntax'
 on_ft = ['puml']
 
-[[plugins]]
+[[plugins]] #{{{
 repo = 'dhruvasagar/vim-table-mode'
 on_ft = ['markdown', 'rst']
 hook_add = '''
@@ -48,6 +49,7 @@ hook_add = '''
     let g:table_mode_corner_corner='+'
     let g:table_mode_header_fillchar='='
 '''
+# }}}
 
 [[plugins]]
 repo = 'martinda/Jenkinsfile-vim-syntax'
@@ -57,7 +59,7 @@ on_ft = ['Jenkinsfile']
 repo = 'amiorin/vim-textile'
 on_ft = ['textile']
 
-[[plugins]]
+[[plugins]] #{{{
 repo = 'thinca/vim-quickrun'
 on_ft = ['javascript', 'coffee', 'ruby', 'c', 'rust']
 
@@ -76,7 +78,7 @@ let g:quickrun_config._ = {
             \}
 nnoremap <silent><F5>  :QuickRun<CR>
 '''
-
+# }}}
 
 [[plugins]]
 repo = 'dag/vim-fish'
@@ -93,18 +95,19 @@ on_ft = ['slim']
 repo = 'davidhalter/jedi-vim'
 on_ft = ['python']
 
-[[plugins]]
+[[plugins]] #{{{
 repo = 'mattn/emmet-vim'
 on_ft=['html', 'erb', 'eruby']
 hook_add = '''
 let g:user_emmet_leader_key='<C-e>'
 '''
+# }}}
 
-[[plugins]]
+[[plugins]] #{{{
 repo = 'autozimu/LanguageClient-neovim'
 rev = 'next'
 build = 'bash install.sh'
-on_ft = ['python', 'c']
+on_ft = ['python', 'c', 'ruby']
 hook_add = '''
     set hidden
     let g:LanguageClient_autoStart = 1
@@ -113,4 +116,10 @@ hook_add = '''
         \ 'python': ['pyls'],
         \ 'ruby': ['solargraph', 'stdio'],
         \ }
+
+    nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+    nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+    nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+    nnoremap <silent> <F3> :call LanguageClient_textDocument_references()<CR>
 '''
+# }}}
