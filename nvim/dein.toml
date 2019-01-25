@@ -209,6 +209,22 @@ repo = 'slim-template/vim-slim'
 [[plugins]]
 repo = 'deris/vim-shot-f'
 
+[[plugins]]
+repo = 'diepm/vim-rest-console'
+hook_add = '''
+    let g:vrc_curl_opts = {
+      \ '-k': '',
+      \ '-s': ''
+    \}
+    let s:vrc_auto_format_response_patterns = {
+      \ 'json': 'jq',
+      \ 'xml': 'xmllint --format -',
+    \}
+   let b:vrc_response_default_content_type = 'application/json'
+   let g:vrc_show_command = 1
+'''
+if = ''' executable('curl') '''
+
 [[plugins]] #{{{
 repo = 'majutsushi/tagbar'
 hook_add = '''
