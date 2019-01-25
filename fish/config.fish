@@ -87,6 +87,7 @@ end
 if test -f /usr/local/opt/python/libexec/bin
     source  /usr/local/opt/python/libexec/bin
 end
+set -x PYTHONSTARTUP $HOME/.pythonrc.py
 
 function command_not_found_handler --on-event fish_command_not_found
     echo "ハァ...?「$argv[1]」とか何言ってんの ?"
