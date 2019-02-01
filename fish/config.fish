@@ -1,4 +1,4 @@
-set -x PATH ( find $HOME/bin/ -type d ) /usr/local/bin /usr/local/sbin $PATH
+set -x PATH ( find $HOME/bin/ -type d ) (ls -d /usr/local/*bin) $PATH
 set -x PATH $HOME/.gem/ruby/2.5.0/bin $PATH
 set -x LANG ja_JP.UTF-8
 set -x LC_ALL ja_JP.UTF-8
@@ -68,7 +68,9 @@ end
 rbenv init - | source
 
 set -x PATH $HOME/.rbenv/shims $PATH
-set -x PATH $HOME/.yarn/bin $PATH
+if test -f $HOME/.yarn/bin
+    set -x PATH $HOME/.yarn/bin $PATH
+end
 
 set -x PATH $HOME/go/bin $PATH
 set -x PATH $HOME/.local/bin/ $PATH
