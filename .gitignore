@@ -3,6 +3,7 @@
 .netrwhist
 
 fishd.*
+fish/fish_variables
 
 ranger
 !ranger/*.conf
@@ -10,3 +11,5 @@ ranger
 packages
 !atom/packages.txt
 storage
+
+.byobu/layouts
