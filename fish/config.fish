@@ -14,6 +14,10 @@ abbr vi nvim
 abbr vim nvim
 abbr spvim nvim -u /dev/null
 
+function fzf_edit
+    $EDITOR (fzf)
+end
+
 abbr vst vagrant status
 abbr vup vagrant up
 
@@ -57,6 +61,7 @@ function fish_user_key_bindings
   bind \cg peco_select_ghq_repository
   bind \cs peco_ssh
   bind \cr peco_select_history
+  bind \cv fzf_edit
   bind \x1d peco_z # => Ctrl=]
 end
 
