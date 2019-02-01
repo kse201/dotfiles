@@ -49,7 +49,7 @@ if has('persistent_undo')
 endif
 " }}}
 
-" configs and dirctorys {{{
+" configs and directories {{{
     set backupdir=$HOME/.vimbackup
 if has('nvim')
     let $VIMFILE_DIR   = $HOME.'/.config/nvim'
@@ -86,7 +86,7 @@ set encoding=utf-8
 scriptencoding utf-8
 " set fenc=utf-8
 set fileencodings=utf-8,iso-2022-jp,euc-jp
-" use encoding as fileencoding when file NOT contain japanese {{{
+" use encoding as fileencoding when file NOT contain Japanese {{{
 if has('autocmd')
     function! g:AU_ReCheck_FENC()
         if &fileencoding =~# 'iso-2022-jp' && search("[^\x01-\x7e]", 'n') == 0
@@ -97,7 +97,7 @@ if has('autocmd')
 endif
 " }}}
 
-" auto recogitation fileformats {{{
+" auto recognition fileformats {{{
 set fileformats=unix,dos,mac
 " support  code such as □ , ○ and etc.
 if exists('&ambiwidth')
@@ -189,7 +189,7 @@ nnoremap <expr> l
             \   foldclosed(line('.')) != -1 ? 'zo' : 'l'
 " }}}
 
-" date iput Macro {{{
+" date input Macro {{{
 if exists('*strftime')
     inoremap  <Leader>date <C-R>=strftime('%Y/%m/%d')<CR>
     inoremap  <Leader>time <C-R>=strftime('%H:%M:%S')<CR>
@@ -235,7 +235,7 @@ cabbr w!! w !sudo tee > /dev/null %
 " }}}
 
 " keymap {{{
-" pagedown {{{
+" page down {{{
 nnoremap <C-f> :echoerr "Use <C-d>"<CR>
 " }}}
 " tab {{{
@@ -248,7 +248,7 @@ cnoremap <expr> <Leader>date strftime('%Y-%m-%d')
 cnoremap <expr> <Leader>time strftime('%Y-%m-%d_%H:%M')
 " }}}
 
-" easy movin window & fix size {{{
+" easy moving window & fix size {{{
 augroup GoodWindowSize
     autocmd!
     autocmd WinEnter * call<SID>good_height()
@@ -267,10 +267,10 @@ function! s:good_height()
 endfunction
 " }}}
 
-" gb:Jump last edit point {{{
+" Jump last edit point {{{
 nnoremap gb `.zz
 
-" <C-g><M-g>:jump edit poit forward direction
+" <C-g><M-g>:jump edit point forward direction
 nnoremap <C-b> g;
 
 " vb: select last select region
@@ -285,7 +285,7 @@ cnoremap <C-e> <End>
 " }}}
 
 " search {{{
-" advanceable search {{{
+" advance search {{{
 nnoremap n nzz
 nnoremap N Nzz
 nnoremap * *N

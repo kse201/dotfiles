@@ -66,15 +66,6 @@ repo = 'Shougo/neoyank.vim'
 repo = 'Shougo/neomru.vim'
 
 [[plugins]] #{{{
-repo = 'h1mesuke/vim-alignta'
-hook_add = '''
-    let g:Align_xstrlen=3
-    vnoremap <Leader>a :Alignta<Space>
-    xmap <silent><expr> as mode() !=# 'v' ? ':Alignta \S\+'."\<CR>" : 'as'
-'''
-# }}}
-
-[[plugins]] #{{{
 repo = 'vim-scripts/The-NERD-Commenter'
 hook_add = '''
     let g:NERDCreateDefaultMappings = 0
@@ -140,16 +131,6 @@ nmap <silent> <C-j> <Plug>(ale_next_wrap)
 '''
 # }}}
 
-[[plugins]]
-repo = 'Shougo/context_filetype.vim'
-
-[[plugins]] #{{{
-repo = 'rking/ag.vim'
-hook_add = '''
-    nnoremap <expr> <Leader>g ':Ag ' . expand('<cword>') . ' ./'
-'''
-# }}}
-
 [[plugins]] #{{{
 repo = 'scrooloose/nerdtree'
 hook_add = '''
@@ -209,26 +190,7 @@ hook_add = 'set helplang=ja,en'
 repo = 'mattn/sonictemplate-vim'
 
 [[plugins]]
-repo = 'slim-template/vim-slim'
-
-[[plugins]]
 repo = 'deris/vim-shot-f'
-
-[[plugins]]
-repo = 'diepm/vim-rest-console'
-hook_add = '''
-    let g:vrc_curl_opts = {
-      \ '-k': '',
-      \ '-s': ''
-    \}
-    let s:vrc_auto_format_response_patterns = {
-      \ 'json': 'jq',
-      \ 'xml': 'xmllint --format -',
-    \}
-   let b:vrc_response_default_content_type = 'application/json'
-   let g:vrc_show_command = 1
-'''
-if = ''' executable('curl') '''
 
 [[plugins]] #{{{
 repo = 'majutsushi/tagbar'

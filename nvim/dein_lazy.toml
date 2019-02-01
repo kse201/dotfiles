@@ -139,3 +139,21 @@ hook_add = '''
     autocmd FileType * call LC_maps()
 '''
 # }}}
+
+[[plugins]]
+repo = 'diepm/vim-rest-console'
+hook_add = '''
+    let g:vrc_curl_opts = {
+      \ '-k': '',
+      \ '-s': ''
+    \}
+    let s:vrc_auto_format_response_patterns = {
+      \ 'json': 'jq',
+      \ 'xml': 'xmllint --format -',
+    \}
+   let b:vrc_response_default_content_type = 'application/json'
+   let g:vrc_show_command = 1
+'''
+if = ''' executable('curl') '''
+on_ft = ['rest']
+
