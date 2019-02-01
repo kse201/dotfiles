@@ -367,71 +367,23 @@ endif
 let g:dein#install_process_timeout=600
 
 if dein#load_state(s:dein_dir)
-    call dein#begin(s:dein_dir)
-    call dein#load_toml(s:dein_toml, {'lazy': 0})
-    call dein#load_toml(s:lazy_toml, {'lazy': 1})
-    call dein#end()
-    call dein#save_state()
+        call dein#begin(s:dein_dir)
+        call dein#load_toml(s:dein_toml, {'lazy': 0})
+        call dein#load_toml(s:lazy_toml, {'lazy': 1})
+        call dein#end()
+        call dein#save_state()
 endif
 autocmd MyAutoCmd VimEnter * call dein#call_hook('post_source')
 
 filetype plugin indent on
-syntax on
+syntax enable
 
 " install plugins
 if dein#check_install()
     call dein#install()
 endif
 
-call map(dein#check_clean(), "delete(v:val, 'rf')")
-" }}}
-" }}}
-
-" Language setting {{{
-" Prefix {{{
-let g:FileTypeSettings = [
-            \ 'ruby',
-            \ 'python',
-            \ 'markdown',
-            \ 'make'
-            \]
-for g:MyFileType in g:FileTypeSettings
-    execute 'autocmd MyAutoCmd FileType ' . g:MyFileType . ' call g:My' . g:MyFileType . 'Settings()'
-endfor
-" }}}
-" Ruby {{{
-function! g:MyrubySettings()
-    setlocal shiftwidth=2 tabstop=2 dictionary=$VIMFILE_DIR/dict/ruby.dict
-    let l:ruby_space_errors = 1
-    if filereadable(expand('~/rtags'))
-        au MyAutoCmd FileType ruby,eruby setl tags+=~/rtags,~/gtags
-    endif
-endfunction
-" }}}
-" Python {{{
-function! g:MypythonSettings()
-    setlocal expandtab shiftwidth=4 tabstop=4
-endfunction
-" }}}
-" markdown {{{
-function! g:MymarkdownSettings()
-    if has('folding')
-        setlocal foldmethod=expr
-    endif
-    if has ('folding') &&has('eval')
-        setlocal foldexpr=g:Markdown(v:lnum)
-    endif
-
-    function! g:Markdown(lnum)
-        let l:level = matchend(getline(a:lnum), '^#\+')
-        return l:level > 0 ? '>' . l:level : '='
-    endfunction
-endfunction
-" }}}
-" make {{{
-function! g:MymakeSettings()
-    setlocal noexpandtab
-endfunction
+" call map(dein#check_clean(), "delete(v:val, 'rf')")
 " }}}
 " }}}
 
