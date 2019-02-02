@@ -351,7 +351,11 @@ augroup dein_toml
 augroup END
 
 filetype plugin indent off
-let s:dein_dir = $HOME.'/.local/share/nvim/dein'
+if has('nvim')
+    let s:dein_dir = $HOME.'/.local/share/nvim/dein'
+else
+    let s:dein_dir = $HOME.'/.cache/dein'
+end
 let s:dein_repo_dir = s:dein_dir.'/repos/github.com/Shougo/dein.vim/'
 let s:dein_toml = $VIMFILE_DIR.'/dein.toml'
 let s:lazy_toml = $VIMFILE_DIR.'/dein_lazy.toml'
