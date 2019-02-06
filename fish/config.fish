@@ -30,9 +30,11 @@ abbr gdf git df
 
 abbr re bundle exec
 
-abbr ls exa
-abbr ll exa -lhg --git --time-style iso
-abbr la exa -lhga --git --time-style iso
+if test -f (which exa)
+    abbr ls exa
+    abbr ll exa -lhg --git --time-style iso
+    abbr la exa -lhga --git --time-style iso
+end
 
 abbr be bundle exec
 abbr ber bundle exec rake
