@@ -121,7 +121,8 @@ let g:ale_cpp_gcc_options = "-std=c++14 -Wall -I../include"
 let g:ale_c_clang_options = "-std=c++14 -Wall -I../include"
 let g:ale_c_gcc_options = "-std=c++14 -Wall -I../include"
 let g:ale_linters = {
-    \'javascript': ['eslint', 'standard']
+    \'javascript': ['eslint', 'standard'],
+    \'python': ['flake8']
     \}
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
@@ -217,3 +218,7 @@ depends = ['denite.nvim']
 
 [[plugins]]
 repo = 'ruanyl/vim-gh-line'
+
+[[plugins]]
+repo = 'iyuuya/denite-ale'
+depends = ['denite.nvim']
