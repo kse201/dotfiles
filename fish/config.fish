@@ -62,7 +62,7 @@ end
 function fish_user_key_bindings
   bind \cg peco_select_ghq_repository
   bind \cs peco_ssh
-  bind \cr peco_select_history
+  bind \cr peco_history
   bind \cv fzf_edit
   bind \x1d peco_z # => Ctrl=]
 end

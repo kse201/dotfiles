@@ -1,1 +1,0 @@
-/home/vagrant/.config/fish/completions/tmuxinator.fish
