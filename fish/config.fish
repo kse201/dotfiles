@@ -1,4 +1,5 @@
 set -x PATH ( find $HOME/bin/ -type d ) (ls -d /usr/local/*bin) $PATH
+set -x PATH $HOME/.cargo/bin $PATH
 set -x PATH (gem environment gempath | sed 's/:/\\n/g' | xargs -I@ echo @/bin) $PATH
 set -x LANG ja_JP.UTF-8
 set -x LC_ALL ja_JP.UTF-8

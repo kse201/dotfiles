@@ -94,6 +94,10 @@ on_ft = ['fish']
 
 [[plugins]]
 repo = 'rust-lang/rust.vim'
+on_ft = 'rust'
+hook_source = '''
+"    let g:rustfmt_autosave = 1
+'''
 
 [[plugins]]
 repo = 'slim-template/vim-slim'
@@ -115,7 +119,7 @@ let g:user_emmet_leader_key='<C-e>'
 repo = 'autozimu/LanguageClient-neovim'
 rev = 'next'
 build = 'bash install.sh'
-on_ft = ['python', 'c', 'ruby', 'javascript']
+on_ft = ['python', 'c', 'ruby', 'javascript', 'rust']
 hook_add = '''
     set hidden
     let g:LanguageClient_autoStart = 1
@@ -125,6 +129,7 @@ hook_add = '''
         \ 'ruby': ['solargraph', 'stdio'],
         \ 'javascript': ['/home/vagrant/.yarn/bin/javascript-typescript-stdio'],
         \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+        \ 'rust': ['rustup', 'run', 'stable', 'rls'],
         \ }
 
     function LC_maps()
