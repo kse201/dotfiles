@@ -13,9 +13,10 @@
     precomposeunicode = true
     untrackedCache = true
 	fscache      = true
+	attributesfile = /home/vagrant/.gitattributes
 
 [diff]
-    renames   = copies
+	renames = true
     algorithm = patience
 
 [rebase]
