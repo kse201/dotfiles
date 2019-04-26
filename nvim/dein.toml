@@ -33,7 +33,7 @@ hook_post_source = '''
     call denite#custom#map('insert', '<C-p>', '<denite:move_to_previous_line>')
     call denite#custom#map('insert', '<C-n>', '<denite:move_to_next_line>')
 	call denite#custom#source('file_mru', 'matchers', ['matcher/fuzzy', 'matcher/project_files'])
-    call denite#custom#var('file_rec', 'command', [
+    call denite#custom#var('file/rec', 'command', [
       \ 'ag',
       \ '--follow',
       \ ] + map(deepcopy(s:ignore_globs), { k, v -> '--ignore=' . v }) + [
@@ -54,7 +54,7 @@ hook_add = '''
     nnoremap <SID>[denite] <Nop>
 
     command! DeniteBuffer Denite buffer
-    command! DeniteFile Denite file_rec
+    command! DeniteFile Denite file/rec
     command! DeniteGrep Denite grep -buffer-name=search-buffer-denite
     command! DeniteGrepResume Denite -resume -buffer-name=search-buffer-denite
     command! DeniteRegister Denite register

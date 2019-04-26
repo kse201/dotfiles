@@ -282,6 +282,9 @@ cnoremap <C-f> <Right>
 cnoremap <C-b> <Left>
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
+nnoremap <C-w>2 :only<CR>
+nnoremap <C-w>1 :only<CR>
+nnoremap <C-w>0 :only<CR>
 " }}}
 
 " search {{{
