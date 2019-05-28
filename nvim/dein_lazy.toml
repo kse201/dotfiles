@@ -125,11 +125,11 @@ hook_add = '''
     let g:LanguageClient_autoStart = 1
     let g:LanguageClient_serverCommands = {
         \ 'c': ['clangd'],
-        \ 'python': ['pyls'],
+        \ 'python': ['pyls', '-v', '--log-file', '/tmp/pyls.log'],
         \ 'ruby': ['solargraph', 'stdio'],
         \ 'javascript': ['/home/vagrant/.yarn/bin/javascript-typescript-stdio'],
         \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
-        \ 'rust': ['rustup', 'run', 'stable', 'rls'],
+        \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
         \ }
 
     function LC_maps()
