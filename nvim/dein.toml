@@ -237,3 +237,6 @@ repo = 'ruanyl/vim-gh-line'
 [[plugins]]
 repo = 'iyuuya/denite-ale'
 depends = ['denite.nvim']
+
+[[plugins]]
+repo = 'h1mesuke/vim-alignta'
