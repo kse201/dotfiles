@@ -63,10 +63,6 @@ hook_add = '''
 repo = 'martinda/Jenkinsfile-vim-syntax'
 on_ft = ['Jenkinsfile']
 
-[[plugins]]
-repo = 'amiorin/vim-textile'
-on_ft = ['textile']
-
 [[plugins]] #{{{
 repo = 'thinca/vim-quickrun'
 on_ft = ['javascript', 'coffee', 'ruby', 'c', 'rust']
@@ -103,10 +99,6 @@ hook_source = '''
 repo = 'slim-template/vim-slim'
 on_ft = ['slim']
 
-[[plugins]]
-repo = 'davidhalter/jedi-vim'
-on_ft = ['python']
-
 [[plugins]] #{{{
 repo = 'mattn/emmet-vim'
 on_ft=['html', 'erb', 'eruby']
@@ -123,9 +115,10 @@ on_ft = ['python', 'c', 'ruby', 'javascript', 'rust']
 hook_add = '''
     set hidden
     let g:LanguageClient_autoStart = 1
+    let g:LanguageClient_selectionUI = "quickfix"
     let g:LanguageClient_serverCommands = {
         \ 'c': ['clangd'],
-        \ 'python': ['pyls', '-v', '--log-file', '/tmp/pyls.log'],
+        \ 'python': ['pyls', '-vv', '--log-file', '/tmp/pyls.log'],
         \ 'ruby': ['solargraph', 'stdio'],
         \ 'javascript': ['/home/vagrant/.yarn/bin/javascript-typescript-stdio'],
         \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],

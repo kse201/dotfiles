@@ -30,8 +30,8 @@ hook_post_source = '''
       \ 'node_modules',
       \ '*.pyc'
       \ ]
-    call denite#custom#map('insert', '<C-p>', '<denite:move_to_previous_line>')
-    call denite#custom#map('insert', '<C-n>', '<denite:move_to_next_line>')
+    " call denite#custom#map('insert', '<C-p>', '<denite:move_to_previous_line>')
+    " call denite#custom#map('insert', '<C-n>', '<denite:move_to_next_line>')
 	call denite#custom#source('file_mru', 'matchers', ['matcher/fuzzy', 'matcher/project_files'])
     call denite#custom#var('file/rec', 'command', [
       \ 'ag',
@@ -72,11 +72,25 @@ hook_add = '''
     " nnoremap <silent> <SID>[denite]c :<C-u>DeniteCommand<CR>
     " nnoremap <silent> <SID>[denite]y :<C-u>DeniteYank<CR>
     nnoremap <silent> <SID>[denite]m :<C-u>DeniteMru<CR>
+	autocmd FileType denite call s:denite_my_settings()
+	function! s:denite_my_settings() abort
+	  nnoremap <silent><buffer><expr> <CR>
+	  \ denite#do_map('do_action')
+	  nnoremap <silent><buffer><expr> d
+	  \ denite#do_map('do_action', 'delete')
+	  nnoremap <silent><buffer><expr> p
+	  \ denite#do_map('do_action', 'preview')
+	  nnoremap <silent><buffer><expr> q
+	  \ denite#do_map('quit')
+	  nnoremap <silent><buffer><expr> i
+	  \ denite#do_map('open_filter_buffer')
+	  nnoremap <silent><buffer><expr> <Space>
+	  \ denite#do_map('toggle_select').'j'
+	  nnoremap <silent><buffer><expr> <Tab>
+	  \ denite#do_map('choose_action')
+	endfunction
 '''
 # }}}
-
-[[plugins]]
-repo = 'Shougo/neoyank.vim'
 
 [[plugins]]
 repo = 'Shougo/neomru.vim'
@@ -95,18 +109,6 @@ hook_add = '''
 repo = 'itchyny/lightline.vim'
 hook_post_source = '''
     call lightline#enable()
-'''
-# }}}
-
-[[plugins]] #{{{
-repo = 'glidenote/memolist.vim'
-depends = ['denite.vim']
-hook_add = '''
-    let g:memolist_memo_suffix = 'md'
-    let g:memolist_denite = 1
-    nnoremap <Leader>mn :MemoNew<CR>
-    nnoremap <Leader>ml :MemoList<CR>
-    nnoremap <Leader>mg :MemoList<CR>
 '''
 # }}}
 
@@ -136,9 +138,11 @@ let g:ale_cpp_clang_options = "-std=c++14 -Wall -I../include"
 let g:ale_cpp_gcc_options = "-std=c++14 -Wall -I../include"
 let g:ale_c_clang_options = "-std=c++14 -Wall -I../include"
 let g:ale_c_gcc_options = "-std=c++14 -Wall -I../include"
-let g:ale_linters = {
-    \'javascript': ['eslint', 'standard']
-    \}
+let g:ale_ansible_ansible_lint_executable  = "ansible-lint"
+"let g:ale_linters = {
+"    \'javascript': ['eslint', 'standard'],
+"    \'yaml.ansible': ['ansible-lint'],
+"    \}
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] [%severity%] %s'
@@ -190,9 +194,6 @@ depends = ['nerdtree.vim']
 repo = 'editorconfig/editorconfig-vim'
 
 [[plugins]]
-repo = 'tpope/vim-fugitive'
-
-[[plugins]]
 repo = 'ctrlpvim/ctrlp.vim'
 hook_add = '''
 ""let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|build'
@@ -240,3 +241,6 @@ depends = ['denite.nvim']
 
 [[plugins]]
 repo = 'h1mesuke/vim-alignta'
+
+[[plugins]]
+repo = 'pearofducks/ansible-vim'
