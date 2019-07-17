@@ -15,6 +15,9 @@ abbr vi nvim
 abbr vim nvim
 abbr spvim nvim -u /dev/null
 
+set -x FZF_DEFAULT_COMMAND 'fd --type f --hidden --follow --exclude .git --color=always'
+set -x FZF_DEFAULT_OPTS '--ansi'
+
 function fzf_edit
     $EDITOR (fzf)
 end
