@@ -40,6 +40,10 @@ if test -f (which exa)
     abbr la exa -lhga --git --time-style iso
 end
 
+if test -f (which bat)
+    abbr cat bat
+end
+
 abbr be bundle exec
 abbr ber bundle exec rake
 
