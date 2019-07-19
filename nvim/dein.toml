@@ -251,3 +251,7 @@ repo = 'h1mesuke/vim-alignta'
 
 [[plugins]]
 repo = 'pearofducks/ansible-vim'
+
+[[plugins]]
+repo = 'tbodt/deoplete-tabnine'
+build = './install.sh'
