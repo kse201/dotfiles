@@ -1,6 +1,9 @@
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
+[[plugins]]
+repo = 'wsdjeg/dein-ui.vim'
+
 [[plugins]] # {{{
 repo = 'Shougo/vimproc.vim'
 # hook_post_update = '''
@@ -110,20 +113,53 @@ repo = 'itchyny/lightline.vim'
 hook_post_source = '''
     call lightline#enable()
 '''
+hook_add = '''
+function! LSPStatus() abort
+    let l:errors = 0
+    let l:warnings = 0
+    for item in getqflist()
+        if item["type"] == "E"
+            let l:errors += 1
+        else
+            let l:warnings += 1
+        endif
+    endfor
+    return l:errors + l:warnings == 0 ? "LSP: OK" : "LSP: E:" . l:errors . " " . "W:" . l:warnings
+endfunction
+
+function! GitHead()
+    let l:head = fugitive#head()
+    return " " . l:head
+endfunction
+
+let g:lightline = {
+            \ 'active': {
+            \ 'left': [ [ 'mode', 'paste' ],
+            \           [ 'gitbranch', 'readonly', 'filename', 'modified' ],
+            \           [ 'lsp' ] ],
+            \},
+            \ 'component_function': {
+            \   'gitbranch': 'GitHead',
+            \   'lsp': 'LSPStatus'
+            \ },
+            \}
+
+'''
 # }}}
 
-[[plugins]]
+[[plugins]] # {{{
 repo = 'airblade/vim-rooter'
 hook_add = '''
 let g:rooter_change_directory_for_non_project_files = 'current'
 let g:rooter_patterns = [
-  \ 'Rakefile',
   \ 'Cargo.toml',
   \ 'package.json',
   \ 'Makefile',
   \ 'README.md',
+  \ 'Rakefile',
   \ '.git/']
 '''
+# }}}
 
 [[plugins]]
 repo = 'kana/vim-smartinput'
@@ -137,28 +173,6 @@ repo = 'tomasr/molokai'
 hook_add = ''' colorscheme molokai '''
 
 [[plugins]] #{{{
-repo = 'w0rp/ale'
-if = ''' has('nvim') '''
-hook_add = '''
-" let g:ale_ruby_rubocop_options='--config .rubocop_todo.yml'
-let g:ale_cpp_clang_options = "-std=c++14 -Wall -I../include"
-let g:ale_cpp_gcc_options = "-std=c++14 -Wall -I../include"
-let g:ale_c_clang_options = "-std=c++14 -Wall -I../include"
-let g:ale_c_gcc_options = "-std=c++14 -Wall -I../include"
-let g:ale_ansible_ansible_lint_executable  = "ansible-lint"
-"let g:ale_linters = {
-"    \'javascript': ['eslint', 'standard'],
-"    \'yaml.ansible': ['ansible-lint'],
-"    \}
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] [%severity%] %s'
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
-'''
-# }}}
-
-[[plugins]] #{{{
 repo = 'scrooloose/nerdtree'
 hook_add = '''
     nmap <C-n> :NERDTreeToggle<CR>
@@ -167,48 +181,41 @@ hook_add = '''
     let g:NERDTreeDirArrowExpandable  = '|'
     let g:NERDTreeDirArrowCollapsible = '>'
 
-    " function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
-        " exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
-        " exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
-    " endfunction
     function! NERDTreeHighlightFile(extension, fg, bg)
         exec 'autocmd filetype nerdtree syn match NERDTreeTxtFile #^\s\+.*'. a:extension .'$#'
         exec 'autocmd filetype nerdtree highlight NERDTreeTxtFile ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:bg .' guifg='. a:fg
     endfunction
 
-    " call NERDTreeHighlightFile('txt', 'blue', 'black')
-    " call NERDTreeHighlightFile('py',     'yellow',  'none', 'yellow',  '#151515')
     call NERDTreeHighlightFile('md',     'blue',    'black')
-    " call NERDTreeHighlightFile('sh',     'blue',    'none', '#3366FF', '#151515')
-    " call NERDTreeHighlightFile('yml',    'yellow',  'none', 'yellow',  '#151515')
-    " call NERDTreeHighlightFile('config', 'yellow',  'none', 'yellow',  '#151515')
-    " call NERDTreeHighlightFile('conf',   'yellow',  'none', 'yellow',  '#151515')
-    " call NERDTreeHighlightFile('json',   'yellow',  'none', 'yellow',  '#151515')
-    " call NERDTreeHighlightFile('html',   'yellow',  'none', 'yellow',  '#151515')
-    " call NERDTreeHighlightFile('styl',   'cyan',    'none', 'cyan',    '#151515')
-    " call NERDTreeHighlightFile('css',    'cyan',    'none', 'cyan',    '#151515')
-    " call NERDTreeHighlightFile('rb',     'Red',     'none', 'red',     '#151515')
-    " call NERDTreeHighlightFile('js',     'Red',     'none', '#ffa500', '#151515')
-    " call NERDTreeHighlightFile('php',    'Magenta', 'none', '#ff00ff', '#151515')
 '''
 # }}}
 
-[[plugins]]
+[[plugins]] #{{{
 repo = 'jistr/vim-nerdtree-tabs'
+hook_add = '''
+let g:NERDTreeIgnore = [
+\ '^build$',
+\ '^__pycache__$',
+\ '.pyc$',
+\]
+'''
 depends = ['nerdtree.vim']
+# }}}
 
 [[plugins]]
 repo = 'editorconfig/editorconfig-vim'
 
-[[plugins]]
+[[plugins]] # {{{
 repo = 'ctrlpvim/ctrlp.vim'
 hook_add = '''
 ""let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|build'
 '''
+# }}}
 
-[[plugins]]  # Japanese doc
+[[plugins]]  # Japanese doc {{{
 repo = 'vim-jp/vimdoc-ja'
 hook_add = 'set helplang=ja,en'
+# }}}
 
 [[plugins]]
 repo = 'mattn/sonictemplate-vim'
@@ -231,7 +238,7 @@ let g:tagbar_type_ruby = {
         \ 'F:singleton methods'
     \ ]
 \ }
-autocmd FileType python,ruby :TagbarOpen
+"autocmd FileType ruby :TagbarOpen
 '''
 # }}}
 
@@ -243,10 +250,6 @@ depends = ['denite.nvim']
 repo = 'ruanyl/vim-gh-line'
 
 [[plugins]]
-repo = 'iyuuya/denite-ale'
-depends = ['denite.nvim']
-
-[[plugins]]
 repo = 'h1mesuke/vim-alignta'
 
 [[plugins]]
@@ -255,3 +258,13 @@ repo = 'pearofducks/ansible-vim'
 [[plugins]]
 repo = 'tbodt/deoplete-tabnine'
 build = './install.sh'
+
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+
+[[plugins]]
+repo = 'osyo-manga/vim-precious'
+depends = ['context_filetype.vim']
+
+[[plugins]]
+repo = 'Shougo/context_filetype.vim'

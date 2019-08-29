@@ -122,7 +122,7 @@ hook_add = '''
         \ 'ruby': ['solargraph', 'stdio'],
         \ 'javascript': ['/home/vagrant/.yarn/bin/javascript-typescript-stdio'],
         \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
-        \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+        \ 'rust': ['rustup', 'run', 'beta', 'rls'],
         \ }
 
     function LC_maps()
@@ -135,6 +135,9 @@ hook_add = '''
     endfunction
 
     autocmd FileType * call LC_maps()
+    let g:LanguageClient_loggingFile = expand('/tmp/LanguageClient.log')
+    let g:LanguageClient_loggingLevel = 'DEBUG'
+
 '''
 # }}}
 

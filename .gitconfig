@@ -91,7 +91,7 @@
     contributors = shortlog -s -n --no-merges
 
 # log
-    graph = log --graph --date-order -C -M --pretty=format:'%C(red)%h%Creset - %C(green)%ad %C(Cyan)[%an]%C(Yellow)%d%Creset %s' --date=short
+    graph = log --graph --date-order -C -M --pretty=format:'%C(red)%h%Creset - %C(green)%ad %C(Cyan)[%an]%C(Yellow)%d%Creset %s' --date=short --color=always
     history = !git graph --all
     file-trail = log --follow -p -w
 
