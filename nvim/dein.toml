@@ -110,6 +110,7 @@ hook_add = '''
 
 [[plugins]] #{{{
 repo = 'itchyny/lightline.vim'
+depends = ['fugitive.vim', 'vim-devicons']
 hook_post_source = '''
     call lightline#enable()
 '''
@@ -124,27 +125,60 @@ function! LSPStatus() abort
             let l:warnings += 1
         endif
     endfor
-    return l:errors + l:warnings == 0 ? "LSP: OK" : "LSP: E:" . l:errors . " " . "W:" . l:warnings
+    " Error =>  , Warning => 
+    return l:errors + l:warnings == 0 ? "" : "\uf188 :" . l:errors . " " . "\uf071 :" . l:warnings
 endfunction
 
-function! GitHead()
-    let l:head = fugitive#head()
-    " 
-    return "\ue0a0 " . l:head
+function! LightlineModified()
+    return &ft =~ 'help\|vimfiler' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+endfunction
+
+function! LightlineReadonly()
+  return &ft !~? 'help' && &readonly ?  "\ue0a2" : ''
+endfunction
+
+function! LightlineFilename()
+    return ('' != LightlineReadonly() ? LightlineReadonly() . ' ' : '') .
+                \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
+                \  &ft == 'unite' ? unite#get_status_string() :
+                \  &ft == 'vimshell' ? vimshell#get_status_string() :
+                \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
+                \ ('' != LightlineModified() ? ' ' . LightlineModified() : '')
+endfunction
+
+function! LightlineFugitive()
+    if &ft !~? 'vimfiler' && exists('*fugitive#head')
+        let branch = fugitive#head()
+        " 
+        return branch !=# '' ? "\ue0a0 ".branch : ''
+    endif
+    return ''
+endfunction
+
+function! MyFiletype()
+    return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+endfunction
+
+function! MyFileformat()
+    return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
 endfunction
 
 let g:lightline = {
             \ 'active': {
             \ 'left': [ [ 'mode', 'paste' ],
-            \           [ 'gitbranch', 'readonly', 'filename', 'modified' ],
+            \           [ 'fugitive', 'filename' ],
             \           [ 'lsp' ] ],
-            \},
-            \ 'component_function': {
-            \   'gitbranch': 'GitHead',
-            \   'lsp': 'LSPStatus'
             \ },
+            \ 'component_function': {
+		    \   'fugitive': 'LightlineFugitive',
+		    \   'filename': 'LightlineFilename',
+            \   'filetype': 'MyFiletype',
+            \   'fileformat': 'MyFileformat',
+            \   'lsp': 'LSPStatus',
+            \ },
+		    \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2"},
+		    \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3"}
             \}
-
 '''
 # }}}
 
@@ -269,3 +303,11 @@ depends = ['context_filetype.vim']
 
 [[plugins]]
 repo = 'Shougo/context_filetype.vim'
+
+
+[[plugins]]
+repo = 'ryanoasis/vim-devicons'
+hook_add = '''
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {}
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['md'] = "\uf48a"
+'''

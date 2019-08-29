@@ -161,8 +161,8 @@ on_ft = ['rest']
 [[plugins]] #{{{
 repo = 'w0rp/ale'
 depends = ['LanguageClient-neovim']
-on_event = "FileType"
-on_if = ''' has_key(g:LanguageClient_serverCommands, &filetype) == 0'''
+on_event = ['BufEnter', 'FileType']
+on_if = '''has_key(g:LanguageClient_serverCommands, &filetype) == 0'''
 hook_add = '''
 " let g:ale_ruby_rubocop_options='--config .rubocop_todo.yml'
 let g:ale_ansible_ansible_lint_executable  = "ansible-lint"
@@ -171,5 +171,15 @@ let g:ale_echo_msg_warning_str = "\uf071 "
 let g:ale_echo_msg_format = '[%linter%] [%severity%] %s'
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
+
+function ALEEnableXorLSP()
+    if has_key(g:LanguageClient_serverCommands, &filetype)
+        ALEDisable
+    else
+        ALEEnableBuffer
+    endif
+endfunction
+
+autocmd FileType * call ALEEnableXorLSP()
 '''
 # }}}
