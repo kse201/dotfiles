@@ -129,7 +129,8 @@ endfunction
 
 function! GitHead()
     let l:head = fugitive#head()
-    return " " . l:head
+    " 
+    return "\ue0a0 " . l:head
 endfunction
 
 let g:lightline = {
