@@ -19,7 +19,7 @@ set -x FZF_DEFAULT_COMMAND 'fd --type f --hidden --follow --exclude .git --color
 set -x FZF_DEFAULT_OPTS '--ansi'
 
 function fzf_edit
-    $EDITOR (fzf)
+    eval $EDITOR (fzf)
 end
 
 abbr vst vagrant status
