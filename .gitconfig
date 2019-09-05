@@ -131,3 +131,7 @@
 	date = relative
 [dif]
 	renames = true
+
+[credential]
+    helper = store --file ~/.git-credentials
+    helper = cache --timeout 30000
