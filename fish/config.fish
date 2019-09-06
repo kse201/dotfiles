@@ -25,6 +25,10 @@ end
 abbr vst vagrant status
 abbr vup vagrant up
 
+if test -f (which hub)
+    alias git hub
+end
+
 abbr gst git st
 abbr glg git lg
 abbr gmt git cmt
