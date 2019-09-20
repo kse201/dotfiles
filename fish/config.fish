@@ -110,6 +110,13 @@ if test -f /usr/local/opt/python/libexec/bin
 end
 set -x PYTHONSTARTUP $HOME/.pythonrc.py
 
+
+set -x PYENV_ROOT "$HOME/.pyenv"
+set -x PATH "$PYENV_ROOT/bin:$PATH"
+if test -f (which pyenv)
+    eval (pyenv init - | source)
+end
+
 function command_not_found_handler --on-event fish_command_not_found
     echo "ハァ...?「$argv[1]」とか何言ってんの ?"
 end
