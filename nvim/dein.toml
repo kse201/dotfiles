@@ -187,10 +187,10 @@ repo = 'airblade/vim-rooter'
 hook_add = '''
 let g:rooter_change_directory_for_non_project_files = 'current'
 let g:rooter_patterns = [
+  \ 'README.md',
   \ 'Cargo.toml',
   \ 'package.json',
   \ 'Makefile',
-  \ 'README.md',
   \ 'Rakefile',
   \ '.git/']
 '''
@@ -254,6 +254,11 @@ hook_add = 'set helplang=ja,en'
 
 [[plugins]]
 repo = 'mattn/sonictemplate-vim'
+hook_add = '''
+let g:sonictemplate_vim_template_dir = [
+     \ '~/.vim/template'
+      \]
+'''
 
 [[plugins]]
 repo = 'deris/vim-shot-f'
