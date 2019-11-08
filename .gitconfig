@@ -97,7 +97,7 @@
 
     # show root commit for two branches
     # git diverge-commit <src> <dest>
-    diverge-commit = "!f() { git show-branch \"$1\" \"$2\" | tail -1; }; f"
+    diverge-commit = "!f() { git show-branch --sha1-name \"$1\" \"$2\" | tail -1; }; f"
 
 # list command
     branches = show-branch -a --list
