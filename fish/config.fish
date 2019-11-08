@@ -133,3 +133,5 @@ end
 if test -f (which starship)
     eval (starship init fish)
 end
+
+thefuck --alias | source
