@@ -156,11 +156,13 @@ function! LightlineFugitive()
 endfunction
 
 function! MyFiletype()
-    return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+    " return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+    return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' : 'no ft') : ''
 endfunction
 
 function! MyFileformat()
-    return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
+    " return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
+    return winwidth(0) > 70 ? (&fileformat . ' ' ) : ''
 endfunction
 
 let g:lightline = {
@@ -175,9 +177,7 @@ let g:lightline = {
             \   'filetype': 'MyFiletype',
             \   'fileformat': 'MyFileformat',
             \   'lsp': 'LSPStatus',
-            \ },
-		    \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2"},
-		    \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3"}
+            \ }
             \}
 '''
 # }}}
