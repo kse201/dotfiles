@@ -1,6 +1,6 @@
 [color]
     status      = auto
-	branch      = auto
+    branch      = auto
     ui          = auto
     interactive = auto
 
@@ -9,11 +9,11 @@
     editor       = nvim
     pager = diff-so-fancy | less --tabs=4 -RFX
     quotepath    = false
-	preloadindex = true
+    preloadindex = true
     precomposeunicode = true
     untrackedCache = true
-	fscache      = true
-	attributesfile = /home/vagrant/.gitattributes
+    fscache      = true
+    attributesfile = /home/vagrant/.gitattributes
 
 [color "diff-highlight"]
     oldNormal = red bold
@@ -29,7 +29,7 @@
     whitespace = red reverse
 
 [diff]
-	renames = true
+    renames = true
     algorithm = patience
 
 [rebase]
@@ -40,18 +40,18 @@
     prune = true
 
 [push]
-	default = matching
+    default = matching
 
 [help]
     autocorrect = 1
 
 [url "https://"]
-	insteadOf = git://
+    insteadOf = git://
 
 [user]
     useconfigonly = true
-	name = kse201
-	email = kse.201@gmail.com
+    name = kse201
+    email = kse.201@gmail.com
 
 [merge]
     tool = vimdiff
@@ -63,8 +63,8 @@
     prompt = false
 [diff]
     tool = vimdiff
-	compactionHeuristic = true
-	indentHeuristic = true
+    compactionHeuristic = true
+    indentHeuristic = true
 
 [alias]
     alias    = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort
@@ -73,7 +73,7 @@
     ls       = ls-files
     info     = remote show origin
     who      = shortlog --numbered --summary --email --no-merges --since='3 months'
-	pr-setup = config --add remote.origin.fetch+refs/pull/*/head:refs/remotes/origin/pr/*
+    pr-setup = config --add remote.origin.fetch+refs/pull/*/head:refs/remotes/origin/pr/*
 
 # ignore
     ignore   = update-index --assume-unchanged
@@ -133,17 +133,17 @@
     delete-branch = branch -D
     name-branch = symbolic-ref --short HEAD
 [stash]
-	showPatch = true
+    showPatch = true
 [commit]
-	template = ~/.gitmessage.txt
+    template = ~/.gitmessage.txt
 [http "https://gopkg.in"]
-	followRedirects = true
+    followRedirects = true
 [advice]
-	statusHints = true
+    statusHints = true
 [blame]
-	date = relative
+    date = relative
 [dif]
-	renames = true
+    renames = true
 
 [credential]
     helper = store --file ~/.git-credentials
