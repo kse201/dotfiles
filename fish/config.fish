@@ -56,7 +56,9 @@ abbr ber bundle exec rake
 
 abbr brname git symbolic-ref --short HEAD
 
-abbr diff colordiff -wu
+if test -f (which diff-so-fancy)
+    alias diff diff-so-fancy
+end
 
 function peco_z
   set -l query (commandline)

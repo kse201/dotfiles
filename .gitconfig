@@ -7,13 +7,26 @@
 [core]
     autocrlf     = false
     editor       = nvim
-    pager        = less -r
+    pager = diff-so-fancy | less --tabs=4 -RFX
     quotepath    = false
 	preloadindex = true
     precomposeunicode = true
     untrackedCache = true
 	fscache      = true
 	attributesfile = /home/vagrant/.gitattributes
+
+[color "diff-highlight"]
+    oldNormal = red bold
+    oldHighlight = red bold 52
+    newNormal = green bold
+    newHighlight = green bold 22
+[color "diff"]
+    meta = yellow
+    frag = magenta bold
+    commit = yellow bold
+    old = red bold
+    new = green bold
+    whitespace = red reverse
 
 [diff]
 	renames = true
