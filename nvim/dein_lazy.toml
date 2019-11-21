@@ -1,4 +1,6 @@
-[[plugins]] #{{{
+## Lazy Loading because of too fat {{{
+
+[[plugins]] # deoplete {{{
 repo = 'Shougo/deoplete.nvim'
 on_event = 'InsertEnter'
 hook_add = '''
@@ -16,98 +18,33 @@ hook_add = '''
 if = ''' has('python3') '''
 # }}}
 
-[[plugins]]
-repo = 'udalov/kotlin-vim'
-on_ft = ['kotlin']
-
-[[plugins]]
-repo = 'mrk21/yaml-vim'
-on_ft = ['yaml']
-
-[[plugins]]
-repo = 'fatih/vim-go'
-on_ft = ['go']
-
-[[plugins]]
-repo = 'jelera/vim-javascript-syntax'
-on_ft = ['javascript']
-
-[[plugins]]
-repo = 'kchmck/vim-coffee-script'
-on_ft = ['coffee']
-
-[[plugins]]
-repo = 'fishbullet/deoplete-ruby'
-on_ft = ['ruby']
-depends = ['deoplete.nvim']
-
-[[plugins]]
-repo = 'cespare/vim-toml'
-on_ft = ['toml']
-
-[[plugins]]
-repo = 'aklt/plantuml-syntax'
-on_ft = ['puml']
-
-[[plugins]] #{{{
-repo = 'dhruvasagar/vim-table-mode'
-on_ft = ['markdown', 'rst']
+[[plugins]] # ALE {{{
+repo = 'w0rp/ale'
+depends = ['LanguageClient-neovim']
+on_event = ['BufEnter', 'FileType']
+on_if = '''has_key(g:LanguageClient_serverCommands, &filetype) == 0'''
 hook_add = '''
-    " let g:table_mode_corner='|'
-    let g:table_mode_corner_corner='+'
-    let g:table_mode_header_fillchar='='
+" let g:ale_ruby_rubocop_options='--config .rubocop_todo.yml'
+let g:ale_ansible_ansible_lint_executable  = "ansible-lint"
+let g:ale_echo_msg_error_str = "\uf188 "
+let g:ale_echo_msg_warning_str = "\uf071 "
+let g:ale_echo_msg_format = '[%linter%] [%severity%] %s'
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
+
+function ALEEnableXorLSP()
+    if has_key(g:LanguageClient_serverCommands, &filetype)
+        ALEDisable
+    else
+        ALEEnableBuffer
+    endif
+endfunction
+
+autocmd FileType * call ALEEnableXorLSP()
 '''
 # }}}
 
-[[plugins]]
-repo = 'martinda/Jenkinsfile-vim-syntax'
-on_ft = ['Jenkinsfile']
-
-[[plugins]] #{{{
-repo = 'thinca/vim-quickrun'
-on_ft = ['javascript', 'coffee', 'ruby', 'c', 'rust', 'python']
-
-hook_add = '''
-let g:quickrun_config = {
-            \ 'javascript': {
-            \ "command": "node"
-            \ },
-            \ "coffeescript": {
-            \ "command": "coffee"
-            \ }
-            \ }
-
-let g:quickrun_config._ = {
-            \ 'split'   : 'rightbelow 10sp'
-            \}
-nnoremap <silent><F5>  :QuickRun<CR>
-'''
-# }}}
-
-[[plugins]]
-repo = 'dag/vim-fish'
-on_ft = ['fish']
-
-[[plugins]]
-repo = 'rust-lang/rust.vim'
-on_ft = 'rust'
-hook_source = '''
-    let g:rustfmt_autosave = 1
-'''
-
-[[plugins]]
-repo = 'slim-template/vim-slim'
-on_ft = ['slim']
-
-[[plugins]] #{{{
-repo = 'mattn/emmet-vim'
-on_ft=['html', 'erb', 'eruby']
-hook_add = '''
-let g:user_emmet_leader_key='<C-e>'
-'''
-# }}}
-
-[[plugins]] #{{{
+[[plugins]] # LanguageClient {{{
 repo = 'autozimu/LanguageClient-neovim'
 rev = 'next'
 build = 'bash install.sh'
@@ -138,11 +75,31 @@ hook_add = '''
     autocmd FileType * call LC_maps()
     let g:LanguageClient_loggingFile = expand('/tmp/LanguageClient.log')
     let g:LanguageClient_loggingLevel = 'DEBUG'
-
 '''
 # }}}
 
-[[plugins]]
+[[plugins]] # QuickRun {{{
+repo = 'thinca/vim-quickrun'
+on_ft = ['javascript', 'coffee', 'ruby', 'c', 'rust', 'python']
+
+hook_add = '''
+let g:quickrun_config = {
+            \ 'javascript': {
+            \ "command": "node"
+            \ },
+            \ "coffeescript": {
+            \ "command": "coffee"
+            \ }
+            \ }
+
+let g:quickrun_config._ = {
+            \ 'split'   : 'rightbelow 10sp'
+            \}
+nnoremap <silent><F5>  :QuickRun<CR>
+'''
+# }}}
+
+[[plugins]] # rest-console {{{
 repo = 'diepm/vim-rest-console'
 hook_add = '''
     let g:vrc_curl_opts = {
@@ -158,29 +115,106 @@ hook_add = '''
 '''
 if = ''' executable('curl') '''
 on_ft = ['rest']
+# }}}
 
-[[plugins]] #{{{
-repo = 'w0rp/ale'
-depends = ['LanguageClient-neovim']
-on_event = ['BufEnter', 'FileType']
-on_if = '''has_key(g:LanguageClient_serverCommands, &filetype) == 0'''
+[[plugins]] # table mode {{{
+repo = 'dhruvasagar/vim-table-mode'
+on_ft = ['markdown', 'rst']
 hook_add = '''
-" let g:ale_ruby_rubocop_options='--config .rubocop_todo.yml'
-let g:ale_ansible_ansible_lint_executable  = "ansible-lint"
-let g:ale_echo_msg_error_str = "\uf188 "
-let g:ale_echo_msg_warning_str = "\uf071 "
-let g:ale_echo_msg_format = '[%linter%] [%severity%] %s'
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
-
-function ALEEnableXorLSP()
-    if has_key(g:LanguageClient_serverCommands, &filetype)
-        ALEDisable
-    else
-        ALEEnableBuffer
-    endif
-endfunction
-
-autocmd FileType * call ALEEnableXorLSP()
+    " let g:table_mode_corner='|'
+    let g:table_mode_corner_corner='+'
+    let g:table_mode_header_fillchar='='
 '''
+# }}}
+
+[[plugins]] # emmet {{{
+repo = 'mattn/emmet-vim'
+on_ft=['html', 'erb', 'eruby']
+hook_add = '''
+let g:user_emmet_leader_key='<C-e>'
+'''
+# }}}
+# }}}
+
+## For Language Config {{{
+
+### kotlin {{{
+[[plugins]]
+repo = 'udalov/kotlin-vim'
+on_ft = ['kotlin']
+# }}}
+
+### Go {{{
+[[plugins]]
+repo = 'fatih/vim-go'
+on_ft = ['go']
+# }}}
+
+### JavaScript/CoffeScript {{{
+[[plugins]]
+repo = 'jelera/vim-javascript-syntax'
+on_ft = ['javascript']
+
+[[plugins]]
+repo = 'kchmck/vim-coffee-script'
+on_ft = ['coffee']
+# }}}
+
+### slim {{{
+[[plugins]]
+repo = 'slim-template/vim-slim'
+on_ft = ['slim']
+# }}}
+
+### Ruby {{{
+[[plugins]]
+repo = 'fishbullet/deoplete-ruby'
+on_ft = ['ruby']
+depends = ['deoplete.nvim']
+# }}}
+
+### PlantUML {{{
+[[plugins]]
+repo = 'aklt/plantuml-syntax'
+on_ft = ['puml']
+# }}}
+
+### Jenkinsfile {{{
+[[plugins]]
+repo = 'martinda/Jenkinsfile-vim-syntax'
+on_ft = ['Jenkinsfile']
+# }}}
+
+### Fish {{{
+[[plugins]]
+repo = 'dag/vim-fish'
+on_ft = ['fish']
+# }}}
+
+### Rust {{{
+[[plugins]]
+repo = 'rust-lang/rust.vim'
+on_ft = 'rust'
+hook_source = '''
+    let g:rustfmt_autosave = 1
+'''
+# }}}
+
+### TOML {{{
+[[plugins]]
+repo = 'cespare/vim-toml'
+on_ft = ['toml']
+# }}}
+
+### yaml {{{
+[[plugins]]
+repo = 'mrk21/yaml-vim'
+on_ft = ['yaml']
+# }}}
+
+### Ansible {{{
+[[plugins]]
+repo = 'pearofducks/ansible-vim'
+on_ft = ['yaml']
+# }}}
 # }}}

@@ -347,10 +347,7 @@ endif
 " dein.vim{{{
 "
 augroup dein_toml
-    autocmd BufEnter dein*.toml setlocal fdm=marker fdl=0 foldtext=MyFoldText()
-    function MyFoldText()
-        return matchstr(getline(v:foldstart+1), "'.*'")
-    endfunction
+    autocmd BufEnter dein*.toml setlocal fdm=marker fdl=0
 augroup END
 
 filetype plugin indent off

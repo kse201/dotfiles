@@ -1,3 +1,5 @@
+## For Plugin Management {{{
+
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
@@ -21,7 +23,9 @@ repo = 'Shougo/vimproc.vim'
     # let g:dein#plugin.build = cmd
 # '''
 # }}}
+# }}}
 
+## Fuzzy Interface {{{
 [[plugins]] #{{{
 repo = 'Shougo/denite.nvim'
 if = ''' has('python3') '''
@@ -98,15 +102,19 @@ hook_add = '''
 [[plugins]]
 repo = 'Shougo/neomru.vim'
 
-[[plugins]] #{{{
-repo = 'vim-scripts/The-NERD-Commenter'
+[[plugins]]
+repo = 'notomo/denite-keymap'
+depends = ['denite.nvim']
+
+[[plugins]] # {{{
+repo = 'ctrlpvim/ctrlp.vim'
 hook_add = '''
-    let g:NERDCreateDefaultMappings = 0
-    let g:NERDSpaceDelims           = 1
-    nmap <Leader>c <Plug>NERDCommenterToggle
-    vmap <Leader>c <Plug>NERDCommenterToggle
+""let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|build'
 '''
 # }}}
+# }}}
+
+## For Pretty Interface {{{
 
 [[plugins]] #{{{
 repo = 'itchyny/lightline.vim'
@@ -182,6 +190,28 @@ let g:lightline = {
 '''
 # }}}
 
+[[plugins]]
+repo = 'ryanoasis/vim-devicons'
+hook_add = '''
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {}
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['md'] = "\uf48a"
+'''
+
+[[plugins]]
+repo = 'tomasr/molokai'
+hook_add = ''' colorscheme molokai '''
+
+[[plugins]]
+repo = 'osyo-manga/vim-precious'
+depends = ['context_filetype.vim']
+
+[[plugins]]
+repo = 'Shougo/context_filetype.vim'
+
+# }}}
+
+## For Integrated Development Environments {{{
+
 [[plugins]] # {{{
 repo = 'airblade/vim-rooter'
 hook_add = '''
@@ -195,17 +225,6 @@ let g:rooter_patterns = [
   \ '.git/']
 '''
 # }}}
-
-[[plugins]]
-repo = 'kana/vim-smartinput'
-
-[[plugins]]
-repo = 'vim-scripts/scratch-utility'
-if = ''' ! has('kaoriya') '''
-
-[[plugins]]
-repo = 'tomasr/molokai'
-hook_add = ''' colorscheme molokai '''
 
 [[plugins]] #{{{
 repo = 'scrooloose/nerdtree'
@@ -238,30 +257,12 @@ depends = ['nerdtree.vim']
 # }}}
 
 [[plugins]]
-repo = 'editorconfig/editorconfig-vim'
-
-[[plugins]] # {{{
-repo = 'ctrlpvim/ctrlp.vim'
-hook_add = '''
-""let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|build'
-'''
-# }}}
-
-[[plugins]]  # Japanese doc {{{
-repo = 'vim-jp/vimdoc-ja'
-hook_add = 'set helplang=ja,en'
-# }}}
-
-[[plugins]]
 repo = 'mattn/sonictemplate-vim'
 hook_add = '''
 let g:sonictemplate_vim_template_dir = [
      \ '~/.vim/template'
       \]
 '''
-
-[[plugins]]
-repo = 'deris/vim-shot-f'
 
 [[plugins]] #{{{
 repo = 'majutsushi/tagbar'
@@ -283,17 +284,10 @@ let g:tagbar_type_ruby = {
 # }}}
 
 [[plugins]]
-repo = 'notomo/denite-keymap'
-depends = ['denite.nvim']
-
-[[plugins]]
-repo = 'ruanyl/vim-gh-line'
-
-[[plugins]]
 repo = 'h1mesuke/vim-alignta'
 
 [[plugins]]
-repo = 'pearofducks/ansible-vim'
+repo = 'editorconfig/editorconfig-vim'
 
 [[plugins]]
 repo = 'tbodt/deoplete-tabnine'
@@ -302,17 +296,26 @@ build = './install.sh'
 [[plugins]]
 repo = 'tpope/vim-fugitive'
 
-[[plugins]]
-repo = 'osyo-manga/vim-precious'
-depends = ['context_filetype.vim']
-
-[[plugins]]
-repo = 'Shougo/context_filetype.vim'
-
-
-[[plugins]]
-repo = 'ryanoasis/vim-devicons'
+[[plugins]] #{{{
+repo = 'vim-scripts/The-NERD-Commenter'
 hook_add = '''
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {}
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['md'] = "\uf48a"
+    let g:NERDCreateDefaultMappings = 0
+    let g:NERDSpaceDelims           = 1
+    nmap <Leader>c <Plug>NERDCommenterToggle
+    vmap <Leader>c <Plug>NERDCommenterToggle
 '''
+# }}}
+
+[[plugins]]
+repo = 'kana/vim-smartinput'
+
+[[plugins]]
+repo = 'vim-scripts/scratch-utility'
+if = ''' ! has('kaoriya') '''
+
+# }}}
+
+[[plugins]]  # Japanese doc {{{
+repo = 'vim-jp/vimdoc-ja'
+hook_add = 'set helplang=ja,en'
+# }}}
