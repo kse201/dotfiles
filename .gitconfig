@@ -15,6 +15,9 @@
     fscache      = true
     attributesfile = /home/vagrant/.gitattributes
 
+[pager]
+	diff = diff-so-fancy | less --tabs=4 -RFX --pattern='^(added|deleted|modified): '
+
 [color "diff-highlight"]
     oldNormal = red bold
     oldHighlight = red bold 52
