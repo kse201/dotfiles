@@ -60,7 +60,7 @@ else
     let $VIMFILE_DIR   = $HOME.'/.vim'
     let $VIMRC         = $HOME.'/.vimrc'
     let $GVIMRC        = $HOME.'/.gvimrc'
-    let $VIMRC_PLUGIN  = $HOME.'/.dein.toml'
+    let $VIMRC_PLUGIN  = $VIMFILE_DIR.'/dein.toml'
 end
 " }}}
 
@@ -113,6 +113,7 @@ set notitle
   \ showbreak=+
   \ display=lastline
   \ laststatus=2
+  \ statusline=%F%m%h%w\ %<[%{&fenc!=''?&fenc:&enc}]\ [%{&ff}]\ [%Y]\ %=(0x%02B)\ [%l/%L(%02v)]
   \ wrap
   \ wildmenu
   \ wildmode=list:full
@@ -312,7 +313,9 @@ vnoremap < <gv
 nnoremap ggyG :echoerr "Use :%y"<CR>
 vnoremap Gy :<C-u>echoerr "Use :,$y"<CR>
 
-tnoremap <silent> <ESC> <C-\><C-n>
+if has('terminal')
+    tnoremap <silent> <ESC> <C-\><C-n>
+endif
 
 if executable('jq')
   function! s:jq(has_bang, ...) abort range
@@ -344,50 +347,52 @@ endif
 " }}}
 
 " Plugin {{{
-" dein.vim{{{
-"
-augroup dein_toml
-    autocmd BufEnter dein*.toml setlocal fdm=marker fdl=0
-augroup END
+if has('nvim') || v:version >= 800
+    " dein.vim{{{
+    "
+    augroup dein_toml
+        autocmd BufEnter dein*.toml setlocal fdm=marker fdl=0
+    augroup END
 
-filetype plugin indent off
-if has('nvim')
-    let s:dein_dir = $HOME.'/.local/share/nvim/dein'
-else
-    let s:dein_dir = $HOME.'/.cache/dein'
-end
-let s:dein_repo_dir = s:dein_dir.'/repos/github.com/Shougo/dein.vim/'
-let s:dein_toml = $VIMFILE_DIR.'/dein.toml'
-let s:lazy_toml = $VIMFILE_DIR.'/dein_lazy.toml'
-
-nnoremap <Leader>ed :edit $VIMFILE_DIR/dein.toml<CR>
-if has('vim_starting')
-    if !isdirectory(expand(s:dein_repo_dir))
-        echo 'install dein.vim...'
-        call system('git clone git://github.com/Shougo/dein.vim '.s:dein_repo_dir)
+    filetype plugin indent off
+    if has('nvim')
+        let s:dein_dir = $HOME.'/.local/share/nvim/dein'
+    else
+        let s:dein_dir = $HOME.'/.cache/dein'
     endif
-    exe 'set rtp+='.s:dein_repo_dir
-endif
-let g:dein#install_process_timeout=600
+    let s:dein_repo_dir = s:dein_dir.'/repos/github.com/Shougo/dein.vim/'
+    let s:dein_toml = $VIMRC_PLUGIN
+    let s:lazy_toml = $VIMFILE_DIR.'/dein_lazy.toml'
 
-if dein#load_state(s:dein_dir)
+    nnoremap <Leader>ed :edit $VIMRC_PLUGIN<CR>
+    if has('vim_starting')
+        if !isdirectory(expand(s:dein_repo_dir))
+            echo 'install dein.vim...'
+            call system('git clone git://github.com/Shougo/dein.vim '.s:dein_repo_dir)
+        endif
+        exe 'set rtp+='.s:dein_repo_dir
+    endif
+    let g:dein#install_process_timeout=600
+
+    if dein#load_state(s:dein_dir)
         call dein#begin(s:dein_dir)
         call dein#load_toml(s:dein_toml, {'lazy': 0})
         call dein#load_toml(s:lazy_toml, {'lazy': 1})
         call dein#end()
         call dein#save_state()
+    endif
+    autocmd MyAutoCmd VimEnter * call dein#call_hook('post_source')
+
+    filetype plugin indent on
+    syntax enable
+
+    " install plugins
+    if dein#check_install()
+        call dein#install()
+    endif
+
+    call map(dein#check_clean(), "delete(v:val, 'rf')")
 endif
-autocmd MyAutoCmd VimEnter * call dein#call_hook('post_source')
-
-filetype plugin indent on
-syntax enable
-
-" install plugins
-if dein#check_install()
-    call dein#install()
-endif
-
-call map(dein#check_clean(), "delete(v:val, 'rf')")
 " }}}
 " }}}
 
