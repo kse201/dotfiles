@@ -252,7 +252,6 @@ hook_add = '''
 repo = 'jistr/vim-nerdtree-tabs'
 hook_add = '''
 let g:NERDTreeIgnore = [
-\ '^build$',
 \ '^__pycache__$',
 \ '.pyc$',
 \]
@@ -264,7 +263,7 @@ depends = ['nerdtree.vim']
 repo = 'mattn/sonictemplate-vim'
 hook_add = '''
 let g:sonictemplate_vim_template_dir = [
-     \ '~/.vim/template'
+     \ '~/.vim/templates'
       \]
 '''
 
