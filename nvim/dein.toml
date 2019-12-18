@@ -106,6 +106,10 @@ repo = 'Shougo/neomru.vim'
 repo = 'notomo/denite-keymap'
 depends = ['denite.nvim']
 
+[[plugins]]
+repo = 'Shougo/neoyank.vim'
+depends = ['denite.nvim']
+
 [[plugins]] # {{{
 repo = 'ctrlpvim/ctrlp.vim'
 hook_add = '''
@@ -312,6 +316,9 @@ repo = 'kana/vim-smartinput'
 [[plugins]]
 repo = 'vim-scripts/scratch-utility'
 if = ''' ! has('kaoriya') '''
+
+[[plugins]]
+repo = 'jsfaint/gen_tags.vim'
 
 # }}}
 
