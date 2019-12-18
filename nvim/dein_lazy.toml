@@ -48,7 +48,7 @@ autocmd FileType * call ALEEnableXorLSP()
 repo = 'autozimu/LanguageClient-neovim'
 rev = 'next'
 build = 'bash install.sh'
-on_ft = ['python', 'c', 'ruby', 'javascript', 'rust']
+on_ft = ['python', 'c', 'ruby', 'javascript', 'rust', 'sql']
 hook_add = '''
     set hidden
     let g:LanguageClient_autoStart = 1
@@ -60,7 +60,8 @@ hook_add = '''
         \ 'javascript': ['/home/vagrant/.yarn/bin/javascript-typescript-stdio'],
         \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
         \ 'dockerfile': ['docker-langserver', '--stdio'],
-        \ 'rust': ['rustup', 'run', 'beta', 'rls'],
+        \ 'rust': ['rustup', 'run', 'stable', 'rls'],
+        \ 'sql': ['sql-language-server', 'up', '--method', 'stdio', '--debug'],
         \ }
 
     function! LC_maps()
