@@ -212,6 +212,11 @@ depends = ['context_filetype.vim']
 [[plugins]]
 repo = 'Shougo/context_filetype.vim'
 
+[[plugins]]
+repo = "shougo/deol.nvim"
+hook_add = '''
+  tnoremap <ESC> <C-\><C-n>
+'''
 # }}}
 
 ## For Integrated Development Environments {{{
