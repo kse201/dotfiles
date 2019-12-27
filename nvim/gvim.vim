@@ -18,9 +18,9 @@ augroup END
 " }}}
 "Font{{{
 if has('win32') || has('win64')
-    set guifont=Ricty\ Diminished:h13
+    set guifont=Cica:h13
 else
-    set guifont=Ricty\ Diminished:h16
+    set guifont=Cica Reguler:h16
     " set guifont=Ricty\ Reguler:h16
     set linespace=1
 endif
