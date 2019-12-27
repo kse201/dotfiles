@@ -53,8 +53,8 @@
 
 [user]
     useconfigonly = true
-    name = kse201
-    email = kse.201@gmail.com
+	name = kse201
+	email = kse.201@gmail.com
 
 [merge]
     tool = vimdiff
@@ -151,3 +151,6 @@
 [credential]
     helper = store --file ~/.git-credentials
     helper = cache --timeout 30000
+[ghq]
+	root = /home/vagrant/.ghq
+	root = /home/vagrant/go/src
