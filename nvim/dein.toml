@@ -127,6 +127,7 @@ repo = 'editorconfig/editorconfig-vim'
 
 [[plugins]]
 repo = 'tbodt/deoplete-tabnine'
+if = 0
 build = './install.sh'
 
 [[plugins]]
@@ -144,12 +145,29 @@ repo = 'kana/vim-smartinput'
 repo = 'vim-scripts/scratch-utility'
 if = ''' ! has('kaoriya') '''
 
-[[plugins]]
-repo = 'jsfaint/gen_tags.vim'
-
 # }}}
 
 [[plugins]]  # Japanese doc {{{
 repo = 'vim-jp/vimdoc-ja'
 hook_add = 'source $VIMFILE_DIR/_config/vimdoc.vim'
 # }}}
+
+[[plugins]]
+repo = 'prabirshrestha/async.vim'
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete.vim'
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete-lsp.vim'
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+hook_add = 'source $VIMFILE_DIR/_config/vim-lsp.vim'
+
+[[plugins]]
+repo = 'mattn/vim-lsp-settings'
+[[plugins]]
+repo = 'mattn/vim-lsp-icons'
+
+[[plugins]]
+repo = 'hrsh7th/vim-vsnip'
+[[plugins]]
+repo = 'hrsh7th/vim-vsnip-integ'
