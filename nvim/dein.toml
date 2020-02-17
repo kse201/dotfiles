@@ -2,9 +2,11 @@
 
 [[plugins]]
 repo = 'Shougo/dein.vim'
+if = """ has('nvim') || v:version >= 800 """
 
 [[plugins]]
 repo = 'wsdjeg/dein-ui.vim'
+depends = ['dein.vim']
 
 [[plugins]] # {{{
 repo = 'Shougo/vimproc.vim'
