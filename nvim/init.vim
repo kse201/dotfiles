@@ -110,7 +110,7 @@ endif
 set notitle
   \ display=uhex
   \ scrolloff=1
-  \ showbreak=+
+  \ showbreak=↪
   \ display=lastline
   \ laststatus=2
   \ statusline=%F%m%h%w\ %<[%{&fenc!=''?&fenc:&enc}]\ [%{&ff}]\ [%Y]\ %=(0x%02B)\ [%l/%L(%02v)]
@@ -359,6 +359,18 @@ if has('nvim') || v:version >= 800
         let s:dein_dir = $HOME.'/.local/share/nvim/dein'
     else
         let s:dein_dir = $HOME.'/.cache/dein'
+    end
+    let s:dein_repo_dir = s:dein_dir.'/repos/github.com/Shougo/dein.vim/'
+    let s:dein_toml = $VIMFILE_DIR.'/dein.toml'
+    let s:lazy_toml = $VIMFILE_DIR.'/dein_lazy.toml'
+
+    nnoremap <Leader>ed :edit $VIMFILE_DIR/dein.toml<CR>
+    nnoremap <Leader>el :edit $VIMFILE_DIR/dein_lazy.toml<CR>
+    if has('vim_starting')
+        if !isdirectory(expand(s:dein_repo_dir))
+            echo 'install dein.vim...'
+            call system('git clone git://github.com/Shougo/dein.vim '.s:dein_repo_dir)
+		endif
     endif
     let s:dein_repo_dir = s:dein_dir.'/repos/github.com/Shougo/dein.vim/'
     let s:dein_toml = $VIMRC_PLUGIN

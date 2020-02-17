@@ -25,6 +25,13 @@ function fzf_edit
     end
 end
 
+function fzf_cd
+    find ./ -type d | fzf | read select_line
+    if [ $select_line ]
+        eval cd $select_line
+    end
+end
+
 abbr vst vagrant status
 abbr vup vagrant up
 
@@ -81,6 +88,7 @@ function fish_user_key_bindings
   bind \cs peco_ssh
   bind \cr peco_history
   bind \cv fzf_edit
+  bind \cc fzf_cd
   bind \x1d peco_z # => Ctrl=]
 end
 

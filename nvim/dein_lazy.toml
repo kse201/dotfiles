@@ -3,118 +3,27 @@
 [[plugins]] # deoplete {{{
 repo = 'Shougo/deoplete.nvim'
 on_event = 'InsertEnter'
-hook_add = '''
-    let g:deoplete#enable_at_startup = 1
-    set completeopt+=menuone
-    let g:deoplete#auto_complete_delay = 0
-    let g:deoplete#auto_complete_start_length = 2
-    let g:deoplete#enable_camel_case = 0
-    let g:deoplete#enable_ignore_case = 1
-    let g:deoplete#enable_refresh_always = 0
-    let g:deoplete#enable_smart_case = 1
-    let g:deoplete#file#enable_buffer_path = 1
-    let g:deoplete#max_list = 10
-'''
+hook_add = 'source $VIMFILE_DIR/_config/deoplete.vim'
 if = ''' has('python3') '''
+if = 0
 # }}}
 
 [[plugins]] # ALE {{{
 repo = 'w0rp/ale'
+if = 0
 depends = ['LanguageClient-neovim']
 on_event = ['BufEnter', 'FileType']
 on_if = '''has_key(g:LanguageClient_serverCommands, &filetype) == 0'''
-hook_add = '''
-" let g:ale_ruby_rubocop_options='--config .rubocop_todo.yml'
-let g:ale_ansible_ansible_lint_executable  = "ansible-lint"
-let g:ale_echo_msg_error_str = "\uf188 "
-let g:ale_echo_msg_warning_str = "\uf071 "
-let g:ale_echo_msg_format = '[%linter%] [%severity%] %s'
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
-
-function ALEEnableXorLSP()
-    if has_key(g:LanguageClient_serverCommands, &filetype)
-        ALEDisable
-    else
-        ALEEnableBuffer
-    endif
-endfunction
-
-autocmd FileType * call ALEEnableXorLSP()
-'''
+hook_add = 'source $VIMFILE_DIR/_config/ale.vim'
 # }}}
 
 [[plugins]] # LanguageClient {{{
 repo = 'autozimu/LanguageClient-neovim'
 rev = 'next'
+if = 0
 build = 'bash install.sh'
-on_ft = ['python', 'c', 'ruby', 'javascript', 'rust']
-hook_add = '''
-    set hidden
-    let g:LanguageClient_autoStart = 1
-    let g:LanguageClient_selectionUI = "quickfix"
-    let g:LanguageClient_serverCommands = {
-        \ 'c': ['clangd'],
-        \ 'python': ['pyls', '-vv', '--log-file', '/tmp/pyls.log'],
-        \ 'ruby': ['solargraph', 'stdio'],
-        \ 'javascript': ['/home/vagrant/.yarn/bin/javascript-typescript-stdio'],
-        \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
-        \ 'dockerfile': ['docker-langserver', '--stdio'],
-        \ 'rust': ['rustup', 'run', 'beta', 'rls'],
-        \ }
-
-    function LC_maps()
-      if has_key(g:LanguageClient_serverCommands, &filetype)
-        nnoremap <buffer> <silent> K :call LanguageClient#textDocument_hover()<cr>
-        nnoremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
-        nnoremap <buffer> <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-        nnoremap <silent> <F3> :call LanguageClient_textDocument_references()<CR>
-      endif
-    endfunction
-
-    autocmd FileType * call LC_maps()
-    let g:LanguageClient_loggingFile = expand('/tmp/LanguageClient.log')
-    let g:LanguageClient_loggingLevel = 'DEBUG'
-'''
-# }}}
-
-[[plugins]] # QuickRun {{{
-repo = 'thinca/vim-quickrun'
-on_ft = ['javascript', 'coffee', 'ruby', 'c', 'rust', 'python']
-
-hook_add = '''
-let g:quickrun_config = {
-            \ 'javascript': {
-            \ "command": "node"
-            \ },
-            \ "coffeescript": {
-            \ "command": "coffee"
-            \ }
-            \ }
-
-let g:quickrun_config._ = {
-            \ 'split'   : 'rightbelow 10sp'
-            \}
-nnoremap <silent><F5>  :QuickRun<CR>
-'''
-# }}}
-
-[[plugins]] # rest-console {{{
-repo = 'diepm/vim-rest-console'
-hook_add = '''
-    let g:vrc_curl_opts = {
-      \ '-k': '',
-      \ '-s': ''
-    \}
-    let s:vrc_auto_format_response_patterns = {
-      \ 'json': 'jq',
-      \ 'xml': 'xmllint --format -',
-    \}
-   let b:vrc_response_default_content_type = 'application/json'
-   let g:vrc_show_command = 1
-'''
-if = ''' executable('curl') '''
-on_ft = ['rest']
+on_ft = ['python', 'c', 'ruby', 'javascript', 'rust', 'sql']
+hook_add = 'source $VIMFILE_DIR/_config/LanguageClient.vim'
 # }}}
 
 [[plugins]] # table mode {{{
@@ -171,6 +80,17 @@ on_ft = ['slim']
 repo = 'fishbullet/deoplete-ruby'
 on_ft = ['ruby']
 depends = ['deoplete.nvim']
+if = 0
+# }}}
+
+## Python {{{
+[[plugins]]
+repo = 'jmcantrell/vim-virtualenv'
+on_ft = ['python']
+
+[[plugins]]
+repo = 'Vimjas/vim-python-pep8-indent'
+on_ft = ['python']
 # }}}
 
 ### PlantUML {{{
