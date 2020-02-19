@@ -31,9 +31,7 @@ depends = ['denite.nvim']
 
 [[plugins]] # {{{
 repo = 'ctrlpvim/ctrlp.vim'
-hook_add = '''
-""let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|build'
-'''
+hook_add = 'source $VIMFILE_DIR/_config/ctrlp.vim'
 # }}}
 # }}}
 
