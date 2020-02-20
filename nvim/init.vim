@@ -55,19 +55,16 @@ if has('nvim')
     let $VIMFILE_DIR   = $HOME.'/.config/nvim'
     let $VIMRC         = $VIMFILE_DIR.'/init.vim'
     let $GVIMRC        = $VIMFILE_DIR.'/gvim.vim'
-    let $VIMRC_PLUGIN  = $VIMFILE_DIR.'/dein.toml'
 else
     let $VIMFILE_DIR   = $HOME.'/.vim'
     let $VIMRC         = $HOME.'/.vimrc'
     let $GVIMRC        = $HOME.'/.gvimrc'
-    let $VIMRC_PLUGIN  = $VIMFILE_DIR.'/dein.toml'
 end
 " }}}
 
 " edit configs {{{
 nnoremap <Leader>ev :edit $VIMRC<CR>
 nnoremap <Leader>eg :edit $GVIMRC<CR>
-nnoremap <Leader>ep :edit $VIMRC_PLUGIN<CR>
 " }}}
 " }}}
 
@@ -110,7 +107,7 @@ endif
 set notitle
   \ display=uhex
   \ scrolloff=1
-  \ showbreak=+
+  \ showbreak=↪
   \ display=lastline
   \ laststatus=2
   \ statusline=%F%m%h%w\ %<[%{&fenc!=''?&fenc:&enc}]\ [%{&ff}]\ [%Y]\ %=(0x%02B)\ [%l/%L(%02v)]
@@ -347,67 +344,137 @@ endif
 " }}}
 
 " Plugin {{{
-if has('nvim') || v:version >= 800
-    " dein.vim{{{
-    "
-    augroup dein_toml
-        autocmd BufEnter dein*.toml setlocal fdm=marker fdl=0
-    augroup END
+" vim-plug.vim{{{
 
-    filetype plugin indent off
-    if has('nvim')
-        let s:dein_dir = $HOME.'/.local/share/nvim/dein'
-    else
-        let s:dein_dir = $HOME.'/.cache/dein'
-    end
-    let s:dein_repo_dir = s:dein_dir.'/repos/github.com/Shougo/dein.vim/'
-    let s:dein_toml = $VIMFILE_DIR.'/dein.toml'
-    let s:lazy_toml = $VIMFILE_DIR.'/dein_lazy.toml'
-    
-    nnoremap <Leader>ed :edit $VIMFILE_DIR/dein.toml<CR>
-    nnoremap <Leader>el :edit $VIMFILE_DIR/dein_lazy.toml<CR>
-    if has('vim_starting')
-        if !isdirectory(expand(s:dein_repo_dir))
-            echo 'install dein.vim...'
-            call system('git clone git://github.com/Shougo/dein.vim '.s:dein_repo_dir)
-		endif
-    endif
-    let s:dein_repo_dir = s:dein_dir.'/repos/github.com/Shougo/dein.vim/'
-    let s:dein_toml = $VIMRC_PLUGIN
-    let s:lazy_toml = $VIMFILE_DIR.'/dein_lazy.toml'
+if has('nvim')
+    let s:plug_dir = $HOME.'/.local/share/nvim/plugged'
+else
+    let s:plug_dir = $HOME.'/.cache/vim-plugged'
+end
+let g:vim_plug_repo_dir = s:plug_dir.'/vim-plug'
 
-    nnoremap <Leader>ed :edit $VIMRC_PLUGIN<CR>
-    if has('vim_starting')
-        if !isdirectory(expand(s:dein_repo_dir))
-            echo 'install dein.vim...'
-            call system('git clone git://github.com/Shougo/dein.vim '.s:dein_repo_dir)
-        endif
-        exe 'set rtp+='.s:dein_repo_dir
-    endif
-    let g:dein#install_process_timeout=600
-
-    if dein#load_state(s:dein_dir)
-        call dein#begin(s:dein_dir)
-        call dein#load_toml(s:dein_toml, {'lazy': 0})
-        call dein#load_toml(s:lazy_toml, {'lazy': 1})
-        call dein#end()
-        call dein#save_state()
-    endif
-    autocmd MyAutoCmd VimEnter * call dein#call_hook('post_source')
-
-    filetype plugin indent on
-    syntax enable
-
-    " install plugins
-    if dein#check_install()
-        call dein#install()
+if has('vim_starting')
+    if !isdirectory(expand(g:vim_plug_repo_dir))
+        echo 'install vim-plug.vim...'
+        call system('git clone git://github.com/junegunn/vim-plug '.g:vim_plug_repo_dir.'/autoload')
     endif
 
-    call map(dein#check_clean(), "delete(v:val, 'rf')")
+    exe 'set rtp+='.g:vim_plug_repo_dir
 endif
+
+call plug#begin(s:plug_dir)
+Plug 'junegunn/vim-plug',
+            \ {'dir': g:vim_plug_repo_dir.'/autoload'}
+
+Plug 'Shougo/vimproc.vim'
+
+Plug 'ctrlpvim/ctrlp.vim'
+
+Plug 'itchyny/lightline.vim'
+Plug 'ryanoasis/vim-devicons'
+
+Plug 'tomasr/molokai'
+
+Plug 'osyo-manga/vim-precious'
+Plug 'Shougo/context_filetype.vim'
+
+Plug 'airblade/vim-rooter'
+
+Plug 'scrooloose/nerdtree'
+
+Plug 'jistr/vim-nerdtree-tabs'
+
+if version >= 800
+    Plug 'mattn/sonictemplate-vim'
+endif
+
+Plug 'majutsushi/tagbar'
+Plug 'h1mesuke/vim-alignta'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'tpope/vim-fugitive'
+Plug 'vim-scripts/The-NERD-Commenter'
+Plug 'kana/vim-smartinput'
+
+if !has('kaoriya')
+    Plug 'vim-scripts/scratch-utility'
+endif
+
+if has('nvim') || version >= 800
+    Plug 'vim-jp/vimdoc-ja'
+endif
+
+if has('nvim') || version >= 800
+    Plug 'prabirshrestha/async.vim'
+    Plug 'prabirshrestha/asyncomplete.vim'
+    Plug 'prabirshrestha/asyncomplete-lsp.vim'
+    Plug 'prabirshrestha/vim-lsp'
+
+    Plug 'mattn/vim-lsp-settings'
+    Plug 'mattn/vim-lsp-icons'
+
+    Plug 'hrsh7th/vim-vsnip'
+    Plug 'hrsh7th/vim-vsnip-integ'
+endif
+
+Plug 'mattn/emmet-vim', {'for': ['html', 'erb', 'eruby']}
+Plug 'udalov/kotlin-vim', {'for': 'kotlin'}
+Plug 'fatih/vim-go', {'for': 'go'}
+Plug 'jelera/vim-javascript-syntax', {'for': 'javascript'}
+Plug 'kchmck/vim-coffee-script', {'for': 'coffee'}
+Plug 'slim-template/vim-slim', {'for': 'slim'}
+Plug 'fishbullet/deoplete-ruby', {'for': 'ruby'}
+Plug 'jmcantrell/vim-virtualenv', {'for': 'python'}
+Plug 'Vimjas/vim-python-pep8-indent', {'for': 'python'}
+Plug 'aklt/plantuml-syntax', {'for': 'puml'}
+Plug 'martinda/Jenkinsfile-vim-syntax', {'for': 'Jenkinsfile'}
+Plug 'dag/vim-fish', {'for': 'fish'}
+Plug 'rust-lang/rust.vim', {'for': 'rust'}
+Plug 'mrk21/yaml-vim', {'for': 'yaml'}
+Plug 'pearofducks/ansible-vim', {'for': 'yaml'}
+call plug#end()
+
+let s:plugin_config = glob($VIMFILE_DIR."/_config/*")
+let s:splitted = split(s:plugin_config, "\n")
+for s:file in s:splitted
+    exec "source ".s:file
+endfor
+
+colorscheme molokai
+
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {}
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['md'] = "\uf48a"
+
+let g:NERDTreeIgnore = [
+            \ '^__pycache__$',
+            \ '.pyc$',
+            \]
+
+let g:sonictemplate_vim_template_dir = [
+            \ '~/.vim/templates'
+            \]
+
+let g:tagbar_autoshowtag = 1
+nnoremap <silent><F11>  :Tagbar<CR>
+let g:tagbar_type_ruby = {
+    \ 'kinds' : [
+        \ 'm:modules',
+        \ 'c:classes',
+        \ 'd:describes',
+        \ 'C:contexts',
+        \ 'f:methods',
+        \ 'F:singleton methods'
+    \ ]
+\ }
+
+let g:table_mode_corner_corner='+'
+let g:table_mode_header_fillchar='='
+
+let g:user_emmet_leader_key='<C-e>'
+
+let g:rustfmt_autosave = 1
 " }}}
 " }}}
 
 syntax on
 "============================================================
-" vim:tw=0 tabstop=4 shiftwidth=4 fdm=marker fdl=0
+" vim:tw=0 tabstop=4 shiftwidth=4 fdm=marker

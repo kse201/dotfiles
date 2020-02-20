@@ -15,9 +15,6 @@
     fscache      = true
     attributesfile = /home/vagrant/.gitattributes
 
-[pager]
-	diff = diff-so-fancy | less --tabs=4 -RFX --pattern='^(added|deleted|modified): '
-
 [color "diff-highlight"]
     oldNormal = red bold
     oldHighlight = red bold 52
@@ -52,9 +49,8 @@
     insteadOf = git://
 
 [user]
-    useconfigonly = true
-    name = kse201
-    email = kse.201@gmail.com
+	name = kse201
+	email = kse.201@gmail.com
 
 [merge]
     tool = vimdiff
@@ -151,3 +147,9 @@
 [credential]
     helper = store --file ~/.git-credentials
     helper = cache --timeout 30000
+
+[includeIf "gitdir:~/.ghq/office/"]
+    path = ~/.ghq/office/.gitconfig
+
+[ghq]
+    root = ~/.ghq

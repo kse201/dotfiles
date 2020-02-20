@@ -2,101 +2,22 @@
 
 [[plugins]]
 repo = 'Shougo/dein.vim'
+if = """ has('nvim') || v:version >= 800 """
 
 [[plugins]]
 repo = 'wsdjeg/dein-ui.vim'
+depends = ['dein.vim']
 
-[[plugins]] # {{{
+[[plugins]]
 repo = 'Shougo/vimproc.vim'
-# hook_post_update = '''
-    # if dein#util#_is_windows()
-        # let cmd = 'tools\\update-dll-mingw'
-    # elseif dein#util#_is_cygwin()
-        # let cmd = 'make -f make_cygwin.mak'
-    # elseif dein#util#_is_mac()
-        # let cmd = 'make -f make_cygwin.mak'
-    # elseif executable('gmake')
-        # let cmd = 'gmake'
-    # else
-        # let cmd = 'make'
-    # endif
-    # let g:dein#plugin.build = cmd
-# '''
-# }}}
 # }}}
 
 ## Fuzzy Interface {{{
 [[plugins]] #{{{
 repo = 'Shougo/denite.nvim'
 if = ''' has('python3') '''
-hook_post_source = '''
-    let s:ignore_globs = [
-      \ '.git',
-      \ '.svn',
-      \ '.tox',
-      \ 'node_modules',
-      \ '*.pyc'
-      \ ]
-    " call denite#custom#map('insert', '<C-p>', '<denite:move_to_previous_line>')
-    " call denite#custom#map('insert', '<C-n>', '<denite:move_to_next_line>')
-	call denite#custom#source('file_mru', 'matchers', ['matcher/fuzzy', 'matcher/project_files'])
-    call denite#custom#var('file/rec', 'command', [
-      \ 'ag',
-      \ '--follow',
-      \ ] + map(deepcopy(s:ignore_globs), { k, v -> '--ignore=' . v }) + [
-      \ '--nocolor',
-      \ '--nogroup',
-      \ '-g',
-      \ ''
-      \ ])
-    call denite#custom#filter('matcher/ignore_globs', 'ignore_globs', s:ignore_globs)
-    call denite#custom#var('grep', 'command', ['ag'])
-    call denite#custom#var('grep', 'recursive_opts', [])
-    call denite#custom#var('grep', 'pattern_opt', [])
-    call denite#custom#var('grep', 'default_opts', ['--follow', '--no-group', '--no-color'])
-'''
-
-hook_add = '''
-    nmap <Leader>a <SID>[denite]
-    nnoremap <SID>[denite] <Nop>
-
-    command! DeniteBuffer Denite buffer
-    command! DeniteFile Denite file/rec
-    command! DeniteGrep Denite grep -buffer-name=search-buffer-denite
-    command! DeniteGrepResume Denite -resume -buffer-name=search-buffer-denite
-    command! DeniteRegister Denite register
-    command! DeniteCommand Denite command
-    command! DeniteYank Denite yank
-    command! DeniteMru Denite file_mru
-    command! DeniteLine Denite line
-
-    nnoremap <silent> <SID>[denite]b :<C-u>DeniteBuffer<CR>
-    nnoremap <silent> <SID>[denite]f :<C-u>DeniteFile<CR>
-    nnoremap <silent> <SID>[denite]g :<C-u>DeniteGrep<CR>
-    nnoremap <silent> <SID>[denite]r :<C-u>DeniteGrepResume<CR>
-    " nnoremap <silent> <SID>[denite]r :<C-u>DeniteRegister<CR>
-    " nnoremap <silent> <SID>[denite]l :<C-u>DeniteLine<CR>
-    " nnoremap <silent> <SID>[denite]c :<C-u>DeniteCommand<CR>
-    " nnoremap <silent> <SID>[denite]y :<C-u>DeniteYank<CR>
-    nnoremap <silent> <SID>[denite]m :<C-u>DeniteMru<CR>
-	autocmd FileType denite call s:denite_my_settings()
-	function! s:denite_my_settings() abort
-	  nnoremap <silent><buffer><expr> <CR>
-	  \ denite#do_map('do_action')
-	  nnoremap <silent><buffer><expr> d
-	  \ denite#do_map('do_action', 'delete')
-	  nnoremap <silent><buffer><expr> p
-	  \ denite#do_map('do_action', 'preview')
-	  nnoremap <silent><buffer><expr> q
-	  \ denite#do_map('quit')
-	  nnoremap <silent><buffer><expr> i
-	  \ denite#do_map('open_filter_buffer')
-	  nnoremap <silent><buffer><expr> <Space>
-	  \ denite#do_map('toggle_select').'j'
-	  nnoremap <silent><buffer><expr> <Tab>
-	  \ denite#do_map('choose_action')
-	endfunction
-'''
+hook_post_source = 'source $VIMFILE_DIR/_config/denite/post.vim'
+hook_add = 'source $VIMFILE_DIR/_config/denite/hook.vim'
 # }}}
 
 [[plugins]]
@@ -106,11 +27,13 @@ repo = 'Shougo/neomru.vim'
 repo = 'notomo/denite-keymap'
 depends = ['denite.nvim']
 
+[[plugins]]
+repo = 'Shougo/neoyank.vim'
+depends = ['denite.nvim']
+
 [[plugins]] # {{{
 repo = 'ctrlpvim/ctrlp.vim'
-hook_add = '''
-""let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|build'
-'''
+hook_add = 'source $VIMFILE_DIR/_config/ctrlp.vim'
 # }}}
 # }}}
 
@@ -119,75 +42,8 @@ hook_add = '''
 [[plugins]] #{{{
 repo = 'itchyny/lightline.vim'
 depends = ['fugitive.vim', 'vim-devicons']
-hook_post_source = '''
-    call lightline#enable()
-'''
-hook_add = '''
-function! LSPStatus() abort
-    let l:errors = 0
-    let l:warnings = 0
-    for item in getqflist()
-        if item["type"] == "E"
-            let l:errors += 1
-        else
-            let l:warnings += 1
-        endif
-    endfor
-    " Error =>  , Warning => 
-    return l:errors + l:warnings == 0 ? "" : "\uf188 :" . l:errors . " " . "\uf071 :" . l:warnings
-endfunction
-
-function! LightlineModified()
-    return &ft =~ 'help\|vimfiler' ? '' : &modified ? '+' : &modifiable ? '' : '-'
-endfunction
-
-function! LightlineReadonly()
-  return &ft !~? 'help' && &readonly ?  "\ue0a2" : ''
-endfunction
-
-function! LightlineFilename()
-    return ('' != LightlineReadonly() ? LightlineReadonly() . ' ' : '') .
-                \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
-                \  &ft == 'unite' ? unite#get_status_string() :
-                \  &ft == 'vimshell' ? vimshell#get_status_string() :
-                \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
-                \ ('' != LightlineModified() ? ' ' . LightlineModified() : '')
-endfunction
-
-function! LightlineFugitive()
-    if &ft !~? 'vimfiler' && exists('*fugitive#head')
-        let branch = fugitive#head()
-        " 
-        return branch !=# '' ? "\ue0a0 ".branch : ''
-    endif
-    return ''
-endfunction
-
-function! MyFiletype()
-    " return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
-    return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' : 'no ft') : ''
-endfunction
-
-function! MyFileformat()
-    " return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
-    return winwidth(0) > 70 ? (&fileformat . ' ' ) : ''
-endfunction
-
-let g:lightline = {
-            \ 'active': {
-            \ 'left': [ [ 'mode', 'paste' ],
-            \           [ 'fugitive', 'filename' ],
-            \           [ 'lsp' ] ],
-            \ },
-            \ 'component_function': {
-		    \   'fugitive': 'LightlineFugitive',
-		    \   'filename': 'LightlineFilename',
-            \   'filetype': 'MyFiletype',
-            \   'fileformat': 'MyFileformat',
-            \   'lsp': 'LSPStatus',
-            \ }
-            \}
-'''
+hook_post_source = 'call lightline#enable()'
+hook_add = 'source $VIMFILE_DIR/_config/lightline.vim'
 # }}}
 
 [[plugins]]
@@ -214,41 +70,18 @@ repo = 'Shougo/context_filetype.vim'
 
 [[plugins]] # {{{
 repo = 'airblade/vim-rooter'
-hook_add = '''
-let g:rooter_change_directory_for_non_project_files = 'current'
-let g:rooter_patterns = [
-  \ 'README.md',
-  \ 'Cargo.toml',
-  \ 'package.json',
-  \ 'Makefile',
-  \ 'Rakefile',
-  \ '.git/']
-'''
+hook_add = 'source $VIMFILE_DIR/_config/vim-rooter.vim'
 # }}}
 
 [[plugins]] #{{{
 repo = 'scrooloose/nerdtree'
-hook_add = '''
-    nmap <C-n> :NERDTreeToggle<CR>
-    let NERDTreeShowBookmarks=1
-    let g:NERDTreeDirArrows = 1
-    let g:NERDTreeDirArrowExpandable  = '|'
-    let g:NERDTreeDirArrowCollapsible = '>'
-
-    function! NERDTreeHighlightFile(extension, fg, bg)
-        exec 'autocmd filetype nerdtree syn match NERDTreeTxtFile #^\s\+.*'. a:extension .'$#'
-        exec 'autocmd filetype nerdtree highlight NERDTreeTxtFile ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:bg .' guifg='. a:fg
-    endfunction
-
-    call NERDTreeHighlightFile('md',     'blue',    'black')
-'''
+hook_add = 'source $VIMFILE_DIR/_config/nerdtree.vim'
 # }}}
 
 [[plugins]] #{{{
 repo = 'jistr/vim-nerdtree-tabs'
 hook_add = '''
 let g:NERDTreeIgnore = [
-\ '^build$',
 \ '^__pycache__$',
 \ '.pyc$',
 \]
@@ -260,7 +93,7 @@ depends = ['nerdtree.vim']
 repo = 'mattn/sonictemplate-vim'
 hook_add = '''
 let g:sonictemplate_vim_template_dir = [
-     \ '~/.vim/template'
+     \ '~/.vim/templates'
       \]
 '''
 
@@ -291,6 +124,7 @@ repo = 'editorconfig/editorconfig-vim'
 
 [[plugins]]
 repo = 'tbodt/deoplete-tabnine'
+if = 0
 build = './install.sh'
 
 [[plugins]]
@@ -298,12 +132,7 @@ repo = 'tpope/vim-fugitive'
 
 [[plugins]] #{{{
 repo = 'vim-scripts/The-NERD-Commenter'
-hook_add = '''
-    let g:NERDCreateDefaultMappings = 0
-    let g:NERDSpaceDelims           = 1
-    nmap <Leader>c <Plug>NERDCommenterToggle
-    vmap <Leader>c <Plug>NERDCommenterToggle
-'''
+hook_add = 'source $VIMFILE_DIR/_config/The-NERD-Commenter.vim'
 # }}}
 
 [[plugins]]
@@ -317,5 +146,27 @@ if = ''' ! has('kaoriya') '''
 
 [[plugins]]  # Japanese doc {{{
 repo = 'vim-jp/vimdoc-ja'
-hook_add = 'set helplang=ja,en'
+hook_add = 'source $VIMFILE_DIR/_config/vimdoc.vim'
 # }}}
+
+[[plugins]]
+repo = 'prabirshrestha/async.vim'
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete.vim'
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete-lsp.vim'
+depends = ['asyncomplete.vim', 'vim-lsp']
+
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+hook_add = 'source $VIMFILE_DIR/_config/vim-lsp.vim'
+
+[[plugins]]
+repo = 'mattn/vim-lsp-settings'
+[[plugins]]
+repo = 'mattn/vim-lsp-icons'
+
+[[plugins]]
+repo = 'hrsh7th/vim-vsnip'
+[[plugins]]
+repo = 'hrsh7th/vim-vsnip-integ'
