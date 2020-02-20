@@ -65,7 +65,6 @@ end
 " edit configs {{{
 nnoremap <Leader>ev :edit $VIMRC<CR>
 nnoremap <Leader>eg :edit $GVIMRC<CR>
-nnoremap <Leader>ep :edit $VIMRC_PLUGIN<CR>
 " }}}
 " }}}
 
@@ -352,20 +351,20 @@ if has('nvim')
 else
     let s:plug_dir = $HOME.'/.cache/vim-plugged'
 end
-let s:vim_plug_repo_dir = s:plug_dir.'/vim-plug'
+let g:vim_plug_repo_dir = s:plug_dir.'/vim-plug'
 
 if has('vim_starting')
-    if !isdirectory(expand(s:vim_plug_repo_dir))
+    if !isdirectory(expand(g:vim_plug_repo_dir))
         echo 'install vim-plug.vim...'
-        call system('git clone git://github.com/junegunn/vim-plug '.s:vim_plug_repo_dir.'/autoload')
+        call system('git clone git://github.com/junegunn/vim-plug '.g:vim_plug_repo_dir.'/autoload')
     endif
 
-    exe 'set rtp+='.s:vim_plug_repo_dir
+    exe 'set rtp+='.g:vim_plug_repo_dir
 endif
 
 call plug#begin(s:plug_dir)
 Plug 'junegunn/vim-plug',
-            \ {'dir': '~/.local/share/nvim/plugged/vim-plug/autoload'}
+            \ {'dir': g:vim_plug_repo_dir.'/autoload'}
 
 Plug 'Shougo/vimproc.vim'
 
@@ -385,26 +384,37 @@ Plug 'scrooloose/nerdtree'
 
 Plug 'jistr/vim-nerdtree-tabs'
 
-Plug 'mattn/sonictemplate-vim'
+if version >= 800
+    Plug 'mattn/sonictemplate-vim'
+endif
+
 Plug 'majutsushi/tagbar'
 Plug 'h1mesuke/vim-alignta'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'tbodt/deoplete-tabnine'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-scripts/The-NERD-Commenter'
 Plug 'kana/vim-smartinput'
-Plug 'vim-scripts/scratch-utility'
-Plug 'vim-jp/vimdoc-ja'
 
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
-Plug 'prabirshrestha/vim-lsp'
+if !has('kaoriya')
+    Plug 'vim-scripts/scratch-utility'
+endif
 
-Plug 'mattn/vim-lsp-settings'
-Plug 'mattn/vim-lsp-icons'
-Plug 'hrsh7th/vim-vsnip'
-Plug 'hrsh7th/vim-vsnip-integ'
+if has('nvim') || version >= 800
+    Plug 'vim-jp/vimdoc-ja'
+endif
+
+if has('nvim') || version >= 800
+    Plug 'prabirshrestha/async.vim'
+    Plug 'prabirshrestha/asyncomplete.vim'
+    Plug 'prabirshrestha/asyncomplete-lsp.vim'
+    Plug 'prabirshrestha/vim-lsp'
+
+    Plug 'mattn/vim-lsp-settings'
+    Plug 'mattn/vim-lsp-icons'
+
+    Plug 'hrsh7th/vim-vsnip'
+    Plug 'hrsh7th/vim-vsnip-integ'
+endif
 
 Plug 'mattn/emmet-vim', {'for': ['html', 'erb', 'eruby']}
 Plug 'udalov/kotlin-vim', {'for': 'kotlin'}
