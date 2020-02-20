@@ -13,5 +13,4 @@ let g:ctrlp_custom_ignore = {
 let g:ctrlp_use_caching = 1
 let g:ctrlp_clear_cache_on_exit = 0
 
-
 let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:50'
