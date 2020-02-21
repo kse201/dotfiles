@@ -299,6 +299,10 @@ nnoremap G Gzz
 " Grep {{{
 " insert grep format
 nnoremap <expr> <Leader>g ':vimgrep /\<' . expand('<cword>') . '\>/j **/*.' . expand('%:e')
+if executable('ag')
+    set grepprg=ag\ --nogroup\ -iS
+    set grepformat=%f:%l:%m
+endif
 " }}}
 " }}}
 
@@ -351,22 +355,22 @@ if has('nvim')
 else
     let s:plug_dir = $HOME.'/.cache/vim-plugged'
 end
-let g:vim_plug_repo_dir = s:plug_dir.'/vim-plug'
+let b:vim_plug_repo_dir = s:plug_dir.'/vim-plug'
 
 if has('vim_starting')
-    if !isdirectory(expand(g:vim_plug_repo_dir))
+    if !isdirectory(expand(b:vim_plug_repo_dir))
         echo 'install vim-plug.vim...'
-        call system('git clone git://github.com/junegunn/vim-plug '.g:vim_plug_repo_dir.'/autoload')
+        call system('git clone git://github.com/junegunn/vim-plug '.b:vim_plug_repo_dir.'/autoload')
     endif
 
-    exe 'set rtp+='.g:vim_plug_repo_dir
+    exe 'set rtp+='.b:vim_plug_repo_dir
 endif
 
 call plug#begin(s:plug_dir)
 Plug 'junegunn/vim-plug',
-            \ {'dir': g:vim_plug_repo_dir.'/autoload'}
+            \ {'dir': b:vim_plug_repo_dir.'/autoload'}
 
-Plug 'Shougo/vimproc.vim'
+" Plug 'Shougo/vimproc.vim'
 
 Plug 'ctrlpvim/ctrlp.vim'
 
@@ -378,11 +382,11 @@ Plug 'tomasr/molokai'
 Plug 'osyo-manga/vim-precious'
 Plug 'Shougo/context_filetype.vim'
 
-Plug 'airblade/vim-rooter'
+" Plug 'airblade/vim-rooter'
 
 Plug 'scrooloose/nerdtree'
 
-Plug 'jistr/vim-nerdtree-tabs'
+" Plug 'jistr/vim-nerdtree-tabs'
 
 if version >= 800
     Plug 'mattn/sonictemplate-vim'
