@@ -153,3 +153,6 @@
 
 [ghq]
     root = ~/.ghq
+
+[hub]
+	protocol = https
