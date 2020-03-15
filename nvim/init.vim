@@ -395,7 +395,6 @@ endif
 Plug 'majutsushi/tagbar'
 Plug 'h1mesuke/vim-alignta'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'tpope/vim-fugitive'
 Plug 'vim-scripts/The-NERD-Commenter'
 Plug 'kana/vim-smartinput'
 
@@ -435,7 +434,9 @@ Plug 'dag/vim-fish', {'for': 'fish'}
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
 Plug 'mrk21/yaml-vim', {'for': 'yaml'}
 Plug 'pearofducks/ansible-vim', {'for': 'yaml'}
+Plug 'APZelos/blamer.nvim'
 call plug#end()
+let g:blamer_template="<commit-short> <committer>, <committer-time> • <summary>"
 
 let s:plugin_config = glob($VIMFILE_DIR."/_config/*")
 let s:splitted = split(s:plugin_config, "\n")
