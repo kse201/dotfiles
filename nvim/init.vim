@@ -435,6 +435,7 @@ Plug 'rust-lang/rust.vim', {'for': 'rust'}
 Plug 'mrk21/yaml-vim', {'for': 'yaml'}
 Plug 'pearofducks/ansible-vim', {'for': 'yaml'}
 Plug 'APZelos/blamer.nvim'
+Plug 'rhysd/vim-grammarous'
 call plug#end()
 let g:blamer_template="<commit-short> <committer>, <committer-time> • <summary>"
 

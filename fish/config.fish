@@ -130,6 +130,10 @@ if test -f (which pyenv)
     eval (pyenv init - | source)
 end
 
+if test -d $HOME/.yarn/bin
+    set -x PATH "$HOME/.yarn/bin/:$PATH"
+end
+
 function command_not_found_handler --on-event fish_command_not_found
     echo "ハァ...?「$argv[1]」とか何言ってんの ?"
 end
