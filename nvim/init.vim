@@ -425,7 +425,6 @@ Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'jelera/vim-javascript-syntax', {'for': 'javascript'}
 Plug 'kchmck/vim-coffee-script', {'for': 'coffee'}
 Plug 'slim-template/vim-slim', {'for': 'slim'}
-Plug 'fishbullet/deoplete-ruby', {'for': 'ruby'}
 Plug 'jmcantrell/vim-virtualenv', {'for': 'python'}
 Plug 'Vimjas/vim-python-pep8-indent', {'for': 'python'}
 Plug 'aklt/plantuml-syntax', {'for': 'puml'}
