@@ -1,5 +1,4 @@
 set -x PATH ( find $HOME/bin/ -type d ) (ls -d /usr/local/*bin) $PATH
-set -x PATH $HOME/.cargo/bin $PATH
 set -x PATH (gem environment gempath | sed 's/:/\\n/g' | xargs -I@ echo @/bin) $PATH
 set -x LANG ja_JP.UTF-8
 set -x LC_ALL ja_JP.UTF-8
@@ -124,11 +123,11 @@ end
 set -x PYTHONSTARTUP $HOME/.pythonrc.py
 
 
-set -x PYENV_ROOT "$HOME/.pyenv"
-set -x PATH "$PYENV_ROOT/bin:$PATH"
-if test -f (which pyenv)
-    eval (pyenv init - | source)
-end
+# set -x PYENV_ROOT "$HOME/.pyenv"
+# set -x PATH "$PYENV_ROOT/bin:$PATH"
+# if which pyenv > /dev/null and test -f (which pyenv)
+    # eval (pyenv init - | source)
+# end
 
 if test -d $HOME/.yarn/bin
     set -x PATH "$HOME/.yarn/bin/:$PATH"
@@ -147,5 +146,3 @@ end
 if test -f (which starship)
     eval (starship init fish)
 end
-
-thefuck --alias | source
