@@ -407,7 +407,6 @@ if has('nvim') || version >= 800
 endif
 
 if has('nvim') || version >= 800
-    Plug 'prabirshrestha/async.vim'
     Plug 'prabirshrestha/asyncomplete.vim'
     Plug 'prabirshrestha/asyncomplete-lsp.vim'
     Plug 'prabirshrestha/vim-lsp'
