@@ -23,6 +23,11 @@ let g:asyncomplete_popup_delay = 1000
 let g:lsp_text_edit_enabled = 1
 let g:lsp_insert_text_enabled = 1
 
+let g:lsp_signs_error = {'text': '✗'}
+let g:lsp_signs_warning = {'text': '‼'}
+let g:lsp_signs_information = {'text': 'i'}
+let g:lsp_signs_hint = {'text': '?'}
+
 
 
 
