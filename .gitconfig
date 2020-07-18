@@ -7,13 +7,17 @@
 [core]
     autocrlf     = false
     editor       = nvim
-    pager = diff-so-fancy | less --tabs=4 -RFX
+    pager = delta
     quotepath    = false
     preloadindex = true
     precomposeunicode = true
     untrackedCache = true
     fscache      = true
     attributesfile = /home/vagrant/.gitattributes
+
+; it's does not work for some diff files
+; [interactive]
+    ; diffFilter = delta --color-only
 
 [color "diff-highlight"]
     oldNormal = red bold
@@ -141,7 +145,8 @@
     statusHints = true
 [blame]
     date = relative
-[dif]
+
+[diff]
     renames = true
 
 [credential]
@@ -154,7 +159,19 @@
 [ghq]
     root = ~/.ghq
 
+[ghq "https://bps-github.pstg.paas.cloud.global.fujitsu.com"]
+    root = ~/.ghq/office
 [hub]
 	protocol = https
 [pull]
 	ff = only
+
+[delta]
+    features = decorations
+    whitespace-error-style = 22 reverse
+	side-by-side = true
+
+[delta "decorations"]
+    commit-decoration-style = bold yellow box ul
+    file-style = bold yellow ul
+    file-decoration-style = none
