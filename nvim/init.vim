@@ -384,7 +384,14 @@ Plug 'Shougo/context_filetype.vim'
 
 " Plug 'airblade/vim-rooter'
 
-Plug 'scrooloose/nerdtree'
+Plug 'lambdalisue/fern.vim'
+Plug 'lambdalisue/fern-git-status.vim'
+Plug 'lambdalisue/fern-renderer-devicons.vim'
+Plug 'lambdalisue/fern-hijack.vim'
+Plug 'lambdalisue/fern-mapping-git.vim'
+Plug 'lambdalisue/fern-mapping-project-top.vim'
+Plug 'LumaKernel/fern-mapping-fzf.vim'
+Plug 'LumaKernel/fern-mapping-reload-all.vim'
 
 " Plug 'jistr/vim-nerdtree-tabs'
 
