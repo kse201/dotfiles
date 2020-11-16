@@ -390,10 +390,10 @@ Plug 'lambdalisue/fern-renderer-devicons.vim'
 Plug 'lambdalisue/fern-hijack.vim'
 Plug 'lambdalisue/fern-mapping-git.vim'
 Plug 'lambdalisue/fern-mapping-project-top.vim'
-Plug 'LumaKernel/fern-mapping-fzf.vim'
+if executable('fzf')
+    Plug 'LumaKernel/fern-mapping-fzf.vim'
+endif
 Plug 'LumaKernel/fern-mapping-reload-all.vim'
-
-" Plug 'jistr/vim-nerdtree-tabs'
 
 if version >= 800
     Plug 'mattn/sonictemplate-vim'
@@ -427,7 +427,7 @@ endif
 
 Plug 'mattn/emmet-vim', {'for': ['html', 'erb', 'eruby']}
 Plug 'udalov/kotlin-vim', {'for': 'kotlin'}
-Plug 'fatih/vim-go', {'for': 'go'}
+" Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'jelera/vim-javascript-syntax', {'for': 'javascript'}
 Plug 'kchmck/vim-coffee-script', {'for': 'coffee'}
 Plug 'slim-template/vim-slim', {'for': 'slim'}
@@ -457,11 +457,6 @@ colorscheme molokai
 
 let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {}
 let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['md'] = "\uf48a"
-
-let g:NERDTreeIgnore = [
-            \ '^__pycache__$',
-            \ '.pyc$',
-            \]
 
 let g:sonictemplate_vim_template_dir = [
             \ '~/.vim/templates'

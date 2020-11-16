@@ -1,3 +1,11 @@
+UsePlugin 'fern.vim'
+UsePlugin 'fern-git-status.vim'
+UsePlugin 'fern-renderer-devicons.vim'
+UsePlugin 'fern-hijack.vim'
+UsePlugin 'fern-mapping-git.vim'
+UsePlugin 'fern-mapping-project-top.vim'
+UsePlugin 'fern-mapping-reload-all.vim'
+
 let g:fern#renderer = "devicons"
 
 " Keymap

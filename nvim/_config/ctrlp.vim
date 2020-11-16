@@ -1,3 +1,4 @@
+UsePlugin 'ctrlp.vim'
 " let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|build\|venv|.venv'
 let g:ctrp_cmd='CtrlPMixed'
 

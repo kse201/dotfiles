@@ -1,3 +1,4 @@
+UsePlugin 'lightline.vim'
 function! LSPStatus() abort
     let l:errors = 0
     let l:warnings = 0
