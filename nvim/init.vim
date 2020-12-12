@@ -384,9 +384,16 @@ Plug 'Shougo/context_filetype.vim'
 
 " Plug 'airblade/vim-rooter'
 
-Plug 'scrooloose/nerdtree'
-
-" Plug 'jistr/vim-nerdtree-tabs'
+Plug 'lambdalisue/fern.vim'
+Plug 'lambdalisue/fern-git-status.vim'
+Plug 'lambdalisue/fern-renderer-devicons.vim'
+Plug 'lambdalisue/fern-hijack.vim'
+Plug 'lambdalisue/fern-mapping-git.vim'
+Plug 'lambdalisue/fern-mapping-project-top.vim'
+if executable('fzf')
+    Plug 'LumaKernel/fern-mapping-fzf.vim'
+endif
+Plug 'LumaKernel/fern-mapping-reload-all.vim'
 
 if version >= 800
     Plug 'mattn/sonictemplate-vim'
@@ -420,7 +427,7 @@ endif
 
 Plug 'mattn/emmet-vim', {'for': ['html', 'erb', 'eruby']}
 Plug 'udalov/kotlin-vim', {'for': 'kotlin'}
-Plug 'fatih/vim-go', {'for': 'go'}
+" Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'jelera/vim-javascript-syntax', {'for': 'javascript'}
 Plug 'kchmck/vim-coffee-script', {'for': 'coffee'}
 Plug 'slim-template/vim-slim', {'for': 'slim'}
@@ -439,21 +446,19 @@ Plug 'simeji/winresizer'
 call plug#end()
 let g:blamer_template="<commit-short> <committer>, <committer-time> • <summary>"
 
-let s:plugin_config = glob($VIMFILE_DIR."/_config/*")
-let s:splitted = split(s:plugin_config, "\n")
-for s:file in s:splitted
-    exec "source ".s:file
-endfor
+let s:plugs = get(s:, 'plugs', get(g:, 'plugs', {}))
+function! FindPlugin(name) abort
+  return has_key(s:plugs, a:name) ? isdirectory(s:plugs[a:name].dir) : 0
+endfunction
+command! -nargs=1 UsePlugin if !FindPlugin(<args>) | finish | endif
+
+runtime! _config/*.vim
+
 
 colorscheme molokai
 
 let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {}
 let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['md'] = "\uf48a"
-
-let g:NERDTreeIgnore = [
-            \ '^__pycache__$',
-            \ '.pyc$',
-            \]
 
 let g:sonictemplate_vim_template_dir = [
             \ '~/.vim/templates'
