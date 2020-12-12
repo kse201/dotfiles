@@ -164,7 +164,8 @@
 [hub]
 	protocol = https
 [pull]
-	ff = only
+	; ff = only
+    rebase = false
 
 [delta]
     features = decorations
