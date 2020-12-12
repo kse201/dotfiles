@@ -434,6 +434,8 @@ Plug 'mrk21/yaml-vim', {'for': 'yaml'}
 Plug 'pearofducks/ansible-vim', {'for': 'yaml'}
 Plug 'APZelos/blamer.nvim'
 Plug 'rhysd/vim-grammarous'
+Plug 'simeji/winresizer'
+
 call plug#end()
 let g:blamer_template="<commit-short> <committer>, <committer-time> • <summary>"
 

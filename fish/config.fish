@@ -146,3 +146,8 @@ end
 if test -f (which starship)
     eval (starship init fish)
 end
+
+
+set -x GOENV_DISABLE_GOPATH 1
+set -x PATH $HOME/.anyenv/bin $PATH
+eval (anyenv init - | source)
