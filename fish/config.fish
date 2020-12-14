@@ -142,3 +142,7 @@ end
 if test -f (which starship)
     eval (starship init fish)
 end
+
+if test -f (which docker-compose)
+    abbr dc  docker-compose
+end
