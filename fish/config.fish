@@ -146,3 +146,7 @@ end
 if test -f (which docker-compose)
     abbr dc  docker-compose
 end
+
+set -x GOENV_DISABLE_GOPATH 1
+set -x PATH $HOME/.anyenv/bin $PATH
+eval (anyenv init - | source)
