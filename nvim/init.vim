@@ -399,6 +399,9 @@ if version >= 800
     Plug 'mattn/sonictemplate-vim'
 endif
 
+Plug 'tpope/vim-surround'
+Plug 'junegunn/rainbow_parentheses.vim'
+
 Plug 'majutsushi/tagbar'
 Plug 'h1mesuke/vim-alignta'
 Plug 'editorconfig/editorconfig-vim'
@@ -439,7 +442,11 @@ Plug 'dag/vim-fish', {'for': 'fish'}
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
 Plug 'mrk21/yaml-vim', {'for': 'yaml'}
 Plug 'pearofducks/ansible-vim', {'for': 'yaml'}
+
+" Git extention
+Plug 'airblade/vim-gitgutter'
 Plug 'APZelos/blamer.nvim'
+
 Plug 'rhysd/vim-grammarous'
 Plug 'simeji/winresizer'
 
