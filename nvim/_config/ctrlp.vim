@@ -11,6 +11,13 @@ let g:ctrlp_custom_ignore = {
             \ 'link': 'some_bad_symbolic_links',
             \ }
 
+let g:ctrlp_prompt_mappings = {
+            \ 'ToggleType(1)':        ['<c-l>', '<c-up>'],
+            \ 'ToggleType(-1)':       ['<c-h>', '<c-down>'],
+            \ 'PrtCurLeft()':         ['<left>', '<c-^>'],
+            \ 'PrtCurRight()':        ['<right>'],
+            \ }
+
 let g:ctrlp_use_caching = 1
 let g:ctrlp_clear_cache_on_exit = 0
 
