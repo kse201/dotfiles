@@ -60,6 +60,7 @@ else
     let $VIMRC         = $HOME.'/.vimrc'
     let $GVIMRC        = $HOME.'/.gvimrc'
 end
+set rtp+=$VIMFILE_DIR
 " }}}
 
 " edit configs {{{
@@ -386,11 +387,18 @@ Plug 'Shougo/context_filetype.vim'
 
 Plug 'lambdalisue/fern.vim'
 Plug 'lambdalisue/fern-git-status.vim'
-Plug 'lambdalisue/fern-renderer-devicons.vim'
+
+if has('gui')
+    Plug 'lambdalisue/fern-renderer-nerdfont.vim'
+else
+    Plug 'lambdalisue/fern-renderer-devicons.vim'
+endif
+
 Plug 'lambdalisue/fern-hijack.vim'
 Plug 'lambdalisue/fern-mapping-git.vim'
 Plug 'lambdalisue/fern-mapping-project-top.vim'
-if executable('fzf')
+Plug 'lambdalisue/fern-bookmark.vim'
+if executable('fzf') && executable('sh') && executable('find')
     Plug 'LumaKernel/fern-mapping-fzf.vim'
 endif
 Plug 'LumaKernel/fern-mapping-reload-all.vim'
@@ -398,9 +406,6 @@ Plug 'LumaKernel/fern-mapping-reload-all.vim'
 if version >= 800
     Plug 'mattn/sonictemplate-vim'
 endif
-
-Plug 'tpope/vim-surround'
-Plug 'junegunn/rainbow_parentheses.vim'
 
 Plug 'majutsushi/tagbar'
 Plug 'h1mesuke/vim-alignta'
@@ -430,7 +435,7 @@ endif
 
 Plug 'mattn/emmet-vim', {'for': ['html', 'erb', 'eruby']}
 Plug 'udalov/kotlin-vim', {'for': 'kotlin'}
-" Plug 'fatih/vim-go', {'for': 'go'}
+Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'jelera/vim-javascript-syntax', {'for': 'javascript'}
 Plug 'kchmck/vim-coffee-script', {'for': 'coffee'}
 Plug 'slim-template/vim-slim', {'for': 'slim'}
@@ -442,14 +447,8 @@ Plug 'dag/vim-fish', {'for': 'fish'}
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
 Plug 'mrk21/yaml-vim', {'for': 'yaml'}
 Plug 'pearofducks/ansible-vim', {'for': 'yaml'}
-
-" Git extention
-Plug 'airblade/vim-gitgutter'
 Plug 'APZelos/blamer.nvim'
-
 Plug 'rhysd/vim-grammarous'
-Plug 'simeji/winresizer'
-
 call plug#end()
 let g:blamer_template="<commit-short> <committer>, <committer-time> • <summary>"
 
@@ -466,6 +465,11 @@ colorscheme molokai
 
 let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {}
 let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['md'] = "\uf48a"
+
+let g:NERDTreeIgnore = [
+            \ '^__pycache__$',
+            \ '.pyc$',
+            \]
 
 let g:sonictemplate_vim_template_dir = [
             \ '~/.vim/templates'
