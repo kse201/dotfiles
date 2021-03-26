@@ -135,6 +135,7 @@
     rename-branch = branch -m
     delete-branch = branch -D
     name-branch = symbolic-ref --short HEAD
+	push-f = push --force-with-lease
 [stash]
     showPatch = true
 [commit]
