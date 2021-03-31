@@ -433,6 +433,11 @@ if has('nvim') || version >= 800
     Plug 'hrsh7th/vim-vsnip-integ'
 endif
 
+Plug 'airblade/vim-gitgutter'
+Plug 'simeji/winresizer'
+Plug 'tpope/vim-surround'
+Plug 'junegunn/rainbow_parentheses.vim'
+
 Plug 'mattn/emmet-vim', {'for': ['html', 'erb', 'eruby']}
 Plug 'udalov/kotlin-vim', {'for': 'kotlin'}
 Plug 'fatih/vim-go', {'for': 'go'}
