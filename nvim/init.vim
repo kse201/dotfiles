@@ -15,7 +15,7 @@ set shortmess+=I
   \ history=100
   \ vb t_vb=
   \ autowrite
-  \ autochdir
+  " \ autochdir
   \ backspace=indent,eol,start
   \ diffopt=filler,vertical
   \ showcmd
@@ -72,7 +72,7 @@ nnoremap <Leader>eg :edit $GVIMRC<CR>
 " Auto delete line-end Space {{{
 augroup Autoplace
     autocmd!
-    autocmd BufWritePre * if &filetype != "markdown" | :%s/\s\+$//ge
+    autocmd BufWritePre * if !(&filetype == "markdown" || &filetype == "diff") | :%s/\s\+$//ge
 augroup END
 " }}}
 
@@ -454,6 +454,8 @@ Plug 'mrk21/yaml-vim', {'for': 'yaml'}
 Plug 'pearofducks/ansible-vim', {'for': 'yaml'}
 Plug 'APZelos/blamer.nvim'
 Plug 'rhysd/vim-grammarous'
+Plug 'hashivim/vim-hashicorp-tools'
+Plug 'jvirtanen/vim-hcl'
 call plug#end()
 let g:blamer_template="<commit-short> <committer>, <committer-time> • <summary>"
 

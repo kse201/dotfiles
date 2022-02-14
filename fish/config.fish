@@ -8,7 +8,9 @@ set -x HISTSIZE 750
 set -x SAVEHIST 7500
 set -x HISTIGNORE "ls *:cd:history:fg*:history-all"
 
-abbr pacman yay
+if test -f (which paru)
+    abbr pacman paru
+end
 
 abbr vi nvim
 abbr vim nvim
@@ -25,10 +27,33 @@ function fzf_edit
 end
 
 function fzf_cd
-    find ./ -type d | fzf | read select_line
+    if test -f (which fd)
+        fd -t d -I -H -E ".git" | fzf-tmux | read select_line
+    else
+        find ./ -type d | fzf-tmux | read select_line
+    end
     if [ $select_line ]
         eval cd $select_line
     end
+end
+
+function push-line
+  set cl (commandline)
+  commandline -f repaint
+  if test -n (string join $cl)
+    set -g fish_buffer_stack $cl
+    commandline ''
+    commandline -f repaint
+
+    function restore_line -e fish_postexec
+      commandline $fish_buffer_stack
+      functions -e restore_line
+      set -e fish_buffer_stack
+    end
+  end
+end
+
+function fish_user_key_bindings
 end
 
 abbr vst vagrant status
@@ -36,6 +61,10 @@ abbr vup vagrant up
 
 if test -f (which hub)
     alias git hub
+end
+
+if test -f (which duf)
+    abbr df duf
 end
 
 abbr gst git st
@@ -49,7 +78,7 @@ abbr re bundle exec
 
 if test -f (which exa)
     abbr ls exa
-    abbr ll exa -lhg --git --time-style iso
+    abbr ll exa -lhg --git --time-style iso --sort time
     abbr la exa -lhga --git --time-style iso
 end
 
@@ -83,8 +112,8 @@ function fish_user_key_bindings
   bind \cs peco_ssh
   bind \cr peco_history
   bind \cv fzf_edit
-  bind \cc fzf_cd
   bind \x1d peco_z # => Ctrl=]
+  bind \cz push-line
 end
 
 rbenv init - | source
@@ -175,5 +204,17 @@ if bind -M insert > /dev/null 2>&1
 end
 
 if which sccache >/dev/null 2>&1
+    set -x SCCACHE_CACHE_SIZE "1G"
     set -x RUSTC_WRAPPER (which sccache)
 end
+
+# if [ $TERM = screen ] || [ $TERM = screen-256color ]
+    # for file in (find ~/.tmux/log/ -type f -size -50c -or -type f -mtime +60 )
+        # rm $file
+    # end
+    # set LOGDIR $HOME/.tmux/log
+    # set LOGFILE tmux_(date +%Y%m%d-%H%M%S).log
+    # tmux set-option default-terminal "screen" \;\
+    # pipe-pane "cat >> $LOGDIR/$LOGFILE" \; \
+    # display-message "Starged logging to $LOGDIR/$LOGFILE"
+# end

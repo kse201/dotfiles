@@ -49,6 +49,12 @@ function! MyFileformat()
     return winwidth(0) > 70 ? (&fileformat . ' ' ) : ''
 endfunction
 
+function! Charcode() abort
+    let line = getline('.')
+    let col = col('.')
+    return col - 1 < len(line) ? printf('\u%04x', char2nr(matchstr(line[(col - 1):], '^.'))) : ''
+endfunction
+
 let g:lightline = {
             \ 'active': {
             \ 'left': [ [ 'mode', 'paste' ],
@@ -60,6 +66,7 @@ let g:lightline = {
 		    \   'filename': 'LightlineFilename',
             \   'filetype': 'MyFiletype',
             \   'fileformat': 'MyFileformat',
+            \   'charcode': 'Charcode',
             \   'lsp': 'LSPStatus',
             \ }
             \}

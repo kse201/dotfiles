@@ -12,7 +12,7 @@ endfunction
 augroup lsp_install
   au!
   autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-  autocmd BufWritePre * LspDocumentFormat
+  " autocmd BufWritePre * LspDocumentFormat
 augroup END
 command! LspDebug let lsp_log_verbose=1 | let lsp_log_file = expand('/tmp/vim-lsp.log')
 
