@@ -87,7 +87,9 @@
     st       = status --short --branch
 # commit
     cmt      = commit -v
-    amend    = commit --amend -v
+    amend    = commit --amend --no-edit
+
+    sha      = !git rev-parse "${1-HEAD}"
 
 # checkout
     co       = checkout
