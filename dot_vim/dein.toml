@@ -1,0 +1,172 @@
+## For Plugin Management {{{
+
+[[plugins]]
+repo = 'Shougo/dein.vim'
+if = """ has('nvim') || v:version >= 800 """
+
+[[plugins]]
+repo = 'wsdjeg/dein-ui.vim'
+depends = ['dein.vim']
+
+[[plugins]]
+repo = 'Shougo/vimproc.vim'
+# }}}
+
+## Fuzzy Interface {{{
+[[plugins]] #{{{
+repo = 'Shougo/denite.nvim'
+if = ''' has('python3') '''
+hook_post_source = 'source $VIMFILE_DIR/_config/denite/post.vim'
+hook_add = 'source $VIMFILE_DIR/_config/denite/hook.vim'
+# }}}
+
+[[plugins]]
+repo = 'Shougo/neomru.vim'
+
+[[plugins]]
+repo = 'notomo/denite-keymap'
+depends = ['denite.nvim']
+
+[[plugins]]
+repo = 'Shougo/neoyank.vim'
+depends = ['denite.nvim']
+
+[[plugins]] # {{{
+repo = 'ctrlpvim/ctrlp.vim'
+hook_add = 'source $VIMFILE_DIR/_config/ctrlp.vim'
+# }}}
+# }}}
+
+## For Pretty Interface {{{
+
+[[plugins]] #{{{
+repo = 'itchyny/lightline.vim'
+depends = ['fugitive.vim', 'vim-devicons']
+hook_post_source = 'call lightline#enable()'
+hook_add = 'source $VIMFILE_DIR/_config/lightline.vim'
+# }}}
+
+[[plugins]]
+repo = 'ryanoasis/vim-devicons'
+hook_add = '''
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {}
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['md'] = "\uf48a"
+'''
+
+[[plugins]]
+repo = 'tomasr/molokai'
+hook_add = ''' colorscheme molokai '''
+
+[[plugins]]
+repo = 'osyo-manga/vim-precious'
+depends = ['context_filetype.vim']
+
+[[plugins]]
+repo = 'Shougo/context_filetype.vim'
+
+# }}}
+
+## For Integrated Development Environments {{{
+
+[[plugins]] # {{{
+repo = 'airblade/vim-rooter'
+hook_add = 'source $VIMFILE_DIR/_config/vim-rooter.vim'
+# }}}
+
+[[plugins]] #{{{
+repo = 'scrooloose/nerdtree'
+hook_add = 'source $VIMFILE_DIR/_config/nerdtree.vim'
+# }}}
+
+[[plugins]] #{{{
+repo = 'jistr/vim-nerdtree-tabs'
+hook_add = '''
+let g:NERDTreeIgnore = [
+\ '^__pycache__$',
+\ '.pyc$',
+\]
+'''
+depends = ['nerdtree.vim']
+# }}}
+
+[[plugins]]
+repo = 'mattn/sonictemplate-vim'
+hook_add = '''
+let g:sonictemplate_vim_template_dir = [
+     \ '~/.vim/templates'
+      \]
+'''
+
+[[plugins]] #{{{
+repo = 'majutsushi/tagbar'
+hook_add = '''
+let g:tagbar_autoshowtag = 1
+nnoremap <silent><F11>  :Tagbar<CR>
+let g:tagbar_type_ruby = {
+    \ 'kinds' : [
+        \ 'm:modules',
+        \ 'c:classes',
+        \ 'd:describes',
+        \ 'C:contexts',
+        \ 'f:methods',
+        \ 'F:singleton methods'
+    \ ]
+\ }
+"autocmd FileType ruby :TagbarOpen
+'''
+# }}}
+
+[[plugins]]
+repo = 'h1mesuke/vim-alignta'
+
+[[plugins]]
+repo = 'editorconfig/editorconfig-vim'
+
+[[plugins]]
+repo = 'tbodt/deoplete-tabnine'
+if = 0
+build = './install.sh'
+
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+
+[[plugins]] #{{{
+repo = 'vim-scripts/The-NERD-Commenter'
+hook_add = 'source $VIMFILE_DIR/_config/The-NERD-Commenter.vim'
+# }}}
+
+[[plugins]]
+repo = 'kana/vim-smartinput'
+
+[[plugins]]
+repo = 'vim-scripts/scratch-utility'
+if = ''' ! has('kaoriya') '''
+
+# }}}
+
+[[plugins]]  # Japanese doc {{{
+repo = 'vim-jp/vimdoc-ja'
+hook_add = 'source $VIMFILE_DIR/_config/vimdoc.vim'
+# }}}
+
+[[plugins]]
+repo = 'prabirshrestha/async.vim'
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete.vim'
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete-lsp.vim'
+depends = ['asyncomplete.vim', 'vim-lsp']
+
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+hook_add = 'source $VIMFILE_DIR/_config/vim-lsp.vim'
+
+[[plugins]]
+repo = 'mattn/vim-lsp-settings'
+[[plugins]]
+repo = 'mattn/vim-lsp-icons'
+
+[[plugins]]
+repo = 'hrsh7th/vim-vsnip'
+[[plugins]]
+repo = 'hrsh7th/vim-vsnip-integ'
