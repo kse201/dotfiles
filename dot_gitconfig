@@ -163,8 +163,6 @@
 [ghq]
     root = ~/.ghq
 
-[ghq "https://bps-github.pstg.paas.cloud.global.fujitsu.com"]
-    root = ~/.ghq/office
 [hub]
 	protocol = https
 [pull]
