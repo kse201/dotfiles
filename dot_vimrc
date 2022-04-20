@@ -456,6 +456,8 @@ Plug 'APZelos/blamer.nvim'
 Plug 'rhysd/vim-grammarous'
 Plug 'hashivim/vim-hashicorp-tools'
 Plug 'jvirtanen/vim-hcl'
+Plug 'fuenor/qfixhowm'
+Plug 'fuenor/qfixgrep'
 call plug#end()
 let g:blamer_template="<commit-short> <committer>, <committer-time> • <summary>"
 
@@ -501,8 +503,23 @@ let g:table_mode_header_fillchar='='
 let g:user_emmet_leader_key='<C-e>'
 
 let g:rustfmt_autosave = 1
+
+let QFixHowm_FileType = 'markdown'
+let qfixmemo_filetype  = 'markdown'
+let howm_filename = '%Y/%m/%Y-%m-%d-%H%M%S.md'
+let QFixHowm_DiaryFile = '%Y/%m/%Y-%m-%d-diary.md'
+let QFixHowm_DatePattern = '%Y/%m/%d'
+let QFixHowm_Title = '#'
 " }}}
 " }}}
+"
+let $local_conf_dir= $HOME.'/.vim/local'
+if isdirectory($local_conf_dir)
+    let $conf = $local_conf_dir.'/*.vim'
+    source $conf
+endif
+
+
 
 syntax on
 "============================================================

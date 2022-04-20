@@ -6,14 +6,14 @@
 
 [core]
     autocrlf     = false
-    editor       = nvim
+    editor       = vim
     pager = delta
     quotepath    = false
     preloadindex = true
     precomposeunicode = true
     untrackedCache = true
     fscache      = true
-    attributesfile = /home/vagrant/.gitattributes
+    attributesfile = '%(prefix)//home/vagrant/.gitattributes'
 	filemode = true
 
 ; it's does not work for some diff files
