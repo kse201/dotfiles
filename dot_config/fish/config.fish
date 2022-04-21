@@ -1,9 +1,10 @@
 set -x PATH ( find $HOME/bin/ -type d ) (ls -d /usr/local/*bin) $PATH
-set -x PATH (gem environment gempath | sed 's/:/\\n/g' | xargs -I@ echo @/bin) $PATH
+# set -x PATH (gem environment gempath | sed 's/:/\\n/g' | xargs -I@ echo @/bin) $PATH
+# set -x PATH (gem environment gempath | sed 's/:/\\n/g' | xargs -I@ echo @/bin) $PATH
 set -x LANG ja_JP.UTF-8
 set -x LC_ALL ja_JP.UTF-8
 set -x LESSCHARSET utf-8
-set -x EDITOR 'nvim'
+set -x EDITOR 'vim'
 set -x HISTSIZE 750
 set -x SAVEHIST 7500
 set -x HISTIGNORE "ls *:cd:history:fg*:history-all"
@@ -12,9 +13,7 @@ if test -f (which paru)
     abbr pacman paru
 end
 
-abbr vi nvim
-abbr vim nvim
-abbr spvim nvim -u /dev/null
+abbr spvim vim -u NONE
 
 set -x FZF_DEFAULT_COMMAND 'fd --type f --hidden --follow --exclude .git --color=always'
 set -x FZF_DEFAULT_OPTS '--ansi'
