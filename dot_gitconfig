@@ -155,7 +155,6 @@
 
 [credential]
     helper = store --file ~/.git-credentials
-    helper = cache --timeout 30000
 
 [includeIf "gitdir:~/.ghq/office/"]
     path = ~/.ghq/office/.gitconfig
