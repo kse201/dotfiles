@@ -15,7 +15,7 @@ set shortmess+=I
   \ history=100
   \ vb t_vb=
   \ autowrite
-  " \ autochdir
+  \ autochdir
   \ backspace=indent,eol,start
   \ diffopt=filler,vertical
   \ showcmd
@@ -50,7 +50,9 @@ endif
 " }}}
 
 " configs and directories {{{
-    set backupdir=$HOME/.vimbackup
+set backupdir=$HOME/.vimbackup
+" swap file destination
+set directory=$HOME/.vimbackup
 if has('nvim')
     let $VIMFILE_DIR   = $HOME.'/.config/nvim'
     let $VIMRC         = $VIMFILE_DIR.'/init.vim'
@@ -59,8 +61,9 @@ else
     let $VIMFILE_DIR   = $HOME.'/.vim'
     let $VIMRC         = $HOME.'/.vimrc'
     let $GVIMRC        = $HOME.'/.gvimrc'
+    let $VIMFILE_DIR   = $HOME.'\.vim'
 end
-set rtp+=$VIMFILE_DIR
+set rtp^=$HOME/.vim
 " }}}
 
 " edit configs {{{
@@ -74,7 +77,7 @@ augroup Autoplace
     autocmd!
     autocmd BufWritePre * if !(&filetype == "markdown" || &filetype == "diff") | :%s/\s\+$//ge
 augroup END
-" }}}
+" }}set}
 
 set tags+=tags;
 " }}}
@@ -388,11 +391,11 @@ Plug 'Shougo/context_filetype.vim'
 Plug 'lambdalisue/fern.vim'
 Plug 'lambdalisue/fern-git-status.vim'
 
-if has('gui')
-    Plug 'lambdalisue/fern-renderer-nerdfont.vim'
-else
+" if has('gui')
+    " Plug 'lambdalisue/fern-renderer-nerdfont.vim'
+" else
     Plug 'lambdalisue/fern-renderer-devicons.vim'
-endif
+" endif
 
 Plug 'lambdalisue/fern-hijack.vim'
 Plug 'lambdalisue/fern-mapping-git.vim'
