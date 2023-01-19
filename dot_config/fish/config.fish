@@ -1,4 +1,7 @@
-set -x PATH ( find $HOME/bin/ -type d ) (ls -d /usr/local/*bin) $PATH
+set -x PATH (ls -d /usr/local/*bin) $PATH
+if test -d "$HOME/bin"
+    set -x PATH ( find $HOME/bin/ -type d ) $PATH
+end
 # set -x PATH (gem environment gempath | sed 's/:/\\n/g' | xargs -I@ echo @/bin) $PATH
 set -x LANG ja_JP.UTF-8
 set -x LC_ALL ja_JP.UTF-8
@@ -8,7 +11,7 @@ set -x HISTSIZE 750
 set -x SAVEHIST 7500
 set -x HISTIGNORE "ls *:cd:history:fg*:history-all"
 
-if test -f (which paru)
+if test (which paru)
     abbr pacman paru
 end
 
@@ -25,7 +28,7 @@ function fzf_edit
 end
 
 function fzf_cd
-    if test -f (which fd)
+    if test (which fd)
         fd -t d -I -H -E ".git" | fzf-tmux | read select_line
     else
         find ./ -type d | fzf-tmux | read select_line
@@ -57,11 +60,11 @@ end
 abbr vst vagrant status
 abbr vup vagrant up
 
-if test -f (which hub)
+if test (which hub)
     alias git hub
 end
 
-if test -f (which duf)
+if test (which duf)
     abbr df duf
 end
 
@@ -74,13 +77,13 @@ abbr gdf git df
 
 abbr re bundle exec
 
-if test -f (which exa)
+if test (which exa)
     abbr ls exa
     abbr ll exa -lhg --git --time-style iso --sort time
     abbr la exa -lhga --git --time-style iso
 end
 
-if test -f (which bat)
+if test (which bat)
     abbr cat bat
 end
 
@@ -114,7 +117,9 @@ function fish_user_key_bindings
   bind \cz push-line
 end
 
-rbenv init - | source
+if test (which rbenv)
+    rbenv init - | source
+end
 
 set -x PATH $HOME/.rbenv/shims $PATH
 if test -f $HOME/.yarn/bin
@@ -129,7 +134,9 @@ set -x GOPATH $HOME/go
 set -x SSH_AUTH_SOCK "$XDG_RUNTIME_DIR/ssh-agent.socket"
 
 function __direnv_export_eval --on-event fish_prompt;
-    eval (direnv export fish);
+    if test (which direnv)
+        eval (direnv export fish);
+    end
 end
 
 if test -f /usr/share/doc/pkgfile/command-not-found.fish
@@ -166,16 +173,16 @@ if not functions -q fisher
     fish -c fisher
 end
 
-if test -f (which starship)
+if test (which starship)
     eval (starship init fish)
 end
 
-if test -f (which docker-compose)
+if test (which docker-compose)
     abbr dc  docker-compose
 end
 
 set -x GOENV_DISABLE_GOPATH 1
-if which anyenv >/dev/null 2>&1
+if test (which anyenv)
     set -x PATH $HOME/.anyenv/bin $PATH
     eval (anyenv init - | source)
 end
